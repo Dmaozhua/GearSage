@@ -1,0 +1,232 @@
+/* publish-stepper 组件样式 */
+
+.stepper-container {
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.stepper-horizontal {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.stepper-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 12rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+/* 步骤点击效果 */
+.stepper-step:active {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 20rpx;
+}
+
+/* 步骤圆圈 */
+.stepper-circle {
+  width: 48rpx;
+  height: 48rpx;
+  background-color: #9E9E9E;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: white;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* 激活状态的圆圈 */
+.stepper-step.active-step .stepper-circle {
+  background-color: #2196F3;
+  transform: scale(1.1);
+}
+
+/* 已完成步骤的圆圈 */
+.stepper-step.step-done .stepper-circle {
+  background-color: #4CAF50;
+}
+
+/* 已完成步骤的对勾图标 */
+.stepper-step.step-done .stepper-circle::before {
+  content: "✓";
+  position: absolute;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+/* 隐藏已完成步骤的数字 */
+.stepper-step.step-done .stepper-circle .step-number {
+  display: none;
+}
+
+/* 可编辑步骤的圆圈 */
+.stepper-step.editable-step .stepper-circle {
+  background-color: #FF9800;
+  animation: pulse 2s infinite;
+}
+
+/* 可编辑步骤的编辑图标 */
+.stepper-step.editable-step .stepper-circle::before {
+  content: "✎";
+  position: absolute;
+  font-size: 24rpx;
+  transform: scaleX(-1);
+}
+
+/* 隐藏可编辑步骤的数字 */
+.stepper-step.editable-step .stepper-circle .step-number {
+  display: none;
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20rpx rgba(255, 152, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 152, 0, 0);
+  }
+}
+
+/* 步骤标题 */
+.stepper-title {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.26);
+  line-height: 1.2;
+  word-break: break-all;
+}
+
+/* 激活状态的标题 */
+.stepper-step.active-step .stepper-title {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* 已完成和可编辑步骤的标题 */
+.stepper-step.step-done .stepper-title,
+.stepper-step.editable-step .stepper-title {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 可选标签 */
+.stepper-optional {
+  font-size: 24rpx;
+  color: rgba(0, 0, 0, 0.26);
+  text-align: center;
+  margin-top: 4rpx;
+}
+
+/* 激活状态的可选标签 */
+.stepper-step.active-step .stepper-optional {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* 连接线 */
+.stepper-bar-left,
+.stepper-bar-right {
+  position: absolute;
+  top: 48rpx;
+  height: 2rpx;
+  background-color: #BDBDBD;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.stepper-bar-left {
+  left: 0;
+  right: 50%;
+  margin-right: 24rpx;
+}
+
+.stepper-bar-right {
+  right: 0;
+  left: 50%;
+  margin-left: 24rpx;
+}
+
+/* 已完成步骤的连接线 */
+.stepper-step.step-done .stepper-bar-left {
+  background-color: #4CAF50;
+}
+
+.stepper-step.step-done + .stepper-step .stepper-bar-left {
+  background-color: #4CAF50;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .stepper-step {
+    padding: 20rpx 8rpx;
+  }
+  
+  .stepper-circle {
+    width: 40rpx;
+    height: 40rpx;
+    font-size: 20rpx;
+  }
+  
+  .stepper-title {
+    font-size: 24rpx;
+    margin-top: 12rpx;
+  }
+  
+  .stepper-optional {
+    font-size: 20rpx;
+  }
+  
+  .stepper-bar-left,
+  .stepper-bar-right {
+    top: 40rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+  }
+}
+
+/* 暗色主题支持 */
+.dark-theme .stepper-circle {
+  color: #ffffff;
+}
+
+.dark-theme .stepper-title {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-theme .stepper-step.active-step .stepper-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark-theme .stepper-optional {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dark-theme .stepper-step.active-step .stepper-optional {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-theme .stepper-bar-left,
+.dark-theme .stepper-bar-right {
+  background-color: #424242;
+}
+
+.dark-theme .stepper-step.step-done .stepper-bar-left,
+.dark-theme .stepper-step.step-done + .stepper-step .stepper-bar-left {
+  background-color: #4CAF50;
+}

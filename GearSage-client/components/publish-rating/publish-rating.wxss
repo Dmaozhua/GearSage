@@ -1,0 +1,125 @@
+/* publish-rating 组件样式 */
+@import "../../styles/dark.wxss";
+
+.publish-rating-container {
+  width: 100%;
+  padding: 20rpx 0;
+    border-radius: 20rpx; 
+    padding: 20rpx 30rpx; /* 调整内边距，让内容和边框有间距 */
+    box-sizing: border-box; /* 确保内边距不会撑大容器宽度 */
+}
+
+.rating-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.rating-label {
+  width: 160rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+  text-align: right;
+  margin-right: 30rpx;
+  font-weight: 500;
+  text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.1);
+}
+
+.stars-wrapper {
+  position: relative;
+  height: 50rpx;
+  width: 250rpx;
+}
+
+.star-background {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.star-foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.star-foreground-inner {
+  display: flex;
+  width: 250rpx; /* 与stars-wrapper相同宽度 */
+  height: 100%;
+}
+
+.star-bg,
+.star-fg {
+  flex: 1;
+  text-align: center;
+  font-size: 40rpx;
+  line-height: 50rpx;
+  width: 50rpx; /* 单颗星星宽度 */
+}
+
+.star-bg {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.star-fg {
+  color: #f1c40f;
+  text-shadow: 0 0 10rpx rgba(241, 196, 15, 0.4);
+}
+
+.rating-value {
+  width: 80rpx;
+  font-size: 28rpx;
+  color: #f1c40f;
+  font-weight: bold;
+  margin-left: 20rpx;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 50rpx;
+  line-height: 50rpx;
+  text-shadow: 0 0 10rpx rgba(241, 196, 15, 0.2);
+}
+
+.error-text {
+  color: #ff6b6b;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  text-align: center;
+  width: 100%;
+}
+
+/* 夜间模式样式 */
+.dark {
+    background-color: #1212122a !important;
+    color: #e0e0e0 !important;
+  }
+.dark .publish-rating-container {
+  background: transparent;
+}
+
+.dark .rating-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .star-bg {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .star-fg {
+  color: #f1c40f;
+}
+
+.dark .rating-value {
+  color: #f1c40f;
+}
+
+.dark .error-text {
+  color: #ff6b6b;
+}

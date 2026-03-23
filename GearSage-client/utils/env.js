@@ -1,0 +1,77 @@
+// utils/env.js
+/**
+ * 环境判断工具
+ */
+class EnvUtil {
+  /**
+   * 判断是否在微信开发者工具中运行
+   */
+  static isDevTool() {
+    try {
+      // 方法1：通过wx.getSystemInfoSync()判断
+      const systemInfo = wx.getSystemInfoSync();
+      
+      // 开发者工具的platform通常是'devtools'
+      if (systemInfo.platform === 'devtools') {
+        return true;
+      }
+      
+      // 方法2：通过环境变量判断（如果有的话）
+      if (systemInfo.environment === 'development') {
+        return true;
+      }
+      
+      // 方法3：通过用户代理字符串判断（部分情况下可用）
+      if (systemInfo.system && systemInfo.system.includes('devtools')) {
+        return true;
+      }
+      
+      // 方法4：通过品牌信息判断
+      if (systemInfo.brand === 'devtools') {
+        return true;
+      }
+      
+      return false;
+    } catch (error) {
+      console.warn('[EnvUtil] 环境判断失败，默认为真机环境:', error);
+      return false;
+    }
+  }
+  
+  /**
+   * 判断是否在真机环境
+   */
+  static isRealDevice() {
+    return !this.isDevTool();
+  }
+  
+  /**
+   * 获取当前环境信息
+   */
+  static getEnvInfo() {
+    const isDevTool = this.isDevTool();
+    const systemInfo = wx.getSystemInfoSync();
+    
+    return {
+      isDevTool,
+      isRealDevice: !isDevTool,
+      platform: systemInfo.platform,
+      system: systemInfo.system,
+      brand: systemInfo.brand,
+      model: systemInfo.model,
+      environment: systemInfo.environment || 'unknown'
+    };
+  }
+  
+  /**
+   * 打印环境信息（用于调试）
+   */
+  static logEnvInfo() {
+    const envInfo = this.getEnvInfo();
+    console.log('[EnvUtil] 当前环境信息:', envInfo);
+    console.log('[EnvUtil] 运行环境:', envInfo.isDevTool ? '微信开发者工具' : '真机设备');
+    return envInfo;
+  }
+}
+
+module.exports = EnvUtil;

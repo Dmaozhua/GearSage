@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "重复图片检测测试",
+  "usingComponents": {
+    "publish-wechatcontent": "/components/publish-wechatcontent/publish-wechatcontent"
+  }
+}

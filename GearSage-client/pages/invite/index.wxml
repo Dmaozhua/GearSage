@@ -1,0 +1,85 @@
+<custom-navbar
+  id="custom-navbar"
+  title="邀请分享"
+  show-back="{{true}}"
+  background-color="#dbe8f2"
+  text-color="#102033"></custom-navbar>
+
+<scroll-view
+  class="invite-page {{containerClass}}"
+  style="padding-top: {{statusBarHeight + navBarHeight}}px; height: calc(100vh - {{statusBarHeight + navBarHeight}}px);"
+  scroll-y="{{true}}">
+  <view class="invite-shell">
+    <view class="hero-card">
+      <text class="hero-badge">Invite Friends</text>
+      <text class="hero-title">{{incomingInvite ? '你收到一张钓友邀请卡' : '把钓友说分享给你的朋友'}}</text>
+      <text class="hero-desc" wx:if="{{incomingInvite}}">
+        {{incomingInvite.inviterName ? incomingInvite.inviterName + ' 邀请你一起记录装备和鱼获。' : '有人邀请你一起加入钓友说。'}}
+      </text>
+      <text class="hero-desc" wx:else>分享你的邀请码，朋友点开后就能带着你的邀请关系进入小程序。</text>
+
+      <view class="incoming-card" wx:if="{{incomingInvite}}">
+        <text class="incoming-label">当前收到的邀请码</text>
+        <text class="incoming-code">{{incomingInvite.inviteCode || 'DYSHARE'}}</text>
+      </view>
+    </view>
+
+    <view class="panel-card">
+      <text class="section-kicker">你的邀请卡</text>
+      <view class="invite-head">
+        <view class="invite-copy">
+          <text class="invite-name">{{currentUserName || '钓友'}}</text>
+          <text class="invite-desc">{{isLoggedIn ? '分享后好友会带着你的邀请码进入小程序。' : '登录后会自动切换成你的个人邀请码。'}}</text>
+        </view>
+        <view class="invite-code-box">
+          <text class="invite-code-label">邀请码</text>
+          <text class="invite-code-value">{{inviteCard.inviteCode}}</text>
+        </view>
+      </view>
+
+      <view class="invite-meta">
+        <view class="meta-item">
+          <text class="meta-label">会话分享</text>
+          <text class="meta-value">点击按钮直接发好友</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">朋友圈</text>
+          <text class="meta-value">右上角菜单发轻分享</text>
+        </view>
+      </view>
+
+      <view class="action-row">
+        <button class="primary-btn" open-type="share">邀请好友</button>
+        <button class="secondary-btn" bindtap="onCopyInviteCode">复制邀请码</button>
+      </view>
+
+      <text class="share-tip">{{shareTipText}}</text>
+    </view>
+
+    <view class="panel-card">
+      <text class="section-title">这页现在已经能做什么</text>
+      <view class="benefit-list">
+        <view class="benefit-item" wx:for="{{benefits}}" wx:key="title">
+          <text class="benefit-title">{{item.title}}</text>
+          <text class="benefit-desc">{{item.description}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="panel-card">
+      <text class="section-title">邀请路径</text>
+      <view class="step-list">
+        <view class="step-item" wx:for="{{steps}}" wx:key="index">
+          <text class="step-index">0{{index + 1}}</text>
+          <text class="step-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="footer-card">
+      <text class="footer-title">{{incomingInvite ? '已经替你收好这次邀请' : '准备好了就开始分享'}}</text>
+      <text class="footer-desc">{{incomingInvite ? '登录后继续使用时，这次邀请关系仍然会保留在本地。' : '如果后面要接积分活动或邀请奖励，这个页面可以继续往下扩。'}}</text>
+      <button class="footer-btn" bindtap="onAcceptInvite">{{primaryActionText}}</button>
+    </view>
+  </view>
+</scroll-view>

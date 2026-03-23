@@ -1,0 +1,68 @@
+<!--pkgGear/pages/index/index.wxml-->
+<custom-navbar title="装备库" show-back="{{true}}" background-color="transparent"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight + 20}}px;">
+  <!-- 头部区域 -->
+  <image class="bg-icon" src="/images/icons/publis/竿.png" mode="aspectFit"></image>
+  <view class="header-section">
+    <view class="header-content">
+      <text class="header-title">路亚装备库</text>
+      <text class="header-subtitle">装备数据正在逐渐完善中...</text>
+    </view>
+    <image class="bg-icon" src="/images/icons/publis/竿.png" mode="aspectFit"></image>
+  </view>
+
+  <!-- 功能模块网格 -->
+  <view class="module-grid">
+    <!-- 渔轮 -->
+    <view class="module-item" bindtap="navigateTo" data-type="reels" data-title="渔轮">
+      <view class="card-bg-decoration"></view>
+      <view class="content-wrapper">
+        <view class="icon-container reel-icon-bg">
+          <image class="module-icon" src="/images/icons/publis/轮.png" mode="aspectFit"></image>
+        </view>
+        <view class="text-container">
+          <text class="module-title">渔轮</text>
+          <text class="module-desc">Reels</text>
+        </view>
+      </view>
+      <view class="arrow-icon">
+        <view class="arrow"></view>
+      </view>
+    </view>
+
+    <!-- 鱼竿 -->
+    <view class="module-item" bindtap="navigateTo" data-type="rods" data-title="鱼竿">
+      <view class="card-bg-decoration"></view>
+      <view class="content-wrapper">
+        <view class="icon-container rod-icon-bg">
+          <image class="module-icon" src="/images/icons/publis/竿.png" mode="aspectFit"></image>
+        </view>
+        <view class="text-container">
+          <text class="module-title">鱼竿</text>
+          <text class="module-desc">Rods</text>
+        </view>
+      </view>
+      <view class="arrow-icon">
+        <view class="arrow"></view>
+      </view>
+    </view>
+
+    <!-- 鱼饵 -->
+    <view class="module-item" bindtap="navigateTo" data-type="lures" data-title="鱼饵">
+      <view class="card-bg-decoration"></view>
+      <view class="content-wrapper">
+        <view class="icon-container lure-icon-bg">
+          <image class="module-icon" src="/images/icons/publis/饵.png" mode="aspectFit"></image>
+        </view>
+        <view class="text-container">
+          <text class="module-title">鱼饵</text>
+          <text class="module-desc">Lures</text>
+        </view>
+      </view>
+      <view class="arrow-icon">
+        <view class="arrow"></view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,125 @@
+/* components/debounce-button/debounce-button.wxss */
+
+.debounce-button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 1rpx solid transparent;
+  border-radius: 8rpx;
+  cursor: pointer;
+  font-size: 32rpx;
+  line-height: 1.2;
+  transition: all 0.3s;
+}
+
+/* 按钮类型样式 */
+.debounce-button--primary {
+  color: #fff;
+  background-color: #07c160;
+  border-color: #07c160;
+}
+
+.debounce-button--primary:not([disabled]):active {
+  background-color: #06ad56;
+  border-color: #06ad56;
+}
+
+.debounce-button--default {
+  color: #323233;
+  background-color: #fff;
+  border-color: #ebedf0;
+}
+
+.debounce-button--default:not([disabled]):active {
+  background-color: #f2f3f5;
+}
+
+.debounce-button--warn {
+  color: #fff;
+  background-color: #ff976a;
+  border-color: #ff976a;
+}
+
+.debounce-button--warn:not([disabled]):active {
+  background-color: #ff8f5a;
+  border-color: #ff8f5a;
+}
+
+/* 按钮大小样式 */
+.debounce-button--default {
+  height: 88rpx;
+  padding: 0 30rpx;
+  font-size: 32rpx;
+}
+
+.debounce-button--mini {
+  height: 60rpx;
+  padding: 0 20rpx;
+  font-size: 24rpx;
+}
+
+/* 朴素按钮样式 */
+.debounce-button--plain.debounce-button--primary {
+  color: #07c160;
+  background-color: transparent;
+  border-color: #07c160;
+}
+
+.debounce-button--plain.debounce-button--primary:not([disabled]):active {
+  color: #fff;
+  background-color: #07c160;
+}
+
+.debounce-button--plain.debounce-button--warn {
+  color: #ff976a;
+  background-color: transparent;
+  border-color: #ff976a;
+}
+
+.debounce-button--plain.debounce-button--warn:not([disabled]):active {
+  color: #fff;
+  background-color: #ff976a;
+}
+
+/* 按钮形状样式 */
+.debounce-button--round {
+  border-radius: 44rpx;
+}
+
+.debounce-button--round.debounce-button--mini {
+  border-radius: 30rpx;
+}
+
+/* 禁用状态 */
+.debounce-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 加载状态 */
+.debounce-button[loading] {
+  opacity: 0.8;
+}
+
+/* 全宽按钮 */
+.debounce-button--block {
+  width: 100%;
+  display: block;
+}
+
+/* 自定义主题色适配 */
+.debounce-button--custom-primary {
+  color: #fff;
+  background-color: var(--primary-color, #07c160);
+  border-color: var(--primary-color, #07c160);
+}
+
+.debounce-button--custom-primary:not([disabled]):active {
+  background-color: var(--primary-color-active, #06ad56);
+  border-color: var(--primary-color-active, #06ad56);
+}

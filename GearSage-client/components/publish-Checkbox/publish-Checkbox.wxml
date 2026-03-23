@@ -1,0 +1,13 @@
+<view class="checkbox-group {{isDarkMode ? 'dark' : ''}}">
+  <view class="checkbox" wx:for="{{checkboxItems}}" wx:key="id" data-id="{{item.id}}" bindtap="onCheckboxTap">
+    <view class="checkbox-wrapper">
+      <view class="checkbox-input {{item.checked ? 'checked' : ''}}"></view>
+      <view class="checkbox-tile {{item.checked ? 'checked' : ''}}">
+        <view class="checkbox-icon">
+          <image src="{{item.icon}}" class="icon-image" mode="aspectFit"></image>
+        </view>
+        <view class="checkbox-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+</view>

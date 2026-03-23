@@ -1,0 +1,1207 @@
+/* pages/edit-profile/edit-profile.wxss */
+@import '../../styles/dark.wxss';
+
+.edit-profile-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding-bottom: 120rpx;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.edit-content {
+  padding: 20rpx;
+}
+
+/* 编辑区块 */
+.edit-section {
+  background: white;
+  border-radius: 24rpx;
+  padding: 40rpx 20rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.06);
+  border: 1rpx solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10rpx);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.edit-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: linear-gradient(90deg, #3a87f0, #64b5f6, #81c784);
+  border-radius: 24rpx 24rpx 0 0;
+}
+
+.edit-section:hover {
+  transform: translateY(-4rpx);
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 24rpx;
+  position: relative;
+  padding-left: 16rpx;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 24rpx;
+  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+  border-radius: 3rpx;
+}
+
+/* 头像编辑 */
+.avatar-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 10rpx 0;
+  width: 100%;
+  height: 350rpx;
+}
+
+/* 背景图容器 */
+.avatar-background-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
+}
+
+/* 背景图 */
+.avatar-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 24rpx;
+  object-fit: cover;
+  object-position: center;
+  transition: all 0.3s ease;
+}
+
+/* 头像按钮 */
+.avatar-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 180rpx;
+  height: 180rpx;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-button::after {
+  border: none;
+}
+
+.avatar-button:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.avatar-preview {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  border: 6rpx solid #fff;
+  box-shadow: 0 6rpx 24rpx rgba(0, 0, 0, 0.2);
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  background: linear-gradient(135deg, rgba(58, 135, 240, 0.8), rgba(100, 181, 246, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4rpx);
+}
+
+.avatar-button:active .avatar-overlay {
+  opacity: 1;
+}
+
+.avatar-text {
+  color: white;
+  font-size: 28rpx;
+  font-weight: 600;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+/* 更换背景按钮 */
+.change-background-btn {
+    position: absolute;
+    top: 15rpx;
+    right: 15rpx;
+    padding: 12rpx 8rpx; /* 进一步减小左右内边距 */
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 20rpx;
+    backdrop-filter: blur(10rpx);
+    transition: all 0.3s ease;
+    z-index: 3;
+    max-width: 170rpx; /* 限制最大宽度 */
+    white-space: nowrap; /* 防止文字换行导致按钮变宽 */
+  }
+
+.change-background-btn::after {
+  border: none;
+}
+
+.change-background-btn:active {
+  transform: scale(0.95);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.change-background-text {
+  color: white;
+  font-size: 24rpx;
+  font-weight: 500;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.3);
+}
+
+/* 输入框 */
+.edit-input {
+  width: 100%;
+  height: 40rpx;
+  padding: 40rpx 15;
+  font-size: 30rpx;
+  color: #333;
+  border: none;
+  border-bottom: 2rpx solid #eee;
+  background: transparent;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.edit-input:focus {
+  border-bottom-color: #3a87f0;
+  outline: none;
+}
+
+.edit-input::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+/* 文本域 */
+.edit-textarea {
+  width: 100%;
+  min-height: 140rpx;
+  max-height: 300rpx;
+  padding: 24rpx 20rpx;
+  font-size: 32rpx;
+  color: #2c3e50;
+  border: 2rpx solid #e9ecef;
+  border-radius: 16rpx;
+  background: #f8f9fa;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  resize: none;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.edit-textarea:focus {
+  border-color: #3a87f0;
+  background: #fff;
+  box-shadow: 0 0 0 6rpx rgba(58, 135, 240, 0.1);
+  transform: translateY(-2rpx);
+  position: relative;
+  z-index: 10;
+}
+
+.edit-textarea::placeholder {
+  color: #adb5bd;
+  font-weight: 400;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 26rpx;
+  color: #6c757d;
+  margin-top: 12rpx;
+  font-weight: 500;
+}
+
+/* 标签选择器 */
+.tag-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18rpx;
+  padding: 18rpx;
+  border-radius: 28rpx;
+  border: 1rpx solid rgba(84, 96, 112, 0.18);
+  background:
+    linear-gradient(180deg, rgba(28, 34, 43, 0.96), rgba(18, 24, 33, 0.98)),
+    radial-gradient(circle at top right, rgba(96, 123, 148, 0.12), transparent 54%);
+  box-shadow:
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.05),
+    0 12rpx 28rpx rgba(10, 14, 20, 0.08);
+}
+
+.tag-option {
+  min-height: 84rpx;
+  padding: 16rpx 20rpx;
+  border: 1rpx solid rgba(121, 136, 155, 0.22);
+  border-radius: 28rpx;
+  background:
+    linear-gradient(180deg, rgba(31, 38, 48, 0.98), rgba(21, 28, 37, 0.98)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  transition: all 0.26s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.04),
+    0 10rpx 22rpx rgba(8, 12, 18, 0.16);
+}
+
+/* 稀有度样式已移至user-tag组件中 */
+
+/* 无标签选项样式 */
+.no-tag-option {
+  border-color: rgba(126, 133, 143, 0.22);
+  background: linear-gradient(180deg, rgba(41, 46, 54, 0.98), rgba(28, 33, 39, 0.98));
+  color: rgba(242, 245, 249, 0.86);
+}
+
+.tag-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 26rpx;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+  pointer-events: none;
+}
+
+/* 标签选择器优化 - 增强选中效果 */
+.tag-management-section {
+  background:
+    linear-gradient(180deg, rgba(28, 34, 43, 0.98), rgba(18, 24, 33, 0.99)),
+    radial-gradient(circle at top right, rgba(96, 123, 148, 0.14), transparent 54%);
+  border: 1rpx solid rgba(92, 110, 127, 0.2);
+}
+
+.tag-management-section .section-title {
+  color: #f4f7fb;
+}
+
+.tag-management-section .section-title::before {
+  background: linear-gradient(180deg, #86a9c8, #4f6e8d);
+}
+
+.tag-hero-card {
+  padding: 24rpx;
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1rpx solid rgba(116, 132, 148, 0.14);
+}
+
+.tag-hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.tag-hero-kicker {
+  display: block;
+  font-size: 22rpx;
+  letter-spacing: 2rpx;
+  color: rgba(173, 187, 201, 0.72);
+}
+
+.tag-hero-title {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #f4f7fb;
+}
+
+.strategy-switch {
+  display: inline-flex;
+  gap: 10rpx;
+  padding: 8rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.strategy-pill {
+  padding: 14rpx 22rpx;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+  color: rgba(214, 223, 232, 0.72);
+}
+
+.strategy-pill.is-active {
+  background: rgba(123, 165, 200, 0.18);
+  color: #f4f7fb;
+}
+
+.tag-hero-chip {
+  margin-top: 22rpx;
+}
+
+.tag-hero-empty,
+.tag-preview-empty {
+  font-size: 24rpx;
+  color: rgba(181, 191, 201, 0.76);
+}
+
+.tag-hero-desc {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: rgba(214, 223, 232, 0.84);
+}
+
+.tag-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.tag-preview-card {
+  padding: 18rpx;
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1rpx solid rgba(116, 132, 148, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.tag-preview-label {
+  font-size: 24rpx;
+  color: rgba(214, 223, 232, 0.82);
+}
+
+.tag-filter-scroll {
+  margin-top: 24rpx;
+  white-space: nowrap;
+}
+
+.tag-filter-list {
+  display: inline-flex;
+  gap: 12rpx;
+}
+
+.tag-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 14rpx 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1rpx solid rgba(116, 132, 148, 0.14);
+}
+
+.tag-filter-pill.is-active {
+  background: rgba(123, 165, 200, 0.18);
+  border-color: rgba(138, 176, 209, 0.32);
+}
+
+.tag-filter-text {
+  font-size: 24rpx;
+  color: #f4f7fb;
+}
+
+.tag-filter-count,
+.wardrobe-group-count {
+  font-size: 22rpx;
+  color: rgba(170, 183, 196, 0.76);
+}
+
+.tag-empty-choice {
+  margin-top: 24rpx;
+  padding: 20rpx 22rpx;
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1rpx solid rgba(116, 132, 148, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.tag-empty-choice.is-selected {
+  border-color: rgba(132, 176, 213, 0.36);
+  background: rgba(123, 165, 200, 0.12);
+}
+
+.tag-empty-title {
+  display: block;
+  font-size: 28rpx;
+  color: #f4f7fb;
+  font-weight: 600;
+}
+
+.tag-empty-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: rgba(179, 191, 202, 0.76);
+}
+
+.tag-empty-action {
+  font-size: 24rpx;
+  color: #8fb6d8;
+}
+
+.wardrobe-group {
+  margin-top: 28rpx;
+}
+
+.wardrobe-group-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+  margin-bottom: 16rpx;
+}
+
+.wardrobe-group-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #f4f7fb;
+}
+
+.wardrobe-group-desc {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: rgba(173, 187, 201, 0.72);
+}
+
+.wardrobe-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.wardrobe-card {
+  padding: 20rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1rpx solid rgba(116, 132, 148, 0.12);
+}
+
+.wardrobe-card.is-selected {
+  border-color: rgba(138, 176, 209, 0.34);
+  background: rgba(123, 165, 200, 0.12);
+}
+
+.wardrobe-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.wardrobe-rarity {
+  font-size: 22rpx;
+  color: rgba(173, 187, 201, 0.78);
+}
+
+.wardrobe-card-title {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #f4f7fb;
+  font-weight: 600;
+}
+
+.wardrobe-card-meta,
+.wardrobe-card-source {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: rgba(179, 191, 202, 0.76);
+}
+
+.wardrobe-card-action {
+  margin-top: 16rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56rpx;
+  padding: 0 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f4f7fb;
+  font-size: 22rpx;
+}
+
+.wardrobe-card-action.is-selected {
+  background: rgba(138, 176, 209, 0.2);
+  color: #dfeaf4;
+}
+
+.tag-management-section .no-tags-text {
+  color: rgba(179, 191, 202, 0.78);
+}
+.tag-option.selected {
+  transform: translateY(-2rpx);
+  border-color: rgba(101, 137, 169, 0.54);
+  background:
+    linear-gradient(180deg, rgba(33, 41, 53, 0.98), rgba(20, 27, 36, 0.98)),
+    radial-gradient(circle at top right, rgba(113, 151, 188, 0.12), transparent 58%);
+  box-shadow:
+    inset 0 0 0 2rpx rgba(112, 148, 181, 0.14),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.06),
+    0 14rpx 30rpx rgba(10, 16, 24, 0.22);
+}
+
+/* 为选中状态添加勾选图标 */
+.tag-option.selected::after {
+  content: '';
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  width: 14rpx;
+  height: 14rpx;
+  background: #7aa2c4;
+  border-radius: 50%;
+  box-shadow: 0 0 0 6rpx rgba(122, 162, 196, 0.14);
+}
+/* 选中状态的稀有度样式已移至user-tag组件中 */
+  
+  .tag-option.no-tag-option.selected {
+    border-color: rgba(146, 154, 164, 0.34);
+    box-shadow:
+      inset 0 0 0 2rpx rgba(150, 158, 168, 0.12),
+      inset 0 1rpx 0 rgba(255, 255, 255, 0.06),
+      0 14rpx 30rpx rgba(12, 16, 22, 0.18);
+  }
+  
+  .tag-option.no-tag-option.selected::after {
+    background: #9aa6b2;
+    box-shadow: 0 0 0 6rpx rgba(154, 166, 178, 0.12);
+  }
+.tag-option:active {
+  transform: scale(0.98);
+}
+
+.no-tags {
+  text-align: center;
+  padding: 50rpx 0;
+  background: linear-gradient(180deg, rgba(26, 32, 41, 0.96), rgba(18, 24, 31, 0.98));
+  border-radius: 24rpx;
+  border: 1rpx dashed rgba(119, 134, 150, 0.24);
+}
+
+.no-tags-text {
+  font-size: 30rpx;
+  color: rgba(231, 236, 242, 0.68);
+  font-weight: 500;
+}
+
+.tag-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  letter-spacing: 0.6rpx;
+}
+
+/* 地址列表 */
+.address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.address-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 28rpx;
+  border: 2rpx solid #e9ecef;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.address-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6rpx;
+  height: 100%;
+  background: linear-gradient(135deg, #e9ecef, #dee2e6);
+  transition: all 0.3s ease;
+}
+
+.address-item.default {
+  border-color: #3a87f0;
+  background: linear-gradient(135deg, #f0f8ff, #e3f2fd);
+  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.15);
+}
+
+.address-item.default::before {
+  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+}
+
+.address-item:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.address-info {
+  flex: 1;
+}
+
+.address-header {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.receiver-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.receiver-phone {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.default-badge {
+  background: #3a87f0;
+  padding: 4rpx 12rpx;
+  border-radius: 10rpx;
+}
+
+.default-badge .badge-text {
+  font-size: 20rpx;
+  color: white;
+  font-weight: 500;
+}
+
+.address-detail {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 5rpx;
+}
+
+.address-street {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+.address-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  margin-left: 20rpx;
+}
+
+.action-default,
+.action-delete {
+  font-size: 24rpx;
+  font-weight: 500;
+  padding: 8rpx 12rpx;
+  border-radius: 8rpx;
+  text-align: center;
+  min-width: 80rpx;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.action-default {
+  color: #3a87f0;
+  background: #f0f8ff;
+  border: 1rpx solid #3a87f0;
+}
+
+.action-default:active {
+  background: #e6f3ff;
+}
+
+.action-delete {
+  color: #dc3545;
+  background: #fff8f8;
+  border: 1rpx solid #dc3545;
+}
+
+.action-delete:active {
+  background: #ffe6e6;
+}
+
+/* 添加地址 */
+.add-address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  padding: 40rpx 20rpx;
+  border: 3rpx dashed #3a87f0;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #f0f8ff, #e3f2fd);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-address::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(58, 135, 240, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.add-address:active::before {
+  left: 100%;
+}
+
+.add-address:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.2);
+  border-color: #2c5aa0;
+}
+
+.add-icon {
+  font-size: 40rpx;
+  color: #3a87f0;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.add-text {
+  font-size: 30rpx;
+  color: #3a87f0;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.add-address:active .add-icon,
+.add-address:active .add-text {
+  color: #2c5aa0;
+}
+
+/* 保存区域 */
+.save-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.95));
+  backdrop-filter: blur(20rpx);
+  padding: 30rpx 20rpx;
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.12);
+  border-top: 1rpx solid rgba(255, 255, 255, 0.8);
+}
+
+.button-group {
+  display: flex;
+  gap: 24rpx;
+  align-items: center;
+}
+
+.cancel-btn {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 2rpx solid #e9ecef;
+  border-radius: 50rpx;
+  padding: 28rpx 40rpx;
+  color: #6c757d;
+  font-size: 30rpx;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cancel-btn::after {
+  border: none;
+}
+
+.cancel-btn:active {
+  color: #495057;
+  background: #f8f9fa;
+  border-color: #dee2e6;
+  transform: scale(0.96);
+}
+
+.save-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #3a87f0, #2c5aa0);
+  border: none;
+  border-radius: 50rpx;
+  padding: 28rpx 0;
+  color: white;
+  font-size: 34rpx;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.save-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.save-btn:active::before {
+  left: 100%;
+}
+
+.save-btn::after {
+  border: none;
+}
+
+.save-btn:active {
+  transform: scale(0.98) translateY(-2rpx);
+  box-shadow: 0 8rpx 24rpx rgba(58, 135, 240, 0.4);
+}
+
+.save-btn[loading] {
+  opacity: 0.8;
+  transform: none;
+}
+
+.save-btn[loading]::before {
+  /* 移除shimmer动画效果 */
+  animation: none;
+}
+
+/* 保留shimmer关键帧定义以防其他地方使用 */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* 夜间模式适配 */
+.dark .edit-profile-container {
+  background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+}
+
+.dark .edit-section {
+  background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+  border-color: #333;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.3);
+}
+
+.dark .edit-section::before {
+  background: linear-gradient(90deg, #3a87f0, #64b5f6, #81c784);
+}
+
+/* 夜间模式下的背景图容器 */
+.dark .avatar-background-container {
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.5);
+}
+
+/* 夜间模式下的更换背景按钮 */
+.dark .change-background-btn {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15rpx);
+}
+
+.dark .change-background-btn:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.dark .section-title {
+  color: #ffffff;
+}
+
+.dark .section-title::before {
+  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+}
+
+.dark .avatar-preview {
+  border-color: #333;
+  box-shadow: 0 2rpx 24rpx rgba(0, 0, 0, 0.4), 0 0 0 2rpx rgba(58, 135, 240, 0.2);
+}
+
+.dark .edit-input {
+  background: transparent;
+  border-bottom-color: #444;
+  color: #ffffff;
+}
+
+.dark .edit-input:focus {
+  border-bottom-color: #3a87f0;
+}
+
+.dark .edit-input::placeholder {
+  color: #888;
+}
+
+.dark .edit-textarea {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #ffffff;
+}
+
+.dark .edit-textarea:focus {
+  background: #333;
+  border-color: #3a87f0;
+  box-shadow: 0 0 0 6rpx rgba(58, 135, 240, 0.2);
+}
+
+.dark .edit-textarea::placeholder {
+  color: #888;
+}
+
+.dark .char-count {
+  color: #aaa;
+}
+
+.dark .tag-option {
+  background: linear-gradient(135deg, #2a2a2a, #333);
+  border-color: #444;
+  color: #cccccc;
+}
+
+.dark .tag-option.selected {
+  border: 4rpx solid #64b5f6;
+  box-shadow: 0 0 0 4rpx rgba(100, 181, 246, 0.3), 0 4rpx 12rpx rgba(100, 181, 246, 0.4);
+}
+
+/* 暗色模式下的稀有度样式已移至user-tag组件中 */
+
+.dark .no-tag-option {
+  background: linear-gradient(135deg, #4a4a4a, #5a5a5a);
+  border-color: #5a5a5a;
+  color: #e0e0e0;
+}
+
+.dark .no-tags {
+  background: linear-gradient(135deg, #2a2a2a, #333);
+  border-color: #444;
+}
+
+.dark .no-tags-text {
+  color: #888;
+}
+
+.dark .address-item {
+  background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+  border-color: #444;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
+}
+
+.dark .address-item::before {
+  background: linear-gradient(135deg, #444, #555);
+}
+
+.dark .address-item.default {
+  background: linear-gradient(135deg, #1a3a5c, #2c5aa0);
+  border-color: #3a87f0;
+  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.3);
+}
+
+.dark .address-item.default::before {
+  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+}
+
+.dark .receiver-name {
+  color: #ffffff;
+}
+
+.dark .receiver-phone {
+  color: #cccccc;
+}
+
+.dark .address-detail {
+  color: #cccccc;
+}
+
+.dark .address-street {
+  color: #aaa;
+}
+
+.dark .action-default {
+  background: rgba(58, 135, 240, 0.2);
+  border-color: #3a87f0;
+  color: #64b5f6;
+}
+
+.dark .action-delete {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+  color: #ff6b6b;
+}
+
+.dark .add-address {
+  background: linear-gradient(135deg, rgba(58, 135, 240, 0.1), rgba(100, 181, 246, 0.1));
+  border-color: #3a87f0;
+}
+
+.dark .add-icon,
+.dark .add-text {
+  color: #64b5f6;
+}
+
+.dark .add-address:active .add-icon,
+.dark .add-address:active .add-text {
+  color: #3a87f0;
+}
+
+.dark .save-section {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(42, 42, 42, 0.95));
+  border-top-color: rgba(68, 68, 68, 0.8);
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.4);
+}
+
+.dark .cancel-btn {
+  border-color: #444;
+  color: #aaa;
+}
+
+.dark .cancel-btn:active {
+  background: #333;
+  border-color: #555;
+  color: #ccc;
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .edit-content {
+    padding: 20rpx;
+  }
+  
+  .edit-section {
+    padding: 30rpx 20rpx;
+  }
+  
+  .save-section {
+    padding: 25rpx 20rpx;
+  }
+  
+  .avatar-preview {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 80rpx;
+  }
+  
+  .avatar-overlay {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 80rpx;
+  }
+}
+
+/* Loading组件样式 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4rpx);
+}
+
+.network-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  backdrop-filter: blur(4rpx);
+}
+
+/* 暗色模式下的Loading样式 */
+.dark .network-loading-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+
+
+
+/* 暗色模式下的菜单样式 */
+.dark .menu-title {
+  color: #ecf0f1;
+}
+
+.dark .menu-subtitle {
+  color: #95a5a6;
+}
+
+.dark .menu-arrow {
+  color: #7f8c8d;
+}
+
+.dark .menu-item {
+  border-bottom-color: #34495e;
+}
+
+.dark .menu-item:hover {
+  background: rgba(52, 73, 94, 0.3);
+}

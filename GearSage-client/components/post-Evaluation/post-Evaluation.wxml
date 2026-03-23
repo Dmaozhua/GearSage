@@ -1,0 +1,221 @@
+<wxs module="utils">
+  module.exports = {
+    includes: function(arr, item) {
+      if (!arr) return false;
+      return arr.indexOf(item) > -1;
+    }
+  }
+</wxs>
+
+<view class="post-evaluation-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="step-content">
+  <view class="step-title">核心结论</view>
+  
+  <!-- 装备评分组件 -->
+  <publish-rating 
+    equipment-type="{{equipmentType}}"
+    ratings="{{ratings}}"
+    errors="{{errors.ratings}}"
+    bind:ratingchange="onRatingChange"
+  />
+
+  <!-- 一句话总结 (仅Experience显示) -->
+  <view class="form-item" wx:if="{{showSummary}}">
+    <view class="form-label">
+      <text class="label-text">一句话总结</text>
+      <text class="required">*</text>
+    </view>
+    <view class="picker {{isDarkMode ? 'dark' : ''}}" data-type="summary" bindtap="onOpenSelectorDrawer">
+      <view class="picker-text {{isDarkMode ? 'dark' : ''}}">{{summaryText}}</view>
+      <text class="picker-arrow">⌃</text>
+    </view>
+    <view class="error-text" wx:if="{{errors.summary}}">{{errors.summary}}</view>
+  </view>
+
+  <!-- 回购/再次选择意愿 (Experience & Recommend显示) -->
+  <view class="form-item">
+    <view class="form-label">
+      <text class="label-text">回购/再次选择意愿</text>
+      <text class="required">*</text>
+    </view>
+    <view class="picker {{isDarkMode ? 'dark' : ''}}" data-type="repurchase" bindtap="onOpenSelectorDrawer">
+      <view class="picker-text {{isDarkMode ? 'dark' : ''}}">{{repurchaseText}}</view>
+      <text class="picker-arrow">⌃</text>
+    </view>
+    <view class="error-text" wx:if="{{errors.repurchase}}">{{errors.repurchase}}</view>
+  </view>
+
+  <!-- 主要优点 -->
+  <view class="form-item">
+    <view class="form-label">
+      <!-- <text class="label-text">优点标签</text> -->
+    </view>
+    
+    <!-- 适合人群 -->
+    <view class="sub-section">
+      <view class="sub-label">适合人群 
+        <text class="required">*</text>
+      <text class="optional">(1-3个)</text></view>
+      <view class="tags-section">
+        <view class="tags-list">
+          <view class="tag-chip {{isDarkMode ? 'dark' : ''}}" wx:for="{{fitDisplayTags}}" wx:key="*this">{{item}}</view>
+          <view class="add-tag-btn {{isDarkMode ? 'dark' : ''}}" bindtap="onOpenTagsDrawer" data-type="fit">+ 选择</view>
+        </view>
+      </view>
+      <input 
+        class="custom-tag-input {{isDarkMode ? 'dark' : ''}}" 
+        placeholder="可自定义1个人群（选填，最多10个字）" 
+        maxlength="10" 
+        value="{{customFit}}" 
+        bindinput="onCustomFitInput" 
+      />
+    </view>
+
+    <!-- 不适合人群 -->
+    <view class="sub-section">
+      <view class="sub-label">不适合人群 
+        <text class="required">*</text>
+        <text class="optional">(1-3个)</text></view>
+      <view class="tags-section">
+        <view class="tags-list">
+          <view class="tag-chip {{isDarkMode ? 'dark' : ''}}" wx:for="{{unfitDisplayTags}}" wx:key="*this">{{item}}</view>
+          <view class="add-tag-btn {{isDarkMode ? 'dark' : ''}}" bindtap="onOpenTagsDrawer" data-type="unfit">+ 选择</view>
+        </view>
+      </view>
+      <input 
+        class="custom-tag-input {{isDarkMode ? 'dark' : ''}}" 
+        placeholder="可自定义1个人群（选填，最多10个字）" 
+        maxlength="10" 
+        value="{{customUnfit}}" 
+        bindinput="onCustomUnfitInput" 
+      />
+    </view>
+
+    <!-- 装备优点 -->
+    <view class="sub-section">
+      <view class="sub-label">装备优点
+        <text class="required">*</text>
+        <text class="optional">(1-3个)</text>
+      </view>
+      <view class="tags-section">
+        <view class="tags-list">
+          <view class="tag-chip {{isDarkMode ? 'dark' : ''}}" wx:for="{{prosDisplayTags}}" wx:key="*this">{{item}}</view>
+          <view class="add-tag-btn {{isDarkMode ? 'dark' : ''}}" bindtap="onOpenTagsDrawer" data-type="pros">+ 选择</view>
+        </view>
+      </view>
+      <view class="recommend-list">
+        <view class="recommend-item" wx:for="{{pros}}" wx:key="index">
+          <input 
+            class="recommend-input {{errors.pros ? 'error' : ''}}"
+            placeholder="可补充、说明优点具体内容..." 
+            placeholder-style="color: rgba(255,255,255,0.4);"
+            maxlength="20"
+            value="{{item}}" 
+            data-index="{{index}}"
+            bindinput="onProsInput" 
+          />
+          <view class="recommend-actions">
+            <view class="delete-btn" wx:if="{{pros.length > 1}}" data-index="{{index}}" bindtap="onDeletePros">×</view>
+            <view class="add-btn" wx:if="{{index === pros.length - 1 && !isMaxPros}}" bindtap="onAddPros">+</view>
+          </view>
+        </view>
+      </view>
+      <text class="error-text" wx:if="{{errors.pros}}">{{errors.pros}}</text>
+    </view>
+  </view>
+
+  <!-- 主要缺点 -->
+  <view class="form-item">
+    <view class="form-label">
+      <!-- <text class="label-text">缺点标签</text> -->
+    </view>
+    
+    <!-- 装备缺点 -->
+    <view class="sub-section">
+      <view class="sub-label">装备缺点
+        <text class="required">*</text>
+        <text class="optional">(1-2个)</text>
+      </view>
+      <view class="tags-section">
+        <view class="tags-list">
+          <view class="tag-chip {{isDarkMode ? 'dark' : ''}}" wx:for="{{consDisplayTags}}" wx:key="*this">{{item}}</view>
+          <view class="add-tag-btn {{isDarkMode ? 'dark' : ''}}" bindtap="onOpenTagsDrawer" data-type="cons">+ 选择</view>
+        </view>
+      </view>
+      <view class="recommend-list">
+        <view class="recommend-item" wx:for="{{cons}}" wx:key="index">
+          <input 
+            class="recommend-input {{errors.cons ? 'error' : ''}}"
+            placeholder="可补充、说明缺点具体内容..." 
+            placeholder-style="color: rgba(255,255,255,0.4);"
+            maxlength="20"
+            value="{{item}}" 
+            data-index="{{index}}"
+            bindinput="onConsInput" 
+          />
+          <view class="recommend-actions">
+            <view class="delete-btn" wx:if="{{cons.length > 1}}" data-index="{{index}}" bindtap="onDeleteCons">×</view>
+            <view class="add-btn" wx:if="{{index === cons.length - 1 && !isMaxCons}}" bindtap="onAddCons">+</view>
+          </view>
+        </view>
+      </view>
+      <text class="error-text" wx:if="{{errors.cons}}">{{errors.cons}}</text>
+    </view>
+  </view>
+  </view>
+</view>
+
+<!-- 标签选择抽屉 -->
+<root-portal wx:if="{{drawerVisible}}">
+  <view class="drawer-mask" bindtap="onCloseDrawer"></view>
+  <view class="drawer-content {{isDarkMode ? 'dark' : ''}}">
+    <view class="drawer-header">
+      <text class="drawer-title">{{drawerTitle}}</text>
+      <view class="drawer-close" bindtap="onCloseDrawer">×</view>
+    </view>
+    <scroll-view scroll-y class="drawer-body">
+      <view class="tag-group" wx:for="{{drawerGroups}}" wx:key="groupKey" wx:for-item="group">
+        <view class="group-label">{{group.label}} <text class="group-limit" wx:if="{{group.inputType === 'multi'}}">(最多{{group.maxSelect}}个)</text></view>
+        <view class="group-options">
+          <view 
+            class="tag-option {{utils.includes(tags[group.groupKey], option.id) ? 'selected' : ''}}" 
+            wx:for="{{group.options}}" 
+            wx:key="id" 
+            wx:for-item="option"
+            bindtap="onTagTap"
+            data-group-key="{{group.groupKey}}"
+            data-tag-id="{{option.id}}"
+          >
+            {{option.label}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="drawer-footer">
+      <button class="btn-confirm" bindtap="onCloseDrawer">确定</button>
+    </view>
+  </view>
+</root-portal>
+<root-portal wx:if="{{selectorDrawerVisible}}">
+  <view class="drawer-mask" bindtap="onCloseSelectorDrawer"></view>
+  <view class="drawer-content {{isDarkMode ? 'dark' : ''}}">
+    <view class="drawer-header">
+      <text class="drawer-title">{{selectorDrawerTitle}}</text>
+      <view class="drawer-close" bindtap="onCloseSelectorDrawer">×</view>
+    </view>
+    <scroll-view scroll-y class="drawer-body">
+      <view class="selector-option-list">
+        <view
+          class="selector-option {{item.selected ? 'selected' : ''}}"
+          wx:for="{{selectorDrawerOptions}}"
+          wx:key="value"
+          data-value="{{item.value}}"
+          bindtap="onSelectorOptionSelect"
+        >
+          <text class="selector-option-label">{{item.label}}</text>
+          <text class="selector-option-check" wx:if="{{item.selected}}">✓</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</root-portal>

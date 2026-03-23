@@ -1,0 +1,99 @@
+<!--components/text-editor/text-editor.wxml-->
+<view class="text-editor-container {{isDarkMode ? 'dark' : ''}}">
+  <!-- 编辑模式 -->
+  <root-portal wx:if="{{isEditing}}">
+    <view class="editor-wrapper {{isDarkMode ? 'dark' : ''}}">
+      <!-- 编辑器头部：固定标题显示，不随输入变化 -->
+      <view class="editor-header">
+        <view class="editor-title">{{title || '编辑内容'}}</view>
+      </view>
+      
+      <!-- 文本编辑区域 -->
+      <view class="editor-content">
+        <!-- 写作灵感提示 -->
+        <view class="tips-container">
+          <view class="tips-header" bindtap="onToggleTips">
+            <view class="tips-title">
+              <text class="tips-icon">💡</text>
+              <text>编写提示</text>
+            </view>
+            <text class="tips-arrow {{showTips ? 'expanded' : ''}}">▼</text>
+          </view>
+          
+          <view class="tips-body" wx:if="{{showTips}}">
+            <block wx:if="{{tipsLines && tipsLines.length}}">
+              <view class="tips-custom-list">
+                <view class="tips-custom-title">{{tipsLines[0]}}</view>
+                <block wx:for="{{tipsLines}}" wx:key="index">
+                  <view class="tips-custom-item" wx:if="{{index > 0}}">{{item}}</view>
+                </block>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="tips-intro">
+                <view>请优先写您真正用下来后的判断。</view>
+                <view style="margin-top: 8rpx;">不要只介绍参数，也不要只说“很好用”“很顺手”，尽量写清楚它在真实场景中的表现。</view>
+              </view>
+              <view class="tips-subtitle">您可以从这些角度展开：</view>
+              <view class="tips-list">
+                <view class="tips-item">• 买它之前，您原本在纠结什么</view>
+                <view class="tips-item">• 买来以后，最常在哪些场景下使用</view>
+                <view class="tips-item">• 它最打动您的地方，到底体现在哪</view>
+                <view class="tips-item">• 用久以后，哪些问题是刚开始没发现的</view>
+                <view class="tips-item">• 它适合什么样的人，不适合什么样的人</view>
+                <view class="tips-item">• 如果让您给朋友推荐，您会怎么说</view>
+              </view>
+              <view class="tips-footer">真实经历、具体场景、优缺点和使用边界，都会让这篇内容更有参考价值。</view>
+            </block>
+          </view>
+        </view>
+
+        <textarea
+          class="editor-textarea"
+          placeholder="{{placeholder}}"
+          value="{{tempValue}}"
+          bindinput="onInput"
+          maxlength="{{maxLength}}"
+          style="height: {{editorHeight}}rpx;"
+          focus="{{autoFocus}}"
+        ></textarea>
+        
+        <!-- 字符计数 -->
+        <view class="char-count">
+          {{tempValue.length}}/{{maxLength}}
+        </view>
+      </view>
+
+      <!-- 底部操作栏：取消与确定按钮固定在底部 -->
+      <view class="editor-footer">
+        <button class="action-btn cancel-btn" bindtap="onCancel">取消</button>
+        <button class="action-btn confirm-btn" bindtap="onConfirm">确定</button>
+      </view>
+    </view>
+  </root-portal>
+  
+  <!-- 预览模式 -->
+  <view class="preview-wrapper" wx:if="{{!isEditing}}">
+    <view class="preview-content" bindtap="onEdit">
+      <view class="preview-text" wx:if="{{hasContent}}">
+        <rich-text
+          class="preview-rich-text"
+          nodes="{{showFullContent ? fullDisplayNodes : previewDisplayNodes}}"
+        ></rich-text>
+      </view>
+      <view class="preview-placeholder" wx:else>
+        {{placeholder}}
+      </view>
+
+      <!-- 展开/收起按钮 -->
+      <view class="expand-btn" wx:if="{{needExpand && !isEditing}}" catchtap="onToggleExpand">
+        {{showFullContent ? '收起' : '展开'}}
+      </view>
+    </view>
+    
+    <!-- 编辑按钮 -->
+    <view class="edit-btn" bindtap="onEdit">
+      <text class="edit-icon">✏️</text>
+    </view>
+  </view>
+</view>

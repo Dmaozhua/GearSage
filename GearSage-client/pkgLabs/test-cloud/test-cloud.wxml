@@ -1,0 +1,15 @@
+<!-- pages/test-cloud/test-cloud.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">云函数测试页面</text>
+  </view>
+  
+  <view class="content">
+    <button type="primary" bindtap="testCloudFunction" loading="{{loading}}">测试云函数</button>
+    
+    <view class="result-container">
+      <text class="result-title">调用结果：</text>
+      <text class="result-content">{{result}}</text>
+    </view>
+  </view>
+</view>

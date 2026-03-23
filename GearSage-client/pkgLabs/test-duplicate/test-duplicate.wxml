@@ -1,0 +1,35 @@
+<!--pages/test-duplicate/test-duplicate.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">重复图片检测测试</text>
+    <text class="subtitle">测试上传相同图片时的提示功能</text>
+  </view>
+
+  <view class="form-section">
+    <publish-wechatcontent
+      formData="{{formData}}"
+      errors="{{errors}}"
+      maxImages="9"
+      minImages="0"
+      titlePlaceholder="请输入测试标题..."
+      contentPlaceholder="请输入测试内容..."
+      bind:chooseimage="onChooseImage"
+      bind:deleteimage="onDeleteImage"
+      bind:titleinput="onTitleInput"
+      bind:contentinput="onContentInput"
+    />
+  </view>
+
+  <view class="info-section">
+    <text class="info-title">测试说明：</text>
+    <text class="info-text">1. 上传一张图片</text>
+    <text class="info-text">2. 再次上传同一张图片</text>
+    <text class="info-text">3. 应该看到"有相似图片，建议优化"的提示</text>
+    <text class="info-text">4. 图片仍会正常上传，不会被阻止</text>
+  </view>
+
+  <view class="debug-section">
+    <text class="debug-title">当前图片列表：</text>
+    <text class="debug-text">{{formData.mainImages}}</text>
+  </view>
+</view>

@@ -1,0 +1,34 @@
+<!--components/theme-toggle/theme-toggle.wxml-->
+<view class="theme-toggle-container" data-dark="{{isDarkMode}}" bindtap="onTap" style="width: {{size}}rpx; height: {{size}}rpx;">
+  <view class="svg-wrapper" style="{{svgTransform}}">
+    <!-- SVG容器 -->
+    <view class="svg-container">
+      <!-- 背景圆形 -->
+      <view class="background-circle" style="background-color: {{currentColors.background}};"></view>
+      
+      <!-- 地面层 -->
+      <view class="ground-layers">
+        <view class="ground-layer layer-1" style="background-color: {{currentColors.brown}};"></view>
+        <view class="ground-layer layer-2" style="background-color: {{currentColors.red}};"></view>
+        <view class="ground-layer layer-3" style="background-color: {{currentColors.orange}};"></view>
+        <view class="ground-layer layer-4" style="background-color: {{currentColors.yellow}};"></view>
+      </view>
+      
+      <!-- 太阳/月亮 -->
+      <view class="celestial-body sun" style="background-color: {{currentColors.red}}; opacity: {{isDarkMode ? 0.3 : 1}};"></view>
+      <view class="celestial-body moon" style="background-color: {{currentColors.orange}}; opacity: {{isDarkMode ? 1 : 0.3}};"></view>
+      
+      <!-- 星星 -->
+      <view class="stars-container">
+        <view class="star star-1 {{starAnimationClass}}" style="color: {{currentColors.yellow}};">✦</view>
+        <view class="star star-2 {{starAnimationClass}}" style="color: {{currentColors.yellow}};">✧</view>
+        <view class="star star-3 {{starAnimationClass}}" style="color: {{currentColors.yellow}};">✦</view>
+        <view class="star star-4 {{starAnimationClass}}" style="color: {{currentColors.yellow}};">✧</view>
+        <view class="star star-5 {{starAnimationClass}}" style="color: {{currentColors.yellow}};">✦</view>
+      </view>
+      
+      <!-- 飞行器 -->
+      <view class="landspeeder" style="background-color: {{currentColors.brown}};"></view>
+    </view>
+  </view>
+</view>

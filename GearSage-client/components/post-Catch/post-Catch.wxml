@@ -1,0 +1,170 @@
+<view class="post-experience-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="step-content">
+    <view class="step-title">鱼获展示</view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">标题</text>
+        <text class="required">*</text>
+      </view>
+      <input
+        class="form-input"
+        placeholder="给这次鱼获起个标题吧"
+        placeholder-class="input-placeholder"
+        value="{{formData.title}}"
+        bindinput="onTitleInput"
+        maxlength="30"
+      />
+      <view class="tags-section">
+        <view class="section-subtitle">可以选择默认</view>
+        <view class="tags-list">
+          <view
+            class="tag-chip {{formData.title === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+            wx:for="{{defaultTitles}}"
+            wx:key="*this"
+            bindtap="onDefaultTitleSelect"
+            data-value="{{item}}"
+          >{{item}}</view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.title}}">{{errors.title}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">图片展示</text>
+        <text class="required">*</text>
+      </view>
+      <view class="image-uploader">
+        <view class="image-list">
+          <view class="image-item" wx:for="{{formData.images}}" wx:key="*this">
+            <image src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-src="{{item}}"></image>
+            <view class="delete-btn" catchtap="onDeleteImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" bindtap="onChooseImage" wx:if="{{formData.images.length < 9}}">
+            <text class="plus">+</text>
+            <text class="text">上传图片</text>
+          </view>
+        </view>
+        <view class="helper-text">优先上传鱼获照、场景照、装备合照</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.images}}">{{errors.images}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">选择标点</text>
+        <text class="required">*</text>
+      </view>
+      <view class="section-subtitle">选择一个最能烘托气氛的<text style="font-weight: 700;">“标点”</text></view>
+      <view class="tags-section">
+        <view class="tags-list">
+          <view class="tag-chip {{isDarkMode ? 'dark' : ''}}" wx:if="{{formData.locationTag}}">
+            {{formData.locationTag}}
+          </view>
+          <view class="add-tag-btn {{isDarkMode ? 'dark' : ''}}" bindtap="onOpenLocationDrawer">
+            + {{formData.locationTag ? '重新选择标点' : '选择标点'}}
+          </view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.locationTag}}">{{errors.locationTag}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">长度 (cm)</text>
+      </view>
+      <view class="measure-row">
+        <input
+          class="form-input measure-input"
+          type="digit"
+          placeholder="请输入长度"
+          placeholder-class="input-placeholder"
+          value="{{formData.length}}"
+          bindinput="onLengthInput"
+        />
+        <view class="measure-switches">
+          <view class="switch-container">
+            <text class="switch-label">目测</text>
+            <switch checked="{{formData.isLengthEstimated}}" bindchange="onLengthEstimatedChange" color="#2c5aa0" />
+          </view>
+          <view class="switch-container">
+            <text class="switch-label">保密</text>
+            <switch checked="{{formData.isLengthSecret}}" bindchange="onLengthSecretChange" color="#2c5aa0" />
+          </view>
+        </view>
+      </view>
+      <view class="info-display" wx:if="{{formData.length || formData.isLengthSecret}}">
+        <text wx:if="{{formData.isLengthSecret}}">显示为：♾️cm</text>
+        <text wx:elif="{{formData.isLengthEstimated}}">显示为：目测 {{formData.length}} cm</text>
+        <text wx:else>显示为：{{formData.length}} cm</text>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">重量 (kg)</text>
+      </view>
+      <view class="measure-row">
+        <input
+          class="form-input measure-input"
+          type="digit"
+          placeholder="请输入重量"
+          placeholder-class="input-placeholder"
+          value="{{formData.weight}}"
+          bindinput="onWeightInput"
+        />
+        <view class="measure-switches">
+          <view class="switch-container">
+            <text class="switch-label">目测</text>
+            <switch checked="{{formData.isWeightEstimated}}" bindchange="onWeightEstimatedChange" color="#2c5aa0" />
+          </view>
+          <view class="switch-container">
+            <text class="switch-label">保密</text>
+            <switch checked="{{formData.isWeightSecret}}" bindchange="onWeightSecretChange" color="#2c5aa0" />
+          </view>
+        </view>
+      </view>
+      <view class="info-display" wx:if="{{formData.weight || formData.isWeightSecret}}">
+        <text wx:if="{{formData.isWeightSecret}}">显示为：♾️kg</text>
+        <text wx:elif="{{formData.isWeightEstimated}}">显示为：目测 {{formData.weight}} kg</text>
+        <text wx:else>显示为：{{formData.weight}} kg</text>
+      </view>
+    </view>
+  </view>
+
+  <root-portal>
+    <view class="bottom-buttons">
+      <button class="btn btn-primary" bindtap="onSubmit">发布</button>
+    </view>
+  </root-portal>
+
+  <root-portal wx:if="{{locationDrawerVisible}}">
+    <view class="drawer-mask" bindtap="onCloseLocationDrawer"></view>
+    <view class="drawer-content {{isDarkMode ? 'dark' : ''}}">
+      <view class="drawer-header">
+        <text class="drawer-title">选择标点</text>
+        <view class="drawer-close" bindtap="onCloseLocationDrawer">×</view>
+      </view>
+      <scroll-view scroll-y class="drawer-body">
+        <view class="tag-group">
+          <view class="group-label">标点</view>
+          <view class="group-options">
+            <view
+              class="tag-option {{formData.locationTag === item ? 'selected' : ''}}"
+              wx:for="{{locationTags}}"
+              wx:key="*this"
+              bindtap="onLocationTagSelect"
+              data-value="{{item}}"
+            >
+              {{item}}
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="drawer-footer">
+        <button class="btn-confirm" bindtap="onCloseLocationDrawer">确定</button>
+      </view>
+    </view>
+  </root-portal>
+</view>

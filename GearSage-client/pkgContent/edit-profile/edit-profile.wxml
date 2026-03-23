@@ -1,0 +1,171 @@
+<!--pages/edit-profile/edit-profile.wxml-->
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="编辑个人信息" 
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<view class="edit-profile-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="edit-content">
+    
+    <!-- 头像编辑 -->
+    <view class="edit-section">
+      <view class="section-title">头像与背景</view>
+      <view class="avatar-edit">
+        <!-- 背景图显示区域 -->
+        <view class="avatar-background-container">
+          <image 
+            class="avatar-background" 
+            src="{{userInfo.backgroundImageUrl || userInfo.backgroundImage || '/images/缺省页_上传中.png'}}" 
+            mode="aspectFill"
+            binderror="handleImageError"
+            data-type="background"
+          />
+          
+          <!-- 头像按钮 -->
+          <button class="avatar-button" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+            <image 
+              class="avatar-preview" 
+              src="{{userInfo.avatarUrl || userInfo.avatar || '/images/default-avatar.png'}}" 
+              mode="aspectFill"
+              binderror="handleImageError"
+              data-type="avatar"
+            />
+            <view class="avatar-overlay">
+              <text class="avatar-text">点击更换</text>
+            </view>
+          </button>
+          
+          <!-- 更换背景按钮 -->
+          <button class="change-background-btn" bindtap="onChooseBackground">
+            <text class="change-background-text">更换背景</text>
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 昵称编辑 -->
+    <view class="edit-section">
+      <view class="section-title">昵称</view>
+      <input 
+        class="edit-input" 
+        type="nickname"
+        placeholder="请输入昵称，最大8个字符"
+        placeholder-style="color:#999"
+        value="{{userInfo.nickname}}"
+        bindinput="onNicknameInput"
+        maxlength="8"
+      />
+    </view>
+
+    <!-- 自我介绍编辑 -->
+    <view class="edit-section">
+      <view class="section-title">自我介绍</view>
+      <textarea 
+        class="edit-textarea" 
+        placeholder="请输入自我介绍"
+        value="{{userInfo.bio}}"
+        bindinput="onIntroductionInput"
+        bindfocus="handleTextareaFocus"
+        bindblur="handleTextareaBlur"
+        maxlength="30"
+        show-confirm-bar="{{false}}"
+        auto-height="{{true}}"
+        fixed="{{true}}"
+        cursor-spacing="50"
+        adjust-position="{{false}}"
+        selection-end="{{textareaSelectionEnd}}"
+      />
+      <view class="char-count">{{introductionLength}}/30</view>
+    </view>
+
+    <!-- 收货地址 -->
+    <view class="edit-section">
+      <view class="section-title">收货地址</view>
+      <view class="address-list">
+        <!-- 地址列表 -->
+        <view 
+          class="address-item {{item.isDefault ? 'default' : ''}}"
+          wx:for="{{addresses}}"
+          wx:key="id"
+          wx:if="{{addresses.length > 0}}"
+        >
+          <view class="address-info">
+            <view class="address-header">
+              <text class="receiver-name">{{item.receiverName}}</text>
+              <text class="receiver-phone">{{item.receiverPhone}}</text>
+              <view class="default-badge" wx:if="{{item.isDefault}}">
+                <text class="badge-text">默认</text>
+              </view>
+            </view>
+            <text class="address-detail">{{item.province}} {{item.city}} {{item.district}} {{item.detail}}</text>
+            <text class="address-street" wx:if="{{item.street}}">{{item.street}}</text>
+          </view>
+          <view class="address-actions">
+            <view class="action-default" 
+                  wx:if="{{!item.isDefault}}" 
+                  bindtap="setDefaultAddress" 
+                  data-address-id="{{item.id}}">
+              设为默认
+            </view>
+            <view class="action-delete" 
+                  bindtap="deleteAddress" 
+                  data-address-id="{{item.id}}">
+              删除
+            </view>
+          </view>
+        </view>
+        
+        <!-- 添加新地址 - 只在没有地址时显示 -->
+        <view class="add-address" bindtap="onAddAddress" wx:if="{{addresses.length === 0}}">
+          <text class="add-icon">+</text>
+          <text class="add-text">添加新地址</text>
+        </view>
+        
+
+      </view>
+    </view>
+
+
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-section">
+    <view class="button-group">
+      <button class="cancel-btn" bindtap="onCancel" disabled="{{_debounceStates.saveUserInfo}}">
+        取消
+      </button>
+      <button 
+        class="save-btn" 
+        bindtap="onSave" 
+        loading="{{_debounceStates.saveUserInfo}}"
+        disabled="{{_debounceStates.saveUserInfo || !canSave}}"
+      >
+        {{_debounceStates.saveUserInfo ? '保存中...' : '保存'}}
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- Loading组件 - 页面加载 -->
+<view class="loading-overlay" wx:if="{{isLoading}}">
+  <svg-loading 
+    loading="{{isLoading}}"
+    text="{{loadingText}}"
+    size="large"
+    show-text="{{true}}"
+  />
+</view>
+
+<!-- Loading组件 - 网络请求 -->
+<view class="network-loading-overlay" wx:if="{{showNetworkLoading}}">
+  <svg-loading 
+    loading="{{showNetworkLoading}}"
+    text="{{networkLoadingText}}"
+    size="medium"
+    show-text="{{true}}"
+  />
+</view>

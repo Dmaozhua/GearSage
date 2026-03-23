@@ -1,0 +1,12 @@
+{
+  "navigationStyle": "custom",
+  "enableShareAppMessage": true,
+  "enableShareTimeline": true,
+  "usingComponents": {
+    "custom-navbar": "../../components/custom-navbar/custom-navbar",
+    "comment-item": "../../components/comment-item/comment-item",
+    "svg-loading": "../../components/svg-loading/svg-loading",
+    "user-tag": "../../components/user-tag/user-tag",
+    "product-swiper": "../../components/product-swiper/product-swiper"
+  }
+}

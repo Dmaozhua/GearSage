@@ -1,0 +1,64 @@
+<!--pages/theme-toggle-demo/theme-toggle-demo.wxml-->
+<view class="demo-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="demo-header">
+    <text class="demo-title">主题切换动画组件演示</text>
+    <text class="demo-subtitle">基于星球大战塔图因星球的日夜切换效果</text>
+  </view>
+
+  <view class="demo-content">
+    <!-- 主要演示区域 -->
+    <view class="demo-section">
+      <text class="section-title">点击下方组件切换主题</text>
+      <view class="component-showcase">
+        <theme-toggle 
+          isDarkMode="{{isDarkMode}}" 
+          size="{{componentSize}}"
+          bind:themeToggle="onThemeToggle"
+        ></theme-toggle>
+      </view>
+      <text class="current-theme">当前主题: {{isDarkMode ? '夜间模式' : '白天模式'}}</text>
+    </view>
+
+    <!-- 大小调节 -->
+    <view class="demo-section">
+      <text class="section-title">组件大小调节</text>
+      <view class="size-control">
+        <text class="size-label">大小: {{componentSize}}rpx</text>
+        <slider 
+          class="size-slider"
+          min="40" 
+          max="120" 
+          value="{{componentSize}}" 
+          bindchange="onSizeChange"
+          show-value
+        />
+      </view>
+    </view>
+
+    <!-- 多个组件展示 -->
+    <view class="demo-section">
+      <text class="section-title">不同大小展示</text>
+      <view class="multi-components">
+        <view class="component-item">
+          <theme-toggle isDarkMode="{{isDarkMode}}" size="{{40}}" bind:themeToggle="onThemeToggle"></theme-toggle>
+          <text class="component-label">40rpx</text>
+        </view>
+        <view class="component-item">
+          <theme-toggle isDarkMode="{{isDarkMode}}" size="{{60}}" bind:themeToggle="onThemeToggle"></theme-toggle>
+          <text class="component-label">60rpx</text>
+        </view>
+        <view class="component-item">
+          <theme-toggle isDarkMode="{{isDarkMode}}" size="{{80}}" bind:themeToggle="onThemeToggle"></theme-toggle>
+          <text class="component-label">80rpx</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 手动切换按钮 -->
+    <view class="demo-section">
+      <button class="toggle-btn" bindtap="toggleTheme">
+        手动切换主题 (测试用)
+      </button>
+    </view>
+  </view>
+</view>

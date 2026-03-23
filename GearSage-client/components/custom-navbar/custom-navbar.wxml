@@ -1,0 +1,48 @@
+<!--components/custom-navbar/custom-navbar.wxml-->
+<!-- 导航栏容器 -->
+<view 
+  class="custom-navbar {{showShadow ? 'navbar-shadow' : ''}} {{enableAnimation ? 'navbar-animated' : ''}} {{isDarkMode ? 'dark-mode' : ''}}" 
+  style="background-color: {{backgroundColor}}; color: {{textColor}}; height: {{statusBarHeight + navBarHeight}}px; opacity: {{opacity}};"
+>
+  <!-- 状态栏占位 -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+  
+  <!-- 导航栏主体 -->
+  <view class="navbar-content" style="height: {{navBarHeight}}px;">
+    <!-- 左侧区域 -->
+    <view class="left-area">
+      <!-- 返回按钮 -->
+      <view wx:if="{{showBack}}" class="back-button" bindtap="onBackTap">
+        <text class="back-icon">‹</text>
+      </view>
+      
+      <!-- 左侧图标 -->
+      <view wx:if="{{leftIcon}}" class="left-icon-container" bindtap="onLeftIconTap">
+        <image class="left-icon" src="{{isDarkMode && leftIconDark ? leftIconDark : leftIcon}}" mode="aspectFit"></image>
+      </view>
+      
+      <!-- 标题容器 -->
+      <view class="title-container" bindtap="onTitleTap">
+        <text class="navbar-title">{{title}}</text>
+      </view>
+    </view>
+    
+    <!-- 右侧区域 -->
+    <view class="right-area">
+      <!-- 搜索框 -->
+      <view wx:if="{{showSearch}}" class="search-container" bindtap="onSearchTap">
+        <text class="search-icon">🔍</text>
+        <text class="search-placeholder">{{searchPlaceholder}}</text>
+      </view>
+      
+      <!-- 右侧按钮 -->
+      <view wx:if="{{rightButtonText || rightButtonIcon || rightText || rightIcon}}" class="right-button" bindtap="onRightButtonTap">
+        <image wx:if="{{rightButtonIcon || rightIcon}}" class="right-icon" src="{{rightButtonIcon || rightIcon}}" mode="aspectFit"></image>
+        <text wx:if="{{rightButtonText || rightText}}" class="right-text">{{rightButtonText || rightText}}</text>
+      </view>
+      
+      <!-- 胶囊按钮占位 -->
+      <view class="capsule-placeholder" style="width: {{menuButtonInfo.width}}px; height: {{menuButtonInfo.height}}px;"></view>
+    </view>
+  </view>
+</view>

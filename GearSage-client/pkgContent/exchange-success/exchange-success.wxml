@@ -1,0 +1,91 @@
+<!--pages/exchange-success/exchange-success.wxml-->
+<custom-navbar title="兑换成功" showBack="{{true}}"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{statusBarHeight + navBarHeight + 10}}px;">
+  <!-- 成功图标 -->
+  <view class="success-header">
+    <view class="success-icon">
+      <image src="/images/icons/success.svg" mode="aspectFit"></image>
+    </view>
+    <text class="success-title">恭喜你，兑换成功！</text>
+    <text class="success-subtitle">已成功兑换 {{productName}}</text>
+  </view>
+
+  <!-- 兑换信息 -->
+  <view class="exchange-info">
+    <view class="info-item">
+      <text class="info-label">商品名称</text>
+      <text class="info-value">{{productName}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">消耗积分</text>
+      <text class="info-value points">{{points}} 分</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">兑换时间</text>
+      <text class="info-value">{{currentTime}}</text>
+    </view>
+  </view>
+
+  <!-- 虚拟权益信息 -->
+  <view class="virtual-info" wx:if="{{virtualInfo.code}}">
+    <view class="virtual-header">
+      <text class="virtual-title">卡密信息</text>
+      <text class="virtual-tip">请妥善保存以下信息</text>
+    </view>
+    
+    <view class="code-container">
+      <view class="code-box">
+        <text class="code-label">兑换码</text>
+        <text class="code-value">{{virtualInfo.code}}</text>
+        <button class="copy-btn" bindtap="onCopyCode">
+          <image src="/images/icons/copy.svg" mode="aspectFit"></image>
+          复制
+        </button>
+      </view>
+      
+      <view class="validity-info">
+        <text class="validity-label">有效期至：</text>
+        <text class="validity-date">{{virtualInfo.validUntil}}</text>
+      </view>
+    </view>
+    
+    <view class="usage-tips">
+      <text class="tips-title">使用说明：</text>
+      <text class="tips-content">1. 请在有效期内使用兑换码</text>
+      <text class="tips-content">2. 每个兑换码仅限使用一次</text>
+      <text class="tips-content">3. 如有问题请联系客服</text>
+    </view>
+  </view>
+
+  <!-- 实体商品信息 -->
+  <view class="physical-info" wx:else>
+    <view class="delivery-notice">
+      <view class="notice-icon">
+        <image src="/images/icons/truck.svg" mode="aspectFit"></image>
+      </view>
+      <view class="notice-content">
+        <text class="notice-title">配送提醒</text>
+        <text class="notice-text">我们将在3-5个工作日内为您发货</text>
+        <text class="notice-text">请保持手机畅通，注意查收物流信息</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="action-btn secondary" bindtap="onContinueExchange">
+      继续兑换
+    </button>
+    <button class="action-btn primary" bindtap="onBackToPoints">
+      返回积分中心
+    </button>
+  </view>
+
+  <!-- 底部装饰 -->
+  <view class="bottom-decoration">
+    <view class="decoration-circle circle-1"></view>
+    <view class="decoration-circle circle-2"></view>
+    <view class="decoration-circle circle-3"></view>
+  </view>
+</view>

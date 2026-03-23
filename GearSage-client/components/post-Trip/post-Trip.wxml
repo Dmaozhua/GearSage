@@ -1,0 +1,274 @@
+<view class="post-experience-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="step-content">
+    <view class="step-title">钓行分享</view>
+
+    <view class="form-section-title">钓行概况</view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">标题</text>
+        <text class="required">*</text>
+      </view>
+      <input
+        class="form-input"
+        placeholder="{{titlePlaceholder}}"
+        placeholder-class="input-placeholder"
+        value="{{formData.title}}"
+        bindinput="onTitleInput"
+        bindfocus="onTitleFocus"
+        maxlength="30"
+      />
+      <view class="tags-section">
+        <view class="section-subtitle">可以直接选择默认标题</view>
+        <view class="tags-list">
+          <view
+            class="tag-chip {{formData.title === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+            wx:for="{{titleDefaults}}"
+            wx:key="*this"
+            bindtap="onDefaultTitleSelect"
+            data-value="{{item}}"
+          >{{item}}</view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.title}}">{{errors.title}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">钓行总结</text>
+        <text class="required">*</text>
+      </view>
+
+      <view class="sub-label">结果（单选）</view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{formData.tripResult === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{tripResults}}"
+          wx:key="*this"
+          bindtap="onTripResultSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+
+      <view class="sub-label" style="margin-top: 20rpx;">状态（多选，最多 2 个）</view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{utils.includes(formData.tripStatus, item) ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{tripStatuses}}"
+          wx:key="*this"
+          bindtap="onTripStatusSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.tripResult}}">{{errors.tripResult}}</view>
+    </view>
+
+    <view class="form-section-title">基础环境</view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">目标鱼（最多 3 个）</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{utils.includes(formData.targetFish, item) ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{targetFishOptions}}"
+          wx:key="*this"
+          bindtap="onTargetFishSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <input
+        class="form-input custom-target-input"
+        placeholder="可自定义 1 个鱼种，占用 1 个名额"
+        placeholder-class="input-placeholder"
+        maxlength="8"
+        value="{{formData.customTargetFish}}"
+        bindinput="onCustomTargetFishInput"
+      />
+      <view class="helper-text">只能输入中文，不支持空格和特殊符号</view>
+      <view class="error-text" wx:if="{{errors.targetFish}}">{{errors.targetFish}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">季节</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{formData.season === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{seasons}}"
+          wx:key="*this"
+          bindtap="onSeasonSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.season}}">{{errors.season}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">天气情况</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{formData.weather === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{weathers}}"
+          wx:key="*this"
+          bindtap="onWeatherSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.weather}}">{{errors.weather}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">水域类型</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{formData.waterType === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{waterTypes}}"
+          wx:key="*this"
+          bindtap="onWaterTypeSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.waterType}}">{{errors.waterType}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">主要钓点</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{formData.mainSpot === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{mainSpots}}"
+          wx:key="*this"
+          bindtap="onMainSpotSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.mainSpot}}">{{errors.mainSpot}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">作钓时间</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{formData.fishingTime === item ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{fishingTimes}}"
+          wx:key="*this"
+          bindtap="onFishingTimeSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.fishingTime}}">{{errors.fishingTime}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">环境感受</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{utils.includes(formData.envFeelings, item) ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{envFeelings}}"
+          wx:key="*this"
+          bindtap="onEnvFeelingSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+    </view>
+
+    <view class="form-section-title">钓组信息</view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">主要钓组/饵型</text>
+        <text class="required">*</text>
+      </view>
+      <view class="tags-list">
+        <view
+          class="tag-chip {{utils.includes(formData.rigs, item) ? 'active' : ''}} {{isDarkMode ? 'dark' : ''}}"
+          wx:for="{{rigOptions}}"
+          wx:key="*this"
+          bindtap="onRigSelect"
+          data-value="{{item}}"
+        >{{item}}</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.rigs}}">{{errors.rigs}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">钓组/手法简述</text>
+      </view>
+      <textarea
+        class="form-textarea"
+        placeholder="简单说说今天主要怎么钓的：用了什么饵、怎么操、鱼在什么状态下开口。"
+        maxlength="200"
+        value="{{formData.rigDescription}}"
+        bindinput="onRigDescriptionInput"
+        auto-height
+      />
+    </view>
+
+    <view class="form-section-title">正文内容</view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">正文</text>
+      </view>
+      <textarea
+        class="form-textarea"
+        placeholder="请结合今天的真实过程简单写写：鱼情怎么变化、你一开始如何判断、后续有没有调整、今天最有效的标点/饵型/手法是什么、最大的问题是什么、下次准备怎么优化。"
+        maxlength="1000"
+        value="{{formData.content}}"
+        bindinput="onContentInput"
+        style="min-height: 200rpx;"
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">图片展示</text>
+      </view>
+      <view class="image-uploader">
+        <view class="image-list">
+          <view class="image-item" wx:for="{{formData.images}}" wx:key="*this">
+            <image src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-src="{{item}}"></image>
+            <view class="delete-btn" catchtap="onDeleteImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" bindtap="onChooseImage" wx:if="{{formData.images.length < 9}}">
+            <text class="plus">+</text>
+            <text class="text">上传图片</text>
+          </view>
+        </view>
+        <view class="helper-text">环境、钓组、鱼获照片能帮助钓友更好理解</view>
+      </view>
+    </view>
+  </view>
+
+  <root-portal>
+    <view class="bottom-buttons">
+      <button class="btn btn-primary" bindtap="onSubmit">发布</button>
+    </view>
+  </root-portal>
+</view>
+
+<wxs module="utils">
+module.exports.includes = function(arr, item) {
+  return arr && arr.indexOf(item) > -1;
+}
+</wxs>

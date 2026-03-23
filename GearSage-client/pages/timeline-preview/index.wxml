@@ -1,0 +1,84 @@
+<custom-navbar
+  id="custom-navbar"
+  title="朋友圈预览"
+  show-back="{{true}}"
+  background-color="#dce8f1"
+  text-color="#102033"></custom-navbar>
+
+<scroll-view
+  class="timeline-page {{containerClass}}"
+  style="padding-top: {{statusBarHeight + navBarHeight}}px; height: calc(100vh - {{statusBarHeight + navBarHeight}}px);"
+  scroll-y="{{true}}">
+  <view class="timeline-shell" wx:if="{{loading}}">
+    <view class="skeleton-card skeleton-hero"></view>
+    <view class="skeleton-card skeleton-line"></view>
+    <view class="skeleton-card skeleton-grid"></view>
+  </view>
+
+  <view class="empty-state" wx:elif="{{notFound}}">
+    <text class="empty-title">这条帖子暂时打不开</text>
+    <text class="empty-desc">轻量落地页没有拿到可用的帖子内容，可以返回列表重新打开试试。</text>
+    <button class="empty-btn" bindtap="onBackHome">回到首页</button>
+  </view>
+
+  <view class="timeline-shell" wx:else>
+    <view class="hero-card">
+      <image class="hero-cover" wx:if="{{gallery.length}}" src="{{gallery[0]}}" mode="aspectFill"></image>
+      <view class="hero-overlay"></view>
+      <view class="hero-body">
+        <text class="hero-badge">朋友圈轻量页</text>
+        <view class="hero-meta">
+          <text class="hero-category">{{productDetail.topicCategoryLabel || '帖子'}}</text>
+          <text class="hero-time" wx:if="{{productDetail.createTimeFormatted}}">{{productDetail.createTimeFormatted}}</text>
+        </view>
+        <text class="hero-title">{{productDetail.title}}</text>
+        <view class="author-row">
+          <image class="author-avatar" src="{{productDetail.userAvatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          <view class="author-copy">
+            <text class="author-name">{{productDetail.nickName || '钓友'}}</text>
+            <text class="author-stats">{{productDetail.likeCount || 0}}赞 · {{productDetail.commentCount || 0}}评</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="panel-card" wx:if="{{contentPreview}}">
+      <text class="panel-title">一眼看懂</text>
+      <text class="panel-text">{{contentPreview}}</text>
+    </view>
+
+    <view class="panel-card" wx:if="{{previewFacts.length}}">
+      <text class="panel-title">关键信息</text>
+      <view class="facts-grid">
+        <view class="fact-item" wx:for="{{previewFacts}}" wx:key="label">
+          <text class="fact-label">{{item.label}}</text>
+          <text class="fact-value">{{item.value}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="panel-card" wx:if="{{previewTags.length}}">
+      <text class="panel-title">快速标签</text>
+      <view class="tag-list">
+        <text class="tag-item" wx:for="{{previewTags}}" wx:key="index">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="panel-card" wx:if="{{gallery.length > 1}}">
+      <text class="panel-title">预览图</text>
+      <view class="gallery-grid">
+        <image class="gallery-image" wx:for="{{gallery}}" wx:key="index" src="{{item}}" mode="aspectFill"></image>
+      </view>
+    </view>
+
+    <view class="cta-card">
+      <text class="cta-title">想看完整内容？</text>
+      <text class="cta-desc">轻量页适合朋友圈种草，点进去可以继续看全文、评论和更多图片。</text>
+      <view class="cta-actions">
+        <button class="ghost-btn" open-type="share">转发给朋友</button>
+        <button class="primary-btn" bindtap="onOpenDetail">查看完整内容</button>
+      </view>
+      <text class="cta-tip">右上角菜单可直接分享到朋友圈</text>
+    </view>
+  </view>
+</scroll-view>

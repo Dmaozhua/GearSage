@@ -1,0 +1,34 @@
+
+function isArray(val) {
+  return val && val.constructor === 'Array';
+}
+
+function isSameValue(a, b) {
+  return ("" + a) === ("" + b);
+}
+
+function isSelected(filters, key, val) {
+  var selected = filters[key];
+  if (selected === undefined || selected === null) return false;
+  
+  // Handle array (multi-select)
+  if (isArray(selected)) {
+    for (var i = 0; i < selected.length; i++) {
+      if (isSameValue(selected[i], val)) return true;
+    }
+    return false;
+  }
+  
+  // Handle single value
+  return isSameValue(selected, val);
+}
+
+function isAllSelected(filters, key) {
+   var selected = filters[key];
+   return selected === undefined || selected === null || selected === '' || (isArray(selected) && selected.length === 0);
+}
+
+module.exports = {
+  isSelected: isSelected,
+  isAllSelected: isAllSelected
+};

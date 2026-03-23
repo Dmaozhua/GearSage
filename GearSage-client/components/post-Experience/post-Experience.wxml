@@ -1,0 +1,439 @@
+<!--components/post-Experience/post-Experience.wxml-->
+<wxs module="utils">
+  module.exports = {
+    includes: function(arr, item) {
+      if (!arr) return false;
+      return arr.indexOf(item) > -1;
+    }
+  }
+</wxs>
+<view class="post-experience-container {{isDarkMode ? 'dark' : ''}}">
+  <!-- 步骤器 -->
+  <view class="stepper-container">
+    <view class="stepper-item {{currentStep >= 1 ? 'active' : ''}} {{currentStep > 1 ? 'completed' : ''}} {{currentStep > 1 ? 'clickable' : ''}}" data-step="1" bindtap="onStepTap">
+      <view class="stepper-circle">
+        <text class="stepper-number" wx:if="{{currentStep <= 1}}">1</text>
+        <text class="stepper-check" wx:else>✓</text>
+      </view>
+      <text class="stepper-title">基本信息</text>
+    </view>
+    <view class="stepper-line {{currentStep > 1 ? 'active' : ''}}"></view>
+    <view class="stepper-item {{currentStep >= 2 ? 'active' : ''}} {{currentStep > 2 ? 'completed' : ''}} {{currentStep > 2 ? 'clickable' : ''}}" data-step="2" bindtap="onStepTap">
+      <view class="stepper-circle">
+        <text class="stepper-number" wx:if="{{currentStep <= 2}}">2</text>
+        <text class="stepper-check" wx:else>✓</text>
+      </view>
+      <text class="stepper-title">核心结论</text>
+    </view>
+    <view class="stepper-line {{currentStep > 2 ? 'active' : ''}}"></view>
+    <view class="stepper-item {{currentStep >= 3 ? 'active' : ''}} {{currentStep > 3 ? 'completed' : ''}} {{currentStep > 3 ? 'clickable' : ''}}" data-step="3" bindtap="onStepTap">
+      <view class="stepper-circle">
+        <text class="stepper-number" wx:if="{{currentStep <= 3}}">3</text>
+        <text class="stepper-check" wx:else>✓</text>
+      </view>
+      <text class="stepper-title">主体内容</text>
+    </view>
+    <view class="stepper-line {{currentStep > 3 ? 'active' : ''}}"></view>
+    <view class="stepper-item {{currentStep >= 4 ? 'active' : ''}}" data-step="4" bindtap="onStepTap">
+      <view class="stepper-circle">
+        <text class="stepper-number">4</text>
+      </view>
+      <text class="stepper-title">进阶信息</text>
+    </view>
+  </view>
+
+  <!-- 步骤1：基本信息 -->
+  <view class="step-content" wx:if="{{currentStep === 1}}">
+    <view class="step-title">基本信息</view>
+    
+    <!-- 装备分类 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">装备分类</text>
+        <text class="required">*</text>
+      </view>
+      <publish-checkbox 
+        bind:checkboxChange="ongearCategorySelect"
+        data-field="gearCategory"
+      ></publish-checkbox>
+      <view class="gear-model-block" wx:if="{{canSelectGearModel}}">
+        <view class="form-label gear-model-label">
+          <text class="label-text">具体型号</text>
+        </view>
+        <view class="gear-model-input-wrap">
+          <input
+            class="gear-model-input"
+            placeholder="输入或选择装备型号"
+            value="{{formData.gearModel}}"
+            bindinput="onGearModelInput"
+            bindfocus="onGearModelFocus"
+            bindblur="onGearModelBlur"
+            maxlength="60"
+          />
+          <view class="gear-model-dropdown" wx:if="{{showGearModelOptions}}">
+            <view class="gear-model-option" wx:for="{{gearModelOptions}}" wx:key="id" data-name="{{item.name}}" data-source-id="{{item.sourceId}}" bindtap="onGearModelSelect">{{item.name}}</view>
+            <view class="gear-model-empty" wx:if="{{gearModelOptions.length === 0}}">暂无匹配型号</view>
+          </view>
+        </view>
+      </view>
+      <view class="form-tip" wx:if="{{formData.gearCategory === 'other'}}">衣物、收纳、改装等</view>
+      <view class="error-text" wx:if="{{errors.gearCategory}}">{{errors.gearCategory}}</view>
+    </view>
+
+    <!-- 使用年限 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">使用年限</text>
+        <text class="required">*</text>
+      </view>
+      <publish-radiobutton 
+        items="{{usageYears}}"
+        selectedValue="{{formData.usageYear}}"
+        bind:change="onUsageYearSelect"
+      ></publish-radiobutton>
+      <view class="error-text" wx:if="{{errors.usageYear}}">{{errors.usageYear}}</view>
+    </view>
+
+    <!-- 使用频率 -->
+    <view class="form-item {{isDarkMode ? 'dark' : ''}}">
+      <view class="form-label {{isDarkMode ? 'dark' : ''}}">
+        <text class="label-text">使用频率</text>
+        <text class="required">*</text>
+      </view>
+      <view class="picker {{isDarkMode ? 'dark' : ''}}" data-type="usageFrequency" bindtap="onOpenSelectorDrawer">
+        <view class="picker-text {{isDarkMode ? 'dark' : ''}}">{{usageFrequencyText}}</view>
+        <text class="picker-arrow">⌃</text>
+      </view>
+      <view class="error-text" wx:if="{{errors.usageFrequency}}">{{errors.usageFrequency}}</view>
+    </view>
+
+    <!-- 验证图片 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">验证图片</text>
+        <text class="required">*</text>
+      </view>
+      <view class="verify-image-container">
+        <view class="verify-image-item" wx:if="{{formData.verifyImage}}">
+          <image class="verify-image" src="{{formData.verifyImage}}" mode="aspectFill" bindtap="onPreviewVerifyImage" />
+          <view class="verify-image-delete" bindtap="onDeleteVerifyImage">
+            <text class="delete-icon">×</text>
+          </view>
+        </view>
+        <view class="verify-image-add" wx:else bindtap="onChooseVerifyImage">
+          <text class="add-icon">+</text>
+          <text class="add-text">上传验证图片</text>
+        </view>
+      </view>
+      <view class="form-tip">非公开，仅用于审核可信度，请注意屏蔽图片中敏感信息</view>
+      <view class="error-text" wx:if="{{errors.verifyImage}}">{{errors.verifyImage}}</view>
+    </view>
+
+    <!-- 使用场景 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">使用场景</text>
+        <text class="required">*</text>
+        <text class="optional">(最少选择1个，最多选择5个)</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--checkbox {{item.checked ? 'checked' : ''}} {{item.disabled ? 'disabled' : ''}}" wx:for="{{environments}}" wx:key="value" data-value="{{item.value}}" bindtap="onEnvironmentToggle">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+      <!-- 自定义场景输入 -->
+      <view class="custom-scene-container" style="margin-top: 20rpx;">
+        <input 
+          class="custom-scene-input" 
+          placeholder="可自定义1个场景（选填，最多10个字）" 
+          maxlength="10" 
+          value="{{formData.customScene}}" 
+          bindinput="onCustomSceneInput" 
+        />
+      </view>
+      <view class="error-text" wx:if="{{errors.environments}}">{{errors.environments}}</view>
+    </view>
+
+    <!-- 预算倾向 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">预算倾向</text>
+        <text class="required">*</text>
+        <text class="optional">(必填, 最多1个)</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--radio {{utils.includes(formData.tags.budget, item.id) ? 'checked' : ''}}" wx:for="{{budgetOptions}}" wx:key="id" data-value="{{item.id}}" bindtap="onBudgetSelect">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+    </view>
+
+    <!-- 使用倾向 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">使用倾向</text>
+        <text class="required">*</text>
+        <text class="optional">(必填, 最多2个)</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--checkbox {{utils.includes(formData.tags.usage, item.id) ? 'checked' : ''}}" wx:for="{{usageOptions}}" wx:key="id" data-value="{{item.id}}" bindtap="onUsageSelect">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+    </view>
+    <view class="error-text" wx:if="{{errors.tags}}">{{errors.tags}}</view>
+  </view>
+
+  <!-- 步骤2：核心结论 -->
+  <post-evaluation 
+    wx:if="{{currentStep === 2}}"
+    equipment-type="{{formData.gearCategory}}"
+    isDarkMode="{{isDarkMode}}"
+    ratings="{{formData.ratings}}"
+    pros="{{formData.pros}}"
+    cons="{{formData.cons}}"
+    summary="{{formData.summary}}"
+    repurchase="{{formData.repurchase}}"
+    tags="{{formData.tags}}"
+    customFit="{{formData.customFit}}"
+    customUnfit="{{formData.customUnfit}}"
+    showSummary="{{true}}"
+    errors="{{errors}}"
+    bind:ratingchange="onRatingChange"
+    bind:summarychange="onSummaryChange"
+    bind:repurchasechange="onRepurchaseChange"
+    bind:proschange="onProsChange"
+    bind:conschange="onConsChange"
+    bind:tagschange="onTagsChange"
+    bind:customfitchange="onCustomFitChange"
+    bind:customunfitchange="onCustomUnfitChange"
+  />
+
+  <!-- 步骤3：主体内容 -->
+  <view class="step-content" wx:if="{{currentStep === 3}}">
+    <view class="step-title">主体内容</view>
+    <publish-wechatcontent 
+      formData="{{formData}}"
+      errors="{{errors}}"
+      maxImages="{{9}}"
+      minImages="{{3}}"
+      maxTitleLength="{{20}}"
+      maxContentLength="{{1000}}"
+      titlePlaceholder="请输入标题..."
+      contentPlaceholder="请结合真实使用经历来写：为什么买它、最常用在什么场景、最满意的地方、最大的缺点、哪些人适合用、哪些人可能会不习惯。越具体，越能帮助别人判断它是否适合自己。"
+      bind:titleinput="onTitleInput"
+      bind:maincontentinput="onMainContentInput"
+      bind:chooseimage="onChooseImage"
+      bind:previewimage="onPreviewImage"
+      bind:deleteimage="onDeleteImage"
+    />
+  </view>
+
+  <!-- 步骤4：进阶信息 -->
+  <view class="step-content" wx:if="{{currentStep === 4}}">
+    <view class="step-title">进阶信息 (选填)</view>
+    
+    <!-- 常用搭配 -->
+    <view class="form-section-title">常用搭配</view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">搭配装备</text>
+      </view>
+      <view class="gear-model-input-wrap">
+        <input
+          class="gear-model-input"
+          placeholder="输入关联装备名称"
+          value="{{comboSearchKeyword}}"
+          bindinput="onComboGearInput"
+          bindfocus="onComboGearFocus"
+          bindblur="onComboGearBlur"
+        />
+        <view class="gear-model-dropdown" wx:if="{{showComboSearchOptions}}">
+          <view class="gear-model-option" wx:for="{{comboSearchOptions}}" wx:key="id" data-name="{{item.name}}" bindtap="onComboGearSelect">{{item.name}}</view>
+          <view class="gear-model-empty" wx:if="{{comboSearchOptions.length === 0}}">暂无匹配装备</view>
+        </view>
+      </view>
+      <view class="selected-tags" wx:if="{{formData.comboGear.length > 0}}">
+        <view class="selected-tag" wx:for="{{formData.comboGear}}" wx:key="*this">
+          {{item}}
+          <text class="tag-remove" data-index="{{index}}" bindtap="onComboGearRemove">×</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="form-item" wx:if="{{fitContextOptions && fitContextOptions.length}}">
+      <view class="form-label">
+        <text class="label-text">适配场景</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--checkbox {{utils.includes(formData.tags.fitContextTags, item.id) ? 'checked' : ''}}" wx:for="{{fitContextOptions}}" wx:key="id" data-group="fitContextTags" data-value="{{item.id}}" data-max="3" bindtap="onTagSelect">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+    </view>
+    
+    <view class="form-item" wx:if="{{fitTechniqueOptions && fitTechniqueOptions.length}}">
+      <view class="form-label">
+        <text class="label-text">适配玩法</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--checkbox {{utils.includes(formData.tags.fitTechniqueTags, item.id) ? 'checked' : ''}}" wx:for="{{fitTechniqueOptions}}" wx:key="id" data-group="fitTechniqueTags" data-value="{{item.id}}" data-max="3" bindtap="onTagSelect">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">搭配说明</text>
+      </view>
+      <textarea 
+        class="form-textarea" 
+        placeholder="简要说明搭配理由..." 
+        maxlength="200" 
+        value="{{formData.comboDesc}}" 
+        bindinput="onComboDescInput"
+        auto-height
+      />
+      <view class="char-count">{{formData.comboDesc.length}}/200</view>
+    </view>
+    
+    <!-- 对比信息 -->
+    <view class="form-section-title" style="margin-top: 40rpx;">对比信息</view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">对比对象 (最多3个)</text>
+      </view>
+      <view class="gear-model-input-wrap">
+        <input
+          class="gear-model-input"
+          placeholder="输入对比装备名称"
+          value="{{compareSearchKeyword}}"
+          bindinput="onCompareGearInput"
+          bindfocus="onCompareGearFocus"
+          bindblur="onCompareGearBlur"
+        />
+        <view class="gear-model-dropdown" wx:if="{{showCompareSearchOptions}}">
+          <view class="gear-model-option" wx:for="{{compareSearchOptions}}" wx:key="id" data-name="{{item.name}}" bindtap="onCompareGearSelect">{{item.name}}</view>
+          <view class="gear-model-empty" wx:if="{{compareSearchOptions.length === 0}}">暂无匹配装备</view>
+        </view>
+      </view>
+      <view class="selected-tags" wx:if="{{formData.compareGear.length > 0}}">
+        <view class="selected-tag" wx:for="{{formData.compareGear}}" wx:key="*this">
+          {{item}}
+          <text class="tag-remove" data-index="{{index}}" bindtap="onCompareGearRemove">×</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="form-item" wx:if="{{compareProfileOptions && compareProfileOptions.length}}">
+      <view class="form-label">
+        <text class="label-text">对比定位</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--radio {{utils.includes(formData.tags.compareProfile, item.id) ? 'checked' : ''}}" wx:for="{{compareProfileOptions}}" wx:key="id" data-group="compareProfile" data-value="{{item.id}}" bindtap="onSingleTagSelect">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+    </view>
+
+    <view class="form-item" wx:if="{{compareBuyDecisionOptions && compareBuyDecisionOptions.length}}">
+      <view class="form-label">
+        <text class="label-text">对比购买结论</text>
+      </view>
+      <view class="env-control-group">
+        <label class="env-control env-control--radio {{utils.includes(formData.tags.compareBuyDecision, item.id) ? 'checked' : ''}}" wx:for="{{compareBuyDecisionOptions}}" wx:key="id" data-group="compareBuyDecision" data-value="{{item.id}}" bindtap="onSingleTagSelect">
+          <view class="env-control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">对比说明</text>
+      </view>
+      <textarea 
+        class="form-textarea" 
+        placeholder="简要说明对比差异..." 
+        maxlength="200" 
+        value="{{formData.compareDesc}}" 
+        bindinput="onCompareDescInput"
+        auto-height
+      />
+      <view class="char-count">{{formData.compareDesc.length}}/200</view>
+    </view>
+    
+    <block wx:if="{{purchaseAdviceOptions && purchaseAdviceOptions.length}}">
+      <!-- 入手建议 -->
+      <view class="form-section-title" style="margin-top: 40rpx;">入手建议</view>
+      <view class="form-item">
+        <view class="env-control-group">
+          <label class="env-control env-control--radio {{utils.includes(formData.tags.purchaseAdvice, item.id) ? 'checked' : ''}}" wx:for="{{purchaseAdviceOptions}}" wx:key="id" data-value="{{item.id}}" bindtap="onPurchaseAdviceSelect">
+            <view class="env-control__indicator"></view>
+            {{item.label}}
+          </label>
+        </view>
+      </view>
+    </block>
+    
+    <block wx:if="{{buyStageOptions && buyStageOptions.length}}">
+      <!-- 购买定位 -->
+      <view class="form-section-title" style="margin-top: 40rpx;">购买定位 (最多2个)</view>
+      <view class="form-item">
+        <view class="env-control-group">
+          <label class="env-control env-control--checkbox {{utils.includes(formData.tags.buyStage, item.id) ? 'checked' : ''}}" wx:for="{{buyStageOptions}}" wx:key="id" data-group="buyStage" data-value="{{item.id}}" data-max="2" bindtap="onTagSelect">
+            <view class="env-control__indicator"></view>
+            {{item.label}}
+          </label>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 参数补充 -->
+    <view class="form-section-title" style="margin-top: 40rpx;">参数补充</view>
+    <view class="form-item">
+      <view class="placeholder-box">
+        <text>预留位置</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <root-portal>
+    <view class="bottom-buttons">
+      <button class="btn btn-secondary" wx:if="{{currentStep > 1}}" bindtap="onPrevStep">上一步</button>
+      <button class="btn btn-primary" wx:if="{{currentStep < 4}}" bindtap="onNextStep">下一步</button>
+      <button class="btn btn-success" wx:if="{{currentStep === 4}}" bindtap="onSubmit">发布</button>
+    </view>
+  </root-portal>
+  <root-portal wx:if="{{selectorDrawerVisible}}">
+    <view class="drawer-mask" bindtap="onCloseSelectorDrawer"></view>
+    <view class="drawer-content {{isDarkMode ? 'dark' : ''}}">
+      <view class="drawer-header">
+        <text class="drawer-title">{{selectorDrawerTitle}}</text>
+        <view class="drawer-close" bindtap="onCloseSelectorDrawer">×</view>
+      </view>
+      <scroll-view scroll-y class="drawer-body">
+        <view class="selector-option-list">
+          <view
+            class="selector-option {{item.selected ? 'selected' : ''}}"
+            wx:for="{{selectorDrawerOptions}}"
+            wx:key="value"
+            data-value="{{item.value}}"
+            bindtap="onSelectorOptionSelect"
+          >
+            <text class="selector-option-label">{{item.label}}</text>
+            <text class="selector-option-check" wx:if="{{item.selected}}">✓</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </root-portal>
+</view>

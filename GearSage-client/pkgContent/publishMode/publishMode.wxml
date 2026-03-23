@@ -1,0 +1,76 @@
+<!--pages/publishMode/publishMode.wxml-->
+<custom-navbar
+  wx:if="{{showModeSelection}}"
+  id="custom-navbar"
+  title="选择发布模式"
+  show-back="{{true}}"
+  background-color="transparent"
+  text-color="#ffffff"
+  bind:back="handlePageExit">
+</custom-navbar>
+
+<view class="publish-mode-container {{showModeSelection ? 'mode-selection-active' : 'publish-content-active'}} {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{showModeSelection ? statusBarHeight + navBarHeight : 0}}px;">
+  <view class="mode-selection" wx:if="{{showModeSelection}}">
+    <view class="mode-title">
+      <text class="title-text">选择你的发布模式</text>
+      <text class="subtitle-text">左右滑动切换不同模式，点击进入</text>
+    </view>
+
+    <view class="mode-carousel">
+      <post-mode id="post-mode" initial-cards="{{postModes}}" background-images="{{backgroundImages}}" bind:cardselect="onCardSelect"></post-mode>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="publish-content" wx:if="{{!showModeSelection}}" scroll-into-view="{{publishScrollIntoView}}">
+    <view id="publish-form-top-anchor"></view>
+    <view class="selected-mode-header">
+      <view class="back-btn" bindtap="backToModeSelection">
+        <text class="back-icon">‹</text>
+        <text class="back-text">返回选择</text>
+      </view>
+      <view class="selected-mode-info">
+        <text class="selected-title">{{selectedMode.title}}</text>
+        <text class="selected-desc">{{selectedMode.content}}</text>
+      </view>
+    </view>
+
+    <view class="publish-form-container">
+      <post-experience
+        wx:if="{{selectedMode.title === '长测评'}}"
+        initialData="{{formData}}"
+        bind:datachange="onFormDataChange"
+        bind:scrolltotop="handleFormScrollToTop"
+        bind:submit="onSubmitExperience"
+      />
+
+      <post-recommend
+        wx:if="{{selectedMode.title === '好物速报'}}"
+        initialData="{{formData}}"
+        bind:datachange="onFormDataChange"
+        bind:scrolltotop="handleFormScrollToTop"
+        bind:submit="onSubmitRecommend"
+      />
+
+      <post-question
+        wx:if="{{selectedMode.title === '讨论&提问'}}"
+        initialData="{{formData}}"
+        bind:datachange="onFormDataChange"
+        bind:submit="onSubmitQuestion"
+      />
+
+      <post-catch
+        wx:if="{{selectedMode.title === '鱼获展示'}}"
+        initialData="{{formData}}"
+        bind:datachange="onFormDataChange"
+        bind:submit="onSubmitCatch"
+      />
+
+      <post-trip
+        wx:if="{{selectedMode.title === '钓行分享'}}"
+        initialData="{{formData}}"
+        bind:datachange="onFormDataChange"
+        bind:submit="onSubmitTrip"
+      />
+    </view>
+  </scroll-view>
+</view>

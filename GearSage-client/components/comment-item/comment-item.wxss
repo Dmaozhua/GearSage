@@ -1,0 +1,108 @@
+/* components/comment-item/comment-item.wxss */
+.comment-item {
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.username {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.comment-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.admin-actions {
+  margin-left: auto;
+}
+
+.delete-btn {
+  font-size: 24rpx;
+  color: #ff4757;
+  padding: 8rpx 16rpx;
+  border: 1rpx solid #ff4757;
+  border-radius: 8rpx;
+}
+
+.comment-content {
+  margin-bottom: 16rpx;
+  margin-left: 80rpx;
+}
+
+.reply-to {
+  margin-bottom: 8rpx;
+}
+
+.reply-text {
+  font-size: 24rpx;
+  color: #5352ed;
+}
+
+.comment-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.comment-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+  margin-left: 80rpx;
+}
+
+.comment-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+  margin-left: 80rpx;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.iconfont {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.icon-like-fill {
+  color: #ff4757;
+}
+
+.action-text {
+  font-size: 24rpx;
+  color: #666;
+}

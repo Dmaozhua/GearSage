@@ -1,0 +1,112 @@
+<view class="post-question-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="step-content">
+    <view class="form-item">
+      <view class="form-label">
+        <text>选择类型</text>
+        <text class="required">*</text>
+      </view>
+      <view class="control-group">
+        <label
+          class="control control--radio {{formData.questionType === item.id ? 'checked' : ''}}"
+          wx:for="{{typeOptions}}"
+          wx:key="id"
+          data-value="{{item.id}}"
+          bindtap="onQuestionTypeSelect"
+        >
+          <view class="control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+      <view class="error-text" wx:if="{{errors.questionType}}">{{errors.questionType}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text>关联装备</text>
+        <text class="optional">（选填）</text>
+      </view>
+      <view class="control-group">
+        <label
+          class="control control--radio {{formData.relatedGearCategory === item.id ? 'checked' : ''}}"
+          wx:for="{{gearCategoryOptions}}"
+          wx:key="id"
+          data-value="{{item.id}}"
+          bindtap="onRelatedGearCategorySelect"
+        >
+          <view class="control__indicator"></view>
+          {{item.label}}
+        </label>
+      </view>
+      <view class="gear-model-block" wx:if="{{canSelectGearModel}}">
+        <view class="gear-model-input-wrap">
+          <input
+            class="gear-model-input"
+            placeholder="搜索并关联装备"
+            value="{{formData.relatedGearModel}}"
+            bindinput="onGearModelInput"
+            bindfocus="onGearModelFocus"
+            bindblur="onGearModelBlur"
+            maxlength="60"
+          />
+          <view class="gear-model-dropdown" wx:if="{{showGearModelOptions}}">
+            <view class="gear-model-option" wx:for="{{gearModelOptions}}" wx:key="id" data-name="{{item.name}}" data-source-id="{{item.sourceId}}" bindtap="onGearModelSelect">{{item.name}}</view>
+            <view class="gear-model-empty" wx:if="{{gearModelOptions.length === 0}}">暂无匹配装备</view>
+          </view>
+        </view>
+      </view>
+      <view class="form-tip" wx:if="{{canSelectGearModel}}">先选装备分类，再输入关键词关联装备库中的型号</view>
+      <view class="form-tip" wx:if="{{formData.relatedGearCategory && !canSelectGearModel}}">当前装备库联想暂支持鱼竿、渔轮、鱼饵</view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">
+        <text>填写内容</text>
+        <text class="required">*</text>
+      </view>
+      <view class="wechat-content-container">
+        <publish-wechatcontent
+          formData="{{formData}}"
+          errors="{{errors}}"
+          maxImages="{{9}}"
+          minImages="{{0}}"
+          maxTitleLength="{{20}}"
+          maxContentLength="{{1000}}"
+          titlePlaceholder="请输入标题..."
+          contentPlaceholder="{{contentPlaceholder}}"
+          writingTips="{{writingTips}}"
+          bind:titleinput="onTitleInput"
+          bind:maincontentinput="onMainContentInput"
+          bind:previewimage="onPreviewImage"
+          bind:deleteimage="onDeleteImage"
+          bind:chooseimage="onChooseImage"
+        />
+      </view>
+      <view class="form-tip">图片非必填，最多可上传9张</view>
+      <view class="error-text" wx:if="{{errors.mainImages}}">{{errors.mainImages}}</view>
+    </view>
+
+    <view class="form-item">
+      <view class="switch-card">
+        <view class="switch-copy">
+          <view class="switch-title-row">
+            <text class="switch-title">快速回答</text>
+            <text class="optional">（选填）</text>
+          </view>
+          <view class="switch-status {{formData.quickReplyOnly ? 'active' : ''}}">
+            当前状态：{{formData.quickReplyOnly ? '已开启' : '未开启'}}
+          </view>
+          <view class="switch-desc">如果希望到其他钓友直接回复结论，如：选A或者选B，无需解释，请开关。关闭则无特殊需求。</view>
+        </view>
+        <view class="switch-container">
+          <switch checked="{{formData.quickReplyOnly}}" bindchange="onQuickReplyChange" color="#2c5aa0" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <root-portal>
+    <view class="bottom-buttons">
+      <button class="btn btn-primary" bindtap="onSubmit">发布</button>
+    </view>
+  </root-portal>
+</view>

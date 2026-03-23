@@ -1,0 +1,421 @@
+/* components/function-nav/function-nav.wxss */
+.function-nav-container {
+  width: 100%;
+  padding: 10rpx 0;
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  /* border-bottom: 1rpx solid rgba(220, 220, 230, 0.5); */
+  background-color: rgba(245, 245, 250, 0.7);
+  position: relative;
+}
+
+/* 标题样式 */
+.nav-title {
+  padding: 0 32rpx 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.title-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.2;
+}
+
+/* 横滑容器 */
+.function-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.function-list {
+  display: flex;
+  padding: 0 24rpx;
+  gap: 24rpx;
+  min-width: 100%;
+}
+
+/* 功能卡片 */
+.function-card {
+  position: relative;
+  width: 160rpx;
+  height: 180rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+}
+
+.function-card:active {
+  transform: scale(0.95);
+}
+
+.function-card.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 毛玻璃背景 */
+/* .card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(204, 201, 201, 0.068);
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  border-radius: 24rpx;
+  box-shadow: 
+    0 8rpx 32rpx rgba(0, 0, 0, 0.205),
+    0 2rpx 8rpx rgba(0, 0, 0, 0.185),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.4);
+} */
+/* 主卡片样式 */
+.card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  /* 增强对比度的背景色 */
+  background: rgba(200, 200, 210, 0.28); 
+  backdrop-filter: blur(40rpx);
+  -webkit-backdrop-filter: blur(40rpx);
+  /* 更明显的边框 */
+  border: 2rpx solid rgba(255, 255, 255, 0.7);
+  border-radius: 32rpx;
+  box-shadow: 
+    0 16rpx 56rpx rgba(0, 0, 0, 0.3),
+    0 6rpx 20rpx rgba(0, 0, 0, 0.25),
+    inset 0 2rpx 1px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  }
+  .card-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 32rpx;
+    /* 增强渐变对比度 */
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    pointer-events: none;
+  }
+
+/* 卡片内容 */
+.card-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 16rpx;
+  box-sizing: border-box;
+}
+
+/* 图标容器 */
+.icon-container {
+  position: relative;
+  margin-bottom: 16rpx;
+}
+
+.icon-wrapper {
+  width: 68rpx;
+  height: 68rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12rpx);
+  -webkit-backdrop-filter: blur(12rpx); */
+    /* 添加微妙边框 */
+    /* border: 0.5rpx solid rgba(255, 255, 255, 0.6); */
+    /* 增加内部阴影提升立体感 */
+  /* box-shadow: 
+  inset 0 1rpx 2rpx rgba(255, 255, 255, 0.7),
+  inset 0 -1rpx 1rpx rgba(0, 0, 0, 0.05); */
+}
+
+.function-icon {
+  width: 64rpx;
+  height: 64rpx;
+  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.1));
+}
+
+.default-icon {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #666;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8rpx;
+}
+
+/* 徽章样式 */
+.badge {
+  position: absolute;
+  top: -8rpx;
+  right: -40rpx;
+  min-width: 32rpx;
+  height: 40rpx;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2 8rpx;
+  box-sizing: border-box;
+  backdrop-filter: blur(10rpx);
+  -webkit-backdrop-filter: blur(10rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+.badge.default {
+  background: rgba(255, 59, 48, 0.9);
+}
+
+.badge.hot {
+  background: rgba(255, 149, 0, 0.9);
+}
+
+.badge.new {
+  background: rgba(52, 199, 89, 0.9);
+}
+
+.badge.vip {
+  background: rgba(175, 82, 222, 0.9);
+}
+
+.badge-text {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: white;
+  line-height: 1;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 功能名称 */
+.function-name {
+  margin-bottom: 4rpx;
+}
+
+.name-text {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.8);
+}
+
+/* 功能描述 */
+.function-desc {
+  opacity: 0.8;
+}
+
+.desc-text {
+  font-size: 20rpx;
+  color: #666;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.8);
+}
+
+/* 点击波纹效果 */
+.card-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24rpx;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.function-card:active .card-ripple {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 更多按钮 */
+.more-button {
+  position: relative;
+  width: 120rpx;
+  height: 60rpx;
+  margin: 24rpx auto 0;
+  border-radius: 30rpx;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.more-button:active {
+  transform: scale(0.95);
+}
+
+.more-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15rpx);
+  -webkit-backdrop-filter: blur(15rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  border-radius: 30rpx;
+}
+
+.more-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.more-text {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #666;
+}
+
+.more-arrow {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 300;
+}
+
+/* 悬停效果 */
+.function-card:hover .card-background {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 12rpx 40rpx rgba(0, 0, 0, 0.15),
+    0 4rpx 12rpx rgba(0, 0, 0, 0.1),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.5);
+}
+
+/* 深色模式适配 - 使用类选择器而不是媒体查询 */
+
+.function-nav-container.dark-mode{
+  background:
+    radial-gradient(circle at top left, rgba(109, 136, 164, 0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(74, 92, 115, 0.14), transparent 30%),
+    linear-gradient(180deg, #0d141d 0%, #111a25 44%, #0c1219 100%);
+  border-bottom-color: transparent;
+}
+.function-nav-container.dark-mode .title-text {
+  color: #ffffff;
+}
+
+.function-nav-container.dark-mode .card-background {
+  background: rgba(78, 78, 78, 0.3);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8rpx 32rpx rgba(0, 0, 0, 0.3),
+    0 2rpx 8rpx rgba(0, 0, 0, 0.2),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.1);
+}
+
+.function-nav-container.dark-mode .icon-wrapper {
+  background: rgba(241, 241, 241, 0);
+}
+
+.function-nav-container.dark-mode .name-text {
+  color: #ffffff;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.5);
+}
+
+.function-nav-container.dark-mode .desc-text {
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.5);
+}
+
+.function-nav-container.dark-mode .more-background {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.function-nav-container.dark-mode .more-text,
+.function-nav-container.dark-mode .more-arrow {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 750rpx) {
+  .function-card {
+    width: 140rpx;
+    height: 160rpx;
+  }
+  
+  .icon-wrapper {
+    width: 56rpx;
+    height: 56rpx;
+  }
+  
+  .function-icon {
+    width: 36rpx;
+    height: 36rpx;
+  }
+  
+  .name-text {
+    font-size: 22rpx;
+  }
+  
+  .desc-text {
+    font-size: 18rpx;
+  }
+}
+
+/* 动画效果 */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.function-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.function-card:nth-child(1) { animation-delay: 0.1s; }
+.function-card:nth-child(2) { animation-delay: 0.2s; }
+.function-card:nth-child(3) { animation-delay: 0.3s; }
+.function-card:nth-child(4) { animation-delay: 0.4s; }
+.function-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* 高分辨率屏幕优化 */
+@media screen and (min-resolution: 2dppx) {
+  .function-icon {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}

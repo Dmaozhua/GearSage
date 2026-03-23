@@ -1,0 +1,246 @@
+<custom-navbar
+  id="custom-navbar"
+  title="模式选择"
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<view class="tag-manager-page {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="page-content">
+    <view class="mode-section">
+      <view class="section-head">
+        <view>
+          <text class="section-title">标签选择模式</text>
+          <text class="section-desc">{{strategyDescription}}</text>
+        </view>
+      </view>
+
+      <view class="mode-card-list">
+        <view
+          class="mode-card {{postTagMode === item.key ? 'is-active' : ''}}"
+          wx:for="{{modeOptions}}"
+          wx:key="key"
+          bindtap="onModeChange"
+          data-mode="{{item.key}}"
+        >
+          <text class="mode-card-title">{{item.label}}</text>
+          <text class="mode-card-desc">{{item.description}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="preview-section">
+      <view class="section-head">
+        <view>
+          <text class="section-title">模式预览</text>
+          <text class="section-desc">下面展示 5 种帖子模式最终会显示什么标签</text>
+        </view>
+      </view>
+
+      <view class="tag-preview-grid">
+        <view class="tag-preview-card" wx:for="{{previewByPostType}}" wx:key="key">
+          <text class="tag-preview-label">{{item.label}}</text>
+          <user-tag wx:if="{{item.displayTag}}" displayTag="{{item.displayTag}}" size="xs"></user-tag>
+          <text class="tag-preview-empty" wx:else>[不展示]</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="custom-section" wx:if="{{postTagMode === 'custom'}}">
+      <view class="section-head">
+        <view>
+          <text class="section-title">自定义模式标签</text>
+          <text class="section-desc">先选一个帖子模式，再点“选固定标签”快速指定展示标签</text>
+        </view>
+      </view>
+
+      <view class="custom-topic-list">
+        <view
+          class="custom-topic-card {{fixedTagPickerTopicKey === item.key ? 'is-active' : ''}}"
+          wx:for="{{customTopicConfigs}}"
+          wx:key="key"
+        >
+          <view class="custom-topic-head">
+            <view>
+              <text class="custom-topic-title">{{item.label}}</text>
+              <text class="custom-topic-summary">{{item.summary}}</text>
+            </view>
+            <text class="custom-topic-value">{{item.valueLabel}}</text>
+          </view>
+
+          <view class="custom-topic-preview">
+            <user-tag wx:if="{{item.displayTag}}" displayTag="{{item.displayTag}}" size="sm"></user-tag>
+            <text class="custom-topic-empty" wx:else>不展示</text>
+          </view>
+
+          <view class="custom-topic-actions">
+            <view
+              class="custom-ref-pill {{item.value === '__main__' ? 'is-active' : ''}}"
+              bindtap="onCustomRuleChange"
+              data-topic-key="{{item.key}}"
+              data-ref="__main__"
+            >
+              主标签
+            </view>
+            <view
+              class="custom-ref-pill {{item.value === '__smart__' ? 'is-active' : ''}}"
+              bindtap="onCustomRuleChange"
+              data-topic-key="{{item.key}}"
+              data-ref="__smart__"
+            >
+              智能推荐
+            </view>
+            <view
+              class="custom-ref-pill {{item.value === '__hidden__' || item.value === null ? 'is-active' : ''}}"
+              bindtap="onCustomRuleChange"
+              data-topic-key="{{item.key}}"
+              data-ref="__hidden__"
+            >
+              不显示
+            </view>
+            <view
+              class="custom-ref-pill {{item.isFixedTag ? 'is-active' : ''}}"
+              bindtap="onOpenFixedTagPicker"
+              data-topic-key="{{item.key}}"
+            >
+              选固定标签
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="wardrobe-section">
+      <view class="section-head">
+        <view>
+          <text class="section-title">{{selectionTargetLabel}}</text>
+          <text class="section-desc">这里用来选择主页、资料页和默认兜底使用的主标签。</text>
+        </view>
+      </view>
+
+      <view
+        class="tag-empty-choice {{!mainTagId ? 'is-selected' : ''}}"
+        wx:if="{{selectionTarget === 'main'}}"
+        bindtap="onClearMainTag"
+      >
+        <view>
+          <text class="tag-empty-title">不佩戴主标签</text>
+          <text class="tag-empty-desc">将不会在任何位置展示你的标签。</text>
+        </view>
+        <view class="tag-empty-action {{!mainTagId ? 'is-selected' : ''}}">
+          <text class="tag-empty-action-text">{{!mainTagId ? '已开启' : '已关闭'}}</text>
+          <view class="tag-empty-switch">
+            <view class="tag-empty-switch-thumb"></view>
+          </view>
+        </view>
+      </view>
+
+      <scroll-view class="tag-filter-scroll" scroll-x="{{true}}" enable-flex="{{true}}">
+        <view class="tag-filter-list">
+          <view
+            class="tag-filter-pill {{activeTagGroup === item.key ? 'is-active' : ''}}"
+            wx:for="{{tagGroupTabs}}"
+            wx:key="key"
+            bindtap="onTagGroupChange"
+            data-group="{{item.key}}"
+          >
+            <text class="tag-filter-text">{{item.label}}</text>
+            <text class="tag-filter-count">{{item.count}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="wardrobe-group" wx:for="{{visibleTagGroups}}" wx:key="key">
+        <view class="wardrobe-group-head">
+          <view>
+            <text class="wardrobe-group-title">{{item.displayLabel}}</text>
+            <text class="wardrobe-group-desc">{{item.description}}</text>
+          </view>
+          <text class="wardrobe-group-count">{{item.count}} 枚</text>
+        </view>
+
+        <view class="wardrobe-card-list">
+          <view
+            class="wardrobe-card {{tag.isTargetSelected ? 'is-selected' : ''}}"
+            wx:for="{{item.tags}}"
+            wx:for-item="tag"
+            wx:key="resolvedId"
+            bindtap="onWardrobeSelect"
+            data-tag-id="{{tag.resolvedId}}"
+          >
+            <view class="wardrobe-card-top">
+              <user-tag displayTag="{{tag.displayTag}}" size="sm"></user-tag>
+              <text class="wardrobe-rarity">{{tag.rarityLabel}}</text>
+            </view>
+            <text class="wardrobe-card-title">{{tag.name}}</text>
+            <text class="wardrobe-card-meta">{{tag.displayLabel}}</text>
+            <text class="wardrobe-card-source">{{tag.sourceLabel}}</text>
+            <view class="wardrobe-card-action {{tag.isTargetSelected ? 'is-selected' : ''}}">
+              {{tag.isTargetSelected ? '当前选择' : '设为主标签'}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="no-tags" wx:if="{{availableTags.length > 0 && visibleTagGroups.length === 0}}">
+        <text class="no-tags-text">这个分组里还没有标签。</text>
+      </view>
+
+      <view class="no-tags" wx:if="{{availableTags.length === 0}}">
+        <text class="no-tags-text">当前还没有可用标签。</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="fixed-tag-picker-mask" wx:if="{{showFixedTagPicker}}" bindtap="onCloseFixedTagPicker">
+    <view class="fixed-tag-picker-panel" catchtap="noop">
+      <view class="fixed-tag-picker-head">
+        <view>
+          <text class="fixed-tag-picker-title">{{fixedTagPickerTopicTitle}}</text>
+          <text class="fixed-tag-picker-desc">点击任意已拥有标签即可选中，点击空白区域可关闭。</text>
+        </view>
+        <text class="fixed-tag-picker-close" bindtap="onCloseFixedTagPicker">关闭</text>
+      </view>
+
+      <scroll-view class="fixed-tag-picker-scroll" scroll-y="{{true}}">
+        <view class="fixed-tag-picker-grid">
+          <view
+            class="fixed-tag-picker-card {{fixedTagPickerSelectedId === tag.resolvedId ? 'is-selected' : ''}}"
+            wx:for="{{availableTags}}"
+            wx:for-item="tag"
+            wx:key="resolvedId"
+            bindtap="onSelectFixedTag"
+            data-tag-id="{{tag.resolvedId}}"
+          >
+            <user-tag displayTag="{{tag.displayTag}}" size="xs"></user-tag>
+            <text class="fixed-tag-picker-meta">{{tag.displayLabel}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view class="save-bar">
+    <button class="cancel-btn" bindtap="onCancel">取消</button>
+    <button class="save-btn" bindtap="onSave">保存</button>
+  </view>
+
+  <view class="loading-overlay" wx:if="{{isLoading}}">
+    <svg-loading
+      loading="{{isLoading}}"
+      text="{{loadingText}}"
+      size="large"
+      show-text="{{true}}"
+    />
+  </view>
+
+  <view class="loading-overlay" wx:if="{{showNetworkLoading}}">
+    <svg-loading
+      loading="{{showNetworkLoading}}"
+      text="{{networkLoadingText}}"
+      size="medium"
+      show-text="{{true}}"
+    />
+  </view>
+</view>

@@ -1,0 +1,29 @@
+<view class="publish-rating-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="rating-group" wx:for="{{currentDimensions}}" wx:key="key">
+    <view class="rating-label">{{item.label}}</view>
+    <view class="stars-wrapper" 
+            id="{{item.key}}"
+            data-type="{{item.key}}" 
+            bind:touchstart="handleTouchStart" 
+            bind:touchmove="handleTouchMove" 
+            bind:touchend="handleTouchEnd">
+      <!-- 背景星星（灰色） -->
+      <view class="star-background">
+        <block wx:for="{{5}}" wx:key="index">
+          <view class="star-bg">☆</view>
+        </block>
+      </view>
+      <!-- 前景星星（金色），通过overflow控制显示宽度 -->
+      <!-- 10分制下，宽度计算为 (score / 10 * 100)% -->
+      <view class="star-foreground" style="width: {{localRatings[item.key] ? (localRatings[item.key] * 10) + '%' : '0%'}};">
+        <view class="star-foreground-inner">
+          <block wx:for="{{5}}" wx:key="index">
+            <view class="star-fg">★</view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="rating-value">{{localRatings[item.key] || '0'}}</view>
+  </view>
+  <view class="error-text" wx:if="{{errors}}">{{errors}}</view>
+</view>

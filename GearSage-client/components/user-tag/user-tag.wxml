@@ -1,0 +1,37 @@
+<!--components/user-tag/user-tag.wxml-->
+<view class="{{computedClass}}" wx:if="{{viewTag}}">
+  <view class="tag-shell"></view>
+
+  <!-- Decorative Elements for High Rarity -->
+  <view class="deco-screw top-left" wx:if="{{viewTag.rarity >= 3}}"></view>
+  <view class="deco-screw top-right" wx:if="{{viewTag.rarity >= 3}}"></view>
+  <view class="deco-shine" wx:if="{{viewTag.rarity >= 4}}"></view>
+
+  <!-- Icon Section -->
+  <view class="tag-icon" wx:if="{{viewTag.iconCssKey || viewTag.iconImage}}">
+    <view class="tag-icon-mark icon-{{viewTag.iconCssKey}}">
+      <view class="mark-core"></view>
+      <view class="mark-tail"></view>
+      <view class="mark-extra"></view>
+    </view>
+    <image
+      class="tag-icon-image"
+      src="{{iconRenderSrc || viewTag.iconImage}}"
+      mode="aspectFit"
+      wx:if="{{viewTag.iconImage}}"
+    />
+  </view>
+
+  <!-- Content Section -->
+  <view class="tag-content" wx:if="{{!isCompactMode}}">
+    <text class="tag-name">{{displayName}}</text>
+    <text class="tag-meta" wx:if="{{isExtendedMode && viewTag.meta}}">{{viewTag.meta}}</text>
+  </view>
+
+  <!-- Rarity Marker (Bottom Right corner or side) -->
+  <view class="rarity-marker" wx:if="{{viewTag.rarity >= 2}}">
+    <view class="bar"></view>
+    <view class="bar"></view>
+    <view class="bar" wx:if="{{viewTag.rarity >= 4}}"></view>
+  </view>
+</view>

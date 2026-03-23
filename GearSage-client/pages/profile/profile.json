@@ -1,0 +1,12 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColor": "#f5f5f5",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "post-card": "/components/post-card/post-card",
+    "svg-loading": "/components/svg-loading/svg-loading",
+    "theme-toggle": "/components/theme-toggle/theme-toggle",
+    "user-tag": "/components/user-tag/user-tag"
+  }
+}

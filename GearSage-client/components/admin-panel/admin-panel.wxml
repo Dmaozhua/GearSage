@@ -1,0 +1,45 @@
+<!--components/admin-panel/admin-panel.wxml-->
+<view class="admin-panel-mask" wx:if="{{visible}}" bindtap="onClose">
+  <view class="admin-panel" catchtap="onPanelTap">
+    <view class="panel-header">
+      <text class="panel-title">管理员操作</text>
+      <text class="close-btn" bindtap="onClose">×</text>
+    </view>
+    
+    <view class="panel-content">
+      <!-- 帖子信息 -->
+      <view class="post-info">
+        <text class="post-title">{{post.equipmentName}}</text>
+        <text class="post-author">作者：{{post.username}}</text>
+        <text class="post-status">状态：{{post.status === 'pending' ? '待审核' : post.status === 'approved' ? '已通过' : '已拒绝'}}</text>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-buttons">
+        <!-- 审核操作 -->
+        <view class="button-group" wx:if="{{post.status === 'pending'}}">
+          <button class="action-btn approve-btn" bindtap="onApprove">
+            <text class="iconfont icon-check"></text>
+            <text>审核通过</text>
+          </button>
+          <button class="action-btn reject-btn" bindtap="onReject">
+            <text class="iconfont icon-close"></text>
+            <text>审核拒绝</text>
+          </button>
+        </view>
+
+        <!-- 管理操作 -->
+        <view class="button-group">
+          <button class="action-btn pin-btn" bindtap="onPin">
+            <text class="iconfont {{post.isPinned ? 'icon-unpin' : 'icon-pin'}}"></text>
+            <text>{{post.isPinned ? '取消置顶' : '置顶'}}</text>
+          </button>
+          <button class="action-btn delete-btn" bindtap="onDelete">
+            <text class="iconfont icon-delete"></text>
+            <text>删除帖子</text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

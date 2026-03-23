@@ -1,0 +1,347 @@
+<!--pages/publish/publish.wxml-->
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="发布装备体验" 
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000"
+  bind:back="handlePageExit">
+</custom-navbar>
+
+<view class="publish-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <!-- 页面副标题 -->
+  <!-- <view class="publish-subtitle">
+    <text class="subtitle-text">分享你的钓鱼装备使用心得，</text>
+  </view> -->
+
+  <!-- 表单内容 -->
+  <form class="publish-form">
+
+
+    <!-- 标题和主要内容 - 微信朋友圈风格 -->
+    <view class="wechat-content-section">
+      <!-- 标题输入 -->
+      <view class="title-input-container">
+        <input 
+          class="wechat-title-input {{errors.title ? 'error' : ''}}"
+          placeholder="这一刻的想法..."
+          value="{{formData.title}}"
+          bindinput="onTitleInput"
+          maxlength="50"
+        />
+        <view class="error-text" wx:if="{{errors.title}}">{{errors.title}}</view>
+      </view>
+      
+      <!-- 主要内容输入 -->
+      <view class="content-input-container">
+        <textarea 
+          class="wechat-content-textarea {{errors.mainContent ? 'error' : ''}}"
+          placeholder="分享你的钓鱼装备使用心得..."
+          value="{{formData.mainContent}}"
+          bindinput="onMainContentInput"
+          bindfocus="onMainContentFocus"
+          bindblur="onMainContentBlur"
+          maxlength="200"
+          show-confirm-bar="{{false}}"
+          auto-height
+        />
+        <view class="char-count">{{formData.mainContent.length}}/200</view>
+        <view class="error-text" wx:if="{{errors.mainContent}}">{{errors.mainContent}}</view>
+      </view>
+      
+      <!-- 装备图片 - 微信朋友圈风格 -->
+      <view class="wechat-image-container">
+        <view class="wechat-image-list">
+          <view 
+            class="wechat-image-item"
+            wx:for="{{formData.mainImages}}"
+            wx:key="index"
+            data-index="{{index}}"
+            bindtap="onPreviewImage"
+          >
+            <image class="wechat-image" src="{{item}}" mode="aspectFill" />
+            <view 
+              class="wechat-image-delete"
+              data-index="{{index}}"
+              catchtap="onDeleteImage"
+            >
+              <text class="delete-icon">×</text>
+            </view>
+          </view>
+          
+          <!-- 添加图片按钮 -->
+          <view 
+            class="wechat-image-add"
+            wx:if="{{formData.mainImages.length < maxImages}}"
+            bindtap="onChooseImage"
+          >
+            <text class="wechat-add-icon">+</text>
+          </view>
+        </view>
+        <view class="error-text" wx:if="{{errors.mainImages}}">{{errors.mainImages}}</view>
+      </view>
+    </view>
+
+
+    <!-- 装备类型 -->
+<view class="form-item">
+  <view class="form-label">
+    <text class="label-text">装备类别</text>
+    <text class="required">*</text>
+  </view>
+      <picker 
+        class="form-picker {{errors.type ? 'error' : ''}}"
+        range="{{typeOptions}}"
+        value="{{typeIndex}}"
+        bindchange="onTypeChange"
+      >
+        <view class="picker-text {{typeIndex >= 0 ? '' : 'placeholder'}}">
+          {{typeIndex >= 0 ? typeOptions[typeIndex] : '请选择装备类型'}}
+        </view>
+      </picker>
+      <view class="error-text" wx:if="{{errors.type}}">{{errors.type}}</view>
+    </view>
+    <!-- 购买凭证 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">购买凭证</text>
+        <text class="optional">(可选)</text>
+      </view>
+      <view class="receipt-upload-container">
+        <view class="receipt-images" wx:if="{{formData.receiptImages && formData.receiptImages.length > 0}}">
+          <view class="receipt-image-item" wx:for="{{formData.receiptImages}}" wx:key="index">
+            <image 
+              class="receipt-image" 
+              src="{{item}}" 
+              mode="aspectFill"
+              bindtap="onPreviewReceiptImage"
+              data-index="{{index}}"
+            ></image>
+            <view class="delete-receipt-btn" bindtap="onDeleteReceiptImage" data-index="{{index}}">
+              <text class="delete-icon">×</text>
+            </view>
+          </view>
+        </view>
+        <view class="add-receipt-btn" bindtap="onChooseReceiptImage" wx:if="{{!formData.receiptImages || formData.receiptImages.length === 0}}">
+          <text class="add-icon">📷</text>
+          <text class="add-text">添加购买凭证</text>
+        </view>
+        <view class="receipt-tip">支持上传购买小票、发票等凭证图片</view>
+      </view>
+      <view class="error-text" wx:if="{{errors.receiptImages}}">{{errors.receiptImages}}</view>
+    </view>
+
+        <!-- 使用年限 -->
+        <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">使用年限</text>
+        <text class="required">*</text>
+      </view>
+      <picker 
+        class="form-picker {{errors.usageYears ? 'error' : ''}}"
+        range="{{usageYearsOptions}}"
+        value="{{usageYearsIndex}}"
+        bindchange="onUsageYearsChange"
+      >
+        <view class="picker-text {{usageYearsIndex >= 0 ? '' : 'placeholder'}}">
+          {{usageYearsIndex >= 0 ? usageYearsOptions[usageYearsIndex] : '请选择使用年限'}}
+        </view>
+      </picker>
+      <view class="error-text" wx:if="{{errors.usageYears}}">{{errors.usageYears}}</view>
+    </view>
+
+    <!-- 使用频次 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">使用频次</text>
+        <text class="required">*</text>
+      </view>
+      <view class="frequency-container">
+        <picker 
+          class="form-picker frequency-picker {{errors.frequency ? 'error' : ''}}"
+          range="{{frequencyOptions1}}"
+          value="{{frequencyIndex1}}"
+          bindchange="onFrequency1Change"
+        >
+          <view class="picker-text {{frequencyIndex1 >= 0 ? '' : 'placeholder'}}">
+            {{frequencyIndex1 >= 0 ? frequencyOptions1[frequencyIndex1] : '请选择'}}
+          </view>
+        </picker>
+        <picker 
+          class="form-picker frequency-picker {{errors.frequency ? 'error' : ''}}"
+          range="{{frequencyOptions2}}"
+          value="{{frequencyIndex2}}"
+          bindchange="onFrequency2Change"
+        >
+          <view class="picker-text {{frequencyIndex2 >= 0 ? '' : 'placeholder'}}">
+            {{frequencyIndex2 >= 0 ? frequencyOptions2[frequencyIndex2] + '小时' : '请选择'}}
+          </view>
+        </picker>
+      </view>
+      <view class="frequency-result" wx:if="{{formData.frequency}}">
+        当前选择：{{formData.frequency}}
+      </view>
+      <view class="error-text" wx:if="{{errors.frequency}}">{{errors.frequency}}</view>
+    </view>
+
+
+    <!-- 使用环境 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">使用环境</text>
+        <text class="required">*</text>
+      </view>
+      <textarea 
+        class="environment-input {{errors.environment ? 'error' : ''}}"
+        placeholder="填写作钓环境以及常见目标鱼"
+        value="{{formData.environment}}"
+        bindinput="onEnvironmentInput"
+        maxlength="200"
+        auto-height
+      />
+      <view class="error-text" wx:if="{{errors.environment}}">{{errors.environment}}</view>
+    </view>
+
+
+    <!-- 推荐理由 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">推荐理由</text>
+        <text class="required">*</text>
+      </view>
+      <view class="recommend-list">
+        <view class="recommend-item" wx:for="{{formData.recommend}}" wx:key="index">
+          <input 
+            class="recommend-input {{errors.recommend ? 'error' : ''}}"
+            placeholder="请输入推荐理由"
+            value="{{item}}"
+            data-index="{{index}}"
+            bindinput="onRecommendInput"
+            maxlength="100"
+          />
+          <view class="recommend-actions">
+            <!-- 只在最后一项且未达到上限时显示添加按钮 -->
+            <view class="add-btn" wx:if="{{index === formData.recommend.length - 1 && formData.recommend.length < 5}}" bindtap="onAddRecommend">
+              +
+            </view>
+            <!-- 只有一条时不显示删除按钮，多条时在非最后一项显示删除按钮 -->
+            <view class="delete-btn" wx:if="{{formData.recommend.length > 1 && index !== formData.recommend.length - 1}}" data-index="{{index}}" bindtap="onDeleteRecommend">
+              ×
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.recommend}}">{{errors.recommend}}</view>
+    </view>
+
+
+
+    <!-- 抛投评分 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">抛投评分</text>
+        <text class="required">*</text>
+        
+      </view>
+  
+      <view class="star-rating {{errors.castingScore ? 'error' : ''}}">
+        <!-- <text class="score-display">{{formData.castingScore}}分</text> -->
+        <view class="stars-container" data-type="castingScore" bindtouchstart="onStarTouchStart" bindtouchmove="onStarTouchMove" bindtouchend="onStarTouchEnd">
+          <view class="star" wx:for="{{5}}" wx:key="index" data-index="{{index}}">
+            <text class="star-icon {{formData.castingScore > index ? 'filled' : ''}} {{formData.castingScore >= (index + 1) ? 'full' : (formData.castingScore > index ? 'half' : '')}}" data-score="{{index + 1}}">★</text>
+          </view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.castingScore}}">{{errors.castingScore}}</view>
+    </view>
+
+    <!-- 耐用性评分 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">耐用性评分</text>
+        <text class="required">*</text>
+        <!-- <text class="score-display">{{formData.durabilityScore}}分</text> -->
+      </view>
+      <view class="star-rating {{errors.durabilityScore ? 'error' : ''}}">
+        <view class="stars-container" data-type="durabilityScore" bindtouchstart="onStarTouchStart" bindtouchmove="onStarTouchMove" bindtouchend="onStarTouchEnd">
+          <view class="star" wx:for="{{5}}" wx:key="index" data-index="{{index}}">
+            <text class="star-icon {{formData.durabilityScore > index ? 'filled' : ''}} {{formData.durabilityScore >= (index + 1) ? 'full' : (formData.durabilityScore > index ? 'half' : '')}}" data-score="{{index + 1}}">★</text>
+          </view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.durabilityScore}}">{{errors.durabilityScore}}</view>
+    </view>
+
+    <!-- 性价比评分 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="label-text">性价比评分</text>
+        <text class="required">*</text>
+        <!-- <text class="score-display">{{formData.costScore}}分</text> -->
+      </view>
+      <view class="star-rating {{errors.costScore ? 'error' : ''}}">
+        <view class="stars-container" data-type="costScore" bindtouchstart="onStarTouchStart" bindtouchmove="onStarTouchMove" bindtouchend="onStarTouchEnd">
+          <view class="star" wx:for="{{5}}" wx:key="index" data-index="{{index}}">
+            <text class="star-icon {{formData.costScore > index ? 'filled' : ''}} {{formData.costScore >= (index + 1) ? 'full' : (formData.costScore > index ? 'half' : '')}}" data-score="{{index + 1}}">★</text>
+          </view>
+        </view>
+      </view>
+      <view class="error-text" wx:if="{{errors.costScore}}">{{errors.costScore}}</view>
+    </view>
+  </form>
+
+
+
+  <!-- 底部提示 -->
+  <view class="publish-tips">
+    <view class="tips-header" bindtap="onToggleTips">
+      <text class="tips-title">发布小贴士</text>
+      <text class="tips-arrow {{tipsExpanded ? 'expanded' : ''}}">▼</text>
+    </view>
+    <view class="tips-content {{tipsExpanded ? 'expanded' : 'collapsed'}}">
+      <view class="tip-item">
+        <text class="tip-icon">💡</text>
+        <text class="tip-text">{{isEditMode ? '更新后将重新进入审核流程' : '发布后需要管理员审核，请耐心等待'}}</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">📝</text>
+        <text class="tip-text">详细的使用描述有助于其他钓友参考</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">📷</text>
+        <text class="tip-text">清晰的装备图片能获得更多关注</text>
+      </view>
+    </view>
+  </view>
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <!-- 保存草稿按钮 -->
+    <button 
+      class="btn btn-draft" 
+      bindtap="onSaveDraft"
+      disabled="{{submitting || savingDraft}}"
+      loading="{{savingDraft}}"
+    >
+      <image class="draft-icon" src="/images/icons/time.png" mode="aspectFit"></image>
+      <text class="btn-text">{{savingDraft ? '保存中...' : '保存草稿'}}</text>
+    </button>
+    
+    <!-- 发布按钮居中 -->
+    <button 
+      class="btn btn-primary submit-btn"
+      bindtap="onSubmit"
+      disabled="{{submitting || savingDraft}}"
+      loading="{{submitting}}"
+    >
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">{{submitting ? (isEditMode ? '更新中...' : '发布中...') : (isEditMode ? '更新' : '发布')}}</text>
+    </button>
+    
+    <!-- 重置按钮右下角 -->
+    <button class="btn btn-reset" bindtap="onReset">
+      <image class="reset-icon" src="/images/icons/reset.png" mode="aspectFit"></image>
+    </button>
+
+  </view>
+</view>

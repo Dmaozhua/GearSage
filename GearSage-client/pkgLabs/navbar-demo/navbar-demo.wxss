@@ -1,0 +1,373 @@
+/* pages/navbar-demo/navbar-demo.wxss */
+.demo-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40rpx 30rpx;
+}
+
+/* 区域标题样式 */
+.section-title {
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.title-text {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12rpx;
+}
+
+.subtitle-text {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+/* 配置选择区域 */
+.config-section {
+  margin-bottom: 60rpx;
+}
+
+.config-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.config-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.config-item:active {
+  transform: translateY(-4rpx);
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.15);
+}
+
+.config-preview {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.config-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.config-item:active .config-preview::before {
+  transform: translateX(100%);
+}
+
+.preview-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  z-index: 1;
+  position: relative;
+}
+
+.config-info {
+  padding: 24rpx 30rpx;
+}
+
+.config-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.config-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 功能测试区域 */
+.test-section {
+  margin-bottom: 60rpx;
+}
+
+.test-buttons {
+  display: flex;
+  gap: 20rpx;
+  justify-content: center;
+}
+
+.test-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200rpx;
+  height: 160rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.test-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+}
+
+.btn-icon {
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.btn-text {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 特性说明区域 */
+.features-section {
+  margin-bottom: 40rpx;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 40rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.feature-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 演示弹窗 */
+.demo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.demo-content {
+  width: 90%;
+  max-width: 600rpx;
+  height: 80vh;
+  background: #f5f5f5;
+  border-radius: 20rpx;
+  overflow: hidden;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100rpx);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.demo-body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.demo-info {
+  padding: 60rpx 40rpx;
+  text-align: center;
+}
+
+.demo-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.demo-subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 40rpx;
+}
+
+.demo-actions {
+  margin-bottom: 60rpx;
+}
+
+.action-tip {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.action-list {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30rpx;
+  border-radius: 16rpx;
+  margin: 0 20rpx;
+}
+
+.action-item {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 2;
+}
+
+.close-btn {
+  width: 200rpx;
+  height: 80rpx;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: #ffffff;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.close-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.4);
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 320px) {
+  .demo-container {
+    padding: 30rpx 20rpx;
+  }
+  
+  .test-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .test-btn {
+    width: 100%;
+    max-width: 300rpx;
+  }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .demo-container {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  }
+  
+  .config-item,
+  .test-btn,
+  .feature-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10rpx);
+  }
+  
+  .config-name,
+  .feature-title,
+  .btn-text {
+    color: #ffffff;
+  }
+  
+  .config-desc,
+  .feature-desc {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .demo-content {
+    background: #2c3e50;
+  }
+  
+  .demo-title {
+    color: #ffffff;
+  }
+  
+  .demo-subtitle,
+  .action-tip,
+  .action-item {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .action-list {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "custom-navbar": "/components/custom-navbar/custom-navbar",
+    "search-filter": "/pkgGear/components/search-filter/search-filter"
+  },
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom"
+}

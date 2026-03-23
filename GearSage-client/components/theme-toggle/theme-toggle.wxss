@@ -1,0 +1,240 @@
+/* components/theme-toggle/theme-toggle.wxss */
+
+.theme-toggle-container {
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle-container:active {
+  transform: scale(0.95);
+}
+
+.svg-wrapper {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.svg-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* 背景圆形 */
+.background-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: background-color 0.5s ease;
+}
+
+/* 地面层 */
+.ground-layers {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+}
+
+.ground-layer {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
+
+.layer-1 {
+  bottom: 0;
+  height: 8rpx;
+  border-radius: 0 0 50% 50%;
+}
+
+.layer-2 {
+  bottom: 8rpx;
+  height: 6rpx;
+  left: 10%;
+  width: 80%;
+  border-radius: 20rpx;
+}
+
+.layer-3 {
+  bottom: 16rpx;
+  height: 8rpx;
+  left: 5%;
+  width: 90%;
+  border-radius: 20rpx;
+}
+
+.layer-4 {
+  bottom: 26rpx;
+  height: 6rpx;
+  left: 15%;
+  width: 70%;
+  border-radius: 20rpx;
+}
+
+/* 天体 */
+.celestial-body {
+  position: absolute;
+  border-radius: 50%;
+  transition: opacity 0.5s ease, background-color 0.5s ease;
+}
+
+.sun {
+  top: 25%;
+  right: 20%;
+  width: 16rpx;
+  height: 16rpx;
+}
+
+.moon {
+  top: 30%;
+  right: 15%;
+  width: 12rpx;
+  height: 12rpx;
+}
+
+/* 星星容器 */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  font-size: 12rpx;
+  transition: color 0.5s ease;
+  opacity: 0;
+  transform: scale(0) rotate(0deg);
+}
+
+.star-1 {
+  top: 15%;
+  left: 20%;
+}
+
+.star-2 {
+  top: 25%;
+  left: 70%;
+}
+
+.star-3 {
+  top: 40%;
+  left: 15%;
+}
+
+.star-4 {
+  top: 20%;
+  left: 45%;
+}
+
+.star-5 {
+  top: 35%;
+  right: 10%;
+}
+
+/* 星星动画 */
+.star-animate {
+  animation: starAppear 0.5s ease-out forwards;
+}
+
+.star-1.star-animate {
+  animation-delay: 0.7s;
+}
+
+.star-2.star-animate {
+  animation-delay: 0.8s;
+}
+
+.star-3.star-animate {
+  animation-delay: 0.9s;
+}
+
+.star-4.star-animate {
+  animation-delay: 1.0s;
+}
+
+.star-5.star-animate {
+  animation-delay: 1.1s;
+}
+
+@keyframes starAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+/* 飞行器 */
+.landspeeder {
+  position: absolute;
+  bottom: 15%;
+  left: 30%;
+  width: 20rpx;
+  height: 4rpx;
+  border-radius: 2rpx;
+  transition: background-color 0.5s ease;
+  animation: float 1.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2rpx);
+  }
+}
+
+/* 悬停效果 */
+.theme-toggle-container:hover {
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 夜间模式特殊效果 */
+.theme-toggle-container[data-dark="true"] .star {
+  opacity: 1;
+}
+
+.theme-toggle-container[data-dark="true"] .sun {
+  opacity: 0.3;
+}
+
+.theme-toggle-container[data-dark="true"] .moon {
+  opacity: 1;
+}
+
+/* 白天模式星星隐藏 */
+.theme-toggle-container[data-dark="false"] .star {
+  opacity: 0;
+}
+
+.theme-toggle-container[data-dark="false"] .sun {
+  opacity: 1;
+}
+
+.theme-toggle-container[data-dark="false"] .moon {
+  opacity: 0.3;
+}

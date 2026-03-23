@@ -1,0 +1,30 @@
+<!-- publish-recommend 组件 -->
+<view class="recommend-list">
+  <view class="recommend-item" wx:for="{{recommendList}}" wx:key="index">
+    <input 
+      class="recommend-input" 
+      placeholder="请输入推荐理由" 
+      value="{{item}}" 
+      data-index="{{index}}"
+      bindinput="onRecommendInput"
+      maxlength="50"
+    />
+    <view class="recommend-actions">
+      <view 
+        class="action-btn add-btn" 
+        wx:if="{{index === recommendList.length - 1}}"
+        bindtap="addRecommend"
+      >
+        +
+      </view>
+      <view 
+        class="action-btn remove-btn" 
+        wx:if="{{recommendList.length > 1}}"
+        data-index="{{index}}"
+        bindtap="removeRecommend"
+      >
+        -
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "搜索",
+  "usingComponents": {
+    "custom-navbar": "/components/custom-navbar/custom-navbar"
+  },
+  "navigationBarBackgroundColor": "#BDC3C7",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f5f5f5"
+}

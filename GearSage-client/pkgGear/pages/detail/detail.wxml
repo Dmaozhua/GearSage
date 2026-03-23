@@ -1,0 +1,160 @@
+<!--pkgGear/pages/detail/detail.wxml-->
+<custom-navbar title="{{title}}" show-back="{{true}}"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <view class="return-to-post-float" wx:if="{{showBackToPost}}" bindtap="onBackToSourcePost">
+    <text class="return-to-post-float__label">返回原帖</text>
+  </view>
+  
+  <block wx:if="{{!isLoading}}">
+    <view class="detail-header">
+      <image 
+        class="detail-image" 
+        src="{{item.mainImage || '/images/empty.png'}}" 
+        mode="aspectFit"
+      ></image>
+      <view class="detail-info">
+        <text class="detail-brand">{{item.brand_name}}</text>
+        <text class="detail-name">{{item.detailName}}</text>
+        <text class="detail-desc" wx:if="{{item.description}}">{{item.description}}</text>
+      </view>
+    </view>
+
+    <view class="detail-table-container">
+      <view class="table-header">
+        <text>规格详情</text>
+      </view>
+      <scroll-view 
+        scroll-x 
+        class="outer-scroll-x" 
+        enhanced="{{true}}" 
+        show-scrollbar="{{false}}"
+      >
+        <view class="inner-container" style="min-width: 100%; display: inline-block;">
+          <scroll-view 
+            scroll-y 
+            class="inner-scroll-y" 
+            enhanced="{{true}}" 
+            show-scrollbar="{{true}}"
+          >
+            <view class="table">
+              <view class="tr th">
+                <block wx:for="{{columns}}" wx:for-item="col" wx:key="key">
+                  <view class="td">{{col.label}}</view>
+                </block>
+              </view>
+              <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="id" wx:for-index="idx">
+                <view class="tr" wx:if="{{idx < 4 || isExpanded}}">
+                  <block wx:for="{{columns}}" wx:for-item="col" wx:key="key">
+                    <view class="td">{{variant[col.key] || '-'}}</view>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+        </view>
+      </scroll-view>
+      
+      <view class="expand-control" wx:if="{{item.variants.length > 4}}" bindtap="toggleExpand">
+        <text>{{isExpanded ? '收起' : '展开更多 (' + (item.variants.length - 4) + ')'}}</text>
+        <text class="arrow {{isExpanded ? 'up' : 'down'}}"></text>
+      </view>
+    </view>
+
+    <!-- Related Recommendations Section -->
+    <view class="related-section">
+      <view class="related-title">相关推荐</view>
+      
+      <view class="related-tabs">
+        <view 
+          class="related-tab-item {{currentRelatedTab === index ? 'active' : ''}}" 
+          wx:for="{{relatedTabs}}" 
+          wx:key="id"
+          bindtap="onRelatedTabChange"
+          data-index="{{index}}"
+        >
+          {{item.label}}
+          <view class="active-bar" wx:if="{{currentRelatedTab === index}}"></view>
+        </view>
+      </view>
+
+      <view class="related-content">
+        <block wx:if="{{relatedPosts[relatedTabs[currentRelatedTab].id] && relatedPosts[relatedTabs[currentRelatedTab].id].length > 0}}">
+          <view 
+            class="related-post-item" 
+            wx:for="{{relatedPosts[relatedTabs[currentRelatedTab].id]}}" 
+            wx:key="id"
+            bindtap="onRelatedPostTap"
+            data-id="{{item._id || item.id}}"
+          >
+            <image class="post-cover" src="{{item.images[0] || '/images/default-post.png'}}" mode="aspectFill" wx:if="{{item.images && item.images.length > 0}}"></image>
+            <view class="post-cover post-cover--placeholder" wx:else>GearSage</view>
+            <view class="post-info">
+              <text class="post-title">{{item.title}}</text>
+              <view class="post-meta">
+                <image class="post-avatar" src="{{item.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <text class="post-author">{{item.nickName || '匿名钓友'}}</text>
+                <view class="post-stats" wx:if="{{item.likeCount > 0}}">
+                  <text class="iconfont icon-like"></text>
+                  <text>{{item.likeCount}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <view class="empty-state" wx:elif="{{!loadingRelated}}">
+          <image class="empty-image" src="/images/empty-state.png" mode="aspectFit" wx:if="{{false}}"></image>
+          <text class="empty-text">这里还空着呢，要不要做第一个分享的人？</text>
+        </view>
+        <view class="related-content-skeleton" wx:else>
+          <view class="related-post-item skeleton-post" wx:for="{{[1,2]}}" wx:key="*this">
+              <view class="post-cover skeleton-post-cover skeleton-pulse"></view>
+              <view class="post-info">
+                  <view class="skeleton-text skeleton-post-title skeleton-pulse"></view>
+                  <view class="skeleton-text skeleton-post-meta skeleton-pulse"></view>
+              </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- Skeleton Loading -->
+  <view class="skeleton-container" wx:else>
+    <!-- Header Skeleton -->
+    <view class="detail-header skeleton-header">
+      <view class="skeleton-image skeleton-pulse"></view>
+      <view class="detail-info">
+        <view class="skeleton-text skeleton-brand skeleton-pulse"></view>
+        <view class="skeleton-text skeleton-title skeleton-pulse"></view>
+        <view class="skeleton-text skeleton-desc skeleton-pulse"></view>
+      </view>
+    </view>
+
+    <!-- Table Skeleton -->
+    <view class="detail-table-container skeleton-table">
+       <view class="table-header skeleton-table-header skeleton-pulse"></view>
+       <view class="skeleton-row skeleton-pulse" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"></view>
+    </view>
+    
+    <!-- Related Skeleton -->
+    <view class="related-section skeleton-related">
+      <view class="related-title skeleton-related-title skeleton-pulse"></view>
+      <view class="related-tabs skeleton-tabs">
+          <view class="skeleton-tab-item skeleton-pulse"></view>
+          <view class="skeleton-tab-item skeleton-pulse"></view>
+          <view class="skeleton-tab-item skeleton-pulse"></view>
+      </view>
+      <view class="related-content">
+          <view class="related-post-item skeleton-post" wx:for="{{[1,2]}}" wx:key="*this">
+              <view class="post-cover skeleton-post-cover skeleton-pulse"></view>
+              <view class="post-info">
+                  <view class="skeleton-text skeleton-post-title skeleton-pulse"></view>
+                  <view class="skeleton-text skeleton-post-meta skeleton-pulse"></view>
+              </view>
+          </view>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,229 @@
+<!--pages/points/points.wxml-->
+<custom-navbar
+  title="积分中心"
+  showBack="{{false}}"
+  showShadow="{{!isDarkMode}}"
+  right-button-text=""
+  background-color="transparent"
+  text-color="{{isDarkMode ? '#F3F7FC' : '#112033'}}"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}">
+  <block wx:if="{{!showSkeleton}}">
+    <view class="points-card">
+      <view class="points-info">
+        <text class="points-label">我的积分</text>
+        <text class="points-value">{{userPoints}}</text>
+      </view>
+      <view class="points-icon" bindtap="onExchangeEntry">
+        <image src="{{isDarkMode ? '/images/tab/points.png' : '/images/tab/points-light.png'}}" class="icon"></image>
+        <text class="exchange-text">积分兑换</text>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="points-card skeleton-card">
+      <view class="skeleton-line large"></view>
+      <view class="skeleton-line small"></view>
+    </view>
+  </block>
+
+  <view class="tab-container">
+    <view class="tab-list">
+      <view
+        class="tab-item {{currentTab === index ? 'active' : ''}}"
+        wx:for="{{tabs}}"
+        wx:key="index"
+        wx:for-index="index"
+        bindtap="switchTab"
+        data-index="{{index}}">
+        <text class="tab-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{currentTab === 0}}">
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">每日任务</text>
+        <view class="task-progress-summary">
+          <text class="progress-text">{{completedTasksCount}}/{{totalTasksCount}}</text>
+          <view class="progress-circle">
+            <view class="progress-fill" style="width: {{ (totalTasksCount ? (completedTasksCount / totalTasksCount * 100) : 0) + '%' }};"></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="task-list">
+        <block wx:if="{{!showSkeleton}}">
+          <view class="task-item" wx:for="{{dailyTasks}}" wx:key="id">
+            <view class="task-icon">
+              <image src="/images/icons/h28.png" class="icon"></image>
+            </view>
+            <view class="task-content">
+              <view class="task-title">{{item.title}}</view>
+              <view class="task-desc">{{item.description}}</view>
+              <view class="task-progress" wx:if="{{!item.completed && item.progress > 0}}">
+                <view class="progress-bar">
+                    <view class="progress-fill" style="width: {{item.progress + '%'}};"></view>
+                </view>
+              </view>
+            </view>
+            <view class="task-reward">
+              <text class="reward-points">+{{item.points}}</text>
+              <view
+                class="task-btn {{item.received ? 'can-receive' : (item.completed ? 'completed' : '')}}"
+                bindtap="onTaskButtonTap"
+                data-id="{{item.id}}"
+                data-section="daily">
+                <text>{{item.received ? '领取' : (item.completed ? '已完成' : '去完成')}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <block wx:else>
+          <block wx:for="{{[1,2,3]}}" wx:key="*this">
+            <view class="task-item skeleton-item">
+              <view class="task-icon">
+                <view class="skeleton-circle"></view>
+              </view>
+              <view class="task-content">
+                <view class="skeleton-line medium"></view>
+                <view class="skeleton-line small"></view>
+              </view>
+              <view class="task-reward">
+                <view class="skeleton-button"></view>
+                <view class="skeleton-dot"></view>
+              </view>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">更多任务</text>
+      </view>
+
+      <view class="task-list">
+        <block wx:if="{{!showSkeleton}}">
+          <view class="task-item" wx:for="{{moreTasks}}" wx:key="id">
+            <view class="task-icon">
+              <image src="/images/icons/h28.png" class="icon"></image>
+            </view>
+            <view class="task-content">
+              <view class="task-title">{{item.title}}</view>
+              <view class="task-desc">{{item.description}}</view>
+              <view class="task-progress" wx:if="{{!item.completed && item.progress > 0}}">
+                <view class="progress-bar">
+                  <view class="progress-fill" style="width: {{item.progress+'%'}};"></view>
+                </view>
+              </view>
+            </view>
+            <view class="task-reward">
+              <text class="reward-points">+{{item.points}}</text>
+              <view
+                class="task-btn {{item.received ? 'can-receive' : (item.completed ? 'completed' : '')}}"
+                bindtap="onTaskButtonTap"
+                data-id="{{item.id}}"
+                data-section="more">
+                <text>{{item.received ? '领取' : (item.completed ? '已完成' : '去完成')}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <block wx:else>
+          <block wx:for="{{[1,2]}}" wx:key="*this">
+            <view class="task-item skeleton-item">
+              <view class="task-icon">
+                <view class="skeleton-circle"></view>
+              </view>
+              <view class="task-content">
+                <view class="skeleton-line medium"></view>
+                <view class="skeleton-line small"></view>
+              </view>
+              <view class="task-reward">
+                <view class="skeleton-button"></view>
+                <view class="skeleton-dot"></view>
+              </view>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{currentTab === 1}}">
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">成就列表</text>
+      </view>
+
+      <view class="task-list">
+        <block wx:if="{{!showSkeleton}}">
+          <view class="task-item" wx:for="{{achievements}}" wx:key="id">
+            <view class="task-icon">
+              <image src="/images/icons/h31.png" class="icon"></image>
+            </view>
+            <view class="task-content">
+              <view class="task-title">{{item.title}}</view>
+              <view class="task-desc">{{item.description}}</view>
+              <view class="task-progress" wx:if="{{!item.completed && item.progress > 0}}">
+                <view class="progress-bar">
+                  <view class="progress-fill" style="width: {{item.progress+'%'}};"></view>
+                </view>
+                <text class="progress-text">{{item.currentCount}}/{{item.targetCount}}</text>
+              </view>
+            </view>
+            <view class="task-reward">
+              <text class="reward-points">+{{item.points}}</text>
+              <view
+                class="task-btn {{item.received ? 'can-receive' : (item.completed ? 'completed' : '')}}"
+                bindtap="onTaskButtonTap"
+                data-id="{{item.id}}"
+                data-section="achievement">
+                <text>{{item.received ? '领取' : (item.completed ? '已完成' : '进行中')}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <block wx:else>
+          <block wx:for="{{[1,2,3]}}" wx:key="*this">
+            <view class="task-item skeleton-item">
+              <view class="task-icon">
+                <view class="skeleton-circle"></view>
+              </view>
+              <view class="task-content">
+                <view class="skeleton-line medium"></view>
+                <view class="skeleton-line small"></view>
+              </view>
+              <view class="task-reward">
+                <view class="skeleton-button"></view>
+                <view class="skeleton-dot"></view>
+              </view>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-actions">
+    <view class="action-item" bindtap="showPointsRules">
+      <image class="action-icon" src="/images/icons/h117.png" mode="aspectFit"></image>
+      <text class="action-text">积分规则</text>
+    </view>
+    <view class="action-item" bindtap="showFAQ">
+      <image class="action-icon" src="/images/icons/h113.png" mode="aspectFit"></image>
+      <text class="action-text">常见问题</text>
+    </view>
+    <view class="action-item" bindtap="onInviteFriends">
+      <image class="action-icon" src="/images/share.png" mode="aspectFit"></image>
+      <text class="action-text">邀请好友</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,29 @@
+<!-- publish-stepper 组件 -->
+<view class="stepper-container">
+  <view class="stepper-horizontal">
+<!-- 修复后的代码 -->
+<view 
+  wx:for="{{steps}}" 
+  wx:key="index" 
+  class="stepper-step {{index < currentStep ? 'step-done' : ''}} {{index === currentStep ? 'active-step' : ''}} {{index === currentStep && editable ? 'editable-step' : ''}}"
+  style="width: {{(100 / steps.length) + '%'}};"
+  data-step="{{index}}"
+  bindtap="onStepTap"
+>
+      <!-- 步骤圆圈 -->
+      <view class="stepper-circle">
+        <text class="step-number" wx:if="{{index >= currentStep}}">{{index + 1}}</text>
+      </view>
+      
+      <!-- 步骤标题 -->
+      <view class="stepper-title">{{item.title}}</view>
+      
+      <!-- 可选标签 -->
+      <view wx:if="{{item.optional}}" class="stepper-optional">{{item.optional}}</view>
+      
+      <!-- 连接线 -->
+      <view wx:if="{{index > 0}}" class="stepper-bar-left"></view>
+      <view wx:if="{{index < steps.length - 1}}" class="stepper-bar-right"></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "import-excel": "node scripts/import_excel_to_db.js",
+    "import-tag-seed": "node scripts/import_tag_seed.js",
+    "grant-all-tags": "node scripts/grant_all_tags_to_user.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.4",
+    "@cloudbase/node-sdk": "^2.10.0",
+    "dotenv": "^17.3.1",
+    "wx-server-sdk": "~2.6.3",
+    "xlsx": "^0.18.5"
+  }
+}

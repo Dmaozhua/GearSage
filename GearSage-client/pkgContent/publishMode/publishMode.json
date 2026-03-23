@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "custom-navbar": "/components/custom-navbar/custom-navbar",
+    "post-mode": "/components/post-mode/post-mode",
+    "post-experience": "/components/post-Experience/post-Experience",
+    "post-recommend": "/components/post-Recommend/post-Recommend",
+    "post-question": "/components/post-Question/post-Question",
+    "post-catch": "/components/post-Catch/post-Catch",
+    "post-trip": "/components/post-Trip/post-Trip"
+  },
+  "navigationStyle": "custom",
+  "disableScroll": true
+}

@@ -1,0 +1,18 @@
+<view class="carousel" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+  <view wx:if="{{active > 0}}" class="nav left" bindtap="handlePrev">‹</view>
+  
+  <block wx:for="{{cards}}" wx:key="index">
+    <view class="card-container" style="{{item.style}}">
+      <view class="card {{item.isActive ? 'card--active' : ''}}" style="{{item.cardStyle}}" bindtap="onCardTap" data-index="{{index}}">
+        <view class="card-overlay"></view>
+        <view class="card-content-wrapper">
+          <view class="card-title">{{item.title}}</view>
+          <view class="card-desc">{{item.content}}</view>
+          <view class="card-btn" wx:if="{{item.isActive}}">点击进入</view>
+        </view>
+      </view>
+    </view>
+  </block>
+  
+  <view wx:if="{{active < cards.length - 1}}" class="nav right" bindtap="handleNext">›</view>
+</view>

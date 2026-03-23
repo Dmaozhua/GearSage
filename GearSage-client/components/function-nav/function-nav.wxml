@@ -1,0 +1,82 @@
+<!--components/function-nav/function-nav.wxml-->
+<view class="function-nav-container {{isDarkMode ? 'dark-mode' : ''}}">
+  <!-- 功能导航标题 -->
+  <view class="nav-title" wx:if="{{showTitle}}">
+    <text class="title-text">{{title}}</text>
+  </view>
+  
+  <!-- 横滑功能卡片区域 -->
+  <scroll-view 
+    class="function-scroll" 
+    scroll-x="{{true}}"
+    enhanced="{{true}}"
+    show-scrollbar="{{false}}"
+    enable-flex="{{true}}"
+    scroll-with-animation="{{true}}"
+  >
+    <view class="function-list">
+      <view 
+        wx:for="{{functionList}}" 
+        wx:key="id"
+        class="function-card {{item.disabled ? 'disabled' : ''}}"
+        data-item="{{item}}"
+        bindtap="onFunctionTap"
+      >
+        <!-- 卡片背景 -->
+        <view class="card-background"></view>
+        
+        <!-- 卡片内容 -->
+        <view class="card-content">
+          <!-- 图标区域 -->
+          <view class="icon-container">
+            <!-- SVG图标 -->
+            <view class="icon-wrapper">
+              <image 
+                wx:if="{{item.icon}}"
+                class="function-icon" 
+                src="{{isDarkMode && item.iconDark ? item.iconDark : item.icon}}" 
+                mode="aspectFit"
+              />
+              <!-- 默认图标 -->
+              <view wx:else class="default-icon">{{item.name.charAt(0)}}</view>
+            </view>
+            
+            <!-- 徽章 -->
+            <view 
+              wx:if="{{item.badge}}"
+              class="badge {{item.badgeType || 'default'}}"
+            >
+              <text class="badge-text">{{item.badge}}</text>
+            </view>
+          </view>
+          
+          <!-- 功能名称 -->
+          <view class="function-name">
+            <text class="name-text">{{item.name}}</text>
+          </view>
+          
+          <!-- 功能描述 -->
+          <view class="function-desc" wx:if="{{item.desc}}">
+            <text class="desc-text">{{item.desc}}</text>
+          </view>
+        </view>
+        
+        <!-- 点击效果 -->
+        <view class="card-ripple"></view>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- 更多功能按钮 -->
+  <view 
+    wx:if="{{showMoreButton}}"
+    class="more-button"
+    bindtap="onMoreTap"
+  >
+    <view class="more-background"></view>
+    <view class="more-content">
+      <text class="more-text">更多</text>
+      <text class="more-arrow">›</text>
+    </view>
+  </view>
+</view>

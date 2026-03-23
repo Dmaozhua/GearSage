@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "评分组件测试",
+  "usingComponents": {
+    "publish-rating": "/components/publish-rating/publish-rating"
+  }
+}

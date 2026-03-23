@@ -1,0 +1,143 @@
+<!--pages/env-test/env-test.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <text class="title">环境判断测试</text>
+    <text class="subtitle">验证开发者工具与真机环境的自动识别</text>
+  </view>
+
+  <!-- 环境信息 -->
+  <view class="section">
+    <view class="section-title">
+      <text>当前环境信息</text>
+      <button class="refresh-btn" size="mini" bindtap="refreshEnvInfo">刷新</button>
+    </view>
+    
+    <view class="env-info">
+      <view class="info-item">
+        <text class="label">运行环境：</text>
+        <text class="value {{envInfo.isDevTool ? 'dev-tool' : 'real-device'}}">
+          {{envInfo.isDevTool ? '微信开发者工具' : '真机设备'}}
+        </text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">平台：</text>
+        <text class="value">{{envInfo.platform}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">系统：</text>
+        <text class="value">{{envInfo.system}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">品牌：</text>
+        <text class="value">{{envInfo.brand}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">型号：</text>
+        <text class="value">{{envInfo.model}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">环境变量：</text>
+        <text class="value">{{envInfo.environment}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 登录测试 -->
+  <view class="section">
+    <view class="section-title">
+      <text>登录功能测试</text>
+    </view>
+    
+    <view class="test-info">
+      <text class="test-desc">
+        {{envInfo.isDevTool ? '开发者工具环境：将使用模拟登录' : '真机环境：将使用真实微信登录'}}
+      </text>
+    </view>
+    
+    <view class="button-group">
+      <button 
+        class="test-btn" 
+        type="primary" 
+        bindtap="testLogin"
+        loading="{{loading}}"
+        disabled="{{loading}}"
+      >
+        {{loading ? '测试中...' : '测试登录'}}
+      </button>
+      
+      <button 
+        class="clear-btn" 
+        type="default" 
+        bindtap="clearLogin"
+        disabled="{{loading}}"
+      >
+        清除登录状态
+      </button>
+    </view>
+  </view>
+
+  <!-- 登录结果 -->
+  <view class="section" wx:if="{{loginResult}}">
+    <view class="section-title">
+      <text>测试结果</text>
+    </view>
+    
+    <view class="result-info">
+      <view class="result-status {{loginResult.success ? 'success' : 'error'}}">
+        <text>{{loginResult.success ? '✓ 成功' : '✗ 失败'}}</text>
+      </view>
+      
+      <view class="result-message">
+        <text>{{loginResult.message}}</text>
+      </view>
+      
+      <view wx:if="{{loginResult.success && loginResult.data}}" class="result-data">
+        <view class="data-item">
+          <text class="label">Token：</text>
+          <text class="value token">{{loginResult.data.token}}</text>
+        </view>
+        
+        <view class="data-item">
+          <text class="label">用户ID：</text>
+          <text class="value">{{loginResult.data.userInfo.id}}</text>
+        </view>
+        
+        <view class="data-item">
+          <text class="label">昵称：</text>
+          <text class="value">{{loginResult.data.userInfo.nickname}}</text>
+        </view>
+        
+        <view class="data-item">
+          <text class="label">管理员：</text>
+          <text class="value">{{loginResult.data.userInfo.isAdmin ? '是' : '否'}}</text>
+        </view>
+      </view>
+      
+      <view wx:if="{{!loginResult.success && loginResult.error}}" class="error-detail">
+        <text class="error-text">{{loginResult.error.message || loginResult.error}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 说明信息 -->
+  <view class="section">
+    <view class="section-title">
+      <text>功能说明</text>
+    </view>
+    
+    <view class="description">
+      <text class="desc-text">
+        • 在微信开发者工具中运行时，自动使用模拟登录数据\n
+        • 在真机设备上运行时，使用真实的微信登录接口\n
+        • 环境判断基于微信小程序的系统信息API\n
+        • 模拟模式下不会调用wx.login()，避免开发调试时的限制
+      </text>
+    </view>
+  </view>
+</view>

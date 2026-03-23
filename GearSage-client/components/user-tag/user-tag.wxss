@@ -1,0 +1,774 @@
+/* components/user-tag/user-tag.wxss */
+
+/* --- Variables & Base --- */
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  --gt-font: "DIN Condensed", "Impact", -apple-system, sans-serif;
+  
+  /* Base Colors */
+  --gt-bg-navy: #1a232c;
+  --gt-bg-graphite: #1a1a1a;
+  --gt-bg-steel: #25282a;
+  --gt-bg-gold-dark: #2a2518;
+  
+  /* Accent Colors */
+  --gt-accent-blue: #4a80a8;
+  --gt-accent-green: #5c8a70;
+  --gt-accent-gold: #c5a059;
+  --gt-accent-bronze: #a87b50;
+  --gt-accent-silver: #8c9aa3;
+  
+  /* Text Colors */
+  --gt-text-main: #e0e0e0;
+  --gt-text-muted: #888888;
+}
+
+.gear-tag {
+  --gt-icon-box: 52rpx;
+  --gt-icon-mark-scale: 1.16;
+  --gt-icon-image-size: 64rpx;
+  --gt-icon-image-scale: 1;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-family: var(--gt-font);
+  transition: all 0.2s ease;
+  overflow: visible;
+  isolation: isolate;
+  z-index: 1;
+  letter-spacing: 0.5rpx;
+  color: var(--gt-text-main);
+}
+
+.tag-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 4rpx;
+  border: 1rpx solid transparent;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.tag-content,
+.rarity-marker {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Context Sizing --- */
+.ctx-default { font-size: 22rpx; height: 40rpx; padding: 0 16rpx; }
+.ctx-comment { font-size: 18rpx; height: 32rpx; padding: 0 10rpx; }
+.ctx-profile { font-size: 26rpx; height: 52rpx; padding: 0 24rpx; }
+.ctx-shop    { font-size: 22rpx; height: 44rpx; padding: 0 14rpx; }
+
+.ctx-default {
+  --gt-icon-box: 48rpx;
+  --gt-icon-mark-scale: 1.1;
+  --gt-icon-image-size: 58rpx;
+}
+
+.ctx-comment {
+  --gt-icon-box: 38rpx;
+  --gt-icon-mark-scale: 0.94;
+  --gt-icon-image-size: 46rpx;
+}
+
+.ctx-profile {
+  --gt-icon-box: 60rpx;
+  --gt-icon-mark-scale: 1.28;
+  --gt-icon-image-size: 74rpx;
+}
+
+.ctx-shop {
+  --gt-icon-box: 50rpx;
+  --gt-icon-mark-scale: 1.12;
+  --gt-icon-image-size: 60rpx;
+}
+
+/* --- Modes --- */
+.mode-compact {
+  padding: 0;
+  width: 40rpx;
+  justify-content: center;
+  --gt-icon-box: 40rpx;
+  --gt-icon-mark-scale: 1;
+  --gt-icon-image-size: 48rpx;
+  --gt-icon-image-scale: 0.94;
+}
+.ctx-profile.mode-compact { width: 52rpx; }
+
+.mode-extended {
+  flex-direction: column;
+  align-items: flex-start;
+  height: auto;
+  padding: 10rpx 18rpx;
+  --gt-icon-image-scale: 1.04;
+}
+
+/* --- Type Styles (Backgrounds & Accents) --- */
+
+/* 1. Identity (Stream Angler, etc.) -> Navy/Steel */
+.type-identity {
+  color: #dceefb;
+  --gt-tag-bg: linear-gradient(180deg, #232d36 0%, #151b22 100%);
+  --gt-tag-border: rgba(74, 128, 168, 0.3);
+  --gt-accent: var(--gt-accent-blue);
+}
+
+/* 2. Behavior (Contributor, etc.) -> Graphite/Green */
+.type-behavior,
+.type-event {
+  color: #e0f2e9;
+  --gt-tag-bg: linear-gradient(180deg, #252a28 0%, #161817 100%);
+  --gt-tag-border: rgba(92, 138, 112, 0.3);
+  --gt-accent: var(--gt-accent-green);
+}
+
+/* 3. Official (Verified, etc.) -> Gold/Black Authority */
+.type-official, .type-certification {
+  color: #f0e6d2;
+  --gt-tag-bg: linear-gradient(180deg, #1f1d18 0%, #0d0c0a 100%);
+  --gt-tag-border: rgba(197, 160, 89, 0.4);
+  --gt-accent: var(--gt-accent-gold);
+}
+
+/* 4. Fun (Backyard Guardian) -> Bronze/Rust/Industrial */
+.type-fun {
+  color: #ebdcd1;
+  --gt-tag-bg: linear-gradient(180deg, #2a2522 0%, #1a1614 100%);
+  --gt-tag-border: rgba(168, 123, 80, 0.3);
+  --gt-accent: var(--gt-accent-bronze);
+}
+
+/* --- Style Key Overrides --- */
+.style-fun_slate {
+  color: #e6ecef;
+  --gt-tag-bg: linear-gradient(180deg, #24282c 0%, #171b1f 100%);
+  --gt-tag-border: rgba(126, 139, 150, 0.28);
+  --gt-accent: #8d9aa3;
+}
+
+.style-fun_blue {
+  color: #e0edf7;
+  --gt-tag-bg: linear-gradient(180deg, #25303a 0%, #171e26 100%);
+  --gt-tag-border: rgba(90, 130, 166, 0.32);
+  --gt-accent: #5d88af;
+}
+
+.style-fun_orange {
+  color: #f2e3d7;
+  --gt-tag-bg: linear-gradient(180deg, #312721 0%, #1d1612 100%);
+  --gt-tag-border: rgba(180, 122, 78, 0.34);
+  --gt-accent: #c07d4d;
+}
+
+.style-identity_slate {
+  color: #e5edf4;
+  --gt-tag-bg: linear-gradient(180deg, #202730 0%, #131920 100%);
+  --gt-tag-border: rgba(122, 139, 157, 0.28);
+  --gt-accent: #8b9cab;
+}
+
+.style-identity_blue {
+  color: #e1eef8;
+  --gt-tag-bg: linear-gradient(180deg, #23303b 0%, #141d25 100%);
+  --gt-tag-border: rgba(95, 137, 176, 0.34);
+  --gt-accent: #6993b8;
+}
+
+.style-identity_orange {
+  color: #f0e2d8;
+  --gt-tag-bg: linear-gradient(180deg, #30251f 0%, #1a1410 100%);
+  --gt-tag-border: rgba(176, 123, 86, 0.34);
+  --gt-accent: #c08a5a;
+}
+
+.style-behavior_blue {
+  color: #dfedf5;
+  --gt-tag-bg: linear-gradient(180deg, #1f2a31 0%, #12181d 100%);
+  --gt-tag-border: rgba(90, 129, 156, 0.3);
+  --gt-accent: #6f9ab2;
+}
+
+.style-behavior_orange {
+  color: #efe1d5;
+  --gt-tag-bg: linear-gradient(180deg, #2b241e 0%, #17120f 100%);
+  --gt-tag-border: rgba(165, 122, 86, 0.3);
+  --gt-accent: #b77f58;
+}
+
+.style-behavior_gold {
+  color: #f2e7d1;
+  --gt-tag-bg: linear-gradient(180deg, #282217 0%, #120f0a 100%);
+  --gt-tag-border: rgba(194, 160, 92, 0.4);
+  --gt-accent: #d3ae6c;
+}
+
+.style-official_gold {
+  color: #f2e7cf;
+  --gt-tag-bg: linear-gradient(180deg, #282217 0%, #120f0a 100%);
+  --gt-tag-border: rgba(197, 160, 89, 0.46);
+  --gt-accent: #d0ab66;
+}
+
+/* --- Rarity Visuals (Structure & Material) --- */
+
+/* R1: Common - Simple, matte, low profile */
+.rarity-1 {
+  --gt-icon-image-scale: 0.92;
+}
+.rarity-1 .tag-shell {
+  border-radius: 4rpx;
+  border-color: var(--gt-tag-border);
+  background: var(--gt-tag-bg);
+  box-shadow: inset 0 1rpx 0 rgba(255,255,255,0.05);
+}
+
+/* R2: Rare - Chamfered corners, higher contrast */
+.rarity-2 {
+}
+.rarity-2 .tag-shell {
+  clip-path: polygon(
+    10rpx 0,
+    100% 0,
+    100% calc(100% - 10rpx),
+    calc(100% - 10rpx) 100%,
+    0 100%,
+    0 10rpx
+  );
+  border-radius: 0;
+  border-color: var(--gt-tag-border);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.2) 100%),
+    var(--gt-tag-bg);
+  box-shadow: inset 0 0 0 1rpx rgba(255,255,255,0.15), inset 0 1rpx 0 rgba(255,255,255,0.2);
+}
+.rarity-2 .tag-shell::before,
+.rarity-2 .tag-shell::after {
+  content: '';
+  position: absolute;
+  width: 14rpx;
+  height: 14rpx;
+  z-index: 0;
+  pointer-events: none;
+}
+.rarity-2 .tag-shell::before {
+  left: -1rpx;
+  top: -1rpx;
+  background:
+    linear-gradient(135deg, transparent 46%, rgba(255,255,255,0.16) 47%, rgba(255,255,255,0.16) 53%, transparent 54%),
+    linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 58%);
+}
+.rarity-2 .tag-shell::after {
+  right: -1rpx;
+  bottom: -1rpx;
+  background:
+    linear-gradient(315deg, transparent 46%, rgba(255,255,255,0.12) 47%, rgba(255,255,255,0.12) 53%, transparent 54%),
+    linear-gradient(315deg, rgba(0,0,0,0.14) 0%, transparent 58%);
+}
+
+
+/* R3: Epic - Rail Structure, Tech Feel */
+.rarity-3 {
+  --gt-icon-image-scale: 1.06;
+}
+.rarity-3 .tag-shell {
+  border-radius: 2rpx;
+  border-top: 2rpx solid var(--gt-accent);
+  border-bottom: 2rpx solid var(--gt-accent);
+  border-left: 1rpx solid rgba(255,255,255,0.1);
+  border-right: 1rpx solid rgba(255,255,255,0.1);
+  background: var(--gt-tag-bg);
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.3);
+}
+.rarity-3 .tag-shell::before {
+  content: '';
+  position: absolute;
+  top: 4rpx; bottom: 4rpx; left: 4rpx; width: 2rpx;
+  background: var(--gt-accent);
+  opacity: 0.5;
+}
+.rarity-3 .tag-shell::after {
+  content: '';
+  position: absolute;
+  top: 4rpx; bottom: 4rpx; right: 4rpx; width: 2rpx;
+  background: var(--gt-accent);
+  opacity: 0.5;
+}
+
+/* R4/R5: Legendary - Engraved, Warm Metal, Complex */
+.rarity-4, .rarity-5 {
+  /* Metallic gradient text for name? */
+}
+.rarity-4 .tag-shell,
+.rarity-5 .tag-shell {
+  border: 1rpx solid rgba(255,215,0,0.3);
+  box-shadow: inset 0 0 10rpx rgba(0,0,0,0.5), 0 2rpx 6rpx rgba(0,0,0,0.4);
+}
+
+/* R4 Specific: Tech/Carbon feel */
+.rarity-4 {
+  color: #fff;
+  --gt-icon-image-scale: 1.1;
+}
+.rarity-4 .tag-shell {
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,0.2),
+      rgba(0,0,0,0.2) 2rpx,
+      transparent 2rpx,
+      transparent 4rpx
+    ),
+    linear-gradient(180deg, #202020, #101010);
+  border-color: var(--gt-accent-silver);
+}
+
+/* R5 Specific: Warm Gold */
+.rarity-5 {
+  color: #ebdcb2;
+  text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.8);
+  --gt-icon-image-scale: 1.12;
+}
+.rarity-5 .tag-shell {
+  background: radial-gradient(circle at top, #3a3020, #000);
+  border: 1rpx solid #a68b50;
+}
+.rarity-5 .tag-name {
+  background: linear-gradient(180deg, #ebdcb2, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  font-weight: bold;
+}
+
+/* --- Decorative Elements --- */
+
+/* Screws / Rivets */
+.deco-screw {
+  position: absolute;
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  background: #555;
+  box-shadow: inset 1rpx 1rpx 1rpx rgba(0,0,0,0.8), 0 1rpx 0 rgba(255,255,255,0.1);
+  z-index: 2;
+}
+.deco-screw.top-left { top: 6rpx; left: 6rpx; }
+.deco-screw.top-right { top: 6rpx; right: 6rpx; }
+
+/* Shine Effect for Epic+ */
+.deco-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%);
+  animation: gt-shine 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes gt-shine {
+  0% { transform: translateX(-25%); }
+  100% { transform: translateX(25%); }
+}
+
+/* Rarity Marker Bars */
+.rarity-marker {
+  display: flex;
+  gap: 2rpx;
+  margin-left: 10rpx;
+  opacity: 0.8;
+}
+.rarity-marker .bar {
+  width: 3rpx;
+  height: 10rpx;
+  background: var(--gt-accent);
+  transform: skewX(-15deg);
+}
+
+/* --- Content Layout --- */
+.tag-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tag-name {
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.tag-meta {
+  font-size: 0.7em;
+  opacity: 0.6;
+  margin-top: 4rpx;
+  font-weight: normal;
+}
+
+.tag-icon {
+  position: relative;
+  margin-right: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--gt-icon-box);
+  height: var(--gt-icon-box);
+  flex-shrink: 0;
+  overflow: visible;
+}
+.tag-icon-mark {
+  position: relative;
+  width: 22rpx;
+  height: 22rpx;
+  z-index: 1;
+  transform: scale(var(--gt-icon-mark-scale));
+  transform-origin: center;
+}
+.tag-icon-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--gt-icon-image-size);
+  height: var(--gt-icon-image-size);
+  transform: translate(-50%, -50%) scale(var(--gt-icon-image-scale));
+  z-index: 2;
+  pointer-events: none;
+}
+.mark-core,
+.mark-tail,
+.mark-extra {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.icon-stream .mark-core {
+  left: 1rpx;
+  top: 8rpx;
+  width: 16rpx;
+  height: 4rpx;
+  border-top: 2rpx solid var(--gt-accent);
+  border-radius: 999rpx;
+}
+.icon-stream .mark-tail {
+  left: 4rpx;
+  top: 4rpx;
+  width: 10rpx;
+  height: 6rpx;
+  border-top: 2rpx solid rgba(255,255,255,0.36);
+  border-radius: 999rpx;
+}
+
+.icon-splash .mark-core {
+  left: 6rpx;
+  top: 2rpx;
+  width: 6rpx;
+  height: 11rpx;
+  border-radius: 10rpx 10rpx 12rpx 12rpx;
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), var(--gt-accent));
+  transform: rotate(12deg);
+}
+.icon-splash .mark-tail {
+  left: 3rpx;
+  top: 10rpx;
+  width: 3rpx;
+  height: 3rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.42);
+}
+
+.icon-hook .mark-core {
+  left: 8rpx;
+  top: 2rpx;
+  width: 5rpx;
+  height: 12rpx;
+  border-left: 2rpx solid var(--gt-accent);
+  border-bottom: 2rpx solid var(--gt-accent);
+  border-bottom-left-radius: 9rpx;
+  transform: rotate(8deg);
+}
+.icon-hook .mark-tail {
+  left: 10rpx;
+  top: 12rpx;
+  width: 4rpx;
+  height: 4rpx;
+  border-right: 2rpx solid rgba(255,255,255,0.46);
+  transform: rotate(28deg);
+}
+
+.icon-spark .mark-core,
+.icon-bolt .mark-core {
+  left: 5rpx;
+  top: 5rpx;
+  width: 8rpx;
+  height: 8rpx;
+  background: linear-gradient(135deg, rgba(255,255,255,0.76), var(--gt-accent));
+  border-radius: 3rpx;
+  transform: rotate(45deg);
+}
+.icon-bolt .mark-tail {
+  left: 9rpx;
+  top: 2rpx;
+  width: 2rpx;
+  height: 14rpx;
+  background: rgba(255,255,255,0.24);
+  transform: rotate(24deg);
+}
+
+.icon-crest .mark-core {
+  left: 3rpx;
+  top: 5rpx;
+  width: 12rpx;
+  height: 8rpx;
+  border: 2rpx solid var(--gt-accent);
+  border-bottom-width: 3rpx;
+  border-radius: 3rpx 3rpx 6rpx 6rpx;
+}
+.icon-crest .mark-tail {
+  left: 6rpx;
+  top: 2rpx;
+  width: 6rpx;
+  height: 4rpx;
+  border-top: 2rpx solid rgba(255,255,255,0.5);
+  border-radius: 999rpx;
+}
+
+.icon-reel .mark-core {
+  left: 2rpx;
+  top: 7rpx;
+  width: 14rpx;
+  height: 4rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, var(--gt-accent), rgba(255,255,255,0.34));
+}
+.icon-reel .mark-tail,
+.icon-reel .mark-extra {
+  top: 4rpx;
+  width: 5rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(255,255,255,0.38);
+}
+.icon-reel .mark-tail {
+  left: 0;
+}
+.icon-reel .mark-extra {
+  right: 0;
+}
+
+.icon-rod .mark-core {
+  left: 1rpx;
+  top: 9rpx;
+  width: 16rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, rgba(255,255,255,0.36), var(--gt-accent));
+  transform: rotate(-18deg);
+  transform-origin: left center;
+}
+.icon-rod .mark-tail {
+  right: 1rpx;
+  top: 3rpx;
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  background: var(--gt-accent);
+}
+
+.icon-fish .mark-core {
+  left: 3rpx;
+  top: 6rpx;
+  width: 10rpx;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18), var(--gt-accent));
+}
+.icon-fish .mark-tail {
+  right: 1rpx;
+  top: 6rpx;
+  width: 0;
+  height: 0;
+  border-top: 3rpx solid transparent;
+  border-bottom: 3rpx solid transparent;
+  border-left: 5rpx solid rgba(255,255,255,0.58);
+}
+
+.icon-grid .mark-core {
+  left: 3rpx;
+  top: 3rpx;
+  width: 12rpx;
+  height: 12rpx;
+  border: 2rpx solid var(--gt-accent);
+  border-radius: 3rpx;
+}
+.icon-grid .mark-tail {
+  left: 8rpx;
+  top: 3rpx;
+  width: 2rpx;
+  height: 12rpx;
+  background: rgba(255,255,255,0.26);
+}
+.icon-grid .mark-extra {
+  left: 3rpx;
+  top: 8rpx;
+  width: 12rpx;
+  height: 2rpx;
+  background: rgba(255,255,255,0.26);
+}
+
+.icon-gear .mark-core {
+  left: 4rpx;
+  top: 4rpx;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 4rpx;
+  border: 2rpx solid var(--gt-accent);
+  transform: rotate(45deg);
+}
+.icon-gear .mark-tail {
+  left: 7rpx;
+  top: 7rpx;
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.42);
+}
+
+.icon-storm .mark-core {
+  left: 4rpx;
+  top: 2rpx;
+  width: 10rpx;
+  height: 14rpx;
+  border-left: 2rpx solid var(--gt-accent);
+  border-right: 2rpx solid rgba(255,255,255,0.28);
+  transform: skewX(-16deg);
+}
+
+.icon-leaf .mark-core,
+.icon-flame .mark-core {
+  left: 5rpx;
+  top: 2rpx;
+  width: 8rpx;
+  height: 12rpx;
+  background: linear-gradient(180deg, rgba(255,255,255,0.82), var(--gt-accent));
+}
+.icon-leaf .mark-core {
+  border-radius: 10rpx 10rpx 10rpx 2rpx;
+  transform: rotate(-18deg);
+}
+.icon-flame .mark-core {
+  border-radius: 10rpx 10rpx 12rpx 12rpx;
+  transform: rotate(6deg);
+}
+
+.icon-pulse .mark-core,
+.icon-pulse .mark-tail {
+  top: 6rpx;
+  width: 6rpx;
+  height: 6rpx;
+  background: linear-gradient(180deg, rgba(255,255,255,0.82), var(--gt-accent));
+}
+.icon-pulse .mark-core {
+  left: 4rpx;
+  border-radius: 6rpx 6rpx 1rpx 1rpx;
+  transform: rotate(-45deg);
+}
+.icon-pulse .mark-tail {
+  left: 8rpx;
+  border-radius: 6rpx 6rpx 1rpx 1rpx;
+  transform: rotate(45deg);
+}
+
+.icon-chat .mark-core {
+  left: 2rpx;
+  top: 4rpx;
+  width: 13rpx;
+  height: 8rpx;
+  border: 2rpx solid var(--gt-accent);
+  border-radius: 4rpx;
+}
+.icon-chat .mark-tail {
+  left: 6rpx;
+  top: 11rpx;
+  width: 4rpx;
+  height: 4rpx;
+  border-left: 2rpx solid var(--gt-accent);
+  border-bottom: 2rpx solid var(--gt-accent);
+  transform: skewX(-22deg);
+}
+
+.icon-link .mark-core,
+.icon-link .mark-tail {
+  top: 7rpx;
+  width: 7rpx;
+  height: 5rpx;
+  border: 2rpx solid var(--gt-accent);
+  border-radius: 999rpx;
+}
+.icon-link .mark-core {
+  left: 1rpx;
+}
+.icon-link .mark-tail {
+  right: 1rpx;
+}
+.icon-link .mark-extra {
+  left: 6rpx;
+  top: 8rpx;
+  width: 6rpx;
+  height: 2rpx;
+  background: rgba(255,255,255,0.42);
+}
+
+.icon-medal .mark-core {
+  left: 5rpx;
+  top: 6rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.82), var(--gt-accent));
+}
+.icon-medal .mark-tail,
+.icon-medal .mark-extra {
+  top: 2rpx;
+  width: 4rpx;
+  height: 6rpx;
+  background: rgba(255,255,255,0.28);
+}
+.icon-medal .mark-tail {
+  left: 5rpx;
+  transform: skewX(-10deg);
+}
+.icon-medal .mark-extra {
+  left: 9rpx;
+  transform: skewX(10deg);
+}
+
+.icon-pen .mark-core {
+  left: 6rpx;
+  top: 2rpx;
+  width: 3rpx;
+  height: 13rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(180deg, rgba(255,255,255,0.48), var(--gt-accent));
+  transform: rotate(28deg);
+}
+.icon-pen .mark-tail {
+  left: 10rpx;
+  top: 11rpx;
+  width: 0;
+  height: 0;
+  border-left: 3rpx solid transparent;
+  border-right: 3rpx solid transparent;
+  border-top: 5rpx solid rgba(255,255,255,0.62);
+  transform: rotate(28deg);
+}
+.mode-compact .tag-icon {
+  margin-right: 0;
+  width: var(--gt-icon-box);
+  height: var(--gt-icon-box);
+}
+
+/* --- Special Fixes --- */
+.mode-compact .tag-content { display: none; }

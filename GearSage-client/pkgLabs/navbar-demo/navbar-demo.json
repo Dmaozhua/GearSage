@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "导航栏演示",
+  "usingComponents": {
+    "custom-navbar": "/components/custom-navbar/custom-navbar"
+  },
+  "navigationStyle": "custom",
+  "navigationBarBackgroundColor": "#3498db",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f5f5f5"
+}

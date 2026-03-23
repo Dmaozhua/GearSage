@@ -1,0 +1,214 @@
+<!--pages/profile/profile.wxml-->
+<!-- 自定义导航栏 -->
+<view class="custom-nav" style="background-color: rgba({{navRgb}}, {{navOpacity}}); box-shadow: {{navShadow}}; pointer-events: {{navPointerEvents}};">
+  <view class="nav-inner" style="padding-top: {{statusBarHeight}}px; height: {{navHeight}}px;">
+    <view class="left">
+      <view class="title navbar-title" style="opacity: {{titleOpacity}}; color: {{isDarkMode ? '#ffffff' : '#333333'}};">个人中心</view>
+    </view>
+    <view class="right">
+      <button class="settings-btn" bindtap="onSettingsTap">
+        <!-- <image class="settings-icon" src="/images/settings.svg" mode="aspectFit" /> -->
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 页面内容 -->
+<view class="profile-container {{containerClass}}">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 未登录状态 -->
+  <view class="login-prompt" wx:if="{{!loading && !isLoggedIn}}">
+    <view class="login-content">
+      <image class="login-icon" src="/images/login-icon.png" mode="aspectFit" />
+      <text class="login-title">欢迎来到钓友说</text>
+      <text class="login-subtitle">登录后可发布装备体验、参与讨论</text>
+      <button class="login-btn" bindtap="onLogin">
+        <text class="login-btn-text">微信登录</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 已登录状态 -->
+  <view class="profile-content" wx:if="{{!loading && isLoggedIn}}">
+    <!-- 用户信息区域 -->
+    <view class="user-section">
+      <!-- 背景图片 -->
+      <image 
+        class="background-image" 
+        src="{{userInfo.backgroundImageUrl || userInfo.backgroundImage || '/images/缺省页_上传中.png'}}" 
+        mode="aspectFill"
+        binderror="handleImageError"
+        data-type="background"
+      />
+      
+      <!-- 内容区域 -->
+      <view class="user-content">
+        <!-- 用户头像 -->
+        <image 
+          class="user-avatar" 
+          src="{{userInfo.avatarUrl || userInfo.avatar || '/images/avatar-default.png'}}" 
+          mode="aspectFill"
+          bindtap="onPreviewAvatar"
+        />
+        
+        <!-- 用户信息 -->
+        <view class="user-info">
+          <view class="user-name-row">
+            <text class="user-name">{{userInfo.nickname || '钓友'}}</text>
+            <user-tag displayTag="{{userInfo.equippedDisplayTag}}" tag="{{userInfo.userTag}}" rarity="{{userInfo.userTagRarity || 1}}" size="sm" context="profile"></user-tag>
+          </view>
+          
+          <text class="user-intro" wx:if="{{userInfo.bio}}">{{userInfo.bio}}</text>
+          <text class="user-intro-empty" wx:else>这个钓友很沉默。</text>
+          
+          <view class="admin-badge" wx:if="{{isAdmin}}">
+            <text class="badge-text">管理员</text>
+          </view>
+        </view>
+        
+        <!-- 关注按钮 (查看他人时显示) -->
+        <view class="action-buttons" wx:if="{{!isSelf}}">
+          <button class="follow-btn" bindtap="onFollow">
+            <text class="follow-text">关注</text>
+          </button>
+          <button class="more-info-btn" bindtap="onMoreInfo">
+            <text class="more-info-text">更多信息</text>
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="quick-menu">
+        <view class="menu-item" bindtap="onMyTags">
+          <text class="menu-icon">🏷️</text>
+          <view class="menu-content">
+            <text class="menu-title">编辑标签</text>
+            <text class="menu-subtitle">{{userInfo.equippedDisplayTag ? '管理主标签与帖子展示模式' : '设置主标签与帖子展示模式'}}</text>
+          </view>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item" bindtap="onEditProfile">
+          <text class="menu-icon">✏️</text>
+          <view class="menu-content">
+          <text class="menu-title">编辑个人信息</text>
+          <text class="menu-subtitle">修改头像、昵称、个人信息等</text>
+        </view>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item publish-item" bindtap="onMyPublish">
+          <text class="menu-icon">📄</text>
+          <view class="menu-content">
+            <text class="menu-title">我的发布</text>
+            <text class="menu-subtitle">查看我的发布</text>
+          </view>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item" bindtap="onInviteFriends">
+          <text class="menu-icon">邀</text>
+          <view class="menu-content">
+            <text class="menu-title">邀请好友</text>
+            <text class="menu-subtitle">生成你的邀请卡，也可从这里发起分享</text>
+          </view>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item draft-item" bindtap="onMyDrafts">
+          <text class="menu-icon">📝</text>
+          <view class="menu-content">
+            <text class="menu-title">我的草稿</text>
+            <text class="menu-subtitle {{hasDraft ? 'has-draft' : ''}}" wx:if="{{hasDraft}}">有未完成的草稿</text>
+            <text class="menu-subtitle" wx:else>暂无草稿</text>
+          </view>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item theme-item">
+          <theme-toggle 
+            class="theme-toggle-component" 
+            isDarkMode="{{isDarkMode}}" 
+            size="{{40}}"
+            bind:themeToggle="onThemeToggle"
+          ></theme-toggle>
+          <view class="menu-content">
+            <text class="menu-title">主题颜色</text>
+            <text class="menu-subtitle">{{isDarkMode ? '夜间模式' : '白天模式'}}</text>
+          </view>
+          <switch class="theme-switch" checked="{{isDarkMode}}" bindchange="onThemeChange" />
+        </view>
+
+        <view class="menu-item" bindtap="onAbout">
+          <text class="menu-icon">ℹ️</text>
+          <text class="menu-title">关于</text>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item" wx:if="{{isAdmin}}" bindtap="onAdmin">
+          <text class="menu-icon">🛠️</text>
+          <text class="menu-title">管理</text>
+          <text class="menu-arrow">></text>
+        </view>
+
+        <view class="menu-item logout-item" bindtap="onLogout">
+          <text class="menu-icon">🚪</text>
+          <text class="menu-title">退出登录</text>
+          <text class="menu-arrow">></text>
+        </view>
+      </view>
+
+
+  </view>
+  
+  <!-- 页面加载Loading -->
+  <view class="loading-overlay" wx:if="{{isLoading}}">
+    <svg-loading 
+      spinning="{{isLoading}}" 
+      text="{{loadingText}}"
+      size="large"
+      show-text="{{true}}"
+    ></svg-loading>
+  </view>
+  
+  <!-- 网络请求Loading -->
+  <view class="network-loading-overlay" wx:if="{{showNetworkLoading}}">
+    <svg-loading 
+      spinning="{{showNetworkLoading}}" 
+      text="{{networkLoadingText}}"
+      size="medium"
+      show-text="{{true}}"
+    ></svg-loading>
+  </view>
+  
+  <!-- Loading组件测试遮罩 -->
+  <view class="loading-mask" wx:if="{{showLoadingTest}}" bindtap="hideLoadingTest">
+    <view class="loading-container" catchtap="stopPropagation">
+      <svg-loading 
+        spinning="{{isTestLoading}}" 
+        text="{{testLoadingText}}"
+        size="{{loadingSize}}"
+        show-text="{{showLoadingText}}"
+      ></svg-loading>
+      <view class="loading-controls">
+        <button class="control-btn" bindtap="toggleLoading">
+          {{isTestLoading ? '停止加载' : '开始加载'}}
+        </button>
+        <button class="control-btn" bindtap="changeLoadingSize">
+          切换尺寸: {{loadingSize}}
+        </button>
+        <button class="control-btn" bindtap="toggleLoadingText">
+          {{showLoadingText ? '隐藏文本' : '显示文本'}}
+        </button>
+        <button class="control-btn close-btn" bindtap="hideLoadingTest">
+          关闭测试
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

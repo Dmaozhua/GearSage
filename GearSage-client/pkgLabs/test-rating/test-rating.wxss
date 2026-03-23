@@ -1,0 +1,92 @@
+/* pages/test-rating/test-rating.wxss */
+.container {
+  padding: 30rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.test-items {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+.test-item {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.item-description {
+  font-size: 30rpx;
+  margin-bottom: 15rpx;
+}
+
+/* 评分信息样式 */
+.rating-info {
+  margin-bottom: 20rpx;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* 一个 wrapper 用来限制背景和前景重叠对齐 */
+.stars-wrapper {
+  position: relative;
+  display: inline-block;
+  /* 确保高度与字体大小一致，避免错位 */
+  line-height: 28rpx;
+}
+
+/* 背景空心星，位于最底层 */
+.star-background {
+  display: flex;
+  color: #ddd;
+  position: relative; /* foreground 用绝对定位覆盖在它上面 */
+  z-index: 0;
+}
+
+/* 前景实心星，绝对定位并通过 width 控制可见区域 */
+.star-foreground {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+  white-space: nowrap; /* 防止换行 */
+  transition: width 0.25s ease;
+}
+
+/* 星星文字样式，保持一致的尺寸与间距 */
+.star-bg,
+.star-fg {
+  font-size: 28rpx;
+  margin-right: 4rpx;
+  line-height: 28rpx;
+  display: inline-block;
+  pointer-events: none;
+}
+
+/* 前景星颜色 */
+.star-fg {
+  color: #ffc107;
+}
+
+/* 数值显示在右侧，确保在最上层 */
+.rating-value {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 10rpx;
+  position: relative;
+  z-index: 2;
+}

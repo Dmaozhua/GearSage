@@ -1,0 +1,105 @@
+{
+  "lazyCodeLoading": "requiredComponents",
+  "pages": [
+    "pages/index/index",
+    "pages/points/points",
+    "pages/profile/profile",
+    "pages/invite/index",
+    "pages/timeline-preview/index"
+  ],
+  "subpackages": [
+    {
+      "root": "pkgContent",
+      "name": "content",
+      "pages": [
+        "detail/detail",
+        "articleDetail/articleDetail",
+        "articlePage/articlePage",
+        "my-tags/my-tags",
+        "tag-manager/tag-manager",
+        "edit-profile/edit-profile",
+        "publish/publish",
+        "my-publish/my-publish",
+        "search/search",
+        "points-exchange/points-exchange",
+        "exchange-success/exchange-success",
+        "publishMode/publishMode",
+        "postPreview/postPreview",
+        "about-page/about-page"
+      ]
+    },
+    {
+      "root": "pkgLabs",
+      "name": "labs",
+      "pages": [
+        "carousel-demo/carousel-demo",
+        "tag-system-demo/tag-system-demo",
+        "navbar-demo/navbar-demo",
+        "env-test/env-test",
+        "test-cloud/test-cloud",
+        "debounce-test/debounce-test",
+        "rating-test/rating-test",
+        "test-rating/test-rating",
+        "text-editor-test/text-editor-test",
+        "test-duplicate/test-duplicate",
+        "theme-toggle-demo/theme-toggle-demo"
+      ]
+    },
+    {
+      "root": "pkgGear",
+      "name": "gear",
+      "pages": [
+        "pages/index/index",
+        "pages/list/list",
+        "pages/detail/detail"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": [
+        "pkgContent"
+      ]
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "钓友说",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "renderer": "webview",
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icons/zhuye-1.png",
+        "selectedIconPath": "images/icons/zhuye.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/points/points",
+        "iconPath": "images/icons/积分.png",
+        "selectedIconPath": "images/icons/积分-.png",
+        "text": "积分"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/icons/wode-1.png",
+        "selectedIconPath": "images/icons/wode.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "requiredPrivateInfos": [
+    "chooseAddress"
+  ]
+}

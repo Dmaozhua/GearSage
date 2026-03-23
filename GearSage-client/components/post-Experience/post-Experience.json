@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "usingComponents": {
+    "publish-stepper": "../publish-stepper/publish-stepper",
+    "publish-wechatcontent": "../publish-wechatcontent/publish-wechatcontent",
+    "publish-checkbox": "../publish-Checkbox/publish-Checkbox",
+    "publish-radiobutton": "../publish-Radiobutton/publish-Radiobutton",
+    "publish-rating": "../publish-rating/publish-rating",
+    "post-evaluation": "../post-Evaluation/post-Evaluation"
+  }
+}

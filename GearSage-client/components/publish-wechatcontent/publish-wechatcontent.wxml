@@ -1,0 +1,48 @@
+<!--components/publish-wechatcontent/publish-wechatcontent.wxml-->
+<!-- 微信朋友圈风格内容区域 -->
+<view class="wechat-content-section {{isDarkMode ? 'dark' : ''}}">
+  <!-- 标题输入 -->
+  <view class="title-input-container">
+    <input 
+      class="wechat-title-input {{errors.title ? 'error' : ''}}"
+      type="text"
+      placeholder="{{titlePlaceholder}}"
+      value="{{formData.title}}"
+      bindinput="onTitleInput"
+      maxlength="{{maxTitleLength}}"
+    />
+    <view class="char-count">{{formData.title ? formData.title.length : 0}}/{{maxTitleLength}}</view>
+    <view class="error-text" wx:if="{{errors.title}}">{{errors.title}}</view>
+  </view>
+  
+  <!-- 主要内容输入 -->
+  <view class="content-input-container">
+    <text-editor
+      value="{{formData.mainContent}}"
+      placeholder="{{contentPlaceholder}}"
+      tipsLines="{{writingTips}}"
+      maxLength="{{maxContentLength}}"
+      title="编辑内容"
+      editorHeight="{{600}}"
+      previewMaxLength="{{150}}"
+      bind:change="onContentChange"
+    />
+    <view class="error-text" wx:if="{{errors.mainContent}}">{{errors.mainContent}}</view>
+  </view>
+  
+  <!-- 装备图片 - 微信朋友圈风格 -->
+  <view class="wechat-image-container">
+    <view class="wechat-image-list">
+      <view class="wechat-image-item" wx:for="{{formData.mainImages}}" wx:key="index">
+        <image class="wechat-image" src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-index="{{index}}"></image>
+        <view class="wechat-image-delete" bindtap="onDeleteImage" data-index="{{index}}">×</view>
+      </view>
+      
+      <view class="wechat-image-add" wx:if="{{formData.mainImages ? formData.mainImages.length < maxImages : true}}" bindtap="onChooseImage">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加图片</text>
+      </view>
+    </view>
+    <view class="error-text" wx:if="{{errors.mainImages}}">{{errors.mainImages}}</view>
+  </view>
+</view>

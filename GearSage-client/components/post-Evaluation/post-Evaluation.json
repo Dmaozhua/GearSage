@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "publish-rating": "/components/publish-rating/publish-rating"
+  }
+}

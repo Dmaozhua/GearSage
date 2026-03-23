@@ -1,0 +1,146 @@
+<!--pages/debounce-test/debounce-test.wxml-->
+<view class="test-container">
+  <view class="test-header">
+    <text class="test-title">防抖功能测试</text>
+    <text class="test-subtitle">测试各种防抖场景和功能</text>
+  </view>
+
+  <!-- 测试按钮区域 -->
+  <view class="test-section">
+    <view class="section-title">基础功能测试</view>
+    
+    <view class="button-row">
+      <button 
+        class="test-btn primary" 
+        bindtap="testBasicDebounce"
+        loading="{{_debounceStates.basicTest}}"
+        disabled="{{_debounceStates.basicTest}}"
+      >
+        {{_debounceStates.basicTest ? '测试中...' : '基本防抖测试'}}
+      </button>
+    </view>
+
+    <view class="button-row">
+      <button 
+        class="test-btn success" 
+        bindtap="testPageMixinDebounce"
+        loading="{{_debounceStates.mixinTest}}"
+        disabled="{{_debounceStates.mixinTest}}"
+      >
+        {{_debounceStates.mixinTest ? '测试中...' : '页面混入测试'}}
+      </button>
+    </view>
+
+    <view class="button-row">
+      <button 
+        class="test-btn warning" 
+        bindtap="testContinuousClick"
+        loading="{{_debounceStates.continuousTest}}"
+        disabled="{{_debounceStates.continuousTest}}"
+      >
+        {{_debounceStates.continuousTest ? '处理中...' : '连续点击测试 (' + counter + ')'}}
+      </button>
+    </view>
+
+    <view class="button-row">
+      <button 
+        class="test-btn danger" 
+        bindtap="testErrorHandling"
+        loading="{{_debounceStates.errorTest}}"
+        disabled="{{_debounceStates.errorTest}}"
+      >
+        {{_debounceStates.errorTest ? '测试中...' : '错误处理测试'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 组件测试区域 -->
+  <view class="test-section">
+    <view class="section-title">组件测试</view>
+    
+    <view class="button-row">
+      <debounce-button 
+        text="组件防抖按钮"
+        loading-text="组件测试中..."
+        type="primary"
+        debounce-key="componentTest"
+        loading-title="组件测试进行中..."
+        bind:tap="onComponentButtonTap"
+      />
+    </view>
+
+    <view class="button-row">
+      <debounce-button 
+        text="朴素按钮"
+        loading-text="处理中..."
+        type="default"
+        plain="{{true}}"
+        debounce-key="plainTest"
+        bind:tap="onComponentButtonTap"
+      />
+    </view>
+
+    <view class="button-row">
+      <debounce-button 
+        text="圆角按钮"
+        loading-text="处理中..."
+        type="warn"
+        shape="round"
+        size="mini"
+        debounce-key="roundTest"
+        bind:tap="onComponentButtonTap"
+      />
+    </view>
+  </view>
+
+  <!-- 工具按钮区域 -->
+  <view class="test-section">
+    <view class="section-title">工具功能</view>
+    
+    <view class="button-row">
+      <button class="test-btn info" bindtap="checkDebounceStatus">
+        检查防抖状态
+      </button>
+      
+      <button class="test-btn secondary" bindtap="clearResults">
+        清空结果
+      </button>
+    </view>
+  </view>
+
+  <!-- 测试结果显示区域 -->
+  <view class="test-section" wx:if="{{testResults.length > 0}}">
+    <view class="section-title">测试结果</view>
+    
+    <view class="results-container">
+      <view 
+        class="result-item {{item.status === '成功' ? 'success' : 'error'}}" 
+        wx:for="{{testResults}}" 
+        wx:key="id"
+      >
+        <view class="result-header">
+          <text class="result-name">{{item.testName}}</text>
+          <text class="result-status">{{item.status}}</text>
+          <text class="result-time">{{item.timestamp}}</text>
+        </view>
+        <view class="result-message">{{item.message}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 状态显示区域 -->
+  <view class="test-section">
+    <view class="section-title">当前防抖状态</view>
+    
+    <view class="status-container">
+      <view class="status-item" wx:for="{{_debounceStates}}" wx:for-item="value" wx:for-index="key" wx:key="key">
+        <text class="status-key">{{key}}:</text>
+        <text class="status-value {{value ? 'active' : 'inactive'}}">{{value ? '进行中' : '空闲'}}</text>
+      </view>
+      
+      <view class="status-item" wx:if="{{!_debounceStates || Object.keys(_debounceStates).length === 0}}">
+        <text class="status-empty">暂无防抖状态</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,115 @@
+<!--pages/search/search.wxml-->
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="搜索" 
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<view class="search-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <!-- 搜索框 -->
+  <view class="search-input-container">
+    <view class="search-input-box">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input"
+        type="text" 
+        placeholder="搜索钓友体验、装备评测" 
+        value="{{searchValue}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+        confirm-type="search"
+        focus="{{true}}"
+      />
+      <view wx:if="{{searchValue.length > 0}}" class="clear-btn" bindtap="onClearSearch">
+        <text class="clear-icon">×</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">搜索中...</text>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view wx:if="{{showResults && !loading}}" class="search-results">
+    <view class="results-header">
+      <text class="results-count">找到 {{searchResults.length}} 个结果</text>
+    </view>
+    
+    <view class="results-list">
+      <view 
+        wx:for="{{searchResults}}" 
+        wx:key="id"
+        class="result-item"
+        data-id="{{item.id}}"
+        bindtap="onResultTap"
+      >
+        <image class="result-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="result-content">
+          <text class="result-title">{{item.title}}</text>
+          <text class="result-description">{{item.description}}</text>
+          <view class="result-meta">
+            <text class="result-price">¥{{item.price}}</text>
+            <view class="result-rating">
+              <text class="rating-star">⭐</text>
+              <text class="rating-score">{{item.rating}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 空结果 -->
+    <view wx:if="{{searchResults.length === 0}}" class="empty-results">
+      <text class="empty-icon">🔍</text>
+      <text class="empty-title">未找到相关内容</text>
+      <text class="empty-subtitle">试试其他关键词吧</text>
+    </view>
+  </view>
+
+  <!-- 搜索历史 -->
+  <view wx:if="{{!showResults && !loading}}" class="search-history">
+    <view wx:if="{{searchHistory.length > 0}}" class="history-section">
+      <view class="history-header">
+        <text class="history-title">搜索历史</text>
+        <text class="clear-history" bindtap="onClearHistory">清空</text>
+      </view>
+      
+      <view class="history-tags">
+        <view 
+          wx:for="{{searchHistory}}" 
+          wx:key="index"
+          class="history-tag"
+          data-keyword="{{item}}"
+          bindtap="onHistoryTap"
+        >
+          <text class="tag-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 热门搜索 -->
+    <view class="hot-search-section">
+      <view class="section-title">
+        <text class="title-text">热门搜索</text>
+      </view>
+      
+      <view class="hot-tags">
+        <view 
+          wx:for="{{['路亚轮', 'DAIWA', '钓鱼竿', '鱼饵', 'SHIMANO', '路亚饵', '钓鱼线', '鱼钩']}}" 
+          wx:key="index"
+          class="hot-tag"
+          data-keyword="{{item}}"
+          bindtap="onHistoryTap"
+        >
+          <text class="tag-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

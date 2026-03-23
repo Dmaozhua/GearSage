@@ -1,0 +1,406 @@
+
+A) 电商筛选系统（Facet）——最少步骤 + 全覆盖
+A1. 首页“3 步快筛”（强烈建议）
+
+让用户 3 次点击就进入正确货架，再用“高级筛选”精修。
+
+鱼饵系统（必选）System
+
+硬饵 Hardbait / Plug
+
+软饵 Soft plastic
+
+金属饵 Metal lure（Spoon / Metal jig 等）
+
+钢丝复合亮片 Wire bait（Spinnerbait / Bladed jig / Underspin / Buzzbait / A-rig…）
+
+JIG 系（Skirted jig / Jighead）
+
+泳层（必选）Water column
+
+水面 Topwater
+
+亚表 Subsurface (0–0.5m)
+
+中层 Mid (0.5–2m)
+
+深层 Deep (2m+)
+
+近底 Near-bottom / Bottom
+
+动作/驱动（必选）Action / Mechanism
+
+Walk/Pop（走狗/点水）
+
+Jerk/Dart（抽停/急停）
+
+Wobble/Roll（摇摆摆动）
+
+Vibration（高频震动：VIB/Blade/Bladed-jig）
+
+Glide（滑行：glide bait）
+
+Spin/Flash（旋转闪光：spinner/underspin）
+
+Flutter/Fall（飘落/慢沉：spoon/metal jig）
+
+Crawl/Creature（底爬/触须：craw/creature）
+
+Worm（虫形：各类软虫）
+
+Frog/Toad（蛙类）
+
+关键点：不要把“胖子/米诺/波爬…”硬塞成树；用这 3 个正交维度做“标签组合”，再自动推导展示型细分（见后面的 mapping 规则）。
+
+A2. “高级筛选”（按系统动态出现，避免 UI 爆炸）
+
+通用（所有商品都能用）
+
+尺寸 Length（mm）
+
+重量 Weight（g/oz）
+
+钩型 Hook（单钩/三本/防挂）
+
+响珠 Sound（无/低/高）
+
+颜色 Color（自然/亮色/夜光/UV…）
+
+目标鱼 Target species（多选）
+
+咬口强度/季节 Water temp / Season（可选）
+
+价格/品牌 Price/Brand
+
+硬饵专属
+
+浮力 Buoyancy：F / SP / S（浮/悬停/沉）
+
+舌板 Lip：无舌/短舌/长舌（可再细：方嘴 squarebill）
+
+潜深 Running depth（用区间更好：0–0.5/0.5–2/2+）
+
+关节 Jointed（是/否）
+
+软饵专属
+
+形态 Form：Worm / Swimbait / Jerkbait(Fluke) / Craw / Creature / Tube / Frog / Insect
+
+尾型 Tail：Pin / Paddle / Curly / T-tail / Stick
+
+浮性 Floating（是/否）
+
+盐度 Salted（是/否）
+
+钢丝复合亮片专属
+
+类型 Type：Spinnerbait / Bladed jig(Chatterbait) / Underspin / Buzzbait / Inline spinner / A-rig
+
+叶片 Blade：Willow / Colorado / Indiana（可选）
+
+叶片数量 Blade count
+
+金属饵专属
+
+Spoon / Casting jig / Vertical jig / Slow pitch / Micro jig
+
+JIG 专属
+
+Skirted jig（Football / Flipping / Swim / Finesse）
+
+Jighead（Shaky / Ned / Dart / Swimbait head）
+
+A3. 电商落库建议（最省心、最抗迭代）
+
+存 5 个核心字段（不可少）：system / water_column / action / length / weight
+
+其余全部用 tags（可扩展）：buoyancy, lip, depth_range, tail_type, hook_type, sound, blade_type…
+
+前端展示时用一条规则把 tags 组合成用户熟悉的“细分名”（如：硬饵+中层+Wobble=胖子/Crankbait）。
+
+B) 选饵向导（Wizard）——既少步骤，又能给“推荐+理由”
+B1. 极速 4 步（面向大多数用户）
+
+你要打的泳层？（水面/亚表/中层/深层/近底）
+
+水域结构？（开阔水 Open / 草区 Weeds / 障碍 Wood-Rock / 混合 Mixed）
+
+鱼活性？（高 Aggressive / 中 Neutral / 低 Lethargic）
+
+策略？（搜鱼 Search / 精钓 Finesse / 防挂 Weedless）
+
+输出（一次给 3 个“主推饵系”+ 2 个备选），每个带：
+
+推荐饵系（中英文）
+
+关键规格（长度/重量/浮力/是否防挂）
+
+推荐动作（匀收/抽停/跳底等）
+
+为什么（匹配泳层+结构+活性）
+
+这套能覆盖近年常见“组合打法”：比如冷水/低活性会更倾向 jerkbait（尤其悬停）与 finesse 软虫；需要快速找鱼会更偏 lipless/VIB、spinner、bladed jig。
+
+B2. 进阶 2 步（可选展开，不强迫）
+
+能见度/水色（清/中/浑）→ 控制颜色与震动强度
+
+风浪/流速（静/有风/强流）→ 控制重量与“抗水”类型（VIB/金属/深潜等）
+
+长度(mm)	重量(g)	饵体系统	泳层	动作	浮力	舌板	钩型
+
+{
+  "system": [
+    {"id": "hardbait", "zh": "硬饵", "en": "Hardbait / Plug"},
+    {"id": "soft", "zh": "软饵", "en": "Soft plastic"},
+    {"id": "metal", "zh": "金属饵", "en": "Metal lure"},
+    {"id": "wire", "zh": "钢丝复合亮片", "en": "Wire bait"},
+    {"id": "jig", "zh": "JIG系", "en": "Jigs"}
+  ],
+  "water_column": [
+    {"id": "top", "zh": "水面", "en": "Topwater"},
+    {"id": "sub", "zh": "亚表(0–0.5m)", "en": "Subsurface (0–0.5m)"},
+    {"id": "mid", "zh": "中层(0.5–2m)", "en": "Mid (0.5–2m)"},
+    {"id": "deep", "zh": "深层(2m+)", "en": "Deep (2m+)"},
+    {"id": "bottom", "zh": "近底/底层", "en": "Near-bottom / Bottom"},
+    {"id": "variable", "zh": "全水层/操控可变", "en": "All levels (by retrieve)"}
+  ],
+  "action": [
+    {"id": "walk_pop", "zh": "走狗/点水", "en": "Walk / Pop"},
+    {"id": "jerk_dart", "zh": "抽停/急停", "en": "Jerk / Dart"},
+    {"id": "wobble_oll", "zh": "摇摆摆动", "en": "Wobble / Roll"},
+    {"id": "vibration", "zh": "高频震动", "en": "Vibration"},
+    {"id": "glide", "zh": "滑行", "en": "Glide"},
+    {"id": "spin_flash", "zh": "旋转闪光", "en": "Spin / Flash"},
+    {"id": "flutter_fall", "zh": "飘落/慢沉", "en": "Flutter / Fall"},
+    {"id": "crawl_creature", "zh": "底爬/触须", "en": "Crawl / Creature"},
+    {"id": "worm", "zh": "虫形", "en": "Worm"},
+    {"id": "frog", "zh": "蛙类", "en": "Frog / Toad"}
+  ],
+  "family": [
+    { "id": "popper", "zh": "波爬/波趴", "en": "Popper" },
+    { "id": "pencil", "zh": "铅笔(浮/沉)", "en": "Pencil / Walking bait" },
+    { "id": "prop", "zh": "螺旋桨饵", "en": "Prop bait" },
+    { "id": "minnow_jerkbait", "zh": "米诺/抽停(含悬停)", "en": "Minnow / Jerkbait (incl. Suspending)" },
+    { "id": "crank", "zh": "胖子/曲柄", "en": "Crankbait" },
+    { "id": "lipless_vib", "zh": "无舌胖/VIB", "en": "Lipless crankbait / VIB" },
+    { "id": "blade_bait", "zh": "刀板", "en": "Blade bait" },
+    { "id": "hard_swimbait_glide", "zh": "硬游泳-滑行", "en": "Glide bait" },
+    { "id": "hard_swimbait_jointed", "zh": "硬游泳-多节", "en": "Jointed swimbait" },
+    { "id": "spinnerbait", "zh": "旋转亮片(安全别针)", "en": "Spinnerbait" },
+    { "id": "inline_spinner", "zh": "直轴亮片", "en": "Inline spinner" },
+    { "id": "underspin", "zh": "下旋", "en": "Underspin" },
+    { "id": "arig", "zh": "伞状拟饵(A-rig)", "en": "Umbrella rig / Alabama rig" },
+    { "id": "bladed_jig", "zh": "刀片颤动JIG(查特)", "en": "Bladed jig / Chatterbait" },
+    { "id": "buzzbait", "zh": "蜂鸣饵", "en": "Buzzbait" },
+    { "id": "spoon", "zh": "汤匙/匙形亮片", "en": "Spoon" },
+    { "id": "metal_jig", "zh": "铁板(抛投/慢摇/微铁)", "en": "Metal jig (casting/slow/micro)" },
+    { "id": "skirted_jig", "zh": "裙摆JIG(胡须佬)", "en": "Skirted jig" },
+    { "id": "jighead", "zh": "铅头钩", "en": "Jighead" },
+    { "id": "soft_worm", "zh": "软虫(直尾/针尾/卷尾/面条/棒状)", "en": "Soft worm (straight/pin/curly/noodle/stick)" },
+    { "id": "soft_swimbait", "zh": "软游泳鱼(桨尾/针尾/T尾)", "en": "Soft swimbait (paddle/pin/T-tail)" },
+    { "id": "soft_jerkbait", "zh": "软米诺/软抽停", "en": "Soft jerkbait / Fluke" },
+    { "id": "soft_craw_creature", "zh": "虾蟹/怪物/海胆", "en": "Craw / Creature / Urchin-style" },
+    { "id": "soft_insect", "zh": "昆虫/若虫", "en": "Insect / Nymph" },
+    { "id": "soft_tube", "zh": "管饵", "en": "Tube bait" },
+    { "id": "soft_frog", "zh": "软蛙(空心/拖鞋)", "en": "Frog / Toad" }
+  ],
+   "derive_family_rules": [
+    // 硬饵
+    {
+      "if": { "system": "hardbait", "water_column": "top", "action": "walk_pop" },
+      "then": ["popper", "pencil", "prop"]
+    },
+    {
+      "if": { "system": "hardbait", "action": "jerk_dart", "water_column": ["sub", "mid", "deep", "bottom"] },
+      "then": ["minnow_jerkbait"]
+    },
+    {
+      "if": { "system": "hardbait", "action": "wobble_roll" },
+      "then": ["crank"]
+    },
+    {
+      "if": { "system": "hardbait", "action": "vibration" },
+      "then": ["lipless_vib", "blade_bait"]
+    },
+    {
+      "if": { "system": "hardbait", "action": "glide", "water_column": ["mid", "deep", "bottom"] },
+      "then": ["hard_swimbait_glide", "hard_swimbait_jointed"]
+    },
+
+    // 钢丝复合亮片
+    {
+      "if": { "system": "wire", "action": "spin_flash" },
+      "then": ["spinnerbait", "inline_spinner", "underspin", "arig"]
+    },
+    {
+      "if": { "system": "wire", "action": "vibration" },
+      "then": ["bladed_jig"]
+    },
+    {
+      "if": { "system": "wire", "water_column": "top" },
+      "then": ["buzzbait"]
+    },
+
+    // 金属饵
+    {
+      "if": { "system": "metal", "action": "flutter_fall" },
+      "then": ["spoon", "metal_jig"]
+    },
+    {
+      "if": { "system": "metal", "action": "wobble_roll" },
+      "then": ["spoon"]
+    },
+    {
+      "if": { "system": "metal", "action": "jerk_dart" },
+      "then": ["metal_jig"]
+    },
+
+    // JIG 系
+    {
+      "if": { "system": "jig", "water_column": "bottom", "action": "crawl_creature" },
+      "then": ["skirted_jig"]
+    },
+    {
+      "if": { "system": "jig", "water_column": "bottom", "action": "wobble_roll" },
+      "then": ["skirted_jig"]
+    },
+    {
+      "if": { "system": "jig", "water_column": "mid", "action": "wobble_roll" },
+      "then": ["skirted_jig"]
+    },
+    {
+      "if": { "system": "jig", "water_column": "bottom", "action": "flutter_fall" },
+      "then": ["jighead"]
+    },
+
+    // 软饵
+    {
+      "if": { "system": "soft", "action": "worm", "water_column": ["bottom", "mid"] },
+      "then": ["soft_worm"]
+    },
+    {
+      "if": { "system": "soft", "action": "wobble_roll" },
+      "then": ["soft_swimbait"]
+    },
+    {
+      "if": { "system": "soft", "action": "jerk_dart", "water_column": ["sub", "mid"] },
+      "then": ["soft_jerkbait"]
+    },
+    {
+      "if": { "system": "soft", "action": "crawl_creature", "water_column": "bottom" },
+      "then": ["soft_craw_creature", "soft_insect"]
+    },
+    {
+      "if": { "system": "soft", "action": "flutter_fall", "water_column": "bottom" },
+      "then": ["soft_tube"]
+    },
+    {
+      "if": { "system": "soft", "water_column": "top" },
+      "then": ["soft_frog"]
+    }
+  ]
+}
+
+
+V2设计
+{
+  "family": [
+    { "id": "crank", "zh": "胖子", "en": "Crank" },
+    { "id": "minnow", "zh": "米诺", "en": "Minnow" },
+    { "id": "suspending_minnow", "zh": "悬停米诺", "en": "Suspending Minnow" },
+    { "id": "topwater_pencil", "zh": "浮水铅笔", "en": "Topwater Pencil" },
+    { "id": "sinking_pencil", "zh": "沉水铅笔", "en": "Sinking Pencil" },
+    { "id": "topwater_walker", "zh": "之字狗", "en": "Topwater Walker" },
+    { "id": "popper", "zh": "波爬", "en": "Popper" },
+    { "id": "buzzbait", "zh": "拖拉机", "en": "Buzzbait" },
+    { "id": "spinnerbait", "zh": "复合亮片", "en": "Spinnerbait" },
+    { "id": "spoon", "zh": "亮片", "en": "Spoon" },
+    { "id": "vib", "zh": "VIB", "en": "VIB" },
+    { "id": "blade_bait", "zh": "铁板", "en": "Blade Bait" },
+    { "id": "spinner", "zh": "旋转亮片", "en": "Spinner" },
+    { "id": "spy_bait", "zh": "间谍饵", "en": "Spy Bait" },
+    { "id": "swimbait", "zh": "多节鱼", "en": "Swimbait" },
+    { "id": "soft_lure", "zh": "软饵", "en": "Soft Lure" },
+    { "id": "jig", "zh": "jig", "en": "Jig" },
+    { "id": "special_lure", "zh": "异形饵", "en": "Special Lure" }
+  ],
+  "derive_family_rules": [
+    {
+      "if": { "system": "hardbait", "water_column": "top", "action": "walk_pop" },
+      "then": ["topwater_pencil", "topwater_walker", "popper"]
+    },
+    {
+      "if": { "system": "hardbait", "water_column": ["sub", "mid"], "action": "jerk_dart" },
+      "then": ["minnow", "suspending_minnow", "sinking_pencil"]
+    },
+    {
+      "if": { "system": "hardbait", "water_column": ["mid", "deep"], "action": "wobble_roll" },
+      "then": ["crank"]
+    },
+    {
+      "if": { "system": "hardbait", "action": "vibration" },
+      "then": ["vib"]
+    },
+    {
+      "if": { "system": "hardbait", "action": "glide" },
+      "then": ["swimbait"]
+    },
+    {
+      "if": { "system": "wire", "water_column": "top", "action": "spin_flash" },
+      "then": ["buzzbait"]
+    },
+    {
+      "if": { "system": "wire", "water_column": ["sub", "mid"], "action": "spin_flash" },
+      "then": ["spinnerbait", "spinner"]
+    },
+    {
+      "if": { "system": "metal", "action": "flutter_fall" },
+      "then": ["spoon"]
+    },
+    {
+      "if": { "system": "metal", "action": "wobble_roll" },
+      "then": ["spoon"]
+    },
+    {
+      "if": { "system": "metal", "action": "vibration" },
+      "then": ["vib", "blade_bait"]
+    },
+    {
+      "if": { "system": "metal", "action": "flutter_fall", "water_column": ["deep", "bottom"] },
+      "then": ["blade_bait"]
+    },
+    {
+      "if": { "system": "metal", "water_column": ["mid", "deep"], "action": ["vibration", "wobble_roll"] },
+      "then": ["spy_bait"]
+    },
+    {
+      "if": { "system": "jig" },
+      "then": ["jig"]
+    },
+    {
+      "if": { "system": "soft" },
+      "then": ["soft_lure"]
+    },
+    {
+      "if": { "system": "soft", "action": "crawl_creature" },
+      "then": ["special_lure"]
+    },
+    {
+      "if": { "system": "metal", "water_column": "variable", "action": "flutter_fall" },
+      "then": ["spoon"]
+    },
+    {
+      "if": { "system": "metal", "water_column": "variable", "action": "vibration" },
+      "then": ["vib", "blade_bait"]
+    },
+    {
+      "if": { "system": "metal", "water_column": "variable", "action": "wobble_roll" },
+      "then": ["spoon", "spy_bait"]
+    },
+    {
+      "if": { "system": "hardbait", "water_column": "variable", "action": "vibration" },
+      "then": ["vib"]
+    }
+  ]
+}

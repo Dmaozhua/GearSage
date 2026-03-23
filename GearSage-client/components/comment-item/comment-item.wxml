@@ -1,0 +1,49 @@
+<!--components/comment-item/comment-item.wxml-->
+<view class="comment-item">
+  <!-- 用户信息 -->
+  <view class="comment-header">
+    <image class="avatar" src="{{comment.userAvatar}}" mode="aspectFill"></image>
+    <view class="user-info">
+      <text class="username">{{comment.username}}</text>
+      <text class="comment-time">{{comment.createTime}}</text>
+    </view>
+    <!-- 管理员删除按钮 -->
+    <view class="admin-actions" wx:if="{{isAdmin}}">
+      <text class="delete-btn" bindtap="onDeleteComment">删除</text>
+    </view>
+  </view>
+
+  <!-- 评论内容 -->
+  <view class="comment-content">
+    <!-- 回复标识 -->
+    <view class="reply-to" wx:if="{{comment.replyTo}}">
+      <text class="reply-text">回复 @{{comment.replyTo}}:</text>
+    </view>
+    <text class="comment-text">{{comment.content}}</text>
+  </view>
+
+  <!-- 评论图片 -->
+  <view class="comment-images" wx:if="{{comment.images && comment.images.length > 0}}">
+    <image 
+      wx:for="{{comment.images}}" 
+      wx:key="index"
+      class="comment-image" 
+      src="{{item}}" 
+      mode="aspectFill"
+      bindtap="onImageTap"
+      data-index="{{index}}"
+    ></image>
+  </view>
+
+  <!-- 互动区域 -->
+  <view class="comment-actions">
+    <view class="action-item" bindtap="onLikeComment">
+      <text class="iconfont {{comment.isLiked ? 'icon-like-fill' : 'icon-like'}}"></text>
+      <text class="action-text">{{comment.likeCount}}</text>
+    </view>
+    <view class="action-item" bindtap="onReplyComment">
+      <text class="iconfont icon-reply"></text>
+      <text class="action-text">回复</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,60 @@
+<view class="filter-tabs {{themeClass}}">
+  <scroll-view
+    scroll-x="true"
+    class="tabs-scroll"
+    enhanced="true"
+    show-scrollbar="false"
+    enable-flex="true"
+  >
+    <block wx:for="{{filters}}" wx:key="key">
+      <view
+        class="filter-tab {{item.key === currentFilter ? 'active' : ''}}"
+        bindtap="onFilterTap"
+        data-key="{{item.key}}"
+        aria-role="button"
+        aria-label="切换筛选：{{item.label}}"
+      >
+        <text class="filter-tab-label">{{item.label}}</text>
+        <text wx:if="{{item.description}}" class="filter-tab-desc">{{item.description}}</text>
+      </view>
+    </block>
+  </scroll-view>
+  <!-- 布局切换按钮（放在二级筛选展开按钮前） -->
+  <view
+    class="layout-toggle__button {{layoutMode === 'list' ? 'layout-toggle__button--active' : ''}}"
+    bindtap="onLayoutToggleTap"
+    hover-class="layout-toggle__button--hover"
+    hover-stay-time="80"
+    aria-role="button"
+    aria-label="切换布局为{{layoutMode === 'list' ? '瀑布' : '列表'}}"
+  >
+    <view class="layout-toggle__icon {{layoutMode === 'list' ? 'layout-toggle__icon--list' : 'layout-toggle__icon--waterfall'}}"></view>
+    <!-- <text class="layout-toggle__label">{{layoutMode === 'list' ? '列表' : '瀑布'}}</text> -->
+  </view>
+  <view
+    wx:if="{{totalSubFilters.length}}"
+    class="sub-toggle-btn {{isSubVisible ? 'expanded' : ''}}"
+    bindtap="toggleSubFilters"
+    aria-role="button"
+    aria-label="{{isSubVisible ? '收起二级筛选' : '展示二级筛选'}}"
+  >
+    <text class="sub-toggle-icon">{{isSubVisible ? '▲' : '▶'}}</text>
+  </view>
+</view>
+
+<view wx:if="{{isSubVisible && totalSubFilters.length}}" class="sub-filter-container {{themeClass}}">
+  <view class="sub-filter-tabs {{isSubExpanded ? 'expanded' : 'collapsed'}}">
+    <block wx:for="{{hasMoreSubFilters && !isSubExpanded ? visibleSubFilters : totalSubFilters}}" wx:key="key">
+      <view
+        class="sub-filter-tab {{item.key === currentSubFilter ? 'active' : ''}}"
+        bindtap="onSubFilterTap"
+        data-key="{{item.key}}"
+        aria-role="button"
+        aria-label="筛选：{{item.label}}"
+      >
+        <text class="sub-filter-label">{{item.label}}</text>
+        <text wx:if="{{item.badge}}" class="sub-filter-badge">{{item.badge}}</text>
+      </view>
+    </block>
+  </view>
+</view>

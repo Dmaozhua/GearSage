@@ -1,0 +1,325 @@
+.filter-tabs {
+  padding: 16rpx 0;
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  /* border-bottom: 1rpx solid rgba(220, 220, 230, 0.5); */
+  background-color: rgba(245, 245, 250, 0.7);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.tabs-scroll {
+  white-space: nowrap;
+  padding: 0 10rpx;
+  flex: 1 1 auto;
+  min-width: 0; /* 允许在flex容器内收缩，避免整体溢出 */
+  overflow: hidden; /* 隐藏水平溢出，由scroll-view自身处理滚动 */
+}
+
+.filter-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14rpx 16rpx;
+  margin-right: 8rpx;
+  font-size: 28rpx;
+  color: #555;
+  background-color: rgba(240, 240, 245, 0.8);
+  backdrop-filter: blur(10rpx);
+  -webkit-backdrop-filter: blur(10rpx);
+  border-radius: 40rpx;
+  transition: all 0.3s ease;
+  border: 1rpx solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 3rpx 8rpx rgba(0, 0, 0, 0.08), inset 0 1rpx 1px rgba(255, 255, 255, 0.7);
+}
+
+.filter-tab:active {
+  transform: scale(0.98);
+}
+
+.filter-tab.active {
+  color: #fff;
+  background-color: rgba(95, 102, 129, 0.85);
+  backdrop-filter: blur(12rpx);
+  -webkit-backdrop-filter: blur(12rpx);
+  font-weight: 600;
+  transform: scale(1.05);
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5rpx 15rpx rgba(95, 102, 129, 0.3), inset 0 1rpx 1px rgba(255, 255, 255, 0.4);
+}
+
+.filter-tab-desc {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+/* 防止标签文本过长导致溢出屏幕 */
+.filter-tab-label,
+.filter-tab-desc {
+  max-width: 48vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sub-toggle-btn {
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 16rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(240, 240, 245, 0.8);
+  border: 1rpx solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 3rpx 8rpx rgba(0, 0, 0, 0.08), inset 0 1rpx 1px rgba(255, 255, 255, 0.7);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+/* 两侧按钮固定尺寸，避免随容器压缩 */
+.sub-toggle-btn,
+.layout-toggle__button {
+  flex: 0 0 auto;
+}
+
+.sub-toggle-btn:active {
+  transform: scale(0.96);
+}
+
+.sub-toggle-icon {
+  font-size: 26rpx;
+  color: #566780;
+  transition: transform 0.25s ease;
+}
+
+.sub-toggle-btn.expanded .sub-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.sub-filter-container {
+  width: 100%;
+  background-color: rgba(245, 245, 250, 0.7);
+  backdrop-filter: blur(15rpx);
+  -webkit-backdrop-filter: blur(15rpx);
+  border-bottom: 1rpx solid rgba(220, 220, 230, 0.4);
+  overflow: hidden;
+}
+
+.sub-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20rpx 24rpx;
+  gap: 16rpx 24rpx;
+  transition: max-height 0.28s ease, opacity 0.28s ease;
+  max-height: 0;
+  opacity: 0;
+}
+
+.sub-filter-tabs.expanded,
+.sub-filter-tabs:not(.collapsed) {
+  max-height: 400rpx;
+  opacity: 1;
+}
+
+.sub-filter-tabs.collapsed {
+  max-height: 180rpx;
+  opacity: 1;
+}
+
+.sub-filter-tab {
+  font-size: 26rpx;
+  color: #666;
+  padding: 12rpx 24rpx;
+  border-radius: 28rpx;
+  transition: all 0.25s ease;
+  background-color: rgba(240, 240, 245, 0.4);
+  border: 1rpx solid rgba(255, 255, 255, 0.5);
+}
+
+.sub-filter-tab:active {
+  transform: scale(0.97);
+}
+
+.sub-filter-tab.active {
+  color: #566780;
+  background-color: rgba(95, 102, 129, 0.12);
+  border-color: rgba(95, 102, 129, 0.35);
+  font-weight: 600;
+}
+
+.sub-filter-badge {
+  margin-left: 8rpx;
+  font-size: 22rpx;
+  color: rgba(86, 103, 128, 0.9);
+}
+
+.dark-mode.filter-tabs,
+.filter-tabs.dark-mode {
+  background:
+    /* radial-gradient(circle at top left, rgba(109, 136, 164, 0.18), transparent 34%), */
+    /* radial-gradient(circle at bottom right, rgba(74, 92, 115, 0.14), transparent 30%), */
+    linear-gradient(180deg, #0d141d 0%, #111a25 44%, #0c1219 100%);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode .filter-tab,
+.filter-tabs.dark-mode .filter-tab {
+  color: #cfd8dc;
+  background-color: rgba(45, 45, 60, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 3rpx 8rpx rgba(0, 0, 0, 0.45), inset 0 1rpx 1px rgba(255, 255, 255, 0.06);
+}
+
+.dark-mode .filter-tab.active,
+.filter-tabs.dark-mode .filter-tab.active {
+  background-color: rgba(120, 130, 180, 0.9);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dark-mode .sub-toggle-btn,
+.filter-tabs.dark-mode .sub-toggle-btn {
+  background: rgba(40, 40, 55, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 3rpx 8rpx rgba(0, 0, 0, 0.45), inset 0 1rpx 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .sub-toggle-icon,
+.filter-tabs.dark-mode .sub-toggle-icon {
+  color: #cfd8dc;
+}
+
+.dark-mode .sub-filter-container,
+.sub-filter-container.dark-mode {
+  background:
+    radial-gradient(circle at top left, rgba(109, 136, 164, 0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(74, 92, 115, 0.14), transparent 30%),
+    linear-gradient(180deg, #0d141d 0%, #111a25 44%, #0c1219 100%);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .sub-filter-tab,
+.sub-filter-container.dark-mode .sub-filter-tab {
+  color: #cfd8dc;
+  background-color: rgba(50, 50, 70, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .sub-filter-tab.active,
+.sub-filter-container.dark-mode .sub-filter-tab.active {
+  color: #f0f4ff;
+  background-color: rgba(120, 130, 180, 0.9);
+  border-color: rgba(120, 130, 180, 0.5);
+}
+
+.dark-mode .sub-filter-badge,
+.sub-filter-container.dark-mode .sub-filter-badge {
+  color: rgba(207, 216, 220, 0.9);
+}
+
+/* 复用首页布局切换按钮样式 */
+.layout-toggle__button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  padding: 12rpx 18rpx;
+  border-radius: 22rpx;
+  color: #6b7280;
+  font-size: 20rpx;
+  transition: all 0.22s ease;
+}
+
+.layout-toggle__button--hover {
+  opacity: 0.85;
+}
+
+.layout-toggle__button--active {
+  /* background: rgba(44, 124, 246, 0.16);
+  color: #2c7cf6;
+  box-shadow: 0 12rpx 28rpx rgba(44, 124, 246, 0.22); */
+}
+
+.layout-toggle__icon {
+  position: relative;
+  width: 48rpx;
+  height: 48rpx;
+  color: currentColor;
+}
+
+.layout-toggle__icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14rpx;
+  border: 2rpx solid currentColor;
+  opacity: 0.35;
+}
+
+.layout-toggle__icon--list::after {
+  content: '';
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 26%;
+  height: 4rpx;
+  background: currentColor;
+  border-radius: 999rpx;
+  box-shadow: 0 12rpx 0 0 currentColor, 0 24rpx 0 0 currentColor;
+}
+
+.layout-toggle__icon--waterfall::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 18%;
+  bottom: 18%;
+  border-radius: 12rpx;
+  background: linear-gradient(90deg, currentColor 0 45%, transparent 45% 55%, currentColor 55% 100%);
+  opacity: 0.75;
+}
+
+.layout-toggle__label {
+  font-size: 20rpx;
+  letter-spacing: 1rpx;
+}
+
+.filter-tabs.dark-mode .layout-toggle__button {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.filter-tabs.dark-mode .layout-toggle__button--active {
+  /* background: rgba(60, 130, 255, 0.28);
+  color: #9cc3ff;
+  box-shadow: 0 12rpx 36rpx rgba(36, 99, 255, 0.42); */
+}
+/* 新增：布局切换按钮样式，与二级筛选按钮保持一致风格 */
+.layout-toggle-btn {
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 12rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(240, 240, 245, 0.8);
+  border: 1rpx solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 3rpx 8rpx rgba(0, 0, 0, 0.08), inset 0 1rpx 1px rgba(255, 255, 255, 0.7);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.layout-toggle-btn:active {
+  transform: scale(0.96);
+}
+
+.layout-toggle-icon {
+  font-size: 26rpx;
+  color: #566780;
+}

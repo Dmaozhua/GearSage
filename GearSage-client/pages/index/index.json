@@ -1,0 +1,21 @@
+
+{
+    "navigationStyle": "custom",
+    "enableShareAppMessage": true,
+    "enableShareTimeline": true,
+  "usingComponents": {
+      "post-card": "/components/post-card/post-card",
+      "custom-navbar": "/components/custom-navbar/custom-navbar",
+      "svg-loading": "/components/svg-loading/svg-loading",
+      "user-tag": "/components/user-tag/user-tag",
+      "banner-carousel": "/components/banner-carousel/banner-carousel",
+      "function-nav": "/components/function-nav/function-nav",
+      "post-button": "/components/post-button/post-button",
+      "filter-tabs": "/components/filter-tabs/filter-tabs"
+    },
+    "navigationBarTitleText": "钓友说",
+    "navigationBarBackgroundColor": "#BDC3C7",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#ffffff",
+    "enablePullDownRefresh": true
+  }

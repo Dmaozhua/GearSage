@@ -1,0 +1,136 @@
+@import "../../styles/dark.wxss";
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20rpx;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding: 20rpx;
+  cursor: pointer;
+  font-size: 28rpx;
+  color: #ffffff;
+  width: calc((100% - 40rpx) / 3);
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.control:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.control__indicator {
+  position: relative;
+  margin-right: 16rpx;
+  height: 32rpx;
+  width: 32rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border: 2rpx solid rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.control.checked {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-color: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+}
+
+.control.checked .control__indicator {
+  background: #333;
+  border-color: #333;
+}
+
+.control.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.control.disabled .control__indicator {
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0.6;
+}
+
+.control__indicator:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.control.checked .control__indicator:after {
+  display: block;
+}
+
+.control--radio .control__indicator:after {
+  height: 14rpx;
+  width: 14rpx;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.control--radio.disabled .control__indicator:after {
+  background: #999;
+}
+
+/* 夜间模式样式 */
+
+.dark {
+    background-color: #12121200 !important;
+    color: #e0e0e0 !important;
+  }
+.dark .control-group {
+  background-color: transparent;
+}
+
+.dark .control {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(13, 25, 48, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.dark .control:active {
+  background: rgba(13, 25, 48, 0.8);
+}
+
+.dark .control.checked {
+  background: rgba(255, 255, 255, 0.85);
+  color: #000;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .control__indicator {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .control.checked .control__indicator {
+  background: #000;
+  border-color: #000;
+}
+
+.dark .control--radio .control__indicator:after {
+  background: #fff;
+}
+
+.dark .control.disabled {
+  opacity: 0.4;
+}
+
+.dark .control.disabled .control__indicator {
+  background: rgba(255, 255, 255, 0.05);
+}

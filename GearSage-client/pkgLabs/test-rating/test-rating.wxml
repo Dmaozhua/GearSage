@@ -1,0 +1,28 @@
+<!-- pages/test-rating/test-rating.wxml -->
+<view class="container">
+  <view class="title">评分组件测试</view>
+  
+  <view class="test-items">
+    <view class="test-item" wx:for="{{testItems}}" wx:key="id">
+      <view class="item-description">{{item.description}}</view>
+      
+      <!-- 评分信息 -->
+      <view class="rating-info">
+        <view class="rating-stars">
+          <view class="stars-wrapper">
+            <!-- 背景（空心星） -->
+            <view class="star-background">
+              <text class="star-bg" wx:for="{{5}}" wx:key="index">☆</text>
+            </view>
+            <!-- 前景（实心星），用宽度控制填充比例 -->
+            <view class="star-foreground" style="width: {{(item.rating / 5) * 100+'%'}};">
+              <text class="star-fg" wx:for="{{5}}" wx:key="index">★</text>
+            </view>
+          </view>
+          <!-- 数值显示（显示为 x / 5） -->
+          <text class="rating-value">{{item.rating}} / 5</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,116 @@
+@import '../detail/detail.wxss';
+
+.preview-page {
+  padding-bottom: 180rpx;
+}
+
+.preview-header-card {
+  margin: 24rpx 24rpx 20rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, rgba(44, 124, 246, 0.16), rgba(44, 124, 246, 0.04));
+  box-shadow: 0 12rpx 32rpx rgba(44, 124, 246, 0.12);
+}
+
+.preview-header-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40rpx;
+  padding: 0 14rpx;
+  border-radius: 999rpx;
+  background: rgba(44, 124, 246, 0.14);
+  color: #255ea6;
+  font-size: 22rpx;
+}
+
+.preview-header-card__title {
+  margin-top: 16rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #24415f;
+}
+
+.preview-header-card__desc {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  color: #53657a;
+  line-height: 1.6;
+}
+
+.preview-bottom-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    gap: 20rpx;
+    padding: 22rpx 24rpx calc(22rpx + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12rpx);
+    -webkit-backdrop-filter: blur(12rpx);
+    box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.08);
+    /* 新增：让flex容器内的子元素垂直居中 */
+    align-items: center;
+    /* 可选：如果需要容器有最小高度，避免按钮高度撑满容器 */
+    min-height: calc(88rpx + 44rpx);
+    box-sizing: border-box; /* 确保padding不会撑开容器宽度 */
+  }
+  
+  .preview-secondary-btn,
+  .preview-primary-btn {
+    flex: 1;
+    height: 88rpx;
+    line-height: 88rpx;
+    border-radius: 999rpx;
+    font-size: 30rpx;
+    border: none;
+    /* 确保按钮内文字水平居中 */
+    text-align: center;
+    /* 可选：去除按钮默认的内外边距 */
+    margin: 0;
+    padding: 0;
+    /* 可选：去除按钮默认样式（比如小程序/浏览器默认样式） */
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+.preview-secondary-btn {
+  background: #edf3f8;
+  color: #3c546d;
+}
+
+.preview-primary-btn {
+  background: linear-gradient(135deg, #2c7cf6, #4aa1ff);
+  color: #fff;
+  box-shadow: 0 12rpx 28rpx rgba(44, 124, 246, 0.24);
+}
+
+.dark .preview-header-card {
+  background: linear-gradient(135deg, rgba(98, 151, 255, 0.16), rgba(98, 151, 255, 0.05));
+}
+
+.dark .preview-header-card__title {
+  color: #d6e6ff;
+}
+
+.dark .preview-header-card__eyebrow {
+  background: rgba(98, 151, 255, 0.18);
+  color: #d6e6ff;
+}
+
+.dark .preview-header-card__desc {
+  color: rgba(214, 230, 255, 0.78);
+}
+
+.dark .preview-bottom-bar {
+  background: rgba(20, 24, 32, 0.94);
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.35);
+}
+
+.dark .preview-secondary-btn {
+  background: #2b3442;
+  color: #d8e2f0;
+}

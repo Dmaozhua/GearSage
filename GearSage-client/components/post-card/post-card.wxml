@@ -1,0 +1,48 @@
+<!--components/post-card/post-card.wxml-->
+<view class="post-card" bindtap="onTapPost">
+  <!-- 用户信息 -->
+  <view class="post-header">
+    <image class="avatar" src="{{post.userAvatarUrl || post.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" lazy-load="true"></image>
+    <view class="user-info">
+      <text class="username">{{post.username}}</text>
+      <text class="post-time">{{post.createTime}}</text>
+    </view>
+  </view>
+
+  <!-- 装备信息 -->
+  <view class="post-content">
+    <view class="equipment-name">{{post.equipmentName}}</view>
+    <view class="equipment-info">
+      <text class="info-item">购入时间：{{post.purchaseTime}}</text>
+      <text class="info-item">使用频次：{{post.usageFrequency}}</text>
+      <text class="info-item">使用环境：{{post.usageEnvironment}}</text>
+      <text class="info-item">目标鱼种：{{post.targetFish}}</text>
+    </view>
+    
+    <!-- 装备图片 -->
+    <view class="equipment-images" wx:if="{{post.images && post.images.length > 0}}">
+      <image
+        wx:for="{{post.images}}"
+        wx:key="index"
+        class="equipment-image"
+        src="{{item}}"
+        mode="aspectFill"
+        lazy-load="true"
+        catchtap="onImageTap"
+        data-index="{{index}}"
+      ></image>
+    </view>
+  </view>
+
+  <!-- 互动区域 -->
+  <view class="post-actions">
+    <view class="action-item" catchtap="onLike">
+      <text class="iconfont {{post.isLiked ? 'icon-like-fill' : 'icon-like'}}"></text>
+      <text class="action-text">{{post.likeCount}}</text>
+    </view>
+    <view class="action-item">
+      <text class="iconfont icon-comment"></text>
+      <text class="action-text">{{post.commentCount}}</text>
+    </view>
+  </view>
+</view>

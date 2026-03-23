@@ -1,0 +1,387 @@
+<custom-navbar
+  id="custom-navbar"
+  title="钓友说"
+  show-back="{{false}}"
+  left-icon="/images/logo/GearSageLogo.png"
+  left-icon-dark="/images/logo/GearSageLogo-w.png"
+  show-search="{{true}}"
+  search-placeholder="搜索钓友体验"
+  right-button-text=""
+  background-color="#BDC3C7"
+  text-color="#000000"
+  bind:searchTap="onSearchTap">
+</custom-navbar>
+
+<view class="pull-refresh-indicator {{containerClass}} {{isPullRefreshing ? 'pull-refresh-indicator--show' : ''}}" style="top: {{statusBarHeight + navBarHeight}}px;">
+  <svg-loading spinning="{{true}}" showText="{{false}}" size="small" color="{{containerClass ? '#9cc3ff' : '#2c7cf6'}}"></svg-loading>
+</view>
+
+<view class="banner-carousel-container {{containerClass}}" style="margin-top: {{statusBarHeight + navBarHeight}}px;">
+  <banner-carousel
+    id="banner-carousel"
+    height="{{300}}"
+    enable-navbar-color-change="{{true}}"
+    bind:navbarColorChange="onNavbarColorChange"
+    bind:change="onBannerChange"
+    bind:tap="onBannerTap"
+  >
+  </banner-carousel>
+  <view class="banner-gradient"></view>
+</view>
+
+<function-nav
+  id="functionNav"
+  show-title="{{false}}"
+  container-height="{{functionNavHeight}}"
+  bind:functionTap="onFunctionTap"
+  bind:moreTap="onMoreTap"
+  bind:share="onShare"
+  bind:refreshHome="onRefreshHome">
+</function-nav>
+
+<view class="container {{containerClass}}">
+  <view wx:if="{{activeMorePostId}}" class="interaction-more-mask" catchtap="closeMoreMenu"></view>
+  <view class="filter-toolbar">
+    <view class="filter-toolbar__tabs">
+      <filter-tabs
+        filters="{{filterTabs}}"
+        current-filter="{{currentFilter}}"
+        current-sub-filter="{{subFilter}}"
+        theme-class="{{containerClass}}"
+        layout-mode="{{layoutMode}}"
+        bind:filterchange="onFilterTabsChange"
+        bind:subfilterchange="onFilterTabsSubChange"
+        bind:toggle="onFilterTabsToggle"
+        bind:layouttoggle="onFilterTabsLayoutToggle">
+      </filter-tabs>
+    </view>
+  </view>
+
+  <view wx:if="{{currentFilter !== 'article'}}">
+    <view class="home-feed {{layoutMode === 'waterfall' ? 'home-feed--waterfall' : ''}}">
+      <view wx:if="{{showSkeleton}}" class="angler-skeleton" aria-hidden="true">
+        <block wx:for="{{skeletonRows}}" wx:key="*this">
+          <view class="skeleton-card">
+            <view class="skeleton-header">
+              <view class="skeleton-avatar"></view>
+              <view class="skeleton-header-lines">
+                <view class="skeleton-line skeleton-line--primary"></view>
+                <view class="skeleton-line skeleton-line--secondary"></view>
+              </view>
+            </view>
+            <view class="skeleton-body">
+              <view class="skeleton-line skeleton-line--full"></view>
+              <view class="skeleton-line skeleton-line--medium"></view>
+            </view>
+            <view class="skeleton-thumbs">
+              <view class="skeleton-thumb" wx:for="{{3}}" wx:key="index"></view>
+            </view>
+            <view class="skeleton-footer">
+              <view class="skeleton-chip" wx:for="{{3}}" wx:key="index"></view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view wx:elif="{{originList.length === 0}}" class="no-angler-data">
+        <text>{{layoutMode === 'waterfall' ? '暂时没有符合条件的帖子' : '当前还没有帖子，去发第一条吧'}}</text>
+      </view>
+
+      <scroll-view
+        wx:elif="{{layoutMode === 'list'}}"
+        class="angler-list layout-transition"
+        scroll-y="true"
+        enable-flex="true"
+        enhanced="true"
+        bounces="true"
+        show-scrollbar="true"
+        bindscroll="onListScroll"
+        bindscrolltolower="onListReachBottom"
+        lower-threshold="200"
+        scroll-top="{{listScrollTop}}"
+        scroll-with-animation="true">
+        <view class="angler-item" wx:for="{{originList}}" wx:key="id">
+          <view class="angler-card topic-{{item.topicCategory}}">
+            <view class="clickable-area" bindtap="viewAnglerDetail" data-id="{{item.id}}">
+              <block wx:if="{{item.topicCategory === 0}}">
+                <view class="feed-card__hero" wx:if="{{item.displayImages && item.displayImages.length}}">
+                  <image class="feed-card__cover" src="{{item.displayImages[0]}}" mode="aspectFill" lazy-load="true"></image>
+                  <text class="feed-card__flag">好物速报</text>
+                </view>
+                <view class="feed-card__body">
+                  <view class="feed-card__title">{{item.title}}</view>
+                  <view class="feed-card__meta">{{item.productMeta}}</view>
+                  <view class="feed-card__tags" wx:if="{{item.reasonTags && item.reasonTags.length}}">
+                    <block wx:for="{{item.reasonTags}}" wx:key="index">
+                      <text class="feed-chip feed-chip--warm">{{item}}</text>
+                    </block>
+                  </view>
+                  <view class="feed-card__footnote" wx:if="{{item.userMetaText}}">{{item.userMetaText}}</view>
+                </view>
+              </block>
+
+              <block wx:elif="{{item.topicCategory === 1}}">
+                <view class="feed-card__hero" wx:if="{{item.displayImages && item.displayImages.length}}">
+                  <image class="feed-card__cover" src="{{item.displayImages[0]}}" mode="aspectFill" lazy-load="true"></image>
+                  <text class="feed-card__flag">长测评</text>
+                </view>
+                <view class="feed-card__body">
+                  <view class="feed-card__title">{{item.title}}</view>
+                  <view class="feed-card__meta">{{item.productMeta}}</view>
+                  <view class="feed-card__badge-row">
+                    <text class="feed-pill feed-pill--solid" wx:if="{{item.userMetaText}}">{{item.userMetaText}}</text>
+                    <text class="feed-pill feed-pill--warn" wx:if="{{item.gradeLabel}}">{{item.gradeLabel}}</text>
+                  </view>
+                  <view class="feed-card__tags" wx:if="{{item.experienceKeyTags && item.experienceKeyTags.length}}">
+                    <block wx:for="{{item.experienceKeyTags}}" wx:key="index">
+                      <text class="feed-chip">{{item}}</text>
+                    </block>
+                  </view>
+                  <view class="feed-card__grid" wx:if="{{item.advantageTag || item.fitTag}}">
+                    <view class="feed-card__mini" wx:if="{{item.advantageTag}}">
+                      <text class="feed-card__mini-label">优点</text>
+                      <text class="feed-card__mini-value">{{item.advantageTag}}</text>
+                    </view>
+                    <view class="feed-card__mini" wx:if="{{item.fitTag}}">
+                      <text class="feed-card__mini-label">适合人群</text>
+                      <text class="feed-card__mini-value">{{item.fitTag}}</text>
+                    </view>
+                  </view>
+                </view>
+              </block>
+
+              <block wx:elif="{{item.topicCategory === 2}}">
+                <view class="feed-card__body feed-card__body--compact">
+                  <view class="feed-card__header-line">
+                    <text class="feed-pill feed-pill--solid">{{item.userMetaText || item.topicCategoryLabel}}</text>
+                    <text class="feed-pill" wx:if="{{item.quickReplyOnly}}">快速回答</text>
+                  </view>
+                  <view class="feed-card__title">{{item.title}}</view>
+                  <view class="feed-card__meta" wx:if="{{item.relatedGearText}}">关联装备 / {{item.relatedGearText}}</view>
+                  <view class="feed-card__thumb" wx:if="{{item.displayImages && item.displayImages.length}}">
+                    <image class="feed-card__thumb-image" src="{{item.displayImages[0]}}" mode="aspectFill" lazy-load="true"></image>
+                  </view>
+                </view>
+              </block>
+
+              <block wx:elif="{{item.topicCategory === 3}}">
+                <view class="feed-card__hero" wx:if="{{item.displayImages && item.displayImages.length}}">
+                  <image class="feed-card__hero-image" src="{{item.displayImages[0]}}" mode="aspectFill" lazy-load="true"></image>
+                  <text class="feed-card__flag">鱼获展示</text>
+                </view>
+                <view class="feed-card__body feed-card__body--compact">
+                  <view class="feed-card__title">{{item.title}}</view>
+                  <view class="feed-card__header-line">
+                    <view class="feed-card__tags" wx:if="{{item.locationTagDisplay}}">
+                      <text class="feed-chip feed-chip--sky">{{item.locationTagDisplay}}</text>
+                    </view>
+                    <text class="feed-card__measure" wx:if="{{item.catchMetrics}}">{{item.catchMetrics}}</text>
+                  </view>
+                </view>
+              </block>
+
+              <block wx:elif="{{item.topicCategory === 4}}">
+                <view class="feed-card__body feed-card__body--trip">
+                  <view class="feed-card__title">{{item.title}}</view>
+                  <view class="feed-card__badge-row">
+                    <text class="feed-pill feed-pill--solid" wx:if="{{item.tripResult}}">{{item.tripResult}}</text>
+                    <text class="feed-chip" wx:if="{{item.targetFish && item.targetFish.length}}">{{item.targetFish[0]}}</text>
+                  </view>
+                  <view class="feed-card__meta" wx:if="{{item.tripMetaText}}">{{item.tripMetaText}}</view>
+                  <view class="feed-card__thumb" wx:if="{{item.displayImages && item.displayImages.length}}">
+                    <image class="feed-card__thumb-image" src="{{item.displayImages[0]}}" mode="aspectFill" lazy-load="true"></image>
+                  </view>
+                </view>
+              </block>
+
+              <block wx:else>
+                <view class="feed-card__body">
+                  <view class="feed-card__title">{{item.title}}</view>
+                </view>
+              </block>
+
+              <view class="interaction-btns {{activeMorePostId == item.id ? 'interaction-btns--menu-open' : ''}}">
+                <view class="interaction-btn {{item.islike ? 'liked' : ''}}" catchtap="onLike" data-id="{{item.id}}">
+                  <image class="interaction-icon-img" src="{{item.islike ? '/images/icons/like-ing.png' : (containerClass === 'dark-mode' ? '/images/icons/like-night.png' : '/images/icons/like.png')}}" mode="aspectFit" lazy-load="true"></image>
+                  <text class="interaction-count">{{item.likeCount}}</text>
+                </view>
+                <view class="interaction-btn" catchtap="onComment" data-id="{{item.id}}">
+                  <image class="interaction-icon-img" src="{{containerClass === 'dark-mode' ? '/images/icons/comment-night.png' : '/images/icons/comment.png'}}" mode="aspectFit" lazy-load="true"></image>
+                  <text class="interaction-count">{{item.commentCount}}</text>
+                </view>
+                <view class="interaction-btn {{activeMorePostId == item.id ? 'interaction-btn--more-active' : ''}}" catchtap="onMore" data-id="{{item.id}}">
+                  <text class="interaction-icon">...</text>
+                </view>
+                <view wx:if="{{activeMorePostId == item.id}}" class="interaction-more-menu" catchtap="noop">
+                  <button
+                    class="interaction-more-menu__item interaction-more-menu__share"
+                    open-type="share"
+                    catchtap="onShareButtonTap"
+                    data-id="{{item.id}}">
+                    <image class="interaction-more-menu__icon" src="/images/icons/share.svg" mode="aspectFit" lazy-load="true"></image>
+                    <text class="interaction-more-menu__text">分享给朋友</text>
+                  </button>
+                  <view class="interaction-more-menu__item" catchtap="onMoreMenuTimelinePreview" data-id="{{item.id}}">
+                    <text class="interaction-more-menu__text">朋友圈轻量预览</text>
+                  </view>
+                  <view class="interaction-more-menu__item" catchtap="onMoreMenuCopyPath" data-id="{{item.id}}">
+                    <text class="interaction-more-menu__text">复制帖子路径</text>
+                  </view>
+                  <view class="interaction-more-menu__item" catchtap="onMoreMenuFavoriteTap" data-id="{{item.id}}">
+                    <text class="interaction-more-menu__text">收藏</text>
+                  </view>
+                  <view class="interaction-more-menu__item interaction-more-menu__item--danger" catchtap="onMoreMenuReportTap" data-id="{{item.id}}">
+                    <text class="interaction-more-menu__text">举报</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <scroll-view
+        wx:else
+        class="waterfall-scroll layout-transition"
+        scroll-y="true"
+        enhanced="true"
+        enable-flex="true"
+        show-scrollbar="true"
+        bindscroll="onWaterfallScroll"
+        bindscrolltolower="onWaterfallReachBottom"
+        lower-threshold="240"
+        scroll-top="{{waterfallScrollTop}}"
+        scroll-with-animation="true">
+        <view class="waterfall-container">
+          <view class="waterfall-column">
+            <block wx:for="{{waterfallColumns.left}}" wx:for-item="card" wx:key="id">
+              <view class="waterfall-card" bindtap="viewAnglerDetail" data-id="{{card.id}}">
+                <view class="waterfall-card__media" style="{{'padding-top: ' + card.placeholderRatio + '%'}}">
+                  <image
+                    wx:if="{{card.hasCover}}"
+                    class="waterfall-card__image"
+                    src="{{card.cover}}"
+                    mode="aspectFill"
+                    lazy-load="true">
+                  </image>
+                  <view wx:else class="waterfall-card__placeholder">
+                    <text class="waterfall-card__placeholder-text">{{card.placeholderTitle}}</text>
+                  </view>
+                  <view class="waterfall-card__overlay">
+                    <view class="waterfall-card__eyebrow" wx:if="{{card.eyebrow}}">{{card.eyebrow}}</view>
+                    <view wx:if="{{card.title}}" class="waterfall-card__title">{{card.title}}</view>
+                    <view class="waterfall-card__tags" wx:if="{{card.tags && card.tags.length}}">
+                      <block wx:for="{{card.tags}}" wx:for-item="tag" wx:key="*this">
+                        <text class="waterfall-card__tag">{{tag}}</text>
+                      </block>
+                    </view>
+                    <view class="waterfall-card__footer">
+                      <image class="waterfall-card__avatar" src="{{card.avatarUrl}}" mode="aspectFill" lazy-load="true"></image>
+                      <view class="waterfall-card__user">
+                        <text class="waterfall-card__name">{{card.userName}}</text>
+                      </view>
+                      <view class="waterfall-card__stats">
+                        <view class="waterfall-card__stat" wx:if="{{card.likeCount !== undefined}}">
+                          <image class="waterfall-card__stat-icon" src="{{card.islike ? '/images/icons/like-ing.png' : (containerClass === 'dark-mode' ? '/images/icons/like-night.png' : '/images/icons/like.png')}}" mode="aspectFit" lazy-load="true"></image>
+                          <text class="waterfall-card__stat-value">{{card.likeCount}}</text>
+                        </view>
+                        <view class="waterfall-card__stat" wx:if="{{card.commentCount !== undefined}}">
+                          <image class="waterfall-card__stat-icon" src="{{containerClass === 'dark-mode' ? '/images/icons/comment-night.png' : '/images/icons/comment.png'}}" mode="aspectFit" lazy-load="true"></image>
+                          <text class="waterfall-card__stat-value">{{card.commentCount}}</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+
+          <view class="waterfall-column">
+            <block wx:for="{{waterfallColumns.right}}" wx:for-item="card" wx:key="id">
+              <view class="waterfall-card" bindtap="viewAnglerDetail" data-id="{{card.id}}">
+                <view class="waterfall-card__media" style="{{'padding-top: ' + card.placeholderRatio + '%'}}">
+                  <image
+                    wx:if="{{card.hasCover}}"
+                    class="waterfall-card__image"
+                    src="{{card.cover}}"
+                    mode="aspectFill"
+                    lazy-load="true">
+                  </image>
+                  <view wx:else class="waterfall-card__placeholder">
+                    <text class="waterfall-card__placeholder-text">{{card.placeholderTitle}}</text>
+                  </view>
+                  <view class="waterfall-card__overlay">
+                    <view class="waterfall-card__eyebrow" wx:if="{{card.eyebrow}}">{{card.eyebrow}}</view>
+                    <view wx:if="{{card.title}}" class="waterfall-card__title">{{card.title}}</view>
+                    <view class="waterfall-card__tags" wx:if="{{card.tags && card.tags.length}}">
+                      <block wx:for="{{card.tags}}" wx:for-item="tag" wx:key="*this">
+                        <text class="waterfall-card__tag">{{tag}}</text>
+                      </block>
+                    </view>
+                    <view class="waterfall-card__footer">
+                      <image class="waterfall-card__avatar" src="{{card.avatarUrl}}" mode="aspectFill" lazy-load="true"></image>
+                      <view class="waterfall-card__user">
+                        <text class="waterfall-card__name">{{card.userName}}</text>
+                      </view>
+                      <view class="waterfall-card__stats">
+                        <view class="waterfall-card__stat" wx:if="{{card.likeCount !== undefined}}">
+                          <image class="waterfall-card__stat-icon" src="{{card.islike ? '/images/icons/like-ing.png' : (containerClass === 'dark-mode' ? '/images/icons/like-night.png' : '/images/icons/like.png')}}" mode="aspectFit" lazy-load="true"></image>
+                          <text class="waterfall-card__stat-value">{{card.likeCount}}</text>
+                        </view>
+                        <view class="waterfall-card__stat" wx:if="{{card.commentCount !== undefined}}">
+                          <image class="waterfall-card__stat-icon" src="{{containerClass === 'dark-mode' ? '/images/icons/comment-night.png' : '/images/icons/comment.png'}}" mode="aspectFit" lazy-load="true"></image>
+                          <text class="waterfall-card__stat-value">{{card.commentCount}}</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+
+        <view wx:if="{{isWaterfallLoading}}" class="waterfall-loading">
+          <view class="waterfall-loading__dot"></view>
+          <view class="waterfall-loading__dot"></view>
+          <view class="waterfall-loading__dot"></view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view wx:elif="{{currentFilter === 'article'}}" class="article-container">
+    <view class="article-list">
+      <view wx:if="{{loading}}" class="loading">
+        <text>正在加载文章...</text>
+      </view>
+
+      <view wx:elif="{{articles.length === 0}}" class="no-data">
+        <text>暂无文章数据</text>
+      </view>
+
+      <view wx:else>
+        <view
+          wx:for="{{articles}}"
+          wx:key="id"
+          class="article-card"
+          data-id="{{item.id}}"
+          bindtap="navigateToArticlePage">
+          <view class="article-content">
+            <view class="article-title">{{item.meta.title}}</view>
+            <view class="article-meta">
+              <text class="article-author">{{item.meta.author}}</text>
+              <text class="article-date">{{item.meta.publishDate}}</text>
+            </view>
+            <view class="article-preview">{{item.previewText}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{currentFilter !== 'article'}}" class="floating-publish-btn">
+    <post-button bind:tap="onPublish" text=" GEARSAGE"></post-button>
+  </view>
+</view>

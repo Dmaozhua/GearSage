@@ -1,0 +1,14 @@
+<view class="button {{isHovered ? 'button--hovered' : ''}}" bindtap="onTap" 
+      bindtouchstart="onTouchStart" bindtouchend="onTouchEnd">
+  <view class="button__text">
+    <text class="text-node" wx:for="{{letters}}" wx:key="idx" 
+           style="transform: translate({{item.x}}px, {{item.y}}px) rotate({{item.deg}}deg);">
+      {{item.ch}}
+    </text>
+  </view>
+
+  <view class="button__circle">
+    <image class="button__icon" src="{{isDarkMode ? iconDark : icon}}" mode="aspectFit" />
+    <image class="button__icon button__icon--copy" src="{{isDarkMode ? icon1Dark : icon1}}" mode="aspectFit" />
+  </view>
+</view>

@@ -1,0 +1,16 @@
+<!--pages/about-page/about-page.wxml-->
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="{{pageTitle}}" 
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<view class="about-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="about-content">
+    <!-- 使用rich-text组件显示格式化内容 -->
+    <rich-text nodes="{{contentData}}" class="rich-content"></rich-text>
+  </view>
+</view>

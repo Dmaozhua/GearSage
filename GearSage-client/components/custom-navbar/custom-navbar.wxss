@@ -1,0 +1,294 @@
+/* components/custom-navbar/custom-navbar.wxss */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: #ffffff;
+  /* 毛玻璃效果 */
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  /* 平滑过渡效果 */
+  transition: background-color 0.5s ease, color 0.3s ease;
+}
+
+/* 阴影效果 */
+.navbar-shadow {
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 动画效果 */
+.navbar-animated {
+  transition: all 0.3s ease;
+}
+
+.status-bar {
+  width: 100%;
+}
+
+.navbar-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16rpx;
+  box-sizing: border-box;
+  position: relative;
+  /* 安全区域适配 */
+  padding-left: calc(16rpx + env(safe-area-inset-left));
+  padding-right: calc(16rpx + env(safe-area-inset-right));
+}
+
+/* 左侧区域 */
+.left-area {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  padding-left: 24rpx;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  transform: scale(1);
+}
+
+.back-button:active {
+  background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(0.95);
+}
+
+.back-icon {
+  font-size: 36rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.left-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 16rpx;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.left-icon-container:active {
+  transform: scale(0.95);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.left-icon {
+  width: 74rpx;
+  height: 74rpx;
+}
+
+.title-container {
+  flex: 1;
+  min-width: 0;
+  transition: opacity 0.3s ease;
+}
+
+.title-container:active {
+  opacity: 0.7;
+}
+
+.navbar-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 右侧区域 */
+.right-area {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 16rpx;
+  padding-right: 24rpx;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  padding: 0 24rpx;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 28rpx;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.search-container:active {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(0.98);
+}
+
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+  opacity: 0.6;
+}
+
+.search-placeholder {
+  font-size: 26rpx;
+  opacity: 0.6;
+}
+
+.right-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64rpx;
+  height: 64rpx;
+  padding: 0 16rpx;
+  border-radius: 32rpx;
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.right-button:active {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+}
+
+.right-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.right-text {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.capsule-placeholder {
+  flex-shrink: 0;
+}
+
+/* 悬浮效果 */
+.custom-navbar:hover .back-button,
+.custom-navbar:hover .left-icon-container,
+.custom-navbar:hover .search-container,
+.custom-navbar:hover .right-button {
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 深色模式适配 - 类选择器 */
+.custom-navbar.dark-mode {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+.custom-navbar.dark-mode .navbar-shadow {
+  box-shadow: 0 2rpx 12rpx rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar.dark-mode .back-button,
+.custom-navbar.dark-mode .right-button {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar.dark-mode .back-button:active,
+.custom-navbar.dark-mode .right-button:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.custom-navbar.dark-mode .search-container {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar.dark-mode .search-container:active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.custom-navbar.dark-mode .back-icon,
+.custom-navbar.dark-mode .navbar-title,
+.custom-navbar.dark-mode .right-text {
+  color: #ffffff;
+}
+
+.custom-navbar.dark-mode .search-icon,
+.custom-navbar.dark-mode .search-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 深色模式适配 - 媒体查询（保留作为备用） */
+@media (prefers-color-scheme: dark) {
+  .custom-navbar {
+    background-color: #1a1a1a;
+  }
+  
+  .navbar-shadow {
+    box-shadow: 0 2rpx 12rpx rgba(255, 255, 255, 0.1);
+  }
+  
+  .back-button,
+  .right-button {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .back-button:active,
+  .right-button:active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .search-container {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .search-container:active {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 750rpx) {
+  .search-container {
+    min-width: 160rpx;
+    max-width: calc(100vw - 320rpx);
+  }
+}
+
+@media screen and (max-width: 600rpx) {
+  .search-container {
+    min-width: 120rpx;
+    max-width: calc(100vw - 280rpx);
+  }
+  
+  .search-placeholder {
+    font-size: 26rpx;
+  }
+  
+  .navbar {
+    padding: 0 12rpx;
+  }
+  
+  .right-area {
+    gap: 12rpx;
+  }
+}
+
+/* 高分辨率屏幕适配 */
+@media screen and (min-resolution: 2dppx) {
+  .navbar-shadow {
+    box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.1);
+  }
+}

@@ -1,0 +1,73 @@
+<!-- pages/articlePage/articlePage.wxml -->
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="钓鱼技巧文章" 
+  show-back="{{true}}"
+  show-search="{{false}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<scroll-view 
+    scroll-y="true" 
+    class="main-scroll-view {{containerClass}}" 
+    enable-flex="true"
+    enhanced="true"
+    show-scrollbar="{{false}}"
+    bounces="true"
+    scroll-anchoring="true"
+    style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+    <view class="container {{containerClass}}">
+        <!-- 页面标题 -->
+        <view class="header">
+            <text class="title">钓鱼技巧文章</text>
+            <text class="subtitle">精选钓鱼技巧与知识</text>
+        </view>
+        <view class="search-box">
+            <view class="search-bar bordered">
+                <view class="search-icon">🔍</view>
+                <input type="text" placeholder="搜索你感兴趣的内容" bindinput="onSearchInput" value="{{searchKeyword}}" class="search-input" />
+                <button bindtap="onSearch" class="search-btn">搜索</button>
+            </view>
+        </view>
+        <!-- 文章列表 -->
+        <view class="article-list">
+            <block wx:if="{{loading}}">
+                <view class="loading">加载中...</view>
+            </block>
+            
+            <block wx:elif="{{showNoResults}}">
+                <view class="no-results">
+                    <view class="no-results-content">
+                        <text>没有相关文章</text>
+                    </view>
+                </view>
+            </block>
+            
+            <block wx:elif="{{articles.length === 0}}">
+                <view class="no-data">
+                    <text>暂无文章数据</text>
+                </view>
+            </block>
+            
+            <block wx:else>
+                <view wx:for="{{articles}}" wx:key="id" class="article-card" hover-class="article-card-hover" bindtap="navigateToArticleDetail" data-id="{{item.id}}">
+                    <view class="article-content">
+                        <rich-text class="article-title" nodes="{{highlightedArticles[index].titleNodes}}"></rich-text>
+                        <view class="article-meta">
+                            <text class="article-author">{{item.meta.author}}</text>
+                            <text class="article-date">{{item.meta.publishDate}}</text>
+                        </view>
+                        <rich-text class="article-preview" nodes="{{highlightedArticles[index].previewNodes}}"></rich-text>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+</scroll-view>
+
+<!-- 浮动主页按钮 -->
+<view class="float-home-btn" hover-class="float-btn-hover" bindtap="navigateToHome">
+    <text class="home-btn-text">主页</text>
+</view>

@@ -1,0 +1,38 @@
+<!--pages/text-editor-test/text-editor-test.wxml-->
+<view class="container">
+  <view class="test-section">
+    <view class="section-title">文本编辑器组件测试</view>
+    
+    <view class="test-item">
+      <view class="test-label">基础文本编辑器：</view>
+      <text-editor
+        value="{{testValue1}}"
+        placeholder="请输入测试内容..."
+        maxLength="{{500}}"
+        title="测试编辑器"
+        editorHeight="{{400}}"
+        previewMaxLength="{{50}}"
+        bind:change="onTextChange1"
+      />
+    </view>
+    
+    <view class="test-item">
+      <view class="test-label">长文本编辑器：</view>
+      <text-editor
+        value="{{testValue2}}"
+        placeholder="请输入长文本内容..."
+        maxLength="{{1000}}"
+        title="长文本编辑"
+        editorHeight="{{600}}"
+        previewMaxLength="{{100}}"
+        bind:change="onTextChange2"
+      />
+    </view>
+    
+    <view class="debug-info">
+      <view class="debug-title">调试信息：</view>
+      <view class="debug-item">测试值1: {{testValue1}}</view>
+      <view class="debug-item">测试值2: {{testValue2}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,121 @@
+<view class="container">
+  <view class="header">
+    <text class="title">GearSage Tag System</text>
+    <text class="subtitle">Visual Identity & Rarity Hierarchy</text>
+  </view>
+
+  <!-- Section 1: Rarity Ladder -->
+  <view class="section">
+    <view class="section-title">1. Rarity Hierarchy (Level 1-5)</view>
+    <view class="tag-ladder">
+      <block wx:for="{{rarityLevels}}" wx:key="id">
+        <view class="ladder-row">
+          <text class="label">R{{item.rarity}}</text>
+          <user-tag displayTag="{{item}}" rarity="{{item.rarity}}" />
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- Section 2: Categories -->
+  <view class="section">
+    <view class="section-title">2. Tag Categories</view>
+    <view class="tag-ladder">
+      <block wx:for="{{categories}}" wx:key="id">
+        <view class="ladder-row">
+          <text class="label">{{item.meta}}</text>
+          <user-tag displayTag="{{item}}" rarity="{{item.rarity}}" />
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- Section 3: Context Usage -->
+  <view class="section">
+    <view class="section-title">3. Context Usage</view>
+    
+    <!-- Context: Profile Header -->
+    <view class="context-box profile-mock">
+      <view class="mock-label">Profile Header</view>
+      <view class="profile-header">
+        <view class="avatar"></view>
+        <view class="info">
+          <view class="name-row">
+            <text class="username">{{userProfile.name}}</text>
+            <user-tag 
+              wx:for="{{userProfile.tags}}" 
+              wx:key="name" 
+              displayTag="{{item}}" 
+              rarity="{{item.rarity}}" 
+              context="profile" 
+              style="margin-right: 12rpx;"
+            />
+          </view>
+          <text class="bio">Chasing silver kings since 2015.</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Context: Post/Feed -->
+    <view class="context-box feed-mock">
+      <view class="mock-label">Feed / Post Author</view>
+      <view class="post-header">
+        <view class="avatar-sm"></view>
+        <view class="post-meta">
+          <view class="author-row">
+            <text class="author-name">{{postAuthor.name}}</text>
+            <user-tag 
+              displayTag="{{postAuthor.tag}}" 
+              rarity="{{postAuthor.tag.rarity}}" 
+              context="default" 
+            />
+          </view>
+          <text class="timestamp">2 hours ago</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Context: Comment Section -->
+    <view class="context-box comment-mock">
+      <view class="mock-label">Comment Section (Compact)</view>
+      <view class="comment-row">
+        <view class="avatar-xs"></view>
+        <view class="comment-content">
+          <view class="comment-header">
+            <text class="c-user">Fisherman_Joe</text>
+            <user-tag 
+              displayTag="{{ {name: 'ADMIN', rarity: 5, type: 'official'} }}" 
+              rarity="5" 
+              context="comment" 
+            />
+          </view>
+          <text class="c-text">Great catch! What line were you using?</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Context: Shop / Inventory -->
+    <view class="context-box shop-mock">
+      <view class="mock-label">Shop / Inventory (Emphasis)</view>
+      <view class="shop-card">
+        <view class="item-img"></view>
+        <view class="item-info">
+          <text class="item-title">Shimano Stella SW</text>
+          <view class="item-tags">
+            <user-tag 
+              displayTag="{{ {name: 'JDM SPEC', rarity: 4, type: 'official'} }}" 
+              rarity="4" 
+              context="shop" 
+            />
+            <user-tag 
+              displayTag="{{ {name: 'SALTWATER', rarity: 2, type: 'identity'} }}" 
+              rarity="2" 
+              context="shop" 
+            />
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

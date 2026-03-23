@@ -1,0 +1,66 @@
+<!-- components/product-swiper/product-swiper.wxml -->
+<view class="product-swiper-container">
+  <view
+    class="product-swiper"
+    style="height: {{height}}rpx"
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+  >
+    <!-- 轮播图片容器 -->
+    <view
+  class="swiper-wrapper"
+  style="transform: translateX({{ (-currentIndex * 100) + '%' }}); transition: {{ isAnimating ? ('transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)') : 'none' }}"
+>
+
+      <view class="swiper-slide" wx:for="{{images}}" wx:key="index">
+        <view class="swiper-zoom-container {{imageOrientations[index] ? 'image-' + imageOrientations[index] : ''}}">
+          <image
+            src="{{item}}"
+            class="product-image {{imageOrientations[index] ? 'product-image--' + imageOrientations[index] : ''}}"
+            mode="{{imageComputedModes[index] || imageMode}}"
+            style="{{imageStyles[index] || defaultImageStyle}}"
+            data-index="{{index}}"
+            data-src="{{item}}"
+            bindtap="onImageTap"
+            binderror="onImageError"
+            bindload="onImageLoad"
+          />
+        </view>
+        <!-- 水印 -->
+        <view class="水印 watermark" wx:if="{{showWatermark}}">{{watermarkText}}</view>
+      </view>
+    </view>
+
+    <!-- 指示器 -->
+    <view class="swiper-indicators" wx:if="{{showDots && images.length > 1}}">
+      <view
+        class="indicator {{index === currentIndex ? 'active' : ''}}"
+        wx:for="{{images}}"
+        wx:key="index"
+        data-index="{{index}}"
+        bindtap="onIndicatorTap"
+      ></view>
+    </view>
+
+    <!-- 图片计数器 -->
+    <view class="image-counter" wx:if="{{showCounter && images.length > 1}}">
+      {{currentIndex + 1}}/{{images.length}}
+    </view>
+
+    <!-- 左右切换按钮（如需可放开） -->
+    <!--
+    <view class="swiper-controls" wx:if="{{showControls && images.length > 1}}">
+      <view class="swiper-btn prev-btn" bindtap="onPrevTap">
+        <text class="btn-icon">‹</text>
+      </view>
+      <view class="swiper-btn next-btn" bindtap="onNextTap">
+        <text class="btn-icon">›</text>
+      </view>
+    </view>
+    -->
+
+    <!-- 防下载保护层 -->
+    <view class="download-guard" wx:if="{{preventDownload}}"></view>
+  </view>
+</view>

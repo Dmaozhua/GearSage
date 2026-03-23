@@ -1,0 +1,273 @@
+{
+  "source_file": "C:\\Users\\admin\\Desktop\\database_export-FV1JHFAiqOdo.json",
+  "tag_definition_count": 23,
+  "goods_count": 16,
+  "collections": {
+    "bz_tag_definitions": "bz_tag_definitions.seed.ndjson",
+    "bz_points_goods": "bz_points_goods.seed.ndjson"
+  },
+  "artifacts": {
+    "visual_recommendations": "tag_visual_recommendations.json"
+  },
+  "notes": [
+    "bz_user_tags 和 user_tag_display_settings 不从旧标签定义自动生成。",
+    "积分商品只为旧数据中 need_points 不为空的标签生成。",
+    "goods.tag_id 直接引用 bz_tag_definitions 的 _id。",
+    "style_key / sub_type / icon_key 已切换为 GearSage tag 体系的最终推荐值。"
+  ],
+  "mapping": [
+    {
+      "name": "钓鱼人",
+      "tag_id": "tag_identity_angler",
+      "code": "identity_angler",
+      "type": "identity",
+      "sub_type": "general",
+      "style_key": "identity_slate",
+      "icon_key": "fish",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_identity_angler"
+    },
+    {
+      "name": "围观群众",
+      "tag_id": "tag_fun_onlooker",
+      "code": "fun_onlooker",
+      "type": "fun",
+      "sub_type": "social",
+      "style_key": "fun_slate",
+      "icon_key": "spark",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_onlooker"
+    },
+    {
+      "name": "想买鱼竿",
+      "tag_id": "tag_identity_want_rod",
+      "code": "identity_want_rod",
+      "type": "identity",
+      "sub_type": "gear",
+      "style_key": "identity_slate",
+      "icon_key": "rod",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_identity_want_rod"
+    },
+    {
+      "name": "想买渔轮",
+      "tag_id": "tag_identity_want_reel",
+      "code": "identity_want_reel",
+      "type": "identity",
+      "sub_type": "gear",
+      "style_key": "identity_slate",
+      "icon_key": "reel",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_identity_want_reel"
+    },
+    {
+      "name": "你的钓友",
+      "tag_id": "tag_fun_fishing_buddy",
+      "code": "fun_fishing_buddy",
+      "type": "fun",
+      "sub_type": "social",
+      "style_key": "fun_slate",
+      "icon_key": "wave",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_fishing_buddy"
+    },
+    {
+      "name": "装备刚配齐",
+      "tag_id": "tag_identity_gear_ready",
+      "code": "identity_gear_ready",
+      "type": "identity",
+      "sub_type": "style",
+      "style_key": "identity_blue",
+      "icon_key": "gear",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_identity_gear_ready"
+    },
+    {
+      "name": "风雨无阻",
+      "tag_id": "tag_identity_all_weather",
+      "code": "identity_all_weather",
+      "type": "identity",
+      "sub_type": "style",
+      "style_key": "identity_blue",
+      "icon_key": "storm",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_identity_all_weather"
+    },
+    {
+      "name": "不会绑前导",
+      "tag_id": "tag_fun_cant_tie_leader",
+      "code": "fun_cant_tie_leader",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_blue",
+      "icon_key": "hook",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_cant_tie_leader"
+    },
+    {
+      "name": "差点打龟",
+      "tag_id": "tag_fun_almost_skunk",
+      "code": "fun_almost_skunk",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_blue",
+      "icon_key": "splash",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_almost_skunk"
+    },
+    {
+      "name": "空钩上鱼",
+      "tag_id": "tag_fun_empty_hook",
+      "code": "fun_empty_hook",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_blue",
+      "icon_key": "hook",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_empty_hook"
+    },
+    {
+      "name": "拍大腿",
+      "tag_id": "tag_fun_pat_leg",
+      "code": "fun_pat_leg",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_orange",
+      "icon_key": "spark",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_pat_leg"
+    },
+    {
+      "name": "跑过毒",
+      "tag_id": "tag_fun_poisoned",
+      "code": "fun_poisoned",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_orange",
+      "icon_key": "bolt",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_poisoned"
+    },
+    {
+      "name": "不吃鱼",
+      "tag_id": "tag_fun_no_fish_eater",
+      "code": "fun_no_fish_eater",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_orange",
+      "icon_key": "leaf",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_no_fish_eater"
+    },
+    {
+      "name": "打火机",
+      "tag_id": "tag_fun_lighter",
+      "code": "fun_lighter",
+      "type": "fun",
+      "sub_type": "meme",
+      "style_key": "fun_orange",
+      "icon_key": "fire",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_fun_lighter"
+    },
+    {
+      "name": "开服元老",
+      "tag_id": "tag_event_founder",
+      "code": "event_founder",
+      "type": "event",
+      "sub_type": "founder",
+      "style_key": "official_gold",
+      "icon_key": "crown",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_event_founder"
+    },
+    {
+      "name": "最大单尾",
+      "tag_id": "tag_event_biggest_single",
+      "code": "event_biggest_single",
+      "type": "event",
+      "sub_type": "record",
+      "style_key": "behavior_gold",
+      "icon_key": "trophy",
+      "is_redeemable": true,
+      "goods_id": "goods_tag_event_biggest_single"
+    },
+    {
+      "name": "评论达人",
+      "tag_id": "tag_event_comment_master",
+      "code": "event_comment_master",
+      "type": "event",
+      "sub_type": "achievement",
+      "style_key": "behavior_blue",
+      "icon_key": "chat",
+      "is_redeemable": false,
+      "goods_id": null
+    },
+    {
+      "name": "手有余香",
+      "tag_id": "tag_event_generous_like",
+      "code": "event_generous_like",
+      "type": "event",
+      "sub_type": "achievement",
+      "style_key": "behavior_blue",
+      "icon_key": "heart",
+      "is_redeemable": false,
+      "goods_id": null
+    },
+    {
+      "name": "7日",
+      "tag_id": "tag_event_login_7d",
+      "code": "event_login_7d",
+      "type": "event",
+      "sub_type": "milestone",
+      "style_key": "behavior_blue",
+      "icon_key": "calendar",
+      "is_redeemable": false,
+      "goods_id": null
+    },
+    {
+      "name": "内容创作者",
+      "tag_id": "tag_identity_creator",
+      "code": "identity_creator",
+      "type": "identity",
+      "sub_type": "creator",
+      "style_key": "identity_orange",
+      "icon_key": "pen",
+      "is_redeemable": false,
+      "goods_id": null
+    },
+    {
+      "name": "21日",
+      "tag_id": "tag_event_login_21d",
+      "code": "event_login_21d",
+      "type": "event",
+      "sub_type": "milestone",
+      "style_key": "behavior_orange",
+      "icon_key": "calendar",
+      "is_redeemable": false,
+      "goods_id": null
+    },
+    {
+      "name": "社交核心",
+      "tag_id": "tag_event_social_core",
+      "code": "event_social_core",
+      "type": "event",
+      "sub_type": "achievement",
+      "style_key": "behavior_gold",
+      "icon_key": "link",
+      "is_redeemable": false,
+      "goods_id": null
+    },
+    {
+      "name": "论坛领袖",
+      "tag_id": "tag_event_forum_leader",
+      "code": "event_forum_leader",
+      "type": "event",
+      "sub_type": "honor",
+      "style_key": "official_gold",
+      "icon_key": "medal",
+      "is_redeemable": false,
+      "goods_id": null
+    }
+  ]
+}

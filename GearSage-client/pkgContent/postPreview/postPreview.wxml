@@ -1,0 +1,291 @@
+<custom-navbar
+  id="custom-navbar"
+  title="发布预览"
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000"
+  bind:back="onEditBack">
+</custom-navbar>
+
+<scroll-view
+  class="container {{containerClass}}"
+  style="padding-top: {{statusBarHeight + navBarHeight}}px; height: calc(100vh - {{statusBarHeight + navBarHeight}}px);"
+  scroll-y="{{true}}">
+  <view class="preview-page">
+    <view class="preview-header-card">
+      <view class="preview-header-card__eyebrow">发布确认前再看一眼</view>
+      <view class="preview-header-card__title">{{selectedMode ? selectedMode.title : '帖子预览'}}</view>
+      <view class="preview-header-card__desc">先确认封面信息和详情结构，没问题后再正式发布。</view>
+    </view>
+
+    <product-swiper
+      wx:if="{{productDetail.topicCategory === 3 && productDetail.images && productDetail.images.length > 0}}"
+      images="{{productDetail.images}}"
+      height="800"
+      show-dots="{{true}}"
+      show-counter="{{true}}"
+      show-controls="{{true}}"
+      autoplay="{{false}}"
+      circular="{{true}}"
+      image-mode="aspectFill"
+      show-watermark="{{false}}">
+    </product-swiper>
+
+    <view class="topic-layout" wx:if="{{!loading}}">
+      <block wx:if="{{productDetail.topicCategory === 0}}">
+        <view class="topic-hero-card">
+          <text class="topic-kicker">好物速报</text>
+          <view class="topic-title">{{productDetail.title}}</view>
+          <view class="topic-subtitle">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
+          <view class="topic-summary-card" wx:if="{{productDetail.summaryDisplay || productDetail.summary}}">
+            {{productDetail.summaryDisplay || productDetail.summary}}
+          </view>
+          <view class="topic-chip-row" wx:if="{{productDetail.tags.shareReasons.length || productDetail.pros.length}}">
+            <block wx:for="{{productDetail.tags.shareReasons}}" wx:key="index">
+              <text class="topic-chip topic-chip--warm">{{item}}</text>
+            </block>
+            <block wx:for="{{productDetail.pros}}" wx:key="index">
+              <text class="topic-chip">{{item}}</text>
+            </block>
+          </view>
+        </view>
+
+        <view class="topic-section-card">
+          <view class="topic-section-title">基本信息</view>
+          <view class="topic-info-grid">
+            <view class="topic-info-item" wx:if="{{productDetail.usagePeriod}}">
+              <text class="topic-info-label">使用时长</text>
+              <text class="topic-info-value">{{productDetail.usagePeriod}}</text>
+            </view>
+            <view class="topic-info-item" wx:if="{{productDetail.usageFrequency}}">
+              <text class="topic-info-label">使用频率</text>
+              <text class="topic-info-value">{{productDetail.usageFrequency}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.environmentsText}}">
+              <text class="topic-info-label">使用场景</text>
+              <text class="topic-info-value">{{productDetail.environmentsText}}</text>
+            </view>
+            <view class="topic-info-item" wx:if="{{productDetail.budgetText}}">
+              <text class="topic-info-label">预算倾向</text>
+              <text class="topic-info-value">{{productDetail.budgetText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.usageTagsText}}">
+              <text class="topic-info-label">使用倾向</text>
+              <text class="topic-info-value">{{productDetail.usageTagsText}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:elif="{{productDetail.topicCategory === 1}}">
+        <view class="topic-hero-card topic-hero-card--experience">
+          <text class="topic-kicker">长测评</text>
+          <view class="topic-title">{{productDetail.title}}</view>
+          <view class="topic-subtitle">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
+          <view class="topic-summary-card" wx:if="{{productDetail.summaryDisplay || productDetail.summary}}">{{productDetail.summaryDisplay || productDetail.summary}}</view>
+          <view class="topic-conclusion-grid">
+            <view class="topic-conclusion-item">
+              <text class="topic-info-label">推荐等级</text>
+              <text class="topic-info-value">{{productDetail.summaryDisplay || productDetail.summary}}</text>
+            </view>
+            <view class="topic-conclusion-item" wx:if="{{productDetail.repurchase}}">
+              <text class="topic-info-label">再次选择意愿</text>
+              <text class="topic-info-value">{{productDetail.repurchase}}</text>
+            </view>
+            <view class="topic-conclusion-item" wx:if="{{productDetail.usagePeriod}}">
+              <text class="topic-info-label">使用年限</text>
+              <text class="topic-info-value">{{productDetail.usagePeriod}}</text>
+            </view>
+            <view class="topic-conclusion-item" wx:if="{{productDetail.usageFrequency}}">
+              <text class="topic-info-label">使用频率</text>
+              <text class="topic-info-value">{{productDetail.usageFrequency}}</text>
+            </view>
+            <view class="topic-conclusion-item" wx:if="{{productDetail.budgetText}}">
+              <text class="topic-info-label">预算倾向</text>
+              <text class="topic-info-value">{{productDetail.budgetText}}</text>
+            </view>
+            <view class="topic-conclusion-item topic-conclusion-item--full" wx:if="{{productDetail.environmentsText}}">
+              <text class="topic-info-label">使用场景</text>
+              <text class="topic-info-value">{{productDetail.environmentsText}}</text>
+            </view>
+          </view>
+          <view class="topic-score-strip" wx:if="{{productDetail.recommendationScore}}">
+            <text class="topic-score-strip__label">GearSage 推荐指数</text>
+            <text class="topic-score-strip__value">{{productDetail.recommendationScore}}</text>
+          </view>
+        </view>
+
+        <view class="topic-section-card">
+          <view class="topic-section-title">使用边界</view>
+          <view class="topic-boundary-grid">
+            <view class="topic-boundary-card" wx:if="{{productDetail.fitText}}">
+              <text class="topic-boundary-title">适合人群</text>
+              <text class="topic-boundary-text">{{productDetail.fitText}}</text>
+            </view>
+            <view class="topic-boundary-card" wx:if="{{productDetail.unfitText}}">
+              <text class="topic-boundary-title">不适合人群</text>
+              <text class="topic-boundary-text">{{productDetail.unfitText}}</text>
+            </view>
+            <view class="topic-boundary-card" wx:if="{{productDetail.prosText || productDetail.prosSupplementText}}">
+              <text class="topic-boundary-title">装备优点</text>
+              <text class="topic-boundary-text">{{productDetail.prosText}}</text>
+              <text class="topic-boundary-note" wx:if="{{productDetail.prosSupplementText}}">补充：{{productDetail.prosSupplementText}}</text>
+            </view>
+            <view class="topic-boundary-card" wx:if="{{productDetail.consText || productDetail.consSupplementText}}">
+              <text class="topic-boundary-title">装备缺点</text>
+              <text class="topic-boundary-text">{{productDetail.consText}}</text>
+              <text class="topic-boundary-note" wx:if="{{productDetail.consSupplementText}}">补充：{{productDetail.consSupplementText}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="topic-section-card">
+          <view class="topic-section-title">进阶信息</view>
+          <view class="topic-info-grid">
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.comboGearText}}">
+              <text class="topic-info-label">常用搭配</text>
+              <text class="topic-info-value">{{productDetail.comboGearText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareGearText}}">
+              <text class="topic-info-label">对比对象</text>
+              <text class="topic-info-value">{{productDetail.compareGearText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.fitContextText}}">
+              <text class="topic-info-label">适配场景</text>
+              <text class="topic-info-value">{{productDetail.fitContextText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.fitTechniqueText}}">
+              <text class="topic-info-label">适配玩法</text>
+              <text class="topic-info-value">{{productDetail.fitTechniqueText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareProfileText}}">
+              <text class="topic-info-label">对比定位</text>
+              <text class="topic-info-value">{{productDetail.compareProfileText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareBuyDecisionText}}">
+              <text class="topic-info-label">对比购买结论</text>
+              <text class="topic-info-value">{{productDetail.compareBuyDecisionText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.purchaseAdviceText}}">
+              <text class="topic-info-label">入手建议</text>
+              <text class="topic-info-value">{{productDetail.purchaseAdviceText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.buyStageText}}">
+              <text class="topic-info-label">购买定位</text>
+              <text class="topic-info-value">{{productDetail.buyStageText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.comboDesc}}">
+              <text class="topic-info-label">搭配说明</text>
+              <text class="topic-info-value">{{productDetail.comboDesc}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareDesc}}">
+              <text class="topic-info-label">对比说明</text>
+              <text class="topic-info-value">{{productDetail.compareDesc}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.supplementParamsText}}">
+              <text class="topic-info-label">参数补充</text>
+              <text class="topic-info-value">{{productDetail.supplementParamsText}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:elif="{{productDetail.topicCategory === 2}}">
+        <view class="topic-hero-card topic-hero-card--question">
+          <view class="topic-header-stack">
+            <text class="topic-chip topic-chip--dark">{{productDetail.questionTypeLabel || '讨论&提问'}}</text>
+            <text class="topic-chip" wx:if="{{productDetail.quickReplyOnly}}">快速回答</text>
+          </view>
+          <view class="topic-title">{{productDetail.title}}</view>
+          <view class="topic-subtitle" wx:if="{{productDetail.relatedGearCategoryLabel || productDetail.relatedGearModel}}">
+            {{productDetail.relatedGearCategoryLabel}}<text wx:if="{{productDetail.relatedGearModel}}"> / {{productDetail.relatedGearModel}}</text>
+          </view>
+        </view>
+      </block>
+
+      <block wx:elif="{{productDetail.topicCategory === 3}}">
+        <view class="topic-hero-card topic-hero-card--catch">
+          <view class="topic-title">{{productDetail.title}}</view>
+          <view class="topic-chip-row">
+            <text class="topic-chip topic-chip--sky" wx:if="{{productDetail.locationTagDisplay}}">标点 / {{productDetail.locationTagDisplay}}</text>
+            <text class="topic-chip" wx:if="{{productDetail.catchBodyTypeText}}">体型 / {{productDetail.catchBodyTypeText}}</text>
+          </view>
+        </view>
+      </block>
+
+      <block wx:elif="{{productDetail.topicCategory === 4}}">
+        <view class="topic-hero-card topic-hero-card--trip">
+          <text class="topic-kicker">钓行分享</text>
+          <view class="topic-title">{{productDetail.title}}</view>
+          <view class="topic-summary-card" wx:if="{{productDetail.tripResult}}">{{productDetail.tripResult}}</view>
+          <view class="topic-chip-row" wx:if="{{productDetail.tripStatus.length}}">
+            <block wx:for="{{productDetail.tripStatus}}" wx:key="index">
+              <text class="topic-chip">{{item}}</text>
+            </block>
+          </view>
+          <view class="topic-subtitle" wx:if="{{productDetail.targetFishText}}">目标鱼 / {{productDetail.targetFishText}}</view>
+        </view>
+
+        <view class="topic-section-card">
+          <view class="topic-section-title">环境卡</view>
+          <view class="topic-info-grid">
+            <view class="topic-info-item" wx:if="{{productDetail.season}}">
+              <text class="topic-info-label">季节</text>
+              <text class="topic-info-value">{{productDetail.season}}</text>
+            </view>
+            <view class="topic-info-item" wx:if="{{productDetail.weather}}">
+              <text class="topic-info-label">天气</text>
+              <text class="topic-info-value">{{productDetail.weather}}</text>
+            </view>
+            <view class="topic-info-item" wx:if="{{productDetail.waterType}}">
+              <text class="topic-info-label">水域类型</text>
+              <text class="topic-info-value">{{productDetail.waterType}}</text>
+            </view>
+            <view class="topic-info-item" wx:if="{{productDetail.mainSpot}}">
+              <text class="topic-info-label">主要钓点</text>
+              <text class="topic-info-value">{{productDetail.mainSpot}}</text>
+            </view>
+            <view class="topic-info-item" wx:if="{{productDetail.fishingTime}}">
+              <text class="topic-info-label">作钓时间</text>
+              <text class="topic-info-value">{{productDetail.fishingTime}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.envFeelingsText}}">
+              <text class="topic-info-label">环境感受</text>
+              <text class="topic-info-value">{{productDetail.envFeelingsText}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="topic-section-card">
+          <view class="topic-section-title">打法卡</view>
+          <view class="topic-info-grid">
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.rigsText}}">
+              <text class="topic-info-label">主要钓组 / 饵型</text>
+              <text class="topic-info-value">{{productDetail.rigsText}}</text>
+            </view>
+            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.rigDescription}}">
+              <text class="topic-info-label">手法简述</text>
+              <text class="topic-info-value">{{productDetail.rigDescription}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view class="topic-section-card" wx:if="{{formattedContent}}">
+        <view class="topic-section-title">正文内容</view>
+        <view class="topic-richtext">
+          <rich-text nodes="{{formattedContent}}"></rich-text>
+        </view>
+      </view>
+
+      <view class="topic-gallery" wx:if="{{productDetail.images.length && productDetail.topicCategory !== 3}}">
+        <image wx:for="{{productDetail.images}}" wx:key="index" src="{{item}}" mode="widthFix" class="topic-gallery__image"></image>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="preview-bottom-bar {{containerClass}}">
+  <button class="preview-secondary-btn" bindtap="onEditBack">返回编辑</button>
+  <button class="preview-primary-btn" bindtap="onConfirmPublish" loading="{{submitting}}" disabled="{{submitting}}">确认发布</button>
+</view>

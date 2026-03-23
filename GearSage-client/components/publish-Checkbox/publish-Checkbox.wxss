@@ -1,0 +1,176 @@
+@import "../../styles/dark.wxss";
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent; /* Changed from #f8f8f9 to transparent */
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+}
+
+.checkbox {
+  width: 30%;
+  margin: 10rpx 0;
+  display: flex;
+  justify-content: center;
+}
+
+.checkbox-wrapper {
+  width: 100%;
+}
+
+.checkbox-group-legend {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.125;
+  margin-bottom: 25rpx;
+  width: 100%;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.checkbox-input.checked + .checkbox-tile,
+.checkbox-tile.checked {
+  border-color: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+  color: #333;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.checkbox-tile.checked::before {
+  transform: scale(1);
+  opacity: 1;
+  background-color: #333;
+  border-color: #333;
+}
+
+.checkbox-tile.checked .checkbox-icon,
+.checkbox-tile.checked .checkbox-label {
+  color: #333;
+}
+
+.checkbox-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Changed from 140rpx to fill container */
+  aspect-ratio: 1;
+  border-radius: 16rpx;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.checkbox-tile::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 25rpx;
+  height: 25rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: 10rpx;
+  left: 10rpx;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.25s ease;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="%23FFFFFF" viewBox="0 0 256 256"%3E%3Crect width="256" height="256" fill="none"%3E%3C/rect%3E%3Cpolyline points="216 72.005 104 184 48 128.005" fill="none" stroke="%23FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"%3E%3C/polyline%3E%3C/svg%3E');
+  background-size: 20rpx;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.checkbox-icon {
+  transition: all 0.375s ease;
+  color: #ffffff;
+  margin-bottom: 10rpx;
+}
+
+.icon-image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.checkbox-label {
+  color: #ffffff;
+  transition: all 0.375s ease;
+  text-align: center;
+  font-size: 26rpx;
+}
+
+/* 夜间模式样式 */
+.dark {
+    background-color: #12121200 !important;
+    color: #e0e0e0 !important;
+  }
+
+.dark .checkbox-group {
+  background-color: transparent;
+}
+
+.dark .checkbox-group-legend {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .checkbox-tile {
+  background-color: rgba(13, 25, 48, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+}
+
+.dark .checkbox-tile.checked {
+  border-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #000;
+  box-shadow: 0 0 20rpx rgba(255, 255, 255, 0.1);
+}
+
+.dark .checkbox-tile.checked::before {
+  background-color: #000;
+  border-color: #000;
+}
+
+.dark .checkbox-tile.checked .checkbox-icon,
+.dark .checkbox-tile.checked .checkbox-label {
+  color: #000;
+}
+
+.dark .checkbox-icon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .checkbox-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .checkbox-tile::before {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}

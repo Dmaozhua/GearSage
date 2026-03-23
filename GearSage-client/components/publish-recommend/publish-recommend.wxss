@@ -1,0 +1,81 @@
+/* publish-recommend 组件样式 */
+
+/* 推荐理由列表 */
+.recommend-list {
+  width: 100%;
+}
+
+.recommend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+  gap: 16rpx;
+}
+
+.recommend-input {
+  flex: 1;
+  padding: 24rpx;
+  border: 2rpx solid #e1e8ed;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.recommend-input:focus {
+  border-color: #2196F3;
+}
+
+.recommend-input::placeholder {
+  color: #999;
+}
+
+.recommend-actions {
+  display: flex;
+  gap: 8rpx;
+}
+
+.action-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-btn {
+  background-color: #2196F3;
+  color: #fff;
+}
+
+.add-btn:active {
+  background-color: #1976D2;
+}
+
+.remove-btn {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.remove-btn:active {
+  background-color: #ff3742;
+}
+
+/* 错误状态 */
+.recommend-input.error {
+  border-color: #ff4757;
+}
+
+/* 禁用状态 */
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-btn:disabled:active {
+  background-color: inherit;
+}

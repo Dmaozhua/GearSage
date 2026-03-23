@@ -1,0 +1,219 @@
+/* pages/articlePage/articlePage.wxss */
+@import "../../styles/dark.wxss";
+/* 自定义导航栏样式 */
+.custom-nav-bar .weui-navigation-bar__inner {
+    --height: 50px; /* 调整导航栏高度 */
+}
+
+.main-scroll-view {
+    height: 100vh;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 20rpx;
+    background-color: #f8f9fa;
+    box-sizing: border-box; /* 确保padding不会增加容器实际尺寸 */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 确保容器至少占满整个视口高度 */
+}
+
+/* 页面标题 */
+.header {
+    margin-bottom: 20rpx;
+    padding-bottom: 15rpx;
+    border-bottom: 1rpx solid rgba(0,0,0,0.05);
+}
+
+/* 搜索框样式 */
+.search-box {
+    margin-bottom: 20rpx;
+    padding: 0 10rpx;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 30rpx;
+    padding: 15rpx 20rpx;
+    box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.08);
+}
+
+.search-icon {
+    color: #1E3A8A;
+    margin-right: 10rpx;
+    font-size: 32rpx;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    padding: 10rpx;
+    font-size: 28rpx;
+    color: #333;
+}
+
+.search-btn {
+    margin-left: 10rpx;
+    padding: 12rpx 24rpx;
+    background: linear-gradient(135deg, #1E3A8A, #4169E1);
+    color: white;
+    border-radius: 30rpx;
+    font-weight: bold;
+    font-size: 28rpx;
+    box-shadow: 0 2rpx 6rpx rgba(30, 58, 138, 0.3);
+    transition: all 0.3s ease;
+    line-height: 1;
+    min-height: unset;
+}
+
+.search-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 1rpx 3rpx rgba(30, 58, 138, 0.2);
+}
+
+.title {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #1E3A8A;
+    margin-bottom: 8rpx;
+    display: block;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 24rpx;
+    color: #6c757d;
+    display: block;
+}
+
+/* 文章列表 */
+.article-list {
+    padding-bottom: 120rpx; /* 为底部添加足够的内边距，防止最后一篇文章被遮挡 */
+    -webkit-overflow-scrolling: touch; /* 增强iOS滚动体验 */
+    flex: 1; /* 让文章列表占据剩余空间 */
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card {
+    background-color: white;
+    border-radius: 15rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    will-change: transform; /* 优化滚动性能 */
+}
+
+.article-card-hover {
+    transform: translateY(-3rpx);
+    box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.1);
+    background-color: #f0f4ff;
+}
+
+.article-content {
+    width: 100%;
+}
+
+.article-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15rpx;
+    display: block;
+    line-height: 1.4;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15rpx;
+    font-size: 24rpx;
+    color: #6c757d;
+}
+
+.article-author {
+    color: #1E3A8A;
+}
+
+.article-date {
+    color: #6c757d;
+}
+
+.article-preview {
+    font-size: 26rpx;
+    color: #666;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+/* 加载中和无数据提示 */
+.loading, .no-data, .no-results {
+    text-align: center;
+    padding: 40rpx 0;
+    color: #6c757d;
+    font-size: 28rpx;
+}
+
+.no-results {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300rpx; /* 确保有足够的高度使内容居中 */
+}
+
+.no-results-content {
+    text-align: center;
+    padding: 30rpx;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+    font-size: 30rpx;
+    color: #666;
+}
+
+/* 浮动主页按钮 */
+.float-home-btn {
+    position: fixed;
+    bottom: 40rpx;
+    right: 40rpx;
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    background-color: #1E3A8A;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    transition: all 0.3s ease;
+    opacity: 0.9; /* 稍微透明，减少视觉干扰 */
+}
+
+.float-btn-hover {
+    transform: scale(0.95);
+    background-color: #152a62;
+}
+
+.home-btn-text {
+    font-size: 24rpx;
+}
+
+/* 添加底部安全区域，确保内容不被浮动按钮遮挡 */
+.article-list::after {
+    content: '';
+    display: block;
+    height: 140rpx; /* 确保有足够的空间 */
+    width: 100%;
+}

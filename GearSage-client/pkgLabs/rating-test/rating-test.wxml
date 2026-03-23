@@ -1,0 +1,57 @@
+<!-- pages/rating-test/rating-test.wxml -->
+<view class="test-container">
+  <view class="test-header">
+    <text class="test-title">Publish-Rating 组件测试</text>
+  </view>
+
+  <!-- 装备类型选择 -->
+  <view class="form-item">
+    <view class="form-label">
+      <text class="label-text">装备类别</text>
+    </view>
+    <picker 
+      class="form-picker"
+      range="{{typeOptions}}"
+      value="{{typeIndex}}"
+      bindchange="onTypeChange"
+    >
+      <view class="picker-text">
+        {{typeOptions[typeIndex]}}
+      </view>
+    </picker>
+  </view>
+
+  <!-- 评分组件 -->
+  <view class="rating-section">
+    <view class="section-title">评分测试 ({{currentType}})</view>
+    <publish-rating 
+      equipment-type="{{currentType}}"
+      ratings="{{ratings}}"
+      errors="{{errors}}"
+      bind:ratingchange="onRatingChange"
+    ></publish-rating>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn btn-primary" bindtap="onSubmit">验证评分</button>
+    <button class="btn btn-secondary" bindtap="onReset">重置评分</button>
+  </view>
+
+  <!-- 调试信息 -->
+  <view class="debug-section">
+    <view class="debug-title">调试信息</view>
+    <view class="debug-item">
+      <text class="debug-label">当前类型:</text>
+      <text class="debug-value">{{currentType}}</text>
+    </view>
+    <view class="debug-item">
+      <text class="debug-label">评分数据:</text>
+      <text class="debug-value">{{ratings}}</text>
+    </view>
+    <view class="debug-item" wx:if="{{errors}}">
+      <text class="debug-label">错误信息:</text>
+      <text class="debug-value error">{{errors}}</text>
+    </view>
+  </view>
+</view>

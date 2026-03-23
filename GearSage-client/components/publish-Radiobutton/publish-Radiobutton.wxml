@@ -1,0 +1,6 @@
+<view class="control-group {{isDarkMode ? 'dark' : ''}}">
+  <label class="control control--radio {{internalSelectedValue === item.name ? 'checked' : ''}} {{item.disabled ? 'disabled' : ''}}" wx:for="{{items}}" wx:key="value" data-value="{{item.value}}" data-name="{{item.name}}" bindtap="onRadioTap">
+    <view class="control__indicator"></view>
+    {{item.name}}
+  </label>
+</view>

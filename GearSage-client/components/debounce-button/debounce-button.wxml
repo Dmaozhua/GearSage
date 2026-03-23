@@ -1,0 +1,12 @@
+<!--components/debounce-button/debounce-button.wxml-->
+<button 
+  class="debounce-button debounce-button--{{type}} debounce-button--{{size}} {{plain ? 'debounce-button--plain' : ''}} debounce-button--{{shape}} {{customClass}}"
+  type="{{type}}"
+  size="{{size}}"
+  plain="{{plain}}"
+  disabled="{{disabled || isProcessing}}"
+  loading="{{isProcessing}}"
+  bindtap="onButtonTap"
+>
+  {{isProcessing ? loadingText : text}}
+</button>

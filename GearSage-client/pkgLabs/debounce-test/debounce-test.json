@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "debounce-button": "/components/debounce-button/debounce-button"
+  },
+  "navigationBarTitleText": "防抖功能测试",
+  "navigationBarBackgroundColor": "#007aff",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f5f5f5"
+}

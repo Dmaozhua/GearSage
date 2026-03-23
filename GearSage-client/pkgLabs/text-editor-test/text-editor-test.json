@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "文本编辑器测试",
+  "usingComponents": {
+    "text-editor": "../../components/text-editor/text-editor"
+  }
+}

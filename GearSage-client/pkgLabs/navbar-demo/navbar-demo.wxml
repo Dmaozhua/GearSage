@@ -1,0 +1,164 @@
+<!--pages/navbar-demo/navbar-demo.wxml-->
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="导航栏演示" 
+  show-back="{{true}}"
+  background-color="#3498db"
+  text-color="#ffffff">
+</custom-navbar>
+
+<view class="demo-container" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <!-- 配置选择区域 -->
+  <view class="config-section">
+    <view class="section-title">
+      <text class="title-text">选择导航栏样式</text>
+      <text class="subtitle-text">点击下方卡片预览不同的导航栏效果</text>
+    </view>
+    
+    <view class="config-list">
+      <view 
+        wx:for="{{navbarConfigs}}" 
+        wx:key="id"
+        class="config-item"
+        data-id="{{item.id}}"
+        bindtap="onConfigTap"
+      >
+        <view class="config-preview" style="background-color: {{item.config.backgroundColor}}; color: {{item.config.textColor}};">
+          <text class="preview-title">{{item.config.title}}</text>
+        </view>
+        <view class="config-info">
+          <text class="config-name">{{item.title}}</text>
+          <text class="config-desc">{{item.description || '点击预览效果'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 功能测试区域 -->
+  <view class="test-section">
+    <view class="section-title">
+      <text class="title-text">功能测试</text>
+      <text class="subtitle-text">测试导航栏的动态功能</text>
+    </view>
+    
+    <view class="test-buttons">
+      <button class="test-btn" bindtap="onTestOpacity">
+        <text class="btn-icon">🎨</text>
+        <text class="btn-text">随机透明度</text>
+      </button>
+      
+      <button class="test-btn" bindtap="onTestShadow">
+        <text class="btn-icon">🌟</text>
+        <text class="btn-text">切换阴影</text>
+      </button>
+    </view>
+  </view>
+  
+  <!-- 特性说明区域 -->
+  <view class="features-section">
+    <view class="section-title">
+      <text class="title-text">导航栏特性</text>
+    </view>
+    
+    <view class="features-list">
+      <view class="feature-item">
+        <text class="feature-icon">📱</text>
+        <view class="feature-content">
+          <text class="feature-title">自适应高度</text>
+          <text class="feature-desc">自动适配不同设备的状态栏和安全区域</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <text class="feature-icon">🎯</text>
+        <view class="feature-content">
+          <text class="feature-title">触觉反馈</text>
+          <text class="feature-desc">按钮点击时提供轻微的震动反馈</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <text class="feature-icon">🎨</text>
+        <view class="feature-content">
+          <text class="feature-title">自定义样式</text>
+          <text class="feature-desc">支持自定义背景色、文字颜色、透明度等</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <text class="feature-icon">⚡</text>
+        <view class="feature-content">
+          <text class="feature-title">动画效果</text>
+          <text class="feature-desc">流畅的过渡动画和交互反馈</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <text class="feature-icon">🔍</text>
+        <view class="feature-content">
+          <text class="feature-title">搜索功能</text>
+          <text class="feature-desc">内置搜索框组件，支持自定义占位符</text>
+        </view>
+      </view>
+      
+      <view class="feature-item">
+        <text class="feature-icon">🌙</text>
+        <view class="feature-content">
+          <text class="feature-title">深色模式</text>
+          <text class="feature-desc">自动适配系统深色模式</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 演示弹窗 -->
+<view wx:if="{{showDemo}}" class="demo-modal" bindtap="onCloseDemo">
+  <view class="demo-content" catchtap="">
+    <!-- 演示导航栏 -->
+    <custom-navbar 
+      id="demo-navbar"
+      title="{{currentConfig.title}}"
+      show-back="{{currentConfig.showBack}}"
+      left-icon="{{currentConfig.leftIcon}}"
+      show-search="{{currentConfig.showSearch}}"
+      search-placeholder="{{currentConfig.searchPlaceholder}}"
+      right-text="{{currentConfig.rightText}}"
+      right-icon="{{currentConfig.rightIcon}}"
+      background-color="{{currentConfig.backgroundColor}}"
+      text-color="{{currentConfig.textColor}}"
+      show-shadow="{{currentConfig.showShadow}}"
+      enable-animation="{{currentConfig.enableAnimation}}"
+      opacity="{{currentConfig.opacity || 1}}"
+      bind:back="onNavbarBack"
+      bind:searchTap="onNavbarSearch"
+      bind:rightButtonTap="onNavbarRightButton"
+      bind:leftIconTap="onNavbarLeftIcon"
+      bind:titleTap="onNavbarTitle">
+    </custom-navbar>
+    
+    <!-- 演示内容 -->
+    <view class="demo-body" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+      <view class="demo-info">
+        <text class="demo-title">导航栏演示</text>
+        <text class="demo-subtitle">这是一个演示页面，展示导航栏的各种功能</text>
+        
+        <view class="demo-actions">
+          <text class="action-tip">尝试点击导航栏的各个元素：</text>
+          <view class="action-list">
+            <text class="action-item">• 返回按钮</text>
+            <text class="action-item">• 左侧图标</text>
+            <text class="action-item">• 标题文字</text>
+            <text class="action-item">• 搜索框</text>
+            <text class="action-item">• 右侧按钮</text>
+          </view>
+        </view>
+        
+        <button class="close-btn" bindtap="onCloseDemo">
+          关闭演示
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

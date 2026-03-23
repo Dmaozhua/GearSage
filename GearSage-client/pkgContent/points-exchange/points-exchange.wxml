@@ -1,0 +1,81 @@
+<!--pages/points-exchange/points-exchange.wxml-->
+<custom-navbar
+  title="积分兑换"
+  showBack="{{true}}"
+  showShadow="{{!isDarkMode}}"
+  right-button-text=""
+  background-color="transparent"
+  text-color="{{isDarkMode ? '#F3F7FC' : '#112033'}}"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{statusBarHeight + navBarHeight + 10}}px;">
+  <view class="hero-panel">
+    <view class="hero-points">
+      <text class="hero-label">当前积分</text>
+      <text class="hero-value">{{userPoints}}</text>
+    </view>
+    <view class="hero-meta">
+      <text class="hero-tip">优先兑换虚拟权益</text>
+      <text class="hero-note">库存实时更新</text>
+    </view>
+  </view>
+
+  <view class="tab-container">
+    <scroll-view class="tab-scroll" scroll-x="true">
+      <view class="tab-list">
+        <view
+          class="tab-item {{activeTab === index ? 'active' : ''}}"
+          wx:for="{{tabList}}"
+          wx:key="index"
+          data-index="{{index}}"
+          bindtap="onTabChange">
+          <text class="tab-text">{{item}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="product-container">
+    <view class="loading-container" wx:if="{{loading}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <view class="product-grid" wx:else>
+      <view
+        class="product-card {{item.stock <= 0 ? 'out-of-stock' : ''}}"
+        wx:for="{{productList}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onProductTap">
+        <view class="card-glow"></view>
+
+        <view class="product-tag-container">
+          <user-tag displayTag="{{item.displayTag}}" tag="{{item.goodsName}}" rarity="{{item.rarityLevel || 1}}" size="md"></user-tag>
+        </view>
+
+        <view class="product-info">
+          <view class="product-points">
+            <text class="points-number">{{item.points}}</text>
+            <text class="points-unit">积分</text>
+          </view>
+          <text class="product-stock">库存 {{item.stock > 0 ? item.stock : '0'}}</text>
+        </view>
+
+        <view class="exchange-btn-container">
+          <button
+            class="exchange-btn {{item.stock <= 0 ? 'disabled' : ''}}"
+            data-product="{{item}}"
+            bindtap="onExchange"
+            disabled="{{item.stock <= 0}}">
+            {{item.stock <= 0 ? '已兑完' : '兑换'}}
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{!loading && productList.length === 0}}">
+      <image class="empty-icon" src="/images/icons/h117.png" mode="aspectFit"></image>
+      <text class="empty-text">暂无商品</text>
+    </view>
+  </view>
+</view>

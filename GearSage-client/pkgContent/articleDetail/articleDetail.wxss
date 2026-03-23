@@ -1,0 +1,456 @@
+/* pages/articleDetail/articleDetail.wxss */
+@import "../../styles/dark.wxss";
+
+/* 移除原有的自定义导航栏样式，现在使用组件化导航栏 */
+.container {
+    padding: 20rpx;
+    background-color: #595a5a;
+    min-height: 100vh;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* 加载中样式 */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+/* 参考文献编号样式 */
+.reference-number {
+    font-size: 0.8em; /* 缩小字体 */
+    color: #6c757d; /* 灰色字体 */
+}
+.loading {
+    font-size: 32rpx;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+}
+
+.loading::before {
+    content: "";
+    display: inline-block;
+    width: 36rpx;
+    height: 36rpx;
+    margin-right: 16rpx;
+    border: 4rpx solid #4169E1;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 文章容器 */
+.article-container {
+    background-color: rgb(255, 255, 255);
+    border-radius: 16rpx;
+    padding: 40rpx 30rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+/* 文章头部 */
+.article-header {
+    margin-bottom: 40rpx;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 30rpx;
+}
+
+.article-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #1E3A8A;
+  margin-bottom: 24rpx;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+.article-meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: #6c757d;
+  line-height: 1.6;
+  flex-wrap: wrap;
+}
+
+.article-author, .article-date {
+  margin-right: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.article-author::before {
+  content: "";
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.article-date::before {
+  content: "";
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* 文章引言 */
+.article-section {
+  margin-bottom: 40rpx;
+  background-color: rgba(65, 105, 225, 0.05);
+  padding: 30rpx;
+  border-radius: 12rpx;
+  border-left: 8rpx solid #4169E1;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1E3A8A;
+  margin-bottom: 20rpx;
+}
+
+.section-content {
+  font-size: 30rpx;
+  color: #495057;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+/* 文章内容 */
+.article-content {
+  font-size: 32rpx;
+  color: #343a40;
+  line-height: 1.8;
+  margin-bottom: 40rpx;
+  text-align: justify;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* 章节样式 */
+.chapter {
+  margin-bottom: 50rpx;
+}
+
+.chapter-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #1E3A8A;
+  margin-bottom: 30rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section {
+  margin-bottom: 30rpx;
+}
+
+.section-subtitle {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 20rpx;
+  padding-left: 16rpx;
+  border-left: 4rpx solid #4169E1;
+}
+
+.paragraph {
+  font-size: 32rpx;
+  color: #495057;
+  line-height: 1.8;
+  margin-bottom: 20rpx;
+  text-align: justify;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* 图片样式 */
+.content-image {
+  width: 100%;
+  margin: 20rpx 0;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 子节点样式 */
+.article-child {
+  margin-bottom: 40rpx;
+}
+
+.child-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #1E3A8A;
+  margin-bottom: 20rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.child-content {
+  font-size: 32rpx;
+  color: #495057;
+  line-height: 1.8;
+  margin-bottom: 20rpx;
+  text-align: justify;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* 参考文献样式 */
+.references-section {
+  background-color: rgba(108, 117, 125, 0.05);
+  border-radius: 12rpx;
+  overflow: hidden;
+  border: 1px solid rgba(108, 117, 125, 0.1);
+}
+
+.references-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background-color: rgba(108, 117, 125, 0.08);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.references-header:active {
+  background-color: rgba(108, 117, 125, 0.12);
+}
+
+.references-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-size: 36rpx;
+  color: #495057;
+}
+
+.collapse-icon {
+  font-size: 24rpx;
+  color: #6c757d;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.collapse-icon.collapsed {
+  transform: rotate(-90deg);
+}
+
+.collapse-icon.expanded {
+  transform: rotate(0deg);
+}
+
+.references-content {
+  padding: 0 30rpx 30rpx 30rpx;
+  animation: slideDown 0.3s ease;
+}
+
+.references-list {
+  font-size: 28rpx;
+  color: #6c757d;
+  line-height: 1.6;
+  white-space: pre-line;
+  margin-bottom: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000rpx;
+  }
+}
+
+.grandchild {
+  margin: 30rpx 0 30rpx 20rpx;
+  padding-left: 20rpx;
+  border-left: 4rpx solid #4169E1;
+}
+
+.grandchild-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 16rpx;
+}
+
+.grandchild-content {
+  font-size: 30rpx;
+  color: #495057;
+  line-height: 1.8;
+  text-align: justify;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* 曾孙节点样式 */
+.great-grandchild {
+  margin: 20rpx 0 20rpx 20rpx;
+  padding-left: 16rpx;
+  border-left: 3rpx solid #6c757d;
+}
+
+.great-grandchild-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 12rpx;
+}
+
+.great-grandchild-content {
+  font-size: 28rpx;
+  color: #6c757d;
+  line-height: 1.7;
+  margin-bottom: 12rpx;
+  text-align: justify;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* 底部导航 */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50rpx;
+  padding-top: 30rpx;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-button {
+  background: linear-gradient(135deg, #1E3A8A, #4169E1);
+  color: white;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  padding: 16rpx 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(65, 105, 225, 0.3);
+  border: none;
+  flex: 0 0 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* 导航栏返回按钮样式 */
+.custom-nav-bar {
+  position: relative;
+    height: 100%; /* 新增 */
+}
+
+.nav-back-btn {
+  position: absolute;
+  left: 20rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80rpx; /* 扩大热区 */
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* 最高层级 */
+}
+
+.back-icon {
+  width: 400rpx;
+  height: 400rpx;
+    display: block; /* 新增 */
+}
+
+.nav-button:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(65, 105, 225, 0.2);
+}
+
+/* 浮动主页按钮 */
+.float-home-btn {
+    position: fixed;
+    bottom: 40rpx;
+    right: 40rpx;
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    background-color: #1E3A8A;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    transition: all 0.3s ease;
+    opacity: 0.9; /* 稍微透明，减少视觉干扰 */
+}
+
+.float-btn-hover {
+    transform: scale(0.95);
+    background-color: #152a62;
+}
+
+.home-btn-text {
+    font-size: 24rpx;
+}
+/* 滑动容器样式 */
+.swipe-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background: #fff;
+  box-shadow: -8rpx 0 40rpx rgba(0, 0, 0, 0);
+  transition: 
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
+}
+/* 滑动时状态 */
+.swipe-container[style*="translateX"] {
+  transition: none; /* 滑动过程中禁用过渡 */
+  box-shadow: -8rpx 0 40rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 防止内容溢出 */
+.container {
+  overflow-x: hidden;
+}
+
+.main-container {
+  overflow-x: hidden; /* 禁止横向滚动 */
+  width: 100%; /* 确保宽度不溢出 */
+}
+
+.article-container {
+  overflow-x: hidden; /* 已有样式，确保保留 */
+  /* 其他样式保持不变 */
+}

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "text-editor": "../text-editor/text-editor"
+  }
+}

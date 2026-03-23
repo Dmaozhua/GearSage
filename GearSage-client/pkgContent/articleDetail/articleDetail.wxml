@@ -1,0 +1,121 @@
+<!-- 自定义导航栏 -->
+<custom-navbar 
+  id="custom-navbar"
+  title="文章详情" 
+  show-back="{{true}}"
+  show-search="{{false}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+<!-- 在原有容器外添加滑动动画容器 -->
+<view 
+  class="swipe-wrapper"
+  style="{{swipeTransform}}"
+  bindtouchstart="touchStart"
+  bindtouchmove="touchMove"
+  bindtouchend="touchEnd"
+>
+
+
+<view class="main-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+
+  <!-- 加载中提示 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading">加载中...</view>
+  </view>
+
+  <!-- 文章内容 -->
+  <view class="article-container" wx:else>
+    <!-- 文章标题 -->
+    <view class="article-header">
+      <view class="article-title">{{article.meta.title}}</view>
+      <view class="article-meta">
+        <text class="article-author">{{article.meta.author}}</text>
+        <text class="article-date">{{article.meta.publishDate}}</text>
+      </view>
+    </view>
+
+    <!-- 文章内容区域 - 根据数据结构选择性显示 -->
+    <!-- 1. 直接显示文章内容 -->
+    <view class="article-content" wx:if="{{article.content}}">
+      <rich-text user-select="true" nodes="{{article.content}}"></rich-text>
+    </view>
+
+    <!-- 2. 显示文章子节点 -->
+    <view class="article-children" wx:elif="{{article.children && article.children.length > 0}}">
+      <block wx:for="{{article.children}}" wx:key="title" wx:for-item="child">
+        <!-- 特殊处理参考文献部分 -->
+        <view class="article-child" wx:if="{{child.title === '参考文献'}}">
+          <view class="references-section">
+            <view class="references-header" bindtap="toggleReferences">
+              <view class="child-title references-title">{{child.title}}</view>
+              <view class="collapse-icon {{referencesCollapsed ? 'collapsed' : 'expanded'}}">▼</view>
+            </view>
+            <view class="references-content" wx:if="{{!referencesCollapsed}}">
+              <rich-text class="child-content references-list" nodes="{{child.content}}"></rich-text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 普通文章子节点 -->
+        <view class="article-child" wx:else>
+          <view class="child-title">{{child.title}}</view>
+          <rich-text class="child-content" wx:if="{{child.content}}" nodes="{{child.content}}"></rich-text>
+          
+          <!-- 显示子节点的子节点 -->
+          <view class="child-children" wx:if="{{child.children && child.children.length > 0}}">
+            <block wx:for="{{child.children}}" wx:key="title" wx:for-item="grandchild">
+              <view class="grandchild">
+                <view class="grandchild-title">{{grandchild.title}}</view>
+                <rich-text class="grandchild-content" wx:if="{{grandchild.content}}" nodes="{{grandchild.content}}"></rich-text>
+                
+                <!-- 显示第三层子节点 -->
+                <view class="great-grandchild-children" wx:if="{{grandchild.children && grandchild.children.length > 0}}">
+                  <block wx:for="{{grandchild.children}}" wx:key="title" wx:for-item="greatGrandchild">
+                    <view class="great-grandchild">
+                      <view class="great-grandchild-title">{{greatGrandchild.title}}</view>
+                      <rich-text class="great-grandchild-content" nodes="{{greatGrandchild.content}}"></rich-text>
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 3. 文章章节 -->
+    <view class="article-chapters" wx:elif="{{article.chapters && article.chapters.length > 0}}">
+      <block wx:for="{{article.chapters}}" wx:key="title" wx:for-item="chapter">
+        <view class="chapter">
+          <view class="chapter-title">{{chapter.title}}</view>
+          
+          <!-- 章节内容 -->
+          <block wx:for="{{chapter.sections}}" wx:key="subtitle" wx:for-item="section">
+            <view class="section">
+              <view class="section-subtitle" wx:if="{{section.subtitle}}">{{section.subtitle}}</view>
+              
+              <!-- 段落内容 -->
+              <block wx:for="{{section.content}}" wx:key="index" wx:for-item="content">
+                <rich-text class="paragraph" wx:if="{{content.type === 'text'}}" nodes="{{content.value}}"></rich-text>
+                <image class="content-image" wx:elif="{{content.type === 'image'}}" src="{{content.url}}" mode="widthFix"></image>
+              </block>
+            </view>
+          </block>
+        </view>
+      </block>
+    </view>
+
+    <!-- 底部导航 -->
+    <view class="nav-buttons">
+      <button class="nav-button" bindtap="navigateBack">返回</button>
+      <button class="nav-button" bindtap="navigateToHome">首页</button>
+    </view>
+  </view>
+</view>
+
+</view>
+<view class="float-home-btn" hover-class="float-btn-hover" bindtap="navigateToHome">
+    <text class="home-btn-text">列表</text>
+</view>

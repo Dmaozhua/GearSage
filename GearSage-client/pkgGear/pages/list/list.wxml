@@ -1,0 +1,57 @@
+<!--pkgGear/pages/list/list.wxml-->
+<custom-navbar title="{{title}}" show-back="{{true}}"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <!-- Search & Filter Component -->
+  <view class="search-filter-wrapper">
+    <search-filter class="gear-search-filter"
+      type="{{currentType}}" 
+      bind:search="onSearch" 
+      bind:filter="onFilter"
+    ></search-filter>
+  </view>
+
+  <!-- List Section -->
+  <scroll-view 
+    scroll-y 
+    class="gear-list" 
+    enable-flex
+    refresher-enabled="{{false}}"
+    bindscrolltolower="onReachBottom"
+    lower-threshold="100"
+  >
+    <block wx:if="{{list.length > 0}}">
+      <view class="gear-grid">
+        <block wx:for="{{list}}" wx:key="id">
+          <view class="gear-item" bindtap="goToDetail" data-id="{{item.id}}" data-type="{{currentType}}">
+            <image 
+              class="gear-image" 
+              src="{{item.imageUrl}}" 
+              mode="aspectFit" 
+              lazy-load
+            ></image>
+            <view class="gear-info">
+              <text class="gear-name">{{item.displayName}}</text>
+              <text class="gear-sub">{{item.brandName}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="loading-more" wx:if="{{isLoading && list.length > 0}}">
+        <text>加载中...</text>
+      </view>
+      <view class="no-more" wx:if="{{!hasMore && list.length > 0}}">
+        <text>没有更多数据了</text>
+      </view>
+    </block>
+    <block wx:elif="{{!isLoading}}">
+      <view class="empty-state">
+        <view class="empty-icon-placeholder">
+          <text class="iconfont">🔍</text>
+        </view>
+        <text class="empty-title">{{isSearchMode ? "未找到相关数据" : "暂无数据"}}</text>
+        <text class="empty-sub">{{isSearchMode ? "请尝试其他关键词或筛选条件" : "请稍后再试"}}</text>
+      </view>
+    </block>
+  </scroll-view>
+</view>

@@ -1,0 +1,123 @@
+<custom-navbar
+  id="custom-navbar"
+  title="编辑标签"
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<view class="my-tags-page {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="page-content">
+    <view class="profile-card">
+      <view class="card-header">
+        <view>
+          <text class="card-kicker">我的标签</text>
+          <!-- <text class="card-title">主页与资料页展示</text> -->
+        </view>
+        <!-- <text class="card-link" bindtap="onOpenTagManager">模式选择</text> -->
+      </view>
+
+      <view class="current-tag-row">
+        <image
+          class="current-tag-avatar"
+          src="{{userInfo.avatarUrl || userInfo.avatar || '/images/avatar-default.png'}}"
+          mode="aspectFill"
+        />
+        <view class="current-tag-meta">
+          <text class="current-tag-name">{{userInfo.nickname || '钓友'}}</text>
+          <view class="current-tag-chip current-tag-chip--inline">
+            <user-tag wx:if="{{userInfo.mainDisplayTag}}" displayTag="{{userInfo.mainDisplayTag}}" size="md"></user-tag>
+            <text class="current-tag-empty" wx:else>当前未佩戴主标签</text>
+          </view>
+        </view>
+      </view>
+
+      <text class="card-desc">未佩戴时将不会在任何位置展示你的标签。</text>
+    </view>
+
+    <view class="profile-card">
+      <view class="card-header">
+        <view>
+          <text class="card-kicker">标签展示模式</text>
+          <text class="card-title">{{postTagModeTitle}}</text>
+        </view>
+        <text class="card-link" bindtap="onOpenTagManager">模式选择</text>
+      </view>
+
+      <view class="mode-overview">
+        <text class="mode-overview-badge">{{postTagModeTitle}}</text>
+        <text class="card-desc">{{postTagModeDescription}}</text>
+        <text class="mode-overview-hint">具体到每种帖子展示什么标签，可以在“模式选择”页面里查看和调整。</text>
+      </view>
+    </view>
+
+    <view class="profile-card">
+      <view class="card-header">
+        <view>
+          <text class="card-kicker">我的标签</text>
+          <text class="card-title">已拥有 {{ownedTags.length}} 枚</text>
+        </view>
+        <text class="card-link" bindtap="onOpenTagManager">调整佩戴</text>
+      </view>
+
+      <!-- <view class="tag-collection-hero">
+        <view class="tag-collection-hero-main">
+          <text class="tag-collection-count">{{ownedTags.length}}</text>
+          <text class="tag-collection-count-label">枚标签已收纳</text>
+        </view>
+        <text class="tag-collection-tip">主标签会带蓝色标记，按分类可以更快找到想要的标签。</text>
+      </view> -->
+
+      <scroll-view class="tag-tab-scroll" scroll-x="{{true}}" enable-flex="{{true}}">
+        <view class="tag-tab-list">
+          <view
+            class="tag-tab {{activeTagGroup === item.key ? 'is-active' : ''}}"
+            wx:for="{{tagGroupTabs}}"
+            wx:key="key"
+            bindtap="onTagGroupChange"
+            data-group="{{item.key}}"
+          >
+            <text class="tag-tab-text">{{item.label}}</text>
+            <text class="tag-tab-count">{{item.count}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="tag-group-block" wx:for="{{visibleTagGroups}}" wx:key="key">
+        <view class="tag-group-header">
+          <view>
+            <text class="tag-group-title">{{item.displayLabel}}</text>
+            <text class="tag-group-desc">{{item.description}}</text>
+          </view>
+          <text class="tag-group-count">{{item.count}} 枚</text>
+        </view>
+
+        <view class="tag-chip-list">
+          <view class="tag-chip-card" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="resolvedId">
+            <view class="tag-chip-card-top">
+              <user-tag displayTag="{{tag.displayTag}}" size="sm"></user-tag>
+              <text class="tag-chip-main" wx:if="{{tag.isMainTag}}">主标签</text>
+            </view>
+            <view class="tag-chip-meta-row">
+              <text class="tag-chip-source">{{tag.sourceLabel}}</text>
+              <text class="tag-chip-rarity">{{tag.rarityLabel}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="tag-empty-state" wx:if="{{visibleTagGroups.length === 0}}">
+        <text class="tag-empty-state-text">当前分组里还没有可展示的标签。</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading-overlay" wx:if="{{isLoading}}">
+    <svg-loading
+      loading="{{isLoading}}"
+      text="{{loadingText}}"
+      size="large"
+      show-text="{{true}}"
+    />
+  </view>
+</view>

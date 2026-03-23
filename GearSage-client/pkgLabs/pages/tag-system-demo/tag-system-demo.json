@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "user-tag": "/components/user-tag/user-tag"
+  },
+  "navigationBarTitleText": "GearSage Tag System Lab"
+}

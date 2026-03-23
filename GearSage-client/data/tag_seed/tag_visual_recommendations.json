@@ -1,0 +1,320 @@
+[
+  {
+    "name": "围观群众",
+    "code": "fun_onlooker",
+    "type": "fun",
+    "sub_type": "social",
+    "style_key": "fun_slate",
+    "icon_key": "spark",
+    "rarity_level": 1,
+    "source_type": "shop",
+    "scene_scope": [],
+    "display_priority": 26
+  },
+  {
+    "name": "你的钓友",
+    "code": "fun_fishing_buddy",
+    "type": "fun",
+    "sub_type": "social",
+    "style_key": "fun_slate",
+    "icon_key": "wave",
+    "rarity_level": 1,
+    "source_type": "shop",
+    "scene_scope": [],
+    "display_priority": 28
+  },
+  {
+    "name": "想买渔轮",
+    "code": "identity_want_reel",
+    "type": "identity",
+    "sub_type": "gear",
+    "style_key": "identity_slate",
+    "icon_key": "reel",
+    "rarity_level": 1,
+    "source_type": "shop",
+    "scene_scope": [
+      "recommend",
+      "question"
+    ],
+    "display_priority": 36
+  },
+  {
+    "name": "想买鱼竿",
+    "code": "identity_want_rod",
+    "type": "identity",
+    "sub_type": "gear",
+    "style_key": "identity_slate",
+    "icon_key": "rod",
+    "rarity_level": 1,
+    "source_type": "shop",
+    "scene_scope": [
+      "recommend",
+      "question"
+    ],
+    "display_priority": 36
+  },
+  {
+    "name": "不会绑前导",
+    "code": "fun_cant_tie_leader",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_blue",
+    "icon_key": "hook",
+    "rarity_level": 2,
+    "source_type": "shop",
+    "scene_scope": [
+      "question",
+      "catch"
+    ],
+    "display_priority": 38
+  },
+  {
+    "name": "空钩上鱼",
+    "code": "fun_empty_hook",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_blue",
+    "icon_key": "hook",
+    "rarity_level": 2,
+    "source_type": "shop",
+    "scene_scope": [
+      "catch",
+      "trip"
+    ],
+    "display_priority": 39
+  },
+  {
+    "name": "差点打龟",
+    "code": "fun_almost_skunk",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_blue",
+    "icon_key": "splash",
+    "rarity_level": 2,
+    "source_type": "shop",
+    "scene_scope": [
+      "catch",
+      "trip"
+    ],
+    "display_priority": 40
+  },
+  {
+    "name": "钓鱼人",
+    "code": "identity_angler",
+    "type": "identity",
+    "sub_type": "general",
+    "style_key": "identity_slate",
+    "icon_key": "fish",
+    "rarity_level": 1,
+    "source_type": "shop",
+    "scene_scope": [],
+    "display_priority": 42
+  },
+  {
+    "name": "7日",
+    "code": "event_login_7d",
+    "type": "event",
+    "sub_type": "milestone",
+    "style_key": "behavior_blue",
+    "icon_key": "calendar",
+    "rarity_level": 2,
+    "source_type": "system",
+    "scene_scope": [],
+    "display_priority": 45
+  },
+  {
+    "name": "装备刚配齐",
+    "code": "identity_gear_ready",
+    "type": "identity",
+    "sub_type": "style",
+    "style_key": "identity_blue",
+    "icon_key": "gear",
+    "rarity_level": 2,
+    "source_type": "shop",
+    "scene_scope": [
+      "recommend",
+      "question"
+    ],
+    "display_priority": 48
+  },
+  {
+    "name": "风雨无阻",
+    "code": "identity_all_weather",
+    "type": "identity",
+    "sub_type": "style",
+    "style_key": "identity_blue",
+    "icon_key": "storm",
+    "rarity_level": 2,
+    "source_type": "shop",
+    "scene_scope": [
+      "trip",
+      "experience"
+    ],
+    "display_priority": 50
+  },
+  {
+    "name": "不吃鱼",
+    "code": "fun_no_fish_eater",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_orange",
+    "icon_key": "leaf",
+    "rarity_level": 3,
+    "source_type": "shop",
+    "scene_scope": [
+      "catch",
+      "trip"
+    ],
+    "display_priority": 50
+  },
+  {
+    "name": "打火机",
+    "code": "fun_lighter",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_orange",
+    "icon_key": "fire",
+    "rarity_level": 3,
+    "source_type": "shop",
+    "scene_scope": [
+      "catch",
+      "trip"
+    ],
+    "display_priority": 51
+  },
+  {
+    "name": "拍大腿",
+    "code": "fun_pat_leg",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_orange",
+    "icon_key": "spark",
+    "rarity_level": 3,
+    "source_type": "shop",
+    "scene_scope": [
+      "recommend",
+      "question"
+    ],
+    "display_priority": 52
+  },
+  {
+    "name": "跑过毒",
+    "code": "fun_poisoned",
+    "type": "fun",
+    "sub_type": "meme",
+    "style_key": "fun_orange",
+    "icon_key": "bolt",
+    "rarity_level": 3,
+    "source_type": "shop",
+    "scene_scope": [
+      "recommend",
+      "experience"
+    ],
+    "display_priority": 54
+  },
+  {
+    "name": "手有余香",
+    "code": "event_generous_like",
+    "type": "event",
+    "sub_type": "achievement",
+    "style_key": "behavior_blue",
+    "icon_key": "heart",
+    "rarity_level": 2,
+    "source_type": "system",
+    "scene_scope": [],
+    "display_priority": 57
+  },
+  {
+    "name": "评论达人",
+    "code": "event_comment_master",
+    "type": "event",
+    "sub_type": "achievement",
+    "style_key": "behavior_blue",
+    "icon_key": "chat",
+    "rarity_level": 2,
+    "source_type": "system",
+    "scene_scope": [
+      "question"
+    ],
+    "display_priority": 58
+  },
+  {
+    "name": "21日",
+    "code": "event_login_21d",
+    "type": "event",
+    "sub_type": "milestone",
+    "style_key": "behavior_orange",
+    "icon_key": "calendar",
+    "rarity_level": 3,
+    "source_type": "system",
+    "scene_scope": [],
+    "display_priority": 60
+  },
+  {
+    "name": "内容创作者",
+    "code": "identity_creator",
+    "type": "identity",
+    "sub_type": "creator",
+    "style_key": "identity_orange",
+    "icon_key": "pen",
+    "rarity_level": 3,
+    "source_type": "system",
+    "scene_scope": [
+      "recommend",
+      "experience",
+      "trip"
+    ],
+    "display_priority": 72
+  },
+  {
+    "name": "社交核心",
+    "code": "event_social_core",
+    "type": "event",
+    "sub_type": "achievement",
+    "style_key": "behavior_gold",
+    "icon_key": "link",
+    "rarity_level": 4,
+    "source_type": "system",
+    "scene_scope": [],
+    "display_priority": 78
+  },
+  {
+    "name": "最大单尾",
+    "code": "event_biggest_single",
+    "type": "event",
+    "sub_type": "record",
+    "style_key": "behavior_gold",
+    "icon_key": "trophy",
+    "rarity_level": 4,
+    "source_type": "event",
+    "scene_scope": [
+      "catch",
+      "trip"
+    ],
+    "display_priority": 88
+  },
+  {
+    "name": "开服元老",
+    "code": "event_founder",
+    "type": "event",
+    "sub_type": "founder",
+    "style_key": "official_gold",
+    "icon_key": "crown",
+    "rarity_level": 4,
+    "source_type": "event",
+    "scene_scope": [],
+    "display_priority": 92
+  },
+  {
+    "name": "论坛领袖",
+    "code": "event_forum_leader",
+    "type": "event",
+    "sub_type": "honor",
+    "style_key": "official_gold",
+    "icon_key": "medal",
+    "rarity_level": 5,
+    "source_type": "system",
+    "scene_scope": [],
+    "display_priority": 96
+  }
+]

@@ -1,0 +1,51 @@
+<!--components/banner-carousel/banner-carousel.wxml-->
+<view class="banner-carousel-container {{isDarkMode ? 'dark-mode' : ''}}">
+  <!-- 轮播图 -->
+  <swiper 
+    class="banner-swiper" 
+    indicator-dots="{{showDots}}"
+    indicator-color="{{dotColor}}"
+    indicator-active-color="{{activeDotColor}}"
+    autoplay="{{autoplay}}"
+    interval="{{interval}}"
+    duration="{{duration}}"
+    circular="{{circular}}"
+    bindchange="onSwiperChange"
+    style="height: {{height}}px;"
+  >
+    <swiper-item 
+      wx:for="{{bannerList}}" 
+      wx:key="id" 
+      class="banner-item"
+      data-index="{{index}}"
+      bindtap="onBannerTap"
+    >
+      <image 
+        class="banner-image" 
+        src="{{item.imageUrl}}" 
+        mode="aspectFill"
+        lazy-load="{{true}}"
+        bindload="onImageLoad"
+        binderror="onImageError"
+      />
+      <!-- 渐变遮罩 -->
+      <view class="banner-mask"></view>
+      <!-- 内容区域 -->
+      <view class="banner-content" wx:if="{{item.title || item.subtitle}}">
+        <view class="banner-title" wx:if="{{item.title}}">{{item.title}}</view>
+        <view class="banner-subtitle" wx:if="{{item.subtitle}}">{{item.subtitle}}</view>
+      </view>
+    </swiper-item>
+  </swiper>
+  
+  <!-- 自定义指示器 -->
+  <view class="custom-dots" wx:if="{{showCustomDots && bannerList.length > 1}}">
+    <view 
+      wx:for="{{bannerList}}" 
+      wx:key="id"
+      class="custom-dot {{currentIndex === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="onDotTap"
+    ></view>
+  </view>
+</view>

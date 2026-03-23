@@ -1,0 +1,12 @@
+<!--components/svg-loading/svg-loading.wxml-->
+<view class="svg-loading-container {{customClass}}" style="{{customStyle}}">
+  <view class="loader loader--style1">
+    <view class="svg-container">
+      <!-- 外圈静态圆环 -->
+      <view class="circle-bg"></view>
+      <!-- 内圈旋转部分 -->
+      <view class="circle-spinner {{spinning ? 'spinning' : ''}}"></view>
+    </view>
+  </view>
+  <text wx:if="{{showText}}" class="loading-text">{{text}}</text>
+</view>

@@ -1,0 +1,103 @@
+/* components/svg-loading/svg-loading.wxss */
+
+.svg-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  margin: 0 0 2em;
+  height: 100rpx;
+  width: 100rpx;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.svg-container {
+  position: relative;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 0 auto;
+}
+
+/* 外圈静态背景 */
+.circle-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* 内圈旋转部分 */
+.circle-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid transparent;
+  border-top-color: #FF6700;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* 旋转动画 */
+.spinning {
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 加载文本 */
+.loading-text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #777;
+  text-align: center;
+}
+
+/* 不同尺寸 */
+.svg-loading-container[data-size="small"] .svg-container {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.svg-loading-container[data-size="small"] .circle-bg,
+.svg-loading-container[data-size="small"] .circle-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border-width: 4rpx;
+}
+
+.svg-loading-container[data-size="large"] .svg-container {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.svg-loading-container[data-size="large"] .circle-bg,
+.svg-loading-container[data-size="large"] .circle-spinner {
+  width: 100rpx;
+  height: 100rpx;
+  border-width: 8rpx;
+}
+
+/* 自定义颜色支持 */
+.svg-loading-container[data-color] .circle-spinner {
+  border-top-color: var(--loading-color, #FF6700);
+}

@@ -1,0 +1,75 @@
+<wxs src="./filter-utils.wxs" module="utils" />
+<view class="search-filter-container {{isDarkMode ? 'dark' : ''}}">
+  <view class="search-bar-wrapper">
+    <view class="search-box">
+      <input
+        class="search-input"
+        placeholder="搜索装备..."
+        value="{{searchText}}"
+        bindfocus="onFocus"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+        confirm-type="search"
+        placeholder-class="search-placeholder"
+      />
+      <view class="clear-btn" wx:if="{{searchText}}" catchtap="clearSearch">
+        <text class="clear-icon">×</text>
+      </view>
+      <view class="search-btn {{searchLoading ? 'loading' : ''}}" bindtap="onSearchConfirm">
+        <text class="search-icon" wx:if="{{!searchLoading}}">🔍</text>
+        <text class="search-loading" wx:else>搜索中...</text>
+      </view>
+    </view>
+    <view class="filter-toggle-btn {{isExpanded ? 'active' : ''}}" bindtap="toggleFilter">
+      <text class="filter-text">筛选</text>
+      <text class="filter-arrow {{isExpanded ? 'up' : 'down'}}">▼</text>
+    </view>
+  </view>
+
+  <view class="suggestions-dropdown" wx:if="{{showSuggestions && suggestions.length > 0}}">
+    <block wx:for="{{suggestions}}" wx:key="id">
+      <view class="suggestion-item" bindtap="selectSuggestion" data-name="{{item.name}}">
+        <text class="suggestion-text">{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="filter-popup" wx:if="{{isExpanded}}">
+    <!-- <view class="filter-tabs">
+      <view class="filter-tab {{activeTab === 'ecommerce' ? 'active' : ''}}" bindtap="switchTab" data-tab="ecommerce">筛选</view>
+    </view> -->
+
+    <view class="filter-content">
+      <view class="recommendation-bar" wx:if="{{recommendations.length > 0}}">
+        <text class="recommendation-label">你可能要找的是：</text>
+        <block wx:for="{{recommendations}}" wx:key="*this">
+          <text class="recommendation-item" bindtap="selectRecommendation" data-val="{{item}}">{{item}}</text>
+        </block>
+      </view>
+
+      <scroll-view scroll-y class="filter-scroll">
+        <block wx:for="{{filters}}" wx:key="key" wx:for-item="group">
+          <view class="filter-group">
+            <text class="filter-group-label">{{group.label}}</text>
+            <view class="filter-chips">
+              <view class="filter-chip {{utils.isAllSelected(selectedFilters, group.key) ? 'active' : ''}}" bindtap="selectFilter" data-key="{{group.key}}" data-val="">全部</view>
+              <block wx:for="{{group.options}}" wx:key="id" wx:for-item="option">
+                <view class="filter-chip {{utils.isSelected(selectedFilters, group.key, option.id) ? 'active' : ''}}" bindtap="selectFilter" data-key="{{group.key}}" data-val="{{option.id}}">{{option.name}}</view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+      <view class="filter-actions">
+        <button class="reset-btn" bindtap="resetFilter">重置</button>
+        <button class="apply-btn" bindtap="applyFilter">查找</button>
+      </view>
+    </view>
+
+    <view class="filter-content wizard-mode" wx:if="{{activeTab === 'wizard'}}">
+      <text class="placeholder-text">向导模式开发中...</text>
+    </view>
+  </view>
+
+  <view class="filter-mask" wx:if="{{isExpanded}}" bindtap="toggleFilter"></view>
+</view>
