@@ -318,8 +318,6 @@ class ApiService {
 
       const attempt = (fromRetry = false) => {
         const { path: requestPath, query: queryPayload } = parseUrlAndQuery(requestOptions.url);
-        const cloudActionKey = `${requestOptions.method} ${requestPath}`;
-        const cloudAction = CLOUD_ACTION_MAP[cloudActionKey];
         const attemptStartedAt = Date.now();
 
         // 提取统一的成功回调逻辑
@@ -369,7 +367,7 @@ class ApiService {
             return;
           }
 
-          if (res.statusCode === 200) {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
             const responseData = res.data || {};
             const businessCode = responseData.code;
 
@@ -455,54 +453,6 @@ class ApiService {
 
           reject(err);
         };
-
-        if (cloudAction) {
-          const mergedPayload = {
-            ...queryPayload,
-            ...(requestOptions.data || {})
-          };
-          const payload = normalizeCloudPayload(cloudAction, mergedPayload);
-          console.log(`[API] 路由重定向: ${cloudActionKey} -> Cloud Action: ${cloudAction}`);
-
-          // [改造点] 2. 调用云函数
-          const cloudCallStartedAt = Date.now();
-          wx.cloud.callFunction({
-            name: 'miniApi', // 你的云函数主入口名称
-            data: {
-              action: cloudAction,
-              payload
-            }
-          }).then(res => {
-            console.log(`[API][性能] 云函数 [${cloudAction}] 调用耗时:`, Date.now() - cloudCallStartedAt, 'ms');
-            console.log(`[API] 云函数 [${cloudAction}] 调用成功，结果预览:`, res);
-            if (cloudAction === 'topic.all' && res.result && res.result.data && res.result.data.length > 0) {
-                console.log('[API-DEBUG] 第一条帖子数据:', res.result.data[0]);
-                console.log('[API-DEBUG] 包含用户信息:', {
-                    publisher: res.result.data[0].publisher,
-                    nickName: res.result.data[0].nickName,
-                    avatarUrl: res.result.data[0].avatarUrl,
-                    _debug_userId: res.result.data[0]._debug_userId,
-                    _debug_hasPublisher: res.result.data[0]._debug_hasPublisher
-                });
-            }
-
-            // 构造一个这就好比 wx.request 返回的 res 结构，以便复用后面的处理逻辑
-            const mockRes = {
-              statusCode: 200,
-              data: res.result || {} // 云函数返回的结果在 result 字段中
-            };
-
-            // 调用原本的成功处理逻辑
-            handleSuccess(mockRes);
-          }).catch(err => {
-            console.log(`[API][性能] 云函数 [${cloudAction}] 调用失败耗时:`, Date.now() - cloudCallStartedAt, 'ms');
-            console.error('[API] 云函数调用失败:', err);
-            // 构造一个这就好比 wx.request 失败的 err 结构
-            handleFail(err);
-          });
-
-          return; // 结束，不再执行下面的 wx.request
-        }
 
         const requestHeaders = {
           'Content-Type': 'application/json',

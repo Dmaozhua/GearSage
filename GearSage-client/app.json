@@ -4,6 +4,7 @@
     "pages/index/index",
     "pages/points/points",
     "pages/profile/profile",
+    "pages/login/login",
     "pages/invite/index",
     "pages/timeline-preview/index"
   ],

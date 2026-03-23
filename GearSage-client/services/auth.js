@@ -79,54 +79,20 @@ class AuthService {
   }
 
   async login() {
-    const phone = await this.promptPhoneNumber();
-    if (!phone) {
-      throw new Error('UserCancelledLogin');
-    }
-
-    return this.loginWithPhone(phone);
-  }
-
-  async loginWithPhone(phone) {
-    const pendingInvite = getPendingInvite();
-
-    await api.post('/auth/send-code', { phone }, {
-      skipAuthRetry: true,
-      skipErrorToast: true
-    });
-
-    const authRes = await api.post('/auth/login', {
-      phone,
-      code: '123456',
-      ...(pendingInvite || {})
-    }, {
-      skipAuthRetry: true
-    });
-
-    const standardAuthRes = this.normalizeAuthResponse(authRes);
-    this.persistAuthResult(standardAuthRes, { triggerHomeRefresh: true });
-    clearPendingInvite();
-
-    try {
-      const latestUser = await api.get('/auth/me', {
-        silent: true,
-        skipErrorToast: true
-      });
-      if (latestUser && latestUser.id) {
-        this.persistAuthResult({
-          token: standardAuthRes.token,
-          refreshToken: standardAuthRes.refreshToken,
-          userInfo: {
-            ...standardAuthRes.userInfo,
-            ...latestUser
+    return new Promise((resolve, reject) => {
+      wx.navigateTo({
+        url: '/pages/login/login',
+        events: {
+          loginSuccess: (authRes) => {
+            resolve(authRes);
           }
-        }, { triggerHomeRefresh: true });
-      }
-    } catch (error) {
-      console.warn('[AuthService] 登录后刷新用户信息失败，继续使用登录响应:', error);
-    }
-
-    return standardAuthRes;
+        },
+        fail: (err) => {
+          console.error('[AuthService] 跳转登录页失败:', err);
+          reject(new Error('NavigationFailed'));
+        }
+      });
+    });
   }
 
   async silentLogin() {
@@ -145,33 +111,6 @@ class AuthService {
     const standardAuthRes = this.normalizeAuthResponse(authRes);
     this.persistAuthResult(standardAuthRes, { triggerHomeRefresh: false });
     return standardAuthRes;
-  }
-
-  async promptPhoneNumber() {
-    return new Promise((resolve, reject) => {
-      wx.showModal({
-        title: '手机号登录',
-        content: '请输入 11 位手机号，开发阶段验证码固定为 123456',
-        editable: true,
-        placeholderText: '13800138000',
-        confirmText: '登录',
-        success: (res) => {
-          if (!res.confirm) {
-            reject(new Error('UserCancelledLogin'));
-            return;
-          }
-
-          const phone = String(res.content || '').trim();
-          if (!/^\d{11}$/.test(phone)) {
-            reject(new Error('请输入 11 位手机号'));
-            return;
-          }
-
-          resolve(phone);
-        },
-        fail: (error) => reject(error)
-      });
-    });
   }
 
   async getUserProfile() {

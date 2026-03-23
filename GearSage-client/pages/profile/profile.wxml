@@ -28,7 +28,7 @@
       <text class="login-title">欢迎来到钓友说</text>
       <text class="login-subtitle">登录后可发布装备体验、参与讨论</text>
       <button class="login-btn" bindtap="onLogin">
-        <text class="login-btn-text">微信登录</text>
+        <text class="login-btn-text">手机号登录</text>
       </button>
     </view>
   </view>
