@@ -1,98 +1,372 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# GearSage API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+GearSage 独立后台项目。
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+当前技术栈：
 
-## Description
+- Node.js
+- NestJS
+- PostgreSQL
+- Nginx
+- PM2
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+当前正式环境地址：
 
-## Project setup
+- API: `https://api.gearsage.club`
+
+---
+
+## 目录说明
+
+建议本地目录：
+
+- 前端：`/Users/tommy/GearSage/GearSage-client`
+- 后端：`/Users/tommy/GearSage/GearSage-api`
+
+当前服务器目录：
+
+- 后端：`/srv/gearsage-api`
+
+---
+
+## 当前已完成模块
+
+已落地接口：
+
+- `GET /health`
+- `GET /health/db`
+
+帖子模块：
+- `GET /mini/topic/all`
+- `GET /mini/topic`
+- `GET /mini/topic/tmp`
+- `GET /mini/topic/mine`
+- `PUT /mini/topic`
+- `POST /mini/topic`
+- `DELETE /mini/topic`
+- `POST /mini/topic/like`
+
+---
+
+## 环境要求
+
+建议版本：
+
+- Node.js 24
+- npm 10+
+- Git
+- macOS 终端
+- SSH 可连接正式服务器
+
+---
+
+## 本地开发模式
+
+当前推荐的本地开发方式：
+
+- **后端在本机运行**
+- **数据库先复用服务器 PostgreSQL**
+- **通过 SSH 隧道把本机 5433 转发到服务器 5432**
+
+这样你可以在本机改代码，不用每次都先部署到外网。
+
+---
+
+## 本地开发前准备
+
+### 1. 安装依赖
+
+进入项目目录：
 
 ```bash
-$ npm install
+cd /Users/tommy/GearSage/GearSage-api
+npm install
 ```
 
-## Compile and run the project
+### 2. 创建本地环境变量
+
+复制 `.env.example` 为 `.env.local`：
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cp .env.example .env.local
 ```
 
-## Run tests
+然后把 `.env.local` 里的数据库密码、服务器 IP、COS 等真实信息补全。
+
+### 3. 修改配置读取顺序
+
+确认项目 `ConfigModule.forRoot()` 已设置：
+
+```ts
+ConfigModule.forRoot({
+  isGlobal: true,
+  envFilePath: ['.env.local', '.env'],
+})
+```
+
+这样本地优先读取 `.env.local`。
+
+---
+
+## 本地启动标准流程
+
+### 终端 A：建立数据库 SSH 隧道
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+ssh -L 5433:127.0.0.1:5432 root@你的服务器公网IP
 ```
 
-## Deployment
+这个终端要保持打开，不能关闭。
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 终端 B：启动本地后端
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+cd /Users/tommy/GearSage/GearSage-api
+npm install
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+如果没有 `start:dev`，就执行：
 
-## Resources
+```bash
+npm run start
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 本地验证
 
-## Support
+启动后执行：
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+curl http://127.0.0.1:3001/health
+curl http://127.0.0.1:3001/health/db
+curl http://127.0.0.1:3001/mini/topic/all
+```
 
-## Stay in touch
+如果都能返回，说明：
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- 本机后端已运行
+- 本机已连上服务器数据库
+- 本地开发环境可用
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 本地停止流程
+
+### 停止本地后端
+在运行 Nest 的终端按：
+
+```bash
+Ctrl + C
+```
+
+### 关闭数据库隧道
+在 SSH 隧道终端按：
+
+```bash
+Ctrl + C
+```
+
+---
+
+## Git 工作流
+
+当前推荐工作流：
+
+1. 本地修改代码
+2. 本地运行与验证
+3. Git 提交
+4. 推送 GitHub
+5. 服务器拉取代码
+6. 构建并重启 PM2
+7. 验证正式环境
+
+---
+
+## 本地提交代码
+
+```bash
+cd /Users/tommy/GearSage/GearSage-api
+git add .
+git commit -m "feat: xxx"
+git push origin main
+```
+
+也可以使用 SourceTree 提交与推送。
+
+---
+
+## 正式环境发布流程
+
+### 1. SSH 登录服务器
+
+```bash
+ssh root@你的服务器公网IP
+```
+
+### 2. 进入项目目录
+
+```bash
+cd /srv/gearsage-api
+```
+
+### 3. 拉取最新代码
+
+```bash
+git pull origin main
+```
+
+### 4. 如果依赖有变化，安装依赖
+
+```bash
+npm install
+```
+
+### 5. 构建
+
+```bash
+npm run build
+```
+
+### 6. 重启服务
+
+```bash
+pm2 restart gearsage-api
+```
+
+### 7. 验证正式环境
+
+```bash
+curl https://api.gearsage.club/health
+curl https://api.gearsage.club/health/db
+```
+
+如果本次改了业务接口，也要额外验证对应接口。
+
+---
+
+## 服务器当前运行方式
+
+正式环境链路：
+
+```text
+客户端 / 小程序
+    ↓
+https://api.gearsage.club
+    ↓
+Nginx :443
+    ↓
+NestJS :3000
+    ↓
+PostgreSQL :5432
+```
+
+---
+
+## Nginx 相关
+
+当前站点配置文件：
+
+```text
+/etc/nginx/conf.d/gearsage-api.conf
+```
+
+证书目录：
+
+```text
+/etc/nginx/ssl/api.gearsage.club/
+```
+
+常用命令：
+
+```bash
+nginx -t
+systemctl restart nginx
+systemctl status nginx --no-pager
+```
+
+---
+
+## PM2 相关
+
+当前服务名：
+
+```text
+gearsage-api
+```
+
+常用命令：
+
+```bash
+pm2 status
+pm2 restart gearsage-api
+pm2 logs gearsage-api
+pm2 save
+```
+
+---
+
+## PostgreSQL 相关
+
+第一阶段开发时，本机默认通过 SSH 隧道连接服务器数据库。
+
+数据库验证命令：
+
+```bash
+curl http://127.0.0.1:3001/health/db
+```
+
+服务器侧验证：
+
+```bash
+psql "postgresql://用户名:密码@127.0.0.1:5432/gearsage" -c "select now(), current_database(), current_user;"
+```
+
+---
+
+## 对象存储 COS
+
+当前设计方案：
+
+- 前端上传到 NestJS
+- NestJS 后端中转上传到 COS
+- 后续使用 `static.gearsage.club` 提供静态资源访问
+
+当前仍在待实现阶段。
+
+---
+
+## 开发原则
+
+1. 不直接在服务器上做主开发
+2. 所有主要修改先在本地验证
+3. 每次上线前必须先本地测试
+4. 每次上线后必须 curl 验证
+5. 任何服务器配置变更都要回写施工记录文档
+
+---
+
+## 后续优先级
+
+当前建议优先开发：
+
+1. 评论模块
+2. 鉴权模块
+3. 用户模块
+4. 上传模块
+5. COS 接入
+6. 前端逐页切接口
+
+---
+
+## 文档约定
+
+当前项目建议同时维护以下文档：
+
+- 《独立后台迁移计划（设计 + 施工记录 + 标准流程）》
+- 《GearSage 后端架构设计文档》
+
+前者偏施工与当前真实状态，后者偏长期架构设计。
+
+README 只负责告诉开发者如何运行、如何发布、如何协作。
