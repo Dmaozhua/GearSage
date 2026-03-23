@@ -3,24 +3,24 @@
   "cloudbasercRoot": ".",
   "appid": "wxfcaffa2a2c398e9c",
   "compileType": "miniprogram",
-  "libVersion": "3.9.3",
+  "libVersion": "3.14.2",
   "packOptions": {
     "ignore": [
       {
-        "type": "folder",
-        "value": "cloudfunctions"
+        "value": "cloudfunctions",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "test"
+        "value": "test",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "说明"
+        "value": "说明",
+        "type": "folder"
       },
       {
-        "type": "file",
-        "value": "package-lock.json"
+        "value": "package-lock.json",
+        "type": "file"
       }
     ],
     "include": []

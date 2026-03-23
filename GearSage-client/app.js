@@ -9,16 +9,7 @@ App({
     // 初始化全局错误提示节流标记
     this._lastGlobalErrorToast = 0
 
-    // 初始化云开发环境
-    if (wx.cloud) {
-      wx.cloud.init({
-        env: 'cloud1-1g9eeb3p33faac61',  // 环境ID
-        traceUser: true  // 是否记录用户访问日志
-      })
-      console.log('云开发环境初始化成功')
-    } else {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    }
+    console.log('[App] 当前版本已切换为独立后台，不再初始化 wx.cloud');
     
     // 获取设备信息，计算自定义导航栏高度
     this.initNavBarInfo()
@@ -77,25 +68,8 @@ App({
       
       console.log('[App] 开始检查登录会话状态...');
       this.globalData.lastSessionCheckTime = Date.now();
-      
-      wx.checkSession({
-        success: () => {
-          console.log('[App] 登录会话有效');
-        },
-        fail: () => {
-          console.log('[App] 登录会话已过期，清除本地数据');
-          
-          // 清除本地存储的登录信息
-          wx.removeStorageSync('token');
-          wx.removeStorageSync('userInfo');
-          
-          // 设置全局标志，通知profile页面显示登录提示
-          this.globalData.showLoginPrompt = true;
-          
-          // 直接跳转到profile页面，不显示弹窗
-          this.navigateToProfileWithLoginPrompt();
-        }
-      });
+
+      console.log('[App] 独立后台模式下跳过 wx.checkSession，由 access token / refresh token 接管会话');
     } catch (error) {
       console.error('[App] 检查登录会话状态失败:', error);
     }

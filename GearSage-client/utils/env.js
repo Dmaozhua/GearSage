@@ -49,6 +49,18 @@ class EnvUtil {
    * 获取当前环境信息
    */
   static getEnvInfo() {
+    if (typeof wx === 'undefined' || typeof wx.getSystemInfoSync !== 'function') {
+      return {
+        isDevTool: false,
+        isRealDevice: true,
+        platform: 'node',
+        system: 'node',
+        brand: 'node',
+        model: 'node',
+        environment: 'unknown'
+      };
+    }
+
     const isDevTool = this.isDevTool();
     const systemInfo = wx.getSystemInfoSync();
     

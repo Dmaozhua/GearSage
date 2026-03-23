@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsInt,
+  IsObject,
   IsOptional,
   IsString,
   Min,
@@ -27,7 +28,7 @@ export class PublishTopicDto {
   @IsArray()
   images!: string[];
 
-  @IsInt()
-  @Min(1)
-  userId!: number;
+  @IsOptional()
+  @IsObject()
+  extra?: Record<string, any>;
 }

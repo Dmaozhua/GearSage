@@ -167,7 +167,8 @@ FinClip 适配不作为第一阶段前置条件。
 默认方案：
 
 - 前端上传到 NestJS
-- NestJS 后端中转上传到 COS
+- 第一阶段先落本地 `UPLOAD_DIR`
+- COS 配置完成后，再切换为后端中转上传到 COS
 - 后端返回 URL
 - 数据库存储 URL 或 objectKey + URL 映射信息
 
@@ -312,6 +313,11 @@ sql/
 - Access Token 有效期 2 小时
 - Refresh Token 有效期 30 天
 - Refresh Token 存库
+- 返回结构优先兼容当前小程序：
+  - `token`
+  - `refreshToken`
+  - `expiresIn`
+  - `userInfo`
 
 建议新增表：
 
@@ -334,8 +340,8 @@ sql/
 
 第一阶段实现建议：
 
-- 允许先按 userId 查询
-- 后续再接登录态
+- 直接按登录态查询当前用户
+- 不再以 `userId` 作为前端主调用口径
 
 ### 7.4 topic 模块
 职责：
@@ -362,9 +368,15 @@ sql/
 状态口径：
 
 - `status = 0` 草稿
-- `status = 1` 待审核
+- `status = 1` 待审核（字段保留，第一版暂不进入）
 - `status = 2` 已发布
 - `isDelete = 0/1`
+
+第一阶段发布策略：
+
+- 审核流程尚未完成
+- 用户发布默认直接通过
+- 因此第一版发布接口写入 `status = 2`
 
 ### 7.5 comment 模块
 职责：
@@ -393,7 +405,7 @@ sql/
 
 - 文件接收
 - 文件校验
-- 上传 COS
+- 上传本地 `UPLOAD_DIR` / 后续上传 COS
 - 返回 URL
 - 记录元数据
 
@@ -629,9 +641,10 @@ POST /auth/login
   "code": 0,
   "message": "ok",
   "data": {
-    "accessToken": "xxx",
+    "token": "xxx",
     "refreshToken": "xxx",
-    "user": {}
+    "expiresIn": 7200,
+    "userInfo": {}
   }
 }
 ```
@@ -739,8 +752,8 @@ pm2 restart gearsage-api
 ### 12.4 健康检查标准流程
 
 ```bash
-curl http://127.0.0.1/health
-curl http://127.0.0.1/health/db
+curl http://127.0.0.1:3001/health
+curl http://127.0.0.1:3001/health/db
 curl https://api.gearsage.club/health
 curl https://api.gearsage.club/health/db
 ```
@@ -816,8 +829,9 @@ AI 不应擅自修改：
 
 - 《独立后台迁移计划（设计 + 施工记录 + 标准流程）》
 - 《GearSage 后端架构设计文档》
+- `docs/小程序api.md`
 
-建议前者偏施工，后者偏设计。
+建议前者偏施工，后者偏设计，`docs/小程序api.md` 负责补充现有小程序接口与字段契约。
 
 ---
 
@@ -832,20 +846,21 @@ AI 不应擅自修改：
 
 ### 当前正在做
 
-- 帖子模块收口
-- 准备进入评论模块
+- 鉴权模块第一版联调
+- 用户 / 评论 / 上传第一版联调
+- 小程序主链路切离云开发
 
 ### 下一阶段优先级
 
 #### P0
-- 评论模块
-- 鉴权模块骨架
+- 鉴权模块第一版
 - 用户模块最小可用版
+- 评论模块最小可用版
+- 上传模块第一版（本地 `UPLOAD_DIR`）
 
 #### P1
-- 上传模块
 - COS 接入
-- 前端开始切帖子接口
+- 前端继续切帖子 / 评论 / 用户接口
 
 #### P2
 - 标签

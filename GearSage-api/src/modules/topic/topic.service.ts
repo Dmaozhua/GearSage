@@ -17,6 +17,7 @@ export class TopicService {
         t.title,
         t.content,
         t.images,
+        t.extra,
         t.status,
         t."userId",
         t."publishTime",
@@ -39,7 +40,18 @@ export class TopicService {
     return result.rows.map((row: any) => this.formatTopic(row));
   }
 
-  async getMyTopics(userId: number) {
+  async getMyTopics(userId: number, status?: number | null) {
+    const params: Array<number> = [userId];
+    let whereClause = `
+      WHERE t."userId" = $1
+        AND t."isDelete" = 0
+    `;
+
+    if (status !== null && status !== undefined) {
+      params.push(status);
+      whereClause += ` AND t.status = $2`;
+    }
+
     const result = await this.databaseService.query(
       `
       SELECT
@@ -48,6 +60,7 @@ export class TopicService {
         t.title,
         t.content,
         t.images,
+        t.extra,
         t.status,
         t."userId",
         t."publishTime",
@@ -61,11 +74,10 @@ export class TopicService {
         u.level
       FROM bz_mini_topic t
       LEFT JOIN bz_mini_user u ON u.id = t."userId"
-      WHERE t."userId" = $1
-        AND t."isDelete" = 0
+      ${whereClause}
       ORDER BY t."updateTime" DESC, t.id DESC
       `,
-      [userId],
+      params,
     );
 
     return result.rows.map((row: any) => this.formatTopic(row));
@@ -80,6 +92,7 @@ export class TopicService {
         t.title,
         t.content,
         t.images,
+        t.extra,
         t.status,
         t."userId",
         t."publishTime",
@@ -116,6 +129,7 @@ export class TopicService {
         t.title,
         t.content,
         t.images,
+        t.extra,
         t.status,
         t."userId",
         t."publishTime",
@@ -145,7 +159,7 @@ export class TopicService {
     return this.formatTopic(result.rows[0]);
   }
 
-  async saveTopicDraft(dto: SaveTopicDto) {
+  async saveTopicDraft(userId: number, dto: SaveTopicDto) {
     if (dto.id) {
       const updateResult = await this.databaseService.query(
         `
@@ -155,11 +169,13 @@ export class TopicService {
           title = $2,
           content = $3,
           images = $4::jsonb,
+          extra = $5::jsonb,
           status = 0,
-          "userId" = $5,
+          "userId" = $6,
           "isDelete" = 0,
           "updateTime" = NOW()
-        WHERE id = $6
+        WHERE id = $7
+          AND "userId" = $6
         RETURNING *
         `,
         [
@@ -167,7 +183,8 @@ export class TopicService {
           dto.title,
           dto.content,
           JSON.stringify(dto.images || []),
-          dto.userId,
+          JSON.stringify(dto.extra || {}),
+          userId,
           dto.id,
         ],
       );
@@ -187,6 +204,7 @@ export class TopicService {
         title,
         content,
         images,
+        extra,
         status,
         "userId",
         "publishTime",
@@ -197,7 +215,7 @@ export class TopicService {
         "isDelete"
       )
       VALUES
-      ($1, $2, $3, $4::jsonb, 0, $5, NULL, NOW(), NOW(), 0, 0, 0)
+      ($1, $2, $3, $4::jsonb, $5::jsonb, 0, $6, NULL, NOW(), NOW(), 0, 0, 0)
       RETURNING *
       `,
       [
@@ -205,14 +223,15 @@ export class TopicService {
         dto.title,
         dto.content,
         JSON.stringify(dto.images || []),
-        dto.userId,
+        JSON.stringify(dto.extra || {}),
+        userId,
       ],
     );
 
     return insertResult.rows[0];
   }
 
-  async publishTopic(dto: PublishTopicDto) {
+  async publishTopic(userId: number, dto: PublishTopicDto) {
     if (dto.id) {
       const updateResult = await this.databaseService.query(
         `
@@ -222,12 +241,14 @@ export class TopicService {
           title = $2,
           content = $3,
           images = $4::jsonb,
-          status = 1,
-          "userId" = $5,
+          extra = $5::jsonb,
+          status = 2,
+          "userId" = $6,
           "publishTime" = NOW(),
           "isDelete" = 0,
           "updateTime" = NOW()
-        WHERE id = $6
+        WHERE id = $7
+          AND "userId" = $6
         RETURNING *
         `,
         [
@@ -235,7 +256,8 @@ export class TopicService {
           dto.title,
           dto.content,
           JSON.stringify(dto.images || []),
-          dto.userId,
+          JSON.stringify(dto.extra || {}),
+          userId,
           dto.id,
         ],
       );
@@ -255,6 +277,7 @@ export class TopicService {
         title,
         content,
         images,
+        extra,
         status,
         "userId",
         "publishTime",
@@ -265,7 +288,7 @@ export class TopicService {
         "isDelete"
       )
       VALUES
-      ($1, $2, $3, $4::jsonb, 1, $5, NOW(), NOW(), NOW(), 0, 0, 0)
+      ($1, $2, $3, $4::jsonb, $5::jsonb, 2, $6, NOW(), NOW(), NOW(), 0, 0, 0)
       RETURNING *
       `,
       [
@@ -273,14 +296,15 @@ export class TopicService {
         dto.title,
         dto.content,
         JSON.stringify(dto.images || []),
-        dto.userId,
+        JSON.stringify(dto.extra || {}),
+        userId,
       ],
     );
 
     return insertResult.rows[0];
   }
 
-  async deleteTopic(topicId: number) {
+  async deleteTopic(userId: number, topicId: number) {
     const result = await this.databaseService.query(
       `
       UPDATE bz_mini_topic
@@ -288,10 +312,11 @@ export class TopicService {
         "isDelete" = 1,
         "updateTime" = NOW()
       WHERE id = $1
+        AND "userId" = $2
         AND "isDelete" = 0
       RETURNING id, "isDelete", "updateTime"
       `,
-      [topicId],
+      [topicId, userId],
     );
 
     if (!result.rows.length) {
@@ -301,7 +326,7 @@ export class TopicService {
     return result.rows[0];
   }
 
-  async toggleTopicLike(dto: ToggleTopicLikeDto) {
+  async toggleTopicLike(userId: number, dto: ToggleTopicLikeDto) {
     const topicResult = await this.databaseService.query(
       `
       SELECT id, "likeCount"
@@ -325,7 +350,7 @@ export class TopicService {
         AND "userId" = $2
       LIMIT 1
       `,
-      [dto.topicId, dto.userId],
+      [dto.topicId, userId],
     );
 
     if (likedResult.rows.length) {
@@ -335,7 +360,7 @@ export class TopicService {
         WHERE "topicId" = $1
           AND "userId" = $2
         `,
-        [dto.topicId, dto.userId],
+        [dto.topicId, userId],
       );
 
       const updateTopic = await this.databaseService.query(
@@ -361,7 +386,7 @@ export class TopicService {
       INSERT INTO bz_topic_like ("topicId", "userId", "createTime")
       VALUES ($1, $2, NOW())
       `,
-      [dto.topicId, dto.userId],
+      [dto.topicId, userId],
     );
 
     const updateTopic = await this.databaseService.query(
@@ -383,6 +408,11 @@ export class TopicService {
   }
 
   private formatTopic(row: any) {
+    const extra =
+      row.extra && typeof row.extra === 'object' && !Array.isArray(row.extra)
+        ? row.extra
+        : {};
+
     return {
       id: Number(row.id),
       topicCategory: row.topicCategory,
@@ -402,6 +432,7 @@ export class TopicService {
       level: row.level || 1,
       isLike: false,
       displayTag: null,
+      ...extra,
     };
   }
 }

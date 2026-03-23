@@ -3,11 +3,10 @@ const EnvUtil = require('../utils/env.js');
 
 const OFFLINE_QUEUE_STORAGE_KEY = 'api_offline_queue';
 const REQUEST_LOCK_EXEMPT_METHODS = ['GET'];
+const PROD_BASE_URL = 'https://api.gearsage.club';
+const DEV_BASE_URL = 'http://127.0.0.1:3001';
 
-// 开发环境配置
-// const BASE_URL = 'http://172.20.10.5:8080';// 本地开发服务器
-const BASE_URL = 'https://home.anglertest.xyz';
-
+const BASE_URL = EnvUtil.isDevTool() ? DEV_BASE_URL : PROD_BASE_URL;
 
 // 统一使用真实接口（不再区分开发工具和真机环境）
 const MOCK_MODE = false;
@@ -15,40 +14,8 @@ const MOCK_MODE = false;
 console.log('[API] 环境检测结果:', EnvUtil.getEnvInfo());
 console.log('[API] 模拟模式状态:', MOCK_MODE ? '启用（开发者工具）' : '禁用（真机设备）');
 
-// 1. 定义 REST 到云函数 Action 的映射关系（method + path）
-const CLOUD_ACTION_MAP = {
-  'POST /mini/user/login': 'user.login',
-  'GET /mini/user/info': 'user.info',
-  'POST /mini/user/update': 'user.update',
-  'GET /mini/user/points': 'user.points',
-  'POST /mini/invite/bind': 'invite.bind',
-  'GET /mini/invite/summary': 'invite.summary',
-
-  'PUT /mini/topic': 'topic.new',
-  'POST /mini/topic': 'topic.update',
-  'DELETE /mini/topic': 'topic.delete',
-  'GET /mini/topic': 'topic.get',
-  'GET /mini/topic/all': 'topic.all',
-  'GET /mini/topic/mine': 'topic.mine',
-  'GET /mini/topic/tmp': 'topic.tmp',
-  'POST /mini/topic/like': 'topic.like',
-
-  'GET /mini/comment': 'comment.list',
-  'PUT /mini/comment': 'comment.add',
-
-  'PUT /mini/taskFeat': 'task.batchAdd',
-  'GET /mini/taskFeat': 'task.list',
-  'POST /mini/taskFeat': 'task.receive',
-  'GET /mini/taskFeat/unfinish': 'task.unfinish',
-
-  'PUT /mini/tag/batch': 'tag.batchAdd',
-  'GET /mini/tag/usable': 'tag.usable',
-  'GET /mini/tag/used': 'tag.used',
-  'POST /mini/tag/used': 'tag.changeUse',
-
-  'GET /mini/goods': 'goods.list',
-  'POST /mini/goods': 'goods.redeem'
-};
+// 已脱离云函数分流，/mini/* 统一直连独立后台。
+const CLOUD_ACTION_MAP = {};
 
 function parseUrlAndQuery(url = '') {
   const [path, queryString = ''] = String(url).split('?');
@@ -64,6 +31,92 @@ function parseUrlAndQuery(url = '') {
     });
   }
   return { path, query };
+}
+
+function buildQueryString(params = {}) {
+  return Object.keys(params)
+    .filter(key => params[key] !== undefined && params[key] !== null && params[key] !== '')
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    .join('&');
+}
+
+function normalizeArray(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (typeof value === 'string') {
+    return value.split(',').map(item => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+function normalizeTopicResponse(topic = {}) {
+  if (!topic || typeof topic !== 'object') {
+    return topic;
+  }
+
+  const images = normalizeArray(topic.images);
+  const receiptImages = normalizeArray(topic.receiptImages || topic.receipt);
+  const recommendReasonValue = Array.isArray(topic.recommendReason)
+    ? JSON.stringify(topic.recommendReason)
+    : (typeof topic.recommendReason === 'string' ? topic.recommendReason : JSON.stringify([]));
+
+  return {
+    ...topic,
+    images,
+    contentImages: topic.contentImages || images.join(','),
+    coverImg: topic.coverImg || images[0] || '',
+    receipt: typeof topic.receipt === 'string' ? topic.receipt : receiptImages.join(','),
+    recommendReason: recommendReasonValue,
+    islike: topic.isLike === true,
+    author: topic.author || {
+      id: topic.userId || '',
+      name: topic.nickName || '',
+      avatar: topic.avatarUrl || '',
+      level: topic.level || 1,
+      displayTag: topic.displayTag || null
+    },
+    publisher: topic.publisher || {
+      id: topic.userId || '',
+      nickName: topic.nickName || '',
+      avatarUrl: topic.avatarUrl || '',
+      level: topic.level || 1
+    }
+  };
+}
+
+function buildTopicPayload(topicData = {}) {
+  const images = normalizeArray(topicData.contentImages || topicData.images);
+  const receiptImages = normalizeArray(topicData.receipt);
+  const recommendReason = (() => {
+    if (typeof topicData.recommendReason === 'string') {
+      return topicData.recommendReason;
+    }
+    if (Array.isArray(topicData.recommend)) {
+      return JSON.stringify(topicData.recommend.filter(Boolean));
+    }
+    return JSON.stringify([]);
+  })();
+
+  return {
+    id: topicData.id || undefined,
+    topicCategory: Number.isFinite(Number(topicData.topicCategory)) ? Number(topicData.topicCategory) : 1,
+    title: topicData.title || '',
+    content: topicData.content || '',
+    images,
+    extra: {
+      categoryKey: topicData.categoryKey || '',
+      environment: topicData.environment || '',
+      usagePeriod: topicData.usagePeriod || '',
+      usageRate: topicData.usageRate || '',
+      castingRate: topicData.castingRate,
+      worthRate: topicData.worthRate,
+      lifeRate: topicData.lifeRate,
+      contentImages: images.join(','),
+      coverImg: images[0] || '',
+      receipt: receiptImages.join(','),
+      recommendReason
+    }
+  };
 }
 
 function normalizeCloudPayload(action, payload = {}) {
@@ -278,7 +331,11 @@ class ApiService {
 
           console.log('[API][性能] 本次请求耗时:', elapsed, 'ms');
           const isAuthError = res.statusCode === 401 || res.statusCode === 403;
-          const isLoginRequest = requestOptions.url.includes('/mini/user/login') || requestOptions.url.includes('/mini/user/logout');
+          const isLoginRequest =
+            requestOptions.url.includes('/auth/login') ||
+            requestOptions.url.includes('/auth/refresh') ||
+            requestOptions.url.includes('/auth/send-code') ||
+            requestOptions.url.includes('/auth/logout');
 
           if (isAuthError && !skipAuthRetry && !isLoginRequest) {
             if (fromRetry) {
@@ -316,7 +373,7 @@ class ApiService {
             const responseData = res.data || {};
             const businessCode = responseData.code;
 
-            if (businessCode === 200) {
+            if (businessCode === 0 || businessCode === 200) {
               finalize();
               // 修复：当 data 为 0 或 false 时，不应该回退到 responseData
               resolve(responseData.data !== undefined ? responseData.data : responseData);
@@ -568,7 +625,7 @@ class ApiService {
         }
 
         const auth = require('./auth.js');
-        const refreshFn = auth && (auth.silentLogin || auth.wxLogin);
+        const refreshFn = auth && auth.silentLogin;
         if (typeof refreshFn !== 'function') {
           reject(new Error('Auth service unavailable'));
           return;
@@ -661,7 +718,7 @@ class ApiService {
     if (REQUEST_LOCK_EXEMPT_METHODS.includes(method)) {
       return false;
     }
-    if ((options.url || '').includes('/mini/user/login')) {
+    if ((options.url || '').includes('/auth/login')) {
       return false;
     }
 
@@ -862,6 +919,7 @@ class ApiService {
     try {
       // 清除本地存储的token和用户信息
       wx.removeStorageSync('token');
+      wx.removeStorageSync('refreshToken');
       wx.removeStorageSync('userInfo');
       console.log('[API] 已清除本地存储的登录信息');
       
@@ -1326,10 +1384,10 @@ class ApiService {
   /**
    * 文件上传
    */
-  uploadFile(filePath, formData = {}) {
+  uploadFile(filePath, formData = {}, endpoint = '/upload/image') {
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: `${BASE_URL}/upload`,
+        url: `${BASE_URL}${endpoint}`,
         filePath,
         name: 'file',
         formData,
@@ -1427,7 +1485,13 @@ class ApiService {
    * 添加新评论（小程序专用接口）
    */
   addComment(commentData) {
-    return this.put('/mini/comment', commentData);
+    const payload = {
+      topicId: Number(commentData.topicId),
+      content: commentData.content,
+      replayCommentId: commentData.replayCommentId || null,
+      replayUserId: commentData.replayUserId || null
+    };
+    return this.put('/mini/comment', payload).then(result => result === true || !!result);
   }
 
   /**
@@ -1556,7 +1620,9 @@ class ApiService {
     if (normalizedParams.limit === undefined || normalizedParams.limit === null || normalizedParams.limit === '') {
       normalizedParams.limit = 12;
     }
-    return this.get('/mini/topic/all', normalizedParams);
+    return this.get('/mini/topic/all', { data: normalizedParams }).then(list => {
+      return Array.isArray(list) ? list.map(normalizeTopicResponse) : [];
+    });
   }
 
   /**
@@ -1565,7 +1631,14 @@ class ApiService {
    * @returns {Promise} 返回创建结果
    */
   createTopic(topicData) {
-    return this.put('/mini/topic', topicData);
+    const payload = buildTopicPayload({
+      ...topicData,
+      topicCategory: 1,
+      categoryKey: topicData.categoryKey || topicData.type || ''
+    });
+    return this.put('/mini/topic', payload).then(result => {
+      return result && result.id ? result.id : result;
+    });
   }
 
   /**
@@ -1573,7 +1646,9 @@ class ApiService {
    * @returns {Promise} 返回临时帖子数据
    */
   getTmpTopic() {
-    return this.get('/mini/topic/tmp');
+    return this.get('/mini/topic/tmp').then(result => {
+      return result ? normalizeTopicResponse(result) : result;
+    });
   }
 
   /**
@@ -1587,7 +1662,9 @@ class ApiService {
    * @returns {Promise} 返回帖子详情
    */
   getTopicDetail(topicId) {
-    return this.get(`/mini/topic?topicId=${topicId}`);
+    return this.get(`/mini/topic?topicId=${topicId}`).then(result => {
+      return result ? normalizeTopicResponse(result) : result;
+    });
   }
 
   /**
@@ -1596,7 +1673,12 @@ class ApiService {
    * @returns {Promise} 返回发布结果
    */
   publishTopic(topicData) {
-    return this.post('/mini/topic', topicData);
+    const payload = buildTopicPayload({
+      ...topicData,
+      topicCategory: 1,
+      categoryKey: topicData.categoryKey || topicData.type || ''
+    });
+    return this.post('/mini/topic', payload).then(result => !!(result && result.id));
   }
 
   /**
@@ -1605,14 +1687,13 @@ class ApiService {
    * @param {object} params - 其他查询参数
    */
   getUserPosts(status, params = {}) {
-    // 根据API文档，GET /mini/topic/mine 只需要status参数
-    const queryParams = {
-      status
-    };
-    const queryString = Object.keys(queryParams)
-      .map(key => `${key}=${encodeURIComponent(queryParams[key])}`)
-      .join('&');
-    return this.get(`/mini/topic/mine?${queryString}`);
+    const queryString = buildQueryString({
+      status,
+      ...(params || {})
+    });
+    return this.get(`/mini/topic/mine?${queryString}`).then(list => {
+      return Array.isArray(list) ? list.map(normalizeTopicResponse) : [];
+    });
   }
 
   /**
@@ -1621,7 +1702,7 @@ class ApiService {
    * @returns {Promise} 返回点赞结果，true表示点赞成功，false表示取消点赞
    */
   likeTopic(topicId) {
-    return this.post('/mini/topic/like', { id: topicId });
+    return this.post('/mini/topic/like', { topicId }).then(result => !!(result && result.isLike));
   }
 
   /**

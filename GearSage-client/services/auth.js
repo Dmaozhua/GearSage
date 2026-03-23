@@ -1,82 +1,51 @@
-// services/auth.js
 const api = require('./api.js');
-const EnvUtil = require('../utils/env.js');
 const { getPendingInvite, clearPendingInvite } = require('../utils/invite.js');
 
-/**
- * 用户认证服务
- */
 class AuthService {
   constructor() {
     this.userInfo = null;
     this.isAdmin = false;
-    // 防止重复弹出登录提示的锁
     this._loginPromptOpen = false;
   }
 
   normalizeAuthResponse(authRes) {
-    if (!authRes) {
+    const payload = authRes && authRes.data ? authRes.data : authRes;
+    if (!payload) {
       throw new Error('登录响应数据为空');
     }
 
-    if (typeof authRes === 'string') {
-      const token = authRes;
-      return {
-        token,
-        userInfo: {
-          id: 'user_' + Date.now(),
-          nickname: '钓鱼爱好者',
-          avatar: '',
-          isAdmin: false
-        }
-      };
+    const token = payload.token || payload.accessToken;
+    const refreshToken = payload.refreshToken || '';
+    const rawUser = payload.userInfo || payload.user || payload;
+
+    if (!token || !rawUser) {
+      throw new Error('未获取到有效的登录凭据');
     }
 
-    if (authRes.token) {
-      const userInfo = authRes.userInfo ? authRes.userInfo : {
-        id: authRes.id,
-        nickname: authRes.nickName,
-        bio: authRes.bio,
-        avatar: authRes.avatarUrl,
-        background: authRes.background,
-        shipAddress: authRes.shipAddress,
-        status: authRes.status,
-        points: authRes.points,
-        level: authRes.level,
-        openId: authRes.openId,
-        inviteCode: authRes.inviteCode,
-        invitedByUserId: authRes.invitedByUserId,
-        inviteSuccessCount: authRes.inviteSuccessCount,
-        inviteRewardPoints: authRes.inviteRewardPoints,
-        isAdmin: authRes.isAdmin || false
-      };
-      return { token: authRes.token, userInfo };
-    }
-
-    if (authRes.data) {
-      return {
-        token: authRes.data.token,
-        userInfo: {
-          id: authRes.data.id,
-          nickname: authRes.data.nickName,
-          bio: authRes.data.bio,
-          avatar: authRes.data.avatarUrl,
-          background: authRes.data.background,
-          shipAddress: authRes.data.shipAddress,
-          status: authRes.data.status,
-          points: authRes.data.points,
-          level: authRes.data.level,
-          openId: authRes.data.openId,
-          inviteCode: authRes.data.inviteCode,
-          invitedByUserId: authRes.data.invitedByUserId,
-          inviteSuccessCount: authRes.data.inviteSuccessCount,
-          inviteRewardPoints: authRes.data.inviteRewardPoints,
-          isAdmin: authRes.data.isAdmin || false
-        }
-      };
-    }
-
-    throw new Error('未获取到有效的登录凭据');
+    return {
+      token,
+      refreshToken,
+      userInfo: {
+        id: rawUser.id,
+        phone: rawUser.phone || '',
+        nickname: rawUser.nickname || rawUser.nickName || '',
+        nickName: rawUser.nickName || rawUser.nickname || '',
+        bio: rawUser.bio || '',
+        avatar: rawUser.avatar || rawUser.avatarUrl || '',
+        avatarUrl: rawUser.avatarUrl || rawUser.avatar || '',
+        background: rawUser.background || rawUser.backgroundImage || '',
+        backgroundImage: rawUser.backgroundImage || rawUser.background || '',
+        shipAddress: rawUser.shipAddress || '',
+        status: rawUser.status || 0,
+        points: rawUser.points || 0,
+        level: rawUser.level || 1,
+        inviteCode: rawUser.inviteCode || '',
+        invitedByUserId: rawUser.invitedByUserId || null,
+        inviteSuccessCount: rawUser.inviteSuccessCount || 0,
+        inviteRewardPoints: rawUser.inviteRewardPoints || 0,
+        isAdmin: !!rawUser.isAdmin
+      }
+    };
   }
 
   persistAuthResult(authResult, options = {}) {
@@ -87,184 +56,149 @@ class AuthService {
     const { triggerHomeRefresh = true } = options;
 
     wx.setStorageSync('token', authResult.token);
+    wx.setStorageSync('refreshToken', authResult.refreshToken || '');
     wx.setStorageSync('userInfo', authResult.userInfo);
-    console.log('[AuthService] 用户信息已保存到本地存储');
-    // 清除手动退出标记，恢复静默登录能力
+
     try {
       wx.removeStorageSync('manualLogout');
-      console.log('[AuthService] 已清除手动退出标记');
-    } catch (e) {
-      console.warn('[AuthService] 清除手动退出标记失败:', e);
+    } catch (error) {
+      console.warn('[AuthService] 清除手动退出标记失败:', error);
     }
 
     if (triggerHomeRefresh) {
       try {
         wx.setStorageSync('needRefreshAfterLogin', true);
-      } catch (e) {
-        console.warn('[AuthService] 设置登录后刷新标记失败:', e);
+      } catch (error) {
+        console.warn('[AuthService] 设置登录后刷新标记失败:', error);
       }
     }
 
     this.userInfo = authResult.userInfo;
-    this.isAdmin = authResult.userInfo.isAdmin || false;
-
-    console.log('[AuthService] 用户ID:', authResult.userInfo.id);
-    console.log('[AuthService] 登录完成，用户权限:', this.isAdmin ? '管理员' : '普通用户');
-
+    this.isAdmin = !!authResult.userInfo.isAdmin;
     return authResult;
   }
 
-  /**
-   * 登录方法（wxLogin的别名）
-   */
   async login() {
-    console.log('[AuthService] 开始执行登录流程');
-    return await this.wxLogin();
+    const phone = await this.promptPhoneNumber();
+    if (!phone) {
+      throw new Error('UserCancelledLogin');
+    }
+
+    return this.loginWithPhone(phone);
   }
 
-  /**
-   * 微信登录
-   */
-  async wxLogin() {
-    console.log('[AuthService] 开始微信登录流程');
-    const envInfo = EnvUtil.getEnvInfo();
-    console.log('[AuthService] 当前运行环境:', envInfo.isDevTool ? '微信开发者工具' : '真机设备');
+  async loginWithPhone(phone) {
+    const pendingInvite = getPendingInvite();
+
+    await api.post('/auth/send-code', { phone }, {
+      skipAuthRetry: true,
+      skipErrorToast: true
+    });
+
+    const authRes = await api.post('/auth/login', {
+      phone,
+      code: '123456',
+      ...(pendingInvite || {})
+    }, {
+      skipAuthRetry: true
+    });
+
+    const standardAuthRes = this.normalizeAuthResponse(authRes);
+    this.persistAuthResult(standardAuthRes, { triggerHomeRefresh: true });
+    clearPendingInvite();
 
     try {
-      // 统一使用真实的微信登录code（不再区分开发工具和真机环境）
-      console.log('[AuthService] 正在获取真实微信登录code...');
-      const loginRes = await this.getWxLoginCode().catch(err => {
-        console.error('[AuthService] getWxLoginCode promise rejected:', err);
-        throw err;
+      const latestUser = await api.get('/auth/me', {
+        silent: true,
+        skipErrorToast: true
       });
-      const loginCode = loginRes.code;
-      console.log('[AuthService] 成功获取微信登录code:', loginCode);
-      const pendingInvite = getPendingInvite();
-      const loginPayload = {
-        code: loginCode,
-        ...(pendingInvite || {})
-      };
-      
-      // 发送到后端换取token
-      console.log('[AuthService] 正在向后端发送登录请求，使用code:', loginCode);
-      const authRes = await api.post('/mini/user/login', loginPayload);
-      console.log('[AuthService] 后端登录验证成功，响应数据:', authRes);
-
-      // 验证响应数据的有效性
-      if (!authRes) {
-        throw new Error('登录响应数据为空');
+      if (latestUser && latestUser.id) {
+        this.persistAuthResult({
+          token: standardAuthRes.token,
+          refreshToken: standardAuthRes.refreshToken,
+          userInfo: {
+            ...standardAuthRes.userInfo,
+            ...latestUser
+          }
+        }, { triggerHomeRefresh: true });
       }
-      
-      console.log('[AuthService] 登录响应数据验证通过');
-      
-      const standardAuthRes = this.normalizeAuthResponse(authRes);
-      this.persistAuthResult(standardAuthRes, { triggerHomeRefresh: true });
-      clearPendingInvite();
-      return standardAuthRes;
     } catch (error) {
-      console.error('[AuthService] 微信登录失败:', error);
-      throw error;
+      console.warn('[AuthService] 登录后刷新用户信息失败，继续使用登录响应:', error);
     }
+
+    return standardAuthRes;
   }
 
   async silentLogin() {
-    console.log('[AuthService] 开始静默刷新登录状态');
-    try {
-      const loginRes = await this.getWxLoginCode();
-      const authRes = await api.post('/mini/user/login', { code: loginRes.code }, {
-        silent: true,
-        skipAuthRetry: true,
-        skipErrorToast: true,
-        allowDuplicateRequests: true
-      });
-      const standardAuthRes = this.normalizeAuthResponse(authRes);
-      this.persistAuthResult(standardAuthRes, { triggerHomeRefresh: false });
-      return standardAuthRes;
-    } catch (error) {
-      console.error('[AuthService] 静默刷新token失败:', error);
-      throw error;
+    const refreshToken = wx.getStorageSync('refreshToken');
+    if (!refreshToken) {
+      throw new Error('RefreshTokenMissing');
     }
+
+    const authRes = await api.post('/auth/refresh', { refreshToken }, {
+      silent: true,
+      skipAuthRetry: true,
+      skipErrorToast: true,
+      allowDuplicateRequests: true
+    });
+
+    const standardAuthRes = this.normalizeAuthResponse(authRes);
+    this.persistAuthResult(standardAuthRes, { triggerHomeRefresh: false });
+    return standardAuthRes;
   }
 
-  /**
-   * 获取微信登录code
-   */
-  getWxLoginCode() {
-    console.log('[AuthService] 调用wx.login()获取登录code');
+  async promptPhoneNumber() {
     return new Promise((resolve, reject) => {
-      wx.login({
+      wx.showModal({
+        title: '手机号登录',
+        content: '请输入 11 位手机号，开发阶段验证码固定为 123456',
+        editable: true,
+        placeholderText: '13800138000',
+        confirmText: '登录',
         success: (res) => {
-          console.log('[AuthService] wx.login()调用成功，获得code:', res.code);
-          resolve(res);
+          if (!res.confirm) {
+            reject(new Error('UserCancelledLogin'));
+            return;
+          }
+
+          const phone = String(res.content || '').trim();
+          if (!/^\d{11}$/.test(phone)) {
+            reject(new Error('请输入 11 位手机号'));
+            return;
+          }
+
+          resolve(phone);
         },
-        fail: (error) => {
-          console.error('[AuthService] wx.login()调用失败:', error);
-          reject(error);
-        }
+        fail: (error) => reject(error)
       });
     });
   }
 
-  /**
-   * 获取用户信息
-   * 注意：wx.getUserProfile已被微信官方回收（2022年10月25日起）
-   * 现在只会返回默认头像和"微信用户"昵称
-   * 建议使用头像昵称填写能力替代
-   */
   async getUserProfile() {
-    return new Promise((resolve, reject) => {
-      // 检查基础库版本兼容性
-      if (wx.getUserProfile) {
-        wx.getUserProfile({
-          desc: '用于完善用户资料',
-          success: (res) => {
-            console.log('[AuthService] getUserProfile返回数据:', res.userInfo);
-            // 由于接口已被回收，这里会返回匿名数据
-            resolve(res.userInfo);
-          },
-          fail: (error) => {
-            console.error('[AuthService] getUserProfile调用失败:', error);
-            reject(error);
-          }
-        });
-      } else {
-        reject(new Error('当前微信版本不支持getUserProfile接口'));
-      }
-    });
+    return Promise.reject(new Error('当前版本已改为手机号登录'));
   }
 
-  /**
-   * 检查登录状态
-   */
   checkLoginStatus() {
-    console.log('[AuthService] 检查用户登录状态');
-    // 如果存在手动退出标记，直接视为未登录
     try {
       const manualLogout = wx.getStorageSync('manualLogout');
       if (manualLogout) {
-        console.log('[AuthService] 检测到手动退出标记，返回未登录状态');
         return false;
       }
-    } catch (e) {
-      console.warn('[AuthService] 读取手动退出标记失败:', e);
+    } catch (error) {
+      console.warn('[AuthService] 读取手动退出标记失败:', error);
     }
+
     const token = wx.getStorageSync('token');
     const userInfo = wx.getStorageSync('userInfo');
-    
-    if (token && userInfo) {
+    if (token && userInfo && userInfo.id) {
       this.userInfo = userInfo;
-      this.isAdmin = userInfo.isAdmin || false;
-      console.log('[AuthService] 用户已登录，用户ID:', userInfo.id, '权限:', this.isAdmin ? '管理员' : '普通用户');
+      this.isAdmin = !!userInfo.isAdmin;
       return true;
     }
-    
-    console.log('[AuthService] 用户未登录');
+
     return false;
   }
 
-  /**
-   * 获取当前用户信息
-   */
   getCurrentUser() {
     if (!this.userInfo) {
       this.userInfo = wx.getStorageSync('userInfo');
@@ -272,118 +206,98 @@ class AuthService {
     return this.userInfo;
   }
 
-  /**
-   * 检查管理员权限
-   */
   checkAdminPermission() {
     return this.isAdmin;
   }
 
-  /**
-   * 退出登录
-   */
-  logout() {
-    console.log('[AuthService] 用户退出登录');
+  async logout() {
+    const refreshToken = wx.getStorageSync('refreshToken');
+
+    try {
+      if (refreshToken) {
+        await api.post('/auth/logout', { refreshToken }, {
+          silent: true,
+          skipAuthRetry: true,
+          skipErrorToast: true
+        });
+      }
+    } catch (error) {
+      console.warn('[AuthService] 服务端登出失败，继续清理本地状态:', error);
+    }
+
     wx.removeStorageSync('token');
+    wx.removeStorageSync('refreshToken');
     wx.removeStorageSync('userInfo');
-    // 设置手动退出标记，阻止后续的静默登录刷新
     try {
       wx.setStorageSync('manualLogout', true);
-      console.log('[AuthService] 已设置手动退出标记');
-    } catch (e) {
-      console.warn('[AuthService] 设置手动退出标记失败:', e);
+    } catch (error) {
+      console.warn('[AuthService] 设置手动退出标记失败:', error);
     }
+
     this.userInfo = null;
     this.isAdmin = false;
 
-    // 退出后返回首页
     try {
-      wx.switchTab({
-        url: '/pages/index/index'
-      });
-      console.log('[AuthService] 已清除本地登录信息');
-      console.log('[AuthService] 已跳转到首页');
-    } catch (e) { /* ignore */ }
+      wx.switchTab({ url: '/pages/index/index' });
+    } catch (_error) {
+      // noop
+    }
   }
 
-  /**
-   * 刷新用户信息
-   */
   async refreshUserInfo() {
-    console.log('[AuthService] 开始刷新用户信息...');
     try {
-      const localUserInfo = wx.getStorageSync('userInfo') || {};
-      const userId = localUserInfo.id || this.userInfo?.id;
-      if (!userId) {
-        throw new Error('缺少用户ID，无法刷新用户信息');
+      const userInfo = await api.get('/auth/me', {
+        silent: true,
+        skipErrorToast: true
+      });
+      if (userInfo && userInfo.id) {
+        const currentToken = wx.getStorageSync('token');
+        const currentRefreshToken = wx.getStorageSync('refreshToken');
+        this.persistAuthResult({
+          token: currentToken,
+          refreshToken: currentRefreshToken,
+          userInfo
+        }, { triggerHomeRefresh: false });
       }
-
-      const res = await api.get('/mini/user/info', { data: { id: userId } });
-      const userInfo = res && res.data ? res.data : res;
-      console.log('[AuthService] 获取到最新用户信息:', userInfo);
-      wx.setStorageSync('userInfo', userInfo);
-      this.userInfo = userInfo;
-      this.isAdmin = userInfo.isAdmin || false;
-      console.log('[AuthService] 用户信息已更新到本地存储');
     } catch (error) {
       console.error('[AuthService] 刷新用户信息失败:', error);
     }
   }
 
-  /**
-   * 更新用户信息
-   */
   async updateUserInfo(updateData) {
-    console.log('[AuthService] 更新用户信息，数据:', updateData);
-    try {
-      const res = await api.post('/mini/user/update', updateData);
-      const userInfo = res && res.data ? res.data : res;
-      // 更新本地信息
-      const updatedUserInfo = {
-        ...(this.userInfo || {}),
-        ...userInfo
-      };
-      this.userInfo = updatedUserInfo;
-      wx.setStorageSync('userInfo', updatedUserInfo);
-      console.log('[AuthService] 更新后的用户信息:', updatedUserInfo);
-    } catch (error) {
-      console.error('[AuthService] 更新用户信息失败:', error);
-    }
+    const userInfo = await api.post('/mini/user/update', updateData);
+    const updatedUserInfo = {
+      ...(this.userInfo || {}),
+      ...(userInfo && userInfo.data ? userInfo.data : userInfo)
+    };
+    this.userInfo = updatedUserInfo;
+    this.isAdmin = !!updatedUserInfo.isAdmin;
+    wx.setStorageSync('userInfo', updatedUserInfo);
+    return updatedUserInfo;
   }
 
-  /**
-   * 确保用户登录
-   */
   async ensureLogin() {
-    console.log('[AuthService] 确保用户已登录');
     const isLoggedIn = this.checkLoginStatus();
     if (!isLoggedIn) {
-      // 显示登录提示
-      console.log('[AuthService] 用户未登录，显示登录提示框');
-      // 如果已有登录提示在进行，直接忽略以避免重复弹窗
       if (this._loginPromptOpen) {
-        console.log('[AuthService] 登录提示已打开，跳过重复弹窗');
         throw new Error('LoginPromptAlreadyOpen');
       }
+
       this._loginPromptOpen = true;
       const confirmLogin = await this.showLoginModal().finally(() => {
         this._loginPromptOpen = false;
       });
-      if (confirmLogin) {
-        console.log('[AuthService] 用户确认登录，开始登录流程');
-        return await this.wxLogin();
-      } else {
-        console.log('[AuthService] 用户取消登录');
+
+      if (!confirmLogin) {
         throw new Error('UserCancelledLogin');
       }
+
+      return this.login();
     }
-    console.log('[AuthService] 用户已登录，返回用户信息');
+
     return this.userInfo || wx.getStorageSync('userInfo');
   }
 
-  /**
-   * 显示登录提示对话框
-   */
   showLoginModal() {
     return new Promise((resolve) => {
       wx.showModal({

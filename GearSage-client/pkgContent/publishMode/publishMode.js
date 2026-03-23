@@ -38,9 +38,7 @@ Page({
     backgroundImages: [
       'https://anglertest.xyz/Banner/banner1.jpg',
       'https://anglertest.xyz/Banner/banner2.jpg',
-      'https://anglertest.xyz/Banner/banner3.webp',
-      'cloud://cloud1-1g9eeb3p33faac61.636c-cloud1-1g9eeb3p33faac61-1369414088/background/topic_mode/show.webp',
-      'cloud://cloud1-1g9eeb3p33faac61.636c-cloud1-1g9eeb3p33faac61-1369414088/background/topic_mode/share.webp'
+      'https://anglertest.xyz/Banner/banner3.webp'
     ]
   },
 

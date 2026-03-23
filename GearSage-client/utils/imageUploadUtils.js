@@ -250,12 +250,11 @@ const checkWebPSupport = () => {
   return compareVersion(SDKVersion, '2.10.0') >= 0;
 };
 
-const buildCloudPath = (prefix) => {
+const buildUploadPath = (prefix) => {
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 1000);
   const ext = 'jpg';
 
-  // Backward compatibility: if caller already passed a full cloud path, use it directly.
   if (typeof prefix === 'string' && /\.(jpg|jpeg|png|webp|gif)$/i.test(prefix)) {
     return prefix;
   }
@@ -265,60 +264,34 @@ const buildCloudPath = (prefix) => {
 };
 
 /**
- * Upload local image file to cloud storage.
+ * Upload local image file to standalone backend.
  * @param {string|Object} filePath
  * @param {string} prefix
- * @returns {Promise<string>} cloud fileID
+ * @returns {Promise<string>} remote file url
  */
 const uploadToCloud = async (filePath, prefix = 'posts') => {
+  const api = require('../services/api.js');
   const normalizedInputPath = normalizeImagePathInput(filePath);
   if (!normalizedInputPath) {
     throw new Error('upload file path is empty');
   }
 
-  if (isCloudFileID(normalizedInputPath)) {
+  if (isCloudFileID(normalizedInputPath) || isRemoteHttpUrl(normalizedInputPath)) {
     return normalizedInputPath;
   }
 
   const uploadFilePath = await resolveProcessableImagePath(normalizedInputPath);
-
-  const app = getApp();
-  const globalConfig = app ? app.globalData.imageUploadConfig || {} : {};
-
-  const cloudPath = buildCloudPath(prefix);
-
-  const fileInfo = await new Promise((resolve, reject) => {
-    wx.getFileSystemManager().getFileInfo({
-      filePath: uploadFilePath,
-      success: resolve,
-      fail: reject
-    });
-  });
-
-  const fileSize = fileInfo.size || 0;
-  const chunkSize = globalConfig.chunkSize || 1 * 1024 * 1024;
-  const smallFileTimeout = globalConfig.smallFileTimeout || 30000;
-  const largeFileTimeout = globalConfig.largeFileTimeout || 60000;
-  const largeFileThreshold = globalConfig.largeFileThreshold || 5 * 1024 * 1024;
-
-  if (fileSize < largeFileThreshold) {
-    const res = await wx.cloud.uploadFile({
-      cloudPath,
-      filePath: uploadFilePath,
-      config: { timeout: smallFileTimeout }
-    });
-    return res.fileID;
-  }
-
-  const uploadRes = await wx.cloud.uploadFile({
-    cloudPath,
-    filePath: uploadFilePath,
-    config: {
-      timeout: largeFileTimeout,
-      sliceSize: chunkSize
-    }
-  });
-  return uploadRes.fileID;
+  const normalizedPrefix = String(prefix || 'posts').toLowerCase();
+  const endpointMap = {
+    avatar: '/upload/avatar',
+    background: '/upload/background'
+  };
+  const endpoint = endpointMap[normalizedPrefix] || '/upload/image';
+  const uploadRes = await api.uploadFile(uploadFilePath, {
+    bizType: normalizedPrefix,
+    objectKeyHint: buildUploadPath(prefix)
+  }, endpoint);
+  return uploadRes && uploadRes.url ? uploadRes.url : '';
 };
 
 class UploadQueue {
@@ -405,7 +378,7 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
 };
 
 const generateCloudPath = (prefix = 'posts') => {
-  return buildCloudPath(prefix);
+  return buildUploadPath(prefix);
 };
 
 /**

@@ -20,9 +20,13 @@ class TempUrlManager {
    */
   async getTempUrl(fileID, type = 'avatar', forceRefresh = false) {
     try {
-      if (!fileID || !fileID.startsWith('cloud://')) {
+      if (!fileID) {
         console.warn(`[TempUrlManager] 无效的fileID: ${fileID}`);
         return this._getDefaultImage(type);
+      }
+
+      if (!fileID.startsWith('cloud://')) {
+        return fileID;
       }
 
       console.log(`[TempUrlManager] 获取${type}临时URL, fileID:`, fileID);
@@ -81,6 +85,10 @@ class TempUrlManager {
     // 检查缓存
     for (const item of fileList) {
       const { fileID, type = 'avatar' } = item;
+      if (!fileID || !String(fileID).startsWith('cloud://')) {
+        result[fileID] = fileID || this._getDefaultImage(type);
+        continue;
+      }
       const cacheKey = this._getCacheKey(fileID, type);
       const cachedData = wx.getStorageSync(cacheKey);
 
