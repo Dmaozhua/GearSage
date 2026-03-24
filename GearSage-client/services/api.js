@@ -49,6 +49,88 @@ function normalizeArray(value) {
   return [];
 }
 
+function safeJsonParse(value) {
+  if (typeof value !== 'string') {
+    return null;
+  }
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return null;
+  }
+}
+
+function normalizeStringArray(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) {
+    return value
+      .map(item => {
+        if (typeof item === 'string') return item.trim();
+        if (item === null || item === undefined) return '';
+        return String(item).trim();
+      })
+      .filter(Boolean);
+  }
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed) return [];
+    const parsed = safeJsonParse(trimmed);
+    if (Array.isArray(parsed)) {
+      return normalizeStringArray(parsed);
+    }
+    return trimmed.split(',').map(item => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+function normalizeObject(value) {
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    return value;
+  }
+  const parsed = safeJsonParse(value);
+  if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+    return parsed;
+  }
+  return {};
+}
+
+function normalizeNumberValue(value) {
+  if (value === undefined || value === null || value === '') {
+    return undefined;
+  }
+  const numberValue = Number(value);
+  return Number.isFinite(numberValue) ? numberValue : undefined;
+}
+
+const GEAR_CATEGORY_ALIAS_MAP = {
+  rod: ['rod', '竿', '杆', '鱼竿', 'bz_topic_category_rod', 'topic_category_rod', 'gear_category_rod'],
+  reel: ['reel', '轮', '渔轮', '纺车轮', '鼓轮', 'bz_topic_category_reel', 'topic_category_reel', 'gear_category_reel'],
+  bait: ['bait', '饵', '鱼饵', '路亚饵', 'bz_topic_category_bait', 'topic_category_bait', 'gear_category_bait'],
+  line: ['line', '线', '鱼线', 'bz_topic_category_line', 'topic_category_line', 'gear_category_line'],
+  hook: ['hook', '钩', '鱼钩', 'bz_topic_category_hook', 'topic_category_hook', 'gear_category_hook'],
+  other: ['other', '其他', '其它', 'bz_topic_category_other', 'topic_category_other', 'gear_category_other']
+};
+
+function normalizeGearCategoryValue(value) {
+  if (Array.isArray(value)) {
+    return normalizeGearCategoryValue(value[0]);
+  }
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  const normalizedValue = value.trim().toLowerCase();
+  if (!normalizedValue) {
+    return '';
+  }
+
+  const matchedEntry = Object.entries(GEAR_CATEGORY_ALIAS_MAP).find(([, aliases]) => {
+    return aliases.includes(normalizedValue) || aliases.includes(value.trim());
+  });
+
+  return matchedEntry ? matchedEntry[0] : value.trim();
+}
+
 function isSerializableTopicValue(value) {
   if (value === undefined || typeof value === 'function') {
     return false;
@@ -71,19 +153,40 @@ function normalizeTopicResponse(topic = {}) {
     return topic;
   }
 
-  const images = normalizeArray(topic.images);
+  const images = normalizeArray(topic.images || topic.contentImages);
   const receiptImages = normalizeArray(topic.receiptImages || topic.receipt);
-  const recommendReasonValue = Array.isArray(topic.recommendReason)
-    ? JSON.stringify(topic.recommendReason)
-    : (typeof topic.recommendReason === 'string' ? topic.recommendReason : JSON.stringify([]));
+  const gearCategory = normalizeGearCategoryValue(
+    topic.gearCategory || topic.categoryKey || topic.gaerCategory || topic.gear_category
+  );
+  const usageYear = topic.usageYear || topic.usagePeriod || topic.usageYears || '';
+  const usageFrequency = topic.usageFrequency || topic.usageRate || topic.frequency || '';
+  const environments = normalizeStringArray(topic.environments || topic.environment);
+  const pros = normalizeStringArray(topic.pros || topic.recommendReason || topic.recommend);
+  const cons = normalizeStringArray(topic.cons);
+  const tags = normalizeObject(topic.tags);
+  const verifyImage = topic.verifyImage || receiptImages[0] || '';
+  const recommendReasonValue = JSON.stringify(pros);
 
   return {
     ...topic,
     images,
+    gearCategory,
+    usageYear,
+    usageFrequency,
+    environments,
+    pros,
+    cons,
+    verifyImage,
+    tags,
     contentImages: topic.contentImages || images.join(','),
     coverImg: topic.coverImg || images[0] || '',
     receipt: typeof topic.receipt === 'string' ? topic.receipt : receiptImages.join(','),
+    receiptImages,
     recommendReason: recommendReasonValue,
+    categoryKey: topic.categoryKey || gearCategory || '',
+    environment: topic.environment || environments.join(','),
+    usagePeriod: topic.usagePeriod || usageYear,
+    usageRate: topic.usageRate || usageFrequency,
     islike: topic.isLike === true,
     author: topic.author || {
       id: topic.userId || '',
@@ -102,32 +205,70 @@ function normalizeTopicResponse(topic = {}) {
 }
 
 function buildTopicPayload(topicData = {}) {
-  const images = normalizeArray(topicData.contentImages || topicData.images);
-  const receiptImages = normalizeArray(topicData.receipt);
-  const recommendReason = (() => {
-    if (typeof topicData.recommendReason === 'string') {
-      return topicData.recommendReason;
-    }
-    if (Array.isArray(topicData.recommend)) {
-      return JSON.stringify(topicData.recommend.filter(Boolean));
-    }
-    return JSON.stringify([]);
-  })();
-
+  const images = normalizeArray(topicData.images || topicData.contentImages);
+  const receiptImages = normalizeArray(topicData.receiptImages || topicData.receipt);
+  const gearCategory = normalizeGearCategoryValue(
+    topicData.gearCategory || topicData.categoryKey || topicData.gaerCategory || topicData.gear_category || topicData.type
+  );
+  const usageYear = topicData.usageYear || topicData.usagePeriod || topicData.usageYears || '';
+  const usageFrequency = topicData.usageFrequency || topicData.usageRate || topicData.frequency || '';
+  const environments = normalizeStringArray(topicData.environments || topicData.environment);
+  const pros = normalizeStringArray(topicData.pros || topicData.recommendReason || topicData.recommend);
+  const cons = normalizeStringArray(topicData.cons);
+  const tags = normalizeObject(topicData.tags);
+  const verifyImage = topicData.verifyImage || receiptImages[0] || '';
   const extra = {
-    ...(topicData.extra && typeof topicData.extra === 'object' ? topicData.extra : {}),
-    categoryKey: topicData.categoryKey || '',
-    environment: topicData.environment || '',
-    usagePeriod: topicData.usagePeriod || '',
-    usageRate: topicData.usageRate || '',
-    castingRate: topicData.castingRate,
-    worthRate: topicData.worthRate,
-    lifeRate: topicData.lifeRate,
-    contentImages: images.join(','),
-    coverImg: images[0] || '',
-    receipt: receiptImages.join(','),
-    recommendReason
+    ...(topicData.extra && typeof topicData.extra === 'object' ? topicData.extra : {})
   };
+
+  [
+    'categoryKey',
+    'gaerCategory',
+    'gear_category',
+    'type',
+    'contentImages',
+    'coverImg',
+    'receipt',
+    'receiptImages',
+    'recommendReason',
+    'environment',
+    'usagePeriod',
+    'usageRate',
+    'usageYears',
+    'frequency',
+    'mainImages',
+    'mainContent'
+  ].forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(extra, key)) {
+      delete extra[key];
+    }
+  });
+
+  if (gearCategory) extra.gearCategory = gearCategory;
+  if (usageYear) extra.usageYear = usageYear;
+  if (usageFrequency) extra.usageFrequency = usageFrequency;
+  if (environments.length > 0) extra.environments = environments;
+  if (pros.length > 0) extra.pros = pros;
+  if (cons.length > 0) extra.cons = cons;
+  if (verifyImage) extra.verifyImage = verifyImage;
+  if (Object.keys(tags).length > 0) extra.tags = tags;
+
+  [
+    'gearItemId',
+    'relatedGearItemId',
+    'price',
+    'sampleCount',
+    'contentQualityScore',
+    'engagementScore',
+    'credibilityScore',
+    'recommendationScore',
+    'knowledgeScore'
+  ].forEach((key) => {
+    const normalizedValue = normalizeNumberValue(topicData[key]);
+    if (normalizedValue !== undefined) {
+      extra[key] = normalizedValue;
+    }
+  });
 
   const reservedKeys = new Set([
     'id',
@@ -135,11 +276,40 @@ function buildTopicPayload(topicData = {}) {
     'title',
     'content',
     'images',
+    'gearCategory',
+    'usageYear',
+    'usageFrequency',
+    'environments',
+    'pros',
+    'cons',
+    'verifyImage',
+    'tags',
     'contentImages',
     'coverImg',
     'receipt',
+    'receiptImages',
     'recommend',
     'recommendReason',
+    'categoryKey',
+    'gaerCategory',
+    'gear_category',
+    'type',
+    'environment',
+    'usagePeriod',
+    'usageRate',
+    'usageYears',
+    'frequency',
+    'mainImages',
+    'mainContent',
+    'gearItemId',
+    'relatedGearItemId',
+    'price',
+    'sampleCount',
+    'contentQualityScore',
+    'engagementScore',
+    'credibilityScore',
+    'recommendationScore',
+    'knowledgeScore',
     'extra'
   ]);
 
@@ -1383,26 +1553,62 @@ class ApiService {
    * 文件上传
    */
   uploadFile(filePath, formData = {}, endpoint = '/upload/image') {
-    return new Promise((resolve, reject) => {
-      wx.uploadFile({
-        url: `${BASE_URL}${endpoint}`,
-        filePath,
-        name: 'file',
-        formData,
-        header: {
-          'Authorization': wx.getStorageSync('token') ? `Bearer ${wx.getStorageSync('token')}` : ''
-        },
-        success: (res) => {
-          const data = JSON.parse(res.data);
-          if (data.code === 0) {
-            resolve(data.data);
-          } else {
+    const attemptUpload = (hasRetried = false) => {
+      return new Promise((resolve, reject) => {
+        wx.uploadFile({
+          url: `${BASE_URL}${endpoint}`,
+          filePath,
+          name: 'file',
+          formData,
+          header: {
+            'Authorization': wx.getStorageSync('token') ? `Bearer ${wx.getStorageSync('token')}` : ''
+          },
+          success: async (res) => {
+            let data = {};
+            try {
+              data = res && res.data ? JSON.parse(res.data) : {};
+            } catch (parseError) {
+              reject(parseError);
+              return;
+            }
+
+            const isAuthError =
+              res.statusCode === 401 ||
+              res.statusCode === 403 ||
+              data.code === 401 ||
+              data.code === 403 ||
+              data.statusCode === 401 ||
+              data.statusCode === 403;
+
+            if (isAuthError && !hasRetried) {
+              try {
+                const auth = require('./auth.js');
+                if (!auth || typeof auth.silentLogin !== 'function') {
+                  reject(data);
+                  return;
+                }
+                await auth.silentLogin();
+                resolve(await attemptUpload(true));
+                return;
+              } catch (refreshError) {
+                reject(refreshError || data);
+                return;
+              }
+            }
+
+            if (res.statusCode >= 200 && res.statusCode < 300 && data.code === 0) {
+              resolve(data.data);
+              return;
+            }
+
             reject(data);
-          }
-        },
-        fail: reject
+          },
+          fail: reject
+        });
       });
-    });
+    };
+
+    return attemptUpload(false);
   }
 
   // ========== 帖子相关接口 ==========
@@ -1469,14 +1675,19 @@ class ApiService {
    * 点赞评论
    */
   likeComment(commentId) {
-    return this.post(`/comments/${commentId}/like`);
+    return this.post('/mini/comment/like', {
+      commentId: Number(commentId)
+    }).then(result => ({
+      isLike: !!(result && (result.isLike === true || result.isLike === 1)),
+      likeCount: Number(result && result.likeCount ? result.likeCount : 0)
+    }));
   }
 
   /**
    * 删除评论
    */
   deleteComment(commentId) {
-    return this.delete(`/comments/${commentId}`);
+    return this.delete(`/mini/comment?commentId=${commentId}`).then(result => result === true || !!result);
   }
 
   /**
@@ -1542,9 +1753,15 @@ class ApiService {
    * 用户退出登录
    */
   logout() {
-    // 云函数方案下使用 OPENID 识别身份，无服务端登出接口。
-    // 保持 Promise 形态，兼容调用方 await api.logout()。
-    return Promise.resolve({ success: true });
+    const refreshToken = wx.getStorageSync('refreshToken');
+    if (!refreshToken) {
+      return Promise.resolve({ success: true });
+    }
+    return this.post('/auth/logout', { refreshToken }, {
+      silent: true,
+      skipAuthRetry: true,
+      skipErrorToast: true
+    }).then(result => result || { success: true });
   }
 
   /**
@@ -1552,6 +1769,23 @@ class ApiService {
    */
   updateUserInfo(userInfo) {
     return this.post('/mini/user/update', userInfo);
+  }
+
+  /**
+   * 获取指定用户资料
+   * @param {string|number} userId
+   * @returns {Promise<Object|null>}
+   */
+  getUserInfo(userId) {
+    return this.get(`/mini/user/info?id=${encodeURIComponent(userId)}`);
+  }
+
+  /**
+   * 获取当前登录用户资料
+   * @returns {Promise<Object|null>}
+   */
+  getCurrentUserInfo() {
+    return this.get('/auth/me');
   }
 
   // ========== 标签相关接口 ==========
@@ -1631,7 +1865,6 @@ class ApiService {
   createTopic(topicData) {
     const payload = buildTopicPayload({
       ...topicData,
-      topicCategory: 1,
       categoryKey: topicData.categoryKey || topicData.type || ''
     });
     return this.put('/mini/topic', payload).then(result => {
@@ -1673,7 +1906,6 @@ class ApiService {
   publishTopic(topicData) {
     const payload = buildTopicPayload({
       ...topicData,
-      topicCategory: 1,
       categoryKey: topicData.categoryKey || topicData.type || ''
     });
     return this.post('/mini/topic', payload).then(result => isSuccessfulBooleanResult(result));
@@ -1697,10 +1929,13 @@ class ApiService {
   /**
    * 给话题点赞
    * @param {string|number} topicId - 话题ID
-   * @returns {Promise} 返回点赞结果，true表示点赞成功，false表示取消点赞
+   * @returns {Promise<{isLike: boolean, likeCount: number}>}
    */
   likeTopic(topicId) {
-    return this.post('/mini/topic/like', { topicId }).then(result => !!(result && result.isLike));
+    return this.post('/mini/topic/like', { topicId }).then(result => ({
+      isLike: !!(result && (result.isLike === true || result.isLike === 1)),
+      likeCount: Number(result && result.likeCount ? result.likeCount : 0)
+    }));
   }
 
   /**

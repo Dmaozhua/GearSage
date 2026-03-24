@@ -248,6 +248,11 @@ Page({
         }
     },
 
+    getLikeCacheKey() {
+        const userId = this.getCurrentUserId();
+        return `likeCache_${userId || 'guest'}`;
+    },
+
     findTopicById(postId) {
         const normalizedPostId = this.normalizeDisplayText(postId, '');
         if (!normalizedPostId) {
@@ -1863,6 +1868,54 @@ Page({
         }
     },
 
+    async resolveListMediaUrls(anglerList) {
+        try {
+            const fileList = [];
+            anglerList.forEach((item) => {
+                const avatar = item.avatarUrl || item.avatar || '';
+                const coverImg = item.coverImg || '';
+                const images = Array.isArray(item.images) ? item.images : [];
+
+                if (avatar && (/^cloud:\/\//.test(avatar) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(avatar))) {
+                    fileList.push({ fileID: avatar, type: 'avatar' });
+                }
+                if (coverImg && (/^cloud:\/\//.test(coverImg) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(coverImg))) {
+                    fileList.push({ fileID: coverImg, type: 'image' });
+                }
+                images.forEach((image) => {
+                    if (image && (/^cloud:\/\//.test(image) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(image))) {
+                        fileList.push({ fileID: image, type: 'image' });
+                    }
+                });
+            });
+
+            if (!fileList.length) {
+                return anglerList;
+            }
+
+            const fileIDToURL = await tempUrlManager.getBatchTempUrls(fileList);
+            return anglerList.map((item) => {
+                const avatar = item.avatarUrl || item.avatar || '';
+                const images = Array.isArray(item.images) ? item.images : [];
+                const nextImages = images.map((image) => fileIDToURL[image] || image);
+                const nextCoverImg = fileIDToURL[item.coverImg] || item.coverImg;
+                const nextAvatar = fileIDToURL[avatar] || avatar;
+
+                return {
+                    ...item,
+                    avatar: nextAvatar || item.avatar,
+                    avatarUrl: nextAvatar || item.avatarUrl,
+                    coverImg: nextCoverImg,
+                    images: nextImages,
+                    displayImages: nextImages.slice(0, 3)
+                };
+            });
+        } catch (error) {
+            console.error('[首页] 处理列表媒体资源失败:', error);
+            return anglerList;
+        }
+    },
+
     /**
      * 加载所有话题
      */
@@ -2060,25 +2113,28 @@ Page({
                 });
                 console.log('[首页][性能] 首页首轮可渲染耗时', Date.now() - totalStart, 'ms');
 
-                const avatarStart = Date.now();
-                this.resolveAvatarTempUrls(dedupedMergedList).then((hydratedList) => {
-                    console.log('[首页][性能] 头像临时链接处理耗时', Date.now() - avatarStart, 'ms');
+                const mediaStart = Date.now();
+                this.resolveListMediaUrls(dedupedMergedList).then((hydratedList) => {
+                    console.log('[首页][性能] 媒体资源处理耗时', Date.now() - mediaStart, 'ms');
                     if (this._activeRequestToken !== requestToken || !Array.isArray(hydratedList)) {
                         return;
                     }
                     const dedupedHydratedList = this.dedupePostsById(hydratedList, `loadAnglerData:avatar:${source}`);
-                    const hasAvatarUpdate = dedupedHydratedList.some((item, index) => {
+                    const hasMediaUpdate = dedupedHydratedList.some((item, index) => {
                         const prev = dedupedMergedList[index];
-                        return prev && item && prev.avatarUrl !== item.avatarUrl;
+                        return prev && item && (
+                            prev.avatarUrl !== item.avatarUrl ||
+                            prev.coverImg !== item.coverImg
+                        );
                     });
-                    if (!hasAvatarUpdate) {
+                    if (!hasMediaUpdate) {
                         return;
                     }
                     this.fullAnglerList = dedupedHydratedList;
                     this.persistHomeFeedCache(dedupedHydratedList);
-                    this.applyFilters({ source: `${source}-avatar` });
+                    this.applyFilters({ source: `${source}-media` });
                 }).catch((avatarError) => {
-                    console.warn('[首页] 头像临时链接异步处理失败:', avatarError);
+                    console.warn('[首页] 媒体资源异步处理失败:', avatarError);
                 });
                 const hydratedList = dedupedMergedList;
 
@@ -2237,6 +2293,10 @@ Page({
      * 点赞事件
      */
     onLike: async function(e) {
+        if (this._topicLikePending) {
+            return;
+        }
+
         // 检查登录状态
         const AuthService = require('../../services/auth.js');
         try {
@@ -2250,6 +2310,7 @@ Page({
         console.log('点赞话题:', topicId);
         
         try {
+            this._topicLikePending = true;
             // 调用点赞接口
             const result = await apiService.likeTopic(topicId);
             console.log('点赞结果:', result);
@@ -2262,9 +2323,9 @@ Page({
                 const updatedList = [...anglerList];
                 const item = { ...updatedList[index] }; // 创建深拷贝确保状态不被覆盖
                 
-                if (result === true) {
+                if (result && result.isLike === true) {
                     // 点赞成功
-                    item.likeCount = (item.likeCount || 0) + 1;
+                    item.likeCount = Number(result.likeCount || ((item.likeCount || 0) + 1));
                     item.islike = true;
                     // 缓存点赞状态到本地存储
                     this.cacheLikeStatus(topicId, true);
@@ -2274,7 +2335,7 @@ Page({
                     });
                 } else {
                     // 取消点赞
-                    item.likeCount = Math.max((item.likeCount || 0) - 1, 0);
+                    item.likeCount = Math.max(Number(result && result.likeCount ? result.likeCount : (item.likeCount || 0) - 1), 0);
                     item.islike = false;
                     // 从本地存储移除点赞状态
                     this.cacheLikeStatus(topicId, false);
@@ -2303,6 +2364,8 @@ Page({
                 title: '操作失败',
                 icon: 'none'
             });
+        } finally {
+            this._topicLikePending = false;
         }
     },
 
@@ -2888,7 +2951,7 @@ Page({
      */
     cacheLikeStatus(topicId, isLike) {
         try {
-            const key = 'likeCache';
+            const key = this.getLikeCacheKey();
             const cache = wx.getStorageSync(key) || {};
             if (isLike) {
                 cache[topicId] = { islike: true, ts: Date.now() };
@@ -2906,7 +2969,7 @@ Page({
      */
     mergeLikeCache(anglerList) {
         try {
-            const key = 'likeCache';
+            const key = this.getLikeCacheKey();
             const cache = wx.getStorageSync(key) || {};
             const ONE_DAY = 24 * 60 * 60 * 1000;
             const now = Date.now();

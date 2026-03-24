@@ -8,6 +8,7 @@ class TempUrlManager {
   constructor() {
     this.cachePrefix = 'tempUrl_';
     this.backgroundCachePrefix = 'tempUrl_bg_';
+    this.localImageCachePrefix = 'tempUrl_local_';
     this.DEFAULT_EXPIRY = 60 * 60 * 1000; // 1小时（与腾讯云一致）
   }
 
@@ -26,7 +27,15 @@ class TempUrlManager {
       }
 
       if (!fileID.startsWith('cloud://')) {
+        if (this._isLocalUploadUrl(fileID)) {
+          return this._getLocalUploadTempUrl(fileID, type, forceRefresh);
+        }
         return fileID;
+      }
+
+      if (!this._isCloudApiAvailable()) {
+        console.warn(`[TempUrlManager] wx.cloud 不可用，跳过云资源转换: ${fileID}`);
+        return this._handleErrorFallback(fileID, type);
       }
 
       console.log(`[TempUrlManager] 获取${type}临时URL, fileID:`, fileID);
@@ -85,10 +94,24 @@ class TempUrlManager {
     // 检查缓存
     for (const item of fileList) {
       const { fileID, type = 'avatar' } = item;
-      if (!fileID || !String(fileID).startsWith('cloud://')) {
+      if (!fileID) {
+        result[fileID] = this._getDefaultImage(type);
+        continue;
+      }
+      if (this._isLocalUploadUrl(fileID)) {
+        needRefreshList.push(item);
+        continue;
+      }
+      if (!String(fileID).startsWith('cloud://')) {
         result[fileID] = fileID || this._getDefaultImage(type);
         continue;
       }
+
+      if (!this._isCloudApiAvailable()) {
+        result[fileID] = this._getDefaultImage(type);
+        continue;
+      }
+
       const cacheKey = this._getCacheKey(fileID, type);
       const cachedData = wx.getStorageSync(cacheKey);
 
@@ -108,9 +131,32 @@ class TempUrlManager {
         needRefreshList.forEach(item => idToItemMap.set(item.fileID, item));
         console.log('[TempUrlManager] 缓存命中数量=', Object.keys(result).length, '需要刷新数量=', needRefreshList.length);
 
+        const localUploadItems = needRefreshList.filter(item => this._isLocalUploadUrl(item.fileID));
+        const cloudItems = needRefreshList.filter(item => !this._isLocalUploadUrl(item.fileID));
+
+        if (localUploadItems.length) {
+          const localResults = await Promise.all(localUploadItems.map(async (item) => {
+            try {
+              const tempUrl = await this._getLocalUploadTempUrl(item.fileID, item.type, false);
+              return { fileID: item.fileID, tempUrl };
+            } catch (error) {
+              console.error('[TempUrlManager] 本地上传图转临时文件失败:', item.fileID, error);
+              return { fileID: item.fileID, tempUrl: this._getDefaultImage(item.type) };
+            }
+          }));
+
+          localResults.forEach((item) => {
+            result[item.fileID] = item.tempUrl;
+          });
+        }
+
+        if (!cloudItems.length) {
+          return result;
+        }
+
         // 分批处理
-        for (let i = 0; i < needRefreshList.length; i += MAX_BATCH) {
-          const batch = needRefreshList.slice(i, i + MAX_BATCH);
+        for (let i = 0; i < cloudItems.length; i += MAX_BATCH) {
+          const batch = cloudItems.slice(i, i + MAX_BATCH);
           const batchFileIDs = batch.map(b => b.fileID);
           const batchIndex = Math.floor(i / MAX_BATCH) + 1;
           console.log(`[TempUrlManager] 发起批次 ${batchIndex} 请求，文件数=${batchFileIDs.length}`);
@@ -246,6 +292,50 @@ class TempUrlManager {
   _getCacheKey(fileID, type) {
     const prefix = type === 'background' ? this.backgroundCachePrefix : this.cachePrefix;
     return `${prefix}${fileID.replace(/[^a-zA-Z0-9]/g, '_')}`;
+  }
+
+  _getLocalCacheKey(url) {
+    return `${this.localImageCachePrefix}${String(url || '').replace(/[^a-zA-Z0-9]/g, '_')}`;
+  }
+
+  _isCloudApiAvailable() {
+    return !!(wx.cloud && typeof wx.cloud.getTempFileURL === 'function');
+  }
+
+  _isLocalUploadUrl(url) {
+    return /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//i.test(String(url || ''));
+  }
+
+  async _getLocalUploadTempUrl(url, type = 'image', forceRefresh = false) {
+    const cacheKey = this._getLocalCacheKey(url);
+    const cachedData = wx.getStorageSync(cacheKey);
+    const now = Date.now();
+
+    if (!forceRefresh && cachedData && cachedData.expireTime > now + 10 * 60 * 1000 && cachedData.tempUrl) {
+      return cachedData.tempUrl;
+    }
+
+    const downloadRes = await new Promise((resolve, reject) => {
+      wx.downloadFile({
+        url,
+        success: resolve,
+        fail: reject
+      });
+    });
+
+    if (!(downloadRes && downloadRes.statusCode >= 200 && downloadRes.statusCode < 300 && downloadRes.tempFilePath)) {
+      throw new Error(`download local upload failed: status=${downloadRes && downloadRes.statusCode}`);
+    }
+
+    const cacheData = {
+      tempUrl: downloadRes.tempFilePath,
+      expireTime: now + this.DEFAULT_EXPIRY,
+      createTime: now,
+      fileID: url,
+      type
+    };
+    wx.setStorageSync(cacheKey, cacheData);
+    return downloadRes.tempFilePath;
   }
 
   /**

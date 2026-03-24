@@ -6,6 +6,23 @@ const dateFormatter = require('../../utils/date-format.js');
 const tempUrlManager = require('../../utils/tempUrlManager.js');
 const tagProfileView = require('../../utils/tagProfileView.js');
 
+function normalizeProfileUserInfo(rawUser = {}) {
+  const user = rawUser && typeof rawUser === 'object' ? rawUser : {};
+  const avatar = user.avatarUrl || user.avatar || '';
+  const background = user.backgroundImage || user.background || '';
+
+  return {
+    ...user,
+    nickName: user.nickName || user.nickname || '',
+    nickname: user.nickname || user.nickName || '',
+    avatar,
+    avatarUrl: user.avatarUrl || avatar,
+    background,
+    backgroundImage: background,
+    backgroundImageUrl: user.backgroundImageUrl || background
+  };
+}
+
 Page({
   /**
    * 页面的初始数据
@@ -113,6 +130,7 @@ Page({
     
     // 初始化主题模式
     this.initThemeMode();
+    this._skipNextShowRefresh = true;
     
     this.checkLoginStatus();
     
@@ -148,11 +166,13 @@ Page({
       app.globalData.showLoginPrompt = false;
     }
     
-    // 重新检查登录状态，处理可能的认证失效情况
-    this.checkLoginStatus();
-    
-    // 检查草稿状态
-    this.checkDraftStatus();
+    if (this._skipNextShowRefresh) {
+      console.log('[Profile] 页面显示 - 跳过首次 onShow 重复刷新');
+      this._skipNextShowRefresh = false;
+    } else {
+      // 重新检查登录状态，处理可能的认证失效情况
+      this.checkLoginStatus();
+    }
     
     // 同步主题模式
     this.initThemeMode();
@@ -181,16 +201,18 @@ Page({
       const isAdmin = permission.isAdmin();
       
       if (isLoggedIn) {
-        // 优先从本地存储获取用户信息
-        let userInfo = wx.getStorageSync('userInfo') || auth.getCurrentUser();
+        // 优先从本地缓存读取，再静默刷新一次服务端用户资料
+        let userInfo = normalizeProfileUserInfo(wx.getStorageSync('userInfo') || auth.getCurrentUser());
         console.log('[Profile] 获取到的用户信息:', userInfo);
-        
-        // 确保background字段映射到backgroundImage，直接使用原始URL而不获取临时URL
-        if (userInfo && userInfo.background) {
-          userInfo.backgroundImage = userInfo.background;
-          // 保存映射后的用户信息到本地存储
-          wx.setStorageSync('userInfo', userInfo);
+
+        try {
+          await auth.refreshUserInfo();
+          userInfo = normalizeProfileUserInfo(auth.getCurrentUser() || wx.getStorageSync('userInfo') || userInfo);
+        } catch (refreshError) {
+          console.warn('[Profile] 静默刷新用户资料失败，继续使用本地缓存:', refreshError);
         }
+
+        wx.setStorageSync('userInfo', userInfo);
         
         // 设置用户信息
         this.setData({
@@ -207,7 +229,8 @@ Page({
         }
         
         console.log('[Profile] 页面状态已更新，用户已登录');
-        this.loadUserData();
+        this.checkDraftStatus();
+        this.loadUserData({ skipUserRefresh: true });
       } else {
         console.log('[Profile] 用户未登录');
         this.setData({
@@ -215,6 +238,7 @@ Page({
           loading: false,
           isLoading: false
         });
+        this.checkDraftStatus();
       }
     } catch (error) {
       console.error('[Profile] 检查登录状态失败:', error);
@@ -233,30 +257,33 @@ Page({
       console.log('[Profile] 开始刷新用户图片');
       
       const imagePromises = [];
+      const normalizedUserInfo = normalizeProfileUserInfo(userInfo);
+      const avatarSource = normalizedUserInfo.avatar || '';
+      const backgroundSource = normalizedUserInfo.backgroundImage || normalizedUserInfo.background || '';
       
       // 处理头像
-      if (userInfo.avatar && userInfo.avatar.startsWith('cloud://')) {
+      if (avatarSource) {
         imagePromises.push(
-          tempUrlManager.getTempUrl(userInfo.avatar, 'avatar').then(avatarUrl => {
+          tempUrlManager.getTempUrl(avatarSource, 'avatar').then(avatarUrl => {
             console.log('[Profile] 头像临时URL获取成功');
-            this.setData({ 'userInfo.avatarUrl': avatarUrl });
+            this.setData({
+              'userInfo.avatar': avatarSource,
+              'userInfo.avatarUrl': avatarUrl
+            });
           })
         );
       }
       
       // 处理背景图
-      if (userInfo.backgroundImage && userInfo.backgroundImage.startsWith('cloud://')) {
+      if (backgroundSource) {
         imagePromises.push(
-          tempUrlManager.getTempUrl(userInfo.backgroundImage, 'background').then(backgroundUrl => {
+          tempUrlManager.getTempUrl(backgroundSource, 'background').then(backgroundUrl => {
             console.log('[Profile] 背景图临时URL获取成功');
-            this.setData({ 'userInfo.backgroundImageUrl': backgroundUrl });
-          })
-        );
-      } else if (userInfo.background && userInfo.background.startsWith('cloud://')) {
-        imagePromises.push(
-          tempUrlManager.getTempUrl(userInfo.background, 'background').then(backgroundUrl => {
-            console.log('[Profile] 背景图临时URL获取成功');
-            this.setData({ 'userInfo.backgroundImageUrl': backgroundUrl });
+            this.setData({
+              'userInfo.background': backgroundSource,
+              'userInfo.backgroundImage': backgroundSource,
+              'userInfo.backgroundImageUrl': backgroundUrl
+            });
           })
         );
       }
@@ -284,11 +311,11 @@ Page({
       if (type === 'background') {
         fileID = userInfo.backgroundImage || userInfo.background;
       } else if (type === 'avatar') {
-        fileID = userInfo.avatar;
+        fileID = userInfo.avatar || userInfo.avatarUrl;
       }
       
-      if (fileID && fileID.startsWith('cloud://')) {
-        // 强制刷新临时链接
+      if (fileID) {
+        // 强制刷新临时链接 / 本地缓存文件
         const newUrl = await tempUrlManager.getTempUrl(fileID, type, true);
         
         if (type === 'background') {
@@ -307,8 +334,18 @@ Page({
   /**
    * 加载用户数据
    */
-  async loadUserData() {
+  async loadUserData(options = {}) {
     try {
+      const { skipUserRefresh = false } = options;
+      if (!skipUserRefresh) {
+        await auth.refreshUserInfo();
+      }
+      const refreshedUserInfo = normalizeProfileUserInfo(auth.getCurrentUser() || wx.getStorageSync('userInfo'));
+      if (refreshedUserInfo && refreshedUserInfo.id) {
+        wx.setStorageSync('userInfo', refreshedUserInfo);
+        this.setData({ userInfo: refreshedUserInfo });
+        await this.refreshUserImages(refreshedUserInfo);
+      }
       await this.loadUserTags();
     } catch (error) {
       console.error('加载用户数据失败:', error);
@@ -325,7 +362,7 @@ Page({
       const tagState = await api.getTagDisplaySettings({ silent: true });
       console.log('[Profile] 获取到的用户标签设置:', tagState);
 
-      const currentUserInfo = this.data.userInfo || {};
+      const currentUserInfo = normalizeProfileUserInfo(this.data.userInfo || {});
       const currentTag = tagState && (tagState.mainTag || tagState.equippedTag) ? (tagState.mainTag || tagState.equippedTag) : null;
       const displayStrategy = tagProfileView.normalizePostTagMode(
         tagState && (tagState.postTagMode || tagState.displayStrategy),
@@ -339,7 +376,7 @@ Page({
       });
       const updatedUserInfo = {
         ...currentUserInfo,
-        equippedDisplayTag: currentTag,
+        equippedDisplayTag: currentTag || {},
         userTag: currentTag ? currentTag.name : '',
         userTagRarity: currentTag ? currentTag.rarityLevel : 1,
         tagDisplayStrategy: displayStrategy
@@ -412,15 +449,10 @@ Page({
       // 检查登录是否成功：如果返回了token和userInfo，则认为登录成功
       if (loginResult && loginResult.token && loginResult.userInfo) {
         // 登录成功，优先从本地存储获取最新的用户信息
-        let userInfo = auth.getCurrentUser();
+        let userInfo = normalizeProfileUserInfo(auth.getCurrentUser());
         const isAdmin = permission.isAdmin();
-        
-        // 确保background字段映射到backgroundImage，直接使用原始URL
-        if (userInfo && userInfo.background) {
-          userInfo.backgroundImage = userInfo.background;
-          // 保存映射后的用户信息到本地存储
-          wx.setStorageSync('userInfo', userInfo);
-        }
+
+        wx.setStorageSync('userInfo', userInfo);
         
         console.log('[Profile] 使用的用户信息:', userInfo);
         
@@ -437,12 +469,9 @@ Page({
         if (userInfo) {
           this.refreshUserImages(userInfo);
         }
-        
-        // 背景图直接使用原始URL，不再获取临时URL以避免403错误
-        console.log('[Profile] 登录后背景图使用原始URL:', userInfo.backgroundImage);
-        
+
         // 加载用户数据
-        this.loadUserData();
+        this.loadUserData({ skipUserRefresh: true });
         
         wx.showToast({
           title: '登录成功',
@@ -560,28 +589,6 @@ Page({
     wx.navigateTo({
       url: '/pkgContent/my-publish/my-publish'
     });
-  },
-
-  /**
-   * 检查草稿状态
-   */
-  async checkDraftStatus() {
-    if (!this.data.isLoggedIn) {
-      this.setData({ hasDraft: false });
-      getApp().globalData.hasDraft = false;
-      return;
-    }
-
-    try {
-      const draft = await api.getTmpTopic();
-      const hasDraft = !!(draft && draft.id);
-      this.setData({ hasDraft });
-      getApp().globalData.hasDraft = hasDraft;
-    } catch (error) {
-      console.error('检查草稿状态失败:', error);
-      this.setData({ hasDraft: false });
-      getApp().globalData.hasDraft = false;
-    }
   },
 
   /**
@@ -780,11 +787,8 @@ Page({
               networkLoadingText: '退出中...'
             });
             
-            // 调用退出登录接口
-            await api.logout();
-            
-            // 执行本地清理操作
-            auth.logout();
+            // AuthService 内部会先调服务端登出，再清理本地状态
+            await auth.logout();
             this.setData({
               isLoggedIn: false,
               isAdmin: false,
@@ -808,8 +812,14 @@ Page({
           } catch (error) {
             console.error('退出登录失败:', error);
             
-            // 即使接口调用失败，也执行本地清理
-            auth.logout();
+            // 即使服务端登出失败，也执行本地清理
+            try {
+              wx.removeStorageSync('token');
+              wx.removeStorageSync('refreshToken');
+              wx.removeStorageSync('userInfo');
+            } catch (_cleanupError) {
+              // noop
+            }
             this.setData({
               isLoggedIn: false,
               isAdmin: false,
@@ -1363,19 +1373,19 @@ Page({
    */
   async onUpdateProfile() {
     try {
-      await auth.updateUserInfo();
-      
-      const userInfo = auth.getCurrentUser();
+      await auth.refreshUserInfo();
+      const userInfo = normalizeProfileUserInfo(auth.getCurrentUser() || wx.getStorageSync('userInfo'));
       this.setData({ userInfo });
+      await this.refreshUserImages(userInfo);
       
       wx.showToast({
-        title: '更新成功',
+        title: '已刷新资料',
         icon: 'success'
       });
     } catch (error) {
-      console.error('更新用户信息失败:', error);
+      console.error('刷新用户信息失败:', error);
       wx.showToast({
-        title: '更新失败',
+        title: '刷新失败',
         icon: 'none'
       });
     }

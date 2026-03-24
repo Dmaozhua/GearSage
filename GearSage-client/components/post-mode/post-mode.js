@@ -1,6 +1,7 @@
 // https://codepen.io/ykadosh/pen/ZEJLapj
 const MAX_VISIBILITY = 3;
 const tempUrlCache = new Map();
+const tempUrlManager = require('../../utils/tempUrlManager.js');
 
 Component({
   properties: {
@@ -158,22 +159,14 @@ Component({
         return;
       }
 
-      if (!wx.cloud || !wx.cloud.getTempFileURL) {
-        console.warn('[post-mode] wx.cloud.getTempFileURL unavailable, fallback to original sources');
-        this.setData({ resolvedBackgroundImages: cachedBackgroundImages }, () => {
-          this.updateCardStyles();
-        });
-        return;
-      }
-
       try {
-        const { fileList = [] } = await wx.cloud.getTempFileURL({
-          fileList: unresolvedFileIDs
-        });
+        const fileIDToURL = await tempUrlManager.getBatchTempUrls(
+          unresolvedFileIDs.map((fileID) => ({ fileID, type: 'background' }))
+        );
 
-        fileList.forEach((item) => {
-          if (item && item.fileID) {
-            tempUrlCache.set(item.fileID, item.tempFileURL || item.tempFileUrl || item.fileID);
+        Object.keys(fileIDToURL || {}).forEach((fileID) => {
+          if (fileID) {
+            tempUrlCache.set(fileID, fileIDToURL[fileID] || fileID);
           }
         });
 

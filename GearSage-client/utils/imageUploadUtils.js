@@ -269,7 +269,7 @@ const buildUploadPath = (prefix) => {
  * @param {string} prefix
  * @returns {Promise<string>} remote file url
  */
-const uploadToCloud = async (filePath, prefix = 'posts') => {
+const uploadToBackend = async (filePath, prefix = 'posts') => {
   const api = require('../services/api.js');
   const normalizedInputPath = normalizeImagePathInput(filePath);
   if (!normalizedInputPath) {
@@ -293,6 +293,8 @@ const uploadToCloud = async (filePath, prefix = 'posts') => {
   }, endpoint);
   return uploadRes && uploadRes.url ? uploadRes.url : '';
 };
+
+const uploadToCloud = (...args) => uploadToBackend(...args);
 
 class UploadQueue {
   constructor(maxConcurrent = 3) {
@@ -362,7 +364,7 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
           quality: uploadOptions.compressionQuality
         });
 
-        const fileID = await uploadToCloud(compressedPath, prefix);
+        const fileID = await uploadToBackend(compressedPath, prefix);
         orderedFileIDs[index] = fileID;
         return fileID;
       } catch (error) {
@@ -377,9 +379,11 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
   return orderedFileIDs.filter((id) => id !== null);
 };
 
-const generateCloudPath = (prefix = 'posts') => {
+const generateUploadPath = (prefix = 'posts') => {
   return buildUploadPath(prefix);
 };
+
+const generateCloudPath = (prefix = 'posts') => generateUploadPath(prefix);
 
 /**
  * Choose images and upload.
@@ -469,10 +473,12 @@ module.exports = {
   smartCompressImage,
   getImageInfo,
   checkWebPSupport,
+  uploadToBackend,
   uploadToCloud,
   batchUploadImages,
   uploadImages,
   chooseAndUploadImages,
+  generateUploadPath,
   generateCloudPath,
   normalizeImagePathInput,
   resolveProcessableImagePath

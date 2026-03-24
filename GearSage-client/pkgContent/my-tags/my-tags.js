@@ -76,8 +76,9 @@ Page({
 
   async refreshUserAvatar(userInfo = {}) {
     try {
-      if (userInfo.avatar && String(userInfo.avatar).startsWith('cloud://')) {
-        const avatarUrl = await tempUrlManager.getTempUrl(userInfo.avatar, 'avatar');
+      const avatarSource = userInfo.avatarUrl || userInfo.avatar || '';
+      if (avatarSource) {
+        const avatarUrl = await tempUrlManager.getTempUrl(avatarSource, 'avatar');
         this.setData({
           'userInfo.avatarUrl': avatarUrl
         });

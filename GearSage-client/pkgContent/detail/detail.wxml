@@ -193,6 +193,12 @@
               <text class="topic-info-label">预算倾向</text>
               <text class="topic-info-value">{{productDetail.budgetText}}</text>
             </view>
+            <view class="topic-conclusion-item topic-conclusion-item--full" wx:if="{{productDetail.usageTagItems && productDetail.usageTagItems.length}}">
+              <text class="topic-info-label">使用倾向</text>
+              <view class="topic-info-tags">
+                <text class="topic-info-tag" wx:for="{{productDetail.usageTagItems}}" wx:key="index">{{item}}</text>
+              </view>
+            </view>
             <view class="topic-conclusion-item topic-conclusion-item--full" wx:if="{{productDetail.environmentItems && productDetail.environmentItems.length}}">
               <text class="topic-info-label">使用场景</text>
               <view class="topic-info-tags">
@@ -519,7 +525,13 @@
               <view class="comment-text">{{item.content}}</view>
               <view class="comment-footer">
                 <view class="comment-time">{{item.createTimeFormatted}}</view>
-                <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
+                <view class="comment-action-group">
+                  <view class="comment-like-btn {{item.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{item.id}}">
+                    <text>{{item.isLiked ? '已赞' : '赞'}}</text>
+                    <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
+                  </view>
+                  <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
+                </view>
               </view>
             </view>
           </view>
@@ -535,6 +547,12 @@
                 <view class="reply-text">{{reply.content}}</view>
                 <view class="reply-footer">
                   <view class="reply-time">{{reply.createTimeFormatted}}</view>
+                  <view class="comment-action-group">
+                    <view class="comment-like-btn {{reply.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{reply.id}}">
+                      <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
+                      <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
+                    </view>
+                  </view>
                 </view>
               </view>
             </view>

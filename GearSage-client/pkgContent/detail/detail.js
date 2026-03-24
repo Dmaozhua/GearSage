@@ -4,6 +4,7 @@ const { data01 } = require('../data/data01.js');
 const api = require('../../services/api.js');
 const { formatRichTextContent, parseRichTextPayload } = require('../../utils/richTextFormatter.js');
 const { buildTopicDetailView: buildTopicDetailViewModel } = require('../../utils/topicDetailView.js');
+const tempUrlManager = require('../../utils/tempUrlManager.js');
 
 const HOME_FEED_CACHE_KEYS = ['home_feed_cache_v2', 'home_feed_cache_v1'];
 
@@ -351,6 +352,11 @@ Page({
       }
     },
 
+    getLikeCacheKey() {
+      const userId = this.getCurrentUserId();
+      return `likeCache_${userId || 'guest'}`;
+    },
+
     buildShareTitle() {
       const { productDetail } = this.data;
       const title = this.normalizeString(productDetail.title || productDetail.name, '');
@@ -410,6 +416,43 @@ Page({
       }
 
       return query.join('&');
+    },
+
+    async resolveDetailMediaUrls(productDetail = {}) {
+      try {
+        const fileList = [];
+        const images = Array.isArray(productDetail.images) ? productDetail.images : [];
+        const userAvatar = this.normalizeString(productDetail.userAvatarUrl || productDetail.userAvatar, '');
+        const verifyImage = this.normalizeString(productDetail.verifyImage, '');
+
+        if (userAvatar && (/^cloud:\/\//.test(userAvatar) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(userAvatar))) {
+          fileList.push({ fileID: userAvatar, type: 'avatar' });
+        }
+        if (verifyImage && (/^cloud:\/\//.test(verifyImage) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(verifyImage))) {
+          fileList.push({ fileID: verifyImage, type: 'image' });
+        }
+        images.forEach((image) => {
+          if (image && (/^cloud:\/\//.test(image) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(image))) {
+            fileList.push({ fileID: image, type: 'image' });
+          }
+        });
+
+        if (!fileList.length) {
+          return productDetail;
+        }
+
+        const fileIDToURL = await tempUrlManager.getBatchTempUrls(fileList);
+        return {
+          ...productDetail,
+          userAvatar: fileIDToURL[userAvatar] || productDetail.userAvatar,
+          userAvatarUrl: fileIDToURL[userAvatar] || productDetail.userAvatarUrl,
+          verifyImage: fileIDToURL[verifyImage] || productDetail.verifyImage,
+          images: images.map((image) => fileIDToURL[image] || image)
+        };
+      } catch (error) {
+        console.error('[详情页] 处理详情媒体资源失败:', error);
+        return productDetail;
+      }
     },
 
     getShareConfig() {
@@ -782,7 +825,7 @@ Page({
           const previewData = buildTopicDetailViewModel(postData, {
             formatTime: this.formatTime.bind(this)
           });
-          const nextProductDetail = previewData.productDetail;
+          const nextProductDetail = await this.resolveDetailMediaUrls(previewData.productDetail);
           const nextCachedStatus = this.getCachedLikeStatus(nextProductDetail.id);
 
           if (nextCachedStatus !== null) {
@@ -852,6 +895,19 @@ Page({
           
           // 将API返回数据转换为页面所需格式，按照用户要求的字段映射
           const authorDisplayTag = postData.displayTag || (postData.author && postData.author.displayTag) || null;
+          const normalizedImages = Array.isArray(postData.images)
+            ? postData.images
+            : (postData.contentImages ? postData.contentImages.split(',').filter(Boolean) : []);
+          const normalizedPros = Array.isArray(postData.pros)
+            ? postData.pros
+            : (postData.recommendReason ? this.parseRecommendReason(postData.recommendReason) : []);
+          const normalizedEnvironments = Array.isArray(postData.environments)
+            ? postData.environments
+            : (typeof postData.environment === 'string'
+              ? postData.environment.split(',').map(item => item.trim()).filter(Boolean)
+              : []);
+          const normalizedUsageYear = postData.usageYear || postData.usagePeriod || '';
+          const normalizedUsageFrequency = postData.usageFrequency || postData.usageRate || postData.usage_rate || '';
           const productDetail = {
             id: postData._id || postData.id,
             name: postData.title,
@@ -861,8 +917,8 @@ Page({
             ratingItems: ratingItems, // 添加评分项数组
             environmentTags: environmentTags, // 添加环境场景标签
             price: postData.price,
-            images: postData.contentImages ? postData.contentImages.split(',') : [], // product-swiper中的图片对应contentImages
-            contentImages: postData.contentImages ? postData.contentImages.split(',') : [],
+            images: normalizedImages,
+            contentImages: normalizedImages,
             userAvatar: postData.avatarUrl, // user-avatar对应avatarUrl
             userAvatarUrl: postData.avatarUrl,
             userName: postData.nickName, // user-name对应nickName
@@ -872,9 +928,9 @@ Page({
             tagName: authorDisplayTag ? authorDisplayTag.name : postData.tagName,
             userTagRarity: authorDisplayTag ? authorDisplayTag.rarityLevel : postData.tagRarityLevel,
             tagRarityLevel: authorDisplayTag ? authorDisplayTag.rarityLevel : postData.tagRarityLevel,
-            usageYears: postData.usagePeriod, // usage-value对应usagePeriod
-            usage_period: postData.usagePeriod,
-            usage_rate: postData.usage_rate,
+            usageYears: normalizedUsageYear,
+            usage_period: normalizedUsageYear,
+            usage_rate: normalizedUsageFrequency,
             castingRating: postData.castingRate, // 抛投评分对应castingRate
             casting_rate: postData.castingRate,
             brakingRating: postData.lifeRate, // 耐用性评分对应lifeRate
@@ -884,11 +940,11 @@ Page({
             worth_rate: postData.worthRate,
             experience: contentText,
             content: contentText,
-            recommend_reason: postData.recommendReason, // recommendation-section对应recommendReason
+            recommend_reason: JSON.stringify(normalizedPros),
             description: postData.description,
-            recommendations: postData.recommendReason ? this.parseRecommendReason(postData.recommendReason) : [],
-            usageScenes: postData.contentImages ? postData.contentImages.split(',').slice(0, 2) : [],
-            usageSceneDescription: postData.environment, // usage-scene-description对应environment
+            recommendations: normalizedPros,
+            usageScenes: normalizedEnvironments.slice(0, 2),
+            usageSceneDescription: postData.customScene || postData.environment || normalizedEnvironments.join('、'),
             likes: postData.likes,
             likeCount: postData.likeCount || postData.likes || 0,
             commentCount: postData.commentCount || postData.comments || 0,
@@ -900,8 +956,8 @@ Page({
             purchaseTime: postData.purchaseDate,
             purchaseTimeFormatted: postData.purchaseDate,
             usageDuration: postData.usageDuration,
-            usageFrequency: postData.usageFrequency,
-            usageEnvironment: postData.environment,
+            usageFrequency: normalizedUsageFrequency,
+            usageEnvironment: normalizedEnvironments.join('、') || postData.environment,
             targetFish: Array.isArray(postData.targetFish) ? postData.targetFish.join('、') : postData.targetFish || '',
             status: 'approved',
             statusText: '已审核'
@@ -1070,12 +1126,14 @@ Page({
         // 计算总评论数（包括回复）
         const totalCommentCount = this.calculateTotalComments(treeComments);
         
+        const mergedTreeComments = this.mergeCommentLikeCache(treeComments);
+
         this.setData({
-          comments: treeComments,
+          comments: mergedTreeComments,
           totalCommentCount: totalCommentCount,
           commentLoading: false
         });
-        return treeComments;
+        return mergedTreeComments;
       } catch (error) {
         console.error('加载评论失败:', error);
         wx.showToast({
@@ -1090,6 +1148,118 @@ Page({
       } finally {
         this.setData({ commentLoading: false });
       }
+    },
+
+    updateCommentLikeState(commentId, payload = {}) {
+      const targetId = Number(commentId);
+      if (!targetId) {
+        return;
+      }
+
+      const nextComments = (this.data.comments || []).map((comment) => {
+        if (Number(comment.id) === targetId) {
+          return {
+            ...comment,
+            isLiked: Boolean(payload.isLike),
+            likeCount: Number(payload.likeCount || 0)
+          };
+        }
+
+        if (Array.isArray(comment.replies) && comment.replies.length) {
+          return {
+            ...comment,
+            replies: comment.replies.map((reply) => {
+              if (Number(reply.id) !== targetId) {
+                return reply;
+              }
+              return {
+                ...reply,
+                isLiked: Boolean(payload.isLike),
+                likeCount: Number(payload.likeCount || 0)
+              };
+            })
+          };
+        }
+
+        return comment;
+      });
+
+      this.setData({
+        comments: nextComments,
+        'productDetail.comments': nextComments
+      });
+    },
+
+    getCommentLikeCacheKey() {
+      const userId = this.getCurrentUserId();
+      return `commentLikeCache_${userId || 'guest'}`;
+    },
+
+    getCachedCommentLikeStatus(commentId) {
+      try {
+        const targetId = String(commentId || '');
+        if (!targetId) {
+          return null;
+        }
+
+        const cache = wx.getStorageSync(this.getCommentLikeCacheKey()) || {};
+        const cached = cache[targetId];
+        const oneDay = 24 * 60 * 60 * 1000;
+        if (cached && (Date.now() - cached.ts) < oneDay) {
+          return !!cached.isLiked;
+        }
+        return null;
+      } catch (error) {
+        console.warn('[详情页] 读取评论点赞缓存失败:', error);
+        return null;
+      }
+    },
+
+    cacheCommentLikeStatus(commentId, isLiked) {
+      try {
+        const targetId = String(commentId || '');
+        if (!targetId) {
+          return;
+        }
+
+        const cacheKey = this.getCommentLikeCacheKey();
+        const cache = wx.getStorageSync(cacheKey) || {};
+        if (isLiked) {
+          cache[targetId] = {
+            isLiked: true,
+            ts: Date.now()
+          };
+        } else {
+          delete cache[targetId];
+        }
+        wx.setStorageSync(cacheKey, cache);
+      } catch (error) {
+        console.warn('[详情页] 写入评论点赞缓存失败:', error);
+      }
+    },
+
+    mergeCommentLikeCache(comments = []) {
+      return (comments || []).map((comment) => {
+        const cachedStatus = this.getCachedCommentLikeStatus(comment.id);
+        const nextComment = cachedStatus === null
+          ? { ...comment }
+          : { ...comment, isLiked: cachedStatus };
+
+        if (Array.isArray(comment.replies) && comment.replies.length) {
+          nextComment.replies = comment.replies.map((reply) => {
+            const replyCachedStatus = this.getCachedCommentLikeStatus(reply.id);
+            if (replyCachedStatus === null) {
+              return reply;
+            }
+            return {
+              ...reply,
+              isLiked: replyCachedStatus
+            };
+          });
+        }
+
+        return nextComment;
+      });
     },
 
     // 构建评论树形结构
@@ -1221,7 +1391,7 @@ Page({
     // 新增：读取本地点赞缓存（带TTL），返回 true/false 或 null（不存在/过期）
     getCachedLikeStatus(topicId) {
       try {
-        const key = 'likeCache';
+        const key = this.getLikeCacheKey();
         const cache = wx.getStorageSync(key) || {};
         const cached = cache[topicId];
         const ONE_DAY = 24 * 60 * 60 * 1000;
@@ -1273,6 +1443,10 @@ Page({
     },
 
     onLike: async function() {
+        if (this._topicLikePending) {
+            return;
+        }
+
         // 检查登录状态
         const AuthService = require('../../services/auth.js');
         try {
@@ -1286,6 +1460,7 @@ Page({
         console.log('点赞话题:', topicId);
         
         try {
+            this._topicLikePending = true;
             // 调用点赞接口
             const apiService = require('../../services/api.js');
             const result = await apiService.likeTopic(topicId);
@@ -1293,9 +1468,9 @@ Page({
             
             // 更新本地数据
             const productDetail = this.data.productDetail;
-            if (result === true) {
+            if (result && result.isLike === true) {
                 // 点赞成功
-                productDetail.likeCount = (productDetail.likeCount || 0) + 1;
+                productDetail.likeCount = Number(result.likeCount || ((productDetail.likeCount || 0) + 1));
                 productDetail.likes = productDetail.likeCount;
                 productDetail.islike = true;
                 productDetail.isLiked = true;
@@ -1305,7 +1480,7 @@ Page({
                     if (prevPage && typeof prevPage.cacheLikeStatus === 'function') {
                         prevPage.cacheLikeStatus(productDetail.id, true);
                     } else {
-                        const key = 'likeCache';
+                        const key = this.getLikeCacheKey();
                         const cache = wx.getStorageSync(key) || {};
                         cache[productDetail.id] = { islike: true, ts: Date.now() };
                         wx.setStorageSync(key, cache);
@@ -1326,7 +1501,7 @@ Page({
                 });
             } else {
                 // 取消点赞
-                productDetail.likeCount = Math.max((productDetail.likeCount || 0) - 1, 0);
+                productDetail.likeCount = Math.max(Number(result && result.likeCount ? result.likeCount : (productDetail.likeCount || 0) - 1), 0);
                 productDetail.likes = productDetail.likeCount;
                 productDetail.islike = false;
                 productDetail.isLiked = false;
@@ -1336,7 +1511,7 @@ Page({
                     if (prevPage && typeof prevPage.cacheLikeStatus === 'function') {
                         prevPage.cacheLikeStatus(productDetail.id, false);
                     } else {
-                        const key = 'likeCache';
+                        const key = this.getLikeCacheKey();
                         const cache = wx.getStorageSync(key) || {};
                         delete cache[productDetail.id];
                         wx.setStorageSync(key, cache);
@@ -1368,6 +1543,8 @@ Page({
                 title: '操作失败',
                 icon: 'none'
             });
+        } finally {
+            this._topicLikePending = false;
         }
     },
 
@@ -1619,23 +1796,46 @@ Page({
         return;
       }
       
-      const commentId = e.currentTarget.dataset.id;
-      const comments = this.data.comments.map(comment => {
-        if (comment.id === commentId) {
-          const isLiked = !comment.isLiked;
-          return {
-            ...comment,
-            isLiked: isLiked,
-            likeCount: comment.likeCount + (isLiked ? 1 : -1)
-          };
-        }
-        return comment;
-      });
+      const commentId = Number(
+        (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.commentId)
+        || (e.detail && e.detail.commentId)
+        || 0
+      );
 
-      this.setData({
-        comments: comments,
-        'productDetail.comments': comments
-      });
+      if (!commentId) {
+        wx.showToast({
+          title: '评论ID无效',
+          icon: 'none'
+        });
+        return;
+      }
+
+      if (!this._commentLikePending) {
+        this._commentLikePending = new Set();
+      }
+
+      if (this._commentLikePending.has(commentId)) {
+        return;
+      }
+
+      try {
+        this._commentLikePending.add(commentId);
+        const result = await api.likeComment(commentId);
+        this.cacheCommentLikeStatus(commentId, result.isLike);
+        this.updateCommentLikeState(commentId, result);
+        wx.showToast({
+          title: result.isLike ? '点赞成功' : '已取消点赞',
+          icon: 'none'
+        });
+      } catch (error) {
+        console.error('评论点赞失败:', error);
+        wx.showToast({
+          title: error.message || '操作失败',
+          icon: 'none'
+        });
+      } finally {
+        this._commentLikePending.delete(commentId);
+      }
     },
 
     onReplyToComment(e) {
@@ -1673,36 +1873,45 @@ Page({
       wx.showModal({
         title: '确认删除',
         content: '确定要删除这条评论吗？',
-        success: (res) => {
+        success: async (res) => {
           if (res.confirm) {
-            const comments = this.data.comments.filter(c => c.id !== commentId);
-            this.setData({
-              comments: comments,
-              'productDetail.comments': comments,
-              'productDetail.commentCount': comments.length
-            });
-            
-            // 同步更新首页列表中的评论数
-            const postId = this.data.productDetail.id || this.data.postId;
-            const pages = getCurrentPages();
-            const prevPage = pages.length > 1 ? pages[pages.length - 2] : null;
-            if (prevPage && prevPage.data && Array.isArray(prevPage.data.originList)) {
-              const updated = prevPage.data.originList.slice();
-              const index = updated.findIndex(item => item.id == postId);
-              if (index !== -1) {
-                updated[index] = {
-                  ...updated[index],
-                  commentCount: Math.max((updated[index].commentCount || 0) - 1, 0)
-                };
-                prevPage.setData({ originList: updated });
-                console.log('[详情页] 删除评论后同步更新首页评论数:', updated[index].commentCount);
+            try {
+              wx.showLoading({ title: '删除中...' });
+              await api.deleteComment(commentId);
+
+              const postId = this.data.productDetail.id || this.data.postId;
+              if (postId) {
+                await this.loadComments(postId);
               }
+
+              const pages = getCurrentPages();
+              const prevPage = pages.length > 1 ? pages[pages.length - 2] : null;
+              if (prevPage && prevPage.data && Array.isArray(prevPage.data.originList)) {
+                const updated = prevPage.data.originList.slice();
+                const index = updated.findIndex(item => item.id == postId);
+                if (index !== -1) {
+                  updated[index] = {
+                    ...updated[index],
+                    commentCount: Math.max((updated[index].commentCount || 0) - 1, 0)
+                  };
+                  prevPage.setData({ originList: updated });
+                  console.log('[详情页] 删除评论后同步更新首页评论数:', updated[index].commentCount);
+                }
+              }
+
+              wx.hideLoading();
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success'
+              });
+            } catch (error) {
+              wx.hideLoading();
+              console.error('删除评论失败:', error);
+              wx.showToast({
+                title: (error && (error.msg || error.message)) || '删除失败',
+                icon: 'none'
+              });
             }
-            
-            wx.showToast({
-              title: '删除成功',
-              icon: 'success'
-            });
           }
         }
       });

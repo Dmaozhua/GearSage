@@ -206,12 +206,12 @@ Component({
         const cachedPath = await iconImageCache.cacheRemoteImage(imageUrl);
         if (this._iconLoadToken !== token) return;
         this.setData({
-          iconRenderSrc: cachedPath || imageUrl
+          iconRenderSrc: cachedPath || (/^cloud:\/\//.test(imageUrl) ? '' : imageUrl)
         });
       } catch (error) {
         if (this._iconLoadToken !== token) return;
         this.setData({
-          iconRenderSrc: imageUrl
+          iconRenderSrc: /^cloud:\/\//.test(imageUrl) ? '' : imageUrl
         });
       }
     }

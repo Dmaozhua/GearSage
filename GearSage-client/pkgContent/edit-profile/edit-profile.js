@@ -1,11 +1,32 @@
 // pages/edit-profile/edit-profile.js
 const api = require('../../services/api.js');
 const auth = require('../../services/auth.js');
-const cloudDB = require('./cloudDB.js');
-const imageUtils = require('./utils/imageUtils.js');
 const tempUrlManager = require('../../utils/tempUrlManager.js');
 const { debouncePageMixin } = require('../../utils/debounceUtils.js');
 const tagProfileView = require('../../utils/tagProfileView.js');
+
+function normalizeEditProfileUserInfo(rawUser = {}) {
+  const user = rawUser && typeof rawUser === 'object' ? rawUser : {};
+  const avatar = user.avatarUrl || user.avatar || '';
+  const backgroundImage = user.backgroundImage || user.background || '';
+  const displayTag = user.displayTag && typeof user.displayTag === 'object'
+    ? user.displayTag
+    : (user.equippedDisplayTag && typeof user.equippedDisplayTag === 'object' ? user.equippedDisplayTag : null);
+
+  return {
+    ...user,
+    avatar,
+    avatarUrl: user.avatarUrl || avatar,
+    nickname: user.nickname || user.nickName || '',
+    nickName: user.nickName || user.nickname || '',
+    background: user.background || backgroundImage,
+    backgroundImage,
+    backgroundImageUrl: user.backgroundImageUrl || backgroundImage,
+    displayTag,
+    userTag: displayTag ? displayTag.name : (user.userTag || ''),
+    userTagRarity: displayTag ? displayTag.rarityLevel : (user.userTagRarity || 1)
+  };
+}
 
 Page(Object.assign({}, debouncePageMixin, {
   /**
@@ -88,6 +109,7 @@ Page(Object.assign({}, debouncePageMixin, {
     
     // 初始化主题模式
     this.initThemeMode();
+    this._skipNextShowReload = true;
     
     this.loadUserInfo();
     this.loadAddresses();
@@ -97,6 +119,17 @@ Page(Object.assign({}, debouncePageMixin, {
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    if (this._skipNextShowReload) {
+      console.log('[EditProfile] 页面显示 - 跳过首次 onShow 重复加载');
+      this._skipNextShowReload = false;
+      this.initThemeMode();
+      const customNavbar = this.selectComponent('#custom-navbar');
+      if (customNavbar && customNavbar.updateTheme) {
+        customNavbar.updateTheme();
+      }
+      return;
+    }
+
     // 如果用户正在编辑或已经有交互，不重新加载数据，避免覆盖用户的修改
     if (!this.data.isEditing && !this.data.hasUserInteracted) {
       console.log('[EditProfile] 页面显示 - 首次加载，重新获取数据');
@@ -147,14 +180,15 @@ Page(Object.assign({}, debouncePageMixin, {
       // 模拟网络延迟
       await new Promise(resolve => setTimeout(resolve, 800));
       
-      const userInfo = auth.getCurrentUser();
+      await auth.refreshUserInfo();
+      const userInfo = normalizeEditProfileUserInfo(auth.getCurrentUser());
       if (userInfo) {
         const avatar = userInfo.avatar || '/images/default-avatar.png';
         const nickname = userInfo.nickname || '';
         const bio = userInfo.bio || '';
-        const mainDisplayTag = userInfo.mainDisplayTag || userInfo.equippedDisplayTag || userInfo.displayTag || null;
+        const mainDisplayTag = userInfo.displayTag || null;
         const userTag = mainDisplayTag ? mainDisplayTag.name : (userInfo.userTag || '');
-        const backgroundImage = userInfo.background || userInfo.backgroundImage || '/images/缺省页_上传中.png';
+        const backgroundImage = userInfo.backgroundImage || '/images/缺省页_上传中.png';
         
         // 设置用户信息
         this.setData({
@@ -307,23 +341,32 @@ Page(Object.assign({}, debouncePageMixin, {
       console.log('[EditProfile] 开始刷新用户图片');
       
       const imagePromises = [];
+      const normalizedUserInfo = normalizeEditProfileUserInfo(userInfo);
+      const avatarSource = normalizedUserInfo.avatar || '';
+      const backgroundSource = normalizedUserInfo.backgroundImage || '';
       
       // 处理头像
-      if (userInfo.avatar && userInfo.avatar.startsWith('cloud://')) {
+      if (avatarSource) {
         imagePromises.push(
-          tempUrlManager.getTempUrl(userInfo.avatar, 'avatar').then(avatarUrl => {
+          tempUrlManager.getTempUrl(avatarSource, 'avatar').then(avatarUrl => {
             console.log('[EditProfile] 头像临时URL获取成功');
-            this.setData({ 'userInfo.avatarUrl': avatarUrl });
+            this.setData({
+              'userInfo.avatar': avatarSource,
+              'userInfo.avatarUrl': avatarUrl
+            });
           })
         );
       }
       
       // 处理背景图
-      if (userInfo.backgroundImage && userInfo.backgroundImage.startsWith('cloud://')) {
+      if (backgroundSource) {
         imagePromises.push(
-          tempUrlManager.getTempUrl(userInfo.backgroundImage, 'background').then(backgroundUrl => {
+          tempUrlManager.getTempUrl(backgroundSource, 'background').then(backgroundUrl => {
             console.log('[EditProfile] 背景图临时URL获取成功');
-            this.setData({ 'userInfo.backgroundImageUrl': backgroundUrl });
+            this.setData({
+              'userInfo.backgroundImage': backgroundSource,
+              'userInfo.backgroundImageUrl': backgroundUrl
+            });
           })
         );
       }
@@ -351,11 +394,11 @@ Page(Object.assign({}, debouncePageMixin, {
       if (type === 'background') {
         fileID = userInfo.backgroundImage;
       } else if (type === 'avatar') {
-        fileID = userInfo.avatar;
+        fileID = userInfo.avatar || userInfo.avatarUrl;
       }
       
-      if (fileID && fileID.startsWith('cloud://')) {
-        // 强制刷新临时链接
+      if (fileID) {
+        // 强制刷新临时链接 / 本地缓存文件
         const newUrl = await tempUrlManager.getTempUrl(fileID, type, true);
         
         if (type === 'background') {
@@ -386,10 +429,10 @@ Page(Object.assign({}, debouncePageMixin, {
         hasUserInteracted: true
       });
       
-      // 上传头像到云存储
+      // 上传头像到独立后台
       this.uploadAvatar(avatarUrl);
       
-      console.log('[EditProfile] 头像已更新，准备上传到云存储:', avatarUrl);
+      console.log('[EditProfile] 头像已更新，准备上传到独立后台:', avatarUrl);
     } else {
       wx.showToast({
         title: '获取头像失败',
@@ -399,7 +442,7 @@ Page(Object.assign({}, debouncePageMixin, {
   },
 
   /**
-   * 上传头像到云存储
+   * 上传头像到独立后台
    */
   async uploadAvatar(filePath) {
     try {
@@ -425,14 +468,13 @@ Page(Object.assign({}, debouncePageMixin, {
       });
       console.log('[EditProfile] 图片智能压缩完成:', compressedPath);
       
-      // 2. 上传到云存储（支持大文件分片上传）
+      // 2. 上传到独立后台
       this.setData({
         networkLoadingText: '上传中...'
       });
-      console.log('[EditProfile] 开始上传到云存储');
-      const cloudPath = imageUploadUtils.generateCloudPath('avatar');
-      const fileID = await imageUploadUtils.uploadToCloud(compressedPath, cloudPath);
-      console.log('[EditProfile] 上传成功，文件ID:', fileID);
+      console.log('[EditProfile] 开始上传到独立后台');
+      const fileID = await imageUploadUtils.uploadToBackend(compressedPath, 'avatar');
+      console.log('[EditProfile] 上传成功，头像地址:', fileID);
       
       // 3. 更新用户信息
       this.setData({
@@ -443,7 +485,7 @@ Page(Object.assign({}, debouncePageMixin, {
       const tempUrl = await tempUrlManager.getTempUrl(fileID, 'avatar');
       console.log('[EditProfile] 获取临时访问链接成功:', tempUrl);
       
-      // 更新显示的头像URL（但保存fileID到用户信息）
+      // 更新显示的头像URL（同时保存独立后台地址到用户信息）
       this.setData({
         'userInfo.avatarUrl': tempUrl
       });
@@ -494,7 +536,7 @@ Page(Object.assign({}, debouncePageMixin, {
           hasUserInteracted: true
         });
         
-        // 上传背景图到云存储
+        // 上传背景图到独立后台
         this.uploadBackground(tempFilePath);
       },
       fail: (error) => {
@@ -508,7 +550,7 @@ Page(Object.assign({}, debouncePageMixin, {
   },
 
   /**
-   * 上传背景图到云存储
+   * 上传背景图到独立后台
    */
   async uploadBackground(filePath) {
     try {
@@ -534,14 +576,13 @@ Page(Object.assign({}, debouncePageMixin, {
       });
       console.log('[EditProfile] 背景图智能压缩完成:', compressedPath);
       
-      // 2. 上传到云存储（支持大文件分片上传）
+      // 2. 上传到独立后台
       this.setData({
         networkLoadingText: '上传背景图中...'
       });
-      console.log('[EditProfile] 开始上传背景图到云存储');
-      const cloudPath = imageUploadUtils.generateCloudPath('background');
-      const fileID = await imageUploadUtils.uploadToCloud(compressedPath, cloudPath);
-      console.log('[EditProfile] 背景图上传成功，文件ID:', fileID);
+      console.log('[EditProfile] 开始上传背景图到独立后台');
+      const fileID = await imageUploadUtils.uploadToBackend(compressedPath, 'background');
+      console.log('[EditProfile] 背景图上传成功，背景图地址:', fileID);
       
       // 3. 更新用户信息
       this.setData({
@@ -665,8 +706,10 @@ Page(Object.assign({}, debouncePageMixin, {
       query.select('.edit-textarea').boundingClientRect((rect) => {
         if (rect) {
           // 获取系统信息
-          const systemInfo = wx.getSystemInfoSync();
-          const windowHeight = systemInfo.windowHeight;
+          const windowInfo = typeof wx.getWindowInfo === 'function'
+            ? wx.getWindowInfo()
+            : wx.getSystemInfoSync();
+          const windowHeight = windowInfo.windowHeight;
           
           // 计算需要滚动的距离
           // 文本框底部距离屏幕顶部的距离
@@ -942,14 +985,14 @@ Page(Object.assign({}, debouncePageMixin, {
         networkLoadingText: '保存中...'
       });
       
-      // 确保使用云存储的fileID作为头像URL
+      // 当前头像字段保存独立后台返回地址
       const avatarFileID = this.data.userInfo.avatar;
-      console.log('[EditProfile] 保存用户信息，头像文件ID:', avatarFileID);
+      console.log('[EditProfile] 保存用户信息，头像地址:', avatarFileID);
       
       const updateData = {
         nickName: this.data.userInfo.nickname,
         bio: this.data.userInfo.bio,
-        avatarUrl: avatarFileID, // 使用云存储的fileID
+        avatarUrl: avatarFileID,
         background: this.data.userInfo.backgroundImage, // 添加背景图字段
         shipAddress: this.getDefaultAddress()
       };
@@ -966,24 +1009,22 @@ Page(Object.assign({}, debouncePageMixin, {
         console.log('[EditProfile] 用户信息未发生变化，跳过API调用');
       }
       
-      // 只有在信息发生变化时才更新本地存储和云数据库
+      // 只有在信息发生变化时才更新本地存储
       console.log('[EditProfile] 最终保存判断: 用户信息变化=', userInfoChangeResult.changed);
       if (userInfoChangeResult.changed) {
-        console.log('[EditProfile] 检测到变化，开始保存用户信息到本地存储和云数据库');
+        console.log('[EditProfile] 检测到变化，开始保存用户信息到本地存储');
         // 更新本地存储和auth服务缓存
         await this.saveUserInfo({
+          nickName: updateData.nickName,
           nickname: updateData.nickName,
           bio: updateData.bio,
-          avatar: avatarFileID, // 保存云存储的fileID
-          avatarUrl: this.data.userInfo.avatarUrl, // 临时访问URL用于显示
-          background: this.data.userInfo.backgroundImage, // 保存背景图到background字段
-          backgroundImage: this.data.userInfo.backgroundImage // 保存背景图到backgroundImage字段
+          avatar: avatarFileID,
+          avatarUrl: this.data.userInfo.avatarUrl,
+          background: this.data.userInfo.backgroundImage,
+          backgroundImage: this.data.userInfo.backgroundImage,
+          backgroundImageUrl: this.data.userInfo.backgroundImageUrl || this.data.userInfo.backgroundImage
         });
-        
-        // 移除多余且错误的云数据库直接调用
-        // 已经在上面通过 api.updateUserInfo 成功更新了
-        // await this.saveUserInfoToCloud(updateData);
-        
+
         console.log('[EditProfile] 本地存储已更新');
       } else {
         console.log('[EditProfile] 无变化，跳过本地存储和云数据库更新');
@@ -1033,7 +1074,7 @@ Page(Object.assign({}, debouncePageMixin, {
       }
     }, {
       loadingTitle: '保存中...',
-      showLoading: true,
+      showLoading: false,
       maskLoading: true,
       onComplete: (result) => {
         if (result && result.success) {
@@ -1055,86 +1096,6 @@ Page(Object.assign({}, debouncePageMixin, {
         });
       }
     });
-  },
-
-  /**
-   * 保存用户信息到云数据库
-   */
-  async saveUserInfoToCloud(updateData) {
-    try {
-      const db = wx.cloud.database();
-      const _ = db.command;
-      
-      // 获取当前用户openid
-      const openid = await this.getUserOpenId();
-      
-      if (!openid) {
-        console.error('获取用户openid失败');
-        return;
-      }
-      
-      // 确保使用云存储的fileID
-      const avatarFileID = updateData.avatarUrl;
-      console.log('[EditProfile] 保存用户信息到云数据库, openid:', openid, '头像文件ID:', avatarFileID);
-      
-      // 检查用户是否已存在
-      const userRes = await db.collection('users').where({
-        _openid: openid
-      }).get();
-      
-      if (userRes.data && userRes.data.length > 0) {
-        // 更新现有用户记录
-        await db.collection('users').where({
-          _openid: openid
-        }).update({
-          data: {
-            nickName: updateData.nickName,
-            bio: updateData.bio,
-            avatar: avatarFileID, // 使用云存储fileID作为头像
-            background: this.data.userInfo.backgroundImage, // 保存背景图
-            userTag: this.data.noTagSelected ? '' : this.data.userInfo.userTag,
-            userTagRarity: this.data.noTagSelected ? 1 : (this.data.userInfo.userTagRarity || 1),
-            shipAddress: updateData.shipAddress,
-            lastUpdate: db.serverDate()
-          }
-        });
-        console.log('[EditProfile] 用户信息更新成功');
-      } else {
-        // 创建新用户记录
-        await db.collection('users').add({
-          data: {
-            nickName: updateData.nickName,
-            bio: updateData.bio,
-            avatar: avatarFileID, // 使用云存储fileID作为头像
-            background: this.data.userInfo.backgroundImage, // 保存背景图
-            userTag: this.data.noTagSelected ? '' : this.data.userInfo.userTag,
-            userTagRarity: this.data.noTagSelected ? 1 : (this.data.userInfo.userTagRarity || 1),
-            shipAddress: updateData.shipAddress,
-            createTime: db.serverDate(),
-            lastUpdate: db.serverDate()
-          }
-        });
-        console.log('[EditProfile] 新用户信息创建成功');
-      }
-    } catch (error) {
-      console.error('保存用户信息到云数据库失败:', error);
-      throw error;
-    }
-  },
-  
-  /**
-   * 获取用户openid
-   */
-  async getUserOpenId() {
-    try {
-      const res = await wx.cloud.callFunction({
-        name: 'login'
-      });
-      return res.result.openid;
-    } catch (error) {
-      console.error('获取用户openid失败:', error);
-      return null;
-    }
   },
 
   /**

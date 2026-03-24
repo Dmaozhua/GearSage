@@ -11,6 +11,63 @@ const MAX_CUSTOM_CHINESE_LENGTH = 10;
 const MAX_ADVANCED_DESC_LENGTH = 200;
 const WHITESPACE_REGEXP = /[\s\u00A0]+/g;
 const CHINESE_ONLY_REGEXP = /[^\u4e00-\u9fa5]/g;
+
+function createDefaultExperienceTags() {
+  return {
+    scene: [],
+    customScene: [],
+    fit: [],
+    unfit: [],
+    pros: [],
+    cons: [],
+    budget: [],
+    usage: [],
+    fitContextTags: [],
+    fitTechniqueTags: [],
+    compareProfile: [],
+    compareBuyDecision: [],
+    purchaseAdvice: [],
+    buyStage: [],
+    supplementParams: []
+  };
+}
+
+function normalizeExperienceTags(tags = {}) {
+  const source = tags && typeof tags === 'object' && !Array.isArray(tags) ? tags : {};
+  const normalizeList = (value, maxCount = 99) => {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+    return value.filter(Boolean).slice(0, maxCount);
+  };
+  const normalizeSingleSelect = (value) => {
+    if (Array.isArray(value)) {
+      return value.filter(Boolean).slice(0, 1);
+    }
+    return value ? [value] : [];
+  };
+
+  return {
+    ...createDefaultExperienceTags(),
+    ...source,
+    scene: normalizeList(source.scene, MAX_ENVIRONMENTS),
+    customScene: normalizeList(source.customScene, 1),
+    fit: normalizeList(source.fit, 3),
+    unfit: normalizeList(source.unfit, 3),
+    pros: normalizeList(source.pros, 3),
+    cons: normalizeList(source.cons, 3),
+    budget: normalizeSingleSelect(source.budget),
+    usage: normalizeList(source.usage, 2),
+    fitContextTags: normalizeList(source.fitContextTags, 3),
+    fitTechniqueTags: normalizeList(source.fitTechniqueTags, 3),
+    compareProfile: normalizeList(source.compareProfile, 3),
+    compareBuyDecision: normalizeList(source.compareBuyDecision, 3),
+    purchaseAdvice: normalizeSingleSelect(source.purchaseAdvice),
+    buyStage: normalizeSingleSelect(source.buyStage),
+    supplementParams: normalizeList(source.supplementParams, 5)
+  };
+}
+
 const EXPERIENCE_STEP_RULES = {
   1: [
     {
@@ -210,7 +267,7 @@ Component({
       repurchase: '',
       pros: [''],
       cons: [''],
-      tags: {},
+      tags: createDefaultExperienceTags(),
       // 进阶信息 - 常用搭配
       comboGear: [], // 搭配装备
       comboDesc: '', // 搭配说明
@@ -513,10 +570,14 @@ Component({
     initFormData() {
       const initialData = this.properties.initialData;
       if (initialData && Object.keys(initialData).length > 0) {
+        const normalizedInitialData = {
+          ...initialData,
+          tags: normalizeExperienceTags(initialData.tags)
+        };
         this.setData({
-          formData: { ...this.data.formData, ...initialData }
+          formData: { ...this.data.formData, ...normalizedInitialData }
         });
-        console.log('[post-Experience] initFormData merged with initialData:', initialData);
+        console.log('[post-Experience] initFormData merged with initialData:', normalizedInitialData);
         console.log('[post-Experience] initFormData result formData=', this.data.formData);
       }
     },
@@ -663,7 +724,7 @@ Component({
         wx.showToast({ title: '自定义场景会占用1个标签位，请先取消一个场景', icon: 'none' });
         return;
       }
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       const nextTags = { ...tags, customScene: value ? [value] : [] };
       this.setData({
         'formData.customScene': value,
@@ -690,7 +751,7 @@ Component({
         'formData.gearItemId': null,
         'formData.ratings': {}, // 清空评分数据
         'formData.environments': [], // Clear environments
-        'formData.tags': {}, // Clear tags
+        'formData.tags': createDefaultExperienceTags(), // Clear tags
         'errors.gearCategory': '',
         'errors.environments': '',
         'errors.tags': ''
@@ -752,7 +813,7 @@ Component({
       }
       
       // Sync environments to tags.scene for validation
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       const newTags = { ...tags, scene: newEnvironments };
 
       this.setData({
@@ -768,7 +829,7 @@ Component({
 
     onBudgetSelect(e) {
       const { value } = e.currentTarget.dataset;
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       const newTags = { ...tags, budget: [value] };
       
       this.setData({
@@ -780,7 +841,7 @@ Component({
 
     onUsageSelect(e) {
       const { value } = e.currentTarget.dataset;
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       const currentUsage = tags.usage || [];
       
       let newUsage;
@@ -943,7 +1004,7 @@ Component({
     // Generic tag selection for step 4
     onTagSelect(e) {
       const { group, value, max } = e.currentTarget.dataset;
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       const currentTags = tags[group] || [];
       
       let newTags;
@@ -967,7 +1028,7 @@ Component({
     onSingleTagSelect(e) {
       const { group, value } = e.currentTarget.dataset;
       if (!group) return;
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       const currentTags = tags[group] || [];
       const next = currentTags.includes(value) ? [] : [value];
       const updatedTags = { ...tags, [group]: next };
@@ -979,7 +1040,7 @@ Component({
 
     onPurchaseAdviceSelect(e) {
       const { value } = e.currentTarget.dataset;
-      const tags = this.data.formData.tags || {};
+      const tags = normalizeExperienceTags(this.data.formData.tags);
       // Single select
       const updatedTags = { ...tags, purchaseAdvice: [value] };
       this.setData({
@@ -1138,11 +1199,15 @@ Component({
     },
 
     onTagsChange(e) {
+      const mergedTags = normalizeExperienceTags({
+        ...this.data.formData.tags,
+        ...(e.detail.tags || {})
+      });
       this.setData({
-        'formData.tags': e.detail.tags,
+        'formData.tags': mergedTags,
         'errors.tags': ''
       });
-      this.triggerEvent('datachange', { field: 'tags', value: e.detail.tags });
+      this.triggerEvent('datachange', { field: 'tags', value: mergedTags });
     },
 
     // 步骤点击事件
@@ -1247,7 +1312,7 @@ Component({
     onSubmit() {
       if (this.validateForm()) {
         const formData = this.data.formData || {};
-        const tags = formData.tags || {};
+        const tags = normalizeExperienceTags(formData.tags);
         const submitData = {
           topicCategory: 1,
           title: formData.title || '',
@@ -1294,6 +1359,12 @@ Component({
           compareGear: Array.isArray(formData.compareGear) ? formData.compareGear : [],
           compareDesc: formData.compareDesc || ''
         };
+        console.log('[post-Experience] submit tags summary=', {
+          budget: tags.budget,
+          usage: tags.usage,
+          fit: tags.fit,
+          unfit: tags.unfit
+        });
         this.triggerEvent('submit', { formData: submitData });
       } else {
         wx.showToast({

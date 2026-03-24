@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
 import { AddCommentDto } from './dto/add-comment.dto';
+import { ToggleCommentLikeDto } from './dto/toggle-comment-like.dto';
 
 @Injectable()
 export class CommentService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async list(topicId: number) {
+  async list(topicId: number, currentUserId = 0) {
     const result = await this.databaseService.query(
       `
       SELECT
@@ -18,14 +19,26 @@ export class CommentService {
         c."userId",
         c."createTime",
         u."nickName" AS "userName",
-        u."avatarUrl" AS "userAvatarUrl"
+        u."avatarUrl" AS "userAvatarUrl",
+        COALESCE(cl."likeCount", 0) AS "likeCount",
+        EXISTS (
+          SELECT 1
+          FROM bz_topic_comment_like cul
+          WHERE cul."commentId" = c.id
+            AND cul."userId" = $2
+        ) AS "isLiked"
       FROM bz_topic_comment c
       LEFT JOIN bz_mini_user u ON u.id = c."userId"
+      LEFT JOIN (
+        SELECT "commentId", COUNT(*)::int AS "likeCount"
+        FROM bz_topic_comment_like
+        GROUP BY "commentId"
+      ) cl ON cl."commentId" = c.id
       WHERE c."topicId" = $1
         AND c."isVisible" = 1
       ORDER BY c."createTime" ASC, c.id ASC
       `,
-      [topicId],
+      [topicId, currentUserId || 0],
     );
 
     return result.rows.map((row: any) => ({
@@ -38,8 +51,8 @@ export class CommentService {
       createTime: row.createTime,
       replayCommentId: row.replayCommentId ? Number(row.replayCommentId) : null,
       replayUserId: row.replayUserId ? Number(row.replayUserId) : null,
-      likeCount: 0,
-      isLiked: false,
+      likeCount: Number(row.likeCount || 0),
+      isLiked: Boolean(row.isLiked),
       displayTag: null,
     }));
   }
@@ -73,5 +86,120 @@ export class CommentService {
     );
 
     return true;
+  }
+
+  async remove(userId: number, commentId: number, isAdmin = false) {
+    if (!commentId) {
+      throw new NotFoundException('comment not found');
+    }
+
+    const commentResult = await this.databaseService.query(
+      `
+      SELECT id, "topicId", "userId", "isVisible"
+      FROM bz_topic_comment
+      WHERE id = $1
+      LIMIT 1
+      `,
+      [commentId],
+    );
+
+    if (!commentResult.rows.length || Number(commentResult.rows[0].isVisible || 0) !== 1) {
+      throw new NotFoundException('comment not found');
+    }
+
+    const comment = commentResult.rows[0];
+    if (!isAdmin && Number(comment.userId) !== Number(userId)) {
+      throw new ForbiddenException('no permission to delete comment');
+    }
+
+    await this.databaseService.query(
+      `
+      UPDATE bz_topic_comment
+      SET
+        "isVisible" = 0,
+        "updateTime" = NOW()
+      WHERE id = $1
+      `,
+      [commentId],
+    );
+
+    await this.databaseService.query(
+      `
+      UPDATE bz_mini_topic
+      SET
+        "commentCount" = GREATEST("commentCount" - 1, 0),
+        "updateTime" = NOW()
+      WHERE id = $1
+      `,
+      [comment.topicId],
+    );
+
+    return true;
+  }
+
+  async toggleLike(userId: number, dto: ToggleCommentLikeDto) {
+    const commentResult = await this.databaseService.query(
+      `
+      SELECT id
+      FROM bz_topic_comment
+      WHERE id = $1
+        AND "isVisible" = 1
+      LIMIT 1
+      `,
+      [dto.commentId],
+    );
+
+    if (!commentResult.rows.length) {
+      throw new NotFoundException('comment not found');
+    }
+
+    const insertResult = await this.databaseService.query(
+      `
+      INSERT INTO bz_topic_comment_like ("commentId", "userId", "createTime")
+      VALUES ($1, $2, NOW())
+      ON CONFLICT ("commentId", "userId") DO NOTHING
+      RETURNING id
+      `,
+      [dto.commentId, userId],
+    );
+
+    if (!insertResult.rows.length) {
+      await this.databaseService.query(
+        `
+        DELETE FROM bz_topic_comment_like
+        WHERE "commentId" = $1
+          AND "userId" = $2
+        `,
+        [dto.commentId, userId],
+      );
+
+      const countResult = await this.databaseService.query(
+        `
+        SELECT COUNT(*)::int AS count
+        FROM bz_topic_comment_like
+        WHERE "commentId" = $1
+        `,
+        [dto.commentId],
+      );
+
+      return {
+        isLike: false,
+        likeCount: Number(countResult.rows[0]?.count || 0),
+      };
+    }
+
+    const countResult = await this.databaseService.query(
+      `
+      SELECT COUNT(*)::int AS count
+      FROM bz_topic_comment_like
+      WHERE "commentId" = $1
+      `,
+      [dto.commentId],
+    );
+
+    return {
+      isLike: true,
+      likeCount: Number(countResult.rows[0]?.count || 0),
+    };
   }
 }

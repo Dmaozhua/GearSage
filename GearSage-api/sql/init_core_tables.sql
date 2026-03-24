@@ -56,6 +56,20 @@ CREATE TABLE IF NOT EXISTS bz_topic_like (
   UNIQUE ("topicId", "userId")
 );
 
+CREATE TABLE IF NOT EXISTS bz_topic_comment_like (
+  id BIGSERIAL PRIMARY KEY,
+  "commentId" BIGINT NOT NULL,
+  "userId" BIGINT NOT NULL,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE ("commentId", "userId")
+);
+
+DELETE FROM bz_topic_comment_like a
+USING bz_topic_comment_like b
+WHERE a.id < b.id
+  AND a."commentId" = b."commentId"
+  AND a."userId" = b."userId";
+
 CREATE TABLE IF NOT EXISTS auth_identities (
   id BIGSERIAL PRIMARY KEY,
   "userId" BIGINT NOT NULL,
@@ -117,6 +131,15 @@ ON bz_topic_like ("topicId");
 
 CREATE INDEX IF NOT EXISTS idx_bz_topic_like_user
 ON bz_topic_like ("userId");
+
+CREATE INDEX IF NOT EXISTS idx_bz_topic_comment_like_comment
+ON bz_topic_comment_like ("commentId");
+
+CREATE INDEX IF NOT EXISTS idx_bz_topic_comment_like_user
+ON bz_topic_comment_like ("userId");
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_bz_topic_comment_like_comment_user
+ON bz_topic_comment_like ("commentId", "userId");
 
 CREATE INDEX IF NOT EXISTS idx_auth_identities_user
 ON auth_identities ("userId");

@@ -60,7 +60,7 @@
         <view class="user-info">
           <view class="user-name-row">
             <text class="user-name">{{userInfo.nickname || '钓友'}}</text>
-            <user-tag displayTag="{{userInfo.equippedDisplayTag}}" tag="{{userInfo.userTag}}" rarity="{{userInfo.userTagRarity || 1}}" size="sm" context="profile"></user-tag>
+            <user-tag wx:if="{{userInfo.equippedDisplayTag || userInfo.userTag}}" displayTag="{{userInfo.equippedDisplayTag || undefined}}" tag="{{userInfo.userTag || ''}}" rarity="{{userInfo.userTagRarity || 1}}" size="sm" context="profile"></user-tag>
           </view>
           
           <text class="user-intro" wx:if="{{userInfo.bio}}">{{userInfo.bio}}</text>

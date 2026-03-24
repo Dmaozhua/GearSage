@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './modules/app/app.controller';
 import { DatabaseService } from './common/database.service';
 import { JwtAuthGuard } from './common/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from './common/optional-jwt-auth.guard';
 import { AuthController } from './modules/auth/auth.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { CommentController } from './modules/comment/comment.controller';
@@ -40,6 +41,7 @@ ConfigModule.forRoot({
   providers: [
     DatabaseService,
     JwtAuthGuard,
+    OptionalJwtAuthGuard,
     AuthService,
     UserService,
     TopicService,

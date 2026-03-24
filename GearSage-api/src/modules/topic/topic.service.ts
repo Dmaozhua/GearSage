@@ -8,7 +8,7 @@ import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
 export class TopicService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async getAllTopics() {
+  async getAllTopics(currentUserId = 0) {
     const result = await this.databaseService.query(
       `
       SELECT
@@ -28,20 +28,25 @@ export class TopicService {
         t."isDelete",
         u."nickName",
         u."avatarUrl",
-        u.level
+        u.level,
+        CASE WHEN tul.id IS NULL THEN FALSE ELSE TRUE END AS "isLike"
       FROM bz_mini_topic t
       LEFT JOIN bz_mini_user u ON u.id = t."userId"
+      LEFT JOIN bz_topic_like tul
+        ON tul."topicId" = t.id
+       AND tul."userId" = $1
       WHERE t.status = 2
         AND t."isDelete" = 0
       ORDER BY t."publishTime" DESC NULLS LAST, t.id DESC
-      `
+      `,
+      [currentUserId || 0],
     );
 
     return result.rows.map((row: any) => this.formatTopic(row));
   }
 
-  async getMyTopics(userId: number, status?: number | null) {
-    const params: Array<number> = [userId];
+  async getMyTopics(userId: number, currentUserId = 0, status?: number | null) {
+    const params: Array<number> = [userId, currentUserId || 0];
     let whereClause = `
       WHERE t."userId" = $1
         AND t."isDelete" = 0
@@ -49,7 +54,7 @@ export class TopicService {
 
     if (status !== null && status !== undefined) {
       params.push(status);
-      whereClause += ` AND t.status = $2`;
+      whereClause += ` AND t.status = $3`;
     }
 
     const result = await this.databaseService.query(
@@ -71,9 +76,13 @@ export class TopicService {
         t."isDelete",
         u."nickName",
         u."avatarUrl",
-        u.level
+        u.level,
+        CASE WHEN tul.id IS NULL THEN FALSE ELSE TRUE END AS "isLike"
       FROM bz_mini_topic t
       LEFT JOIN bz_mini_user u ON u.id = t."userId"
+      LEFT JOIN bz_topic_like tul
+        ON tul."topicId" = t.id
+       AND tul."userId" = $2
       ${whereClause}
       ORDER BY t."updateTime" DESC, t.id DESC
       `,
@@ -83,7 +92,7 @@ export class TopicService {
     return result.rows.map((row: any) => this.formatTopic(row));
   }
 
-  async getTopicById(topicId: number) {
+  async getTopicById(topicId: number, currentUserId = 0) {
     const result = await this.databaseService.query(
       `
       SELECT
@@ -103,14 +112,18 @@ export class TopicService {
         t."isDelete",
         u."nickName",
         u."avatarUrl",
-        u.level
+        u.level,
+        CASE WHEN tul.id IS NULL THEN FALSE ELSE TRUE END AS "isLike"
       FROM bz_mini_topic t
       LEFT JOIN bz_mini_user u ON u.id = t."userId"
+      LEFT JOIN bz_topic_like tul
+        ON tul."topicId" = t.id
+       AND tul."userId" = $2
       WHERE t.id = $1
         AND t."isDelete" = 0
       LIMIT 1
       `,
-      [topicId],
+      [topicId, currentUserId || 0],
     );
 
     if (!result.rows.length) {
@@ -120,7 +133,7 @@ export class TopicService {
     return this.formatTopic(result.rows[0]);
   }
 
-  async getLatestDraftByUserId(userId: number) {
+  async getLatestDraftByUserId(userId: number, currentUserId = 0) {
     const result = await this.databaseService.query(
       `
       SELECT
@@ -140,16 +153,20 @@ export class TopicService {
         t."isDelete",
         u."nickName",
         u."avatarUrl",
-        u.level
+        u.level,
+        CASE WHEN tul.id IS NULL THEN FALSE ELSE TRUE END AS "isLike"
       FROM bz_mini_topic t
       LEFT JOIN bz_mini_user u ON u.id = t."userId"
+      LEFT JOIN bz_topic_like tul
+        ON tul."topicId" = t.id
+       AND tul."userId" = $2
       WHERE t."userId" = $1
         AND t.status = 0
         AND t."isDelete" = 0
       ORDER BY t."updateTime" DESC, t.id DESC
       LIMIT 1
       `,
-      [userId],
+      [userId, currentUserId || 0],
     );
 
     if (!result.rows.length) {
@@ -430,7 +447,7 @@ export class TopicService {
       nickName: row.nickName || '',
       avatarUrl: row.avatarUrl || '',
       level: row.level || 1,
-      isLike: false,
+      isLike: Boolean(row.isLike),
       displayTag: null,
       ...extra,
     };

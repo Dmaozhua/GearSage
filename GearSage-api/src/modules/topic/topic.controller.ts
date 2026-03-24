@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { CurrentUser } from '../../common/current-user.decorator';
 import { JwtAuthGuard } from '../../common/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from '../../common/optional-jwt-auth.guard';
 import { TopicService } from './topic.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
@@ -21,8 +22,9 @@ export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 
   @Get('all')
-  async getAll() {
-    const list = await this.topicService.getAllTopics();
+  @UseGuards(OptionalJwtAuthGuard)
+  async getAll(@CurrentUser() user?: { id: number }) {
+    const list = await this.topicService.getAllTopics(Number(user?.id || 0));
 
     return {
       code: 0,
@@ -41,6 +43,7 @@ export class TopicController {
       typeof status === 'string' && status.trim() !== '' ? Number(status) : null;
     const list = await this.topicService.getMyTopics(
       Number(user.id),
+      Number(user.id),
       Number.isInteger(normalizedStatus) ? normalizedStatus : null,
     );
 
@@ -54,7 +57,7 @@ export class TopicController {
   @Get('tmp')
   @UseGuards(JwtAuthGuard)
   async getLatestDraft(@CurrentUser() user: { id: number }) {
-    const detail = await this.topicService.getLatestDraftByUserId(Number(user.id));
+    const detail = await this.topicService.getLatestDraftByUserId(Number(user.id), Number(user.id));
 
     return {
       code: 0,
@@ -64,7 +67,11 @@ export class TopicController {
   }
 
   @Get()
-  async getDetail(@Query('topicId') topicId?: string) {
+  @UseGuards(OptionalJwtAuthGuard)
+  async getDetail(
+    @Query('topicId') topicId?: string,
+    @CurrentUser() user?: { id: number },
+  ) {
     if (!topicId) {
       throw new BadRequestException('topicId is required');
     }
@@ -75,7 +82,7 @@ export class TopicController {
       throw new BadRequestException('topicId is invalid');
     }
 
-    const detail = await this.topicService.getTopicById(id);
+    const detail = await this.topicService.getTopicById(id, Number(user?.id || 0));
 
     if (!detail) {
       return {

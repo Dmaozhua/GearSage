@@ -571,18 +571,30 @@
   margin-top: 10rpx;
 }
 
+.comment-action-group {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
 .comment-time,
 .reply-time {
   font-size: 22rpx;
   color: #8c99a8;
 }
 
+.comment-like-btn,
 .comment-reply-btn {
   padding: 8rpx 16rpx;
   border-radius: 999rpx;
   background: #f4f7fa;
   font-size: 22rpx;
   color: #516479;
+}
+
+.comment-like-btn--active {
+  background: rgba(225, 88, 88, 0.12);
+  color: #d04d4d;
 }
 
 .replies-list {
@@ -871,6 +883,7 @@
 .dark .topic-info-item,
 .dark .topic-conclusion-item,
 .dark .topic-boundary-card,
+.dark .comment-like-btn,
 .dark .comment-reply-btn,
 .dark .comment-input,
 .dark .comment-textarea {
@@ -886,6 +899,11 @@
 .dark .reply-text,
 .dark .rating-score {
   color: #dce7f5;
+}
+
+.dark .comment-like-btn--active {
+  background: rgba(255, 120, 120, 0.2);
+  color: #ff9a9a;
 }
 
 .dark .topic-info-tag {

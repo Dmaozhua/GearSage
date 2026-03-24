@@ -42,6 +42,9 @@ async function isLocalFileAvailable(filePath = '') {
 
 function downloadRemoteFile(url) {
   if (String(url).startsWith('cloud://')) {
+    if (!(wx.cloud && typeof wx.cloud.downloadFile === 'function')) {
+      return Promise.resolve('');
+    }
     return wx.cloud.downloadFile({ fileID: url }).then(res => res.tempFilePath || '');
   }
 
@@ -103,7 +106,7 @@ async function cacheRemoteImage(url = '') {
 
   const task = (async () => {
     const tempFilePath = await downloadRemoteFile(url);
-    if (!tempFilePath) return url;
+    if (!tempFilePath) return '';
 
     const localPath = await saveTempFile(tempFilePath);
     const finalPath = localPath || tempFilePath || url;
@@ -116,7 +119,7 @@ async function cacheRemoteImage(url = '') {
     });
 
     return finalPath;
-  })().catch(() => url).finally(() => {
+  })().catch(() => '').finally(() => {
     inflightCache.delete(url);
   });
 

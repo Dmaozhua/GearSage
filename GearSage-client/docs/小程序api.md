@@ -358,6 +358,44 @@ wx.cloud.callFunction({
   - `500` 未登录 / 服务端异常
 - 分页格式：无
 
+### 4.3 POST /mini/comment/like（评论点赞 / 取消点赞）
+
+- 方法：POST
+- 路径：/mini/comment/like
+- 是否需要登录：是
+- 请求参数：
+  - `commentId: number`
+- 返回结构：
+  - `data.isLike: boolean`
+  - `data.likeCount: number`
+- 行为说明：
+  - 未点赞时新增点赞记录并返回最新点赞数
+  - 已点赞时取消点赞并返回最新点赞数
+- 错误码：
+  - `200` 成功
+  - `401` 未登录 / token 失效
+  - `404` 评论不存在或已不可见
+- 分页格式：无
+
+### 4.4 DELETE /mini/comment（删除评论）
+
+- 方法：DELETE
+- 路径：/mini/comment?commentId=:id
+- 是否需要登录：是
+- 请求参数：
+  - `commentId: number`
+- 返回结构：
+  - `data: true`
+- 行为说明：
+  - 仅评论作者本人可删除
+  - 删除后帖子 `commentCount` 同步回写
+- 错误码：
+  - `200` 成功
+  - `401` 未登录 / token 失效
+  - `403` 无删除权限
+  - `404` 评论不存在或已删除
+- 分页格式：无
+
 ## 5. 标签（展示标签/衣柜/佩戴设置）
 
 ### 5.1 GET /mini/tag/usable（我的可用标签列表）
