@@ -1,122 +1,211 @@
 /* pages/login/login.wxss */
+page {
+  background-color: #f7f9fc;
+}
+
 .container {
   min-height: 100vh;
-  background-color: #ffffff;
-  padding: 60rpx 40rpx;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-bg {
+  position: absolute;
+  top: -200rpx;
+  left: -10%;
+  width: 120%;
+  height: 500rpx;
+  background: linear-gradient(135deg, #e3f0ff 0%, #f7f9fc 100%);
+  border-radius: 0 0 50% 50%;
+  z-index: 0;
 }
 
 .header {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100rpx;
+  margin-top: 140rpx;
   margin-bottom: 80rpx;
 }
 
 .logo {
-  width: 160rpx;
-  height: 160rpx;
-  margin-bottom: 30rpx;
+  width: 170rpx;
+  height: 170rpx;
+  margin-bottom: 32rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 16rpx 32rpx rgba(58, 135, 240, 0.15);
+  background: #ffffff;
+  padding: 10rpx;
 }
 
 .title {
-  font-size: 44rpx;
-  font-weight: 600;
-  color: #333333;
+  font-size: 46rpx;
+  font-weight: 700;
+  color: #1a1f26;
   margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
 }
 
 .subtitle {
   font-size: 28rpx;
-  color: #999999;
+  color: #6e7a8a;
+  letter-spacing: 1rpx;
 }
 
 .form-container {
+  position: relative;
+  z-index: 1;
   width: 100%;
+  padding: 0 60rpx;
+  box-sizing: border-box;
 }
 
 .input-group {
-  margin-bottom: 40rpx;
+  margin-bottom: 48rpx;
 }
 
 .input-label {
   font-size: 28rpx;
-  color: #333333;
-  margin-bottom: 16rpx;
-  font-weight: 500;
+  color: #333d4a;
+  margin-bottom: 20rpx;
+  font-weight: 600;
+  padding-left: 8rpx;
 }
 
-.input-field {
-  width: 100%;
-  height: 90rpx;
-  background-color: #f5f7fa;
-  border-radius: 12rpx;
-  padding: 0 30rpx;
-  font-size: 32rpx;
-  color: #333333;
-  box-sizing: border-box;
-}
-
+.input-wrapper,
 .code-input-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  height: 104rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.02);
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.input-wrapper:focus-within,
+.code-input-wrapper:focus-within {
+  border-color: #3a87f0;
+  box-shadow: 0 8rpx 24rpx rgba(58, 135, 240, 0.08);
+}
+
+.input-prefix {
+  font-size: 32rpx;
+  color: #1a1f26;
+  font-weight: 600;
+  padding: 0 24rpx 0 32rpx;
+  border-right: 2rpx solid #edf1f5;
+}
+
+.input-field {
+  flex: 1;
+  height: 100%;
+  padding: 0 32rpx;
+  font-size: 32rpx;
+  color: #1a1f26;
+  font-weight: 500;
+}
+
+.input-placeholder {
+  color: #aab4c3;
+  font-weight: 400;
 }
 
 .code-input {
   flex: 1;
-  margin-right: 20rpx;
 }
 
 .send-code-btn {
-  width: 200rpx;
-  height: 90rpx;
-  line-height: 90rpx;
-  background-color: #ffffff;
+  height: 64rpx;
+  line-height: 64rpx;
+  background-color: #f0f6ff;
   color: #3a87f0;
-  font-size: 28rpx;
-  border: 2rpx solid #3a87f0;
-  border-radius: 12rpx;
-  padding: 0;
-  margin: 0;
+  font-size: 26rpx;
+  font-weight: 600;
+  border-radius: 32rpx;
+  padding: 0 32rpx;
+  margin-right: 20rpx;
+  border: none;
+}
+
+.btn-hover {
+  background-color: #e1edff;
+  opacity: 0.9;
 }
 
 .send-code-btn.disabled {
-  color: #999999;
-  border-color: #dddddd;
-  background-color: #f5f5f5;
+  color: #aab4c3;
+  background-color: #f5f7fa;
+}
+
+.action-area {
+  margin-top: 80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-btn {
   width: 100%;
-  height: 90rpx;
-  line-height: 90rpx;
-  background: linear-gradient(135deg, #3a87f0, #2c5aa0);
+  height: 100rpx;
+  background: linear-gradient(135deg, #4492fe 0%, #2b70d4 100%);
   color: #ffffff;
-  font-size: 32rpx;
-  border-radius: 45rpx;
-  margin-top: 60rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  border-radius: 50rpx;
+  box-shadow: 0 12rpx 32rpx rgba(58, 135, 240, 0.25);
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.login-btn-hover {
+  transform: translateY(2rpx);
+  box-shadow: 0 6rpx 16rpx rgba(58, 135, 240, 0.2);
 }
 
 .login-btn.disabled {
-  background: #cccccc;
+  background: #d4dbe3;
   color: #ffffff;
+  box-shadow: none;
 }
 
-.cancel-btn {
-  width: 100%;
-  height: 90rpx;
-  line-height: 90rpx;
-  background: transparent;
-  color: #666666;
+.btn-spinner {
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: btn-spin 0.8s linear infinite;
+}
+
+.cancel-link {
+  margin-top: 48rpx;
+  padding: 20rpx;
+}
+
+.cancel-link text {
   font-size: 28rpx;
-  margin-top: 20rpx;
-  border: none;
+  color: #8a97a6;
+  font-weight: 500;
 }
 
-.cancel-btn::after {
-  border: none;
+/* 仅用于阻止点击的隐形遮罩，UI表现由按钮内loading实现 */
+.login-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: transparent;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }

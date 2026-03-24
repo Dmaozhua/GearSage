@@ -21,7 +21,10 @@ Page({
     }
   },
 
+  noop() {},
+
   onPhoneInput(e) {
+    if (this.data.loading) return;
     const phone = e.detail.value;
     this.setData({ 
       phone,
@@ -30,6 +33,7 @@ Page({
   },
 
   onCodeInput(e) {
+    if (this.data.loading) return;
     const code = e.detail.value;
     this.setData({ 
       code,
@@ -42,7 +46,7 @@ Page({
   },
 
   async onSendCode() {
-    if (this.data.countdown > 0) return;
+    if (this.data.countdown > 0 || this.data.loading) return;
     
     const { phone } = this.data;
     if (!/^1\d{10}$/.test(phone)) {
@@ -94,26 +98,39 @@ Page({
 
   async onLogin() {
     if (!this.data.isFormValid || this.data.loading) return;
+    if (this._loginTask) return this._loginTask;
 
+    const { phone, code } = this.data;
+    const pendingInvite = getPendingInvite();
+
+    this._loginTask = this.executeLogin({
+      phone,
+      code,
+      pendingInvite
+    });
+
+    return this._loginTask;
+  },
+
+  async executeLogin({ phone, code, pendingInvite }) {
     this.setData({ loading: true });
-    
-    try {
-      const { phone, code } = this.data;
-      const pendingInvite = getPendingInvite();
 
+    try {
       const authRes = await api.post('/auth/login', {
         phone,
         code,
         ...(pendingInvite || {})
       }, {
-        skipAuthRetry: true
+        skipAuthRetry: true,
+        silent: true,
+        preventOfflineQueue: true,
+        idempotentKey: `auth-login:${phone}`
       });
 
       const standardAuthRes = auth.normalizeAuthResponse(authRes);
       auth.persistAuthResult(standardAuthRes, { triggerHomeRefresh: true });
       clearPendingInvite();
 
-      // 尝试刷新最新用户信息
       try {
         const latestUser = await api.get('/auth/me', {
           silent: true,
@@ -138,27 +155,23 @@ Page({
         icon: 'success'
       });
 
-      // 如果有 openerEventChannel，通知调用方
       const eventChannel = this.getOpenerEventChannel();
       if (eventChannel && typeof eventChannel.emit === 'function') {
         eventChannel.emit('loginSuccess', standardAuthRes);
       }
 
       setTimeout(() => {
-        // 如果是从其他页面跳转来的，返回上一页
         if (getCurrentPages().length > 1) {
           wx.navigateBack();
         } else {
           wx.switchTab({ url: '/pages/index/index' });
         }
-        
-        // 触发全局登录成功事件，让其他页面更新（如 profile 页面可以监听 onShow 或事件）
+
         const app = getApp();
         if (app && app.globalData) {
           app.globalData.loginSuccess = true;
         }
       }, 1500);
-
     } catch (error) {
       console.error('[Login] 登录失败', error);
       wx.showToast({
@@ -166,6 +179,7 @@ Page({
         icon: 'none'
       });
     } finally {
+      this._loginTask = null;
       this.setData({ loading: false });
     }
   },
