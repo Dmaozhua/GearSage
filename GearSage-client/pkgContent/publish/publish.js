@@ -1,6 +1,18 @@
 // pages/publish/publish.js
 const apiService = require('../../services/api.js');
 
+function isRemoteAsset(url) {
+  return /^https?:\/\//.test(String(url || '')) || String(url || '').startsWith('cloud://');
+}
+
+function splitUploadQueue(images = []) {
+  const normalized = Array.isArray(images) ? images.filter(Boolean) : [];
+  return {
+    pending: normalized.filter(img => !isRemoteAsset(img)),
+    existing: normalized.filter(img => isRemoteAsset(img))
+  };
+}
+
 Page({
   /**
    * 页面的初始数据
@@ -819,44 +831,36 @@ Page({
       // 准备提交数据
       const { formData } = this.data;
       const imageUploadUtils = require('../../utils/imageUploadUtils');
-      const cloudDB = require('./cloudDB');
-      
-      // 上传图片到云存储
-      console.log('开始上传图片到云存储');
+      // 上传图片到独立后台
+      console.log('开始上传图片到独立后台');
       const cloudImages = [];
       const cloudReceiptImages = [];
+      const mainImageQueue = splitUploadQueue(formData.mainImages);
+      const receiptImageQueue = splitUploadQueue(formData.receiptImages);
       
-      // 检查主要图片是否需要上传到云存储
-      const needUploadImages = formData.mainImages.filter(img => !img.startsWith('cloud://') && !img.startsWith('https://'));
-      
-      if (needUploadImages.length > 0) {
+      if (mainImageQueue.pending.length > 0) {
         wx.showLoading({ title: '上传图片中...', mask: true });
         
         // 批量上传图片
-        const fileIDs = await imageUploadUtils.batchUploadImages(needUploadImages, 'posts');
+        const fileIDs = await imageUploadUtils.batchUploadImages(mainImageQueue.pending, 'posts');
         
-        // 合并已有的云存储图片和新上传的图片
-        const existingCloudImages = formData.mainImages.filter(img => img.startsWith('cloud://') || img.startsWith('https://'));
-        cloudImages.push(...existingCloudImages, ...fileIDs);
+        // 合并已有的远程图片和新上传的图片
+        cloudImages.push(...mainImageQueue.existing, ...fileIDs);
       } else {
-        // 所有图片已经是云存储路径
+        // 所有图片已经是远程路径
         cloudImages.push(...formData.mainImages);
       }
       
-      // 检查购买凭证图片是否需要上传到云存储
-      const needUploadReceiptImages = formData.receiptImages.filter(img => !img.startsWith('cloud://') && !img.startsWith('https://'));
-      
-      if (needUploadReceiptImages.length > 0) {
+      if (receiptImageQueue.pending.length > 0) {
         wx.showLoading({ title: '上传购买凭证中...', mask: true });
         
         // 批量上传购买凭证图片
-        const receiptFileIDs = await imageUploadUtils.batchUploadImages(needUploadReceiptImages, 'receipts');
+        const receiptFileIDs = await imageUploadUtils.batchUploadImages(receiptImageQueue.pending, 'receipts');
         
-        // 合并已有的云存储图片和新上传的图片
-        const existingCloudReceiptImages = formData.receiptImages.filter(img => img.startsWith('cloud://') || img.startsWith('https://'));
-        cloudReceiptImages.push(...existingCloudReceiptImages, ...receiptFileIDs);
+        // 合并已有的远程图片和新上传的图片
+        cloudReceiptImages.push(...receiptImageQueue.existing, ...receiptFileIDs);
       } else {
-        // 所有图片已经是云存储路径
+        // 所有图片已经是远程路径
         cloudReceiptImages.push(...formData.receiptImages);
       }
       
@@ -972,37 +976,35 @@ Page({
       const cloudImages = [];
       const cloudReceiptImages = [];
       
-      // 检查主图片是否需要上传到云存储
-      const needUploadImages = formData.mainImages.filter(img => !img.startsWith('cloud://') && !img.startsWith('https://'));
+      // 检查主图片是否需要上传到独立后台
+      const mainImageQueue = splitUploadQueue(formData.mainImages);
       
-      if (needUploadImages.length > 0) {
+      if (mainImageQueue.pending.length > 0) {
         wx.showLoading({ title: '上传主图片中...', mask: true });
         
         // 批量上传图片
-        const fileIDs = await imageUploadUtils.batchUploadImages(needUploadImages, 'drafts');
+        const fileIDs = await imageUploadUtils.batchUploadImages(mainImageQueue.pending, 'drafts');
         
-        // 合并已有的云存储图片和新上传的图片
-        const existingCloudImages = formData.mainImages.filter(img => img.startsWith('cloud://') || img.startsWith('https://'));
-        cloudImages.push(...existingCloudImages, ...fileIDs);
+        // 合并已有的远程图片和新上传的图片
+        cloudImages.push(...mainImageQueue.existing, ...fileIDs);
       } else {
-        // 所有图片已经是云存储路径
+        // 所有图片已经是远程路径
         cloudImages.push(...formData.mainImages);
       }
       
-      // 检查购买凭证图片是否需要上传到云存储
-      const needUploadReceiptImages = formData.receiptImages.filter(img => !img.startsWith('cloud://') && !img.startsWith('https://'));
+      // 检查购买凭证图片是否需要上传到独立后台
+      const receiptImageQueue = splitUploadQueue(formData.receiptImages);
       
-      if (needUploadReceiptImages.length > 0) {
+      if (receiptImageQueue.pending.length > 0) {
         wx.showLoading({ title: '上传购买凭证中...', mask: true });
         
         // 批量上传购买凭证图片
-        const receiptFileIDs = await imageUploadUtils.batchUploadImages(needUploadReceiptImages, 'receipts');
+        const receiptFileIDs = await imageUploadUtils.batchUploadImages(receiptImageQueue.pending, 'receipts');
         
-        // 合并已有的云存储图片和新上传的图片
-        const existingCloudReceiptImages = formData.receiptImages.filter(img => img.startsWith('cloud://') || img.startsWith('https://'));
-        cloudReceiptImages.push(...existingCloudReceiptImages, ...receiptFileIDs);
+        // 合并已有的远程图片和新上传的图片
+        cloudReceiptImages.push(...receiptImageQueue.existing, ...receiptFileIDs);
       } else {
-        // 所有图片已经是云存储路径
+        // 所有图片已经是远程路径
         cloudReceiptImages.push(...formData.receiptImages);
       }
       
@@ -1024,7 +1026,7 @@ Page({
         contentImages: cloudImages.join(','), // 图片路径用逗号分隔
         coverImg: cloudImages.length > 0 ? cloudImages[0] : null, // 使用第一张图片作为封面
         categoryKey: formData.type, // 装备类型
-        receipt: cloudReceiptImages.join(','), // 确保使用cloud://格式的图片路径
+        receipt: cloudReceiptImages.join(','),
         castingRate: parseFloat(castingScore.toFixed(1)), // 保持小数格式
         worthRate: parseFloat(costScore.toFixed(1)), // 保持小数格式
         lifeRate: parseFloat(durabilityScore.toFixed(1)), // 保持小数格式

@@ -12,22 +12,19 @@ Page({
     navBarHeight: 0,
     
     // 当前选中的标签
-    activeTab: 2, // 0: 未通过, 1: 审核中, 2: 已发布（默认选中已发布）
+    activeTab: 1, // 0: 草稿, 1: 已发布（默认选中已发布）
     
     // 帖子数据
-    pendingPosts: [],      // 待审核帖子 (status: 1)
+    draftPosts: [],        // 草稿帖子 (status: 0)
     publishedPosts: [],    // 已发布帖子 (status: 2)
-    notpassedPosts: [],    // 未通过帖子 (status: 3)
     
     // 统计数据
-    pendingCount: 0,
+    draftCount: 0,
     publishedCount: 0,
-    notpassedCount: 0,
     
     // 分页数据
-    pendingPage: 1,
+    draftPage: 1,
     publishedPage: 1,
-    notpassedPage: 1,
     hasMore: true,
     
     // 加载状态
@@ -110,12 +107,9 @@ Page({
     try {
       // 根据当前选中的标签加载对应数据
       if (this.data.activeTab === 0) {
-        // 加载未通过数据 (status: 3)
-        await this.loadNotpassedPosts(refresh);
+        // 加载已发布数据 (status: 2)
+        await this.loadDraftPosts(refresh);
       } else if (this.data.activeTab === 1) {
-        // 加载审核中数据 (status: 1)
-        await this.loadPendingPosts(refresh);
-      } else if (this.data.activeTab === 2) {
         // 加载已发布数据 (status: 2)
         await this.loadPublishedPosts(refresh);
       }
@@ -134,39 +128,34 @@ Page({
   },
 
   /**
-   * 加载审核中的帖子 (status: 1)
+   * 加载草稿帖子 (status: 0)
    */
-  async loadPendingPosts(refresh = false) {
+  async loadDraftPosts(refresh = false) {
     try {
       const params = {
-        page: refresh ? 1 : this.data.pendingPage,
+        page: refresh ? 1 : this.data.draftPage,
         limit: 10
       };
       
-      const response = await api.getUserPosts(1, params); // status: 1 待审核
+      const response = await api.getUserPosts(0, params);
       
-      // API直接返回数据数组，不需要检查success字段
       if (response && Array.isArray(response)) {
         const newPosts = response;
-        // 格式化时间
-        const formattedPosts = newPosts.map(post => ({
-          ...post,
-          createTime: dateFormatter.formatTime(post.createTime)
-        }));
+        const formattedPosts = this.formatPosts(newPosts);
         
-        const pendingPosts = refresh ? formattedPosts : [...this.data.pendingPosts, ...formattedPosts];
+        const draftPosts = refresh ? formattedPosts : [...this.data.draftPosts, ...formattedPosts];
         
         this.setData({
-          pendingPosts,
-          pendingCount: pendingPosts.length, // 使用合并后的数据总长度
-          pendingPage: refresh ? 2 : this.data.pendingPage + 1,
-          hasMore: newPosts.length >= 10 // 如果返回数据少于10条，说明没有更多数据了
+          draftPosts,
+          draftCount: draftPosts.length,
+          draftPage: refresh ? 2 : this.data.draftPage + 1,
+          hasMore: newPosts.length >= 10
         });
       } else {
         throw new Error('获取数据失败');
       }
     } catch (error) {
-      console.error('加载审核中帖子失败:', error);
+      console.error('加载草稿帖子失败:', error);
       wx.showToast({
         title: '加载失败',
         icon: 'none'
@@ -186,22 +175,17 @@ Page({
       
       const response = await api.getUserPosts(2, params); // status: 2 已发布
       
-      // API直接返回数据数组，不需要检查success字段
       if (response && Array.isArray(response)) {
         const newPosts = response;
-        // 格式化时间
-        const formattedPosts = newPosts.map(post => ({
-          ...post,
-          createTime: dateFormatter.formatTime(post.createTime)
-        }));
+        const formattedPosts = this.formatPosts(newPosts);
         
         const publishedPosts = refresh ? formattedPosts : [...this.data.publishedPosts, ...formattedPosts];
         
         this.setData({
-          publishedPosts,
-          publishedCount: publishedPosts.length, // 使用合并后的数据总长度
+          publishedPosts,          
+          publishedCount: publishedPosts.length,
           publishedPage: refresh ? 2 : this.data.publishedPage + 1,
-          hasMore: newPosts.length >= 10 // 如果返回数据少于10条，说明没有更多数据了
+          hasMore: newPosts.length >= 10
         });
       } else {
         throw new Error('获取数据失败');
@@ -215,45 +199,15 @@ Page({
     }
   },
 
-  /**
-   * 加载未通过的帖子 (status: 3)
-   */
-  async loadNotpassedPosts(refresh = false) {
-    try {
-      const params = {
-        page: refresh ? 1 : this.data.notpassedPage,
-        limit: 10
-      };
-      
-      const response = await api.getUserPosts(4, params); // status: 4 审核驳回
-      
-      // API直接返回数据数组，不需要检查success字段
-      if (response && Array.isArray(response)) {
-        const newPosts = response;
-        // 格式化时间
-        const formattedPosts = newPosts.map(post => ({
-          ...post,
-          createTime: dateFormatter.formatTime(post.createTime)
-        }));
-        
-        const notpassedPosts = refresh ? formattedPosts : [...this.data.notpassedPosts, ...formattedPosts];
-        
-        this.setData({
-          notpassedPosts,
-          notpassedCount: notpassedPosts.length, // 使用合并后的数据总长度
-          notpassedPage: refresh ? 2 : this.data.notpassedPage + 1,
-          hasMore: newPosts.length >= 10 // 如果返回数据少于10条，说明没有更多数据了
-        });
-      } else {
-        throw new Error('获取数据失败');
-      }
-    } catch (error) {
-      console.error('加载未通过帖子失败:', error);
-      wx.showToast({
-        title: '加载失败',
-        icon: 'none'
-      });
-    }
+  formatPosts(posts = []) {
+    return posts.map(post => ({
+      ...post,
+      createTime: dateFormatter.formatTime(post.createTime),
+      publishTime: post.publishTime ? dateFormatter.formatTime(post.publishTime) : '',
+      likeCount: Number(post.likeCount || post.likesCount || 0),
+      commentCount: Number(post.commentCount || post.commentsCount || 0),
+      viewCount: Number(post.viewCount || post.viewsCount || 0)
+    }));
   },
 
   /**
@@ -264,13 +218,8 @@ Page({
     
     try {
       if (this.data.activeTab === 0) {
-        // 加载更多未通过的帖子
-        await this.loadNotpassedPosts();
+        await this.loadDraftPosts();
       } else if (this.data.activeTab === 1) {
-        // 加载更多审核中的帖子
-        await this.loadPendingPosts();
-      } else if (this.data.activeTab === 2) {
-        // 加载更多已发布的帖子
         await this.loadPublishedPosts();
       }
     } catch (error) {
@@ -295,10 +244,15 @@ Page({
   onPostTap(e) {
     const post = e.currentTarget.dataset.post;
     console.log('查看帖子详情:', post);
-    
-    // 跳转到帖子详情页
+    if (Number(post.status) === 0) {
+      wx.navigateTo({
+        url: '/pkgContent/publish/publish'
+      });
+      return;
+    }
+
     wx.navigateTo({
-      url: `/pages/post-detail/post-detail?id=${post.id}`
+      url: `/pkgContent/detail/detail?id=${post.id}`
     });
   },
 
@@ -341,16 +295,14 @@ Page({
   async deletePost(post) {
     try {
       wx.showLoading({ title: '删除中...' });
-      
-      // 模拟API调用
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // 从列表中移除
-      if (post.status === 'pending') {
-        const pendingPosts = this.data.pendingPosts.filter(p => p.id !== post.id);
+
+      await api.deleteTopic(post.id);
+
+      if (Number(post.status) === 0) {
+        const draftPosts = this.data.draftPosts.filter(p => p.id !== post.id);
         this.setData({
-          pendingPosts,
-          pendingCount: pendingPosts.length
+          draftPosts,
+          draftCount: draftPosts.length
         });
       } else {
         const publishedPosts = this.data.publishedPosts.filter(p => p.id !== post.id);

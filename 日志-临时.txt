@@ -1,0 +1,106 @@
+[postPreview] publish payload summary: {topicCategory: 1, title: "312", gearCategory: "rod", gearModel: "26 ZODIAS 佐大师", gearItemId: 85, …}
+api.js:285 [API] 发起网络请求:
+api.js:286 [API] 请求方法: POST
+api.js:287 [API] 请求地址: http://127.0.0.1:3001/mini/topic
+api.js:288 [API] 请求参数: {id: undefined, topicCategory: 1, title: "312", content: "第一次去路亚，我揣着入门级的直柄竿，攥着亮片拟饵，在河边摸索了整整一个下午。太阳快落山时，我已经有些…出水面，银闪闪的鳞片在夕阳下晃眼，那一刻，所有的疲惫都烟消云散，只记得指尖传来的震动和心跳的雀跃。", images: Array(1), …}
+api.js:289 [API] 请求头(不含动态Token): {}
+api.js:291 [API] 请求锁Key: POST|/mini/topic|{"topicCategory":1,"title":"312","content":"第一次去路亚，我揣着入门级的直柄竿，攥着亮片拟饵，在河边摸索了整整一个下午。太阳快落山时，我已经有些泄气，随手将亮片往水草边缘抛去，拟饵刚落水就被一股力道猛拽，竿尖瞬间弯成了漂亮的弧线，线杯嗡嗡作响。我慌得忘了教练说的遛鱼技巧，只凭着本能握紧鱼竿，跟着鱼的力道慢慢牵引，僵持了足足三分钟，一条半斤重的翘嘴终于露出水面，银闪闪的鳞片在夕阳下晃眼，那一刻，所有的疲惫都烟消云散，只记得指尖传来的震动和心跳的雀跃。","images":["http://127.0.0.1:3001/uploads/image/1774329867226-yzbryl3m.jpg"],"extra":{"categoryKey":"","environment":"","usagePeriod":"","usageRate":"","contentImages":"http://127.0.0.1:3001/uploads/image/1774329867226-yzbryl3m.jpg","coverImg":"http://127.0.0.1:3001/uploads/image/1774329867226-yzbryl3m.jpg","receipt":"","recommendReason":"[]"}}|{}
+api.js:468 [API] 实际发送请求头: {Content-Type: "application/json", Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW…UzMH0.eDylmnp3_-TiWFB-WIKdXqIH-1fsn7VOIvy_b0qcRDg", clientid: "wx_mini"}
+api.js:330 [API] 请求响应成功:
+api.js:331 [API] 响应状态码: 201
+api.js:332 [API] 响应数据: {code: 0, message: "ok", data: {…}}
+api.js:334 [API][性能] 本次请求耗时: 73 ms
+api.js:484 [API][性能] 请求总耗时: 75 ms POST /mini/topic
+[自动热重载] 已开启代码文件保存后自动热重载
+index.js? [sm]:2583 AnglerSay页面onShow开始
+index.js? [sm]:2589 获取自定义导航栏组件: ai {themeCheckInterval: 60, __data__: {…}, __wxWebviewId__: 7, __wxExparserNodeId__: "3f02a3f0", onThemeChange: ƒ}
+index.js? [sm]:2591 调用updateTheme方法
+index.js? [sm]:2616 [首页] 列表已存在，叠加本地点赞缓存以确保状态不丢失
+index.js? [sm]:2623 [首页] 已叠加本地点赞缓存
+index.js? [sm]:2642 [首页] 点赞状态刷新流程完成
+index.js? [sm]:2656 [首页] 检测到发帖完成，刷新首页列表
+index.js? [sm]:1918 [首页] 开始加载话题数据
+api.js:285 [API] 发起网络请求:
+api.js:286 [API] 请求方法: GET
+api.js:287 [API] 请求地址: http://127.0.0.1:3001/mini/topic/all
+api.js:288 [API] 请求参数: {limit: 12}
+api.js:289 [API] 请求头(不含动态Token): {}
+api.js:468 [API] 实际发送请求头: {Content-Type: "application/json", Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW…UzMH0.eDylmnp3_-TiWFB-WIKdXqIH-1fsn7VOIvy_b0qcRDg", clientid: "wx_mini"}
+index.js? [sm]:2662 AnglerSay页面onShow结束
+api.js:330 [API] 请求响应成功:
+api.js:331 [API] 响应状态码: 200
+api.js:332 [API] 响应数据: {code: 0, message: "ok", data: Array(2)}
+api.js:334 [API][性能] 本次请求耗时: 29 ms
+api.js:484 [API][性能] 请求总耗时: 31 ms GET /mini/topic/all
+index.js? [sm]:2061 [首页][性能] 首页首轮可渲染耗时 34 ms
+index.js? [sm]:2085 [首页] 话题数据加载成功，共 2 条数据
+index.js? [sm]:2065 [首页][性能] 头像临时链接处理耗时 1 ms
+index.js? [sm]:1811 [首页] 应用筛选结果: {source: "network", currentFilter: "all", subFilter: "latest", count: 2, preview: Array(2)}
+[pages/index/index] [Component] <wx-image>: 图片链接 http://127.0.0.1:3001/uploads/image/1774329867226-yzbryl3m.jpg 不再支持 HTTP 协议，请升级到 HTTPS
+[渲染层网络层错误] Failed to load image https://example.com/a.jpg
+the server responded with a status of 404 (HTTP/1.1 404) 
+From server 104.18.26.120(env: macOS,mp,2.01.2510280; lib: 3.14.2)
+preloadSubpackages: pkgContent
+preloadSubpackages: success
+index.js? [sm]:2219 [首页] 跳转详情页 - ID: 5 islike: false
+[自动热重载] 已开启代码文件保存后自动热重载
+detail.js? [sm]:255 [详情页] 接收首页传入的islike: false
+detail.js? [sm]:757 加载产品ID: 5
+api.js:285 [API] 发起网络请求:
+api.js:286 [API] 请求方法: GET
+api.js:287 [API] 请求地址: http://127.0.0.1:3001/mini/topic?topicId=5
+api.js:288 [API] 请求参数: {}
+api.js:289 [API] 请求头(不含动态Token): {}
+api.js:468 [API] 实际发送请求头: {Content-Type: "application/json", Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW…UzMH0.eDylmnp3_-TiWFB-WIKdXqIH-1fsn7VOIvy_b0qcRDg", clientid: "wx_mini"}
+[Violation] 'message' handler took 572ms
+api.js:330 [API] 请求响应成功:
+api.js:331 [API] 响应状态码: 200
+api.js:332 [API] 响应数据: {code: 0, message: "ok", data: {…}}
+api.js:334 [API][性能] 本次请求耗时: 55 ms
+api.js:484 [API][性能] 请求总耗时: 58 ms GET /mini/topic?topicId=5
+detail.js? [sm]:778 [详情页] API返回的原始数据: {id: 5, topicCategory: 1, title: "312", content: "第一次去路亚，我揣着入门级的直柄竿，攥着亮片拟饵，在河边摸索了整整一个下午。太阳快落山时，我已经有些…出水面，银闪闪的鳞片在夕阳下晃眼，那一刻，所有的疲惫都烟消云散，只记得指尖传来的震动和心跳的雀跃。", images: Array(1), …}
+detail.js? [sm]:779 [详情页] 原始islike值: false 类型: boolean
+detail.js? [sm]:1036 开始加载评论，帖子ID: 5
+api.js:285 [API] 发起网络请求:
+api.js:286 [API] 请求方法: GET
+api.js:287 [API] 请求地址: http://127.0.0.1:3001/mini/comment?topicId=5
+api.js:288 [API] 请求参数: {}
+api.js:289 [API] 请求头(不含动态Token): {}
+api.js:468 [API] 实际发送请求头: {Content-Type: "application/json", Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW…UzMH0.eDylmnp3_-TiWFB-WIKdXqIH-1fsn7VOIvy_b0qcRDg", clientid: "wx_mini"}
+[pkgContent/detail/detail] Some selectors are not allowed in component wxss, including tag name selectors, ID selectors, and attribute selectors.(./components/svg-loading/svg-loading.wxss:101:24)
+[pkgContent/detail/detail] [Component] <scroll-view>: 设置 enable-flex 属性以使 flexbox 布局生效
+[pkgContent/detail/detail] [Component] <wx-image>: 图片链接 http://127.0.0.1:3001/uploads/image/1774329867226-yzbryl3m.jpg 不再支持 HTTP 协议，请升级到 HTTPS
+api.js:330 [API] 请求响应成功:
+api.js:331 [API] 响应状态码: 200
+api.js:332 [API] 响应数据: {code: 0, message: "ok", data: Array(0)}
+api.js:334 [API][性能] 本次请求耗时: 34 ms
+api.js:484 [API][性能] 请求总耗时: 36 ms GET /mini/comment?topicId=5
+detail.js? [sm]:1041 评论加载成功: []
+detail.js? [sm]:1143 增加浏览量: 5
+detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1968 下拉刷新被中止
+detail.js? [sm]:1975 下拉刷新恢复
+2detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1964 正在下拉...
+2detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1964 正在下拉...
+2detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1964 正在下拉...
+2detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1964 正在下拉...
+2detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1964 正在下拉...
+2detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1964 正在下拉...
+detail.js? [sm]:1968 下拉刷新被中止
+detail.js? [sm]:1975 下拉刷新恢复
+[自动热重载] 已开启代码文件保存后自动热重载
+index.js? [sm]:2583 AnglerSay页面onShow开始
+index.js? [sm]:2589 获取自定义导航栏组件: ai {themeCheckInterval: 60, __data__: {…}, __wxWebviewId__: 7, __wxExparserNodeId__: "3f02a3f0", onThemeChange: ƒ}
+index.js? [sm]:2591 调用updateTheme方法
+index.js? [sm]:2616 [首页] 列表已存在，叠加本地点赞缓存以确保状态不丢失
+index.js? [sm]:2623 [首页] 已叠加本地点赞缓存
+index.js? [sm]:2642 [首页] 点赞状态刷新流程完成
+index.js? [sm]:2662 AnglerSay页面onShow结束
+preloadSubpackages: pkgContent
+preloadSubpackages: success

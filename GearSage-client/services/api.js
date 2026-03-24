@@ -49,6 +49,23 @@ function normalizeArray(value) {
   return [];
 }
 
+function isSerializableTopicValue(value) {
+  if (value === undefined || typeof value === 'function') {
+    return false;
+  }
+  if (value === null) {
+    return true;
+  }
+  const valueType = typeof value;
+  if (valueType === 'string' || valueType === 'number' || valueType === 'boolean') {
+    return true;
+  }
+  if (Array.isArray(value)) {
+    return true;
+  }
+  return valueType === 'object';
+}
+
 function normalizeTopicResponse(topic = {}) {
   if (!topic || typeof topic !== 'object') {
     return topic;
@@ -97,26 +114,57 @@ function buildTopicPayload(topicData = {}) {
     return JSON.stringify([]);
   })();
 
+  const extra = {
+    ...(topicData.extra && typeof topicData.extra === 'object' ? topicData.extra : {}),
+    categoryKey: topicData.categoryKey || '',
+    environment: topicData.environment || '',
+    usagePeriod: topicData.usagePeriod || '',
+    usageRate: topicData.usageRate || '',
+    castingRate: topicData.castingRate,
+    worthRate: topicData.worthRate,
+    lifeRate: topicData.lifeRate,
+    contentImages: images.join(','),
+    coverImg: images[0] || '',
+    receipt: receiptImages.join(','),
+    recommendReason
+  };
+
+  const reservedKeys = new Set([
+    'id',
+    'topicCategory',
+    'title',
+    'content',
+    'images',
+    'contentImages',
+    'coverImg',
+    'receipt',
+    'recommend',
+    'recommendReason',
+    'extra'
+  ]);
+
+  Object.keys(topicData).forEach((key) => {
+    if (reservedKeys.has(key)) {
+      return;
+    }
+    const value = topicData[key];
+    if (isSerializableTopicValue(value)) {
+      extra[key] = value;
+    }
+  });
+
   return {
     id: topicData.id || undefined,
     topicCategory: Number.isFinite(Number(topicData.topicCategory)) ? Number(topicData.topicCategory) : 1,
     title: topicData.title || '',
     content: topicData.content || '',
     images,
-    extra: {
-      categoryKey: topicData.categoryKey || '',
-      environment: topicData.environment || '',
-      usagePeriod: topicData.usagePeriod || '',
-      usageRate: topicData.usageRate || '',
-      castingRate: topicData.castingRate,
-      worthRate: topicData.worthRate,
-      lifeRate: topicData.lifeRate,
-      contentImages: images.join(','),
-      coverImg: images[0] || '',
-      receipt: receiptImages.join(','),
-      recommendReason
-    }
+    extra
   };
+}
+
+function isSuccessfulBooleanResult(result) {
+  return result === true || !!(result && (result.success === true || result.id));
 }
 
 function normalizeCloudPayload(action, payload = {}) {
@@ -1628,12 +1676,12 @@ class ApiService {
       topicCategory: 1,
       categoryKey: topicData.categoryKey || topicData.type || ''
     });
-    return this.post('/mini/topic', payload).then(result => !!(result && result.id));
+    return this.post('/mini/topic', payload).then(result => isSuccessfulBooleanResult(result));
   }
 
   /**
    * 获取当前登录用户帖子列表
-   * @param {number} status - 帖子状态 1:待审核 2:审核已发布 4:审核驳回
+   * @param {number} status - 帖子状态 0:草稿 1:待审核 2:已发布
    * @param {object} params - 其他查询参数
    */
   getUserPosts(status, params = {}) {
@@ -1653,6 +1701,15 @@ class ApiService {
    */
   likeTopic(topicId) {
     return this.post('/mini/topic/like', { topicId }).then(result => !!(result && result.isLike));
+  }
+
+  /**
+   * 删除帖子或草稿
+   * @param {string|number} topicId - 帖子ID
+   * @returns {Promise<boolean>}
+   */
+  deleteTopic(topicId) {
+    return this.delete(`/mini/topic?topicId=${encodeURIComponent(topicId)}`).then(result => isSuccessfulBooleanResult(result));
   }
 
   /**

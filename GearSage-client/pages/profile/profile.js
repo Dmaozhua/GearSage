@@ -492,16 +492,22 @@ Page({
    */
   onMyDrafts() {
     console.log('我的草稿');
-    const draft = wx.getStorageSync('publish_draft');
-    if (draft && Object.keys(draft).length > 0) {
+    api.getTmpTopic().then(draft => {
+      if (!(draft && draft.id)) {
+        wx.showToast({
+          title: '暂无草稿',
+          icon: 'none'
+        });
+        return;
+      }
+
       wx.showModal({
         title: '草稿提示',
         content: '检测到未完成的草稿，是否继续编辑？',
         confirmText: '继续编辑',
         cancelText: '删除草稿',
-        success: (res) => {
+        success: async (res) => {
           if (res.confirm) {
-            // 继续编辑草稿
             console.log('跳转到发布页面，携带fromDraft参数');
             wx.navigateTo({
               url: '/pkgContent/publish/publish?fromDraft=true',
@@ -517,23 +523,31 @@ Page({
               }
             });
           } else {
-            // 删除草稿
-            wx.removeStorageSync('publish_draft');
-            getApp().globalData.hasDraft = false;
-            this.setData({ hasDraft: false });
-            wx.showToast({
-              title: '草稿已删除',
-              icon: 'success'
-            });
+            try {
+              await api.deleteTopic(draft.id);
+              getApp().globalData.hasDraft = false;
+              this.setData({ hasDraft: false });
+              wx.showToast({
+                title: '草稿已删除',
+                icon: 'success'
+              });
+            } catch (error) {
+              console.error('删除草稿失败:', error);
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              });
+            }
           }
         }
       });
-    } else {
+    }).catch(error => {
+      console.error('获取草稿失败:', error);
       wx.showToast({
-        title: '暂无草稿',
+        title: '获取草稿失败',
         icon: 'none'
       });
-    }
+    });
   },
 
 
@@ -551,16 +565,22 @@ Page({
   /**
    * 检查草稿状态
    */
-  checkDraftStatus() {
+  async checkDraftStatus() {
+    if (!this.data.isLoggedIn) {
+      this.setData({ hasDraft: false });
+      getApp().globalData.hasDraft = false;
+      return;
+    }
+
     try {
-      const draft = wx.getStorageSync('publish_draft');
-      const hasDraft = draft && Object.keys(draft).length > 0;
+      const draft = await api.getTmpTopic();
+      const hasDraft = !!(draft && draft.id);
       this.setData({ hasDraft });
-      // 同步到全局数据
       getApp().globalData.hasDraft = hasDraft;
     } catch (error) {
       console.error('检查草稿状态失败:', error);
       this.setData({ hasDraft: false });
+      getApp().globalData.hasDraft = false;
     }
   },
 
@@ -942,7 +962,7 @@ Page({
           try {
             wx.showLoading({ title: '删除中...' });
             
-            await api.deletePost(postId);
+            await api.deleteTopic(postId);
             
             // 从列表中移除
             const updatedPosts = this.data.myPosts.filter((_, i) => i !== index);
@@ -974,16 +994,25 @@ Page({
   /**
    * 检查草稿状态
    */
-  checkDraftStatus() {
-    try {
-      const draft = wx.getStorageSync('publish_draft');
-      const hasDraft = draft && Object.keys(draft).length > 0;
-      
+  async checkDraftStatus() {
+    if (!this.data.isLoggedIn) {
       this.setData({
-        hasDraft: hasDraft
+        hasDraft: false
+      });
+      return;
+    }
+
+    try {
+      const draft = await api.getTmpTopic();
+      const hasDraft = !!(draft && draft.id);
+      this.setData({
+        hasDraft
       });
     } catch (error) {
       console.error('检查草稿状态失败:', error);
+      this.setData({
+        hasDraft: false
+      });
     }
   },
 
@@ -1022,13 +1051,23 @@ Page({
     wx.showModal({
       title: '确认删除',
       content: '确定要删除草稿吗？删除后无法恢复。',
-      success: (res) => {
+      success: async (res) => {
         if (res.confirm) {
           try {
-            wx.removeStorageSync('publish_draft');
+            const draft = await api.getTmpTopic();
+            if (!draft || !draft.id) {
+              wx.showToast({
+                title: '暂无草稿',
+                icon: 'none'
+              });
+              return;
+            }
+
+            await api.deleteTopic(draft.id);
             this.setData({
               hasDraft: false
             });
+            getApp().globalData.hasDraft = false;
             
             wx.showToast({
               title: '草稿已删除',
