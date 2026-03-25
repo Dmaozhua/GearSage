@@ -1,5 +1,6 @@
 // app.js
 const tempUrlManager = require('./utils/tempUrlManager.js');
+const api = require('./services/api.js');
 
 App({
   onLaunch: function () {
@@ -10,6 +11,7 @@ App({
     this._lastGlobalErrorToast = 0
 
     console.log('[App] 当前版本已切换为独立后台，不再初始化 wx.cloud');
+    this.syncApiServerTarget()
     
     // 获取设备信息，计算自定义导航栏高度
     this.initNavBarInfo()
@@ -117,6 +119,32 @@ App({
       icon: 'none',
       duration: 3000
     });
+  },
+
+  syncApiServerTarget() {
+    try {
+      const currentTarget = api.getCurrentServerTarget();
+      this.globalData.apiServerTarget = currentTarget.key;
+      this.globalData.apiServerBaseUrl = currentTarget.baseUrl;
+      this.globalData.apiServerLabel = currentTarget.label;
+      console.log('[App] 当前接口服务器目标:', currentTarget);
+      return currentTarget;
+    } catch (error) {
+      console.error('[App] 同步接口服务器目标失败:', error);
+      return null;
+    }
+  },
+
+  setApiServerTarget(targetKey, options = {}) {
+    const result = api.setCurrentServerTarget(targetKey, options);
+    this.syncApiServerTarget();
+    return result;
+  },
+
+  toggleApiServerTarget(options = {}) {
+    const result = api.toggleServerTarget(options);
+    this.syncApiServerTarget();
+    return result;
   },
 
   /**
@@ -407,6 +435,10 @@ App({
     menuButtonInfo: {},
     systemInfo: {},
     // 图片上传配置
-    imageUploadConfig: {}
+    imageUploadConfig: {},
+    // 当前接口服务器目标
+    apiServerTarget: '',
+    apiServerBaseUrl: '',
+    apiServerLabel: ''
   }
 })

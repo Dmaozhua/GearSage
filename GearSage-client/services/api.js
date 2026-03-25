@@ -1,18 +1,16 @@
 // services/api.js
 const EnvUtil = require('../utils/env.js');
+const ServerConfig = require('../utils/serverConfig.js');
 
 const OFFLINE_QUEUE_STORAGE_KEY = 'api_offline_queue';
 const REQUEST_LOCK_EXEMPT_METHODS = ['GET'];
-const PROD_BASE_URL = 'https://api.gearsage.club';
-const DEV_BASE_URL = 'http://127.0.0.1:3001';
-
-const BASE_URL = EnvUtil.isDevTool() ? DEV_BASE_URL : PROD_BASE_URL;
 
 // 统一使用真实接口（不再区分开发工具和真机环境）
 const MOCK_MODE = false;
 
 console.log('[API] 环境检测结果:', EnvUtil.getEnvInfo());
 console.log('[API] 模拟模式状态:', MOCK_MODE ? '启用（开发者工具）' : '禁用（真机设备）');
+console.log('[API] 当前服务器目标:', ServerConfig.getCurrentTarget());
 
 // 已脱离云函数分流，/mini/* 统一直连独立后台。
 const CLOUD_ACTION_MAP = {};
@@ -100,6 +98,10 @@ function normalizeNumberValue(value) {
   }
   const numberValue = Number(value);
   return Number.isFinite(numberValue) ? numberValue : undefined;
+}
+
+function getBaseUrl() {
+  return ServerConfig.getBaseUrl();
 }
 
 const GEAR_CATEGORY_ALIAS_MAP = {
@@ -384,7 +386,7 @@ class ApiService {
     requestOptions.data = requestOptions.data || {};
     requestOptions.header = requestOptions.header || {};
 
-    const fullUrl = `${BASE_URL}${requestOptions.url}`;
+    const fullUrl = `${getBaseUrl()}${requestOptions.url}`;
     const isSilent = requestOptions.silent === true;
     const skipErrorToast = requestOptions.skipErrorToast === true;
     const skipAuthRetry = requestOptions.skipAuthRetry === true;
@@ -968,6 +970,44 @@ class ApiService {
     }
   }
 
+  clearLocalAuthState(options = {}) {
+    const { silent = false, markManualLogout = true } = options;
+
+    wx.removeStorageSync('token');
+    wx.removeStorageSync('refreshToken');
+    wx.removeStorageSync('userInfo');
+    wx.removeStorageSync('needRefreshAfterLogin');
+
+    if (markManualLogout) {
+      wx.setStorageSync('manualLogout', true);
+    } else {
+      wx.removeStorageSync('manualLogout');
+    }
+
+    try {
+      const auth = require('./auth.js');
+      if (auth) {
+        auth.userInfo = null;
+        auth.isAdmin = false;
+      }
+    } catch (error) {
+      console.warn('[API] 清理 auth 服务状态失败:', error);
+    }
+
+    try {
+      const app = getApp();
+      if (app && app.globalData) {
+        app.globalData.userInfo = null;
+      }
+    } catch (_error) {
+      // noop
+    }
+
+    if (!silent) {
+      console.log('[API] 已清理本地登录信息');
+    }
+  }
+
   /**
    * 处理认证错误（401未授权，403授权过期）
    */
@@ -982,19 +1022,7 @@ class ApiService {
     this.isHandlingAuthError = true;
     
     try {
-      // 清除本地存储的token和用户信息
-      wx.removeStorageSync('token');
-      wx.removeStorageSync('refreshToken');
-      wx.removeStorageSync('userInfo');
-      console.log('[API] 已清除本地存储的登录信息');
-      
-      // 清除auth服务中的登录状态
-      const auth = require('./auth.js');
-      if (auth) {
-        auth.userInfo = null;
-        auth.isAdmin = false;
-        console.log('[API] 已清除auth服务中的登录状态');
-      }
+      this.clearLocalAuthState({ silent: true, markManualLogout: true });
       
       // 设置全局标志，通知profile页面显示登录提示
       const app = getApp();
@@ -1023,6 +1051,58 @@ class ApiService {
         this.isHandlingAuthError = false;
       }, 3000);
     }
+  }
+
+  getCurrentServerTarget() {
+    return ServerConfig.getCurrentTarget();
+  }
+
+  getServerTargetOptions() {
+    return ServerConfig.getTargetOptions();
+  }
+
+  setCurrentServerTarget(targetKey, options = {}) {
+    const previousTarget = ServerConfig.getCurrentTarget();
+    const nextTarget = ServerConfig.setCurrentTarget(targetKey);
+    const shouldClearAuth = options.clearAuth !== false && previousTarget.key !== nextTarget.key;
+
+    if (shouldClearAuth) {
+      this.clearLocalAuthState({ silent: true, markManualLogout: true });
+    }
+
+    try {
+      const app = getApp();
+      if (app && typeof app.syncApiServerTarget === 'function') {
+        app.syncApiServerTarget();
+      }
+    } catch (error) {
+      console.warn('[API] 同步全局服务器目标失败:', error);
+    }
+
+    console.log('[API] 服务器目标已切换:', {
+      from: previousTarget,
+      to: nextTarget,
+      clearAuth: shouldClearAuth
+    });
+
+    if (typeof wx !== 'undefined' && typeof wx.showToast === 'function') {
+      wx.showToast({
+        title: `已切到${nextTarget.label}`,
+        icon: 'none',
+        duration: 1800
+      });
+    }
+
+    return {
+      ...nextTarget,
+      clearAuth: shouldClearAuth
+    };
+  }
+
+  toggleServerTarget(options = {}) {
+    const currentTarget = this.getCurrentServerTarget();
+    const nextKey = currentTarget.key === 'local' ? 'remote' : 'local';
+    return this.setCurrentServerTarget(nextKey, options);
   }
   
   /**
@@ -1164,7 +1244,7 @@ class ApiService {
     const attemptUpload = (hasRetried = false) => {
       return new Promise((resolve, reject) => {
         wx.uploadFile({
-          url: `${BASE_URL}${endpoint}`,
+          url: `${getBaseUrl()}${endpoint}`,
           filePath,
           name: 'file',
           formData,
