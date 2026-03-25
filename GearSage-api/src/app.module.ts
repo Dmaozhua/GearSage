@@ -9,9 +9,11 @@ import { AuthController } from './modules/auth/auth.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { CommentController } from './modules/comment/comment.controller';
 import { CommentService } from './modules/comment/comment.service';
+import { GoodsController } from './modules/goods/goods.controller';
 import { InviteController } from './modules/invite/invite.controller';
 import { TaskController } from './modules/task/task.controller';
 import { TagController } from './modules/tag/tag.controller';
+import { TagService } from './modules/tag/tag.service';
 import { TopicController } from './modules/topic/topic.controller';
 import { TopicService } from './modules/topic/topic.service';
 import { UploadController } from './modules/upload/upload.controller';
@@ -35,6 +37,7 @@ ConfigModule.forRoot({
     CommentController,
     UploadController,
     TagController,
+    GoodsController,
     TaskController,
     InviteController,
   ],
@@ -47,6 +50,7 @@ ConfigModule.forRoot({
     TopicService,
     CommentService,
     UploadService,
+    TagService,
   ],
 })
 export class AppModule {}

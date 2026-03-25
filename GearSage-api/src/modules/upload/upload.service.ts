@@ -18,6 +18,32 @@ export class UploadService {
     );
   }
 
+  private normalizeBizType(bizType: string) {
+    const rawBizType = String(bizType || '').trim().toLowerCase();
+    if (!rawBizType || rawBizType === 'image' || rawBizType === 'post' || rawBizType === 'posts') {
+      return 'topic';
+    }
+    if (rawBizType === 'avatar') {
+      return 'avatar';
+    }
+    if (rawBizType === 'background') {
+      return 'background';
+    }
+    return rawBizType.replace(/[^a-z0-9_-]/g, '') || 'topic';
+  }
+
+  private resolvePublicBaseUrl(origin: string) {
+    const configuredBaseUrl = String(
+      this.configService.get<string>('UPLOAD_BASE_URL') || '',
+    ).trim();
+
+    if (configuredBaseUrl) {
+      return configuredBaseUrl.replace(/\/+$/, '');
+    }
+
+    return `${origin}/uploads`;
+  }
+
   async saveFile(
     userId: number | null,
     bizType: string,
@@ -25,15 +51,16 @@ export class UploadService {
     origin: string,
   ) {
     const uploadDir = this.getUploadDir();
+    const normalizedBizType = this.normalizeBizType(bizType);
     const suffix = extname(file.originalname || '') || '.bin';
     const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}${suffix}`;
-    const objectKey = `${bizType}/${fileName}`;
+    const objectKey = `${normalizedBizType}/${fileName}`;
     const targetPath = join(uploadDir, objectKey);
 
-    await mkdir(join(uploadDir, bizType), { recursive: true });
+    await mkdir(join(uploadDir, normalizedBizType), { recursive: true });
     await writeFile(targetPath, file.buffer);
 
-    const url = `${origin}/uploads/${objectKey}`;
+    const url = `${this.resolvePublicBaseUrl(origin)}/${objectKey}`;
 
     await this.databaseService.query(
       `
@@ -44,7 +71,7 @@ export class UploadService {
       `,
       [
         userId,
-        bizType,
+        normalizedBizType,
         file.originalname || fileName,
         suffix,
         file.mimetype || 'application/octet-stream',

@@ -325,15 +325,28 @@ psql "postgresql://用户名:密码@127.0.0.1:5432/gearsage" -c "select now(), c
 
 ---
 
-## 对象存储 COS
+## 上传与静态资源
 
-当前设计方案：
+当前执行方案：
 
 - 前端上传到 NestJS
-- NestJS 后端中转上传到 COS
-- 后续使用 `static.gearsage.club` 提供静态资源访问
+- NestJS 将文件写入轻量对象存储挂载目录
+- 业务上传目录：`/lhcos-data/gearsage`
+- 资源对外访问基址：`https://static.gearsage.club/gearsage`
 
-当前仍在待实现阶段。
+当前环境变量建议：
+
+```bash
+UPLOAD_DIR=/lhcos-data/gearsage
+UPLOAD_BASE_URL=https://static.gearsage.club/gearsage
+```
+
+兼容说明：
+
+- 若未配置 `UPLOAD_BASE_URL`，开发态仍会回退为 `http://127.0.0.1:3001/uploads/*`
+- `POST /upload/image` 当前会统一落到 `topic/` 目录
+- `POST /upload/avatar` 落到 `avatar/` 目录
+- `POST /upload/background` 落到 `background/` 目录
 
 ---
 
@@ -354,9 +367,9 @@ psql "postgresql://用户名:密码@127.0.0.1:5432/gearsage" -c "select now(), c
 1. 评论模块
 2. 鉴权模块
 3. 用户模块
-4. 上传模块
-5. COS 接入
-6. 前端逐页切接口
+4. 上传模块收口
+5. 非 P0 云开发残留清理
+6. 前端逐页切标签 / 商城 / 任务接口
 
 ---
 
