@@ -23,8 +23,21 @@ export class TopicController {
 
   @Get('all')
   @UseGuards(OptionalJwtAuthGuard)
-  async getAll(@CurrentUser() user?: { id: number }) {
-    const list = await this.topicService.getAllTopics(Number(user?.id || 0));
+  async getAll(
+    @Query('limit') limit?: string,
+    @Query('topicCategory') topicCategory?: string,
+    @Query('gearCategory') gearCategory?: string,
+    @Query('gearModel') gearModel?: string,
+    @Query('gearItemId') gearItemId?: string,
+    @CurrentUser() user?: { id: number },
+  ) {
+    const list = await this.topicService.getAllTopics(Number(user?.id || 0), {
+      limit,
+      topicCategory,
+      gearCategory,
+      gearModel,
+      gearItemId,
+    });
 
     return {
       code: 0,

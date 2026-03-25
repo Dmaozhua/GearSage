@@ -1446,6 +1446,44 @@ class ApiService {
     return this.setTagDisplay({ mainTagId: tagId });
   }
 
+  // ==================== 装备库接口 ====================
+
+  getGearBrands(type) {
+    return this.get('/mini/gear/brands', {
+      data: { type }
+    });
+  }
+
+  getGearList(params = {}) {
+    const normalizedParams = { ...params };
+    ['brands', 'types', 'system', 'water_column', 'action', 'options', 'brakeSys'].forEach((key) => {
+      if (Array.isArray(normalizedParams[key])) {
+        normalizedParams[key] = normalizedParams[key]
+          .map((item) => String(item).trim())
+          .filter(Boolean)
+          .join(',');
+      }
+    });
+    return this.get('/mini/gear/list', {
+      data: normalizedParams
+    }).then(result => {
+      const payload = result && typeof result === 'object' ? result : {};
+      return {
+        list: Array.isArray(payload.list) ? payload.list : [],
+        total: Number(payload.total || 0),
+        page: Number(payload.page || normalizedParams.page || 1),
+        pageSize: Number(payload.pageSize || normalizedParams.pageSize || 10),
+        hasMore: payload.hasMore === true
+      };
+    });
+  }
+
+  getGearDetail(params = {}) {
+    return this.get('/mini/gear/detail', {
+      data: params
+    });
+  }
+
   // ==================== 话题相关接口 ====================
   
   /**

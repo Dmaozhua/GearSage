@@ -196,6 +196,51 @@ CREATE TABLE IF NOT EXISTS bz_mini_task_feat_record (
   "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS gear_brands (
+  id BIGINT PRIMARY KEY,
+  name VARCHAR(128) NOT NULL DEFAULT '',
+  name_en VARCHAR(128) NOT NULL DEFAULT '',
+  name_jp VARCHAR(128) NOT NULL DEFAULT '',
+  name_zh VARCHAR(128) NOT NULL DEFAULT '',
+  description TEXT NOT NULL DEFAULT '',
+  site_url TEXT NOT NULL DEFAULT '',
+  raw_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS gear_master (
+  kind VARCHAR(16) NOT NULL,
+  id BIGINT NOT NULL,
+  "brandId" BIGINT,
+  model VARCHAR(128) NOT NULL DEFAULT '',
+  "modelCn" VARCHAR(128) NOT NULL DEFAULT '',
+  "modelYear" VARCHAR(32) NOT NULL DEFAULT '',
+  type VARCHAR(64) NOT NULL DEFAULT '',
+  system VARCHAR(64) NOT NULL DEFAULT '',
+  "waterColumn" VARCHAR(64) NOT NULL DEFAULT '',
+  action VARCHAR(64) NOT NULL DEFAULT '',
+  alias VARCHAR(255) NOT NULL DEFAULT '',
+  "typeTips" VARCHAR(255) NOT NULL DEFAULT '',
+  images JSONB NOT NULL DEFAULT '[]'::jsonb,
+  raw_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (kind, id)
+);
+
+CREATE TABLE IF NOT EXISTS gear_variants (
+  kind VARCHAR(16) NOT NULL,
+  "sourceKey" VARCHAR(64) NOT NULL,
+  "gearId" BIGINT NOT NULL,
+  "variantId" BIGINT NOT NULL,
+  sku VARCHAR(255) NOT NULL DEFAULT '',
+  raw_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (kind, "sourceKey", "variantId")
+);
+
 ALTER TABLE bz_mini_user
   ADD COLUMN IF NOT EXISTS phone VARCHAR(32),
   ADD COLUMN IF NOT EXISTS "isAdmin" BOOLEAN NOT NULL DEFAULT FALSE;
@@ -262,3 +307,15 @@ ON bz_mini_task_feat_record ("userId", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_bz_mini_task_feat_record_task
 ON bz_mini_task_feat_record ("taskFeatId", "userId");
+
+CREATE INDEX IF NOT EXISTS idx_gear_brands_name
+ON gear_brands (name);
+
+CREATE INDEX IF NOT EXISTS idx_gear_master_kind_brand
+ON gear_master (kind, "brandId");
+
+CREATE INDEX IF NOT EXISTS idx_gear_master_kind_model
+ON gear_master (kind, model, "modelCn");
+
+CREATE INDEX IF NOT EXISTS idx_gear_variants_lookup
+ON gear_variants (kind, "gearId");

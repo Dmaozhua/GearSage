@@ -42,8 +42,8 @@
     <view class="filter-content">
       <view class="recommendation-bar" wx:if="{{recommendations.length > 0}}">
         <text class="recommendation-label">你可能要找的是：</text>
-        <block wx:for="{{recommendations}}" wx:key="*this">
-          <text class="recommendation-item" bindtap="selectRecommendation" data-val="{{item}}">{{item}}</text>
+        <block wx:for="{{recommendations}}" wx:key="id">
+          <text class="recommendation-item" bindtap="selectRecommendation" data-id="{{item.id}}" data-name="{{item.name}}">{{item.name}}</text>
         </block>
       </view>
 

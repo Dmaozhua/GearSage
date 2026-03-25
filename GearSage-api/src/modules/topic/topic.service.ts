@@ -8,7 +8,16 @@ import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
 export class TopicService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async getAllTopics(currentUserId = 0) {
+  async getAllTopics(
+    currentUserId = 0,
+    filters: {
+      limit?: string | number;
+      topicCategory?: string;
+      gearCategory?: string;
+      gearModel?: string;
+      gearItemId?: string;
+    } = {},
+  ) {
     const result = await this.databaseService.query(
       `
       SELECT
@@ -42,7 +51,11 @@ export class TopicService {
       [currentUserId || 0],
     );
 
-    return result.rows.map((row: any) => this.formatTopic(row));
+    const limit = this.normalizePositiveNumber(filters.limit, 12);
+    return result.rows
+      .map((row: any) => this.formatTopic(row))
+      .filter((topic: any) => this.matchesTopicFilters(topic, filters))
+      .slice(0, limit);
   }
 
   async getMyTopics(userId: number, currentUserId = 0, status?: number | null) {
@@ -451,5 +464,74 @@ export class TopicService {
       displayTag: null,
       ...extra,
     };
+  }
+
+  private matchesTopicFilters(
+    topic: any,
+    filters: {
+      topicCategory?: string;
+      gearCategory?: string;
+      gearModel?: string;
+      gearItemId?: string;
+    },
+  ) {
+    if (
+      filters.topicCategory !== undefined &&
+      filters.topicCategory !== null &&
+      filters.topicCategory !== '' &&
+      String(topic.topicCategory) !== String(filters.topicCategory)
+    ) {
+      return false;
+    }
+
+    const gearCategory = this.normalizeText(filters.gearCategory);
+    const gearModel = this.normalizeText(filters.gearModel).toLowerCase();
+    const gearItemId = this.normalizeText(filters.gearItemId);
+
+    if (!gearCategory && !gearModel && !gearItemId) {
+      return true;
+    }
+
+    const matchesPair = (category: any, model: any, itemId: any) => {
+      const normalizedCategory = this.normalizeText(category);
+      const normalizedModel = this.normalizeText(model).toLowerCase();
+      const normalizedItemId = this.normalizeText(itemId);
+
+      if (gearCategory && normalizedCategory !== gearCategory) {
+        return false;
+      }
+
+      if (gearItemId && normalizedItemId === gearItemId) {
+        return true;
+      }
+
+      if (gearModel && normalizedModel === gearModel) {
+        return true;
+      }
+
+      if (!gearItemId && !gearModel && gearCategory) {
+        return true;
+      }
+
+      return false;
+    };
+
+    return (
+      matchesPair(topic.gearCategory, topic.gearModel, topic.gearItemId) ||
+      matchesPair(
+        topic.relatedGearCategory,
+        topic.relatedGearModel,
+        topic.relatedGearItemId,
+      )
+    );
+  }
+
+  private normalizePositiveNumber(value: string | number | undefined, fallback: number) {
+    const next = Number(value);
+    return Number.isInteger(next) && next > 0 ? next : fallback;
+  }
+
+  private normalizeText(value: any) {
+    return String(value ?? '').trim();
   }
 }

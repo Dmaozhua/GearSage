@@ -11,6 +11,25 @@ const TYPE_MAP = {
   lure: 'lure'
 };
 
+const ACTIVE_FILTER_SUPPORT = {
+  reel: {
+    brands: true,
+    types: true,
+    options: false,
+    brakeSys: false
+  },
+  rod: {
+    brands: true,
+    types: false
+  },
+  lure: {
+    brands: true,
+    system: true,
+    water_column: true,
+    action: true
+  }
+};
+
 const MAX_KEYWORD_LENGTH = 30;
 const MULTI_SELECT_FILTER_KEYS = ['brands', 'water_column', 'action', 'brakeSys', 'options'];
 
@@ -72,6 +91,63 @@ Component({
   },
 
   methods: {
+    getDerivedRecommendations(selectedFilters = this.data.selectedFilters) {
+      const { mappedType } = this.data;
+      const typeConfig = defData.find((item) => item.type === mappedType);
+
+      if (!typeConfig) return [];
+
+      let ruleKey = '';
+      if (mappedType === 'lure') ruleKey = 'derive_family_rules';
+      else if (mappedType === 'reel') ruleKey = 'derive_family_reels';
+      else if (mappedType === 'rod') ruleKey = 'derive_family_rods';
+
+      const rules = typeConfig[ruleKey] || [];
+      const familyMap = {};
+      (typeConfig.family || []).forEach(f => { familyMap[f.id] = f; });
+
+      const matchedKeywords = new Map();
+
+      for (const rule of rules) {
+        let isMatch = true;
+
+        for (const [key, value] of Object.entries(rule.if)) {
+          const userVal = selectedFilters[key];
+
+          if (!userVal || (Array.isArray(userVal) && userVal.length === 0)) {
+            isMatch = false;
+            break;
+          }
+
+          const userValues = Array.isArray(userVal) ? userVal : [userVal];
+
+          if (Array.isArray(value)) {
+            const hasIntersection = userValues.some(uv => value.includes(uv));
+            if (!hasIntersection) {
+              isMatch = false;
+              break;
+            }
+          } else if (!userValues.includes(value)) {
+            isMatch = false;
+            break;
+          }
+        }
+
+        if (isMatch && rule.then && Array.isArray(rule.then)) {
+          rule.then.forEach(id => {
+            if (familyMap[id] && !matchedKeywords.has(id)) {
+              matchedKeywords.set(id, {
+                id,
+                name: familyMap[id].zh || id
+              });
+            }
+          });
+        }
+      }
+
+      return Array.from(matchedKeywords.values());
+    },
+
     resetUIState() {
       this.setData({
         searchText: '',
@@ -92,6 +168,8 @@ Component({
         return;
       }
 
+      const support = ACTIVE_FILTER_SUPPORT[type] || {};
+
       const mapOptions = (arr, idKey, nameKey) => (arr || []).map((item) => ({
         id: item[idKey],
         name: item[nameKey]
@@ -99,26 +177,32 @@ Component({
 
       const filters = [];
 
-      if (type === 'reel' || type === 'rod') {
+      if ((type === 'reel' || type === 'rod') && support.types && typeConfig.types) {
         filters.push({ key: 'types', label: '类别', options: mapOptions(typeConfig.types, 'type', 'name') });
       }
 
       if (type === 'reel') {
-        if (typeConfig.options) {
+        if (support.options && typeConfig.options) {
           filters.push({ key: 'options', label: '功能特点', options: mapOptions(typeConfig.options, 'type', 'name') });
         }
-        if (typeConfig.brakeSys) {
+        if (support.brakeSys && typeConfig.brakeSys) {
           filters.push({ key: 'brakeSys', label: '刹车系统', options: mapOptions(typeConfig.brakeSys, 'type', 'name') });
         }
       }
 
       if (type === 'lure') {
-        filters.push({ key: 'system', label: '类别', options: mapOptions(typeConfig.system, 'id', 'zh') });
-        filters.push({ key: 'water_column', label: '水层', options: mapOptions(typeConfig.water_column, 'id', 'zh') });
-        filters.push({ key: 'action', label: '主要动作', options: mapOptions(typeConfig.action, 'id', 'zh') });
+        if (support.system && typeConfig.system) {
+          filters.push({ key: 'system', label: '类别', options: mapOptions(typeConfig.system, 'id', 'zh') });
+        }
+        if (support.water_column && typeConfig.water_column) {
+          filters.push({ key: 'water_column', label: '水层', options: mapOptions(typeConfig.water_column, 'id', 'zh') });
+        }
+        if (support.action && typeConfig.action) {
+          filters.push({ key: 'action', label: '主要动作', options: mapOptions(typeConfig.action, 'id', 'zh') });
+        }
       }
 
-      if (typeConfig.brands) {
+      if (support.brands && typeConfig.brands) {
         filters.push({ key: 'brands', label: '品牌', options: mapOptions(typeConfig.brands, 'id', 'name') });
       }
 
@@ -286,76 +370,21 @@ Component({
     },
 
     checkRecommendations() {
-      const { mappedType, selectedFilters } = this.data;
-      const typeConfig = defData.find((item) => item.type === mappedType);
-      
-      if (!typeConfig) return;
-
-      // Determine rule key based on type (e.g., derive_family_rules for lure)
-      // Assuming 'derive_family_rules' for lure, 'derive_family_reels' for reel, 'derive_family_rods' for rod
-      let ruleKey = '';
-      if (mappedType === 'lure') ruleKey = 'derive_family_rules';
-      else if (mappedType === 'reel') ruleKey = 'derive_family_reels';
-      else if (mappedType === 'rod') ruleKey = 'derive_family_rods';
-
-      const rules = typeConfig[ruleKey] || [];
-      const familyMap = {};
-      (typeConfig.family || []).forEach(f => { familyMap[f.id] = f.zh; });
-
-      const matchedKeywords = new Set();
-
-      for (const rule of rules) {
-        let isMatch = true;
-        
-        // Check all conditions in 'if'
-        for (const [key, value] of Object.entries(rule.if)) {
-          const userVal = selectedFilters[key];
-          
-          if (!userVal || (Array.isArray(userVal) && userVal.length === 0)) {
-            isMatch = false;
-            break;
-          }
-
-          const userValues = Array.isArray(userVal) ? userVal : [userVal];
-
-          if (Array.isArray(value)) {
-            // Rule allows multiple values, check if user selection is one of them
-            // Match if ANY of user's selection is in Rule's allowed values
-            const hasIntersection = userValues.some(uv => value.includes(uv));
-            if (!hasIntersection) {
-              isMatch = false;
-              break;
-            }
-          } else {
-            // Rule requires specific value
-            // Match if user's selection includes this specific value
-            if (!userValues.includes(value)) {
-              isMatch = false;
-              break;
-            }
-          }
-        }
-
-        if (isMatch && rule.then && Array.isArray(rule.then)) {
-          rule.then.forEach(id => {
-            if (familyMap[id]) {
-              matchedKeywords.add(familyMap[id]);
-            }
-          });
-        }
-      }
-
-      this.setData({ recommendations: Array.from(matchedKeywords) });
+      this.setData({ recommendations: this.getDerivedRecommendations() });
     },
 
     selectRecommendation(e) {
-      const name = e.currentTarget.dataset.val;
+      const id = e.currentTarget.dataset.id;
+      const name = e.currentTarget.dataset.name;
       this.setData({ 
-        searchText: name, 
         isExpanded: false,
         recommendations: []
       });
-      this.submitSearch();
+      this.triggerEvent('filter', {
+        filters: this.data.selectedFilters,
+        searchText: '',
+        selectedRecommendation: id ? { id, name: name || id } : null
+      });
     },
 
     resetFilter() {
@@ -364,9 +393,11 @@ Component({
 
     applyFilter() {
       this.setData({ isExpanded: false });
+      const derivedKeywords = this.getDerivedRecommendations();
       this.triggerEvent('filter', { 
         filters: this.data.selectedFilters,
-        searchText: this.data.searchText
+        searchText: this.data.searchText,
+        derivedKeywords
       });
     },
 

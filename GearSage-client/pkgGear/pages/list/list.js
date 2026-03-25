@@ -1,11 +1,7 @@
 const app = getApp();
-
+const apiService = require('../../../services/api');
 
 const QUERY_PAGE_SIZE = 20;
-
-function escapeRegExp(input) {
-  return String(input || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
 
 Page({
   data: {
@@ -24,6 +20,45 @@ Page({
     searchKeyword: '',
     activeFilters: {},
     isSearchMode: false
+  },
+
+  normalizeSearchTarget(item) {
+    return [
+      item.displayName,
+      item.model,
+      item.model_cn,
+      item.alias,
+      item.type_tips,
+      item.family,
+      item.familyId
+    ]
+      .map((value) => String(value || '').trim().toLowerCase())
+      .filter(Boolean)
+      .join(' ');
+  },
+
+  applyDerivedRecommendations(list = [], derivedRecommendations = []) {
+    const keywords = (Array.isArray(derivedRecommendations) ? derivedRecommendations : [])
+      .map((item) => {
+        if (!item || typeof item !== 'object') {
+          return [];
+        }
+        return [item.id, item.name]
+          .map((value) => String(value || '').trim().toLowerCase())
+          .filter(Boolean);
+      })
+      .flat();
+
+    if (!keywords.length) {
+      return list;
+    }
+
+    const filteredList = list.filter((item) => {
+      const target = this.normalizeSearchTarget(item);
+      return keywords.some((keyword) => target.includes(keyword));
+    });
+
+    return filteredList;
   },
 
   onLoad(options) {
@@ -54,16 +89,15 @@ Page({
   },
 
   async initData() {
-    this.loadBrands();
-    this.loadData(true);
+    await this.loadBrands();
+    await this.loadData(true);
   },
 
   async loadBrands() {
     try {
-      const db = wx.cloud.database();
-      const res = await db.collection('bz_rate_brand').limit(100).get();
+      const res = await apiService.getGearBrands(this.data.currentType);
       const brandsMap = {};
-      (res.data || []).forEach((b) => { brandsMap[b.id] = b.name; });
+      (Array.isArray(res) ? res : []).forEach((b) => { brandsMap[String(b.id)] = b.name; });
       this.setData({ brandsMap });
       if (this.data.list.length > 0) this.updateListWithBrands();
     } catch (e) {
@@ -96,7 +130,7 @@ Page({
       ...item,
       imageUrl,
       displayName,
-      brandName: this.data.brandsMap[item.brand_id] || ''
+      brandName: item.brand_name || this.data.brandsMap[String(item.brand_id)] || ''
     };
   },
 
@@ -137,6 +171,10 @@ Page({
 
   onFilter(e) {
     const filters = e.detail.filters || {};
+    const derivedRecommendations = Array.isArray(e.detail.derivedKeywords) ? e.detail.derivedKeywords : [];
+    const selectedRecommendation = e.detail.selectedRecommendation && typeof e.detail.selectedRecommendation === 'object'
+      ? e.detail.selectedRecommendation
+      : null;
     // Use searchText from event if available (to sync with component input), otherwise use local state
     const query = e.detail.searchText !== undefined ? e.detail.searchText : (this.data.searchKeyword || '').trim();
     const hasFilters = Object.keys(filters).length > 0;
@@ -144,7 +182,9 @@ Page({
     console.log('[List Page] onFilter trigger:', {
       type: this.data.currentType,
       searchKeyword: query,
-      filters
+      filters,
+      derivedRecommendations,
+      selectedRecommendation
     });
 
     // Update local keyword state to match component
@@ -159,8 +199,14 @@ Page({
     wx.showLoading({ title: '筛选中...' });
     this.queryGearData(query, filters)
       .then((list) => {
-        this.setData({ activeFilters: filters, list, allList: list, isSearchMode: true, hasMore: false });
-        if (!list.length) {
+        const recommendationFilters = selectedRecommendation
+          ? [selectedRecommendation]
+          : derivedRecommendations;
+        const finalList = !query && this.data.currentType === 'lures' && recommendationFilters.length > 0
+          ? this.applyDerivedRecommendations(list, recommendationFilters)
+          : list;
+        this.setData({ activeFilters: filters, list: finalList, allList: finalList, isSearchMode: true, hasMore: false });
+        if (!finalList.length) {
           wx.showToast({ title: '未找到相关数据', icon: 'none' });
         }
       })
@@ -171,136 +217,20 @@ Page({
       .finally(() => wx.hideLoading());
   },
 
-  getCollectionName() {
-    const { currentType } = this.data;
-    if (currentType === 'reels') return 'bz_rate_reel';
-    if (currentType === 'rods') return 'bz_rate_rod';
-    if (currentType === 'lures') return 'bz_rate_lure';
-    return '';
-  },
-
-  buildWhereClause(db, keyword = '', filters = {}) {
-    const _ = db.command;
-    const conditions = [];
-    const trimmedKeyword = String(keyword || '').trim();
-    const normalizeFilterValues = (value) => {
-      const list = Array.isArray(value) ? value : [value];
-      return list
-        .map((item) => (typeof item === 'string' ? item.trim() : item))
-        .filter((item) => item !== undefined && item !== null && item !== '');
-    };
-    const pushCondition = (field, value) => {
-      const values = normalizeFilterValues(value);
-      if (!values.length) return;
-      if (values.length === 1) {
-        conditions.push({ [field]: values[0] });
-        return;
-      }
-      conditions.push({ [field]: _.in(values) });
-    };
-
-    if (trimmedKeyword) {
-      const tokens = trimmedKeyword.split(/\s+/);
-      const tokenConditions = tokens.map((token) => {
-        const tokenReg = db.RegExp({
-          regexp: escapeRegExp(token),
-          options: 'i'
-        });
-        
-        const orClauses = [
-          { model: tokenReg },
-          { model_cn: tokenReg },
-          { model_year: tokenReg },
-          { alias: tokenReg },
-          { type_tips: tokenReg }
-        ];
-        
-        const numToken = Number(token);
-        if (!isNaN(numToken)) {
-          orClauses.push({ model_year: numToken });
-        }
-
-        return _.or(orClauses);
-      });
-      
-      if (tokenConditions.length > 0) {
-        conditions.push(...tokenConditions);
-      }
-    }
-
-    const brandValues = normalizeFilterValues(filters.brands);
-    if (brandValues.length > 0) {
-      const candidates = [];
-      const seen = {};
-      const pushBrandCandidate = (candidate) => {
-        const marker = `${typeof candidate}:${candidate}`;
-        if (seen[marker]) return;
-        seen[marker] = true;
-        candidates.push(candidate);
-      };
-
-      brandValues.forEach((brand) => {
-        pushBrandCandidate(brand);
-        const brandIdNum = Number(brand);
-        if (!Number.isNaN(brandIdNum)) {
-          pushBrandCandidate(brandIdNum);
-          pushBrandCandidate(String(brandIdNum));
-        }
-      });
-
-      if (candidates.length === 1) {
-        conditions.push({ brand_id: candidates[0] });
-      } else {
-        conditions.push({ brand_id: _.in(candidates) });
-      }
-    }
-    pushCondition('type', filters.types);
-    pushCondition('system', filters.system);
-    pushCondition('water_column', filters.water_column);
-    pushCondition('action', filters.action);
-    pushCondition('options', filters.options);
-    pushCondition('brakeSys', filters.brakeSys);
-
-
-    if (!conditions.length) return {};
-    if (conditions.length === 1) return conditions[0];
-    return _.and(conditions);
-  },
-
   async queryGearData(keyword = '', filters = {}) {
-    const collectionName = this.getCollectionName();
-    if (!collectionName) return [];
-
-    const db = wx.cloud.database();
-    const where = this.buildWhereClause(db, keyword, filters);
-    let allData = [];
-    let page = 0;
-
     console.log('[List Page] queryGearData params:', {
-      collectionName,
+      type: this.data.currentType,
       keyword,
-      filters,
-      where
+      filters
     });
-
-    while (true) {
-      const res = await db.collection(collectionName)
-        .where(where)
-        .orderBy('id', 'asc')
-        .skip(page * QUERY_PAGE_SIZE)
-        .limit(QUERY_PAGE_SIZE)
-        .get();
-
-      const chunk = res.data || [];
-      allData = allData.concat(chunk);
-
-      if (chunk.length < QUERY_PAGE_SIZE) break;
-      page += 1;
-      if (page >= 50) {
-        console.warn('[List Page] queryGearData reached safety page limit', { page, total: allData.length });
-        break;
-      }
-    }
+    const response = await apiService.getGearList({
+      type: this.data.currentType,
+      page: 1,
+      pageSize: QUERY_PAGE_SIZE * 5,
+      keyword,
+      ...filters
+    });
+    const allData = response && Array.isArray(response.list) ? response.list : [];
 
     console.log('[List Page] queryGearData result:', {
       total: allData.length,
@@ -323,24 +253,16 @@ Page({
     wx.showLoading({ title: '加载中...' });
 
     const { page, pageSize } = this.data;
-    const db = wx.cloud.database();
-    const collectionName = this.getCollectionName();
-
-    if (!collectionName) {
-      this.setData({ isLoading: false });
-      wx.hideLoading();
-      return;
-    }
 
     try {
-      const res = await db.collection(collectionName)
-        .orderBy('id', 'asc')
-        .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .get();
+      const res = await apiService.getGearList({
+        type: this.data.currentType,
+        page,
+        pageSize
+      });
 
-      const data = (res.data || []).map((item) => this.normalizeItem(item));
-      const hasMore = data.length === pageSize;
+      const data = (res.list || []).map((item) => this.normalizeItem(item));
+      const hasMore = !!res.hasMore;
       const nextList = reset ? data : this.data.list.concat(data);
 
       this.setData({

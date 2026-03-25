@@ -9,6 +9,8 @@ import { AuthController } from './modules/auth/auth.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { CommentController } from './modules/comment/comment.controller';
 import { CommentService } from './modules/comment/comment.service';
+import { GearController } from './modules/gear/gear.controller';
+import { GearService } from './modules/gear/gear.service';
 import { GoodsController } from './modules/goods/goods.controller';
 import { InviteController } from './modules/invite/invite.controller';
 import { TaskController } from './modules/task/task.controller';
@@ -39,6 +41,7 @@ ConfigModule.forRoot({
     UploadController,
     TagController,
     GoodsController,
+    GearController,
     TaskController,
     InviteController,
   ],
@@ -51,6 +54,7 @@ ConfigModule.forRoot({
     TopicService,
     CommentService,
     UploadService,
+    GearService,
     TagService,
     TaskService,
   ],

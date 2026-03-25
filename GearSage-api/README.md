@@ -150,6 +150,24 @@ curl http://127.0.0.1:3001/mini/topic/all
 - 本机已连上服务器数据库
 - 本地开发环境可用
 
+如需把装备库维护 Excel 导入 PostgreSQL，执行：
+
+```bash
+cd /Users/tommy/GearSage/GearSage-api
+npm run import:gear
+```
+
+当前口径：
+
+- `rate/excel` 是装备主数据维护源
+- `npm run import:gear` 负责导入：
+  - `gear_brands`
+  - `gear_master`
+  - `gear_variants`
+- `npm run import:gear` 同时会重建：
+  - `GearSage-client/pkgGear/searchData/Data.js`
+- gear 接口会优先读取 PostgreSQL，未导入时才回退 Excel
+
 ---
 
 ## 本地停止流程
@@ -339,11 +357,13 @@ psql "postgresql://用户名:密码@127.0.0.1:5432/gearsage" -c "select now(), c
 ```bash
 UPLOAD_DIR=/lhcos-data/gearsage
 UPLOAD_BASE_URL=https://static.gearsage.club/gearsage
+GEAR_EXCEL_DIR=/Users/tommy/GearSage/GearSage-client/rate/excel
 ```
 
 兼容说明：
 
 - 若未配置 `UPLOAD_BASE_URL`，开发态仍会回退为 `http://127.0.0.1:3001/uploads/*`
+- `GEAR_EXCEL_DIR` 用于 P1 装备库第一版，默认读取客户端仓库中的 Excel 源数据
 - `POST /upload/image` 当前会统一落到 `topic/` 目录
 - `POST /upload/avatar` 落到 `avatar/` 目录
 - `POST /upload/background` 落到 `background/` 目录

@@ -1,5 +1,6 @@
 // pkgGear/pages/detail/detail.js
 const app = getApp();
+const apiService = require('../../../services/api');
 
 Page({
   data: {
@@ -115,212 +116,28 @@ Page({
     }
   },
 
-  normalizeText(value) {
-    return String(value || '').trim();
-  },
-
-  escapeRegExp(value = '') {
-    return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  },
-
-  buildGearModelCandidates(gearModel = '') {
-    const raw = this.normalizeText(gearModel);
-    if (!raw) {
-      return [];
-    }
-
-    const candidates = [];
-    const push = (value) => {
-      const text = this.normalizeText(value);
-      if (text && !candidates.includes(text)) {
-        candidates.push(text);
-      }
-    };
-
-    push(raw);
-
-    const yearMatch = raw.match(/^(\d{2,4})\s+(.+)$/);
-    if (yearMatch) {
-      push(yearMatch[2]);
-    }
-
-    const chinese = raw.match(/[\u4e00-\u9fa5]+/g);
-    if (chinese && chinese.length) {
-      push(chinese.join(''));
-    }
-
-    const alphaNumeric = raw
-      .replace(/[\u4e00-\u9fa5]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-    if (alphaNumeric) {
-      push(alphaNumeric);
-    }
-
-    if (yearMatch) {
-      const tail = this.normalizeText(yearMatch[2]);
-      const tailAlphaNumeric = tail
-        .replace(/[\u4e00-\u9fa5]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      const tailChinese = tail.match(/[\u4e00-\u9fa5]+/g);
-      if (tailAlphaNumeric) {
-        push(tailAlphaNumeric);
-      }
-      if (tailChinese && tailChinese.length) {
-        push(tailChinese.join(''));
-      }
-    }
-
-    return candidates;
-  },
-
-  async queryFirstDoc(collection, query) {
-    const result = await collection.where(query).limit(1).get();
-    return result && Array.isArray(result.data) && result.data.length ? result.data[0] : null;
-  },
-
-  async findGearMasterRecord(db, collectionName, id, gearModel) {
-    const collection = db.collection(collectionName);
-    const numericId = Number(id);
-
-    if (id) {
-      const byDocId = await collection.doc(String(id)).get().then(res => res.data || null).catch(() => null);
-      if (byDocId) {
-        return byDocId;
-      }
-    }
-
-    if (Number.isFinite(numericId) && numericId > 0) {
-      const byNumericId = await this.queryFirstDoc(collection, { id: numericId }).catch(() => null);
-      if (byNumericId) {
-        return byNumericId;
-      }
-    }
-
-    const candidates = this.buildGearModelCandidates(gearModel);
-    if (!candidates.length) {
-      return null;
-    }
-
-    for (const candidate of candidates) {
-      const exactModel = await this.queryFirstDoc(collection, { model: candidate }).catch(() => null);
-      if (exactModel) {
-        return exactModel;
-      }
-
-      const exactModelCn = await this.queryFirstDoc(collection, { model_cn: candidate }).catch(() => null);
-      if (exactModelCn) {
-        return exactModelCn;
-      }
-    }
-
-    for (const candidate of candidates) {
-      const pattern = this.escapeRegExp(candidate);
-      const byModelLike = await this.queryFirstDoc(collection, {
-        model: db.RegExp({
-          regexp: pattern,
-          options: 'i'
-        })
-      }).catch(() => null);
-      if (byModelLike) {
-        return byModelLike;
-      }
-
-      const byModelCnLike = await this.queryFirstDoc(collection, {
-        model_cn: db.RegExp({
-          regexp: pattern,
-          options: 'i'
-        })
-      }).catch(() => null);
-      if (byModelCnLike) {
-        return byModelCnLike;
-      }
-    }
-
-    return null;
-  },
-
   async loadDetail(id, type, gearModel = '') {
     this.setData({ isLoading: true });
-    const db = wx.cloud.database();
     
     try {
-      // 1. Fetch Master Record
-      let collectionName = '';
-      if (type === 'reels') collectionName = 'bz_rate_reel';
-      else if (type === 'rods') collectionName = 'bz_rate_rod';
-      else if (type === 'lures') collectionName = 'bz_rate_lure';
-
-      if (!collectionName) throw new Error('Unknown type');
-
-      const item = await this.findGearMasterRecord(db, collectionName, id, gearModel);
+      const item = await apiService.getGearDetail({
+        id,
+        type,
+        gearModel
+      });
       if (!item) throw new Error('Item not found');
 
-      // Process Master Item (Images, Name)
-      // detail-image: Enlarge (handled in WXML/WXSS, here just ensure URL)
-      // detail-name: model_year + model + model_cn
-      let detailName = item.model || '';
-      if (item.model_year) detailName = `${item.model_year} ${detailName}`;
-      if (item.model_cn) detailName = `${detailName} ${item.model_cn}`;
-      
-      // Image
-      let mainImage = '/images/empty.png';
-      if (item.images) {
-         let images = item.images;
-         if (typeof images === 'string') {
-            images = images.split(',');
-         }
-         if (Array.isArray(images) && images.length > 0 && images[0]) {
-            mainImage = images[0].trim();
-         }
+      let detailName = item.displayName || item.model || '';
+      if (!detailName) {
+        detailName = item.model || '';
+        if (item.model_year) detailName = `${item.model_year} ${detailName}`;
+        if (item.model_cn) detailName = `${detailName} ${item.model_cn}`;
       }
 
-      // 2. Fetch Details (Variants)
-      let variants = [];
-      let columns = [];
-
-      if (type === 'reels') {
-        // Reel Logic
-        let detailCollection = '';
-        if (item.type === 'spinning') detailCollection = 'bz_rate_spinning_reel_detail';
-        else if (item.type === 'baitcasting') detailCollection = 'bz_rate_baitcasting_reel_detail';
-        
-        if (detailCollection) {
-          variants = await this.fetchAllVariants(detailCollection, { reel_id: item.id });
-          columns = this.generateDynamicColumns(variants);
-        }
-      } else if (type === 'rods') {
-         // Rod Logic
-         const detailCollection = 'bz_rate_rod_detail';
-         variants = await this.fetchAllVariants(detailCollection, { rod_id: item.id });
-         console.log('Rod Variants:', variants);
-         columns = this.generateDynamicColumns(variants);
-      } else {
-        // Lures or others - use miniApi fallback or empty
-         try {
-            const apiRes = await wx.cloud.callFunction({
-                name: 'miniApi',
-                data: { action: 'gear.detail', payload: { id, category: type } }
-            });
-            if (apiRes.result && apiRes.result.code === 200) {
-                variants = apiRes.result.data.variants || [];
-                // Generate columns dynamically for API response too if possible
-                columns = this.generateDynamicColumns(variants);
-            }
-         } catch(e) {
-             console.error('MiniApi fallback failed', e);
-         }
-      }
-
-      // Fetch Brand Name
-      let brandName = '';
-      if (item.brand_id) {
-          const brandRes = await db.collection('bz_rate_brand').doc(item.brand_id + '').get().catch(async () => {
-              return await db.collection('bz_rate_brand').where({ id: parseInt(item.brand_id) }).get().then(r => ({ data: r.data[0] }));
-          });
-          if (brandRes.data) brandName = brandRes.data.name;
-      }
+      const images = Array.isArray(item.images) ? item.images : [];
+      const mainImage = images[0] || item.imageUrl || '/images/empty.png';
+      const variants = Array.isArray(item.variants) ? item.variants : [];
+      const columns = this.generateDynamicColumns(variants);
 
       this.setData({
         item: {
@@ -328,7 +145,7 @@ Page({
             variants,
             mainImage,
             detailName,
-            brand_name: brandName
+            brand_name: item.brand_name || ''
         },
         title: item.model,
         columns
@@ -370,23 +187,16 @@ Page({
     });
 
     try {
-      const res = await wx.cloud.callFunction({
-        name: 'miniApi',
-        data: {
-          action: 'topic.all',
-          payload: {
-            debugSource: 'gear-detail-related',
-            topicCategory: tab.type,
-            gearCategory,
-            gearModel,
-            gearItemId,
-            limit: 5
-          }
-        }
+      const res = await apiService.getAllTopics({
+        topicCategory: tab.type,
+        gearCategory,
+        gearModel,
+        gearItemId,
+        limit: 5
       });
 
-      if (res.result.code === 200) {
-        console.log('[gear detail] fetchRelatedPosts result:', (res.result.data || []).map(post => ({
+      if (Array.isArray(res)) {
+        console.log('[gear detail] fetchRelatedPosts result:', res.map(post => ({
           id: post._id || post.id,
           title: post.title,
           gearCategory: post.gearCategory,
@@ -397,10 +207,8 @@ Page({
           relatedGearItemId: post.relatedGearItemId
         })));
         this.setData({
-          [`relatedPosts.${typeKey}`]: Array.isArray(res.result.data) ? res.result.data : []
+          [`relatedPosts.${typeKey}`]: res
         });
-      } else {
-        console.warn('[gear detail] fetchRelatedPosts non-200:', res.result);
       }
     } catch (e) {
       console.error('Fetch related posts failed', e);
@@ -446,39 +254,6 @@ Page({
       wx.navigateTo({
         url: `/pkgContent/detail/detail?id=${this.data.sourcePostId}`
       });
-    }
-  },
-
-  async fetchAllVariants(collectionName, query) {
-    const db = wx.cloud.database();
-    const MAX_LIMIT = 20;
-    
-    try {
-      const countResult = await db.collection(collectionName).where(query).count();
-      const total = countResult.total;
-      
-      if (total === 0) return [];
-      
-      const batchTimes = Math.ceil(total / MAX_LIMIT);
-      const tasks = [];
-      
-      for (let i = 0; i < batchTimes; i++) {
-        const promise = db.collection(collectionName)
-          .where(query)
-          .skip(i * MAX_LIMIT)
-          .limit(MAX_LIMIT)
-          .get();
-        tasks.push(promise);
-      }
-      
-      if (tasks.length > 0) {
-        const results = await Promise.all(tasks);
-        return results.reduce((acc, cur) => acc.concat(cur.data), []);
-      }
-      return [];
-    } catch (e) {
-      console.error('Fetch variants failed:', e);
-      return [];
     }
   },
 

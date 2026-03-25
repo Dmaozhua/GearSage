@@ -1,76 +1,104 @@
-import os
 import csv
-from openpyxl import load_workbook
+import sys
+from pathlib import Path
 
-# Paths
-excel_file = r'rate\reel.xlsx'
-webp_dir = r'rate\webp'
+try:
+    from openpyxl import load_workbook
+except ImportError:
+    print('Missing dependency: openpyxl')
+    print('Install with: pip3 install openpyxl')
+    sys.exit(1)
 
-# Base URL
-base_url = 'cloud://cloud1-1g9eeb3p33faac61.636c-cloud1-1g9eeb3p33faac61-1369414088/rate/reel/'
-default_image = 'linshi.webp'
 
-def update_excel():
-    print(f"Loading workbook: {excel_file}")
-    try:
-        wb = load_workbook(excel_file)
-        ws = wb.active # Assuming the data is in the first sheet
-    except FileNotFoundError:
-        print(f"Error: File {excel_file} not found.")
+ROOT_DIR = Path(__file__).resolve().parent
+EXCEL_DIR = ROOT_DIR / 'rate' / 'excel'
+WEBP_DIR = ROOT_DIR / 'rate' / 'webp'
+DEFAULT_IMAGE = 'linshi.webp'
+LOCAL_IMAGE_PREFIX = '/rate/webp/'
+
+TARGET_FILES = [
+    {
+        'file_name': 'reel.xlsx',
+        'mode': 'id',
+    },
+    {
+        'file_name': 'rod.xlsx',
+        'mode': 'existing',
+    },
+    {
+        'file_name': 'lure.xlsx',
+        'mode': 'existing',
+    },
+]
+
+
+def normalize_numeric_string(value):
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value).strip()
+
+
+def resolve_target_image_name(row, mode):
+    if mode == 'id':
+        raw_id = row[0].value
+        if raw_id is None:
+            return DEFAULT_IMAGE
+
+        file_name = f'{normalize_numeric_string(raw_id)}.webp'
+        return file_name if (WEBP_DIR / file_name).exists() else DEFAULT_IMAGE
+
+    current_value = str(row[7].value or '').strip()
+    if not current_value:
+        return DEFAULT_IMAGE
+
+    current_name = Path(current_value).name
+    if not current_name:
+        return DEFAULT_IMAGE
+
+    return current_name if (WEBP_DIR / current_name).exists() else DEFAULT_IMAGE
+
+
+def normalize_excel_file(file_name, mode):
+    excel_path = EXCEL_DIR / file_name
+    if not excel_path.exists():
+        print(f'Skip: {excel_path} not found.')
         return
 
-    # Get max row
-    max_row = ws.max_row
-    print(f"Processing {max_row - 1} rows...")
+    print(f'Loading workbook: {excel_path}')
+    workbook = load_workbook(excel_path)
+    worksheet = workbook.active
 
-    for row in range(2, max_row + 1):
-        # Get ID from column A (column index 1)
-        id_cell = ws.cell(row=row, column=1)
-        id_val = id_cell.value
-        
-        if id_val is None:
-            print(f"Row {row}: ID is empty, skipping.")
-            continue
+    max_row = worksheet.max_row
+    print(f'Processing {file_name}, rows={max_row - 1}')
 
-        # Handle potential float/int ID
-        if isinstance(id_val, float) and id_val.is_integer():
-            id_str = str(int(id_val))
-        else:
-            id_str = str(id_val)
+    for row_index in range(2, max_row + 1):
+        row = worksheet[row_index]
+        target_image_name = resolve_target_image_name(row, mode)
+        target_value = f'{LOCAL_IMAGE_PREFIX}{target_image_name}'
+        worksheet.cell(row=row_index, column=8).value = target_value
 
-        # Check if corresponding webp file exists
-        webp_filename = f"{id_str}.webp"
-        webp_path = os.path.join(os.getcwd(), 'rate', 'webp', webp_filename)
-        
-        target_value = ""
-        
-        # Construct base URL parts
-        url_prefix = 'cloud://cloud1-1g9eeb3p33faac61.636c-cloud1-1g9eeb3p33faac61-1369414088/rate/reel/'
-        
-        if os.path.exists(webp_path):
-            target_value = url_prefix + webp_filename
-            print(f"Row {row}: Found {webp_filename} (ID: {id_str}), updating H{row}")
-        else:
-            target_value = url_prefix + default_image
-            print(f"Row {row}: {webp_filename} (ID: {id_str}) not found, using default for H{row}")
+    workbook.save(excel_path)
+    print(f'Saved workbook: {excel_path}')
 
-        # Write to column H (column index 8)
-        ws.cell(row=row, column=8).value = target_value
+    csv_path = excel_path.with_suffix('.csv')
+    with csv_path.open('w', newline='', encoding='utf-8-sig') as file:
+        writer = csv.writer(file)
+        for row in worksheet.iter_rows(values_only=True):
+            writer.writerow(list(row))
+    print(f'Updated CSV: {csv_path}')
 
-    print("Saving workbook...")
-    wb.save(excel_file)
-    print("Done!")
 
-    # Convert to CSV
-    csv_file = os.path.splitext(excel_file)[0] + '.csv'
-    print(f"Converting to CSV: {csv_file}")
-    
-    with open(csv_file, 'w', newline='', encoding='utf-8-sig') as f:
-        writer = csv.writer(f)
-        for row in ws.rows:
-            writer.writerow([cell.value for cell in row])
-    
-    print("CSV conversion complete!")
+def main():
+    print('Start normalizing gear Excel image paths...')
+    print(f'Excel directory: {EXCEL_DIR}')
+    print(f'Image directory: {WEBP_DIR}')
+    print(f'Path prefix: {LOCAL_IMAGE_PREFIX}')
 
-if __name__ == "__main__":
-    update_excel()
+    for target in TARGET_FILES:
+        normalize_excel_file(target['file_name'], target['mode'])
+
+    print('Done.')
+
+
+if __name__ == '__main__':
+    main()
