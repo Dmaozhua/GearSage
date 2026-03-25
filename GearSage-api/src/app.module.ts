@@ -12,6 +12,7 @@ import { CommentService } from './modules/comment/comment.service';
 import { GoodsController } from './modules/goods/goods.controller';
 import { InviteController } from './modules/invite/invite.controller';
 import { TaskController } from './modules/task/task.controller';
+import { TaskService } from './modules/task/task.service';
 import { TagController } from './modules/tag/tag.controller';
 import { TagService } from './modules/tag/tag.service';
 import { TopicController } from './modules/topic/topic.controller';
@@ -51,6 +52,7 @@ ConfigModule.forRoot({
     CommentService,
     UploadService,
     TagService,
+    TaskService,
   ],
 })
 export class AppModule {}

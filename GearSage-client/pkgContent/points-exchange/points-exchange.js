@@ -2,6 +2,31 @@
 const api = require('../../services/api.js');
 const auth = require('../../services/auth.js');
 
+function resolveExchangeErrorMessage(error) {
+  const responseData = error && error.data ? error.data : null;
+  const directMessage = error && typeof error.message === 'string' ? error.message : '';
+  const responseMessage = responseData && typeof responseData.message === 'string' ? responseData.message : '';
+  const responseError = responseData && typeof responseData.error === 'string' ? responseData.error : '';
+
+  const message = directMessage || responseMessage || responseError || '';
+  if (!message) {
+    return '网络异常，请稍后重试';
+  }
+  if (message.includes('已拥有该标签')) {
+    return '你已经拥有这个标签了';
+  }
+  if (message.includes('积分不足')) {
+    return '积分不足，暂时无法兑换';
+  }
+  if (message.includes('商品不存在')) {
+    return '商品不存在或已下架';
+  }
+  if (message.includes('您来晚了')) {
+    return '库存不足，已被兑完';
+  }
+  return message;
+}
+
 const TAG_EXCHANGE_MOCK_PRODUCTS = [
   {
     id: 'goods_tag_fun_almost_skunk',
@@ -493,8 +518,8 @@ Page({
       
       // 显示兑换失败提示
       wx.showModal({
-        title: '兑换失败',
-        content: error.message || '网络异常，请稍后重试',
+        title: '暂时无法兑换',
+        content: resolveExchangeErrorMessage(error),
         showCancel: false,
         confirmText: '确定'
       });

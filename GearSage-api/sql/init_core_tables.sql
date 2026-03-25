@@ -172,6 +172,30 @@ CREATE TABLE IF NOT EXISTS bz_points_goods (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS bz_mini_task_feat (
+  id VARCHAR(64) PRIMARY KEY,
+  type INT NOT NULL DEFAULT 0,
+  action_type VARCHAR(64) NOT NULL DEFAULT '',
+  name VARCHAR(100) NOT NULL DEFAULT '',
+  task_feat_desc TEXT NOT NULL DEFAULT '',
+  points INT NOT NULL DEFAULT 0,
+  target_count INT NOT NULL DEFAULT 1,
+  sort INT NOT NULL DEFAULT 0,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS bz_mini_task_feat_record (
+  id BIGSERIAL PRIMARY KEY,
+  "userId" BIGINT NOT NULL,
+  "taskFeatId" VARCHAR(64) NOT NULL,
+  "taskFeatName" VARCHAR(100) NOT NULL DEFAULT '',
+  points INT NOT NULL DEFAULT 0,
+  received BOOLEAN NOT NULL DEFAULT FALSE,
+  "taskFeatDesc" TEXT NOT NULL DEFAULT '',
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 ALTER TABLE bz_mini_user
   ADD COLUMN IF NOT EXISTS phone VARCHAR(32),
   ADD COLUMN IF NOT EXISTS "isAdmin" BOOLEAN NOT NULL DEFAULT FALSE;
@@ -229,3 +253,12 @@ ON user_tag_display_settings (main_tag_id);
 
 CREATE INDEX IF NOT EXISTS idx_bz_points_goods_type
 ON bz_points_goods (type, is_available, points ASC);
+
+CREATE INDEX IF NOT EXISTS idx_bz_mini_task_feat_type
+ON bz_mini_task_feat (type, sort ASC);
+
+CREATE INDEX IF NOT EXISTS idx_bz_mini_task_feat_record_user
+ON bz_mini_task_feat_record ("userId", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_bz_mini_task_feat_record_task
+ON bz_mini_task_feat_record ("taskFeatId", "userId");
