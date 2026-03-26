@@ -3,10 +3,14 @@ import { DatabaseService } from '../../common/database.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
+import { ModerationService } from '../moderation/moderation.service';
 
 @Injectable()
 export class TopicService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly moderationService: ModerationService,
+  ) {}
 
   async getAllTopics(
     currentUserId = 0,
@@ -262,6 +266,35 @@ export class TopicService {
   }
 
   async publishTopic(userId: number, dto: PublishTopicDto) {
+    const titleDecision = await this.moderationService.reviewText(
+      'topic_title',
+      dto.title,
+      {
+        userId,
+        targetType: 'topic',
+        targetId: dto.id ?? `${userId}:pending`,
+        extra: { field: 'title', topicCategory: dto.topicCategory },
+      },
+    );
+    const contentDecision = await this.moderationService.reviewText(
+      'topic_content',
+      dto.content,
+      {
+        userId,
+        targetType: 'topic',
+        targetId: dto.id ?? `${userId}:pending`,
+        extra: { field: 'content', topicCategory: dto.topicCategory },
+      },
+    );
+    const combinedDecision = this.moderationService.combineTextDecisions([
+      titleDecision,
+      contentDecision,
+    ]);
+    this.moderationService.assertTopicPublishAccepted(combinedDecision);
+
+    const nextStatus = combinedDecision.result === 'REVIEW' ? 1 : 2;
+    const publishTimeSql = nextStatus === 2 ? 'NOW()' : 'NULL';
+
     if (dto.id) {
       const updateResult = await this.databaseService.query(
         `
@@ -272,9 +305,9 @@ export class TopicService {
           content = $3,
           images = $4::jsonb,
           extra = $5::jsonb,
-          status = 2,
+          status = $8,
           "userId" = $6,
-          "publishTime" = NOW(),
+          "publishTime" = ${publishTimeSql},
           "isDelete" = 0,
           "updateTime" = NOW()
         WHERE id = $7
@@ -289,6 +322,7 @@ export class TopicService {
           JSON.stringify(dto.extra || {}),
           userId,
           dto.id,
+          nextStatus,
         ],
       );
 
@@ -318,7 +352,7 @@ export class TopicService {
         "isDelete"
       )
       VALUES
-      ($1, $2, $3, $4::jsonb, $5::jsonb, 2, $6, NOW(), NOW(), NOW(), 0, 0, 0)
+      ($1, $2, $3, $4::jsonb, $5::jsonb, $7, $6, ${publishTimeSql}, NOW(), NOW(), 0, 0, 0)
       RETURNING *
       `,
       [
@@ -328,6 +362,7 @@ export class TopicService {
         JSON.stringify(dto.images || []),
         JSON.stringify(dto.extra || {}),
         userId,
+        nextStatus,
       ],
     );
 

@@ -3,12 +3,14 @@ import { ConfigService } from '@nestjs/config';
 import { mkdir, writeFile } from 'fs/promises';
 import { extname, join } from 'path';
 import { DatabaseService } from '../../common/database.service';
+import { ModerationService } from '../moderation/moderation.service';
 
 @Injectable()
 export class UploadService {
   constructor(
     private readonly configService: ConfigService,
     private readonly databaseService: DatabaseService,
+    private readonly moderationService: ModerationService,
   ) {}
 
   getUploadDir() {
@@ -62,12 +64,13 @@ export class UploadService {
 
     const url = `${this.resolvePublicBaseUrl(origin)}/${objectKey}`;
 
-    await this.databaseService.query(
+    const assetInsert = await this.databaseService.query(
       `
       INSERT INTO media_assets
       ("userId", "bizType", "fileName", "fileExt", "mimeType", "fileSize", "objectKey", url, status, "createTime", "updateTime")
       VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, 'active', NOW(), NOW())
+      RETURNING id
       `,
       [
         userId,
@@ -80,11 +83,70 @@ export class UploadService {
         url,
       ],
     );
+    const assetId = Number(assetInsert.rows[0]?.id || 0);
+
+    const moderationDecision = await this.moderationService.reviewImage(
+      this.resolveModerationScene(normalizedBizType),
+      file.buffer,
+      {
+        userId,
+        targetType: 'media_asset',
+        targetId: assetId || objectKey,
+        extra: {
+          bizType: normalizedBizType,
+          objectKey,
+          url,
+        },
+      },
+    );
+
+    await this.databaseService.query(
+      `
+      UPDATE media_assets
+      SET
+        status = $2,
+        "moderationStatus" = $3,
+        "moderationProvider" = $4,
+        "moderationRiskLevel" = $5,
+        "moderationReason" = $6,
+        "moderationRaw" = $7::jsonb,
+        "moderatedAt" = NOW(),
+        "updateTime" = NOW()
+      WHERE id = $1
+      `,
+      [
+        assetId,
+        moderationDecision.result === 'PASS'
+          ? 'active'
+          : moderationDecision.result === 'REVIEW'
+            ? 'review'
+            : 'rejected',
+        moderationDecision.result.toLowerCase(),
+        moderationDecision.provider,
+        moderationDecision.riskLevel,
+        moderationDecision.riskReason,
+        JSON.stringify(moderationDecision.raw || {}),
+      ],
+    );
+
+    this.moderationService.assertUploadImageAllowed(moderationDecision);
 
     return {
       fileName,
       objectKey,
       url,
     };
+  }
+
+  private resolveModerationScene(
+    bizType: string,
+  ): 'topic_image' | 'avatar_image' | 'background_image' {
+    if (bizType === 'avatar') {
+      return 'avatar_image';
+    }
+    if (bizType === 'background') {
+      return 'background_image';
+    }
+    return 'topic_image';
   }
 }

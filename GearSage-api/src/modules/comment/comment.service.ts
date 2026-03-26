@@ -2,10 +2,14 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { DatabaseService } from '../../common/database.service';
 import { AddCommentDto } from './dto/add-comment.dto';
 import { ToggleCommentLikeDto } from './dto/toggle-comment-like.dto';
+import { ModerationService } from '../moderation/moderation.service';
 
 @Injectable()
 export class CommentService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly moderationService: ModerationService,
+  ) {}
 
   async list(topicId: number, currentUserId = 0) {
     const result = await this.databaseService.query(
@@ -58,12 +62,34 @@ export class CommentService {
   }
 
   async add(userId: number, dto: AddCommentDto) {
+    const decision = await this.moderationService.reviewText(
+      'comment_content',
+      dto.content,
+      {
+        userId,
+        targetType: 'comment',
+        targetId: `${dto.topicId}:pending`,
+        extra: {
+          topicId: dto.topicId,
+          replyCommentId: dto.replayCommentId ?? null,
+          replyUserId: dto.replayUserId ?? null,
+        },
+      },
+    );
+
+    if (decision.result === 'REJECT') {
+      throw new ForbiddenException('内容不符合社区规范，请修改后重试');
+    }
+
+    const status = decision.result === 'REVIEW' ? 0 : 2;
+    const isVisible = status === 2 ? 1 : 0;
+
     await this.databaseService.query(
       `
       INSERT INTO bz_topic_comment
-      ("topicId", content, "replyCommentId", "replyUserId", "userId", "isVisible", "createTime", "updateTime")
+      ("topicId", content, "replyCommentId", "replyUserId", "userId", status, "isVisible", "createTime", "updateTime")
       VALUES
-      ($1, $2, $3, $4, $5, 1, NOW(), NOW())
+      ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW())
       `,
       [
         dto.topicId,
@@ -71,19 +97,23 @@ export class CommentService {
         dto.replayCommentId ?? null,
         dto.replayUserId ?? null,
         userId,
+        status,
+        isVisible,
       ],
     );
 
-    await this.databaseService.query(
-      `
-      UPDATE bz_mini_topic
-      SET
-        "commentCount" = "commentCount" + 1,
-        "updateTime" = NOW()
-      WHERE id = $1
-      `,
-      [dto.topicId],
-    );
+    if (status === 2) {
+      await this.databaseService.query(
+        `
+        UPDATE bz_mini_topic
+        SET
+          "commentCount" = "commentCount" + 1,
+          "updateTime" = NOW()
+        WHERE id = $1
+        `,
+        [dto.topicId],
+      );
+    }
 
     return true;
   }
@@ -116,6 +146,7 @@ export class CommentService {
       `
       UPDATE bz_topic_comment
       SET
+        status = 9,
         "isVisible" = 0,
         "updateTime" = NOW()
       WHERE id = $1

@@ -23,6 +23,8 @@ import { UploadController } from './modules/upload/upload.controller';
 import { UploadService } from './modules/upload/upload.service';
 import { UserController } from './modules/user/user.controller';
 import { UserService } from './modules/user/user.service';
+import { ModerationService } from './modules/moderation/moderation.service';
+import { ModerationTencentService } from './modules/moderation/moderation.tencent.service';
 
 @Module({
   imports: [
@@ -57,6 +59,8 @@ ConfigModule.forRoot({
     GearService,
     TagService,
     TaskService,
+    ModerationService,
+    ModerationTencentService,
   ],
 })
 export class AppModule {}

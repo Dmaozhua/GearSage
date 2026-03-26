@@ -1,10 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ModerationService } from '../moderation/moderation.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly moderationService: ModerationService,
+  ) {}
 
   async getById(userId: number) {
     const result = await this.databaseService.query(
@@ -28,6 +32,34 @@ export class UserService {
     const nickName = dto.nickName ?? dto.nickname;
     const avatarUrl = dto.avatarUrl ?? dto.avatar;
     const background = dto.background ?? dto.backgroundImage;
+
+    if (nickName !== undefined && String(nickName || '').trim()) {
+      const nickDecision = await this.moderationService.reviewText(
+        'user_nickname',
+        String(nickName),
+        {
+          userId,
+          targetType: 'user',
+          targetId: userId,
+          extra: { field: 'nickName' },
+        },
+      );
+      this.moderationService.assertProfileTextAllowed(nickDecision);
+    }
+
+    if (dto.bio !== undefined && String(dto.bio || '').trim()) {
+      const bioDecision = await this.moderationService.reviewText(
+        'user_bio',
+        String(dto.bio),
+        {
+          userId,
+          targetType: 'user',
+          targetId: userId,
+          extra: { field: 'bio' },
+        },
+      );
+      this.moderationService.assertProfileTextAllowed(bioDecision);
+    }
 
     const result = await this.databaseService.query(
       `

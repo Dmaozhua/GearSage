@@ -245,6 +245,11 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 审核能力直接嵌入 `user / topic / comment / upload` 现有链路
   - 不改动当前 `{ code, message, data }` 返回结构
   - 不改动当前上传路径口径
+- 2026-03-27 第一轮代码实施已完成：
+  - 已新增 `moderation` 服务与腾讯云 provider 封装
+  - 已完成 `topic / comment / user / upload` 四条接入点
+  - 已补 `moderation_records / moderation_rules` 及审核字段
+  - 当前进入“本地数据库迁移 + 联调验证”阶段
 
 ---
 
@@ -262,6 +267,13 @@ P3-A 的完成标准不是“微信一定通过”，而是：
 
 优先级：
 - 最高
+
+当前进度：
+- 已并入 D1 第一轮代码实施
+- 当前图片审核已接入 `upload.service.ts`
+- 当前口径：
+  - `PASS` 正常返回上传结果
+  - `REJECT / REVIEW` 第一轮统一阻断上传
 
 ---
 
@@ -281,6 +293,13 @@ P3-A 的完成标准不是“微信一定通过”，而是：
 
 优先级：
 - 高
+
+当前进度：
+- 第一轮已按当前方案落地基础状态机：
+  - 用户昵称 / 简介：`PASS` 保存，`REJECT/REVIEW` 阻断
+  - 评论：`PASS` 直接展示，`REVIEW` 入库但不展示，`REJECT` 阻断
+  - 帖子发布：`PASS -> status=2`，`REVIEW -> status=1`，`REJECT` 阻断
+  - 上传图片：`PASS` 返回，`REJECT/REVIEW` 阻断
 
 ---
 

@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS bz_topic_comment (
   "replyCommentId" BIGINT,
   "replyUserId" BIGINT,
   "userId" BIGINT NOT NULL,
+  status INT NOT NULL DEFAULT 2,
   "isVisible" INT NOT NULL DEFAULT 1,
   "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -103,6 +104,43 @@ CREATE TABLE IF NOT EXISTS media_assets (
   "objectKey" TEXT NOT NULL,
   url TEXT NOT NULL,
   status VARCHAR(32) NOT NULL DEFAULT 'active',
+  "moderationStatus" VARCHAR(16) NOT NULL DEFAULT 'pass',
+  "moderationProvider" VARCHAR(32) NOT NULL DEFAULT '',
+  "moderationRiskLevel" VARCHAR(64) NOT NULL DEFAULT '',
+  "moderationReason" TEXT NOT NULL DEFAULT '',
+  "moderationRaw" JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "moderatedAt" TIMESTAMPTZ,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS moderation_records (
+  id BIGSERIAL PRIMARY KEY,
+  scene VARCHAR(64) NOT NULL,
+  "targetType" VARCHAR(32) NOT NULL DEFAULT '',
+  "targetId" VARCHAR(64) NOT NULL DEFAULT '',
+  "contentType" VARCHAR(16) NOT NULL DEFAULT 'text',
+  provider VARCHAR(32) NOT NULL DEFAULT '',
+  result VARCHAR(16) NOT NULL DEFAULT 'pass',
+  "riskLevel" VARCHAR(64) NOT NULL DEFAULT '',
+  "riskReason" TEXT NOT NULL DEFAULT '',
+  "hitLabels" JSONB NOT NULL DEFAULT '[]'::jsonb,
+  "requestId" VARCHAR(128) NOT NULL DEFAULT '',
+  "rawResultJson" JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "operatorType" VARCHAR(16) NOT NULL DEFAULT 'system',
+  "operatorId" VARCHAR(64) NOT NULL DEFAULT '',
+  "userId" BIGINT,
+  extra JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS moderation_rules (
+  id BIGSERIAL PRIMARY KEY,
+  rule_type VARCHAR(32) NOT NULL DEFAULT 'text',
+  match_type VARCHAR(32) NOT NULL DEFAULT 'contains',
+  keyword VARCHAR(255) NOT NULL,
+  status VARCHAR(16) NOT NULL DEFAULT 'active',
+  remark TEXT NOT NULL DEFAULT '',
   "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -248,6 +286,21 @@ ALTER TABLE bz_mini_user
 ALTER TABLE bz_mini_topic
   ADD COLUMN IF NOT EXISTS extra JSONB NOT NULL DEFAULT '{}'::jsonb;
 
+ALTER TABLE bz_topic_comment
+  ADD COLUMN IF NOT EXISTS status INT NOT NULL DEFAULT 2;
+
+UPDATE bz_topic_comment
+SET status = CASE WHEN "isVisible" = 1 THEN 2 ELSE 9 END
+WHERE ("isVisible" = 0 AND status = 2);
+
+ALTER TABLE media_assets
+  ADD COLUMN IF NOT EXISTS "moderationStatus" VARCHAR(16) NOT NULL DEFAULT 'pass',
+  ADD COLUMN IF NOT EXISTS "moderationProvider" VARCHAR(32) NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS "moderationRiskLevel" VARCHAR(64) NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS "moderationReason" TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS "moderationRaw" JSONB NOT NULL DEFAULT '{}'::jsonb,
+  ADD COLUMN IF NOT EXISTS "moderatedAt" TIMESTAMPTZ;
+
 CREATE INDEX IF NOT EXISTS idx_bz_mini_topic_list
 ON bz_mini_topic ("topicCategory", status, "isDelete", "publishTime" DESC);
 
@@ -283,6 +336,18 @@ ON auth_refresh_tokens ("userId", "expiresAt");
 
 CREATE INDEX IF NOT EXISTS idx_media_assets_user
 ON media_assets ("userId", "bizType", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_media_assets_moderation
+ON media_assets ("moderationStatus", "bizType", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_moderation_records_target
+ON moderation_records ("targetType", "targetId", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_moderation_records_result
+ON moderation_records (result, scene, "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_moderation_rules_active
+ON moderation_rules (status, rule_type, "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_bz_tag_definitions_active
 ON bz_tag_definitions (is_active, is_redeemable, is_wearable, display_priority DESC);
