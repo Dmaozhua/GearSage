@@ -286,20 +286,19 @@ function generateSearchDataFile(masters) {
     fs.mkdirSync(SEARCH_DATA_DIR, { recursive: true });
   }
 
-  let currentId = 1;
   const searchData = masters
     .filter((item) => ['reel', 'rod', 'lure'].includes(item.kind))
     .map((item) => {
       const nameParts = [item.modelYear, item.model, item.modelCn].filter(Boolean);
       return {
         type: item.kind,
-        id: currentId++,
+        id: Number(item.id),
         name: nameParts.join(' ').trim(),
         alias: item.alias || '',
         type_tips: item.typeTips || '',
       };
     })
-    .filter((item) => item.name);
+    .filter((item) => item.name && Number.isFinite(item.id) && item.id > 0);
 
   const content = `module.exports = ${JSON.stringify(searchData, null, 2)};\n`;
   fs.writeFileSync(SEARCH_DATA_FILE, content, 'utf8');

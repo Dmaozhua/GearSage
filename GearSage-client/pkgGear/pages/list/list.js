@@ -1,7 +1,13 @@
 const app = getApp();
 const apiService = require('../../../services/api');
+const {
+  enrichGearItemWithSearchData,
+  filterGearListByKeyword,
+  filterGearListByRecommendations
+} = require('../../utils/gearSearchIndex');
 
 const QUERY_PAGE_SIZE = 20;
+const SEARCH_QUERY_PAGE_SIZE = 500;
 
 Page({
   data: {
@@ -20,45 +26,6 @@ Page({
     searchKeyword: '',
     activeFilters: {},
     isSearchMode: false
-  },
-
-  normalizeSearchTarget(item) {
-    return [
-      item.displayName,
-      item.model,
-      item.model_cn,
-      item.alias,
-      item.type_tips,
-      item.family,
-      item.familyId
-    ]
-      .map((value) => String(value || '').trim().toLowerCase())
-      .filter(Boolean)
-      .join(' ');
-  },
-
-  applyDerivedRecommendations(list = [], derivedRecommendations = []) {
-    const keywords = (Array.isArray(derivedRecommendations) ? derivedRecommendations : [])
-      .map((item) => {
-        if (!item || typeof item !== 'object') {
-          return [];
-        }
-        return [item.id, item.name]
-          .map((value) => String(value || '').trim().toLowerCase())
-          .filter(Boolean);
-      })
-      .flat();
-
-    if (!keywords.length) {
-      return list;
-    }
-
-    const filteredList = list.filter((item) => {
-      const target = this.normalizeSearchTarget(item);
-      return keywords.some((keyword) => target.includes(keyword));
-    });
-
-    return filteredList;
   },
 
   onLoad(options) {
@@ -126,12 +93,14 @@ Page({
     }
 
     const displayName = item.model_year ? `${item.model_year} ${item.model}` : item.model;
-    return {
+    const normalizedItem = {
       ...item,
       imageUrl,
       displayName,
       brandName: item.brand_name || this.data.brandsMap[String(item.brand_id)] || ''
     };
+
+    return enrichGearItemWithSearchData(normalizedItem, this.data.currentType);
   },
 
   finishSearchUI() {
@@ -203,11 +172,14 @@ Page({
           ? [selectedRecommendation]
           : derivedRecommendations;
         const finalList = !query && this.data.currentType === 'lures' && recommendationFilters.length > 0
-          ? this.applyDerivedRecommendations(list, recommendationFilters)
+          ? filterGearListByRecommendations(list, recommendationFilters)
           : list;
         this.setData({ activeFilters: filters, list: finalList, allList: finalList, isSearchMode: true, hasMore: false });
         if (!finalList.length) {
-          wx.showToast({ title: '未找到相关数据', icon: 'none' });
+          wx.showToast({
+            title: selectedRecommendation ? '当前数据暂未覆盖该推荐词' : '未找到相关数据',
+            icon: 'none'
+          });
         }
       })
       .catch((error) => {
@@ -218,27 +190,31 @@ Page({
   },
 
   async queryGearData(keyword = '', filters = {}) {
+    const trimmedKeyword = String(keyword || '').trim();
     console.log('[List Page] queryGearData params:', {
       type: this.data.currentType,
-      keyword,
+      keyword: trimmedKeyword,
       filters
     });
     const response = await apiService.getGearList({
       type: this.data.currentType,
       page: 1,
-      pageSize: QUERY_PAGE_SIZE * 5,
-      keyword,
+      pageSize: SEARCH_QUERY_PAGE_SIZE,
       ...filters
     });
     const allData = response && Array.isArray(response.list) ? response.list : [];
+    const normalizedList = allData.map((item) => this.normalizeItem(item));
+    const finalList = trimmedKeyword
+      ? filterGearListByKeyword(normalizedList, trimmedKeyword)
+      : normalizedList;
 
     console.log('[List Page] queryGearData result:', {
-      total: allData.length,
-      keyword,
+      total: finalList.length,
+      keyword: trimmedKeyword,
       filters
     });
 
-    return allData.map((item) => this.normalizeItem(item));
+    return finalList;
   },
 
   async loadData(reset = false) {

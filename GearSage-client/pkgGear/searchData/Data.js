@@ -582,238 +582,238 @@ module.exports = [
   },
   {
     "type": "rod",
-    "id": 84,
+    "id": 1,
     "name": "25 POISON ADRENA 荣光二代",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 85,
+    "id": 2,
     "name": "26 ZODIAS 佐大师",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 86,
+    "id": 3,
     "name": "26 POISON GLORIOUS 荣光四代",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 87,
+    "id": 4,
     "name": "26 Majestic+ 马杰仕",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 88,
+    "id": 5,
     "name": "25 LESATH",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 89,
+    "id": 6,
     "name": "25 CAPTURE",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 90,
+    "id": 7,
     "name": "25 PEGAS 飞马座",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 91,
+    "id": 8,
     "name": "25 UNFIX",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 92,
+    "id": 9,
     "name": "22 POISON ULTIMA 荣光三代",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 93,
+    "id": 10,
     "name": "24 ARGUS HUNTER",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 94,
+    "id": 11,
     "name": "24 LEONIS 狮子座",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 95,
+    "id": 12,
     "name": "24 WORLD SHAULA LIMITED 沙湖啦",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 96,
+    "id": 13,
     "name": "23 BASS ONE XT+",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 97,
+    "id": 14,
     "name": "23 LUREMATIC（BASS）",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 98,
+    "id": 15,
     "name": "22 Bantam 邦汤姆",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 99,
+    "id": 16,
     "name": "EXPRIDE",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 100,
+    "id": 17,
     "name": "ZODIAS PACK 佐大师 多节",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 101,
+    "id": 18,
     "name": "Scorpion XV",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 102,
+    "id": 19,
     "name": "21 POISON GLORIOUS 荣光四代",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 103,
+    "id": 20,
     "name": "WORLD SHAULA Dream Tour Edition 沙湖啦",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 104,
+    "id": 21,
     "name": "20 ZODIAS 佐大师",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "rod",
-    "id": 105,
+    "id": 22,
     "name": "POISON GLORIOUS XC",
     "alias": "",
     "type_tips": ""
   },
   {
     "type": "lure",
-    "id": 106,
+    "id": 1,
     "name": "响尾蛇VIB",
     "alias": "vib",
     "type_tips": "vib"
   },
   {
     "type": "lure",
-    "id": 107,
+    "id": 2,
     "name": "青虾VIB",
     "alias": "vib",
     "type_tips": "vib"
   },
   {
     "type": "lure",
-    "id": 108,
+    "id": 3,
     "name": "25 竞技T尾2代",
     "alias": "t尾",
     "type_tips": ""
   },
   {
     "type": "lure",
-    "id": 109,
+    "id": 4,
     "name": "竞技T尾",
     "alias": "t尾",
     "type_tips": ""
   },
   {
     "type": "lure",
-    "id": 110,
+    "id": 5,
     "name": "CC系列-缓沉",
     "alias": "胖子",
     "type_tips": "crank"
   },
   {
     "type": "lure",
-    "id": 111,
+    "id": 6,
     "name": "CC系列-浮水",
     "alias": "胖子",
     "type_tips": "crank"
   },
   {
     "type": "lure",
-    "id": 112,
+    "id": 7,
     "name": "CC系列-速沉",
     "alias": "胖子",
     "type_tips": "crank"
   },
   {
     "type": "lure",
-    "id": 113,
+    "id": 8,
     "name": "超级响尾蛇",
     "alias": "vib",
     "type_tips": "vib"
   },
   {
     "type": "lure",
-    "id": 114,
+    "id": 9,
     "name": "DK系列",
     "alias": "vib",
     "type_tips": "vib"
   },
   {
     "type": "lure",
-    "id": 115,
+    "id": 10,
     "name": "V8波爬",
     "alias": "波爬",
     "type_tips": "popper"
   },
   {
     "type": "lure",
-    "id": 116,
+    "id": 11,
     "name": "复合亮片HIGH PITCHER",
     "alias": "复合亮片",
     "type_tips": "spinnerbait"
   },
   {
     "type": "lure",
-    "id": 117,
+    "id": 12,
     "name": "危牙JIG",
     "alias": "精细jig",
     "type_tips": "finesse_jig"
