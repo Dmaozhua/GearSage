@@ -1,6 +1,7 @@
 const app = getApp();
 const searchData = require('../../searchData/Data.js');
 const defData = require('../../searchData/defData.js');
+const { getRecommendationCoverage } = require('../../utils/gearSearchIndex');
 
 const TYPE_MAP = {
   reels: 'reel',
@@ -136,9 +137,15 @@ Component({
         if (isMatch && rule.then && Array.isArray(rule.then)) {
           rule.then.forEach(id => {
             if (familyMap[id] && !matchedKeywords.has(id)) {
-              matchedKeywords.set(id, {
+              const coverage = getRecommendationCoverage(mappedType, {
                 id,
                 name: familyMap[id].zh || id
+              });
+              matchedKeywords.set(id, {
+                id,
+                name: familyMap[id].zh || id,
+                covered: coverage.covered,
+                matchCount: coverage.matchCount
               });
             }
           });
@@ -376,6 +383,14 @@ Component({
     selectRecommendation(e) {
       const id = e.currentTarget.dataset.id;
       const name = e.currentTarget.dataset.name;
+      const covered = e.currentTarget.dataset.covered;
+      if (!covered) {
+        wx.showToast({
+          title: '当前数据暂未覆盖该推荐词',
+          icon: 'none'
+        });
+        return;
+      }
       this.setData({ 
         isExpanded: false,
         recommendations: []

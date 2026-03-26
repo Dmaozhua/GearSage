@@ -43,7 +43,17 @@
       <view class="recommendation-bar" wx:if="{{recommendations.length > 0}}">
         <text class="recommendation-label">你可能要找的是：</text>
         <block wx:for="{{recommendations}}" wx:key="id">
-          <text class="recommendation-item" bindtap="selectRecommendation" data-id="{{item.id}}" data-name="{{item.name}}">{{item.name}}</text>
+          <view
+            class="recommendation-item {{item.covered ? '' : 'disabled'}}"
+            bindtap="selectRecommendation"
+            data-id="{{item.id}}"
+            data-name="{{item.name}}"
+            data-covered="{{item.covered}}"
+          >
+            <text>{{item.name}}</text>
+            <text class="recommendation-count" wx:if="{{item.covered}}">·{{item.matchCount}}</text>
+            <text class="recommendation-badge" wx:else>待补</text>
+          </view>
         </block>
       </view>
 

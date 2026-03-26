@@ -10,6 +10,7 @@ const TYPE_MAP = {
 };
 
 const SEARCH_INDEX = buildSearchIndex(searchData);
+const SEARCH_DATA_LIST = Array.isArray(searchData) ? searchData : [];
 
 function buildSearchIndex(list = []) {
   return (Array.isArray(list) ? list : []).reduce((acc, item) => {
@@ -111,11 +112,57 @@ function filterGearListByRecommendations(list = [], recommendations = []) {
   });
 }
 
+function buildSearchEntryTarget(entry = {}) {
+  return [
+    entry.name,
+    entry.alias,
+    entry.type_tips
+  ]
+    .map((value) => String(value || '').trim().toLowerCase())
+    .filter(Boolean)
+    .join(' ');
+}
+
+function getRecommendationCoverage(type, recommendation = {}) {
+  const normalizedType = normalizeGearType(type);
+  if (!normalizedType) {
+    return {
+      covered: false,
+      matchCount: 0
+    };
+  }
+
+  const keywords = [recommendation.id, recommendation.name]
+    .map((value) => String(value || '').trim().toLowerCase())
+    .filter(Boolean);
+
+  if (!keywords.length) {
+    return {
+      covered: false,
+      matchCount: 0
+    };
+  }
+
+  const matchCount = SEARCH_DATA_LIST.filter((entry) => {
+    if (normalizeGearType(entry.type) !== normalizedType) {
+      return false;
+    }
+    const target = buildSearchEntryTarget(entry);
+    return keywords.some((keyword) => target.includes(keyword));
+  }).length;
+
+  return {
+    covered: matchCount > 0,
+    matchCount
+  };
+}
+
 module.exports = {
   normalizeGearType,
   getSearchIndexEntry,
   enrichGearItemWithSearchData,
   buildSearchTarget,
   filterGearListByKeyword,
-  filterGearListByRecommendations
+  filterGearListByRecommendations,
+  getRecommendationCoverage
 };

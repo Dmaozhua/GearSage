@@ -278,12 +278,34 @@
 }
 
 .recommendation-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
   padding: 6rpx 16rpx;
   background-color: #fff;
   border: 1rpx solid #e6a23c;
   border-radius: 24rpx;
   font-size: 24rpx;
   color: #e6a23c;
+}
+
+.recommendation-item.disabled {
+  color: #9aa5b1;
+  border-color: #cfd8e3;
+  background-color: #f4f7fa;
+}
+
+.recommendation-count {
+  font-size: 22rpx;
+  opacity: 0.72;
+}
+
+.recommendation-badge {
+  padding: 2rpx 10rpx;
+  border-radius: 999rpx;
+  background: rgba(154, 165, 177, 0.16);
+  font-size: 20rpx;
+  color: #7b8794;
 }
 
 /* Dark Mode */
@@ -304,3 +326,5 @@
 .search-filter-container.dark .filter-actions { border-top-color: #333; }
 .search-filter-container.dark .recommendation-bar { background-color: #3a2e1e; border-bottom-color: #5a4e2e; }
 .search-filter-container.dark .recommendation-item { background-color: #2c2c2c; color: #e6a23c; border-color: #e6a23c; }
+.search-filter-container.dark .recommendation-item.disabled { background-color: #2a2f36; color: #94a0ad; border-color: #46505c; }
+.search-filter-container.dark .recommendation-badge { background: rgba(148, 160, 173, 0.16); color: #b3bdc8; }
