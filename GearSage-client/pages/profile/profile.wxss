@@ -37,6 +37,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: var(--text-primary);
 }
 
 
@@ -71,33 +72,54 @@
   height: 48rpx;
 }
 /* 页面容器 */
+.profile-container, .custom-nav {
+    --page-bg: #f7f9fc;
+    --surface-bg: #ffffff;
+    --surface-border: rgba(0, 0, 0, 0.04);
+    --surface-shadow: 0 16rpx 32rpx rgba(58, 135, 240, 0.06);
+    --user-content-shadow: 0 -10rpx 30rpx rgba(0,0,0,0.05);
+    --text-primary: #1a1f26;
+    --text-secondary: #6e7a8a;
+    --text-muted: #94a3b8;
+    --accent: #4492fe;
+    --accent-gradient: linear-gradient(135deg, #4492fe 0%, #2b70d4 100%);
+    --btn-shadow: 0 12rpx 32rpx rgba(58, 135, 240, 0.25);
+    --admin-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    --menu-hover: #f8fafc;
+}
+
+.profile-container.dark, .custom-nav.dark {
+    --page-bg: #0d1117;
+    --surface-bg: #161b22;
+    --surface-border: rgba(240, 246, 252, 0.1);
+    --surface-shadow: 0 16rpx 32rpx rgba(0, 0, 0, 0.3);
+    --user-content-shadow: 0 -10rpx 30rpx rgba(0,0,0,0.4);
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --accent: #58a6ff;
+    --accent-gradient: linear-gradient(135deg, #58a6ff 0%, #3178c6 100%);
+    --btn-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.3);
+    --admin-gradient: linear-gradient(135deg, #e55353 0%, #c83d1c 100%);
+    --menu-hover: #21262d;
+}
+
 .profile-container {
-    --page-bg:
-      linear-gradient(180deg, #f5f8fb 0%, #e8eef3 56%, #dde6ed 100%);
-    --surface-bg: rgba(255, 255, 255, 0.92);
-    --surface-border: rgba(122, 140, 158, 0.12);
-    --surface-shadow: 0 12rpx 32rpx rgba(18, 34, 52, 0.08);
-    --soft-bg: rgba(241, 245, 249, 0.9);
-    --soft-border: rgba(143, 161, 180, 0.18);
-    --text-primary: #223140;
-    --text-secondary: #5c6d7d;
-    --text-muted: #7f91a3;
-    --accent: #5b7d9d;
-    min-height: 100vh; /* 设置最小高度为视口高度的100% */
-    width: 100%; /* 设置宽度为视口宽度的100% */
-    margin: 0; /* 去除外边距 */
-    padding: 0; /* 去除内边距 */
-    background-color: #f5f5f5; /* 设置背景颜色，可根据需要修改 */
-    overflow-x: hidden; /* 禁止水平方向滚动条及滚动行为 */
-    box-sizing: border-box; /* 确保padding计算在内 */
-  }
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--page-bg);
+    overflow-x: hidden;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 /* 页面容器 */
 .container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+  background-color: var(--page-bg);
   padding-bottom: 40rpx;
-
 }
 
 /* 加载状态 */
@@ -107,7 +129,7 @@
   justify-content: center;
   height: 60vh;
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 /* 未登录状态 */
@@ -124,12 +146,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: white;
-  border-radius: 20rpx;
+  background: var(--surface-bg);
+  border-radius: 40rpx;
   padding: 60rpx 40rpx;
-  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
+  box-shadow: var(--surface-shadow);
   width: 100%;
   max-width: 500rpx;
+  border: 1rpx solid var(--surface-border);
 }
 
 .login-icon {
@@ -138,30 +161,37 @@
   margin-bottom: 30rpx;
 }
 
-.login-text {
+.login-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 15rpx;
 }
 
-.login-desc {
+.login-subtitle {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 40rpx;
   line-height: 1.5;
 }
 
 .login-btn {
-  background: linear-gradient(135deg, #3a87f0, #2c5aa0);
+  background: var(--accent-gradient);
   border: none;
-  border-radius: 50rpx;
+  border-radius: 48rpx;
   padding: 25rpx 60rpx;
   width: 100%;
   max-width: 300rpx;
   color: white;
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 600;
+  box-shadow: var(--btn-shadow);
+  transition: all 0.3s ease;
+}
+
+.login-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 6rpx 12rpx rgba(0, 0, 0, 0.15);
 }
 .navbar-title{
     font-size: 36rpx;
@@ -170,6 +200,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: var(--text-primary);
 }
 /* 个人资料内容 */
 .profile-content {
@@ -209,41 +240,35 @@
 /* 内容区域 - 调整内边距 */
 .user-content {
     position: relative;
-    background-color: #ffffff; /* 白色背景 */
-    padding: 30rpx 30rpx; /* 适当调整内边距 */
-    color: #333333;
+    background-color: var(--surface-bg);
+    padding: 30rpx 30rpx;
+    color: var(--text-primary);
+    border-top-left-radius: 40rpx;
+    border-top-right-radius: 40rpx;
+    margin-top: -40rpx;
+    box-shadow: var(--user-content-shadow);
+    transition: background-color 0.3s ease;
   }
 .user-content::before {
-  position: absolute;
-  content: '';
-  bottom: 99%;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 110rpx 0 0 800rpx;
-  border-color: transparent transparent transparent #ffffff;
-    /* 渐变遮罩 */
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
-    
+    display: none;
 }
 
 .user-avatar {
   position: absolute;
   bottom: 100%;
   left: 50rpx;
+  margin-bottom: -90rpx;
   z-index: 1;
   width: 180rpx;
   height: 180rpx;
   border-radius: 50%;
   opacity: 1;
-  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.3);
-  border: 6rpx solid #fff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  border: 6rpx solid var(--surface-bg);
 }
 
 .user-info {
-  margin-top: 20rpx;
+  margin-top: 80rpx;
 }
 
 .user-name-row {
@@ -255,8 +280,8 @@
 
 .user-name {
   font-size: 52rpx;
-  font-weight: 400;
-  color: #333333;
+  font-weight: 600;
+  color: var(--text-primary);
   margin-bottom: 10rpx;
 }
 
@@ -273,26 +298,24 @@
 /* 稀有度5样式和动画已移至组件中 */
 .user-intro {
   font-size: 28rpx;
-  color: #666666;
+  color: var(--text-secondary);
   margin: 0 0 20rpx;
   line-height: 1.4;
   letter-spacing: 1rpx;
-  opacity: 0.8;
 }
 
 .user-intro-empty {
   font-size: 28rpx;
-  color: #999999;
+  color: var(--text-muted);
   margin: 0 0 20rpx;
   font-style: italic;
-  opacity: 0.8;
 }
 
 
 
 .admin-badge {
   display: inline-block;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  background: var(--admin-gradient);
   padding: 8rpx 16rpx;
   border-radius: 12rpx;
   margin-top: 10rpx;
@@ -314,27 +337,29 @@
 .follow-btn,
 .more-info-btn {
   padding: 10rpx;
-  border: 2rpx solid #333333;
-  color: #333333;
+  border: 2rpx solid var(--text-primary);
+  color: var(--text-primary);
   font-size: 24rpx;
   text-transform: uppercase;
   margin: 20rpx 0;
   display: inline-block;
-  opacity: 0.65;
+  opacity: 0.8;
   width: 47%;
   text-align: center;
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 2rpx;
   background: transparent;
-  border-radius: 0;
+  border-radius: 40rpx;
   transition: all 0.25s ease;
 }
 
 .follow-btn {
   margin-right: 4%;
-  border-color: #2980b9;
-  color: #2980b9;
+  border-color: var(--accent);
+  color: #ffffff;
+  background: var(--accent);
+  opacity: 1;
 }
 
 .follow-btn:active,
@@ -358,29 +383,69 @@
   align-items: center;
   justify-content: space-between;
   padding: 30rpx;
-  border-bottom: 1rpx solid #f5f5f5;
+  border-bottom: 1rpx solid var(--surface-border);
   transition: background-color 0.3s ease;
+  border-radius: 20rpx;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background-color: var(--menu-hover);
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+  width: 40rpx;
+  text-align: center;
+}
+
+.menu-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-title {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 5rpx;
+}
+
+.menu-subtitle {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: var(--text-muted);
+  font-weight: bold;
 }
 
 .profile-card,
 .quick-menu {
-  background: #ffffff;
-  border: 1rpx solid rgba(0, 0, 0, 0.05);
-  border-radius: 28rpx;
+  background: var(--surface-bg);
+  border: 1rpx solid var(--surface-border);
+  border-radius: 40rpx;
   padding: 26rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: var(--surface-shadow);
   margin: 24rpx 20rpx 60rpx;
+  transition: all 0.3s ease;
 }
 
 .profile-container.dark .profile-card,
 .profile-container.dark .quick-menu {
-  background:
-    linear-gradient(180deg, rgba(31, 38, 48, 0.98), rgba(19, 25, 34, 0.98)),
-    radial-gradient(circle at top right, rgba(104, 135, 162, 0.12), transparent 54%);
-  border: 1rpx solid rgba(108, 126, 144, 0.18);
-  box-shadow:
-    inset 0 1rpx 0 rgba(255, 255, 255, 0.04),
-    0 16rpx 40rpx rgba(6, 10, 18, 0.12);
+  /* Dark mode overrides handled by CSS variables */
 }
 
 .card-header {
@@ -577,75 +642,26 @@
 }
 
 .quick-menu .menu-item {
-  border-bottom-color: #f5f5f5;
+  border-bottom-color: var(--surface-border);
 }
 .profile-container.dark .quick-menu .menu-item {
-  border-bottom-color: rgba(128, 144, 159, 0.12);
+  border-bottom-color: var(--surface-border);
 }
 
 .quick-menu .menu-title {
-  color: #333333;
-}
-.profile-container.dark .quick-menu .menu-title {
-  color: #f4f7fb;
+  color: var(--text-primary);
 }
 
 .quick-menu .menu-subtitle,
 .quick-menu .menu-arrow {
-  color: #999999;
-}
-.profile-container.dark .quick-menu .menu-subtitle,
-.profile-container.dark .quick-menu .menu-arrow {
-  color: rgba(174, 188, 201, 0.78);
+  color: var(--text-muted);
 }
 
 .quick-menu .menu-item:last-child {
   border-bottom: none;
 }
 
-.menu-item:last-child {
-  border-bottom: none;
-}
 
-.menu-item:active {
-  background-color: #f8f9fa;
-}
-
-.menu-left {
-  display: flex;
-  align-items: center;
-}
-
-.menu-icon {
-  font-size: 36rpx;
-  margin-right: 20rpx;
-  width: 40rpx;
-  text-align: center;
-}
-
-.menu-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.menu-title {
-  font-size: 30rpx;
-  color: #333;
-  font-weight: 500;
-  margin-bottom: 5rpx;
-}
-
-.menu-subtitle {
-  font-size: 24rpx;
-  color: #999;
-}
-
-.menu-arrow {
-  font-size: 28rpx;
-  color: #999;
-  font-weight: bold;
-}
 
 /* 主题开关样式 */
 .theme-item {
@@ -692,46 +708,10 @@
 
 /* 我的发布模块样式 */
 .publish-item .menu-subtitle {
-  color: #666;
-}
-
-/* 夜间模式下的用户信息区域样式 */
-.dark .user-section {
-  background-color: #1a1a1a !important;
-}
-
-.dark .user-content {
-  background-color: #1a1a1a !important;
-}
-
-.dark .user-content::before {
-  border-color: transparent transparent transparent #1a1a1a !important;
-}
-
-.dark .user-name {
-  color: #ffffff !important;
+  color: var(--text-secondary);
 }
 
 /* 暗色模式user-tag样式已移至组件中 */
-
-.dark .user-intro {
-  color: #e0e0e0 !important;
-}
-
-.dark .user-intro-empty {
-  color: #e0e0e0 !important;
-}
-
-.dark .follow-btn,
-.dark .more-info-btn {
-  border-color: #e0e0e0 !important;
-  color: #e0e0e0 !important;
-}
-
-.dark .follow-btn {
-  border-color: #64b5f6 !important;
-  color: #64b5f6 !important;
-}
 
 /* 暗色模式稀有度样式已移至组件中 */
 
@@ -887,14 +867,7 @@
   z-index: 9998;
 }
 
-/* 夜间模式下自定义导航栏的文字和图标颜色 */
-.profile-container.dark .custom-nav .title,
-.profile-container.dark .custom-nav .navbar-title {
-  color: #ffffff !important;
-}
-.profile-container.dark .navbar-title {
-    color: #ffffff;
-}
+/* 夜间模式下自定义导航栏的图标样式 */
 .profile-container.dark .custom-nav .settings-icon,
 .profile-container.dark .custom-nav .nav-icon {
   filter: brightness(1.2);
@@ -908,102 +881,4 @@
 }
 
 /* Recent Tag UI Theme Overrides */
-.profile-container {
-  --page-bg:
-    linear-gradient(180deg, #f5f8fb 0%, #e8eef3 56%, #dde6ed 100%);
-  --surface-bg: rgba(255, 255, 255, 0.92);
-  --surface-border: rgba(122, 140, 158, 0.12);
-  --surface-shadow: 0 12rpx 32rpx rgba(18, 34, 52, 0.08);
-  --soft-bg: rgba(241, 245, 249, 0.9);
-  --soft-border: rgba(143, 161, 180, 0.18);
-  --text-primary: #223140;
-  --text-secondary: #5c6d7d;
-  --text-muted: #7f91a3;
-  --accent: #5b7d9d;
-  background: var(--page-bg);
-}
 
-.profile-container.dark {
-  --page-bg:
-    radial-gradient(circle at top, rgba(83, 113, 142, 0.18), transparent 26%),
-    linear-gradient(180deg, #111821 0%, #0d131c 56%, #091018 100%);
-  --surface-bg:
-    linear-gradient(180deg, rgba(30, 37, 47, 0.98), rgba(18, 24, 33, 0.99)),
-    radial-gradient(circle at top right, rgba(96, 123, 148, 0.14), transparent 54%);
-  --surface-border: rgba(92, 110, 127, 0.22);
-  --surface-shadow:
-    inset 0 1rpx 0 rgba(255, 255, 255, 0.04),
-    0 18rpx 44rpx rgba(6, 10, 18, 0.22);
-  --soft-bg: rgba(255, 255, 255, 0.04);
-  --soft-border: rgba(116, 132, 148, 0.16);
-  --text-primary: #f4f7fb;
-  --text-secondary: rgba(214, 223, 232, 0.84);
-  --text-muted: rgba(166, 181, 196, 0.76);
-  --accent: #d8e9f7;
-}
-
-.profile-container .container {
-  background: var(--page-bg);
-}
-
-.profile-container .login-content,
-.profile-container .profile-card,
-.profile-container .quick-menu,
-.profile-container .user-content {
-  background: var(--surface-bg);
-  border: 1rpx solid var(--surface-border);
-  box-shadow: var(--surface-shadow);
-  backdrop-filter: blur(18rpx);
-  -webkit-backdrop-filter: blur(18rpx);
-}
-
-.profile-container .login-content {
-  padding: 60rpx 40rpx;
-}
-
-.profile-container .user-content {
-  color: var(--text-primary);
-}
-
-.profile-container .user-content::before {
-  border-color: transparent transparent transparent rgba(255, 255, 255, 0.92);
-}
-
-.profile-container.dark .user-content::before {
-  border-color: transparent transparent transparent rgba(27, 34, 43, 0.98) !important;
-}
-
-.profile-container .user-avatar {
-  box-shadow: 0 18rpx 36rpx rgba(12, 20, 30, 0.22);
-}
-
-.profile-container .user-name,
-.profile-container .quick-menu .menu-title,
-.profile-container .menu-title {
-  color: var(--text-primary);
-}
-
-.profile-container .user-intro,
-.profile-container .publish-item .menu-subtitle {
-  color: var(--text-secondary);
-}
-
-.profile-container .user-intro-empty,
-.profile-container .quick-menu .menu-subtitle,
-.profile-container .quick-menu .menu-arrow,
-.profile-container .menu-subtitle,
-.profile-container .menu-arrow {
-  color: var(--text-muted);
-}
-
-.profile-container .menu-item {
-  border-bottom: 1rpx solid var(--soft-border);
-}
-
-.profile-container .menu-item:active {
-  background-color: var(--soft-bg);
-}
-
-.profile-container.dark .user-content {
-  background: var(--surface-bg) !important;
-}
