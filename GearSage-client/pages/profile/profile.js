@@ -5,7 +5,6 @@ const permission = require('../../utils/permission.js');
 const dateFormatter = require('../../utils/date-format.js');
 const tempUrlManager = require('../../utils/tempUrlManager.js');
 const tagProfileView = require('../../utils/tagProfileView.js');
-const EnvUtil = require('../../utils/env.js');
 
 function normalizeProfileUserInfo(rawUser = {}) {
   const user = rawUser && typeof rawUser === 'object' ? rawUser : {};
@@ -72,10 +71,6 @@ Page({
     previewByPostType: [],
     activeTagGroup: 'all',
     ownedTags: [],
-    showServerDebug: false,
-    apiServerTarget: '',
-    apiServerBaseUrl: '',
-    apiServerLabel: '',
     
 
     
@@ -130,8 +125,7 @@ Page({
     this.setData({
       statusBarHeight: statusBarHeight,
       navHeight: navHeight,
-      navPointerEvents: 'none',
-      showServerDebug: EnvUtil.isDevTool()
+      navPointerEvents: 'none'
     })
     
     // 初始化主题模式
@@ -139,7 +133,6 @@ Page({
     this._skipNextShowRefresh = true;
     
     this.checkLoginStatus();
-    this.syncServerDebugState();
     
     // 监听页面滚动
     this.setupScrollListener();
@@ -183,34 +176,11 @@ Page({
     
     // 同步主题模式
     this.initThemeMode();
-    this.syncServerDebugState();
     
     // 通知自定义导航栏更新主题
     const customNavbar = this.selectComponent('#custom-navbar');
     if (customNavbar && customNavbar.updateTheme) {
       customNavbar.updateTheme();
-    }
-  },
-
-  syncServerDebugState() {
-    try {
-      const app = getApp();
-      const currentTarget = typeof app.syncApiServerTarget === 'function'
-        ? app.syncApiServerTarget()
-        : api.getCurrentServerTarget();
-
-      if (!currentTarget) {
-        return;
-      }
-
-      this.setData({
-        showServerDebug: EnvUtil.isDevTool(),
-        apiServerTarget: currentTarget.key,
-        apiServerBaseUrl: currentTarget.baseUrl,
-        apiServerLabel: currentTarget.label
-      });
-    } catch (error) {
-      console.error('[Profile] 同步服务器调试状态失败:', error);
     }
   },
 
@@ -798,74 +768,6 @@ Page({
       icon: 'none'
     });
   },
-
-  onSwitchToLocalServer() {
-    this.confirmSwitchServer('local');
-  },
-
-  onSwitchToRemoteServer() {
-    this.confirmSwitchServer('remote');
-  },
-
-  confirmSwitchServer(targetKey) {
-    const targetMap = {
-      local: '本机服务器',
-      remote: '外网服务器'
-    };
-    const nextLabel = targetMap[targetKey] || targetKey;
-
-    if (this.data.apiServerTarget === targetKey) {
-      wx.showToast({
-        title: `当前已是${nextLabel}`,
-        icon: 'none'
-      });
-      return;
-    }
-
-    wx.showModal({
-      title: '切换接口服务器',
-      content: `将切换到${nextLabel}，并清理当前登录态，是否继续？`,
-      success: (res) => {
-        if (!res.confirm) {
-          return;
-        }
-
-        try {
-          const app = getApp();
-          if (app && typeof app.setApiServerTarget === 'function') {
-            app.setApiServerTarget(targetKey);
-          } else {
-            api.setCurrentServerTarget(targetKey);
-          }
-
-          this.setData({
-            isLoggedIn: false,
-            isAdmin: false,
-            userInfo: null,
-            hasDraft: false,
-            stats: {
-              postsCount: 0,
-              likesCount: 0,
-              commentsCount: 0,
-              followersCount: 0
-            },
-            myPosts: [],
-            postsPage: 1,
-            postsHasMore: true
-          });
-          this.syncServerDebugState();
-        } catch (error) {
-          console.error('[Profile] 切换接口服务器失败:', error);
-          wx.showToast({
-            title: '切换失败',
-            icon: 'none'
-          });
-        }
-      }
-    });
-  },
-
-
 
   /**
    * 退出登录

@@ -64,6 +64,70 @@ page {
   box-sizing: border-box;
 }
 
+.server-debug-panel {
+  margin-bottom: 40rpx;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  background: rgba(32, 48, 64, 0.92);
+  box-shadow: 0 12rpx 32rpx rgba(10, 18, 28, 0.14);
+}
+
+.server-debug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.server-debug-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #f5f7fa;
+}
+
+.server-debug-badge {
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(111, 209, 187, 0.18);
+  color: #84f1d8;
+  font-size: 22rpx;
+}
+
+.server-debug-url {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 22rpx;
+  color: rgba(231, 240, 248, 0.78);
+  word-break: break-all;
+}
+
+.server-debug-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.server-debug-btn {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 18rpx;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f2f6fa;
+  font-size: 26rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.08);
+}
+
+.server-debug-btn.active {
+  background: #84f1d8;
+  color: #15313a;
+  border-color: #84f1d8;
+}
+
+.server-debug-btn::after {
+  border: none;
+}
+
 .input-group {
   margin-bottom: 48rpx;
 }

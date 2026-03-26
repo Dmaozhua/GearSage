@@ -10,6 +10,28 @@
   </view>
 
   <view class="form-container">
+    <view class="server-debug-panel" wx:if="{{showServerDebug}}">
+      <view class="server-debug-header">
+        <text class="server-debug-title">接口调试</text>
+        <text class="server-debug-badge">{{apiServerLabel || '未设置'}}</text>
+      </view>
+      <text class="server-debug-url">{{apiServerBaseUrl}}</text>
+      <view class="server-debug-actions">
+        <button
+          class="server-debug-btn {{apiServerTarget === 'local' ? 'active' : ''}}"
+          bindtap="onSwitchToLocalServer"
+        >
+          本机
+        </button>
+        <button
+          class="server-debug-btn {{apiServerTarget === 'remote' ? 'active' : ''}}"
+          bindtap="onSwitchToRemoteServer"
+        >
+          外网
+        </button>
+      </view>
+    </view>
+
     <view class="input-group">
       <view class="input-label">手机号</view>
       <view class="input-wrapper">

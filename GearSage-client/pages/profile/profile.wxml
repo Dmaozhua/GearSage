@@ -156,28 +156,6 @@
           <text class="menu-arrow">></text>
         </view>
 
-        <view class="server-debug-panel" wx:if="{{showServerDebug}}">
-          <view class="server-debug-header">
-            <text class="server-debug-title">接口调试</text>
-            <text class="server-debug-badge">{{apiServerLabel || '未设置'}}</text>
-          </view>
-          <text class="server-debug-url">{{apiServerBaseUrl}}</text>
-          <view class="server-debug-actions">
-            <button
-              class="server-debug-btn {{apiServerTarget === 'local' ? 'active' : ''}}"
-              bindtap="onSwitchToLocalServer"
-            >
-              本机
-            </button>
-            <button
-              class="server-debug-btn {{apiServerTarget === 'remote' ? 'active' : ''}}"
-              bindtap="onSwitchToRemoteServer"
-            >
-              外网
-            </button>
-          </view>
-        </view>
-
         <view class="menu-item logout-item" bindtap="onLogout">
           <text class="menu-icon">🚪</text>
           <text class="menu-title">退出登录</text>

@@ -2,6 +2,7 @@
 const api = require('../../services/api.js');
 const auth = require('../../services/auth.js');
 const { getPendingInvite, clearPendingInvite } = require('../../utils/invite.js');
+const EnvUtil = require('../../utils/env.js');
 
 Page({
   data: {
@@ -10,7 +11,11 @@ Page({
     countdown: 0,
     loading: false,
     isFormValid: false,
-    fromRoute: ''
+    fromRoute: '',
+    showServerDebug: false,
+    apiServerTarget: '',
+    apiServerBaseUrl: '',
+    apiServerLabel: ''
   },
 
   onLoad(options) {
@@ -19,6 +24,8 @@ Page({
         fromRoute: decodeURIComponent(options.fromRoute)
       });
     }
+
+    this.syncServerDebugState();
   },
 
   noop() {},
@@ -94,6 +101,78 @@ Page({
     if (this.timer) {
       clearInterval(this.timer);
     }
+  },
+
+  syncServerDebugState() {
+    try {
+      const app = getApp();
+      const currentTarget = app && typeof app.syncApiServerTarget === 'function'
+        ? app.syncApiServerTarget()
+        : api.getCurrentServerTarget();
+
+      if (!currentTarget) {
+        return;
+      }
+
+      this.setData({
+        showServerDebug: EnvUtil.isDevTool(),
+        apiServerTarget: currentTarget.key,
+        apiServerBaseUrl: currentTarget.baseUrl,
+        apiServerLabel: currentTarget.label
+      });
+    } catch (error) {
+      console.error('[Login] 同步服务器调试状态失败:', error);
+    }
+  },
+
+  onSwitchToLocalServer() {
+    this.confirmSwitchServer('local');
+  },
+
+  onSwitchToRemoteServer() {
+    this.confirmSwitchServer('remote');
+  },
+
+  confirmSwitchServer(targetKey) {
+    const targetMap = {
+      local: '本机服务器',
+      remote: '外网服务器'
+    };
+    const nextLabel = targetMap[targetKey] || targetKey;
+
+    if (this.data.apiServerTarget === targetKey) {
+      wx.showToast({
+        title: `当前已是${nextLabel}`,
+        icon: 'none'
+      });
+      return;
+    }
+
+    wx.showModal({
+      title: '切换接口服务器',
+      content: `将切换到${nextLabel}，并清理当前登录态，是否继续？`,
+      success: (res) => {
+        if (!res.confirm) {
+          return;
+        }
+
+        try {
+          const app = getApp();
+          if (app && typeof app.setApiServerTarget === 'function') {
+            app.setApiServerTarget(targetKey);
+          } else {
+            api.setCurrentServerTarget(targetKey);
+          }
+          this.syncServerDebugState();
+        } catch (error) {
+          console.error('[Login] 切换接口服务器失败:', error);
+          wx.showToast({
+            title: '切换失败',
+            icon: 'none'
+          });
+        }
+      }
+    });
   },
 
   async onLogin() {
