@@ -313,3 +313,16 @@ When uncertain, default to:
 ## One-line reminder
 
 **Do not build GearSage like a generic content community. Build it like a trustable experience system for gear decisions.**
+
+## Skills preference
+
+This repository contains GearSage-specific skills under `.agents/skills`.
+
+When a task matches one of these workflows, prefer using the matching skill before broad freeform reasoning:
+
+- `gearsage-architect-skill`: for stage judgment, architecture boundary, migration-aware implementation planning
+- `gearsage-doc-router-skill`: for deciding which docs are authoritative, which docs to read, and which docs to update
+- `gearsage-smoke-test-skill`: for generating the smallest correct regression path after a change
+
+Do not force these skills for trivial single-file edits.
+Use them when the task spans docs, contracts, migration stages, verification scope, or multiple modules.
