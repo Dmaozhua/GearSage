@@ -5,6 +5,7 @@ import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
 import { ModerationService } from '../moderation/moderation.service';
+import { MessageService } from '../message/message.service';
 
 @Injectable()
 export class TopicService {
@@ -12,6 +13,7 @@ export class TopicService {
     private readonly databaseService: DatabaseService,
     private readonly moderationService: ModerationService,
     private readonly configService: ConfigService,
+    private readonly messageService: MessageService,
   ) {}
 
   async getAllTopics(
@@ -33,6 +35,7 @@ export class TopicService {
         t.content,
         t.images,
         t.extra,
+        t."rejectReason",
         t.status,
         t."userId",
         t."publishTime",
@@ -85,6 +88,7 @@ export class TopicService {
         t.content,
         t.images,
         t.extra,
+        t."rejectReason",
         t.status,
         t."userId",
         t."publishTime",
@@ -121,6 +125,7 @@ export class TopicService {
         t.content,
         t.images,
         t.extra,
+        t."rejectReason",
         t.status,
         t."userId",
         t."publishTime",
@@ -139,7 +144,6 @@ export class TopicService {
         ON tul."topicId" = t.id
        AND tul."userId" = $2
       WHERE t.id = $1
-        AND t."isDelete" = 0
       LIMIT 1
       `,
       [topicId, currentUserId || 0],
@@ -149,7 +153,17 @@ export class TopicService {
       return null;
     }
 
-    return this.formatTopic(result.rows[0]);
+    const topic = this.formatTopic(result.rows[0]);
+
+    if (Number(topic.isDelete || 0) === 1) {
+      return null;
+    }
+
+    if (Number(topic.status || 0) !== 2 && Number(topic.userId || 0) !== Number(currentUserId || 0)) {
+      return null;
+    }
+
+    return topic;
   }
 
   async getLatestDraftByUserId(userId: number, currentUserId = 0) {
@@ -162,6 +176,7 @@ export class TopicService {
         t.content,
         t.images,
         t.extra,
+        t."rejectReason",
         t.status,
         t."userId",
         t."publishTime",
@@ -228,6 +243,10 @@ export class TopicService {
       if (!updateResult.rows.length) {
         return null;
       }
+
+      await this.messageService.deleteByTopic(userId, Number(updateResult.rows[0].id || dto.id || 0), [
+        'topic_rejected',
+      ]);
 
       return updateResult.rows[0];
     }
@@ -318,6 +337,7 @@ export class TopicService {
           images = $4::jsonb,
           extra = $5::jsonb,
           status = $8,
+          "rejectReason" = '',
           "userId" = $6,
           "publishTime" = ${publishTimeSql},
           "isDelete" = 0,
@@ -355,6 +375,7 @@ export class TopicService {
         images,
         extra,
         status,
+        "rejectReason",
         "userId",
         "publishTime",
         "createTime",
@@ -364,7 +385,7 @@ export class TopicService {
         "isDelete"
       )
       VALUES
-      ($1, $2, $3, $4::jsonb, $5::jsonb, $7, $6, ${publishTimeSql}, NOW(), NOW(), 0, 0, 0)
+      ($1, $2, $3, $4::jsonb, $5::jsonb, $7, '', $6, ${publishTimeSql}, NOW(), NOW(), 0, 0, 0)
       RETURNING *
       `,
       [
@@ -377,6 +398,13 @@ export class TopicService {
         nextStatus,
       ],
     );
+
+    await this.moderationService.relinkPendingRecords({
+      targetType: 'topic',
+      fromTargetId: `${userId}:pending`,
+      toTargetId: insertResult.rows[0].id,
+      userId,
+    });
 
     return insertResult.rows[0];
   }
@@ -414,7 +442,7 @@ export class TopicService {
   async toggleTopicLike(userId: number, dto: ToggleTopicLikeDto) {
     const topicResult = await this.databaseService.query(
       `
-      SELECT id, "likeCount", status
+      SELECT id, "likeCount", status, title, "userId"
       FROM bz_mini_topic
       WHERE id = $1
         AND "isDelete" = 0
@@ -490,6 +518,21 @@ export class TopicService {
       [dto.topicId],
     );
 
+    if (Number(topicResult.rows[0].userId || 0) !== Number(userId)) {
+      await this.messageService.create({
+        userId: Number(topicResult.rows[0].userId || 0),
+        type: 'like_received',
+        title: '有人点赞了你',
+        content: `你的帖子《${topicResult.rows[0].title || '未命名帖子'}》收到了一个赞。`,
+        targetType: 'topic',
+        targetId: dto.topicId,
+        extra: {
+          topicId: Number(dto.topicId),
+          topicTitle: topicResult.rows[0].title || '',
+        },
+      });
+    }
+
     return {
       isLike: true,
       likeCount: updateTopic.rows[0].likeCount,
@@ -508,6 +551,7 @@ export class TopicService {
       title: row.title,
       content: row.content,
       images: row.images,
+      rejectReason: row.rejectReason || '',
       status: row.status,
       userId: Number(row.userId),
       publishTime: row.publishTime,

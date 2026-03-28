@@ -3,12 +3,14 @@ import { DatabaseService } from '../../common/database.service';
 import { AddCommentDto } from './dto/add-comment.dto';
 import { ToggleCommentLikeDto } from './dto/toggle-comment-like.dto';
 import { ModerationService } from '../moderation/moderation.service';
+import { MessageService } from '../message/message.service';
 
 @Injectable()
 export class CommentService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly moderationService: ModerationService,
+    private readonly messageService: MessageService,
   ) {}
 
   async list(topicId: number, currentUserId = 0) {
@@ -64,7 +66,7 @@ export class CommentService {
   async add(userId: number, dto: AddCommentDto) {
     const topicResult = await this.databaseService.query(
       `
-      SELECT id, status, "isDelete"
+      SELECT id, status, "isDelete", title, "userId"
       FROM bz_mini_topic
       WHERE id = $1
       LIMIT 1
@@ -139,6 +141,23 @@ export class CommentService {
         `,
         [dto.topicId],
       );
+
+      if (Number(topicResult.rows[0].userId || 0) !== Number(userId)) {
+        await this.messageService.create({
+          userId: Number(topicResult.rows[0].userId || 0),
+          type: 'comment_received',
+          title: '有人评论了你',
+          content: `你的帖子《${topicResult.rows[0].title || '未命名帖子'}》收到了新评论。`,
+          targetType: 'comment',
+          targetId: insertResult.rows[0].id,
+          extra: {
+            topicId: dto.topicId,
+            topicTitle: topicResult.rows[0].title || '',
+            commentId: Number(insertResult.rows[0].id),
+            commentExcerpt: String(dto.content || '').slice(0, 80),
+          },
+        });
+      }
     }
 
     return true;

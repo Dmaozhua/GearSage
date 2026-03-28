@@ -638,6 +638,139 @@ P3-A 不是继续做功能，而是：
     - 对象结构中的 `url/src/fileID/fileId/path/tempFileURL`
   - 审核后台前端抽屉也已增加二次兜底解析，点击“查看原图”不应再跳转空地址
 - 2026-03-28 已优化审核拒绝场景的客户端提示与登录态处理：
+  - `services/api.js` 已区分审核型 `403` 与鉴权型 `401/403`
+  - 评论命中审核规则后不再被误踢下线
+  - 帖子发布、评论发布、资料编辑已统一提示“内容不符合社区规范，请修改后重试”
+  - `edit-profile` 已补页面内失败捕获，不再在业务提示后额外弹一次“系统异常”
+- 2026-03-28 消息系统 v0 第一轮实施已完成：
+  - 后端已新增：
+    - `GET /mini/message`
+    - `POST /mini/message/read`
+    - `POST /mini/message/read-all`
+  - 已新增 `user_messages` 表，支持最小消息中心留痕
+  - 当前消息类型已接入：
+    - `topic_approved`
+    - `topic_rejected`
+    - `topic_removed`
+    - `topic_restored`
+    - `comment_received`
+    - `like_received`
+  - `pages/profile` 已新增“消息中心”入口与未读数
+  - `pkgContent/message-center` 已落地最小消息页，可查看、标记已读、全部已读、跳转详情
+- 2026-03-28 驳回回草稿第一轮实施已完成：
+  - 审核后台驳回帖子动作已从“直接下架”改为“回草稿”
+  - 当前口径：
+    - 审核驳回 -> `status=0`
+    - 管理员下架 -> `status=9 + isDelete=1`
+    - 恢复显示 -> `status=2 + isDelete=0`
+  - `bz_mini_topic` 已新增 `rejectReason`
+  - 审核后台驳回时会写入 `rejectReason`
+  - 被驳回帖子会进入用户草稿链路：
+    - “我的发布”草稿列表可见驳回原因
+    - 可按 `draftId` 重新进入编辑页
+    - 打开被驳回草稿时会弹窗提示未通过原因
+- 2026-03-28 已收口待审核帖删除入口：
+  - 当前第一版不处理“审核中用户主动删除”的状态竞争
+  - `my-publish` 中 `待审核` 页签已隐藏删除按钮
+  - 当前口径：
+    - 草稿可删除
+    - 待审核仅查看，不提供删除入口
+    - 后续如需支持，单独按审核链路设计
+- 2026-03-28 已启动草稿编辑链统一第一轮收口：
+  - 用户反馈确认：当前驳回回草稿后，点击草稿仍会落回旧 `publish` 页面，导致：
+    - `讨论&提问` 草稿会误落成类似旧版“长测评”UI
+    - 不同发布模式字段在草稿编辑时发生串字段
+    - 发布过程中左上返回没有统一的“是否保存草稿”承接
+  - 当前第一轮已完成：
+    - 草稿 / 驳回消息 / profile 草稿入口 已统一切回 `publishMode`
+    - `publishMode` 已支持 `draftId` 加载现有草稿
+    - `publishMode` 已按 `topicCategory` 反推 5 种发布模式
+    - 驳回草稿打开时会直接进入对应模式的编辑器，并弹出未通过原因
+    - `publishMode` 左上返回已改为离开发布页，并在有改动时提示“是否保存草稿”
+    - 当前草稿保存与重新编辑，已开始与新发帖共用同一套 UI
+  - 当前仍保留为后续收口项：
+    - 各 `post-*` 组件的 `initialData` 细字段回填仍需逐模式补齐回归
+    - 系统级返回手势/关闭页面时的保存提示仍需继续验证
+- 2026-03-28 已清理 `profile` 老草稿入口并调整个人中心菜单顺序：
+  - `pages/profile/profile.wxml` 已移除“我的草稿”入口
+  - `pages/profile/profile.js` 已移除：
+    - `hasDraft`
+    - `checkDraftStatus`
+    - `onMyDrafts`
+    - `onDraftTap`
+    - `onDeleteDraft`
+  - 当前普通用户在 `profile` 的菜单顺序调整为：
+    - 消息中心
+    - 我的发布
+    - 编辑标签
+    - 编辑个人信息
+    - 主题颜色
+    - 关于
+    - 退出登录
+  - 当前口径：
+    - 草稿主链统一收敛到“我的发布 / 消息中心 / publishMode”
+    - `profile` 不再保留独立草稿入口，避免形成第二条编辑链
+ - 2026-03-28 已修复“长测评 / 好物速报草稿回填后装备类别 checkbox 不显示已选中”：
+  - 根因确认：
+    - `components/publish-checkbox` 之前没有真正消费外部传入的 `checkboxItems`
+    - `post-Experience` / `post-Recommend` 也未把 `formData.gearCategory` 同步成 `equipmentCategories.checked`
+  - 已完成调整：
+    - `components/publish-checkbox` 已支持从属性同步选中态
+    - `components/post-Experience/post-Experience.js` 已在初始化 / observer / 用户切换分类时同步 `equipmentCategories.checked`
+    - `components/post-Recommend/post-Recommend.js` 已在初始化 / observer / 用户切换分类时同步 `equipmentCategories.checked`
+  - 当前口径：
+    - 长测评与好物速报保存草稿后再次打开，装备类别应保持与已保存字段一致
+ - 2026-03-28 已统一“我的发布”底部统计展示：
+  - `pkgContent/my-publish/my-publish.wxml` 已将表情符号统计改为文字标签：
+    - `赞`
+    - `评`
+    - `阅`
+  - 当前后端帖子列表接口未返回阅读量字段，确认不是前端显示 bug，而是接口尚未提供
+ - 第一版当前口径：
+    - “我的发布”中继续显示 `赞 / 评`
+    - `阅` 仅在接口真实返回阅读量字段时展示，避免长期显示 `0` 误导用户
+ - 2026-03-28 已收口“驳回回草稿重复生成新帖子 / 重复驳回消息”：
+  - 用户联调发现：
+    - 被驳回帖子再次编辑后如果直接重提，可能重复生成内容相同但 `topicId` 不同的新帖子
+    - 消息中心会累计出现同一帖子多次 `topic_rejected`
+  - 根因确认：
+    - `post-Question` / `post-Recommend` / `post-Experience` 提交时未携带 `formData.id`
+    - 驳回消息写入 `user_messages` 时未按“同用户 + 同帖子 + 同类型”替换旧记录
+  - 已完成调整：
+    - 上述 3 个发布组件提交时已带上草稿 `id`
+    - `MessageService` 在写入 `topic_rejected` 前，会先删除同用户同帖子旧驳回消息，再写入最新一条
+  - 当前口径：
+    - 驳回回草稿重新提交应继续复用原 `topicId`
+    - 消息中心对同一帖子只保留最新一次驳回消息
+ - 2026-03-28 已收口“已通过帖子仍被旧驳回消息拉回草稿”的问题：
+  - 用户联调发现：
+    - 同一帖子重新提交并通过后，消息中心里仍可能看到旧的 `topic_rejected`
+    - 点击后会再次进入草稿编辑页，造成“已通过帖子又被拉回审核态”的错觉
+  - 已完成调整：
+    - `TopicService.publishTopic()` 在草稿重提成功后，会清理该帖旧的 `topic_rejected`
+    - `AdminReviewService.passTopic()` / `restoreTopic()` 也会清理该帖旧驳回消息
+    - `MessageService.list()` 返回消息前，会清理“对应帖子已不处于草稿态”的陈旧驳回消息
+    - `pkgContent/message-center/message-center.js` 点击驳回消息前会校验目标帖子是否仍为草稿，失效则提示并刷新列表
+  - 当前口径：
+    - 当对应 `topicId` 已不再是草稿时，不再继续显示或跳转旧驳回消息
+ - 2026-03-28 已修复“首次发帖在审核后台系统审核为空、重提后才显示 PASS”的记录绑定问题：
+  - 用户联调发现：
+    - 同一帖子第一次进入后台时，“系统审核”可能为空
+    - 被驳回后再次提交，后台才显示 `PASS / system_bypass / tencent_provider_disabled`
+  - 根因确认：
+    - 首次发帖时，文本审核记录先按 `${userId}:pending` 写入 `moderation_records`
+    - 旧代码在 `TopicService.publishTopic()` 的首次插入分支里没有把这批记录重绑到真实 `topicId`
+    - 重提草稿时因为已带 `dto.id`，审核记录直接写到真实 `topicId`，所以后台第二次才看得到
+  - 已完成调整：
+    - `src/modules/topic/topic.service.ts` 在首次插入帖子后，已补 `moderationService.relinkPendingRecords()`
+  - 当前口径：
+    - 新创建帖子第一次进入审核后台时，也应能看到对应的“系统审核”记录
+  - 2026-03-28 已修复“草稿列表删除按钮点击穿透整卡”的交互问题：
+  - 用户联调发现：点击 `我的发布 -> 草稿` 的删除按钮时，会先触发整卡点击打开草稿，再叠加删除确认框
+  - 已完成调整：
+    - `pkgContent/my-publish/my-publish.wxml` 的草稿删除按钮已从 `bindtap` 改为 `catchtap`
+  - 当前口径：
+    - 点击草稿删除按钮只触发删除确认，不再穿透打开草稿
   - 全局请求层已区分：
     - 鉴权型 `401/403`
     - 审核拒绝 / 业务拒绝型 `403`

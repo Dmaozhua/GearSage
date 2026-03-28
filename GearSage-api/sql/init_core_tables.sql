@@ -36,6 +36,9 @@ CREATE TABLE IF NOT EXISTS bz_mini_topic (
   "isDelete" INT NOT NULL DEFAULT 0
 );
 
+ALTER TABLE bz_mini_topic
+ADD COLUMN IF NOT EXISTS "rejectReason" TEXT NOT NULL DEFAULT '';
+
 CREATE TABLE IF NOT EXISTS bz_topic_comment (
   id BIGSERIAL PRIMARY KEY,
   "topicId" BIGINT NOT NULL,
@@ -134,6 +137,20 @@ CREATE TABLE IF NOT EXISTS admin_operation_logs (
   remark TEXT NOT NULL DEFAULT '',
   extra JSONB NOT NULL DEFAULT '{}'::jsonb,
   "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS user_messages (
+  id BIGSERIAL PRIMARY KEY,
+  "userId" BIGINT NOT NULL,
+  type VARCHAR(32) NOT NULL,
+  title VARCHAR(255) NOT NULL DEFAULT '',
+  content TEXT NOT NULL DEFAULT '',
+  "targetType" VARCHAR(32) NOT NULL DEFAULT '',
+  "targetId" VARCHAR(64) NOT NULL DEFAULT '',
+  "isRead" INT NOT NULL DEFAULT 0,
+  extra JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS moderation_records (
@@ -370,6 +387,12 @@ ON admin_operation_logs ("targetType", "targetId", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_admin_logs_admin
 ON admin_operation_logs ("adminUserId", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_user_messages_user
+ON user_messages ("userId", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_user_messages_unread
+ON user_messages ("userId", "isRead", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_moderation_records_target
 ON moderation_records ("targetType", "targetId", "createTime" DESC);

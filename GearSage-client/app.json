@@ -22,6 +22,7 @@
         "publish/publish",
         "my-publish/my-publish",
         "search/search",
+        "message-center/message-center",
         "points-exchange/points-exchange",
         "exchange-success/exchange-success",
         "publishMode/publishMode",

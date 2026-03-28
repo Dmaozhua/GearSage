@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
 import { AdminLogService } from './admin-log.service';
+import { MessageService } from '../message/message.service';
 
 @Injectable()
 export class AdminReviewService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly adminLogService: AdminLogService,
+    private readonly messageService: MessageService,
   ) {}
 
   async listTopics(filters: {
@@ -41,6 +43,7 @@ export class AdminReviewService {
         t.content,
         t.images,
         t.extra,
+        t."rejectReason",
         t.status,
         t."userId",
         t."publishTime",
@@ -116,11 +119,12 @@ export class AdminReviewService {
       UPDATE bz_mini_topic
       SET
         status = 2,
+        "rejectReason" = '',
         "publishTime" = COALESCE("publishTime", NOW()),
         "isDelete" = 0,
         "updateTime" = NOW()
       WHERE id = $1
-      RETURNING id, status, "publishTime", "updateTime"
+      RETURNING id, status, "publishTime", "updateTime", title, "userId"
       `,
       [topicId],
     );
@@ -137,6 +141,23 @@ export class AdminReviewService {
       remark,
     });
 
+    await this.messageService.deleteByTopic(Number(result.rows[0].userId || 0), Number(result.rows[0].id || topicId), [
+      'topic_rejected',
+    ]);
+
+    await this.messageService.create({
+      userId: Number(result.rows[0].userId || 0),
+      type: 'topic_approved',
+      title: '你的帖子已通过审核',
+      content: `你发布的《${result.rows[0].title || '未命名帖子'}》已通过审核，现在其他用户可以看到了。`,
+      targetType: 'topic',
+      targetId: result.rows[0].id,
+      extra: {
+        topicId: Number(result.rows[0].id),
+        topicTitle: result.rows[0].title || '',
+      },
+    });
+
     return {
       id: Number(result.rows[0].id),
       status: Number(result.rows[0].status),
@@ -150,14 +171,15 @@ export class AdminReviewService {
       `
       UPDATE bz_mini_topic
       SET
-        status = 9,
+        status = 0,
+        "rejectReason" = $2,
         "publishTime" = NULL,
         "isDelete" = 0,
         "updateTime" = NOW()
       WHERE id = $1
-      RETURNING id, status, "updateTime"
+      RETURNING id, status, "updateTime", title, "userId", "rejectReason"
       `,
-      [topicId],
+      [topicId, remark || ''],
     );
 
     if (!result.rows.length) {
@@ -170,6 +192,21 @@ export class AdminReviewService {
       targetId: topicId,
       action: 'topic_reject',
       remark,
+    });
+
+    await this.messageService.create({
+      userId: Number(result.rows[0].userId || 0),
+      type: 'topic_rejected',
+      title: '你的帖子未通过审核',
+      content: `你发布的《${result.rows[0].title || '未命名帖子'}》未通过审核，已退回草稿，请修改后重新发布。`,
+      targetType: 'topic',
+      targetId: result.rows[0].id,
+      extra: {
+        topicId: Number(result.rows[0].id),
+        topicTitle: result.rows[0].title || '',
+        reason: result.rows[0].rejectReason || '',
+        status: 0,
+      },
     });
 
     return {
@@ -188,7 +225,7 @@ export class AdminReviewService {
         "isDelete" = 1,
         "updateTime" = NOW()
       WHERE id = $1
-      RETURNING id, status, "isDelete", "updateTime"
+      RETURNING id, status, "isDelete", "updateTime", title, "userId"
       `,
       [topicId],
     );
@@ -205,6 +242,19 @@ export class AdminReviewService {
       remark,
     });
 
+    await this.messageService.create({
+      userId: Number(result.rows[0].userId || 0),
+      type: 'topic_removed',
+      title: '你的帖子已被下架',
+      content: `你发布的《${result.rows[0].title || '未命名帖子'}》当前已被下架。`,
+      targetType: 'topic',
+      targetId: result.rows[0].id,
+      extra: {
+        topicId: Number(result.rows[0].id),
+        topicTitle: result.rows[0].title || '',
+      },
+    });
+
     return {
       id: Number(result.rows[0].id),
       status: Number(result.rows[0].status),
@@ -219,11 +269,12 @@ export class AdminReviewService {
       UPDATE bz_mini_topic
       SET
         status = 2,
+        "rejectReason" = '',
         "isDelete" = 0,
         "publishTime" = COALESCE("publishTime", NOW()),
         "updateTime" = NOW()
       WHERE id = $1
-      RETURNING id, status, "isDelete", "publishTime", "updateTime"
+      RETURNING id, status, "isDelete", "publishTime", "updateTime", title, "userId"
       `,
       [topicId],
     );
@@ -238,6 +289,23 @@ export class AdminReviewService {
       targetId: topicId,
       action: 'topic_restore',
       remark,
+    });
+
+    await this.messageService.deleteByTopic(Number(result.rows[0].userId || 0), Number(result.rows[0].id || topicId), [
+      'topic_rejected',
+    ]);
+
+    await this.messageService.create({
+      userId: Number(result.rows[0].userId || 0),
+      type: 'topic_restored',
+      title: '你的帖子已恢复显示',
+      content: `你发布的《${result.rows[0].title || '未命名帖子'}》已恢复正常展示。`,
+      targetType: 'topic',
+      targetId: result.rows[0].id,
+      extra: {
+        topicId: Number(result.rows[0].id),
+        topicTitle: result.rows[0].title || '',
+      },
     });
 
     return {
@@ -585,6 +653,7 @@ export class AdminReviewService {
       title: row.title || '',
       content: row.content || '',
       images: this.normalizeTopicImages(row.images, extra),
+      rejectReason: row.rejectReason || '',
       extra,
       status: Number(row.status || 0),
       userId: Number(row.userId || 0),

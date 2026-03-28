@@ -76,6 +76,8 @@ Page({
     
     // 提交状态
     submitting: false,
+
+    rejectReason: '',
     
     // 保存草稿状态
     savingDraft: false,
@@ -104,7 +106,7 @@ Page({
     this.initFormData();
     
     // 检查并加载服务器草稿
-    await this.loadServerDraft();
+    await this.loadServerDraft(options);
   },
   
   /**
@@ -138,10 +140,13 @@ Page({
   /**
    * 从服务器加载草稿数据
    */
-  async loadServerDraft() {
+  async loadServerDraft(options = {}) {
     try {
       console.log('[发布页面] 开始检查服务器草稿');
-      const response = await apiService.getTmpTopic();
+      const draftId = Number(options && options.draftId ? options.draftId : 0);
+      const response = draftId > 0
+        ? await apiService.getTopicDetail(draftId)
+        : await apiService.getTmpTopic();
       
       if (response && response.id) {
         console.log('[发布页面] 发现服务器草稿，开始加载:', response);
@@ -162,12 +167,16 @@ Page({
         if (draftData.id) formData.id = draftData.id;
         
         // 处理图片数据
-        if (draftData.contentImages) {
+        if (Array.isArray(draftData.images) && draftData.images.length > 0) {
+          formData.mainImages = draftData.images.filter(Boolean);
+        } else if (draftData.contentImages) {
           const imageArray = draftData.contentImages.split(',').filter(img => img.trim());
           formData.mainImages = imageArray;
         }
         
-        if (draftData.receipt) {
+        if (Array.isArray(draftData.receiptImages) && draftData.receiptImages.length > 0) {
+          formData.receiptImages = draftData.receiptImages.filter(Boolean);
+        } else if (draftData.receipt) {
           const receiptArray = draftData.receipt.split(',').filter(img => img.trim());
           formData.receiptImages = receiptArray;
         }
@@ -185,12 +194,24 @@ Page({
         }
         
         // 更新表单数据
-        this.setData({ formData });
+        this.setData({
+          formData,
+          rejectReason: draftData.rejectReason || ''
+        });
         
         // 更新相关的选择器索引
         this.updateSelectorsFromFormData();
         
         console.log('[发布页面] 服务器草稿加载完成');
+
+        if (draftData.rejectReason) {
+          wx.showModal({
+            title: '未通过审核',
+            content: `未通过原因：${draftData.rejectReason}`,
+            showCancel: false,
+            confirmText: '知道了'
+          });
+        }
       } else {
         console.log('[发布页面] 服务器无草稿数据');
       }

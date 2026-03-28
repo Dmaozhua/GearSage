@@ -180,6 +180,7 @@ function normalizeTopicResponse(topic = {}) {
     cons,
     verifyImage,
     tags,
+    rejectReason: topic.rejectReason || '',
     contentImages: topic.contentImages || images.join(','),
     coverImg: topic.coverImg || images[0] || '',
     receipt: typeof topic.receipt === 'string' ? topic.receipt : receiptImages.join(','),
@@ -1505,6 +1506,28 @@ class ApiService {
    */
   updateUserInfo(userInfo) {
     return this.post('/mini/user/update', userInfo);
+  }
+
+  getMessages(params = {}) {
+    return this.get('/mini/message', {
+      data: params
+    }).then(result => {
+      const payload = result && typeof result === 'object' ? result : {};
+      return {
+        list: Array.isArray(payload.list) ? payload.list : [],
+        unreadCount: Number(payload.unreadCount || 0)
+      };
+    });
+  }
+
+  readMessage(messageId) {
+    return this.post('/mini/message/read', {
+      messageId: Number(messageId)
+    }).then(result => result === true || !!result);
+  }
+
+  readAllMessages() {
+    return this.post('/mini/message/read-all').then(result => result === true || !!result);
   }
 
   /**

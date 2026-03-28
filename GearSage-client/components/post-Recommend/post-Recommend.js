@@ -317,6 +317,7 @@ Component({
   observers: {
     'formData.gearCategory': function(gearCategory) {
       const nextCategory = gearCategory || 'rod';
+      this.updateEquipmentCategoryOptions((gearCategory || '').trim());
       this.loadEnvironmentOptions(nextCategory);
       this.syncGearModelSuggestions(
         gearCategory,
@@ -373,6 +374,16 @@ Component({
       };
 
       this.setData({ formData: nextFormData });
+      this.updateEquipmentCategoryOptions((nextFormData.gearCategory || '').trim());
+    },
+
+    updateEquipmentCategoryOptions(gearCategory) {
+      const selectedCategory = gearCategory || '';
+      const nextItems = (this.data.equipmentCategories || []).map((item) => ({
+        ...item,
+        checked: item.id === selectedCategory
+      }));
+      this.setData({ equipmentCategories: nextItems });
     },
 
     refreshPickerText() {
@@ -527,6 +538,7 @@ Component({
         'errors.gearCategory': '',
         'errors.environments': ''
       });
+      this.updateEquipmentCategoryOptions(gearCategory);
 
       this.syncGearModelSuggestions(gearCategory, '', true);
       this.triggerEvent('datachange', { field: 'gearCategory', value: gearCategory });
@@ -826,6 +838,7 @@ Component({
       const formData = this.data.formData || {};
       const tags = formData.tags || {};
       const submitData = {
+        id: formData.id || null,
         topicCategory: 0,
         title: formData.title || '',
         content: formData.mainContent || '',

@@ -62,8 +62,7 @@ Page({
     // 当前选中的标签
     activeTab: 'posts', // posts, likes, comments
     
-    // 草稿状态
-    hasDraft: false,
+    messageUnreadCount: 0,
     tagDisplayStrategy: tagProfileView.DISPLAY_STRATEGY.SMART,
     tagStrategyDescription: '',
     tagGroupTabs: [],
@@ -229,16 +228,16 @@ Page({
         }
         
         console.log('[Profile] 页面状态已更新，用户已登录');
-        this.checkDraftStatus();
+        this.loadMessageUnreadCount();
         this.loadUserData({ skipUserRefresh: true });
       } else {
         console.log('[Profile] 用户未登录');
         this.setData({
           isLoggedIn: false,
+          messageUnreadCount: 0,
           loading: false,
           isLoading: false
         });
-        this.checkDraftStatus();
       }
     } catch (error) {
       console.error('[Profile] 检查登录状态失败:', error);
@@ -516,70 +515,11 @@ Page({
     });
   },
 
-  /**
-   * 我的草稿
-   */
-  onMyDrafts() {
-    console.log('我的草稿');
-    api.getTmpTopic().then(draft => {
-      if (!(draft && draft.id)) {
-        wx.showToast({
-          title: '暂无草稿',
-          icon: 'none'
-        });
-        return;
-      }
-
-      wx.showModal({
-        title: '草稿提示',
-        content: '检测到未完成的草稿，是否继续编辑？',
-        confirmText: '继续编辑',
-        cancelText: '删除草稿',
-        success: async (res) => {
-          if (res.confirm) {
-            console.log('跳转到发布页面，携带fromDraft参数');
-            wx.navigateTo({
-              url: '/pkgContent/publish/publish?fromDraft=true',
-              success: () => {
-                console.log('跳转成功');
-              },
-              fail: (error) => {
-                console.error('跳转失败:', error);
-                wx.showToast({
-                  title: '跳转失败',
-                  icon: 'none'
-                });
-              }
-            });
-          } else {
-            try {
-              await api.deleteTopic(draft.id);
-              getApp().globalData.hasDraft = false;
-              this.setData({ hasDraft: false });
-              wx.showToast({
-                title: '草稿已删除',
-                icon: 'success'
-              });
-            } catch (error) {
-              console.error('删除草稿失败:', error);
-              wx.showToast({
-                title: '删除失败',
-                icon: 'none'
-              });
-            }
-          }
-        }
-      });
-    }).catch(error => {
-      console.error('获取草稿失败:', error);
-      wx.showToast({
-        title: '获取草稿失败',
-        icon: 'none'
-      });
+  onMessageCenter() {
+    wx.navigateTo({
+      url: '/pkgContent/message-center/message-center'
     });
   },
-
-
 
   /**
    * 我的发布
@@ -589,6 +529,25 @@ Page({
     wx.navigateTo({
       url: '/pkgContent/my-publish/my-publish'
     });
+  },
+
+  async loadMessageUnreadCount() {
+    if (!this.data.isLoggedIn) {
+      this.setData({ messageUnreadCount: 0 });
+      return;
+    }
+
+    try {
+      const result = await api.getMessages({
+        page: 1,
+        limit: 1
+      });
+      this.setData({
+        messageUnreadCount: Number(result && result.unreadCount ? result.unreadCount : 0)
+      });
+    } catch (error) {
+      console.warn('[Profile] 加载未读消息数失败:', error);
+    }
   },
 
   /**
@@ -1000,31 +959,6 @@ Page({
   },
 
   /**
-   * 检查草稿状态
-   */
-  async checkDraftStatus() {
-    if (!this.data.isLoggedIn) {
-      this.setData({
-        hasDraft: false
-      });
-      return;
-    }
-
-    try {
-      const draft = await api.getTmpTopic();
-      const hasDraft = !!(draft && draft.id);
-      this.setData({
-        hasDraft
-      });
-    } catch (error) {
-      console.error('检查草稿状态失败:', error);
-      this.setData({
-        hasDraft: false
-      });
-    }
-  },
-
-  /**
    * 跳转到发布页面
    */
   onPublish() {
@@ -1034,62 +968,7 @@ Page({
     }
     
     wx.navigateTo({
-      url: '/pkgContent/publish/publish'
-    });
-  },
-
-  /**
-   * 点击草稿，进入发布页面
-   */
-  onDraftTap() {
-    if (!this.data.isLoggedIn) {
-      this.onLogin();
-      return;
-    }
-    
-    wx.navigateTo({
-      url: '/pkgContent/publish/publish'
-    });
-  },
-
-  /**
-   * 删除草稿
-   */
-  onDeleteDraft() {
-    wx.showModal({
-      title: '确认删除',
-      content: '确定要删除草稿吗？删除后无法恢复。',
-      success: async (res) => {
-        if (res.confirm) {
-          try {
-            const draft = await api.getTmpTopic();
-            if (!draft || !draft.id) {
-              wx.showToast({
-                title: '暂无草稿',
-                icon: 'none'
-              });
-              return;
-            }
-
-            await api.deleteTopic(draft.id);
-            this.setData({
-              hasDraft: false
-            });
-            getApp().globalData.hasDraft = false;
-            
-            wx.showToast({
-              title: '草稿已删除',
-              icon: 'success'
-            });
-          } catch (error) {
-            console.error('删除草稿失败:', error);
-            wx.showToast({
-              title: '删除失败',
-              icon: 'none'
-            });
-          }
-        }
-      }
+      url: '/pkgContent/publishMode/publishMode'
     });
   },
 

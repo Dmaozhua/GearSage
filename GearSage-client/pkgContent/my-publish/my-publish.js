@@ -244,7 +244,12 @@ Page({
       publishTime: post.publishTime ? dateFormatter.formatTime(post.publishTime) : '',
       likeCount: Number(post.likeCount || post.likesCount || 0),
       commentCount: Number(post.commentCount || post.commentsCount || 0),
-      viewCount: Number(post.viewCount || post.viewsCount || 0)
+      viewCount: Number(post.viewCount || post.viewsCount || post.readCount || post.views || 0),
+      hasViewCount:
+        post.viewCount !== undefined ||
+        post.viewsCount !== undefined ||
+        post.readCount !== undefined ||
+        post.views !== undefined
     }));
   },
 
@@ -286,7 +291,7 @@ Page({
     console.log('查看帖子详情:', post);
     if (Number(post.status) === 0) {
       wx.navigateTo({
-        url: '/pkgContent/publish/publish'
+        url: `/pkgContent/publishMode/publishMode?fromDraft=true&mode=edit&draftId=${post.id}`
       });
       return;
     }
@@ -313,8 +318,18 @@ Page({
    * 删除帖子
    */
   onDeletePost(e) {
-    e.stopPropagation();
+    if (e && typeof e.stopPropagation === 'function') {
+      e.stopPropagation();
+    }
     const post = e.currentTarget.dataset.post;
+
+    if (Number(post.status) === 1) {
+      wx.showToast({
+        title: '待审核内容暂不支持删除',
+        icon: 'none'
+      });
+      return;
+    }
     
     wx.showModal({
       title: '确认删除',

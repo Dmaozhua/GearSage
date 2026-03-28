@@ -2,6 +2,221 @@
 const api = require('../../services/api.js');
 
 const TOPIC_PREVIEW_STORAGE_KEY = 'topic_preview_payload_v1';
+const MODE_CONFIG = [
+  {
+    modeKey: 'recommend',
+    title: '好物速报',
+    content: '爱不释手的好物件，何不拿出来分享',
+    topicCategory: 0
+  },
+  {
+    modeKey: 'experience',
+    title: '长测评',
+    content: '你的宝贵经验，系统评测',
+    topicCategory: 1
+  },
+  {
+    modeKey: 'question',
+    title: '讨论&提问',
+    content: '发布问题召集路亚老手答疑解惑',
+    topicCategory: 2
+  },
+  {
+    modeKey: 'catch',
+    title: '鱼获展示',
+    content: '晒出你的高光时刻，纪录每一次心跳',
+    topicCategory: 3
+  },
+  {
+    modeKey: 'trip',
+    title: '钓行分享',
+    content: '记录每一次出钓的得失与感悟',
+    topicCategory: 4
+  }
+];
+
+function cloneValue(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function getModeConfigByKey(modeKey) {
+  return MODE_CONFIG.find(item => item.modeKey === modeKey) || null;
+}
+
+function getModeConfigByTopicCategory(topicCategory) {
+  return MODE_CONFIG.find(item => Number(item.topicCategory) === Number(topicCategory)) || null;
+}
+
+function createModeInitialFormData(modeKey) {
+  if (modeKey === 'experience' || modeKey === 'recommend') {
+    return {
+      gearCategory: 'rod'
+    };
+  }
+
+  return {};
+}
+
+function normalizeImages(value) {
+  if (Array.isArray(value)) {
+    return value.filter(Boolean);
+  }
+  if (typeof value === 'string') {
+    return value.split(',').map(item => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+function normalizeObject(value, fallback = {}) {
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    return value;
+  }
+  return fallback;
+}
+
+function buildDraftFormDataFromTopic(topic = {}) {
+  const modeConfig = getModeConfigByTopicCategory(topic.topicCategory);
+  const modeKey = modeConfig ? modeConfig.modeKey : 'experience';
+  const base = {
+    id: topic.id || null,
+    title: topic.title || '',
+    mainContent: topic.content || '',
+    mainImages: normalizeImages(topic.images),
+    rejectReason: topic.rejectReason || ''
+  };
+
+  if (modeKey === 'question') {
+    return {
+      ...base,
+      questionType: topic.questionType || '',
+      relatedGearCategory: topic.relatedGearCategory || '',
+      relatedGearModel: topic.relatedGearModel || '',
+      relatedGearItemId: topic.relatedGearItemId || null,
+      quickReplyOnly: Boolean(topic.quickReplyOnly)
+    };
+  }
+
+  if (modeKey === 'catch') {
+    return {
+      id: topic.id || null,
+      title: topic.title || '',
+      images: normalizeImages(topic.images),
+      locationTag: topic.locationTag || '',
+      length: topic.length || '',
+      isLengthSecret: Boolean(topic.isLengthSecret),
+      isLengthEstimated: Boolean(topic.isLengthEstimated),
+      weight: topic.weight || '',
+      isWeightSecret: Boolean(topic.isWeightSecret),
+      isWeightEstimated: Boolean(topic.isWeightEstimated),
+      rejectReason: topic.rejectReason || ''
+    };
+  }
+
+  if (modeKey === 'trip') {
+    return {
+      id: topic.id || null,
+      title: topic.title || '',
+      tripResult: topic.tripResult || '',
+      tripStatus: Array.isArray(topic.tripStatus) ? topic.tripStatus : [],
+      targetFish: Array.isArray(topic.targetFish) ? topic.targetFish : [],
+      customTargetFish: topic.customTargetFish || '',
+      season: topic.season || '',
+      weather: topic.weather || '',
+      waterType: topic.waterType || '',
+      mainSpot: topic.mainSpot || '',
+      fishingTime: topic.fishingTime || '',
+      envFeelings: Array.isArray(topic.envFeelings) ? topic.envFeelings : [],
+      rigs: Array.isArray(topic.rigs) ? topic.rigs : [],
+      rigDescription: topic.rigDescription || '',
+      content: topic.content || '',
+      images: normalizeImages(topic.images),
+      rejectReason: topic.rejectReason || ''
+    };
+  }
+
+  if (modeKey === 'recommend') {
+    return {
+      ...createModeInitialFormData(modeKey),
+      ...base,
+      gearCategory: topic.gearCategory || 'rod',
+      gearModel: topic.gearModel || '',
+      gearItemId: topic.gearItemId || null,
+      usageYear: topic.usageYear || '',
+      usageFrequency: topic.usageFrequency || '',
+      environments: Array.isArray(topic.environments) ? topic.environments : [],
+      customScene: topic.customScene || '',
+      summary: topic.summary || '',
+      pros: Array.isArray(topic.pros) ? topic.pros : [],
+      tags: {
+        scene: Array.isArray(topic.tags && topic.tags.scene) ? topic.tags.scene : [],
+        customScene: Array.isArray(topic.tags && topic.tags.customScene) ? topic.tags.customScene : [],
+        budget: topic.tags && topic.tags.budget ? [topic.tags.budget].flat().filter(Boolean) : [],
+        usage: Array.isArray(topic.tags && topic.tags.usage) ? topic.tags.usage : [],
+        shareReasons: Array.isArray(topic.tags && topic.tags.shareReasons) ? topic.tags.shareReasons : []
+      }
+    };
+  }
+
+  const tags = normalizeObject(topic.tags);
+  return {
+    ...createModeInitialFormData(modeKey),
+    ...base,
+    gearCategory: topic.gearCategory || 'rod',
+    gearModel: topic.gearModel || '',
+    gearItemId: topic.gearItemId || null,
+    usageYear: topic.usageYear || '',
+    usageFrequency: topic.usageFrequency || '',
+    verifyImage: topic.verifyImage || '',
+    environments: Array.isArray(topic.environments) ? topic.environments : [],
+    customScene: topic.customScene || '',
+    ratings: Array.isArray(topic.ratings) ? topic.ratings : normalizeObject(topic.ratings, {}),
+    summary: topic.summary || '',
+    repurchase: topic.repurchase || '',
+    pros: Array.isArray(topic.pros) ? topic.pros : [],
+    cons: Array.isArray(topic.cons) ? topic.cons : [],
+    tags: {
+      fit: Array.isArray(tags.fit) ? tags.fit : [],
+      unfit: Array.isArray(tags.unfit) ? tags.unfit : [],
+      pros: Array.isArray(tags.pros) ? tags.pros : [],
+      cons: Array.isArray(tags.cons) ? tags.cons : [],
+      budget: tags.budget ? [tags.budget].flat().filter(Boolean) : [],
+      usage: Array.isArray(tags.usage) ? tags.usage : [],
+      fitContextTags: Array.isArray(tags.fitContextTags) ? tags.fitContextTags : [],
+      fitTechniqueTags: Array.isArray(tags.fitTechniqueTags) ? tags.fitTechniqueTags : [],
+      compareProfile: Array.isArray(tags.compareProfile) ? tags.compareProfile : [],
+      compareBuyDecision: Array.isArray(tags.compareBuyDecision) ? tags.compareBuyDecision : [],
+      purchaseAdvice: Array.isArray(tags.purchaseAdvice) ? tags.purchaseAdvice : [],
+      buyStage: Array.isArray(tags.buyStage) ? tags.buyStage : [],
+      supplementParams: Array.isArray(tags.supplementParams) ? tags.supplementParams : []
+    },
+    customFit: topic.customFit || '',
+    customUnfit: topic.customUnfit || '',
+    comboGear: Array.isArray(topic.comboGear) ? topic.comboGear : [],
+    comboDesc: topic.comboDesc || '',
+    compareGear: Array.isArray(topic.compareGear) ? topic.compareGear : [],
+    compareDesc: topic.compareDesc || ''
+  };
+}
+
+function sanitizeComparableValue(value) {
+  if (Array.isArray(value)) {
+    return value.map(item => sanitizeComparableValue(item));
+  }
+  if (value && typeof value === 'object') {
+    const next = {};
+    Object.keys(value).sort().forEach(key => {
+      if (key === 'rejectReason') {
+        return;
+      }
+      next[key] = sanitizeComparableValue(value[key]);
+    });
+    return next;
+  }
+  if (value === undefined || value === null) {
+    return '';
+  }
+  return value;
+}
 
 Page({
   data: {
@@ -13,41 +228,30 @@ Page({
     publishScrollIntoView: '',
     lastSelectedIndex: 1, // 记录用户上次选择的模式索引，默认为长测评
     isDarkMode: false, // 夜间模式状态
-    postModes: [
-      {
-        title: '好物速报',
-        content: '爱不释手的好物件，何不拿出来分享'
-      },
-      {
-        title: '长测评',
-        content: '你的宝贵经验，系统评测'
-      },
-      {
-        title: '讨论&提问',
-        content: '发布问题召集路亚老手答疑解惑'
-      },
-      {
-        title: '鱼获展示',
-        content: '晒出你的高光时刻，纪录每一次心跳'
-      },
-      {
-        title: '钓行分享',
-        content: '记录每一次出钓的得失与感悟'
-      }
-    ],
+    postModes: MODE_CONFIG,
     backgroundImages: [
       'https://anglertest.xyz/Banner/banner1.jpg',
       'https://anglertest.xyz/Banner/banner2.jpg',
       'https://anglertest.xyz/Banner/banner3.webp'
-    ]
+    ],
+    editingDraftId: null
   },
 
-  onLoad: function (options) {
+  async onLoad(options) {
     // 获取系统信息
     const windowInfo = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
     this.setData({
       statusBarHeight: windowInfo.statusBarHeight
     });
+
+    this.options = options || {};
+    this._initialDraftSnapshot = '';
+    this._backHandled = false;
+    this._loadingDraft = false;
+
+    if (this.isDraftEditingEntry(options)) {
+      await this.loadDraftForEditing(options);
+    }
   },
 
   onShow: function () {
@@ -69,7 +273,7 @@ Page({
 
   // 处理返回按钮
   handlePageExit() {
-    wx.navigateBack();
+    this.confirmDraftBeforeExit();
   },
 
   // 处理卡片选择事件
@@ -81,30 +285,214 @@ Page({
       selectedMode: selectedMode,
       showModeSelection: false,
       lastSelectedIndex: index, // 记录选择的索引
-      formData: {
-        gearCategory: 'rod'
-      }
+      formData: createModeInitialFormData(selectedMode.modeKey),
+      editingDraftId: null
     });
+    this.captureInitialDraftSnapshot();
     
     console.log('选中的模式:', selectedMode);
     console.log('[publishMode] onCardSelect index=', index, 'card=', card, 'init formData.gearCategory=rod');
   },
 
-  // 返回模式选择
-  backToModeSelection() {
-    this.setData({
-      showModeSelection: true,
-      selectedMode: null,
-      formData: {} // 清空表单数据
-    });
-    wx.nextTick(() => {
-      const postModeComponent = this.selectComponent('#post-mode');
-      if (postModeComponent) {
-        // 设置卡片位置为上次选择的索引
-        postModeComponent.setData({
-          active: this.data.lastSelectedIndex
+  async loadDraftForEditing(options = {}) {
+    try {
+      this._loadingDraft = true;
+      const draftId = Number(options && options.draftId ? options.draftId : 0);
+      const draft = draftId > 0 ? await api.getTopicDetail(draftId) : await api.getTmpTopic();
+
+      if (!(draft && draft.id)) {
+        wx.showToast({
+          title: '草稿不存在或已失效',
+          icon: 'none'
         });
-        postModeComponent.refreshLayout();
+        setTimeout(() => {
+          wx.navigateBack();
+        }, 1200);
+        return;
+      }
+
+      const selectedMode = getModeConfigByTopicCategory(draft.topicCategory) || this.data.postModes[1];
+      const selectedIndex = this.data.postModes.findIndex(item => item.modeKey === selectedMode.modeKey);
+      const formData = buildDraftFormDataFromTopic(draft);
+
+      this.setData({
+        selectedMode,
+        showModeSelection: false,
+        lastSelectedIndex: selectedIndex >= 0 ? selectedIndex : 1,
+        formData,
+        editingDraftId: Number(draft.id)
+      });
+
+      this.captureInitialDraftSnapshot();
+
+      if (draft.rejectReason) {
+        wx.showModal({
+          title: '未通过审核',
+          content: `未通过原因：${draft.rejectReason}`,
+          showCancel: false,
+          confirmText: '知道了'
+        });
+      }
+    } catch (error) {
+      console.error('[publishMode] 加载草稿失败:', error);
+      wx.showToast({
+        title: '加载草稿失败',
+        icon: 'none'
+      });
+      setTimeout(() => {
+        wx.navigateBack();
+      }, 1200);
+    } finally {
+      this._loadingDraft = false;
+    }
+  },
+
+  isDraftEditingEntry(options = {}) {
+    return Boolean(
+      (options && options.mode === 'edit') ||
+      (options && options.fromDraft === 'true') ||
+      Number(options && options.draftId ? options.draftId : 0) > 0
+    );
+  },
+
+  getCurrentModeConfig() {
+    return this.data.selectedMode || null;
+  },
+
+  getCurrentPostData() {
+    const modeConfig = this.getCurrentModeConfig();
+    if (!modeConfig) {
+      return null;
+    }
+
+    const payload = this.buildPostData(modeConfig.modeKey, {
+      ...this.data.formData,
+      id: this.data.formData.id || this.data.editingDraftId || null
+    });
+
+    return payload;
+  },
+
+  getDraftSnapshot(payload = null) {
+    const currentPayload = payload || this.getCurrentPostData();
+    if (!currentPayload) {
+      return '';
+    }
+    return JSON.stringify(sanitizeComparableValue(currentPayload));
+  },
+
+  captureInitialDraftSnapshot(payload = null) {
+    this._initialDraftSnapshot = this.getDraftSnapshot(payload);
+  },
+
+  hasDraftChanged() {
+    const currentPayload = this.getCurrentPostData();
+    if (!currentPayload) {
+      return false;
+    }
+    return this.getDraftSnapshot(currentPayload) !== this._initialDraftSnapshot;
+  },
+
+  hasMeaningfulDraftContent() {
+    const currentPayload = this.getCurrentPostData();
+    if (!currentPayload) {
+      return false;
+    }
+
+    const checkValue = (value) => {
+      if (Array.isArray(value)) {
+        return value.some(item => checkValue(item));
+      }
+      if (value && typeof value === 'object') {
+        return Object.keys(value).some(key => {
+          if (['id', 'topicCategory', 'rejectReason'].includes(key)) {
+            return false;
+          }
+          return checkValue(value[key]);
+        });
+      }
+      if (typeof value === 'string') {
+        return value.trim().length > 0;
+      }
+      if (typeof value === 'number') {
+        return value > 0;
+      }
+      if (typeof value === 'boolean') {
+        return value === true;
+      }
+      return false;
+    };
+
+    return checkValue(currentPayload);
+  },
+
+  async saveCurrentDraft() {
+    const currentPayload = this.getCurrentPostData();
+    if (!currentPayload) {
+      return null;
+    }
+
+    const savedId = await api.createTopic(currentPayload);
+    const nextId = Number(savedId || currentPayload.id || 0) || null;
+    const nextPayload = {
+      ...currentPayload,
+      id: nextId
+    };
+
+    this.setData({
+      editingDraftId: nextId,
+      'formData.id': nextId
+    });
+    this.captureInitialDraftSnapshot(nextPayload);
+    return nextId;
+  },
+
+  confirmDraftBeforeExit() {
+    if (this._loadingDraft) {
+      return;
+    }
+
+    if (this.data.showModeSelection || !this.getCurrentModeConfig()) {
+      wx.navigateBack();
+      return;
+    }
+
+    if (!this.hasDraftChanged() || !this.hasMeaningfulDraftContent()) {
+      wx.navigateBack();
+      return;
+    }
+
+    wx.showModal({
+      title: '保存草稿',
+      content: '检测到你有未保存的内容，是否保存为草稿？',
+      confirmText: '保存',
+      cancelText: '不保存',
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            wx.showLoading({ title: '保存草稿中...' });
+            await this.saveCurrentDraft();
+            wx.hideLoading();
+            wx.showToast({
+              title: '草稿已保存',
+              icon: 'success'
+            });
+            setTimeout(() => {
+              wx.navigateBack();
+            }, 400);
+            return;
+          } catch (error) {
+            wx.hideLoading();
+            console.error('[publishMode] 保存草稿失败:', error);
+            wx.showToast({
+              title: api.getErrorMessage(error, '保存草稿失败'),
+              icon: 'none'
+            });
+            return;
+          }
+        }
+
+        wx.navigateBack();
       }
     });
   },

@@ -46,9 +46,9 @@
         <view class="post-footer">
           <text class="post-time">{{item.publishTime || item.createTime}}</text>
           <view class="post-stats">
-            <text class="stat-item">👍 {{item.likeCount || 0}}</text>
-            <text class="stat-item">💬 {{item.commentCount || 0}}</text>
-            <text class="stat-item">👁 {{item.viewCount || 0}}</text>
+            <text class="stat-item">赞 {{item.likeCount || 0}}</text>
+            <text class="stat-item">评 {{item.commentCount || 0}}</text>
+            <text class="stat-item" wx:if="{{item.hasViewCount}}">阅 {{item.viewCount || 0}}</text>
           </view>
         </view>
       </view>
@@ -71,11 +71,9 @@
           </view>
         </view>
         <text class="post-content">{{item.content}}</text>
+        <text class="reject-tip" wx:if="{{item.rejectReason}}">未通过原因：{{item.rejectReason}}</text>
         <view class="post-footer">
           <text class="post-time">{{item.createTime}}</text>
-          <view class="post-actions">
-            <text class="action-btn delete" bindtap="onDeletePost" data-post="{{item}}">删除</text>
-          </view>
         </view>
       </view>
 
@@ -99,7 +97,7 @@
         <view class="post-footer">
           <text class="post-time">{{item.createTime}}</text>
           <view class="post-actions">
-            <text class="action-btn delete" bindtap="onDeletePost" data-post="{{item}}">删除</text>
+            <text class="action-btn delete" catchtap="onDeletePost" data-post="{{item}}">删除</text>
           </view>
         </view>
       </view>

@@ -36,6 +36,8 @@ import { UserController } from './modules/user/user.controller';
 import { UserService } from './modules/user/user.service';
 import { ModerationService } from './modules/moderation/moderation.service';
 import { ModerationTencentService } from './modules/moderation/moderation.tencent.service';
+import { MessageController } from './modules/message/message.controller';
+import { MessageService } from './modules/message/message.service';
 
 @Module({
   imports: [
@@ -62,6 +64,7 @@ import { ModerationTencentService } from './modules/moderation/moderation.tencen
     GearController,
     TaskController,
     InviteController,
+    MessageController,
   ],
   providers: [
     DatabaseService,
@@ -83,6 +86,7 @@ import { ModerationTencentService } from './modules/moderation/moderation.tencen
     TaskService,
     ModerationService,
     ModerationTencentService,
+    MessageService,
   ],
 })
 export class AppModule {}

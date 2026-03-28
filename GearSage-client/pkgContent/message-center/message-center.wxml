@@ -1,0 +1,46 @@
+<custom-navbar
+  id="custom-navbar"
+  title="消息中心"
+  show-back="{{true}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<view class="message-page {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="message-header">
+    <view class="message-summary">
+      <text class="message-title">审核结果与互动通知</text>
+      <text class="message-subtitle">当前未读 {{unreadCount}} 条</text>
+    </view>
+    <view class="mark-all-btn" bindtap="onMarkAllRead">全部已读</view>
+  </view>
+
+  <view class="loading-container" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <view class="message-list" wx:if="{{!loading && messages.length > 0}}">
+    <view
+      class="message-item {{item.isRead ? 'read' : 'unread'}}"
+      wx:for="{{messages}}"
+      wx:key="id"
+      data-item="{{item}}"
+      bindtap="onMessageTap"
+    >
+      <view class="message-main">
+        <view class="message-head">
+          <text class="message-item-title">{{item.title}}</text>
+          <text class="message-time">{{item.displayTime}}</text>
+        </view>
+        <text class="message-content">{{item.content}}</text>
+        <text class="message-reason" wx:if="{{item.extra.reason}}">原因：{{item.extra.reason}}</text>
+      </view>
+      <view class="unread-dot" wx:if="{{!item.isRead}}"></view>
+    </view>
+  </view>
+
+  <view class="empty-container" wx:if="{{!loading && messages.length === 0}}">
+    <text class="empty-title">暂无消息</text>
+    <text class="empty-subtitle">审核结果和互动回执会显示在这里</text>
+  </view>
+</view>

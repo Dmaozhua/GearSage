@@ -1,5 +1,5 @@
 <view class="checkbox-group {{isDarkMode ? 'dark' : ''}}">
-  <view class="checkbox" wx:for="{{checkboxItems}}" wx:key="id" data-id="{{item.id}}" bindtap="onCheckboxTap">
+  <view class="checkbox" wx:for="{{internalCheckboxItems}}" wx:key="id" data-id="{{item.id}}" bindtap="onCheckboxTap">
     <view class="checkbox-wrapper">
       <view class="checkbox-input {{item.checked ? 'checked' : ''}}"></view>
       <view class="checkbox-tile {{item.checked ? 'checked' : ''}}">

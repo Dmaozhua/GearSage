@@ -84,21 +84,13 @@
     </view>
 
     <view class="quick-menu">
-        <view class="menu-item" bindtap="onMyTags">
-          <text class="menu-icon">🏷️</text>
+        <view class="menu-item" bindtap="onMessageCenter">
+          <text class="menu-icon">🔔</text>
           <view class="menu-content">
-            <text class="menu-title">编辑标签</text>
-            <text class="menu-subtitle">{{userInfo.equippedDisplayTag ? '管理主标签与帖子展示模式' : '设置主标签与帖子展示模式'}}</text>
+            <text class="menu-title">消息中心</text>
+            <text class="menu-subtitle" wx:if="{{messageUnreadCount > 0}}">有 {{messageUnreadCount}} 条未读消息</text>
+            <text class="menu-subtitle" wx:else>查看审核结果与互动通知</text>
           </view>
-          <text class="menu-arrow">></text>
-        </view>
-
-        <view class="menu-item" bindtap="onEditProfile">
-          <text class="menu-icon">✏️</text>
-          <view class="menu-content">
-          <text class="menu-title">编辑个人信息</text>
-          <text class="menu-subtitle">修改头像、昵称、个人信息等</text>
-        </view>
           <text class="menu-arrow">></text>
         </view>
 
@@ -111,21 +103,20 @@
           <text class="menu-arrow">></text>
         </view>
 
-        <view class="menu-item" bindtap="onInviteFriends">
-          <text class="menu-icon">邀</text>
+        <view class="menu-item" bindtap="onMyTags">
+          <text class="menu-icon">🏷️</text>
           <view class="menu-content">
-            <text class="menu-title">邀请好友</text>
-            <text class="menu-subtitle">生成你的邀请卡，也可从这里发起分享</text>
+            <text class="menu-title">编辑标签</text>
+            <text class="menu-subtitle">{{userInfo.equippedDisplayTag ? '管理主标签与帖子展示模式' : '设置主标签与帖子展示模式'}}</text>
           </view>
           <text class="menu-arrow">></text>
         </view>
 
-        <view class="menu-item draft-item" bindtap="onMyDrafts">
-          <text class="menu-icon">📝</text>
+        <view class="menu-item" bindtap="onEditProfile">
+          <text class="menu-icon">✏️</text>
           <view class="menu-content">
-            <text class="menu-title">我的草稿</text>
-            <text class="menu-subtitle {{hasDraft ? 'has-draft' : ''}}" wx:if="{{hasDraft}}">有未完成的草稿</text>
-            <text class="menu-subtitle" wx:else>暂无草稿</text>
+            <text class="menu-title">编辑个人信息</text>
+            <text class="menu-subtitle">修改头像、昵称、个人信息等</text>
           </view>
           <text class="menu-arrow">></text>
         </view>

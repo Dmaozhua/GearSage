@@ -1,7 +1,17 @@
 Component({
+  properties: {
+    checkboxItems: {
+      type: Array,
+      value: [],
+      observer(newItems) {
+        this.syncCheckboxItemsFromProperties(newItems);
+      }
+    }
+  },
+
   data: {
     isDarkMode: false,
-    checkboxItems: [
+    internalCheckboxItems: [
       {
         id: 'rod',
         label: '鱼竿',
@@ -44,6 +54,7 @@ Component({
   lifetimes: {
     attached: function() {
       this.initThemeMode();
+      this.syncCheckboxItemsFromProperties(this.properties.checkboxItems);
       // 监听全局主题变化
       const app = getApp();
       if (app.onThemeChange) {
@@ -64,6 +75,20 @@ Component({
   },
 
   methods: {
+    syncCheckboxItemsFromProperties: function(items) {
+      const nextItems = Array.isArray(items) && items.length
+        ? items.map(item => ({
+          ...item,
+          checked: Boolean(item.checked)
+        }))
+        : this.data.internalCheckboxItems.map(item => ({ ...item }));
+
+      const updatedItems = this.updateItemsIcons(nextItems);
+      this.setData({
+        internalCheckboxItems: updatedItems
+      });
+    },
+
     /**
      * 获取图标路径
      */
@@ -102,7 +127,7 @@ Component({
 
     onCheckboxTap: function(e) {
       const itemId = e.currentTarget.dataset.id;
-      const checkboxItems = this.data.checkboxItems;
+      const checkboxItems = this.data.internalCheckboxItems;
       
       // 单选模式：只有点击的项被选中，其他项取消选中
       let updatedItems = checkboxItems.map(item => {
@@ -116,7 +141,7 @@ Component({
       updatedItems = this.updateItemsIcons(updatedItems);
 
       this.setData({
-        checkboxItems: updatedItems
+        internalCheckboxItems: updatedItems
       });
 
       // 触发事件，返回选中的项（单选模式下只有一个）
@@ -130,15 +155,15 @@ Component({
     },
 
     getSelectedItems: function() {
-      return this.data.checkboxItems.filter(item => item.checked);
+      return this.data.internalCheckboxItems.filter(item => item.checked);
     },
 
     getSelectedItem: function() {
-      return this.data.checkboxItems.find(item => item.checked);
+      return this.data.internalCheckboxItems.find(item => item.checked);
     },
 
     setSelectedItems: function(selectedIds) {
-      const checkboxItems = this.data.checkboxItems;
+      const checkboxItems = this.data.internalCheckboxItems;
       let updatedItems = checkboxItems.map(item => ({
         ...item,
         checked: selectedIds.includes(item.id)
@@ -148,12 +173,12 @@ Component({
       updatedItems = this.updateItemsIcons(updatedItems);
 
       this.setData({
-        checkboxItems: updatedItems
+        internalCheckboxItems: updatedItems
       });
     },
 
     setSelectedItem: function(selectedId) {
-      const checkboxItems = this.data.checkboxItems;
+      const checkboxItems = this.data.internalCheckboxItems;
       let updatedItems = checkboxItems.map(item => ({
         ...item,
         checked: item.id === selectedId
@@ -163,12 +188,12 @@ Component({
       updatedItems = this.updateItemsIcons(updatedItems);
 
       this.setData({
-        checkboxItems: updatedItems
+        internalCheckboxItems: updatedItems
       });
     },
 
     clearAllSelections: function() {
-      const checkboxItems = this.data.checkboxItems;
+      const checkboxItems = this.data.internalCheckboxItems;
       let updatedItems = checkboxItems.map(item => ({
         ...item,
         checked: false
@@ -178,7 +203,7 @@ Component({
       updatedItems = this.updateItemsIcons(updatedItems);
 
       this.setData({
-        checkboxItems: updatedItems
+        internalCheckboxItems: updatedItems
       });
     },
 
@@ -189,9 +214,9 @@ Component({
         isDarkMode: isDarkMode
       });
       // 初始化时也要更新图标
-      const updatedItems = this.updateItemsIcons(this.data.checkboxItems);
+      const updatedItems = this.updateItemsIcons(this.data.internalCheckboxItems);
       this.setData({
-        checkboxItems: updatedItems
+        internalCheckboxItems: updatedItems
       });
     },
 
@@ -202,13 +227,13 @@ Component({
       // 不过 initThemeMode 里已经 setData 了
       
       // 为了安全起见，我们重新基于传入的 isDarkMode 计算
-      const updatedItems = this.data.checkboxItems.map(item => ({
+      const updatedItems = this.data.internalCheckboxItems.map(item => ({
         ...item,
         icon: this.getIconPath(item.id, isDarkMode, item.checked)
       }));
 
       this.setData({
-        checkboxItems: updatedItems
+        internalCheckboxItems: updatedItems
       });
     }
   }

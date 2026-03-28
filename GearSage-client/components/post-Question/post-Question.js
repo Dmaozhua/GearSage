@@ -307,6 +307,7 @@ Component({
 
       const formData = this.data.formData || {};
       const submitData = {
+        id: formData.id || null,
         topicCategory: 2,
         title: formData.title || '',
         content: formData.mainContent || '',

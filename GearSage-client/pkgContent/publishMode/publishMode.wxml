@@ -24,9 +24,9 @@
   <scroll-view scroll-y class="publish-content" wx:if="{{!showModeSelection}}" scroll-into-view="{{publishScrollIntoView}}">
     <view id="publish-form-top-anchor"></view>
     <view class="selected-mode-header">
-      <view class="back-btn" bindtap="backToModeSelection">
+      <view class="back-btn" bindtap="handlePageExit">
         <text class="back-icon">‹</text>
-        <text class="back-text">返回选择</text>
+        <text class="back-text">返回</text>
       </view>
       <view class="selected-mode-info">
         <text class="selected-title">{{selectedMode.title}}</text>

@@ -392,6 +392,7 @@ Component({
   observers: {
     'formData.gearCategory': function(gearCategory) {
       console.log('[post-Experience] observer gearCategory=', gearCategory);
+      this.updateEquipmentCategoryOptions((gearCategory || '').trim());
       if (gearCategory) {
         this.updateRatingDimensions(gearCategory); // 直接使用选中的分类
         this.loadEnvironmentOptions(gearCategory); // 加载对应的常用环境选项
@@ -577,9 +578,24 @@ Component({
         this.setData({
           formData: { ...this.data.formData, ...normalizedInitialData }
         });
+        this.updateEquipmentCategoryOptions((normalizedInitialData.gearCategory || this.data.formData.gearCategory || '').trim());
         console.log('[post-Experience] initFormData merged with initialData:', normalizedInitialData);
         console.log('[post-Experience] initFormData result formData=', this.data.formData);
+      } else {
+        this.updateEquipmentCategoryOptions((this.data.formData.gearCategory || '').trim());
       }
+    },
+
+    updateEquipmentCategoryOptions(gearCategory) {
+      const selectedCategory = gearCategory || '';
+      const nextItems = (this.data.equipmentCategories || []).map(item => ({
+        ...item,
+        checked: item.id === selectedCategory
+      }));
+
+      this.setData({
+        equipmentCategories: nextItems
+      });
     },
 
     // 更新评分维度
@@ -757,6 +773,7 @@ Component({
         'errors.tags': ''
       });
       console.log('[post-Experience] setData gearCategory done. formData.gearCategory=', this.data.formData.gearCategory);
+      this.updateEquipmentCategoryOptions(gearCategory);
       
       // observers会自动调用updateRatingDimensions
       
@@ -1314,6 +1331,7 @@ Component({
         const formData = this.data.formData || {};
         const tags = normalizeExperienceTags(formData.tags);
         const submitData = {
+          id: formData.id || null,
           topicCategory: 1,
           title: formData.title || '',
           content: formData.mainContent || '',

@@ -1,0 +1,161 @@
+.message-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.message-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.message-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.message-subtitle {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.mark-all-btn {
+  padding: 14rpx 22rpx;
+  border-radius: 999rpx;
+  background: #e6eefc;
+  color: #2457c5;
+  font-size: 24rpx;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.message-item {
+  display: flex;
+  gap: 16rpx;
+  align-items: flex-start;
+  padding: 28rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(15, 23, 42, 0.06);
+}
+
+.message-item.read {
+  opacity: 0.78;
+}
+
+.message-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.message-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-bottom: 12rpx;
+}
+
+.message-item-title {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #111827;
+}
+
+.message-time {
+  font-size: 22rpx;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.message-content,
+.message-reason {
+  display: block;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.message-reason {
+  margin-top: 10rpx;
+  color: #b45309;
+}
+
+.unread-dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin-top: 10rpx;
+  border-radius: 50%;
+  background: #ef4444;
+  flex-shrink: 0;
+}
+
+.loading-container,
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 0;
+}
+
+.loading-text,
+.empty-subtitle {
+  font-size: 26rpx;
+  color: #94a3b8;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  color: #374151;
+  margin-bottom: 12rpx;
+}
+
+.message-page.dark {
+  background: #121212;
+}
+
+.dark .message-title,
+.dark .empty-title,
+.dark .message-item-title {
+  color: #f3f4f6;
+}
+
+.dark .message-subtitle,
+.dark .loading-text,
+.dark .empty-subtitle,
+.dark .message-time {
+  color: #9ca3af;
+}
+
+.dark .message-item {
+  background: #1f2937;
+  box-shadow: none;
+}
+
+.dark .message-content {
+  color: #d1d5db;
+}
+
+.dark .message-reason {
+  color: #fbbf24;
+}
+
+.dark .mark-all-btn {
+  background: #24324d;
+  color: #93c5fd;
+}

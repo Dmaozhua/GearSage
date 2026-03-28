@@ -145,6 +145,14 @@
   overflow: hidden;
 }
 
+.reject-tip {
+  display: block;
+  margin-bottom: 16rpx;
+  font-size: 24rpx;
+  line-height: 1.5;
+  color: #b85c00;
+}
+
 .post-footer {
   display: flex;
   justify-content: space-between;
@@ -180,7 +188,8 @@
 
 .post-stats {
   display: flex;
-  gap: 20rpx;
+  gap: 18rpx;
+  flex-wrap: wrap;
 }
 
 .stat-item {
@@ -188,7 +197,8 @@
   color: #999999;
   display: flex;
   align-items: center;
-  gap: 4rpx;
+  line-height: 1;
+  min-width: 64rpx;
 }
 
 /* 空状态 */
@@ -289,6 +299,10 @@
 
 .dark-mode .post-content {
   color: #cccccc;
+}
+
+.dark-mode .reject-tip {
+  color: #ffb74d;
 }
 
 .dark-mode .post-time {
