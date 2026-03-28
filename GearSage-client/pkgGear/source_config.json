@@ -1,0 +1,21 @@
+{
+  "daiwa": {
+    "brand": "Daiwa",
+    "entry_points": [
+      {
+        "kind": "reel",
+        "url": "https://www.daiwa.com/jp/fishing/item/reel/spin_rl/index.html",
+        "description": "Daiwa Japan Spinning Reels List"
+      },
+      {
+        "kind": "rod",
+        "url": "https://www.daiwa.com/jp/fishing/item/rod/bass_rd/index.html",
+        "description": "Daiwa Japan Bass Rods List"
+      }
+    ]
+  },
+  "shimano": {
+    "brand": "Shimano",
+    "entry_points": []
+  }
+}

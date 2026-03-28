@@ -23,6 +23,15 @@ async function bootstrap() {
     },
   );
 
+  app.useStaticAssets(join(process.cwd(), 'admin-ui'), {
+    prefix: '/admin-console/',
+  });
+
+  const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.get('/admin-console', (_req: any, res: any) => {
+    res.redirect('/admin-console/index.html');
+  });
+
   await app.listen(process.env.PORT || 3001, '0.0.0.0');
 }
 bootstrap();

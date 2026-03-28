@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GearSage 审核后台 v0</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <section id="login-screen" class="screen screen-active">
+        <div class="login-card">
+          <div class="login-badge">审核后台 v0</div>
+          <h1>GearSage 审核后台</h1>
+          <p class="muted">最小可演示版本，仅承接审核与治理侧基础动作。</p>
+          <form id="login-form" class="login-form">
+            <label>
+              <span>账号</span>
+              <input id="login-username" type="text" autocomplete="username" placeholder="admin" required />
+            </label>
+            <label>
+              <span>密码</span>
+              <input id="login-password" type="password" autocomplete="current-password" placeholder="admin123456" required />
+            </label>
+            <button id="login-submit" type="submit">登录</button>
+          </form>
+          <div id="login-error" class="form-error hidden"></div>
+          <div class="login-hint">
+            默认账号来自服务端环境变量：
+            <code>ADMIN_DEFAULT_USERNAME</code> /
+            <code>ADMIN_DEFAULT_PASSWORD</code>
+          </div>
+        </div>
+      </section>
+
+      <section id="console-screen" class="screen hidden">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <div class="brand">GearSage 审核后台</div>
+            <div class="env-chip">本地演示</div>
+          </div>
+          <div class="admin-summary">
+            <div id="admin-username" class="admin-name">-</div>
+            <div id="admin-role" class="admin-role">-</div>
+          </div>
+          <nav class="nav-list">
+            <button class="nav-item nav-item-active" data-view="topics">待审核帖子</button>
+            <button class="nav-item" data-view="comments">评论审核</button>
+            <button class="nav-item" data-view="users">用户管理</button>
+            <button class="nav-item" data-view="logs">审核日志</button>
+            <button class="nav-item" data-view="rules">规则配置</button>
+          </nav>
+          <button id="logout-button" class="secondary ghost">退出登录</button>
+        </aside>
+
+        <main class="main-content">
+          <header class="topbar">
+            <div>
+              <h2 id="view-title">待审核帖子</h2>
+              <div id="view-subtitle" class="muted">查看待审核内容并执行最小审核动作。</div>
+            </div>
+            <div class="topbar-actions">
+              <button id="refresh-button" class="secondary">刷新当前页</button>
+            </div>
+          </header>
+
+          <div id="global-message" class="global-message hidden"></div>
+
+          <section id="view-topics" class="view-section">
+            <div class="toolbar">
+              <select id="topics-status">
+                <option value="pending">待审核</option>
+                <option value="2">已通过</option>
+                <option value="9">已驳回/下架</option>
+                <option value="all">全部</option>
+              </select>
+              <input id="topics-keyword" type="text" placeholder="搜索标题/正文" />
+              <button id="topics-search">查询</button>
+            </div>
+            <div id="topics-table" class="table-shell"></div>
+          </section>
+
+          <section id="view-comments" class="view-section hidden">
+            <div class="toolbar">
+              <select id="comments-status">
+                <option value="pending">待审核</option>
+                <option value="2">已通过</option>
+                <option value="9">已驳回/删除</option>
+                <option value="all">全部</option>
+              </select>
+              <input id="comments-keyword" type="text" placeholder="搜索评论内容" />
+              <button id="comments-search">查询</button>
+            </div>
+            <div id="comments-table" class="table-shell"></div>
+          </section>
+
+          <section id="view-users" class="view-section hidden">
+            <div class="toolbar">
+              <select id="users-status">
+                <option value="all">全部状态</option>
+                <option value="0">正常</option>
+                <option value="9">封禁</option>
+              </select>
+              <input id="users-keyword" type="text" placeholder="搜索昵称/手机号" />
+              <button id="users-search">查询</button>
+            </div>
+            <div id="users-table" class="table-shell"></div>
+          </section>
+
+          <section id="view-logs" class="view-section hidden">
+            <div class="toolbar">
+              <input id="logs-target-type" type="text" placeholder="targetType，可选" />
+              <input id="logs-action" type="text" placeholder="action，可选" />
+              <button id="logs-search">查询</button>
+            </div>
+            <div id="logs-table" class="table-shell"></div>
+          </section>
+
+          <section id="view-rules" class="view-section hidden">
+            <div class="rule-editor">
+              <input id="rule-keyword" type="text" placeholder="输入黑名单词" />
+              <input id="rule-remark" type="text" placeholder="备注（可选）" />
+              <button id="rule-create">新增规则</button>
+            </div>
+            <div id="rules-table" class="table-shell"></div>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <div id="detail-drawer" class="drawer hidden">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <h3 id="drawer-title">详情</h3>
+          <button id="drawer-close" class="icon-button">关闭</button>
+        </div>
+        <pre id="drawer-content" class="drawer-content"></pre>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+  </html>

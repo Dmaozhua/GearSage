@@ -290,12 +290,29 @@ function generateSearchDataFile(masters) {
     .filter((item) => ['reel', 'rod', 'lure'].includes(item.kind))
     .map((item) => {
       const nameParts = [item.modelYear, item.model, item.modelCn].filter(Boolean);
+      
+      let family = '';
+      if (item.kind === 'lure') {
+        // Simplified family derivation logic based on 筛选设计.txt
+        if (item.system === '硬饵' && item.waterColumn === '水面' && item.action === '摆动') {
+          family = '铅笔';
+        } else if (item.system === '硬饵' && item.waterColumn === '中层' && item.action === '摇摆') {
+          family = '胖子';
+        } else if (item.system === '硬饵' && item.waterColumn === '全泳层' && item.action === '震动') {
+          family = 'VIB';
+        }
+      }
+
       return {
         type: item.kind,
         id: Number(item.id),
         name: nameParts.join(' ').trim(),
         alias: item.alias || '',
         type_tips: item.typeTips || '',
+        system: item.system || '',
+        water_column: item.waterColumn || '',
+        action: item.action || '',
+        family: family,
       };
     })
     .filter((item) => item.name && Number.isFinite(item.id) && item.id > 0);
