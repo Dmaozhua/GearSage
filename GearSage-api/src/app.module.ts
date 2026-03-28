@@ -2,9 +2,20 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './modules/app/app.controller';
+import { AdminJwtAuthGuard } from './common/admin-jwt-auth.guard';
 import { DatabaseService } from './common/database.service';
 import { JwtAuthGuard } from './common/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from './common/optional-jwt-auth.guard';
+import { AdminAuthController } from './modules/admin/admin-auth.controller';
+import { AdminAuthService } from './modules/admin/admin-auth.service';
+import { AdminLogController } from './modules/admin/admin-log.controller';
+import { AdminLogService } from './modules/admin/admin-log.service';
+import { AdminReviewController } from './modules/admin/admin-review.controller';
+import { AdminReviewService } from './modules/admin/admin-review.service';
+import { AdminRuleController } from './modules/admin/admin-rule.controller';
+import { AdminRuleService } from './modules/admin/admin-rule.service';
+import { AdminUserController } from './modules/admin/admin-user.controller';
+import { AdminUserService } from './modules/admin/admin-user.service';
 import { AuthController } from './modules/auth/auth.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { CommentController } from './modules/comment/comment.controller';
@@ -28,14 +39,19 @@ import { ModerationTencentService } from './modules/moderation/moderation.tencen
 
 @Module({
   imports: [
-ConfigModule.forRoot({
-  isGlobal: true,
-  envFilePath: ['.env.local', '.env'],
-}),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env.local', '.env'],
+    }),
     JwtModule.register({}),
   ],
   controllers: [
     AppController,
+    AdminAuthController,
+    AdminReviewController,
+    AdminUserController,
+    AdminLogController,
+    AdminRuleController,
     AuthController,
     UserController,
     TopicController,
@@ -49,8 +65,14 @@ ConfigModule.forRoot({
   ],
   providers: [
     DatabaseService,
+    AdminJwtAuthGuard,
     JwtAuthGuard,
     OptionalJwtAuthGuard,
+    AdminAuthService,
+    AdminReviewService,
+    AdminUserService,
+    AdminLogService,
+    AdminRuleService,
     AuthService,
     UserService,
     TopicService,

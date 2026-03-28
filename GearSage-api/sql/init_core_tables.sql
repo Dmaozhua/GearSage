@@ -114,6 +114,28 @@ CREATE TABLE IF NOT EXISTS media_assets (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS admin_users (
+  id BIGSERIAL PRIMARY KEY,
+  username VARCHAR(64) NOT NULL UNIQUE,
+  "passwordHash" TEXT NOT NULL,
+  status INT NOT NULL DEFAULT 0,
+  role VARCHAR(32) NOT NULL DEFAULT 'super_admin',
+  "lastLoginAt" TIMESTAMPTZ,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS admin_operation_logs (
+  id BIGSERIAL PRIMARY KEY,
+  "adminUserId" BIGINT NOT NULL,
+  "targetType" VARCHAR(32) NOT NULL,
+  "targetId" VARCHAR(64) NOT NULL,
+  action VARCHAR(64) NOT NULL,
+  remark TEXT NOT NULL DEFAULT '',
+  extra JSONB NOT NULL DEFAULT '{}'::jsonb,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS moderation_records (
   id BIGSERIAL PRIMARY KEY,
   scene VARCHAR(64) NOT NULL,
@@ -339,6 +361,15 @@ ON media_assets ("userId", "bizType", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_media_assets_moderation
 ON media_assets ("moderationStatus", "bizType", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_admin_users_status
+ON admin_users (status, username);
+
+CREATE INDEX IF NOT EXISTS idx_admin_logs_target
+ON admin_operation_logs ("targetType", "targetId", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_admin_logs_admin
+ON admin_operation_logs ("adminUserId", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_moderation_records_target
 ON moderation_records ("targetType", "targetId", "createTime" DESC);

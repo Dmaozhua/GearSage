@@ -249,7 +249,13 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 已新增 `moderation` 服务与腾讯云 provider 封装
   - 已完成 `topic / comment / user / upload` 四条接入点
   - 已补 `moderation_records / moderation_rules` 及审核字段
-  - 当前进入“本地数据库迁移 + 联调验证”阶段
+ - 2026-03-28 第一轮本地联调已通过：
+   - `/health/db` 已确认连接本地 `gearsage / tommy`
+   - `moderation_rules` 本地关键词规则生效
+   - 正常评论可通过并写入 `bz_topic_comment`
+   - 命中违禁词评论返回 `403 Forbidden`
+   - `moderation_records` 已成功记录 `pass / reject`
+   - 当前腾讯云真实审核尚未验证，原因是未配置真实密钥
 
 ---
 
@@ -349,6 +355,38 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 审核后台后端继续放在 `GearSage-api`
   - 第一版走最小治理后台，不新开大而全平台
   - 以 `admin_users / admin_operation_logs / moderation_rules` 为最小数据底座
+- 2026-03-28 第一轮代码实施已完成：
+  - 已新增 `src/modules/admin/*` 最小治理接口
+  - 已新增：
+    - `POST /admin/auth/login`
+    - `POST /admin/auth/logout`
+    - `GET /admin/auth/me`
+    - `GET /admin/review/topics`
+    - `GET /admin/review/topics/:id`
+    - `POST /admin/review/topics/:id/pass|reject|remove`
+    - `GET /admin/review/comments`
+    - `GET /admin/review/comments/:id`
+    - `POST /admin/review/comments/:id/pass|reject|remove`
+    - `GET /admin/users`
+    - `GET /admin/users/:id`
+    - `POST /admin/users/:id/ban|unban`
+    - `GET /admin/logs`
+    - `GET /admin/rules`
+    - `POST /admin/rules`
+    - `DELETE /admin/rules/:id`
+  - 已补：
+    - `admin_users`
+    - `admin_operation_logs`
+    - `ADMIN_JWT_SECRET / ADMIN_DEFAULT_USERNAME / ADMIN_DEFAULT_PASSWORD`
+  - 已同步打通：
+    - 用户封禁后立即在小程序 JWT guard 生效
+    - 评论 / 帖子新建审核记录会回写真实 `targetId`
+- 2026-03-28 第一轮本地 smoke 已通过：
+  - 管理员默认账号登录正常
+  - `/admin/auth/me` 正常
+  - 帖子审核列表、评论审核列表、用户列表、日志列表、规则列表可正常返回
+  - 规则新增、帖子通过、用户封禁/解封、日志留痕均已验证
+  - 本地 smoke 产生的测试黑名单词已删除，测试用户状态已恢复；操作日志保留作为留痕
 
 ---
 

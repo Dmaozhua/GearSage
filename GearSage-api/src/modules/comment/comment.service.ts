@@ -84,12 +84,13 @@ export class CommentService {
     const status = decision.result === 'REVIEW' ? 0 : 2;
     const isVisible = status === 2 ? 1 : 0;
 
-    await this.databaseService.query(
+    const insertResult = await this.databaseService.query(
       `
       INSERT INTO bz_topic_comment
       ("topicId", content, "replyCommentId", "replyUserId", "userId", status, "isVisible", "createTime", "updateTime")
       VALUES
       ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW())
+      RETURNING id
       `,
       [
         dto.topicId,
@@ -101,6 +102,13 @@ export class CommentService {
         isVisible,
       ],
     );
+
+    await this.moderationService.relinkPendingRecords({
+      targetType: 'comment',
+      fromTargetId: `${dto.topicId}:pending`,
+      toTargetId: insertResult.rows[0].id,
+      userId,
+    });
 
     if (status === 2) {
       await this.databaseService.query(

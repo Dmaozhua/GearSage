@@ -154,6 +154,32 @@ export class ModerationService {
     return this.mergeDecisions(decisions, 'PASS');
   }
 
+  async relinkPendingRecords(input: {
+    targetType: string;
+    fromTargetId: string | number;
+    toTargetId: string | number;
+    userId?: number | null;
+  }) {
+    const params: any[] = [String(input.toTargetId), input.targetType, String(input.fromTargetId)];
+    let userClause = '';
+
+    if (input.userId !== undefined && input.userId !== null) {
+      params.push(Number(input.userId));
+      userClause = ` AND "userId" = $${params.length}`;
+    }
+
+    await this.databaseService.query(
+      `
+      UPDATE moderation_records
+      SET "targetId" = $1
+      WHERE "targetType" = $2
+        AND "targetId" = $3
+        ${userClause}
+      `,
+      params,
+    );
+  }
+
   private isTencentModerationEnabled() {
     const moderationEnabled = String(
       this.configService.get<string>('MODERATION_ENABLED') || 'false',

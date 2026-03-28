@@ -59,6 +59,7 @@ export class AuthService {
     }
 
     const user = await this.findOrCreateUser(dto);
+    this.assertUserActive(user);
     const tokenBundle = await this.issueTokens(Number(user.id), user.phone);
     return {
       token: tokenBundle.accessToken,
@@ -88,6 +89,8 @@ export class AuthService {
       expiresAt: string;
       revokedAt: string | null;
     };
+
+    this.assertUserActive(row);
 
     if (row.revokedAt) {
       throw new UnauthorizedException('refresh token revoked');
@@ -294,6 +297,12 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
+  }
+
+  private assertUserActive(user: UserRow) {
+    if (Number(user.status || 0) === 9) {
+      throw new UnauthorizedException('user banned');
+    }
   }
 
   private mapUser(row: UserRow) {

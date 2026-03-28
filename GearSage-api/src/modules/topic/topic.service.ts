@@ -262,6 +262,13 @@ export class TopicService {
       ],
     );
 
+    await this.moderationService.relinkPendingRecords({
+      targetType: 'topic',
+      fromTargetId: `${userId}:pending`,
+      toTargetId: insertResult.rows[0].id,
+      userId,
+    });
+
     return insertResult.rows[0];
   }
 
