@@ -513,6 +513,9 @@
 
     <view class="comments-section">
       <view class="section-title">评论（{{totalCommentCount || 0}}）</view>
+      <view class="comment-disabled-note" wx:if="{{!productDetail.canComment}}">
+        {{productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论'}}
+      </view>
       <view class="comments-list" wx:if="{{comments && comments.length > 0}}">
         <view class="comment-item" wx:for="{{comments}}" wx:key="index">
           <view style="display: flex;">
@@ -569,8 +572,8 @@
 <view class="comment-mask" wx:if="{{showCommentInput && !notFound}}" bindtap="onHideCommentInput"></view>
 
 <view class="bottom-bar {{containerClass}} {{showCommentInput ? 'bottom-bar--editing' : ''}}" wx:if="{{!notFound}}">
-  <view class="comment-input-container" wx:if="{{!showCommentInput}}">
-    <input class="comment-input" placeholder="{{replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…'}}" bindtap="onShowCommentInput" disabled="{{true}}" />
+  <view class="comment-input-container {{!productDetail.canComment ? 'comment-input-container--disabled' : ''}}" wx:if="{{!showCommentInput}}">
+    <input class="comment-input" placeholder="{{productDetail.canComment ? (replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…') : (productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论')}}" bindtap="onShowCommentInput" disabled="{{true}}" />
   </view>
 
   <view class="comment-input-expanded" wx:if="{{showCommentInput}}">
@@ -585,12 +588,12 @@
   </view>
 
   <view class="right-buttons" wx:if="{{!showCommentInput}}">
-    <view class="bottom-btn like-btn {{productDetail.islike ? 'active' : ''}}" bindtap="onLike">
+    <view class="bottom-btn like-btn {{productDetail.islike ? 'active' : ''}} {{!productDetail.canLike ? 'bottom-btn--disabled' : ''}}" bindtap="onLike">
       <image class="bottom-btn-icon-img" src="{{productDetail.islike ? '/images/icons/like-ing.png' : (containerClass === 'dark' ? '/images/icons/like-night.png' : '/images/icons/like.png')}}" mode="aspectFit"></image>
       <text class="bottom-btn-text">{{productDetail.likeCount || 0}}</text>
     </view>
-    <view class="bottom-btn share-btn">
-      <button class="share-native-trigger" open-type="share"></button>
+    <view class="bottom-btn share-btn {{!productDetail.canShare ? 'bottom-btn--disabled' : ''}}" bindtap="onShareTap">
+      <button wx:if="{{productDetail.canShare}}" class="share-native-trigger" open-type="share"></button>
       <image class="share-image" mode="aspectFill" src="/images/share.png"/>
       <text class="bottom-btn-text">分享</text>
     </view>

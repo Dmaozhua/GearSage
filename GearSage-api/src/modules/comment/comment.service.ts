@@ -62,6 +62,24 @@ export class CommentService {
   }
 
   async add(userId: number, dto: AddCommentDto) {
+    const topicResult = await this.databaseService.query(
+      `
+      SELECT id, status, "isDelete"
+      FROM bz_mini_topic
+      WHERE id = $1
+      LIMIT 1
+      `,
+      [dto.topicId],
+    );
+
+    if (!topicResult.rows.length || Number(topicResult.rows[0].isDelete || 0) === 1) {
+      throw new NotFoundException('topic not found');
+    }
+
+    if (Number(topicResult.rows[0].status || 0) !== 2) {
+      throw new ForbiddenException('当前帖子未发布，暂不支持评论');
+    }
+
     const decision = await this.moderationService.reviewText(
       'comment_content',
       dto.content,

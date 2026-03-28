@@ -4,6 +4,18 @@ const auth = require('../../services/auth.js');
 const { getPendingInvite, clearPendingInvite } = require('../../utils/invite.js');
 const EnvUtil = require('../../utils/env.js');
 
+function resolveLoginErrorMessage(error) {
+  const responseMessage = error && error.data && (error.data.message || error.data.msg);
+  const rawMessage = responseMessage || (error && error.message) || '';
+  const normalized = String(rawMessage || '').trim().toLowerCase();
+
+  if (normalized === 'user banned') {
+    return '账号已被禁用';
+  }
+
+  return rawMessage || '登录失败，请重试';
+}
+
 Page({
   data: {
     phone: '',
@@ -254,7 +266,7 @@ Page({
     } catch (error) {
       console.error('[Login] 登录失败', error);
       wx.showToast({
-        title: error.message || '登录失败，请重试',
+        title: resolveLoginErrorMessage(error),
         icon: 'none'
       });
     } finally {

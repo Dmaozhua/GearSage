@@ -16,7 +16,7 @@ export class UploadService {
   getUploadDir() {
     return (
       this.configService.get<string>('UPLOAD_DIR') ||
-      join(process.cwd(), 'runtime-uploads')
+      join(__dirname, '..', '..', '..', 'runtime-uploads')
     );
   }
 

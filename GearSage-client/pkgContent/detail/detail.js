@@ -5,6 +5,7 @@ const api = require('../../services/api.js');
 const { formatRichTextContent, parseRichTextPayload } = require('../../utils/richTextFormatter.js');
 const { buildTopicDetailView: buildTopicDetailViewModel } = require('../../utils/topicDetailView.js');
 const tempUrlManager = require('../../utils/tempUrlManager.js');
+const Permission = require('../../utils/permission.js');
 
 const HOME_FEED_CACHE_KEYS = ['home_feed_cache_v2', 'home_feed_cache_v1'];
 
@@ -416,6 +417,50 @@ Page({
       }
 
       return query.join('&');
+    },
+
+    getCommentDisabledReason() {
+      return this.data.productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论';
+    },
+
+    canCurrentPostComment() {
+      const post = this.data.productDetail || {};
+      return Permission.canComment(post);
+    },
+
+    getLikeDisabledReason() {
+      return this.data.productDetail.likeDisabledReason || '帖子正在审核中，暂不支持点赞';
+    },
+
+    canCurrentPostLike() {
+      const post = this.data.productDetail || {};
+      return Permission.canLikePost(post);
+    },
+
+    getShareDisabledReason() {
+      return this.data.productDetail.shareDisabledReason || '帖子正在审核中，暂不支持分享';
+    },
+
+    canCurrentPostShare() {
+      const post = this.data.productDetail || {};
+      return Boolean(post.canShare);
+    },
+
+    updateShareMenuState() {
+      if (typeof wx.showShareMenu !== 'function' || typeof wx.hideShareMenu !== 'function') {
+        return;
+      }
+
+      if (this.canCurrentPostShare()) {
+        this.enablePageShare();
+        return;
+      }
+
+      wx.hideShareMenu({
+        success: () => {
+          console.log('[详情页] 当前帖子未发布，已隐藏分享菜单');
+        }
+      });
     },
 
     async resolveDetailMediaUrls(productDetail = {}) {
@@ -839,6 +884,7 @@ Page({
             loading: false,
             notFound: false
           });
+          this.updateShareMenuState();
           return true;
 
           const parsedContent = parseRichTextPayload(postData.content);
@@ -1443,6 +1489,14 @@ Page({
     },
 
     onLike: async function() {
+        if (!this.canCurrentPostLike()) {
+            wx.showToast({
+                title: this.getLikeDisabledReason(),
+                icon: 'none'
+            });
+            return;
+        }
+
         if (this._topicLikePending) {
             return;
         }
@@ -1556,12 +1610,26 @@ Page({
      * 分享操作
      */
     onShareAppMessage: function () {
+      if (!this.canCurrentPostShare()) {
+        return {
+          title: '帖子审核中',
+          path: '/pages/index/index'
+        };
+      }
+
       return {
         ...this.getShareConfig()
       };
     },
 
     onShareTimeline: function () {
+      if (!this.canCurrentPostShare()) {
+        return {
+          title: '帖子审核中',
+          query: ''
+        };
+      }
+
       const { productDetail } = this.data;
       return {
         title: this.normalizeString(productDetail.title || productDetail.name, 'Diaoyoushuo'),
@@ -1571,6 +1639,14 @@ Page({
     },
 
     onNavbarShareTap() {
+      if (!this.canCurrentPostShare()) {
+        wx.showToast({
+          title: this.getShareDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
+
       const sharePath = this.buildSharePath();
 
       wx.showActionSheet({
@@ -1614,6 +1690,14 @@ Page({
      * 分享按钮点击事件
      */
     onShareTap: function() {
+      if (!this.canCurrentPostShare()) {
+        wx.showToast({
+          title: this.getShareDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
+
       this.onNavbarShareTap();
       return;
 
@@ -1654,6 +1738,14 @@ Page({
 
     // 评论相关功能
     async onShowCommentInput() {
+      if (!this.canCurrentPostComment()) {
+        wx.showToast({
+          title: this.getCommentDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
+
       // 检查登录状态
       const AuthService = require('../../services/auth.js');
       try {
@@ -1696,6 +1788,14 @@ Page({
     },
 
     async onPublishComment() {
+      if (!this.canCurrentPostComment()) {
+        wx.showToast({
+          title: this.getCommentDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
+
       const content = this.data.commentContent.trim();
       if (!content) {
         wx.showToast({

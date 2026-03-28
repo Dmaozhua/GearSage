@@ -477,6 +477,16 @@
   margin-bottom: 18rpx;
 }
 
+.comment-disabled-note {
+  margin-bottom: 20rpx;
+  padding: 18rpx 22rpx;
+  border-radius: 20rpx;
+  background: #f4f7fa;
+  color: #6d7f91;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
 .comment-item {
   padding: 20rpx 0;
   border-bottom: 1rpx solid #edf1f5;
@@ -687,6 +697,11 @@
   min-width: 0;
 }
 
+.comment-input-container--disabled .comment-input {
+  color: #7d8c9d;
+  background: #f5f7fa;
+}
+
 .comment-input,
 .comment-textarea {
   width: 100%;
@@ -789,6 +804,14 @@
 .bottom-btn.active .bottom-btn-text,
 .like-btn.active .bottom-btn-text {
   color: #1b6bcf;
+}
+
+.bottom-btn--disabled {
+  opacity: 0.56;
+}
+
+.bottom-btn--disabled .bottom-btn-text {
+  color: #90a0af;
 }
 
 .share-native-trigger {
@@ -899,6 +922,11 @@
 .dark .reply-text,
 .dark .rating-score {
   color: #dce7f5;
+}
+
+.dark .comment-disabled-note {
+  background: rgba(40, 48, 59, 0.9);
+  color: #90a4bc;
 }
 
 .dark .comment-like-btn--active {

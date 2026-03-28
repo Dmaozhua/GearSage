@@ -66,6 +66,13 @@ const QUESTION_TYPE_LABELS = {
   chat_with_photos: '晒图闲聊'
 };
 
+const TOPIC_STATUS_LABELS = {
+  0: '草稿',
+  1: '待审核',
+  2: '已发布',
+  9: '已删除'
+};
+
 const RATING_LABELS = {
   actionMatchScore: '调性匹配',
   sensitivityScore: '传导性',
@@ -179,6 +186,10 @@ function formatRepurchaseLabel(value) {
 
 function formatQuestionTypeLabel(value) {
   return QUESTION_TYPE_LABELS[value] || normalizeString(value, '');
+}
+
+function formatTopicStatusLabel(value) {
+  return TOPIC_STATUS_LABELS[Number(value)] || '帖子';
 }
 
 function getTopicCategoryLabel(value) {
@@ -457,6 +468,14 @@ function buildTopicDetailView(postData = {}, options = {}) {
   ].filter(Boolean);
 
   const createTime = postData.publishTime || postData.createTime || options.previewTime || null;
+  const topicStatus = Number(postData.status || 0);
+  const isPublished = topicStatus === 2;
+  const canComment = isPublished;
+  const canLike = isPublished;
+  const canShare = isPublished;
+  const commentDisabledReason = canComment ? '' : '帖子正在审核中，暂不支持评论';
+  const likeDisabledReason = canLike ? '' : '帖子正在审核中，暂不支持点赞';
+  const shareDisabledReason = canShare ? '' : '帖子正在审核中，暂不支持分享';
   const averageRate = calculateAverageRating(postData.ratings);
   const targetFish = [...normalizeStringList(postData.targetFish)];
   const customTargetFish = normalizeString(postData.customTargetFish, '');
@@ -495,6 +514,14 @@ function buildTopicDetailView(postData = {}, options = {}) {
       tagRarityLevel: authorDisplayTag ? authorDisplayTag.rarityLevel : (postData.tagRarityLevel || options.tagRarityLevel || 1),
       likeCount: Number(postData.likeCount || 0),
       commentCount: Number(postData.commentCount || 0),
+      status: topicStatus,
+      statusText: formatTopicStatusLabel(topicStatus),
+      canComment,
+      commentDisabledReason,
+      canLike,
+      likeDisabledReason,
+      canShare,
+      shareDisabledReason,
       isLiked: Boolean(postData.isLike),
       islike: Boolean(postData.isLike),
       createTime,

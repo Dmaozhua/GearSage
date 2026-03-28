@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../../common/database.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
@@ -414,7 +414,7 @@ export class TopicService {
   async toggleTopicLike(userId: number, dto: ToggleTopicLikeDto) {
     const topicResult = await this.databaseService.query(
       `
-      SELECT id, "likeCount"
+      SELECT id, "likeCount", status
       FROM bz_mini_topic
       WHERE id = $1
         AND "isDelete" = 0
@@ -425,6 +425,10 @@ export class TopicService {
 
     if (!topicResult.rows.length) {
       return null;
+    }
+
+    if (Number(topicResult.rows[0].status || 0) !== 2) {
+      throw new ForbiddenException('当前帖子未发布，暂不支持点赞');
     }
 
     const likedResult = await this.databaseService.query(

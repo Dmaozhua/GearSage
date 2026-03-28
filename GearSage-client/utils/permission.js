@@ -95,8 +95,16 @@ class Permission {
    * 检查是否可以评论
    * 规则：已登录用户都可以评论
    */
-  static canComment() {
-    return this.isLoggedIn();
+  static canComment(post = null) {
+    if (!this.isLoggedIn()) {
+      return false;
+    }
+
+    if (!post) {
+      return true;
+    }
+
+    return Number(post.status || 0) === 2;
   }
 
   /**
@@ -105,6 +113,21 @@ class Permission {
    */
   static canLike() {
     return this.isLoggedIn();
+  }
+
+  /**
+   * 检查是否可以给帖子点赞
+   */
+  static canLikePost(post = null) {
+    if (!this.isLoggedIn()) {
+      return false;
+    }
+
+    if (!post) {
+      return true;
+    }
+
+    return Number(post.status || 0) === 2;
   }
 
   /**
@@ -174,13 +197,13 @@ class Permission {
         return this.canPinPost();
       
       case 'create_comment':
-        return this.canComment();
+        return this.canComment(target);
       
       case 'delete_comment':
         return target ? this.canDeleteComment(target) : false;
       
       case 'like':
-        return this.canLike();
+        return this.canLikePost(target);
       
       case 'access_admin':
         return this.canAccessAdmin();

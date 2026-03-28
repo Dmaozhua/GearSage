@@ -17,7 +17,7 @@ async function bootstrap() {
   app.enableCors();
 
   app.useStaticAssets(
-    process.env.UPLOAD_DIR || join(process.cwd(), 'runtime-uploads'),
+    process.env.UPLOAD_DIR || join(__dirname, '..', 'runtime-uploads'),
     {
       prefix: '/uploads/',
     },
