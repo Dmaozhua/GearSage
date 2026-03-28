@@ -18,6 +18,8 @@ import { AdminUserController } from './modules/admin/admin-user.controller';
 import { AdminUserService } from './modules/admin/admin-user.service';
 import { AuthController } from './modules/auth/auth.controller';
 import { AuthService } from './modules/auth/auth.service';
+import { SmsService } from './modules/auth/sms.service';
+import { TencentSmsService } from './modules/auth/sms.tencent.service';
 import { CommentController } from './modules/comment/comment.controller';
 import { CommentService } from './modules/comment/comment.service';
 import { GearController } from './modules/gear/gear.controller';
@@ -77,6 +79,8 @@ import { MessageService } from './modules/message/message.service';
     AdminLogService,
     AdminRuleService,
     AuthService,
+    SmsService,
+    TencentSmsService,
     UserService,
     TopicService,
     CommentService,

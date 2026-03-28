@@ -95,6 +95,21 @@ CREATE TABLE IF NOT EXISTS auth_refresh_tokens (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS auth_sms_codes (
+  id BIGSERIAL PRIMARY KEY,
+  phone VARCHAR(32) NOT NULL,
+  "codeHash" VARCHAR(128) NOT NULL DEFAULT '',
+  scene VARCHAR(32) NOT NULL DEFAULT 'login',
+  status VARCHAR(16) NOT NULL DEFAULT 'sent',
+  "sendChannel" VARCHAR(32) NOT NULL DEFAULT '',
+  "providerRequestId" VARCHAR(128) NOT NULL DEFAULT '',
+  "expiredAt" TIMESTAMPTZ NOT NULL,
+  "usedAt" TIMESTAMPTZ,
+  "requestIp" VARCHAR(64) NOT NULL DEFAULT '',
+  "clientId" VARCHAR(64) NOT NULL DEFAULT '',
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS media_assets (
   id BIGSERIAL PRIMARY KEY,
   "userId" BIGINT,
@@ -372,6 +387,9 @@ ON auth_identities ("userId");
 
 CREATE INDEX IF NOT EXISTS idx_auth_refresh_tokens_user
 ON auth_refresh_tokens ("userId", "expiresAt");
+
+CREATE INDEX IF NOT EXISTS idx_auth_sms_codes_phone
+ON auth_sms_codes (phone, scene, status, "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_media_assets_user
 ON media_assets ("userId", "bizType", "createTime" DESC);

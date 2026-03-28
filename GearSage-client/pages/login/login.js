@@ -80,7 +80,8 @@ Page({
       wx.showLoading({ title: '发送中...' });
       await api.post('/auth/send-code', { phone }, {
         skipAuthRetry: true,
-        skipErrorToast: false
+        skipErrorToast: true,
+        silent: true
       });
       wx.hideLoading();
       wx.showToast({

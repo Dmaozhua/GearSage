@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { randomBytes } from 'crypto';
 import { DatabaseService } from '../../common/database.service';
 import { LoginDto } from './dto/login.dto';
+import { SmsService } from './sms.service';
 
 type UserRow = {
   id: string | number;
@@ -29,7 +30,6 @@ type UserRow = {
 
 @Injectable()
 export class AuthService {
-  private static readonly TEST_CODE = '123456';
   private static readonly ACCESS_EXPIRES_IN_SECONDS = 2 * 60 * 60;
   private static readonly REFRESH_EXPIRES_IN_SECONDS = 30 * 24 * 60 * 60;
   private static readonly NEW_USER_TEST_POINTS = 10000;
@@ -38,25 +38,15 @@ export class AuthService {
     private readonly databaseService: DatabaseService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly smsService: SmsService,
   ) {}
 
-  async sendCode(phone: string) {
-    if (!/^\d{11}$/.test(phone)) {
-      throw new BadRequestException('phone is invalid');
-    }
-
-    return {
-      phone,
-      code: AuthService.TEST_CODE,
-      expiresIn: 300,
-      isTestCode: true,
-    };
+  async sendCode(phone: string, context?: { requestIp?: string; clientId?: string }) {
+    return this.smsService.sendLoginCode(phone, context);
   }
 
   async login(dto: LoginDto) {
-    if (dto.code !== AuthService.TEST_CODE) {
-      throw new UnauthorizedException('invalid verification code');
-    }
+    await this.smsService.verifyLoginCode(dto.phone, dto.code);
 
     const user = await this.findOrCreateUser(dto);
     this.assertUserActive(user);

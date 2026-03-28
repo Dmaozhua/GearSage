@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import type { Request } from 'express';
 import { CurrentUser } from '../../common/current-user.decorator';
 import { JwtAuthGuard } from '../../common/jwt-auth.guard';
 import { AuthService } from './auth.service';
@@ -11,11 +12,21 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('send-code')
-  async sendCode(@Body() body: SendCodeDto) {
+  async sendCode(@Body() body: SendCodeDto, @Req() request: Request) {
+    const requestIp = String(
+      request.headers['x-forwarded-for'] ||
+        request.ip ||
+        request.socket?.remoteAddress ||
+        '',
+    )
+      .split(',')[0]
+      .trim();
+    const clientId = String(request.headers['clientid'] || '').trim();
+
     return {
       code: 0,
       message: 'ok',
-      data: await this.authService.sendCode(body.phone),
+      data: await this.authService.sendCode(body.phone, { requestIp, clientId }),
     };
   }
 

@@ -446,6 +446,32 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 正式短信第一版使用腾讯云短信
   - 最小改造只集中在 `send-code` / `login`
   - `refresh / logout / me` 不推翻
+- 2026-03-28 正式短信接入第一轮代码实施已完成：
+  - 后端已新增：
+    - `auth_sms_codes` 表
+    - `src/modules/auth/sms.service.ts`
+    - `src/modules/auth/sms.tencent.service.ts`
+  - `AuthService.sendCode()` 已从固定返回测试码切到：
+    - 数据库验证码记录
+    - 最小控频
+    - `SMS_TEST_MODE` 测试模式
+    - 腾讯云短信 provider 骨架
+  - `AuthService.login()` 已从固定 `123456` 校验切到：
+    - 校验 `auth_sms_codes`
+    - 命中后标记验证码为 `used`
+  - 当前口径：
+    - 本地默认仍可通过 `SMS_TEST_MODE=true` 联调
+    - `send-code / login / me / refresh / logout` 路径与 `{ code, message, data }` 结构保持不变
+- 2026-03-28 正式短信第一轮本地联调已通过：
+  - 使用临时本地实例 `3016` 验证了：
+    - `POST /auth/send-code` 可写入 `auth_sms_codes`
+    - `POST /auth/login` 可校验验证码并签发 token
+    - `GET /auth/me` 可在新 token 下正常返回用户信息
+    - 60 秒发送间隔控频生效
+    - 验证码成功登录后会标记为 `used`
+  - 当前结论：
+    - 正式短信第一轮的“测试模式 + 数据库存储 + 登录校验 + 最小控频”链路已打通
+    - 你本地常驻 `3001` 若仍跑旧进程，需重启后再切回正式联调
 
 ---
 
