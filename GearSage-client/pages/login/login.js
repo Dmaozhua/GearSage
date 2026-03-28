@@ -16,6 +16,12 @@ function resolveLoginErrorMessage(error) {
   return rawMessage || '登录失败，请重试';
 }
 
+function resolveSendCodeErrorMessage(error) {
+  const responseMessage = error && error.data && (error.data.message || error.data.msg);
+  const rawMessage = responseMessage || (error && error.message) || '';
+  return rawMessage || '发送失败，请稍后重试';
+}
+
 Page({
   data: {
     phone: '',
@@ -93,7 +99,7 @@ Page({
     } catch (error) {
       wx.hideLoading();
       wx.showToast({
-        title: error.message || '发送失败',
+        title: resolveSendCodeErrorMessage(error),
         icon: 'none'
       });
     }
