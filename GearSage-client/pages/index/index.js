@@ -1876,14 +1876,14 @@ Page({
                 const coverImg = item.coverImg || '';
                 const images = Array.isArray(item.images) ? item.images : [];
 
-                if (avatar && (/^cloud:\/\//.test(avatar) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(avatar))) {
+                if (avatar && (/^cloud:\/\//.test(avatar) || tempUrlManager.shouldResolveUrl(avatar))) {
                     fileList.push({ fileID: avatar, type: 'avatar' });
                 }
-                if (coverImg && (/^cloud:\/\//.test(coverImg) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(coverImg))) {
+                if (coverImg && (/^cloud:\/\//.test(coverImg) || tempUrlManager.shouldResolveUrl(coverImg))) {
                     fileList.push({ fileID: coverImg, type: 'image' });
                 }
                 images.forEach((image) => {
-                    if (image && (/^cloud:\/\//.test(image) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(image))) {
+                    if (image && (/^cloud:\/\//.test(image) || tempUrlManager.shouldResolveUrl(image))) {
                         fileList.push({ fileID: image, type: 'image' });
                     }
                 });

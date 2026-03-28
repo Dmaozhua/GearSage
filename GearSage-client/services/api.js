@@ -377,6 +377,60 @@ class ApiService {
     this.initNetworkListeners();
   }
 
+  getErrorMessage(error, fallback = '请求失败') {
+    const candidates = [
+      error && error.msg,
+      error && error.message,
+      error && error.error,
+      error && error.data && error.data.msg,
+      error && error.data && error.data.message,
+      error && error.data && error.data.error,
+    ];
+
+    const matched = candidates.find((item) => typeof item === 'string' && item.trim());
+    return matched ? matched.trim() : fallback;
+  }
+
+  isAuthRelatedMessage(message = '') {
+    const normalized = String(message || '').trim().toLowerCase();
+    if (!normalized) {
+      return false;
+    }
+
+    return [
+      'user banned',
+      'unauthorized',
+      'invalid token',
+      'token expired',
+      'refresh token',
+      'access token',
+      '登录已过期',
+      '请重新登录',
+      '认证失败'
+    ].some((keyword) => normalized.includes(keyword));
+  }
+
+  isAuthErrorResponse(statusCode, payload, requestUrl = '') {
+    const businessCode = payload && payload.code;
+    const backendStatusCode = payload && payload.statusCode;
+    const message = this.getErrorMessage(payload, '');
+
+    if (statusCode === 401 || businessCode === 401 || backendStatusCode === 401) {
+      return true;
+    }
+
+    const has403 = statusCode === 403 || businessCode === 403 || backendStatusCode === 403;
+    if (!has403) {
+      return false;
+    }
+
+    if (String(requestUrl || '').includes('/auth/')) {
+      return false;
+    }
+
+    return this.isAuthRelatedMessage(message);
+  }
+
   /**
    * 通用请求方法
    */
@@ -445,7 +499,7 @@ class ApiService {
           console.log('[API] 响应数据:', res.data);
 
           console.log('[API][性能] 本次请求耗时:', elapsed, 'ms');
-          const isAuthError = res.statusCode === 401 || res.statusCode === 403;
+          const isAuthError = this.isAuthErrorResponse(res.statusCode, res.data, requestOptions.url);
           const isLoginRequest =
             requestOptions.url.includes('/auth/login') ||
             requestOptions.url.includes('/auth/refresh') ||
@@ -495,7 +549,7 @@ class ApiService {
               return;
             }
 
-            if ((businessCode === 401 || businessCode === 403) && !skipAuthRetry && !isLoginRequest) {
+            if (this.isAuthErrorResponse(res.statusCode, responseData, requestOptions.url) && !skipAuthRetry && !isLoginRequest) {
               if (fromRetry) {
                 finalize();
                 this.handleAuthError(businessCode);
@@ -1260,13 +1314,7 @@ class ApiService {
               return;
             }
 
-            const isAuthError =
-              res.statusCode === 401 ||
-              res.statusCode === 403 ||
-              data.code === 401 ||
-              data.code === 403 ||
-              data.statusCode === 401 ||
-              data.statusCode === 403;
+            const isAuthError = this.isAuthErrorResponse(res.statusCode, data, endpoint);
 
             if (isAuthError && !hasRetried) {
               try {

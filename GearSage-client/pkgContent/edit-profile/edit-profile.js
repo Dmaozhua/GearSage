@@ -978,124 +978,128 @@ Page(Object.assign({}, debouncePageMixin, {
     }
     
     // 使用防抖工具执行保存操作
-    await this.executeWithDebounce('saveUserInfo', async () => {
-      // 显示网络请求loading
-      this.setData({
-        showNetworkLoading: true,
-        networkLoadingText: '保存中...'
-      });
-      
-      // 当前头像字段保存独立后台返回地址
-      const avatarFileID = this.data.userInfo.avatar;
-      console.log('[EditProfile] 保存用户信息，头像地址:', avatarFileID);
-      
-      const updateData = {
-        nickName: this.data.userInfo.nickname,
-        bio: this.data.userInfo.bio,
-        avatarUrl: avatarFileID,
-        background: this.data.userInfo.backgroundImage, // 添加背景图字段
-        shipAddress: this.getDefaultAddress()
-      };
-      
-      // 检测用户信息是否发生变化，只有变化时才调用API
-      console.log('[EditProfile] 开始检测用户信息变化...');
-      const userInfoChangeResult = this.hasUserInfoChanged();
-      console.log('[EditProfile] 用户信息变化检测结果:', userInfoChangeResult);
-      
-      if (userInfoChangeResult.changed) {
-        console.log('[EditProfile] 用户信息发生变化，调用更新接口，变化类型:', userInfoChangeResult.type);
-        await api.updateUserInfo(updateData);
-      } else {
-        console.log('[EditProfile] 用户信息未发生变化，跳过API调用');
-      }
-      
-      // 只有在信息发生变化时才更新本地存储
-      console.log('[EditProfile] 最终保存判断: 用户信息变化=', userInfoChangeResult.changed);
-      if (userInfoChangeResult.changed) {
-        console.log('[EditProfile] 检测到变化，开始保存用户信息到本地存储');
-        // 更新本地存储和auth服务缓存
-        await this.saveUserInfo({
-          nickName: updateData.nickName,
-          nickname: updateData.nickName,
-          bio: updateData.bio,
-          avatar: avatarFileID,
-          avatarUrl: this.data.userInfo.avatarUrl,
-          background: this.data.userInfo.backgroundImage,
-          backgroundImage: this.data.userInfo.backgroundImage,
-          backgroundImageUrl: this.data.userInfo.backgroundImageUrl || this.data.userInfo.backgroundImage
+    try {
+      await this.executeWithDebounce('saveUserInfo', async () => {
+        // 显示网络请求loading
+        this.setData({
+          showNetworkLoading: true,
+          networkLoadingText: '保存中...'
         });
+        
+        // 当前头像字段保存独立后台返回地址
+        const avatarFileID = this.data.userInfo.avatar;
+        console.log('[EditProfile] 保存用户信息，头像地址:', avatarFileID);
+        
+        const updateData = {
+          nickName: this.data.userInfo.nickname,
+          bio: this.data.userInfo.bio,
+          avatarUrl: avatarFileID,
+          background: this.data.userInfo.backgroundImage, // 添加背景图字段
+          shipAddress: this.getDefaultAddress()
+        };
+        
+        // 检测用户信息是否发生变化，只有变化时才调用API
+        console.log('[EditProfile] 开始检测用户信息变化...');
+        const userInfoChangeResult = this.hasUserInfoChanged();
+        console.log('[EditProfile] 用户信息变化检测结果:', userInfoChangeResult);
+        
+        if (userInfoChangeResult.changed) {
+          console.log('[EditProfile] 用户信息发生变化，调用更新接口，变化类型:', userInfoChangeResult.type);
+          await api.updateUserInfo(updateData);
+        } else {
+          console.log('[EditProfile] 用户信息未发生变化，跳过API调用');
+        }
+        
+        // 只有在信息发生变化时才更新本地存储
+        console.log('[EditProfile] 最终保存判断: 用户信息变化=', userInfoChangeResult.changed);
+        if (userInfoChangeResult.changed) {
+          console.log('[EditProfile] 检测到变化，开始保存用户信息到本地存储');
+          // 更新本地存储和auth服务缓存
+          await this.saveUserInfo({
+            nickName: updateData.nickName,
+            nickname: updateData.nickName,
+            bio: updateData.bio,
+            avatar: avatarFileID,
+            avatarUrl: this.data.userInfo.avatarUrl,
+            background: this.data.userInfo.backgroundImage,
+            backgroundImage: this.data.userInfo.backgroundImage,
+            backgroundImageUrl: this.data.userInfo.backgroundImageUrl || this.data.userInfo.backgroundImage
+          });
 
-        console.log('[EditProfile] 本地存储已更新');
-      } else {
-        console.log('[EditProfile] 无变化，跳过本地存储和云数据库更新');
-      }
-      
-      // 根据是否有变化显示不同的提示和返回操作
-      console.log('[EditProfile] 准备显示提示信息...');
-      if (userInfoChangeResult.changed) {
-        console.log('[EditProfile] 显示保存成功提示');
+          console.log('[EditProfile] 本地存储已更新');
+        } else {
+          console.log('[EditProfile] 无变化，跳过本地存储和云数据库更新');
+        }
         
-        // 隐藏网络请求loading
-        this.setData({
-          showNetworkLoading: false
-        });
-        
-        // 重置编辑状态
-        this.setData({
-          isEditing: false,
-          hasUserInteracted: false
-        });
-        
-        // 延迟返回上一页
-        setTimeout(() => {
-          wx.navigateBack();
-        }, 1500);
-        
-        return { success: true, message: '保存成功' };
-      } else {
-        console.log('[EditProfile] 显示无变化提示');
-        
-        // 隐藏网络请求loading
-        this.setData({
-          showNetworkLoading: false
-        });
-        
-        wx.showToast({
-          title: '无变化，无需保存',
-          icon: 'none'
-        });
-        
-        // 延迟返回上一页
-        setTimeout(() => {
-          wx.navigateBack();
-        }, 1500);
-        
-        return { success: true, message: '无变化，无需保存' };
-      }
-    }, {
-      loadingTitle: '保存中...',
-      showLoading: false,
-      maskLoading: true,
-      onComplete: (result) => {
-        if (result && result.success) {
+        // 根据是否有变化显示不同的提示和返回操作
+        console.log('[EditProfile] 准备显示提示信息...');
+        if (userInfoChangeResult.changed) {
+          console.log('[EditProfile] 显示保存成功提示');
+          
+          // 隐藏网络请求loading
+          this.setData({
+            showNetworkLoading: false
+          });
+          
+          // 重置编辑状态
+          this.setData({
+            isEditing: false,
+            hasUserInteracted: false
+          });
+          
+          // 延迟返回上一页
+          setTimeout(() => {
+            wx.navigateBack();
+          }, 1500);
+          
+          return { success: true, message: '保存成功' };
+        } else {
+          console.log('[EditProfile] 显示无变化提示');
+          
+          // 隐藏网络请求loading
+          this.setData({
+            showNetworkLoading: false
+          });
+          
           wx.showToast({
-            title: result.message,
-            icon: result.message === '保存成功' ? 'success' : 'none'
+            title: '无变化，无需保存',
+            icon: 'none'
+          });
+          
+          // 延迟返回上一页
+          setTimeout(() => {
+            wx.navigateBack();
+          }, 1500);
+          
+          return { success: true, message: '无变化，无需保存' };
+        }
+      }, {
+        loadingTitle: '保存中...',
+        showLoading: false,
+        maskLoading: true,
+        onComplete: (result) => {
+          if (result && result.success) {
+            wx.showToast({
+              title: result.message,
+              icon: result.message === '保存成功' ? 'success' : 'none'
+            });
+          }
+        },
+        onError: (error) => {
+          console.error('保存失败:', error);
+          // 隐藏网络请求loading
+          this.setData({
+            showNetworkLoading: false
+          });
+          wx.showToast({
+            title: api.getErrorMessage(error, '保存内容不符合社区规范，请修改后重试'),
+            icon: 'none'
           });
         }
-      },
-      onError: (error) => {
-        console.error('保存失败:', error);
-        // 隐藏网络请求loading
-        this.setData({
-          showNetworkLoading: false
-        });
-        wx.showToast({
-          title: error.message || '保存失败',
-          icon: 'none'
-        });
-      }
-    });
+      });
+    } catch (error) {
+      console.warn('[EditProfile] 保存失败已在页面内处理，阻止继续冒泡:', error);
+    }
   },
 
   /**

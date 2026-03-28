@@ -15,8 +15,8 @@ export class AdminReviewService {
     limit?: string | number;
   } = {}) {
     const params: any[] = [];
-    const conditions = [`t."isDelete" = 0`];
     const normalizedStatus = this.normalizeTopicStatus(filters.status);
+    const conditions = this.buildTopicConditions(normalizedStatus);
 
     if (normalizedStatus !== null) {
       params.push(normalizedStatus);
@@ -30,6 +30,7 @@ export class AdminReviewService {
 
     const limit = this.normalizeLimit(filters.limit);
     params.push(limit);
+    const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
 
     const result = await this.databaseService.query(
       `
@@ -73,7 +74,7 @@ export class AdminReviewService {
         ORDER BY id DESC
         LIMIT 1
       ) al ON TRUE
-      WHERE ${conditions.join(' AND ')}
+      ${whereClause}
       ORDER BY t."updateTime" DESC, t.id DESC
       LIMIT $${params.length}
       `,
@@ -208,6 +209,42 @@ export class AdminReviewService {
       id: Number(result.rows[0].id),
       status: Number(result.rows[0].status),
       isDelete: Number(result.rows[0].isDelete || 0),
+      updateTime: result.rows[0].updateTime,
+    };
+  }
+
+  async restoreTopic(topicId: number, admin: { id: number }, remark?: string) {
+    const result = await this.databaseService.query(
+      `
+      UPDATE bz_mini_topic
+      SET
+        status = 2,
+        "isDelete" = 0,
+        "publishTime" = COALESCE("publishTime", NOW()),
+        "updateTime" = NOW()
+      WHERE id = $1
+      RETURNING id, status, "isDelete", "publishTime", "updateTime"
+      `,
+      [topicId],
+    );
+
+    if (!result.rows.length) {
+      throw new NotFoundException('topic not found');
+    }
+
+    await this.adminLogService.write({
+      adminUserId: admin.id,
+      targetType: 'topic',
+      targetId: topicId,
+      action: 'topic_restore',
+      remark,
+    });
+
+    return {
+      id: Number(result.rows[0].id),
+      status: Number(result.rows[0].status),
+      isDelete: Number(result.rows[0].isDelete || 0),
+      publishTime: result.rows[0].publishTime,
       updateTime: result.rows[0].updateTime,
     };
   }
@@ -539,13 +576,16 @@ export class AdminReviewService {
   }
 
   private mapTopicRow(row: any) {
+    const extra = row.extra && typeof row.extra === 'object' && !Array.isArray(row.extra)
+      ? row.extra
+      : {};
     return {
       id: Number(row.id),
       topicCategory: Number(row.topicCategory || 0),
       title: row.title || '',
       content: row.content || '',
-      images: row.images || [],
-      extra: row.extra || {},
+      images: this.normalizeTopicImages(row.images, extra),
+      extra,
       status: Number(row.status || 0),
       userId: Number(row.userId || 0),
       authorName: row.authorName || '',
@@ -562,6 +602,74 @@ export class AdminReviewService {
       latestAdminRemark: row.latestAdminRemark || '',
       latestAdminActionTime: row.latestAdminActionTime || null,
     };
+  }
+
+  private normalizeTopicImages(images: any, extra: Record<string, any>) {
+    const sourceList = [
+      ...(Array.isArray(images) ? images : []),
+      ...this.normalizeStringList(extra.contentImages),
+      extra.coverImg,
+      extra.verifyImage,
+    ];
+
+    const normalized = sourceList
+      .map((item) => this.extractMediaUrl(item))
+      .filter(Boolean) as string[];
+
+    return Array.from(new Set(normalized));
+  }
+
+  private normalizeStringList(value: any) {
+    if (!value) {
+      return [];
+    }
+
+    if (Array.isArray(value)) {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      if (!trimmed) {
+        return [];
+      }
+
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          return Array.isArray(parsed) ? parsed : [trimmed];
+        } catch (_error) {
+          return [trimmed];
+        }
+      }
+
+      return [trimmed];
+    }
+
+    return [value];
+  }
+
+  private extractMediaUrl(value: any): string {
+    if (!value) {
+      return '';
+    }
+
+    if (typeof value === 'string') {
+      return value.trim();
+    }
+
+    if (typeof value === 'object') {
+      const candidate = value.url
+        || value.src
+        || value.fileID
+        || value.fileId
+        || value.path
+        || value.tempFileURL
+        || '';
+      return typeof candidate === 'string' ? candidate.trim() : '';
+    }
+
+    return '';
   }
 
   private mapCommentRow(row: any) {
@@ -605,6 +713,18 @@ export class AdminReviewService {
     }
 
     return normalized;
+  }
+
+  private buildTopicConditions(normalizedStatus: number | null) {
+    if (normalizedStatus === 9) {
+      return [] as string[];
+    }
+
+    if (normalizedStatus === null) {
+      return [] as string[];
+    }
+
+    return [`t."isDelete" = 0`];
   }
 
   private normalizeCommentStatus(status?: string) {

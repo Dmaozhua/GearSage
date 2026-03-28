@@ -1,4 +1,5 @@
 // utils/tempUrlManager.js
+const serverConfig = require('./serverConfig.js');
 
 /**
  * 临时链接管理工具类
@@ -27,7 +28,7 @@ class TempUrlManager {
       }
 
       if (!fileID.startsWith('cloud://')) {
-        if (this._isLocalUploadUrl(fileID)) {
+        if (this.shouldResolveUrl(fileID)) {
           return this._getLocalUploadTempUrl(fileID, type, forceRefresh);
         }
         return fileID;
@@ -98,7 +99,7 @@ class TempUrlManager {
         result[fileID] = this._getDefaultImage(type);
         continue;
       }
-      if (this._isLocalUploadUrl(fileID)) {
+      if (this.shouldResolveUrl(fileID)) {
         needRefreshList.push(item);
         continue;
       }
@@ -131,8 +132,8 @@ class TempUrlManager {
         needRefreshList.forEach(item => idToItemMap.set(item.fileID, item));
         console.log('[TempUrlManager] 缓存命中数量=', Object.keys(result).length, '需要刷新数量=', needRefreshList.length);
 
-        const localUploadItems = needRefreshList.filter(item => this._isLocalUploadUrl(item.fileID));
-        const cloudItems = needRefreshList.filter(item => !this._isLocalUploadUrl(item.fileID));
+        const localUploadItems = needRefreshList.filter(item => this.shouldResolveUrl(item.fileID));
+        const cloudItems = needRefreshList.filter(item => !this.shouldResolveUrl(item.fileID));
 
         if (localUploadItems.length) {
           const localResults = await Promise.all(localUploadItems.map(async (item) => {
@@ -285,6 +286,10 @@ class TempUrlManager {
   }
 
   // --- 私有方法 ---
+
+  shouldResolveUrl(url) {
+    return this._isLocalUploadUrl(url) || this._shouldRewriteStaticUploadUrl(url);
+  }
   
   /**
    * 生成缓存键
@@ -306,6 +311,22 @@ class TempUrlManager {
     return /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//i.test(String(url || ''));
   }
 
+  _isStaticUploadUrl(url) {
+    return /^https:\/\/static\.gearsage\.club\/gearsage\//i.test(String(url || ''));
+  }
+
+  _shouldRewriteStaticUploadUrl(url) {
+    return this._isStaticUploadUrl(url) && serverConfig.getCurrentTargetKey() === 'local';
+  }
+
+  _resolveDownloadUrl(url) {
+    const rawUrl = String(url || '');
+    if (this._shouldRewriteStaticUploadUrl(rawUrl)) {
+      return rawUrl.replace(/^https:\/\/static\.gearsage\.club\/gearsage\//i, 'http://127.0.0.1:3001/uploads/');
+    }
+    return rawUrl;
+  }
+
   async _getLocalUploadTempUrl(url, type = 'image', forceRefresh = false) {
     const cacheKey = this._getLocalCacheKey(url);
     const cachedData = wx.getStorageSync(cacheKey);
@@ -315,16 +336,18 @@ class TempUrlManager {
       return cachedData.tempUrl;
     }
 
+    const downloadUrl = this._resolveDownloadUrl(url);
+
     const downloadRes = await new Promise((resolve, reject) => {
       wx.downloadFile({
-        url,
+        url: downloadUrl,
         success: resolve,
         fail: reject
       });
     });
 
     if (!(downloadRes && downloadRes.statusCode >= 200 && downloadRes.statusCode < 300 && downloadRes.tempFilePath)) {
-      throw new Error(`download local upload failed: status=${downloadRes && downloadRes.statusCode}`);
+      throw new Error(`download local upload failed: url=${downloadUrl}; status=${downloadRes && downloadRes.statusCode}`);
     }
 
     const cacheData = {

@@ -27,6 +27,10 @@
             bindload="onImageLoad"
           />
         </view>
+        <view class="image-state image-state--error" wx:if="{{imageErrorStates[index]}}">
+          <text class="image-state__title">图片加载失败</text>
+          <text class="image-state__desc">下拉刷新后重试</text>
+        </view>
         <!-- 水印 -->
         <view class="水印 watermark" wx:if="{{showWatermark}}">{{watermarkText}}</view>
       </view>

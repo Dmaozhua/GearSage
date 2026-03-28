@@ -167,7 +167,7 @@ Page({
     } catch (error) {
       wx.hideLoading();
       console.error('[postPreview] 发布失败:', error);
-      const message = (error && (error.msg || error.message)) ? (error.msg || error.message) : '发布失败';
+      const message = api.getErrorMessage(error, '发布内容不符合社区规范，请修改后重试');
       wx.showToast({
         title: message,
         icon: 'none'

@@ -89,6 +89,7 @@ Component({
     imageComputedModes: [],
     imageOrientations: [],
     imageStyles: [],
+    imageErrorStates: [],
     // 触摸滑动状态
     _startX: 0,
     _deltaX: 0,
@@ -129,7 +130,8 @@ Component({
       this.setData({
         imageComputedModes: new Array(n).fill(this.properties.imageMode || 'aspectFill'),
         imageOrientations: new Array(n).fill(''),
-        imageStyles: new Array(n).fill(this.data.defaultImageStyle || 'width: 100%; height: 100%;')
+        imageStyles: new Array(n).fill(this.data.defaultImageStyle || 'width: 100%; height: 100%;'),
+        imageErrorStates: new Array(n).fill(false)
       });
     },
 
@@ -233,6 +235,7 @@ Component({
       const newModes = [...this.data.imageComputedModes];
       const newOrientations = [...this.data.imageOrientations];
       const newStyles = [...this.data.imageStyles];
+      const newErrorStates = [...this.data.imageErrorStates];
 
       // 统一 cover；支持 display 开关
       let computedMode = 'aspectFill';
@@ -247,11 +250,13 @@ Component({
       newModes[index] = computedMode;
       newStyles[index] = 'width: 100%; height: 100%;';
       newOrientations[index] = aspectRatio >= 1 ? 'landscape' : 'portrait';
+      newErrorStates[index] = false;
 
       this.setData({
         imageComputedModes: newModes,
         imageOrientations: newOrientations,
-        imageStyles: newStyles
+        imageStyles: newStyles,
+        imageErrorStates: newErrorStates
       });
 
       this.triggerEvent('imageLoad', e.detail);
@@ -259,12 +264,21 @@ Component({
 
     onImageError(e) {
       const { index } = e.currentTarget.dataset;
+      const nextErrorStates = [...this.data.imageErrorStates];
+      nextErrorStates[index] = true;
+      this.setData({
+        imageErrorStates: nextErrorStates
+      });
       this.triggerEvent('imageError', { index, detail: e.detail });
     },
 
     onImageTap(e) {
       const { index, src } = e.currentTarget.dataset;
-      this.triggerEvent('imageTap', { index, src });
+      this.triggerEvent('imageTap', {
+        index,
+        src,
+        images: this.properties.images || []
+      });
     }
   }
 });

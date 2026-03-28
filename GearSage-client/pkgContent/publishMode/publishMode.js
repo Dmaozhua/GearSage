@@ -223,7 +223,7 @@ Page({
       wx.hideLoading();
       console.error('发布失败:', err);
       
-      const message = (err && (err.msg || err.message)) ? (err.msg || err.message) : '发布失败';
+      const message = api.getErrorMessage(err, '发布内容不符合社区规范，请修改后重试');
       wx.showToast({
         title: message,
         icon: 'error',

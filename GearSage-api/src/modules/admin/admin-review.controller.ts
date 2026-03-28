@@ -70,6 +70,19 @@ export class AdminReviewController {
     };
   }
 
+  @Post('topics/:id/restore')
+  async restoreTopic(
+    @Param('id') id: string,
+    @CurrentAdmin() admin?: { id: number },
+    @Body() body?: AdminReviewActionDto,
+  ) {
+    return {
+      code: 0,
+      message: 'ok',
+      data: await this.adminReviewService.restoreTopic(Number(id), { id: Number(admin?.id || 0) }, body?.remark),
+    };
+  }
+
   @Get('comments')
   async listComments(
     @Query('status') status?: string,

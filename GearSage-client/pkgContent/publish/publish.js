@@ -925,7 +925,7 @@ Page({
     } catch (error) {
       console.error('发布失败:', error);
       wx.showToast({
-        title: '发布失败',
+        title: api.getErrorMessage(error, '发布内容不符合社区规范，请修改后重试'),
         icon: 'none'
       });
     } finally {

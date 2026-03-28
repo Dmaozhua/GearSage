@@ -470,14 +470,14 @@ Page({
         const userAvatar = this.normalizeString(productDetail.userAvatarUrl || productDetail.userAvatar, '');
         const verifyImage = this.normalizeString(productDetail.verifyImage, '');
 
-        if (userAvatar && (/^cloud:\/\//.test(userAvatar) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(userAvatar))) {
+        if (userAvatar && (/^cloud:\/\//.test(userAvatar) || tempUrlManager.shouldResolveUrl(userAvatar))) {
           fileList.push({ fileID: userAvatar, type: 'avatar' });
         }
-        if (verifyImage && (/^cloud:\/\//.test(verifyImage) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(verifyImage))) {
+        if (verifyImage && (/^cloud:\/\//.test(verifyImage) || tempUrlManager.shouldResolveUrl(verifyImage))) {
           fileList.push({ fileID: verifyImage, type: 'image' });
         }
         images.forEach((image) => {
-          if (image && (/^cloud:\/\//.test(image) || /^http:\/\/127\.0\.0\.1(?::\d+)?\/uploads\//.test(image))) {
+          if (image && (/^cloud:\/\//.test(image) || tempUrlManager.shouldResolveUrl(image))) {
             fileList.push({ fileID: image, type: 'image' });
           }
         });
@@ -1873,13 +1873,13 @@ Page({
             }
           }
         } else {
-          throw new Error(response?.msg || '发布失败');
+          throw new Error(api.getErrorMessage(response, '发布失败'));
         }
         
       } catch (error) {
         wx.hideLoading();
         wx.showToast({
-          title: error.message || '发布失败，请重试',
+          title: api.getErrorMessage(error, '评论内容不符合社区规范，请修改后重试'),
           icon: 'none'
         });
         console.error('发布评论失败:', error);

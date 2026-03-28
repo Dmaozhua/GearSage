@@ -74,10 +74,10 @@
       autoplay="{{false}}"
       circular="{{true}}"
       image-mode="aspectFill"
-      show-watermark="{{true}}"
+      show-watermark="{{productDetail.status === 2}}"
       watermark-text="@钓友说 禁止下载"
-      prevent-download="{{true}}"
-      bind:imageClick="onProductImageClick"
+      prevent-download="{{productDetail.status === 2}}"
+      bind:imageTap="onProductImageClick"
       bind:change="onSwiperChange">
     </product-swiper>
 

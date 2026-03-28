@@ -127,7 +127,7 @@ function setActiveView(view) {
 
 function openDrawer(title, data) {
   el.drawerTitle.textContent = title;
-  el.drawerContent.textContent = JSON.stringify(data, null, 2);
+  el.drawerContent.innerHTML = renderDrawerContent(data);
   el.drawer.classList.remove('hidden');
 }
 
@@ -174,6 +174,181 @@ function escapeHtml(value) {
     .replaceAll('"', '&quot;');
 }
 
+function escapeAttr(value) {
+  return escapeHtml(value).replaceAll("'", '&#39;');
+}
+
+function normalizeMediaUrls(images = []) {
+  const source = Array.isArray(images) ? images : [images];
+  const urls = source
+    .map((item) => {
+      if (!item) return '';
+      if (typeof item === 'string') return item.trim();
+      if (typeof item === 'object') {
+        return String(
+          item.url
+          || item.src
+          || item.fileID
+          || item.fileId
+          || item.path
+          || item.tempFileURL
+          || ''
+        ).trim();
+      }
+      return '';
+    })
+    .filter(Boolean);
+
+  return [...new Set(urls)];
+}
+
+function getTopicStatusLabel(status) {
+  const normalized = Number(status || 0);
+  if (normalized === 1) return '待审核';
+  if (normalized === 2) return '已通过';
+  if (normalized === 9) return '已驳回/下架';
+  if (normalized === 0) return '草稿';
+  return String(status ?? '-');
+}
+
+function getCommentStatusLabel(status, isVisible) {
+  const normalized = Number(status || 0);
+  if (normalized === 0) return '待审核';
+  if (normalized === 2) return '已通过';
+  if (normalized === 9) return Number(isVisible || 0) === 1 ? '已驳回' : '已驳回/删除';
+  return String(status ?? '-');
+}
+
+function renderMediaPreview(images = []) {
+  const list = normalizeMediaUrls(images);
+  if (!list.length) {
+    return '<div class="drawer-empty">无图片</div>';
+  }
+
+  return `
+    <div class="media-grid">
+      ${list.map((url, index) => `
+        <a class="media-card" href="${escapeAttr(url)}" target="_blank" rel="noreferrer">
+          <img src="${escapeAttr(url)}" alt="upload-${index + 1}" />
+          <span>查看原图 ${index + 1}</span>
+        </a>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderKeyValueSection(title, rows = []) {
+  const normalized = rows.filter((row) => row && row.value !== undefined && row.value !== null && row.value !== '');
+  if (!normalized.length) {
+    return '';
+  }
+
+  return `
+    <section class="drawer-section">
+      <h4>${escapeHtml(title)}</h4>
+      <div class="kv-grid">
+        ${normalized.map((row) => `
+          <div class="kv-item">
+            <div class="kv-label">${escapeHtml(row.label)}</div>
+            <div class="kv-value">${escapeHtml(row.value)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function renderJsonBlock(title, value) {
+  if (value === undefined || value === null) {
+    return '';
+  }
+
+  const text = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+  return `
+    <section class="drawer-section">
+      <h4>${escapeHtml(title)}</h4>
+      <pre class="json-block">${escapeHtml(text)}</pre>
+    </section>
+  `;
+}
+
+function renderTopicDetail(data) {
+  return `
+    ${renderKeyValueSection('帖子信息', [
+      { label: '帖子 ID', value: data.id },
+      { label: '标题', value: data.title || '-' },
+      { label: '作者', value: data.authorName || '-' },
+      { label: '作者手机号', value: data.authorPhone || '-' },
+      { label: '状态', value: getTopicStatusLabel(data.status) },
+      { label: '系统审核结果', value: data.moderationResult || '-' },
+      { label: '风险原因', value: data.moderationRiskReason || '-' },
+      { label: '创建时间', value: data.createTime || '-' },
+      { label: '更新时间', value: data.updateTime || '-' },
+    ])}
+    ${renderJsonBlock('正文', data.content || '')}
+    <section class="drawer-section">
+      <h4>用户上传图片</h4>
+      ${renderMediaPreview(data.images)}
+    </section>
+    ${renderJsonBlock('扩展字段', data.extra || {})}
+    ${renderJsonBlock('审核记录', data.moderationRecords || [])}
+    ${renderJsonBlock('后台日志', data.adminLogs || [])}
+  `;
+}
+
+function renderCommentDetail(data) {
+  return `
+    ${renderKeyValueSection('评论信息', [
+      { label: '评论 ID', value: data.id },
+      { label: '帖子 ID', value: data.topicId },
+      { label: '帖子标题', value: data.topicTitle || '-' },
+      { label: '用户', value: data.userName || '-' },
+      { label: '手机号', value: data.userPhone || '-' },
+      { label: '状态', value: getCommentStatusLabel(data.status, data.isVisible) },
+      { label: '系统审核结果', value: data.moderationResult || '-' },
+      { label: '风险原因', value: data.moderationRiskReason || '-' },
+      { label: '创建时间', value: data.createTime || '-' },
+      { label: '更新时间', value: data.updateTime || '-' },
+    ])}
+    ${renderJsonBlock('评论内容', data.content || '')}
+    ${renderJsonBlock('审核记录', data.moderationRecords || [])}
+    ${renderJsonBlock('后台日志', data.adminLogs || [])}
+  `;
+}
+
+function renderUserDetail(data) {
+  return `
+    ${renderKeyValueSection('用户信息', [
+      { label: '用户 ID', value: data.id },
+      { label: '昵称', value: data.nickName || '-' },
+      { label: '手机号', value: data.phone || '-' },
+      { label: '状态', value: data.status },
+      { label: '积分', value: data.points },
+      { label: '帖子数', value: data.topicCount },
+      { label: '评论数', value: data.commentCount },
+      { label: '创建时间', value: data.createTime || '-' },
+      { label: '更新时间', value: data.updateTime || '-' },
+    ])}
+    ${renderJsonBlock('原始数据', data)}
+  `;
+}
+
+function renderDrawerContent(data) {
+  if (data && Array.isArray(data.moderationRecords) && Array.isArray(data.adminLogs) && Object.prototype.hasOwnProperty.call(data, 'images')) {
+    return renderTopicDetail(data);
+  }
+
+  if (data && Array.isArray(data.moderationRecords) && Array.isArray(data.adminLogs) && Object.prototype.hasOwnProperty.call(data, 'topicTitle')) {
+    return renderCommentDetail(data);
+  }
+
+  if (data && Object.prototype.hasOwnProperty.call(data, 'points') && Object.prototype.hasOwnProperty.call(data, 'phone')) {
+    return renderUserDetail(data);
+  }
+
+  return `<pre class="json-block">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+}
+
 async function loadTopics() {
   const status = document.getElementById('topics-status').value;
   const keyword = document.getElementById('topics-keyword').value.trim();
@@ -184,7 +359,7 @@ async function loadTopics() {
   renderTable('topics-table', [
     {
       label: '帖子',
-      render: (row) => makePrimaryCell(`#${row.id} ${row.title}`, `作者：${row.authorName || '-'} / 状态：${row.status}`),
+      render: (row) => makePrimaryCell(`#${row.id} ${row.title}`, `作者：${row.authorName || '-'} / 状态：${getTopicStatusLabel(row.status)}`),
     },
     {
       label: '系统审核',
@@ -200,9 +375,10 @@ async function loadTopics() {
       render: (row) => `
         <div class="action-row">
           <button class="secondary" data-topic-detail="${row.id}">详情</button>
-          <button class="success" data-topic-pass="${row.id}">通过</button>
-          <button class="warning" data-topic-reject="${row.id}">驳回</button>
-          <button class="danger" data-topic-remove="${row.id}">下架</button>
+          ${Number(row.status) === 1 ? `<button class="success" data-topic-pass="${row.id}">通过</button>` : ''}
+          ${Number(row.status) === 1 ? `<button class="warning" data-topic-reject="${row.id}">驳回</button>` : ''}
+          ${Number(row.status) === 2 ? `<button class="danger" data-topic-remove="${row.id}">下架</button>` : ''}
+          ${Number(row.status) === 9 ? `<button class="success" data-topic-restore="${row.id}">恢复显示</button>` : ''}
         </div>
       `,
     },
@@ -228,16 +404,16 @@ async function loadComments() {
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', `状态：${row.status} / 可见：${row.isVisible}`),
+      render: (row) => makePrimaryCell(row.createTime || '-', `状态：${getCommentStatusLabel(row.status, row.isVisible)} / 可见：${row.isVisible}`),
     },
     {
       label: '操作',
       render: (row) => `
         <div class="action-row">
           <button class="secondary" data-comment-detail="${row.id}">详情</button>
-          <button class="success" data-comment-pass="${row.id}">通过</button>
-          <button class="warning" data-comment-reject="${row.id}">驳回</button>
-          <button class="danger" data-comment-remove="${row.id}">删除</button>
+          ${Number(row.status) === 0 ? `<button class="success" data-comment-pass="${row.id}">通过</button>` : ''}
+          ${Number(row.status) !== 9 ? `<button class="warning" data-comment-reject="${row.id}">驳回</button>` : ''}
+          ${Number(row.status) !== 9 ? `<button class="danger" data-comment-remove="${row.id}">删除</button>` : ''}
         </div>
       `,
     },
@@ -398,6 +574,15 @@ async function handleActionClick(event) {
         await request(`/admin/review/topics/${target.dataset.topicRemove}/remove`, { method: 'POST', body: { remark } });
       });
       showMessage('帖子已下架');
+      await loadTopics();
+      return;
+    }
+
+    if (target.dataset.topicRestore) {
+      await withPromptAction('确认恢复显示该帖子？', async (remark) => {
+        await request(`/admin/review/topics/${target.dataset.topicRestore}/restore`, { method: 'POST', body: { remark } });
+      });
+      showMessage('帖子已恢复显示');
       await loadTopics();
       return;
     }
