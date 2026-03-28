@@ -12,18 +12,21 @@ Page({
     navBarHeight: 0,
     
     // 当前选中的标签
-    activeTab: 1, // 0: 草稿, 1: 已发布（默认选中已发布）
+    activeTab: 2, // 0: 草稿, 1: 待审核, 2: 已发布
     
     // 帖子数据
     draftPosts: [],        // 草稿帖子 (status: 0)
+    pendingPosts: [],      // 待审核帖子 (status: 1)
     publishedPosts: [],    // 已发布帖子 (status: 2)
     
     // 统计数据
     draftCount: 0,
+    pendingCount: 0,
     publishedCount: 0,
     
     // 分页数据
     draftPage: 1,
+    pendingPage: 1,
     publishedPage: 1,
     hasMore: true,
     
@@ -107,10 +110,10 @@ Page({
     try {
       // 根据当前选中的标签加载对应数据
       if (this.data.activeTab === 0) {
-        // 加载已发布数据 (status: 2)
         await this.loadDraftPosts(refresh);
       } else if (this.data.activeTab === 1) {
-        // 加载已发布数据 (status: 2)
+        await this.loadPendingPosts(refresh);
+      } else if (this.data.activeTab === 2) {
         await this.loadPublishedPosts(refresh);
       }
     } catch (error) {
@@ -124,6 +127,41 @@ Page({
       if (refresh) {
         wx.stopPullDownRefresh();
       }
+    }
+  },
+
+  /**
+   * 加载待审核帖子 (status: 1)
+   */
+  async loadPendingPosts(refresh = false) {
+    try {
+      const params = {
+        page: refresh ? 1 : this.data.pendingPage,
+        limit: 10
+      };
+
+      const response = await api.getUserPosts(1, params);
+
+      if (response && Array.isArray(response)) {
+        const newPosts = response;
+        const formattedPosts = this.formatPosts(newPosts);
+        const pendingPosts = refresh ? formattedPosts : [...this.data.pendingPosts, ...formattedPosts];
+
+        this.setData({
+          pendingPosts,
+          pendingCount: pendingPosts.length,
+          pendingPage: refresh ? 2 : this.data.pendingPage + 1,
+          hasMore: newPosts.length >= 10
+        });
+      } else {
+        throw new Error('获取数据失败');
+      }
+    } catch (error) {
+      console.error('加载待审核帖子失败:', error);
+      wx.showToast({
+        title: '加载失败',
+        icon: 'none'
+      });
     }
   },
 
@@ -220,6 +258,8 @@ Page({
       if (this.data.activeTab === 0) {
         await this.loadDraftPosts();
       } else if (this.data.activeTab === 1) {
+        await this.loadPendingPosts();
+      } else if (this.data.activeTab === 2) {
         await this.loadPublishedPosts();
       }
     } catch (error) {
@@ -303,6 +343,12 @@ Page({
         this.setData({
           draftPosts,
           draftCount: draftPosts.length
+        });
+      } else if (Number(post.status) === 1) {
+        const pendingPosts = this.data.pendingPosts.filter(p => p.id !== post.id);
+        this.setData({
+          pendingPosts,
+          pendingCount: pendingPosts.length
         });
       } else {
         const publishedPosts = this.data.publishedPosts.filter(p => p.id !== post.id);

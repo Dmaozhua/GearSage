@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../../common/database.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
@@ -10,6 +11,7 @@ export class TopicService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly moderationService: ModerationService,
+    private readonly configService: ConfigService,
   ) {}
 
   async getAllTopics(
@@ -299,7 +301,10 @@ export class TopicService {
     ]);
     this.moderationService.assertTopicPublishAccepted(combinedDecision);
 
-    const nextStatus = combinedDecision.result === 'REVIEW' ? 1 : 2;
+    const forceReview =
+      combinedDecision.result === 'PASS' && this.isTopicManualReviewEnabled();
+    const nextStatus =
+      combinedDecision.result === 'REVIEW' || forceReview ? 1 : 2;
     const publishTimeSql = nextStatus === 2 ? 'NOW()' : 'NULL';
 
     if (dto.id) {
@@ -374,6 +379,14 @@ export class TopicService {
     );
 
     return insertResult.rows[0];
+  }
+
+  private isTopicManualReviewEnabled() {
+    return String(
+      this.configService.get<string>('MODERATION_TEXT_REVIEW_ENABLED') || 'false',
+    )
+      .trim()
+      .toLowerCase() === 'true';
   }
 
   async deleteTopic(userId: number, topicId: number) {

@@ -906,13 +906,13 @@ Page({
       };
       
       // 发布帖子到服务器
-      await this.addToDataFile(newData);
+      const publishResult = await this.addToDataFile(newData);
       
       // 本地草稿逻辑已删除
       
       wx.hideLoading();
       wx.showToast({
-        title: '发布成功',
+        title: Number(publishResult && publishResult.status) === 1 ? '已提交审核' : '发布成功',
         icon: 'success',
         duration: 2000
       });
@@ -1119,10 +1119,11 @@ Page({
       const api = require('../../services/api.js');
       const response = await apiService.publishTopic(newData);
       
-      if (response === true || (response && response.code === 200)) {
+      if (response && (response.status === 1 || response.status === 2)) {
         console.log('帖子发布成功:', response);
         // 触发首页数据刷新
         getApp().globalData.needRefreshIndex = true;
+        return response;
       } else {
         throw new Error('发布失败');
       }

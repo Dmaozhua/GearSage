@@ -1634,7 +1634,20 @@ class ApiService {
       ...topicData,
       categoryKey: topicData.categoryKey || topicData.type || ''
     });
-    return this.post('/mini/topic', payload).then(result => isSuccessfulBooleanResult(result));
+    return this.post('/mini/topic', payload).then(result => {
+      if (result && typeof result === 'object') {
+        return {
+          id: result.id ? Number(result.id) : null,
+          status: result.status !== undefined ? Number(result.status) : null,
+          publishTime: result.publishTime || null
+        };
+      }
+      return {
+        id: null,
+        status: isSuccessfulBooleanResult(result) ? 2 : null,
+        publishTime: null
+      };
+    });
   }
 
   /**

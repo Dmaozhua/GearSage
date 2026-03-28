@@ -208,7 +208,7 @@ Page({
       
       // 提交成功
       wx.showToast({
-        title: '发布成功',
+        title: Number(res && res.status) === 1 ? '已提交审核' : '发布成功',
         icon: 'success',
         duration: 2000
       });

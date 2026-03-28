@@ -249,13 +249,18 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 已新增 `moderation` 服务与腾讯云 provider 封装
   - 已完成 `topic / comment / user / upload` 四条接入点
   - 已补 `moderation_records / moderation_rules` 及审核字段
- - 2026-03-28 第一轮本地联调已通过：
-   - `/health/db` 已确认连接本地 `gearsage / tommy`
-   - `moderation_rules` 本地关键词规则生效
-   - 正常评论可通过并写入 `bz_topic_comment`
-   - 命中违禁词评论返回 `403 Forbidden`
-   - `moderation_records` 已成功记录 `pass / reject`
-   - 当前腾讯云真实审核尚未验证，原因是未配置真实密钥
+- 2026-03-28 第一轮本地联调已通过：
+  - `/health/db` 已确认连接本地 `gearsage / tommy`
+  - `moderation_rules` 本地关键词规则生效
+  - 正常评论可通过并写入 `bz_topic_comment`
+  - 命中违禁词评论返回 `403 Forbidden`
+  - `moderation_records` 已成功记录 `pass / reject`
+  - 当前腾讯云真实审核尚未验证，原因是未配置真实密钥
+- 2026-03-28 已补本地发帖待审核开关：
+  - `MODERATION_TEXT_REVIEW_ENABLED=true` 时，发帖 `PASS` 结果也进入 `status=1`
+  - 当前本地 `.env.local` 已启用该开关
+  - 小程序发布成功提示已调整为“已提交审核”
+  - “我的发布”已恢复 `待审核` 页签用于查看 `status=1` 内容
 
 ---
 

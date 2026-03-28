@@ -152,12 +152,12 @@ Page({
         relatedGearModel: cached.postData.relatedGearModel,
         relatedGearItemId: cached.postData.relatedGearItemId
       });
-      await api.publishTopic(cached.postData);
+      const publishResult = await api.publishTopic(cached.postData);
       wx.hideLoading();
       wx.setStorageSync('needRefreshAfterPublish', true);
       wx.removeStorageSync(TOPIC_PREVIEW_STORAGE_KEY);
       wx.showToast({
-        title: '发布成功',
+        title: Number(publishResult && publishResult.status) === 1 ? '已提交审核' : '发布成功',
         icon: 'success'
       });
 
