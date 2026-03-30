@@ -258,6 +258,75 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 命中违禁词评论返回 `403 Forbidden`
   - `moderation_records` 已成功记录 `pass / reject`
   - 当前腾讯云真实审核尚未验证，原因是未配置真实密钥
+- 2026-03-30 已接入腾讯云内容安全真实 Biztype 映射：
+  - 控制台应用：
+    - `appName=gearsage`
+    - `appId=2038611796071288832`
+  - 文本审核固定映射：
+    - `comment_content -> comment_content`
+    - `topic_title / topic_content -> topic_publish`
+    - `user_nickname -> nickname_input`
+    - `user_bio -> user_bio`
+  - 图片审核固定映射：
+    - `topic_image -> topic_image`
+    - `avatar_image -> avatar_image`
+    - `background_image -> background_image`
+  - 当前口径：
+    - 继续沿用现有 `moderation.service / moderation.tencent.service`
+    - 先打通真实文本审核
+    - 图片审核已接入同一 provider，待真实密钥补齐后一起联调
+    - 环境变量仅依赖：
+      - `TENCENT_MODERATION_SECRET_ID`
+      - `TENCENT_MODERATION_SECRET_KEY`
+- 2026-03-30 已修复腾讯云 API v3 签名头格式错误：
+  - 用户本地真实联调已定位：
+    - `provider = tencent_text`
+    - `result = review`
+    - `riskLevel = provider_error`
+    - `riskReason = AuthFailure.InvalidAuthorization: SignatureMethod should be TC3-HMAC-SHA256`
+  - 根因确认：
+    - `src/modules/moderation/moderation.tencent.service.ts` 的 `Authorization` 头格式不符合腾讯云 API v3 标准
+    - 旧实现为错误的逗号拼接格式
+  - 已完成调整：
+    - 改为标准 TC3 v3 头签名格式：
+      - `TC3-HMAC-SHA256 Credential=..., SignedHeaders=..., Signature=...`
+    - 继续沿用现有 provider，不引入腾讯云官方 SDK
+  - 当前口径：
+    - 先继续复测真实文本审核
+    - 文本打通后再补图片真实联调
+- 2026-03-31 腾讯云真实文本审核第一轮已打通：
+  - 最新 `moderation_records` 已确认：
+    - `provider = tencent_text`
+    - `result = pass`
+    - `riskLevel = Normal|score=0`
+    - `requestId = a609b17d-dc5f-46ad-8767-c34e98ff439f`
+  - 当前确认通过场景：
+    - `comment_content`
+  - 2026-03-31 同轮本地继续验证通过：
+    - `topic_publish`
+      - `topic_title` 与 `topic_content` 均已写入 `moderation_records`
+      - `provider = tencent_text`
+      - `result = pass`
+      - `targetType = topic`
+      - `targetId = 2`
+      - 业务表 `bz_mini_topic.id=2` 已写入且 `status = 1`
+      - `GET /mini/topic/mine?status=1` 可看到该帖，前端“待审核”表现与审核记录一致
+    - `nickname_input`
+      - `scene = user_nickname`
+      - `provider = tencent_text`
+      - `result = pass`
+      - `targetType = user`
+      - `targetId = 2`
+      - 业务表 `bz_mini_user.nickName` 已更新
+      - `GET /auth/me` 返回昵称与数据库一致
+    - `user_bio`
+      - `scene = user_bio`
+      - `provider = tencent_text`
+      - `result = pass`
+      - `targetType = user`
+      - `targetId = 2`
+      - 业务表 `bz_mini_user.bio` 已更新为最新值
+      - `GET /auth/me` 返回简介与数据库一致
 - 2026-03-28 已补本地发帖待审核开关：
   - `MODERATION_TEXT_REVIEW_ENABLED=true` 时，发帖 `PASS` 结果也进入 `status=1`
   - 当前本地 `.env.local` 已启用该开关
@@ -292,6 +361,48 @@ P3-A 的完成标准不是“微信一定通过”，而是：
 - 当前口径：
   - `PASS` 正常返回上传结果
   - `REJECT / REVIEW` 第一轮统一阻断上传
+- 2026-03-31 腾讯云真实图片审核第一轮已打通：
+  - `topic_image`
+    - `POST /upload/image` 已返回成功与本地 URL
+    - `moderation_records.scene = topic_image`
+    - `provider = tencent_image`
+    - `result = pass`
+    - `requestId` 已落库
+    - `media_assets.bizType = topic` 对应记录已写入，`moderationStatus = pass`
+  - `avatar_image`
+    - `POST /upload/avatar` 已返回成功与本地 URL
+    - `moderation_records.scene = avatar_image`
+    - `provider = tencent_image`
+    - `result = pass`
+    - `requestId` 已落库
+    - `media_assets.bizType = avatar` 对应记录已写入，`moderationStatus = pass`
+  - `background_image`
+    - `POST /upload/background` 已返回成功与本地 URL
+    - `moderation_records.scene = background_image`
+    - `provider = tencent_image`
+    - `result = pass`
+    - `requestId` 已落库
+    - `media_assets.bizType = background` 对应记录已写入，`moderationStatus = pass`
+  - 当前结论：
+    - 3 个图片场景均已真实命中腾讯云 provider
+    - `moderation_records`、`media_assets`、上传接口返回三层数据已对齐
+  - 当前阶段结论：
+    - 腾讯云真实内容审核第一轮本地验证已完成
+    - 已验证通过的 7 个场景：
+      - `comment_content`
+      - `topic_publish`
+      - `nickname_input`
+      - `user_bio`
+      - `topic_image`
+      - `avatar_image`
+      - `background_image`
+    - 当前确认：
+      - `moderation_records` 已有真实 `tencent_text / tencent_image` 留痕
+      - 业务表状态与审核结果一致
+      - `media_assets` 审核字段与上传结果一致
+      - 前端表现与数据库状态一致
+    - 本项可视为 P3-A 中“真实内容审核能力”第一轮完成
+    - 后续不再重复扩大同类验证轮次
 
 ---
 

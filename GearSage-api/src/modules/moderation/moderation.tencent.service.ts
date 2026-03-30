@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createHash, createHmac, randomUUID } from 'crypto';
 import { ModerationDecision, ModerationMetadata, ModerationScene } from './moderation.types';
@@ -42,6 +42,8 @@ type TencentImageResponse = {
 
 @Injectable()
 export class ModerationTencentService {
+  private readonly logger = new Logger(ModerationTencentService.name);
+
   private static readonly TEXT_HOST = 'tms.tencentcloudapi.com';
   private static readonly TEXT_SERVICE = 'tms';
   private static readonly TEXT_ACTION = 'TextModeration';
@@ -51,6 +53,28 @@ export class ModerationTencentService {
   private static readonly IMAGE_SERVICE = 'ims';
   private static readonly IMAGE_ACTION = 'ImageModeration';
   private static readonly IMAGE_VERSION = '2020-07-13';
+
+  private static readonly TEXT_BIZ_TYPE_BY_SCENE: Record<ModerationScene, string | null> = {
+    comment_content: 'comment_content',
+    topic_title: 'topic_publish',
+    topic_content: 'topic_publish',
+    user_nickname: 'nickname_input',
+    user_bio: 'user_bio',
+    avatar_image: null,
+    background_image: null,
+    topic_image: null,
+  };
+
+  private static readonly IMAGE_BIZ_TYPE_BY_SCENE: Record<ModerationScene, string | null> = {
+    comment_content: null,
+    topic_title: null,
+    topic_content: null,
+    user_nickname: null,
+    user_bio: null,
+    avatar_image: 'avatar_image',
+    background_image: 'background_image',
+    topic_image: 'topic_image',
+  };
 
   constructor(private readonly configService: ConfigService) {}
 
@@ -66,6 +90,8 @@ export class ModerationTencentService {
     content: string,
     metadata: ModerationMetadata,
   ): Promise<ModerationDecision> {
+    const bizType = this.resolveBizType('text', scene);
+    const dataId = this.resolveDataId(metadata);
     const response = await this.request<TencentTextResponse>({
       host: ModerationTencentService.TEXT_HOST,
       service: ModerationTencentService.TEXT_SERVICE,
@@ -73,26 +99,41 @@ export class ModerationTencentService {
       version: ModerationTencentService.TEXT_VERSION,
       body: {
         Content: Buffer.from(String(content || ''), 'utf8').toString('base64'),
-        BizType: this.resolveBizType('text', scene),
-        DataId: this.resolveDataId(metadata),
+        BizType: bizType,
+        DataId: dataId,
         SourceLanguage: 'zh',
         Type: 'TEXT',
       },
     });
 
     const payload = response.Response || {};
+    const detailResults = Array.isArray(payload.DetailResults) ? payload.DetailResults : [];
     return this.mapDecision({
       provider: 'tencent_text',
-      suggestion: payload.Suggestion,
+      suggestion:
+        payload.Suggestion ||
+        this.pickStrongestSuggestion(
+          detailResults.map((item) => String(item.Suggestion || '').trim()),
+        ),
       label: payload.Label,
       subLabel: payload.SubLabel,
       score: payload.Score,
-      keywords: payload.Keywords,
-      detailLabels: (payload.DetailResults || [])
+      keywords: [
+        ...(Array.isArray(payload.Keywords) ? payload.Keywords : []),
+        ...detailResults.flatMap((item) =>
+          Array.isArray(item.Keywords) ? item.Keywords : [],
+        ),
+      ],
+      detailLabels: detailResults
         .map((item) => String(item.Label || '').trim())
         .filter(Boolean),
       requestId: payload.RequestId,
-      raw: response,
+      raw: {
+        scene,
+        bizType,
+        dataId,
+        response,
+      },
     });
   }
 
@@ -101,6 +142,8 @@ export class ModerationTencentService {
     fileBuffer: Buffer,
     metadata: ModerationMetadata,
   ): Promise<ModerationDecision> {
+    const bizType = this.resolveBizType('image', scene);
+    const dataId = this.resolveDataId(metadata);
     const response = await this.request<TencentImageResponse>({
       host: ModerationTencentService.IMAGE_HOST,
       service: ModerationTencentService.IMAGE_SERVICE,
@@ -108,8 +151,8 @@ export class ModerationTencentService {
       version: ModerationTencentService.IMAGE_VERSION,
       body: {
         FileContent: fileBuffer.toString('base64'),
-        BizType: this.resolveBizType('image', scene),
-        DataId: this.resolveDataId(metadata),
+        BizType: bizType,
+        DataId: dataId,
       },
     });
 
@@ -125,26 +168,29 @@ export class ModerationTencentService {
         .map((item) => String(item.Label || item.Scene || '').trim())
         .filter(Boolean),
       requestId: payload.RequestId,
-      raw: response,
+      raw: {
+        scene,
+        bizType,
+        dataId,
+        response,
+      },
     });
   }
 
   private resolveBizType(contentType: 'text' | 'image', scene: ModerationScene) {
-    const sceneEnvKey = `TENCENT_MODERATION_BIZ_TYPE_${String(scene).toUpperCase()}`;
-    const sceneBizType = String(this.configService.get<string>(sceneEnvKey) || '').trim();
-    if (sceneBizType) {
-      return sceneBizType;
+    const fixedMap =
+      contentType === 'text'
+        ? ModerationTencentService.TEXT_BIZ_TYPE_BY_SCENE
+        : ModerationTencentService.IMAGE_BIZ_TYPE_BY_SCENE;
+    const fixedBizType = fixedMap[scene];
+    if (fixedBizType) {
+      return fixedBizType;
     }
 
-    const defaultBizType = String(
-      this.configService.get<string>(
-        contentType === 'text'
-          ? 'TENCENT_MODERATION_TEXT_BIZ_TYPE'
-          : 'TENCENT_MODERATION_IMAGE_BIZ_TYPE',
-      ) || '',
-    ).trim();
-
-    return defaultBizType || 'TencentCloudDefault';
+    this.logger.warn(
+      `missing fixed biztype mapping for ${contentType}:${scene}, fallback to TencentCloudDefault`,
+    );
+    return 'TencentCloudDefault';
   }
 
   private resolveDataId(metadata: ModerationMetadata) {
@@ -203,6 +249,22 @@ export class ModerationTencentService {
     };
   }
 
+  private pickStrongestSuggestion(suggestions: string[]) {
+    const normalized = suggestions
+      .map((item) => String(item || '').trim().toLowerCase())
+      .filter(Boolean);
+    if (normalized.includes('block')) {
+      return 'Block';
+    }
+    if (normalized.includes('review')) {
+      return 'Review';
+    }
+    if (normalized.includes('pass')) {
+      return 'Pass';
+    }
+    return '';
+  }
+
   private async request<T>(options: {
     host: string;
     service: string;
@@ -251,17 +313,12 @@ export class ModerationTencentService {
     const secretSigning = this.hmac(secretService, 'tc3_request');
     const signature = this.hmacHex(secretSigning, stringToSign);
 
-    const authorization = [
-      'TC3-HMAC-SHA256',
-      `Credential=${secretId}/${credentialScope}`,
-      `SignedHeaders=${signedHeaders}`,
-      `Signature=${signature}`,
-    ].join(', ');
+    const finalAuthorization = `TC3-HMAC-SHA256 Credential=${secretId}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
 
     const response = await fetch(`https://${options.host}/`, {
       method: 'POST',
       headers: {
-        Authorization: authorization,
+        Authorization: finalAuthorization,
         'Content-Type': 'application/json; charset=utf-8',
         Host: options.host,
         'X-TC-Action': options.action,
