@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString, MaxLength, Min } from 'class-validator';
+import { IsInt, IsObject, IsOptional, IsString, MaxLength, Min } from 'class-validator';
 
 export class AddCommentDto {
   @IsInt()
@@ -8,6 +8,15 @@ export class AddCommentDto {
   @IsString()
   @MaxLength(200)
   content!: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(32)
+  commentType?: string;
+
+  @IsOptional()
+  @IsObject()
+  recommendAnswerMeta?: Record<string, any>;
 
   @IsOptional()
   @IsInt()

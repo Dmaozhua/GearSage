@@ -61,8 +61,71 @@
   line-height: 1.5;
 }
 
+.recommend-section-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.recommend-section-subtitle {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+}
+
 .wechat-content-container {
   margin-bottom: 20rpx;
+}
+
+.option-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.option-chip {
+  padding: 18rpx 24rpx;
+  border-radius: 18rpx;
+  font-size: 26rpx;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: all 0.2s ease;
+}
+
+.option-chip.active {
+  color: #17304a;
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.92);
+}
+
+.option-chip--block {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.text-input,
+.textarea-input {
+  width: 100%;
+  padding: 24rpx 28rpx;
+  box-sizing: border-box;
+  border-radius: 18rpx;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 28rpx;
+}
+
+.textarea-input {
+  min-height: 180rpx;
+}
+
+.candidate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 
 .switch-card {
@@ -307,6 +370,28 @@
 
 .dark .form-tip {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.dark .recommend-section-subtitle {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.dark .option-chip {
+  background: rgba(13, 25, 48, 0.45);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .option-chip.active {
+  color: #10253a;
+  background: rgba(232, 240, 247, 0.92);
+  border-color: rgba(232, 240, 247, 0.92);
+}
+
+.dark .text-input,
+.dark .textarea-input {
+  background: rgba(13, 25, 48, 0.45);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .dark .switch-card {

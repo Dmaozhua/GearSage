@@ -201,6 +201,49 @@
             {{productDetail.relatedGearCategoryLabel}}<text wx:if="{{productDetail.relatedGearModel}}"> / {{productDetail.relatedGearModel}}</text>
           </view>
         </view>
+
+        <block wx:if="{{productDetail.isRecommendQuestion}}">
+          <view class="topic-section-card">
+            <view class="topic-section-title">楼主当前情况</view>
+            <view class="topic-info-grid">
+              <view class="topic-info-item" wx:for="{{productDetail.recommendSummaryFacts}}" wx:key="label">
+                <text class="topic-info-label">{{item.label}}</text>
+                <text class="topic-info-value">{{item.value}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendIntentLabel}}">
+                <text class="topic-info-label">求推荐意图</text>
+                <text class="topic-info-value">{{productDetail.recommendIntentLabel}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.budgetFlexibleLabel}}">
+                <text class="topic-info-label">预算弹性</text>
+                <text class="topic-info-value">{{productDetail.budgetFlexibleLabel}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendCurrentGear}}">
+                <text class="topic-info-label">已有装备</text>
+                <text class="topic-info-value">{{productDetail.recommendCurrentGear}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendCandidateOptionsText}}">
+                <text class="topic-info-label">候选项</text>
+                <text class="topic-info-value">{{productDetail.recommendCandidateOptionsText}}</text>
+              </view>
+            </view>
+            <view class="topic-chip-row" wx:if="{{productDetail.recommendCarePriorityItems.length}}">
+              <block wx:for="{{productDetail.recommendCarePriorityItems}}" wx:key="index">
+                <text class="topic-chip">在意 · {{item}}</text>
+              </block>
+            </view>
+            <view class="topic-chip-row" wx:if="{{productDetail.recommendAvoidPointItems.length}}">
+              <block wx:for="{{productDetail.recommendAvoidPointItems}}" wx:key="index">
+                <text class="topic-chip">避开 · {{item}}</text>
+              </block>
+            </view>
+          </view>
+
+          <view class="topic-section-card" wx:if="{{productDetail.recommendCoreQuestion}}">
+            <view class="topic-section-title">楼主最纠结的是</view>
+            <view class="topic-summary-card">{{productDetail.recommendCoreQuestion}}</view>
+          </view>
+        </block>
       </block>
 
       <block wx:elif="{{productDetail.topicCategory === 3}}">
@@ -272,7 +315,7 @@
       </block>
 
       <view class="topic-section-card" wx:if="{{formattedContent}}">
-        <view class="topic-section-title">正文内容</view>
+        <view class="topic-section-title">{{productDetail.isRecommendQuestion ? '补充说明' : '正文内容'}}</view>
         <view class="topic-richtext">
           <rich-text nodes="{{formattedContent}}"></rich-text>
         </view>

@@ -110,6 +110,7 @@ const GEAR_CATEGORY_ALIAS_MAP = {
   bait: ['bait', '饵', '鱼饵', '路亚饵', 'bz_topic_category_bait', 'topic_category_bait', 'gear_category_bait'],
   line: ['line', '线', '鱼线', 'bz_topic_category_line', 'topic_category_line', 'gear_category_line'],
   hook: ['hook', '钩', '鱼钩', 'bz_topic_category_hook', 'topic_category_hook', 'gear_category_hook'],
+  combo: ['combo', '整套', '整套搭配', '套装'],
   other: ['other', '其他', '其它', 'bz_topic_category_other', 'topic_category_other', 'gear_category_other']
 };
 
@@ -542,8 +543,12 @@ class ApiService {
           if (res.statusCode >= 200 && res.statusCode < 300) {
             const responseData = res.data || {};
             const businessCode = responseData.code;
+            const isWrappedSuccess = businessCode === 0 || businessCode === 200;
+            const isAuthBareSuccess =
+              isLoginRequest &&
+              (businessCode === undefined || businessCode === null);
 
-            if (businessCode === 0 || businessCode === 200) {
+            if (isWrappedSuccess || isAuthBareSuccess) {
               finalize();
               // 修复：当 data 为 0 或 false 时，不应该回退到 responseData
               resolve(responseData.data !== undefined ? responseData.data : responseData);
@@ -1434,10 +1439,19 @@ class ApiService {
     const payload = {
       topicId: Number(commentData.topicId),
       content: commentData.content,
+      commentType: commentData.commentType || 'normal',
+      recommendAnswerMeta: commentData.recommendAnswerMeta || undefined,
       replayCommentId: commentData.replayCommentId || null,
       replayUserId: commentData.replayUserId || null
     };
     return this.put('/mini/comment', payload).then(result => result === true || !!result);
+  }
+
+  acceptRecommendAnswer(topicId, commentId) {
+    return this.post('/mini/topic/recommend/accept', {
+      topicId: Number(topicId),
+      commentId: Number(commentId)
+    }).then(result => result || null);
   }
 
   /**

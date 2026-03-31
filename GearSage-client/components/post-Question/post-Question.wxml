@@ -23,7 +23,7 @@
     <view class="form-item">
       <view class="form-label">
         <text>关联装备</text>
-        <text class="optional">（选填）</text>
+        <text class="{{formData.questionType === 'recommend' ? 'required' : 'optional'}}">{{formData.questionType === 'recommend' ? '*' : '（选填）'}}</text>
       </view>
       <view class="control-group">
         <label
@@ -56,22 +56,265 @@
       </view>
       <view class="form-tip" wx:if="{{canSelectGearModel}}">先选装备分类，再输入关键词关联装备库中的型号</view>
       <view class="form-tip" wx:if="{{formData.relatedGearCategory && !canSelectGearModel}}">当前装备库联想暂支持鱼竿、渔轮、鱼饵</view>
+      <view class="error-text" wx:if="{{errors.relatedGearCategory}}">{{errors.relatedGearCategory}}</view>
     </view>
+
+    <block wx:if="{{formData.questionType === 'recommend'}}">
+      <view class="form-item">
+        <view class="recommend-section-title">楼主当前情况</view>
+        <view class="recommend-section-subtitle">先把关键条件说清楚，后面的推荐才不会跑偏。</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>你现在属于哪种情况</text>
+          <text class="required">*</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{recommendIntentOptions}}"
+            wx:key="id"
+            class="option-chip {{formData.recommendMeta.recommendIntent === item.id ? 'active' : ''}}"
+            data-field="recommendIntent"
+            data-value="{{item.id}}"
+            bindtap="onRecommendSingleSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <view class="error-text" wx:if="{{errors.recommendIntent}}">{{errors.recommendIntent}}</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>预算大概多少</text>
+          <text class="required">*</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{budgetRangeOptions}}"
+            wx:key="id"
+            class="option-chip {{formData.recommendMeta.budgetRange === item.id ? 'active' : ''}}"
+            data-field="budgetRange"
+            data-value="{{item.id}}"
+            bindtap="onRecommendSingleSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <view class="error-text" wx:if="{{errors.budgetRange}}">{{errors.budgetRange}}</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>预算弹性</text>
+          <text class="optional">（选填）</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{budgetFlexibleOptions}}"
+            wx:key="id"
+            class="option-chip {{formData.recommendMeta.budgetFlexible === item.id ? 'active' : ''}}"
+            data-field="budgetFlexible"
+            data-value="{{item.id}}"
+            bindtap="onRecommendSingleSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>主要钓什么鱼</text>
+          <text class="required">*</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{targetFishOptions}}"
+            wx:key="id"
+            class="option-chip {{item.selected ? 'active' : ''}}"
+            data-field="targetFish"
+            data-value="{{item.id}}"
+            data-max="3"
+            bindtap="onRecommendMultiSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <view class="form-tip">最多 3 个</view>
+        <view class="error-text" wx:if="{{errors.targetFish}}">{{errors.targetFish}}</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>常在哪钓</text>
+          <text class="required">*</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{useSceneOptions}}"
+            wx:key="id"
+            class="option-chip {{item.selected ? 'active' : ''}}"
+            data-field="useScene"
+            data-value="{{item.id}}"
+            data-max="2"
+            bindtap="onRecommendMultiSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <view class="form-tip">最多 2 个</view>
+        <view class="error-text" wx:if="{{errors.useScene}}">{{errors.useScene}}</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>你最在意什么</text>
+          <text class="required">*</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{carePriorityOptions}}"
+            wx:key="id"
+            class="option-chip {{item.selected ? 'active' : ''}}"
+            data-field="carePriorities"
+            data-value="{{item.id}}"
+            data-max="3"
+            bindtap="onRecommendMultiSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <view class="form-tip">最多 3 个</view>
+        <view class="error-text" wx:if="{{errors.carePriorities}}">{{errors.carePriorities}}</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>不想要的点</text>
+          <text class="optional">（选填）</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{avoidPointOptions}}"
+            wx:key="id"
+            class="option-chip {{item.selected ? 'active' : ''}}"
+            data-field="avoidPoints"
+            data-value="{{item.id}}"
+            data-max="3"
+            bindtap="onRecommendMultiSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>当前阶段</text>
+          <text class="required">*</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{currentStageOptions}}"
+            wx:key="id"
+            class="option-chip option-chip--block {{formData.recommendMeta.currentStage === item.id ? 'active' : ''}}"
+            data-field="currentStage"
+            data-value="{{item.id}}"
+            bindtap="onRecommendSingleSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <view class="error-text" wx:if="{{errors.currentStage}}">{{errors.currentStage}}</view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>已有装备</text>
+          <text class="optional">（选填）</text>
+        </view>
+        <input
+          class="text-input"
+          data-field="currentGear"
+          value="{{formData.recommendMeta.currentGear}}"
+          maxlength="80"
+          placeholder="已有装备可简单写，如“ML竿 + 1000纺车轮”"
+          bindinput="onRecommendInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>使用频率</text>
+          <text class="optional">（选填）</text>
+        </view>
+        <view class="option-flow">
+          <view
+            wx:for="{{recommendUsageFrequencyOptions}}"
+            wx:key="id"
+            class="option-chip {{formData.recommendMeta.usageFrequency === item.id ? 'active' : ''}}"
+            data-field="usageFrequency"
+            data-value="{{item.id}}"
+            bindtap="onRecommendSingleSelect"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>有没有候选项</text>
+          <text class="optional">（选填，最多 3 个）</text>
+        </view>
+        <view class="candidate-list">
+          <input
+            wx:for="{{formData.recommendMeta.candidateOptions}}"
+            wx:key="index"
+            class="text-input"
+            data-index="{{index}}"
+            value="{{item}}"
+            maxlength="40"
+            placeholder="候选项 {{index + 1}}，可写型号或方向"
+            bindinput="onCandidateOptionInput"
+          />
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>你最纠结的点是什么</text>
+          <text class="required">*</text>
+        </view>
+        <textarea
+          class="textarea-input"
+          data-field="coreQuestion"
+          value="{{formData.recommendMeta.coreQuestion}}"
+          maxlength="120"
+          placeholder="比如：第一次买轮，怕买重了；或者 A / B 两个型号不知道差价值不值。"
+          bindinput="onRecommendInput"
+        />
+        <view class="form-tip">20 ~ 120 字</view>
+        <view class="error-text" wx:if="{{errors.coreQuestion}}">{{errors.coreQuestion}}</view>
+      </view>
+    </block>
 
     <view class="form-item">
       <view class="form-label">
-        <text>填写内容</text>
-        <text class="required">*</text>
+        <text>{{formData.questionType === 'recommend' ? '补充说明' : '填写内容'}}</text>
+        <text class="{{formData.questionType === 'recommend' ? 'optional' : 'required'}}">{{formData.questionType === 'recommend' ? '（选填）' : '*'}}</text>
       </view>
       <view class="wechat-content-container">
         <publish-wechatcontent
           formData="{{formData}}"
           errors="{{errors}}"
-          maxImages="{{9}}"
+          maxImages="{{maxImages}}"
           minImages="{{0}}"
-          maxTitleLength="{{20}}"
-          maxContentLength="{{1000}}"
-          titlePlaceholder="请输入标题..."
+          maxTitleLength="{{maxTitleLength}}"
+          maxContentLength="{{maxContentLength}}"
+          titlePlaceholder="{{titlePlaceholder}}"
           contentPlaceholder="{{contentPlaceholder}}"
           writingTips="{{writingTips}}"
           bind:titleinput="onTitleInput"
@@ -81,7 +324,11 @@
           bind:chooseimage="onChooseImage"
         />
       </view>
-      <view class="form-tip">图片非必填，最多可上传9张</view>
+      <view class="form-tip">
+        {{formData.questionType === 'recommend'
+          ? '标题可留空，系统会按预算 / 场景 / 装备帮你生成。图片非必填，最多 3 张。'
+          : '图片非必填，最多可上传9张'}}
+      </view>
       <view class="error-text" wx:if="{{errors.mainImages}}">{{errors.mainImages}}</view>
     </view>
 

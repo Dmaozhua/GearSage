@@ -54,6 +54,26 @@ function createModeInitialFormData(modeKey) {
     };
   }
 
+  if (modeKey === 'question') {
+    return {
+      questionType: 'recommend',
+      recommendMeta: {
+        recommendIntent: '',
+        budgetRange: '',
+        budgetFlexible: '',
+        targetFish: [],
+        useScene: [],
+        carePriorities: [],
+        avoidPoints: [],
+        currentStage: '',
+        currentGear: '',
+        candidateOptions: ['', '', ''],
+        usageFrequency: '',
+        coreQuestion: ''
+      }
+    };
+  }
+
   return {};
 }
 
@@ -86,13 +106,26 @@ function buildDraftFormDataFromTopic(topic = {}) {
   };
 
   if (modeKey === 'question') {
+    const recommendMeta = normalizeObject(topic.recommendMeta, {});
     return {
+      ...createModeInitialFormData(modeKey),
       ...base,
-      questionType: topic.questionType || '',
+      questionType: topic.questionType || 'recommend',
       relatedGearCategory: topic.relatedGearCategory || '',
       relatedGearModel: topic.relatedGearModel || '',
       relatedGearItemId: topic.relatedGearItemId || null,
-      quickReplyOnly: Boolean(topic.quickReplyOnly)
+      quickReplyOnly: Boolean(topic.quickReplyOnly),
+      recommendMeta: {
+        ...createModeInitialFormData(modeKey).recommendMeta,
+        ...recommendMeta,
+        targetFish: Array.isArray(recommendMeta.targetFish) ? recommendMeta.targetFish : [],
+        useScene: Array.isArray(recommendMeta.useScene) ? recommendMeta.useScene : [],
+        carePriorities: Array.isArray(recommendMeta.carePriorities) ? recommendMeta.carePriorities : [],
+        avoidPoints: Array.isArray(recommendMeta.avoidPoints) ? recommendMeta.avoidPoints : [],
+        candidateOptions: Array.isArray(recommendMeta.candidateOptions)
+          ? recommendMeta.candidateOptions.slice(0, 3)
+          : ['', '', '']
+      }
     };
   }
 

@@ -16,6 +16,7 @@ import { TopicService } from './topic.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
+import { AcceptRecommendAnswerDto } from './dto/accept-recommend-answer.dto';
 
 @Controller('mini/topic')
 export class TopicController {
@@ -26,6 +27,7 @@ export class TopicController {
   async getAll(
     @Query('limit') limit?: string,
     @Query('topicCategory') topicCategory?: string,
+    @Query('questionType') questionType?: string,
     @Query('gearCategory') gearCategory?: string,
     @Query('gearModel') gearModel?: string,
     @Query('gearItemId') gearItemId?: string,
@@ -34,6 +36,7 @@ export class TopicController {
     const list = await this.topicService.getAllTopics(Number(user?.id || 0), {
       limit,
       topicCategory,
+      questionType,
       gearCategory,
       gearModel,
       gearItemId,
@@ -182,6 +185,19 @@ export class TopicController {
       code: 0,
       message: 'ok',
       data: result,
+    };
+  }
+
+  @Post('recommend/accept')
+  @UseGuards(JwtAuthGuard)
+  async acceptRecommendAnswer(
+    @CurrentUser() user: { id: number },
+    @Body() body: AcceptRecommendAnswerDto,
+  ) {
+    return {
+      code: 0,
+      message: 'ok',
+      data: await this.topicService.acceptRecommendAnswer(Number(user.id), body),
     };
   }
 

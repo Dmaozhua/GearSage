@@ -83,6 +83,208 @@ const RATING_LABELS = {
   costScore: '性价比'
 };
 
+const RECOMMEND_ANSWER_CONCLUSION_OPTIONS = [
+  { id: 'prefer_a', label: '更推荐 A' },
+  { id: 'prefer_b', label: '更推荐 B' },
+  { id: 'buy_safe', label: '这预算建议先保守买' },
+  { id: 'save_more', label: '这预算建议再攒一点' },
+  { id: 'no_upgrade', label: '现在不建议升级' },
+  { id: 'need_more_info', label: '还缺信息，建议补充' }
+];
+
+const RECOMMEND_ANSWER_BASIS_OPTIONS = [
+  { id: 'long_term_used', label: '我长期用过这个 / 这类产品' },
+  { id: 'short_term_used', label: '我短期用过' },
+  { id: 'used_similar_products', label: '我没用过这款，但用过同定位多个产品' },
+  { id: 'spec_based', label: '我主要按参数和定位给建议' }
+];
+
+const RECOMMEND_ANSWER_SCENE_OPTIONS = [
+  { id: 'wild_river', label: '野河' },
+  { id: 'reservoir', label: '水库' },
+  { id: 'stream', label: '溪流' },
+  { id: 'inshore', label: '近海' },
+  { id: 'urban_river', label: '城市河道' },
+  { id: 'mixed', label: '综合' }
+];
+
+const RECOMMEND_ANSWER_FIT_REASON_OPTIONS = [
+  { id: 'fit_budget', label: '更贴楼主预算' },
+  { id: 'fit_scene', label: '更适合楼主场景' },
+  { id: 'fit_beginner', label: '更适合新手' },
+  { id: 'more_versatile', label: '泛用性更高' },
+  { id: 'more_tolerant', label: '容错更高' },
+  { id: 'upgrade_space', label: '升级空间更合理' },
+  { id: 'lower_total_cost', label: '配套成本更低' },
+  { id: 'more_reliable', label: '更耐用 / 更省心' },
+  { id: 'fit_stage', label: '更符合楼主当前阶段' }
+];
+
+const RECOMMEND_ANSWER_NOT_RECOMMEND_OPTIONS = [
+  { id: 'over_budget', label: '超预算' },
+  { id: 'too_specialized', label: '太专用' },
+  { id: 'not_beginner_friendly', label: '新手不友好' },
+  { id: 'limited_gain', label: '提升感知没那么大' },
+  { id: 'low_scene_usage', label: '对楼主场景利用率不高' },
+  { id: 'higher_maintenance', label: '后期成本更高' },
+  { id: 'risk_over_reward', label: '风险比收益更大' }
+];
+
+const RECOMMEND_ANSWER_RISK_OPTIONS = [
+  { id: 'weight_subjective', label: '重量 / 手感见仁见智' },
+  { id: 'durability_depends', label: '长期耐久还要看使用强度' },
+  { id: 'conservative', label: '这条建议更偏保守' },
+  { id: 'step_up', label: '这条建议更偏一步到位' },
+  { id: 'not_ultra_feel', label: '如果你特别追求极致手感，这个未必满足' },
+  { id: 'other', label: '其他' }
+];
+
+const RECOMMEND_ANSWER_BUDGET_CHANGE_OPTIONS = [
+  { id: 'go_higher', label: '如果预算再高一点，我会换另一个方向' },
+  { id: 'keep_core_lower', label: '如果预算再低一点，我会优先保留核心性能' },
+  { id: 'current_enough', label: '当前预算已经够，不建议再上' },
+  { id: 'budget_tight', label: '当前预算偏紧，建议先降低预期' }
+];
+
+function buildOptionLabelMap(options = []) {
+  return options.reduce((acc, item) => {
+    acc[item.id] = item.label;
+    return acc;
+  }, {});
+}
+
+const RECOMMEND_ANSWER_CONCLUSION_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_CONCLUSION_OPTIONS);
+const RECOMMEND_ANSWER_BASIS_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_BASIS_OPTIONS);
+const RECOMMEND_ANSWER_SCENE_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_SCENE_OPTIONS);
+const RECOMMEND_ANSWER_FIT_REASON_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_FIT_REASON_OPTIONS);
+const RECOMMEND_ANSWER_NOT_RECOMMEND_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_NOT_RECOMMEND_OPTIONS);
+const RECOMMEND_ANSWER_RISK_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_RISK_OPTIONS);
+const RECOMMEND_ANSWER_BUDGET_CHANGE_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_BUDGET_CHANGE_OPTIONS);
+
+function normalizeAnswerText(value, fallback = '') {
+  if (value === null || typeof value === 'undefined') {
+    return fallback;
+  }
+  const text = String(value).trim();
+  return text || fallback;
+}
+
+function normalizeAnswerList(value) {
+  if (!value) {
+    return [];
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => normalizeAnswerText(item, '')).filter(Boolean);
+  }
+  if (typeof value === 'string') {
+    return value.split(',').map((item) => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+function joinAnswerLabels(values, labelMap) {
+  return normalizeAnswerList(values)
+    .map((item) => labelMap[item] || item)
+    .filter(Boolean)
+    .join('、');
+}
+
+function createEmptyRecommendAnswerForm() {
+  return {
+    answerConclusion: '',
+    recommendedOption: ['', '', ''],
+    answerBasis: '',
+    myScene: [],
+    fitReasons: [],
+    freeReasonText: '',
+    notRecommendReasons: [],
+    riskNotePreset: '',
+    riskNoteText: '',
+    budgetChangeAdvice: ''
+  };
+}
+
+function normalizeRecommendAnswerMeta(value) {
+  const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  const recommendedOption = Array.isArray(source.recommendedOption)
+    ? source.recommendedOption.map((item) => normalizeAnswerText(item, '')).filter(Boolean).slice(0, 3)
+    : [];
+
+  return {
+    ...createEmptyRecommendAnswerForm(),
+    ...source,
+    recommendedOption,
+    myScene: normalizeAnswerList(source.myScene).slice(0, 2),
+    fitReasons: normalizeAnswerList(source.fitReasons).slice(0, 3),
+    notRecommendReasons: normalizeAnswerList(source.notRecommendReasons).slice(0, 2),
+    answerConclusion: normalizeAnswerText(source.answerConclusion, ''),
+    answerBasis: normalizeAnswerText(source.answerBasis, ''),
+    freeReasonText: normalizeAnswerText(source.freeReasonText, ''),
+    riskNotePreset: normalizeAnswerText(source.riskNotePreset || source.riskNote, ''),
+    riskNoteText: normalizeAnswerText(source.riskNoteText, ''),
+    budgetChangeAdvice: normalizeAnswerText(source.budgetChangeAdvice, '')
+  };
+}
+
+function buildRecommendAnswerSummary(meta) {
+  const normalized = normalizeRecommendAnswerMeta(meta);
+  const parts = [];
+  const conclusion = RECOMMEND_ANSWER_CONCLUSION_LABELS[normalized.answerConclusion] || normalized.answerConclusion;
+  const fitReasonText = joinAnswerLabels(normalized.fitReasons, RECOMMEND_ANSWER_FIT_REASON_LABELS);
+
+  if (conclusion) {
+    parts.push(conclusion);
+  }
+  if (fitReasonText) {
+    parts.push(fitReasonText);
+  }
+  if (normalized.freeReasonText) {
+    parts.push(normalized.freeReasonText);
+  }
+
+  return parts.join('；').slice(0, 180);
+}
+
+function buildRecommendAnswerDisplay(meta) {
+  const normalized = normalizeRecommendAnswerMeta(meta);
+  const riskPresetLabel =
+    RECOMMEND_ANSWER_RISK_LABELS[normalized.riskNotePreset] || normalized.riskNotePreset;
+  const riskNote = [riskPresetLabel, normalized.riskNoteText].filter(Boolean).join('；');
+
+  return {
+    ...normalized,
+    answerConclusionLabel:
+      RECOMMEND_ANSWER_CONCLUSION_LABELS[normalized.answerConclusion] || normalized.answerConclusion,
+    recommendedOptionText: normalized.recommendedOption.join('、'),
+    answerBasisLabel:
+      RECOMMEND_ANSWER_BASIS_LABELS[normalized.answerBasis] || normalized.answerBasis,
+    mySceneText: joinAnswerLabels(normalized.myScene, RECOMMEND_ANSWER_SCENE_LABELS),
+    fitReasonsText: joinAnswerLabels(normalized.fitReasons, RECOMMEND_ANSWER_FIT_REASON_LABELS),
+    notRecommendReasonsText: joinAnswerLabels(
+      normalized.notRecommendReasons,
+      RECOMMEND_ANSWER_NOT_RECOMMEND_LABELS,
+    ),
+    riskNote,
+    budgetChangeAdviceLabel:
+      RECOMMEND_ANSWER_BUDGET_CHANGE_LABELS[normalized.budgetChangeAdvice] ||
+      normalized.budgetChangeAdvice,
+  };
+}
+
+function buildSelectedMap(values = []) {
+  return normalizeAnswerList(values).reduce((acc, item) => {
+    acc[item] = true;
+    return acc;
+  }, {});
+}
+
+function buildOptionView(options = [], selectedMap = {}) {
+  return (Array.isArray(options) ? options : []).map((item) => ({
+    ...item,
+    selected: Boolean(selectedMap[item.id]),
+  }));
+}
+
 Page({
 
     /**
@@ -142,13 +344,27 @@ Page({
       loading: true,
       commentLoading: false,
       showCommentInput: false,
+      commentEditorMode: 'normal',
       commentContent: '',
       canSendComment: false,
+      acceptedRecommendAnswer: null,
+      recommendAnswers: [],
+      normalComments: [],
+      recommendAnswerForm: createEmptyRecommendAnswerForm(),
+      recommendAnswerErrors: {},
+      recommendAnswerConclusionOptions: RECOMMEND_ANSWER_CONCLUSION_OPTIONS,
+      recommendAnswerBasisOptions: RECOMMEND_ANSWER_BASIS_OPTIONS,
+      recommendAnswerMySceneOptions: buildOptionView(RECOMMEND_ANSWER_SCENE_OPTIONS),
+      recommendAnswerFitReasonOptions: buildOptionView(RECOMMEND_ANSWER_FIT_REASON_OPTIONS),
+      recommendAnswerNotRecommendOptions: buildOptionView(RECOMMEND_ANSWER_NOT_RECOMMEND_OPTIONS),
+      recommendAnswerRiskOptions: RECOMMEND_ANSWER_RISK_OPTIONS,
+      recommendAnswerBudgetChangeOptions: RECOMMEND_ANSWER_BUDGET_CHANGE_OPTIONS,
       replyTo: null,
       replyToCommentId: null,
       replyToUserId: null,
       replyToUsername: '',
       totalCommentCount: 0,
+      isTopicOwner: false,
       isAdmin: false,
       showAdminPanel: false,
       notFound: false,
@@ -848,7 +1064,8 @@ Page({
         if (!id) {
           this.setData({
             loading: false,
-            notFound: true
+            notFound: true,
+            isTopicOwner: false
           });
           return false;
         }
@@ -871,6 +1088,7 @@ Page({
             formatTime: this.formatTime.bind(this)
           });
           const nextProductDetail = await this.resolveDetailMediaUrls(previewData.productDetail);
+          const currentUserId = this.getCurrentUserId();
           const nextCachedStatus = this.getCachedLikeStatus(nextProductDetail.id);
 
           if (nextCachedStatus !== null) {
@@ -881,9 +1099,16 @@ Page({
           this.setData({
             productDetail: nextProductDetail,
             formattedContent: previewData.formattedContent,
+            isTopicOwner: Boolean(
+              currentUserId &&
+              this.normalizeString(nextProductDetail.userId, '') === currentUserId
+            ),
             loading: false,
             notFound: false
           });
+          if (Array.isArray(this.data.comments) && this.data.comments.length > 0) {
+            this.syncCommentSections(this.data.comments);
+          }
           this.updateShareMenuState();
           return true;
 
@@ -1092,6 +1317,7 @@ Page({
           this.setData({
             loading: false,
             notFound: true,
+            isTopicOwner: false,
             comments: [],
             totalCommentCount: 0
           });
@@ -1108,6 +1334,7 @@ Page({
         this.setData({
           loading: false,
           notFound: isNotFound,
+          isTopicOwner: isNotFound ? false : this.data.isTopicOwner,
           comments: isNotFound ? [] : this.data.comments,
           totalCommentCount: isNotFound ? 0 : this.data.totalCommentCount
         });
@@ -1121,6 +1348,331 @@ Page({
     async loadPostDetail(postId) {
       // 暂时取消API调用，使用现有的loadProductDetail方法
       console.log('loadPostDetail方法已禁用，使用loadProductDetail代替');
+    },
+
+    isRecommendQuestionTopic() {
+      return Boolean(
+        this.data.productDetail &&
+        Number(this.data.productDetail.topicCategory) === TOPIC_CATEGORY.QUESTION &&
+        this.data.productDetail.questionType === 'recommend'
+      );
+    },
+
+    isCurrentUserTopicOwner() {
+      const currentUserId = this.normalizeString(this.getCurrentUserId(), '');
+      const topicUserId = this.normalizeString(
+        this.data.productDetail && this.data.productDetail.userId,
+        ''
+      );
+      return Boolean(currentUserId && topicUserId && currentUserId === topicUserId);
+    },
+
+    refreshRecommendAnswerOptionViews(formValue) {
+      const form = normalizeRecommendAnswerMeta(formValue);
+      this.setData({
+        recommendAnswerMySceneOptions: buildOptionView(
+          RECOMMEND_ANSWER_SCENE_OPTIONS,
+          buildSelectedMap(form.myScene)
+        ),
+        recommendAnswerFitReasonOptions: buildOptionView(
+          RECOMMEND_ANSWER_FIT_REASON_OPTIONS,
+          buildSelectedMap(form.fitReasons)
+        ),
+        recommendAnswerNotRecommendOptions: buildOptionView(
+          RECOMMEND_ANSWER_NOT_RECOMMEND_OPTIONS,
+          buildSelectedMap(form.notRecommendReasons)
+        )
+      });
+    },
+
+    resetCommentEditor(mode = 'normal') {
+      const recommendAnswerForm = createEmptyRecommendAnswerForm();
+      this.setData({
+        showCommentInput: false,
+        commentEditorMode: mode,
+        commentContent: '',
+        canSendComment: false,
+        replyTo: null,
+        replyToCommentId: null,
+        replyToUserId: null,
+        replyToUsername: '',
+        recommendAnswerForm,
+        recommendAnswerErrors: {}
+      });
+      this.refreshRecommendAnswerOptionViews(recommendAnswerForm);
+    },
+
+    openCommentEditor(mode = 'normal') {
+      const recommendAnswerForm = createEmptyRecommendAnswerForm();
+      this.setData({
+        showCommentInput: true,
+        commentEditorMode: mode,
+        commentContent: '',
+        canSendComment: mode === 'recommend_answer',
+        replyTo: null,
+        replyToCommentId: null,
+        replyToUserId: null,
+        replyToUsername: '',
+        recommendAnswerForm,
+        recommendAnswerErrors: {}
+      });
+      this.refreshRecommendAnswerOptionViews(recommendAnswerForm);
+    },
+
+    buildLoadedCommentItem(comment = {}) {
+      const recommendAnswerMeta = normalizeRecommendAnswerMeta(comment.recommendAnswerMeta);
+      return {
+        id: comment.id,
+        userId: comment.userId,
+        userAvatar: comment.userAvatarUrl || '/images/default-avatar.png',
+        displayTag: comment.displayTag || null,
+        tagName: comment.displayTag ? comment.displayTag.name : (comment.tagName || ''),
+        tagRarityLevel: comment.displayTag ? comment.displayTag.rarityLevel : (comment.tagRarityLevel || 0),
+        username: comment.userName || '匿名用户',
+        content: comment.content,
+        commentType: comment.commentType || 'normal',
+        recommendAnswerMeta,
+        recommendAnswerDisplay:
+          comment.commentType === 'recommend_answer'
+            ? buildRecommendAnswerDisplay(recommendAnswerMeta)
+            : null,
+        time: comment.createTime,
+        createTimeFormatted: this.formatTime(comment.createTime),
+        likeCount: comment.likeCount || 0,
+        isLiked: comment.isLiked || false,
+        isAccepted: false,
+        acceptedAt: '',
+        acceptedAtFormatted: '',
+        acceptedByUserId: null,
+        replayCommentId: comment.replayCommentId,
+        replayUserId: comment.replayUserId,
+        replies: []
+      };
+    },
+
+    syncCommentSections(comments = []) {
+      const acceptedAnswerId = Number(this.data.productDetail && this.data.productDetail.acceptedAnswerId || 0);
+      const acceptedAt = this.normalizeString(
+        this.data.productDetail && this.data.productDetail.acceptedAt,
+        ''
+      );
+      const acceptedByUserId = Number(
+        this.data.productDetail && this.data.productDetail.acceptedByUserId || 0
+      ) || null;
+      let acceptedRecommendAnswer = null;
+      const recommendAnswers = [];
+      const normalComments = [];
+
+      (comments || []).forEach((comment) => {
+        if (comment && comment.commentType === 'recommend_answer') {
+          const isAccepted = acceptedAnswerId > 0 && Number(comment.id) === acceptedAnswerId;
+          const nextComment = {
+            ...comment,
+            isAccepted,
+            acceptedAt: isAccepted ? acceptedAt : '',
+            acceptedAtFormatted: isAccepted && acceptedAt ? this.formatTime(acceptedAt) : '',
+            acceptedByUserId: isAccepted ? acceptedByUserId : null
+          };
+          if (isAccepted && !acceptedRecommendAnswer) {
+            acceptedRecommendAnswer = nextComment;
+            return;
+          }
+          recommendAnswers.push(nextComment);
+          return;
+        }
+        normalComments.push(comment);
+      });
+
+      this.setData({
+        acceptedRecommendAnswer,
+        recommendAnswers,
+        normalComments
+      });
+    },
+
+    async onAcceptRecommendAnswer(e) {
+      const commentId = Number(
+        e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.commentId
+      );
+      const topicId = Number(this.data.productDetail.id || this.data.postId || 0);
+
+      if (!topicId || !commentId) {
+        wx.showToast({
+          title: '采纳对象无效',
+          icon: 'none'
+        });
+        return;
+      }
+
+      if (!this.isCurrentUserTopicOwner()) {
+        wx.showToast({
+          title: '只有楼主可以采纳',
+          icon: 'none'
+        });
+        return;
+      }
+
+      if (this._acceptRecommendAnswerPending) {
+        return;
+      }
+
+      wx.showModal({
+        title: '采纳这条回答？',
+        content: '采纳后，这条回答会被置顶展示。你后续仍可补充购买反馈。',
+        confirmText: '确认采纳',
+        success: async (res) => {
+          if (!res.confirm) {
+            return;
+          }
+
+          this._acceptRecommendAnswerPending = true;
+          try {
+            wx.showLoading({
+              title: '采纳中...'
+            });
+            await api.acceptRecommendAnswer(topicId, commentId);
+            await this.loadDetailPage(topicId);
+            wx.hideLoading();
+            wx.showToast({
+              title: '已采纳主回答',
+              icon: 'success'
+            });
+          } catch (error) {
+            wx.hideLoading();
+            console.error('采纳回答失败:', error);
+            wx.showToast({
+              title: api.getErrorMessage(error, '采纳失败'),
+              icon: 'none'
+            });
+          } finally {
+            this._acceptRecommendAnswerPending = false;
+          }
+        }
+      });
+    },
+
+    onRecommendAnswerSingleSelect(e) {
+      const field = e.currentTarget.dataset.field || '';
+      const value = e.currentTarget.dataset.value || '';
+      if (!field) {
+        return;
+      }
+
+      const nextForm = {
+        ...normalizeRecommendAnswerMeta(this.data.recommendAnswerForm),
+        [field]: value
+      };
+      this.setData({
+        recommendAnswerForm: nextForm,
+        [`recommendAnswerErrors.${field}`]: ''
+      });
+    },
+
+    onRecommendAnswerMultiSelect(e) {
+      const field = e.currentTarget.dataset.field || '';
+      const value = e.currentTarget.dataset.value || '';
+      const max = Number(e.currentTarget.dataset.max || 0);
+      if (!field || !value || !max) {
+        return;
+      }
+
+      const currentForm = normalizeRecommendAnswerMeta(this.data.recommendAnswerForm);
+      const currentValues = normalizeAnswerList(currentForm[field]);
+      const existed = currentValues.includes(value);
+      const nextValues = existed
+        ? currentValues.filter((item) => item !== value)
+        : currentValues.concat(value).slice(0, max);
+
+      if (!existed && currentValues.length >= max) {
+        wx.showToast({
+          title: `最多选择 ${max} 项`,
+          icon: 'none'
+        });
+        return;
+      }
+
+      const nextForm = {
+        ...currentForm,
+        [field]: nextValues
+      };
+      this.setData({
+        recommendAnswerForm: nextForm,
+        [`recommendAnswerErrors.${field}`]: ''
+      });
+      this.refreshRecommendAnswerOptionViews(nextForm);
+    },
+
+    onRecommendAnswerInput(e) {
+      const field = e.currentTarget.dataset.field || '';
+      if (!field) {
+        return;
+      }
+
+      const value = e.detail.value || '';
+      const nextForm = {
+        ...normalizeRecommendAnswerMeta(this.data.recommendAnswerForm),
+        [field]: value
+      };
+      this.setData({
+        recommendAnswerForm: nextForm,
+        [`recommendAnswerErrors.${field}`]: ''
+      });
+    },
+
+    onRecommendOptionInput(e) {
+      const index = Number(e.currentTarget.dataset.index || 0);
+      const value = e.detail.value || '';
+      const currentForm = normalizeRecommendAnswerMeta(this.data.recommendAnswerForm);
+      const recommendedOption = Array.isArray(currentForm.recommendedOption)
+        ? currentForm.recommendedOption.slice(0, 3)
+        : [];
+      while (recommendedOption.length < 3) {
+        recommendedOption.push('');
+      }
+      recommendedOption[index] = value;
+      this.setData({
+        recommendAnswerForm: {
+          ...currentForm,
+          recommendedOption
+        }
+      });
+    },
+
+    validateRecommendAnswerForm() {
+      const form = normalizeRecommendAnswerMeta(this.data.recommendAnswerForm);
+      const errors = {};
+
+      if (!form.answerConclusion) {
+        errors.answerConclusion = '请选择你的结论';
+      }
+      if (!form.answerBasis) {
+        errors.answerBasis = '请选择你的参考背景';
+      }
+      if (!form.fitReasons.length) {
+        errors.fitReasons = '至少选择 1 个适合原因';
+      }
+
+      this.setData({
+        recommendAnswerErrors: errors
+      });
+      return Object.keys(errors).length === 0;
+    },
+
+    buildRecommendAnswerPayload() {
+      const form = normalizeRecommendAnswerMeta(this.data.recommendAnswerForm);
+      const payloadMeta = {
+        ...form,
+        recommendedOption: form.recommendedOption.filter(Boolean).slice(0, 3)
+      };
+
+      return {
+        topicId: this.data.productDetail.id || this.data.postId,
+        content: buildRecommendAnswerSummary(payloadMeta) || '给楼主的规范推荐',
+        commentType: 'recommend_answer',
+        recommendAnswerMeta: payloadMeta,
+        replayCommentId: null,
+        replayUserId: null
+      };
     },
 
     async loadComments(postId) {
@@ -1143,28 +1695,14 @@ Page({
         console.log('评论加载成功:', comments);
         
         // 处理评论数据格式
-        const formattedComments = Array.isArray(comments) ? comments.map(comment => {
-          console.log('原始评论数据:', comment);
-          const formatted = {
-            id: comment.id,
-            userId: comment.userId,
-            userAvatar: comment.userAvatarUrl || '/images/default-avatar.png',
-            displayTag: comment.displayTag || null,
-            tagName: comment.displayTag ? comment.displayTag.name : (comment.tagName || ''),
-            tagRarityLevel: comment.displayTag ? comment.displayTag.rarityLevel : (comment.tagRarityLevel || 0),
-            username: comment.userName || '匿名用户',
-            content: comment.content,
-            time: comment.createTime,
-            createTimeFormatted: this.formatTime(comment.createTime),
-            likeCount: comment.likeCount || 0,
-            isLiked: comment.isLiked || false,
-            replayCommentId: comment.replayCommentId,
-            replayUserId: comment.replayUserId,
-            replies: [] // 初始化回复数组
-          };
-          console.log('格式化后评论数据:', formatted);
-          return formatted;
-        }) : [];
+        const formattedComments = Array.isArray(comments)
+          ? comments.map((comment) => {
+              console.log('原始评论数据:', comment);
+              const formatted = this.buildLoadedCommentItem(comment);
+              console.log('格式化后评论数据:', formatted);
+              return formatted;
+            })
+          : [];
         
         // 构建树形结构
         const treeComments = this.buildCommentTree(formattedComments);
@@ -1179,6 +1717,7 @@ Page({
           totalCommentCount: totalCommentCount,
           commentLoading: false
         });
+        this.syncCommentSections(mergedTreeComments);
         return mergedTreeComments;
       } catch (error) {
         console.error('加载评论失败:', error);
@@ -1190,6 +1729,7 @@ Page({
         this.setData({
           comments: this.data.productDetail.comments || []
         });
+        this.syncCommentSections(this.data.productDetail.comments || []);
         return this.data.productDetail.comments || [];
       } finally {
         this.setData({ commentLoading: false });
@@ -1234,6 +1774,7 @@ Page({
         comments: nextComments,
         'productDetail.comments': nextComments
       });
+      this.syncCommentSections(nextComments);
     },
 
     getCommentLikeCacheKey() {
@@ -1756,24 +2297,31 @@ Page({
       }
       
       console.log('显示评论输入框');
-      this.setData({
-        showCommentInput: true,
-        replyTo: null,
-        commentContent: '',
-        canSendComment: false
-      });
+      this.openCommentEditor('normal');
+    },
+
+    async onShowRecommendAnswerInput() {
+      if (!this.canCurrentPostComment()) {
+        wx.showToast({
+          title: this.getCommentDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
+
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
+      this.openCommentEditor('recommend_answer');
     },
 
     onHideCommentInput() {
-      this.setData({
-        showCommentInput: false,
-        commentContent: '',
-        replyTo: null,
-        replyToCommentId: null,
-        replyToUserId: null,
-        replyToUsername: '',
-        canSendComment: false
-      });
+      this.resetCommentEditor(this.data.commentEditorMode || 'normal');
       
       // 隐藏键盘
       wx.hideKeyboard();
@@ -1796,18 +2344,28 @@ Page({
         return;
       }
 
+      const isRecommendAnswer = this.data.commentEditorMode === 'recommend_answer';
       const content = this.data.commentContent.trim();
-      if (!content) {
-        wx.showToast({
-          title: '请输入评论内容',
-          icon: 'none'
-        });
-        return;
-      }
 
-      if (content.length > 200) {
+      if (!isRecommendAnswer) {
+        if (!content) {
+          wx.showToast({
+            title: '请输入评论内容',
+            icon: 'none'
+          });
+          return;
+        }
+
+        if (content.length > 200) {
+          wx.showToast({
+            title: '评论内容不能超过200字',
+            icon: 'none'
+          });
+          return;
+        }
+      } else if (!this.validateRecommendAnswerForm()) {
         wx.showToast({
-          title: '评论内容不能超过200字',
+          title: '请补全规范回答',
           icon: 'none'
         });
         return;
@@ -1820,12 +2378,15 @@ Page({
         });
         
         // 构建请求参数
-        const commentData = {
-          topicId: this.data.productDetail.id || this.data.postId,
-          content: content,
-          replayCommentId: this.data.replyToCommentId || null,
-          replayUserId: this.data.replyToUserId || null
-        };
+        const commentData = isRecommendAnswer
+          ? this.buildRecommendAnswerPayload()
+          : {
+              topicId: this.data.productDetail.id || this.data.postId,
+              content: content,
+              commentType: 'normal',
+              replayCommentId: this.data.replyToCommentId || null,
+              replayUserId: this.data.replyToUserId || null
+            };
         
         console.log('发送评论请求:', commentData);
         
@@ -1839,15 +2400,20 @@ Page({
           this.setData({
             commentContent: '',
             showCommentInput: false,
+            commentEditorMode: 'normal',
             replyTo: null,
             replyToCommentId: null,
             replyToUserId: null,
-            replyToUsername: ''
+            replyToUsername: '',
+            canSendComment: false,
+            recommendAnswerForm: createEmptyRecommendAnswerForm(),
+            recommendAnswerErrors: {}
           });
+          this.refreshRecommendAnswerOptionViews(createEmptyRecommendAnswerForm());
           
           wx.hideLoading();
           wx.showToast({
-            title: '评论发布成功',
+            title: isRecommendAnswer ? '回答发布成功' : '评论发布成功',
             icon: 'success'
           });
           
@@ -1950,10 +2516,13 @@ Page({
       
       this.setData({
         showCommentInput: true,
+        commentEditorMode: 'normal',
         replyToCommentId: commentId,
         replyToUserId: userId,
         replyToUsername: username,
-        replyTo: { id: commentId, username: username }
+        replyTo: { id: commentId, username: username },
+        recommendAnswerErrors: {},
+        canSendComment: Boolean(this.data.commentContent && this.data.commentContent.trim().length > 0)
       });
     },
 
@@ -1963,6 +2532,7 @@ Page({
       if (comment) {
         this.setData({
           showCommentInput: true,
+          commentEditorMode: 'normal',
           replyTo: comment
         });
       }

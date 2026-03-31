@@ -1,9 +1,10 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../../common/database.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
+import { AcceptRecommendAnswerDto } from './dto/accept-recommend-answer.dto';
 import { ModerationService } from '../moderation/moderation.service';
 import { MessageService } from '../message/message.service';
 
@@ -21,6 +22,7 @@ export class TopicService {
     filters: {
       limit?: string | number;
       topicCategory?: string;
+      questionType?: string;
       gearCategory?: string;
       gearModel?: string;
       gearItemId?: string;
@@ -539,11 +541,111 @@ export class TopicService {
     };
   }
 
+  async acceptRecommendAnswer(userId: number, dto: AcceptRecommendAnswerDto) {
+    const topicResult = await this.databaseService.query(
+      `
+      SELECT id, title, status, "isDelete", "userId", extra
+      FROM bz_mini_topic
+      WHERE id = $1
+      LIMIT 1
+      `,
+      [dto.topicId],
+    );
+
+    if (!topicResult.rows.length || Number(topicResult.rows[0].isDelete || 0) === 1) {
+      throw new NotFoundException('topic not found');
+    }
+
+    const topicRow = topicResult.rows[0];
+    if (Number(topicRow.status || 0) !== 2) {
+      throw new ForbiddenException('当前帖子未发布，暂不支持采纳');
+    }
+
+    if (Number(topicRow.userId || 0) !== Number(userId)) {
+      throw new ForbiddenException('只有楼主可以采纳主回答');
+    }
+
+    const topicExtra = this.normalizeTopicExtra(topicRow.extra);
+    if (this.normalizeText(topicExtra.questionType) !== 'recommend') {
+      throw new ForbiddenException('当前帖子不是求推荐帖，暂不支持采纳');
+    }
+
+    const acceptedAnswerId = Number(topicExtra.acceptedAnswerId || 0);
+    if (acceptedAnswerId && acceptedAnswerId !== Number(dto.commentId)) {
+      throw new ForbiddenException('当前帖子已采纳主回答，第一版暂不支持改采纳');
+    }
+
+    const commentResult = await this.databaseService.query(
+      `
+      SELECT id, "topicId", "userId", content, "commentType", "recommendAnswerMeta", "isVisible"
+      FROM bz_topic_comment
+      WHERE id = $1
+      LIMIT 1
+      `,
+      [dto.commentId],
+    );
+
+    if (!commentResult.rows.length) {
+      throw new NotFoundException('comment not found');
+    }
+
+    const commentRow = commentResult.rows[0];
+    if (
+      Number(commentRow.topicId || 0) !== Number(dto.topicId) ||
+      Number(commentRow.isVisible || 0) !== 1
+    ) {
+      throw new NotFoundException('comment not found');
+    }
+
+    if (this.normalizeText(commentRow.commentType) !== 'recommend_answer') {
+      throw new ForbiddenException('当前回答不是规范回答，暂不支持采纳');
+    }
+
+    if (acceptedAnswerId === Number(dto.commentId)) {
+      return this.buildAcceptedAnswerResult(dto.topicId, topicExtra, commentRow);
+    }
+
+    const acceptedAt = new Date().toISOString();
+    const nextExtra = {
+      ...topicExtra,
+      acceptedAnswerId: Number(dto.commentId),
+      acceptedAt,
+      acceptedByUserId: Number(userId),
+      acceptStatus: 'accepted',
+    };
+
+    await this.databaseService.query(
+      `
+      UPDATE bz_mini_topic
+      SET
+        extra = $2::jsonb,
+        "updateTime" = NOW()
+      WHERE id = $1
+      `,
+      [dto.topicId, JSON.stringify(nextExtra)],
+    );
+
+    if (Number(commentRow.userId || 0) !== Number(userId)) {
+      await this.messageService.create({
+        userId: Number(commentRow.userId || 0),
+        type: 'recommend_answer_accepted',
+        title: '你的推荐被楼主采纳了',
+        content: `你在《${topicRow.title || '未命名帖子'}》里的回答被楼主采纳。`,
+        targetType: 'comment',
+        targetId: Number(commentRow.id),
+        extra: {
+          topicId: Number(dto.topicId),
+          topicTitle: topicRow.title || '',
+          commentId: Number(commentRow.id),
+        },
+      });
+    }
+
+    return this.buildAcceptedAnswerResult(dto.topicId, nextExtra, commentRow);
+  }
+
   private formatTopic(row: any) {
-    const extra =
-      row.extra && typeof row.extra === 'object' && !Array.isArray(row.extra)
-        ? row.extra
-        : {};
+    const extra = this.normalizeTopicExtra(row.extra);
 
     return {
       id: Number(row.id),
@@ -569,10 +671,39 @@ export class TopicService {
     };
   }
 
+  private normalizeTopicExtra(value: any) {
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  }
+
+  private buildAcceptedAnswerResult(topicId: number, topicExtra: Record<string, any>, commentRow: any) {
+    return {
+      topicId: Number(topicId),
+      acceptedAnswer: {
+        id: Number(commentRow.id),
+        userId: Number(commentRow.userId || 0),
+        content: commentRow.content || '',
+        commentType: commentRow.commentType || 'normal',
+        recommendAnswerMeta:
+          commentRow.recommendAnswerMeta &&
+          typeof commentRow.recommendAnswerMeta === 'object' &&
+          !Array.isArray(commentRow.recommendAnswerMeta)
+            ? commentRow.recommendAnswerMeta
+            : {},
+      },
+      topicStatus: {
+        acceptedAnswerId: Number(topicExtra.acceptedAnswerId || 0),
+        acceptedAt: topicExtra.acceptedAt || '',
+        acceptedByUserId: Number(topicExtra.acceptedByUserId || 0),
+        acceptStatus: this.normalizeText(topicExtra.acceptStatus) || 'none',
+      },
+    };
+  }
+
   private matchesTopicFilters(
     topic: any,
     filters: {
       topicCategory?: string;
+      questionType?: string;
       gearCategory?: string;
       gearModel?: string;
       gearItemId?: string;
@@ -583,6 +714,15 @@ export class TopicService {
       filters.topicCategory !== null &&
       filters.topicCategory !== '' &&
       String(topic.topicCategory) !== String(filters.topicCategory)
+    ) {
+      return false;
+    }
+
+    if (
+      filters.questionType !== undefined &&
+      filters.questionType !== null &&
+      filters.questionType !== '' &&
+      this.normalizeText(topic.questionType) !== this.normalizeText(filters.questionType)
     ) {
       return false;
     }

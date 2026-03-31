@@ -13,6 +13,18 @@ function resolveLoginErrorMessage(error) {
     return '账号已被禁用';
   }
 
+  if (normalized === 'verification code expired') {
+    return '验证码已过期，请重新获取';
+  }
+
+  if (normalized === 'verification code invalid') {
+    return '验证码错误，请重新输入';
+  }
+
+  if (normalized === 'verification code not found') {
+    return '请先获取验证码';
+  }
+
   return rawMessage || '登录失败，请重试';
 }
 

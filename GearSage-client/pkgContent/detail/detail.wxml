@@ -368,6 +368,7 @@
           <view class="topic-header-stack">
             <text class="topic-chip topic-chip--dark">{{productDetail.questionTypeLabel || '讨论&提问'}}</text>
             <text class="topic-chip" wx:if="{{productDetail.quickReplyOnly}}">快速回答</text>
+            <text class="topic-chip topic-chip--accept" wx:if="{{productDetail.isRecommendQuestion}}">{{productDetail.acceptStatusLabel}}</text>
           </view>
           <view class="topic-title">{{productDetail.title}}</view>
           <view class="topic-author-card topic-author-card--mini">
@@ -387,8 +388,51 @@
           </view>
         </view>
 
+        <block wx:if="{{productDetail.isRecommendQuestion}}">
+          <view class="topic-section-card">
+            <view class="topic-section-title">楼主当前情况</view>
+            <view class="topic-info-grid">
+              <view class="topic-info-item" wx:for="{{productDetail.recommendSummaryFacts}}" wx:key="label">
+                <text class="topic-info-label">{{item.label}}</text>
+                <text class="topic-info-value">{{item.value}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendIntentLabel}}">
+                <text class="topic-info-label">求推荐意图</text>
+                <text class="topic-info-value">{{productDetail.recommendIntentLabel}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.budgetFlexibleLabel}}">
+                <text class="topic-info-label">预算弹性</text>
+                <text class="topic-info-value">{{productDetail.budgetFlexibleLabel}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendCurrentGear}}">
+                <text class="topic-info-label">已有装备</text>
+                <text class="topic-info-value">{{productDetail.recommendCurrentGear}}</text>
+              </view>
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendCandidateOptionsText}}">
+                <text class="topic-info-label">候选项</text>
+                <text class="topic-info-value">{{productDetail.recommendCandidateOptionsText}}</text>
+              </view>
+            </view>
+            <view class="topic-chip-row" wx:if="{{productDetail.recommendCarePriorityItems.length}}">
+              <block wx:for="{{productDetail.recommendCarePriorityItems}}" wx:key="index">
+                <text class="topic-chip">在意 · {{item}}</text>
+              </block>
+            </view>
+            <view class="topic-chip-row" wx:if="{{productDetail.recommendAvoidPointItems.length}}">
+              <block wx:for="{{productDetail.recommendAvoidPointItems}}" wx:key="index">
+                <text class="topic-chip">避开 · {{item}}</text>
+              </block>
+            </view>
+          </view>
+
+          <view class="topic-section-card" wx:if="{{productDetail.recommendCoreQuestion}}">
+            <view class="topic-section-title">楼主最纠结的是</view>
+            <view class="topic-summary-card">{{productDetail.recommendCoreQuestion}}</view>
+          </view>
+        </block>
+
         <view class="topic-section-card" wx:if="{{formattedContent}}">
-          <view class="topic-section-title">正文</view>
+          <view class="topic-section-title">{{productDetail.isRecommendQuestion ? '补充说明' : '正文'}}</view>
           <view class="topic-richtext">
             <rich-text nodes="{{formattedContent}}"></rich-text>
           </view>
@@ -512,11 +556,239 @@
     </view>
 
     <view class="comments-section">
-      <view class="section-title">评论（{{totalCommentCount || 0}}）</view>
+      <view class="section-title">{{productDetail.isRecommendQuestion ? '回应' : '评论'}}（{{totalCommentCount || 0}}）</view>
       <view class="comment-disabled-note" wx:if="{{!productDetail.canComment}}">
         {{productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论'}}
       </view>
-      <view class="comments-list" wx:if="{{comments && comments.length > 0}}">
+      <block wx:if="{{productDetail.isRecommendQuestion}}">
+        <view class="comment-subsection" wx:if="{{acceptedRecommendAnswer}}">
+          <view class="comment-subsection__title">已采纳回答</view>
+          <view class="comments-list">
+            <view class="comment-item comment-item--accepted">
+              <view style="display: flex;">
+                <image class="comment-avatar" src="{{acceptedRecommendAnswer.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <view class="comment-content">
+                  <view class="comment-user-row">
+                    <view class="comment-user">{{acceptedRecommendAnswer.username}}</view>
+                    <user-tag wx:if="{{acceptedRecommendAnswer.displayTag}}" class="comment-user-tag" displayTag="{{acceptedRecommendAnswer.displayTag}}" size="xs"></user-tag>
+                  </view>
+                  <view class="answer-template-card answer-template-card--accepted" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay}}">
+                    <view class="answer-template-badge-row">
+                      <text class="answer-template-badge">已采纳</text>
+                      <text class="answer-template-badge-meta" wx:if="{{acceptedRecommendAnswer.acceptedAtFormatted}}">{{acceptedRecommendAnswer.acceptedAtFormatted}} 采纳</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.answerConclusionLabel}}">
+                      <text class="answer-template-label">我的结论</text>
+                      <text class="answer-template-value answer-template-value--strong">{{acceptedRecommendAnswer.recommendAnswerDisplay.answerConclusionLabel}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.recommendedOptionText}}">
+                      <text class="answer-template-label">推荐方向</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.recommendedOptionText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.answerBasisLabel || acceptedRecommendAnswer.recommendAnswerDisplay.mySceneText}}">
+                      <text class="answer-template-label">我的参考背景</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.answerBasisLabel}}<text wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.mySceneText}}">，常钓 {{acceptedRecommendAnswer.recommendAnswerDisplay.mySceneText}}</text></text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.fitReasonsText}}">
+                      <text class="answer-template-label">为什么这么建议</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.fitReasonsText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.freeReasonText}}">
+                      <text class="answer-template-label">补充判断</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.freeReasonText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.notRecommendReasonsText}}">
+                      <text class="answer-template-label">不优先推荐另一条路的原因</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.notRecommendReasonsText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.riskNote}}">
+                      <text class="answer-template-label">要注意的风险</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.riskNote}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.budgetChangeAdviceLabel}}">
+                      <text class="answer-template-label">预算变化时我会怎么改</text>
+                      <text class="answer-template-value">{{acceptedRecommendAnswer.recommendAnswerDisplay.budgetChangeAdviceLabel}}</text>
+                    </view>
+                  </view>
+                  <view class="comment-footer">
+                    <view class="comment-time">{{acceptedRecommendAnswer.createTimeFormatted}}</view>
+                    <view class="comment-action-group">
+                      <view class="comment-like-btn {{acceptedRecommendAnswer.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{acceptedRecommendAnswer.id}}">
+                        <text>{{acceptedRecommendAnswer.isLiked ? '已赞' : '赞'}}</text>
+                        <text wx:if="{{(acceptedRecommendAnswer.likeCount || 0) > 0}}"> {{acceptedRecommendAnswer.likeCount}}</text>
+                      </view>
+                      <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{acceptedRecommendAnswer.id}}" data-user-id="{{acceptedRecommendAnswer.userId}}" data-username="{{acceptedRecommendAnswer.username}}">追问</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+              <view class="replies-list" wx:if="{{acceptedRecommendAnswer.replies && acceptedRecommendAnswer.replies.length > 0}}">
+                <view class="reply-item" wx:for="{{acceptedRecommendAnswer.replies}}" wx:for-item="reply" wx:key="id">
+                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                  <view class="reply-content">
+                    <view class="reply-user-row">
+                      <view class="reply-user">{{reply.username}}</view>
+                      <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
+                    </view>
+                    <view class="reply-text">{{reply.content}}</view>
+                    <view class="reply-footer">
+                      <view class="reply-time">{{reply.createTimeFormatted}}</view>
+                      <view class="comment-action-group">
+                        <view class="comment-like-btn {{reply.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{reply.id}}">
+                          <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
+                          <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="comment-accepted-note">楼主已采纳一条回答，仍可继续补充建议。</view>
+        </view>
+
+        <view class="comment-subsection" wx:if="{{recommendAnswers && recommendAnswers.length > 0}}">
+          <view class="comment-subsection__title">规范回答（{{recommendAnswers.length}}）</view>
+          <view class="comments-list">
+            <view class="comment-item" wx:for="{{recommendAnswers}}" wx:key="id">
+              <view style="display: flex;">
+                <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <view class="comment-content">
+                  <view class="comment-user-row">
+                    <view class="comment-user">{{item.username}}</view>
+                    <user-tag wx:if="{{item.displayTag}}" class="comment-user-tag" displayTag="{{item.displayTag}}" size="xs"></user-tag>
+                  </view>
+                  <view class="answer-template-card" wx:if="{{item.recommendAnswerDisplay}}">
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.answerConclusionLabel}}">
+                      <text class="answer-template-label">我的结论</text>
+                      <text class="answer-template-value answer-template-value--strong">{{item.recommendAnswerDisplay.answerConclusionLabel}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.recommendedOptionText}}">
+                      <text class="answer-template-label">推荐方向</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.recommendedOptionText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.answerBasisLabel || item.recommendAnswerDisplay.mySceneText}}">
+                      <text class="answer-template-label">我的参考背景</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.answerBasisLabel}}<text wx:if="{{item.recommendAnswerDisplay.mySceneText}}">，常钓 {{item.recommendAnswerDisplay.mySceneText}}</text></text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.fitReasonsText}}">
+                      <text class="answer-template-label">为什么这么建议</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.fitReasonsText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.freeReasonText}}">
+                      <text class="answer-template-label">补充判断</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.freeReasonText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.notRecommendReasonsText}}">
+                      <text class="answer-template-label">不优先推荐另一条路的原因</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.notRecommendReasonsText}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.riskNote}}">
+                      <text class="answer-template-label">要注意的风险</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.riskNote}}</text>
+                    </view>
+                    <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.budgetChangeAdviceLabel}}">
+                      <text class="answer-template-label">预算变化时我会怎么改</text>
+                      <text class="answer-template-value">{{item.recommendAnswerDisplay.budgetChangeAdviceLabel}}</text>
+                    </view>
+                  </view>
+                  <view class="comment-footer">
+                    <view class="comment-time">{{item.createTimeFormatted}}</view>
+                    <view class="comment-action-group">
+                      <view class="comment-like-btn {{item.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{item.id}}">
+                        <text>{{item.isLiked ? '已赞' : '赞'}}</text>
+                        <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
+                      </view>
+                      <view class="comment-accept-btn comment-accept-btn--primary" wx:if="{{!productDetail.hasAcceptedAnswer && isTopicOwner}}" bindtap="onAcceptRecommendAnswer" data-comment-id="{{item.id}}">采纳回答</view>
+                      <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">追问</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+              <view class="replies-list" wx:if="{{item.replies && item.replies.length > 0}}">
+                <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="id">
+                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                  <view class="reply-content">
+                    <view class="reply-user-row">
+                      <view class="reply-user">{{reply.username}}</view>
+                      <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
+                    </view>
+                    <view class="reply-text">{{reply.content}}</view>
+                    <view class="reply-footer">
+                      <view class="reply-time">{{reply.createTimeFormatted}}</view>
+                      <view class="comment-action-group">
+                        <view class="comment-like-btn {{reply.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{reply.id}}">
+                          <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
+                          <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="comment-subsection" wx:if="{{normalComments && normalComments.length > 0}}">
+          <view class="comment-subsection__title">补充评论（{{normalComments.length}}）</view>
+          <view class="comments-list">
+            <view class="comment-item" wx:for="{{normalComments}}" wx:key="id">
+              <view style="display: flex;">
+                <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <view class="comment-content">
+                  <view class="comment-user-row">
+                    <view class="comment-user">{{item.username}}</view>
+                    <user-tag wx:if="{{item.displayTag}}" class="comment-user-tag" displayTag="{{item.displayTag}}" size="xs"></user-tag>
+                  </view>
+                  <view class="comment-text">{{item.content}}</view>
+                  <view class="comment-footer">
+                    <view class="comment-time">{{item.createTimeFormatted}}</view>
+                    <view class="comment-action-group">
+                      <view class="comment-like-btn {{item.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{item.id}}">
+                        <text>{{item.isLiked ? '已赞' : '赞'}}</text>
+                        <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
+                      </view>
+                      <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+              <view class="replies-list" wx:if="{{item.replies && item.replies.length > 0}}">
+                <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="id">
+                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                  <view class="reply-content">
+                    <view class="reply-user-row">
+                      <view class="reply-user">{{reply.username}}</view>
+                      <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
+                    </view>
+                    <view class="reply-text">{{reply.content}}</view>
+                    <view class="reply-footer">
+                      <view class="reply-time">{{reply.createTimeFormatted}}</view>
+                      <view class="comment-action-group">
+                        <view class="comment-like-btn {{reply.isLiked ? 'comment-like-btn--active' : ''}}" bindtap="onLikeComment" data-comment-id="{{reply.id}}">
+                          <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
+                          <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="empty-comments" wx:if="{{!acceptedRecommendAnswer && (!recommendAnswers || recommendAnswers.length === 0) && (!normalComments || normalComments.length === 0)}}">
+          <text>还没有回应，来写第一条规范推荐吧</text>
+        </view>
+      </block>
+
+      <view class="comments-list" wx:elif="{{comments && comments.length > 0}}">
         <view class="comment-item" wx:for="{{comments}}" wx:key="index">
           <view style="display: flex;">
             <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
@@ -571,20 +843,106 @@
 
 <view class="comment-mask" wx:if="{{showCommentInput && !notFound}}" bindtap="onHideCommentInput"></view>
 
-<view class="bottom-bar {{containerClass}} {{showCommentInput ? 'bottom-bar--editing' : ''}}" wx:if="{{!notFound}}">
-  <view class="comment-input-container {{!productDetail.canComment ? 'comment-input-container--disabled' : ''}}" wx:if="{{!showCommentInput}}">
-    <input class="comment-input" placeholder="{{productDetail.canComment ? (replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…') : (productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论')}}" bindtap="onShowCommentInput" disabled="{{true}}" />
-  </view>
-
-  <view class="comment-input-expanded" wx:if="{{showCommentInput}}">
-    <view class="comment-input-wrapper">
-      <textarea class="comment-textarea" placeholder="{{replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…'}}" value="{{commentContent}}" bindinput="onCommentInput" maxlength="200" auto-focus="{{true}}" />
-      <view class="comment-actions"></view>
+<view class="bottom-bar {{containerClass}} {{showCommentInput ? 'bottom-bar--editing' : ''}} {{showCommentInput ? 'bottom-bar--editor-mode' : ''}} {{showCommentInput && commentEditorMode === 'recommend_answer' ? 'bottom-bar--answer-mode' : ''}}" wx:if="{{!notFound}}">
+  <view class="answer-entry-group" wx:if="{{!showCommentInput && productDetail.isRecommendQuestion}}">
+    <view class="comment-entry-btn comment-entry-btn--primary {{!productDetail.canComment ? 'comment-entry-btn--disabled' : ''}}" bindtap="onShowRecommendAnswerInput">
+      写规范推荐
+    </view>
+    <view class="comment-entry-btn {{!productDetail.canComment ? 'comment-entry-btn--disabled' : ''}}" bindtap="onShowCommentInput">
+      补充评论
     </view>
   </view>
 
-  <view class="comment-send-btn" wx:if="{{showCommentInput}}">
-    <button class="send-btn" bindtap="onPublishComment" disabled="{{!canSendComment}}">发送</button>
+  <view class="comment-input-container {{!productDetail.canComment ? 'comment-input-container--disabled' : ''}}" wx:if="{{!showCommentInput && !productDetail.isRecommendQuestion}}">
+    <input class="comment-input" placeholder="{{productDetail.canComment ? (replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…') : (productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论')}}" bindtap="onShowCommentInput" disabled="{{true}}" />
+  </view>
+
+  <view class="comment-editor-panel" wx:if="{{showCommentInput && commentEditorMode === 'normal'}}">
+    <view class="comment-input-expanded">
+      <view class="comment-input-wrapper">
+        <textarea class="comment-textarea comment-textarea--editor" placeholder="{{replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…'}}" value="{{commentContent}}" bindinput="onCommentInput" maxlength="200" auto-focus="{{true}}" />
+        <view class="comment-actions"></view>
+      </view>
+    </view>
+    <view class="comment-send-btn comment-send-btn--editor-mode">
+      <button class="send-btn send-btn--editor-mode" bindtap="onPublishComment" disabled="{{!canSendComment}}">发送</button>
+    </view>
+  </view>
+
+  <view class="recommend-answer-panel" wx:if="{{showCommentInput && commentEditorMode === 'recommend_answer'}}">
+    <view class="comment-input-expanded">
+      <scroll-view scroll-y class="recommend-answer-editor">
+        <view class="recommend-answer-editor__title">规范回答</view>
+        <view class="recommend-answer-editor__desc">先给结论，再把理由和边界说清楚。</view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">我的结论</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerConclusionOptions}}" wx:key="id" class="recommend-answer-chip {{recommendAnswerForm.answerConclusion === item.id ? 'active' : ''}}" data-field="answerConclusion" data-value="{{item.id}}" bindtap="onRecommendAnswerSingleSelect">{{item.label}}</view>
+          </view>
+          <view class="recommend-answer-error" wx:if="{{recommendAnswerErrors.answerConclusion}}">{{recommendAnswerErrors.answerConclusion}}</view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">推荐方向 / 候选项</view>
+          <input wx:for="{{[0,1,2]}}" wx:key="index" class="recommend-answer-input" data-index="{{item}}" value="{{recommendAnswerForm.recommendedOption[item]}}" maxlength="40" placeholder="可写型号、方向或备选方案" bindinput="onRecommendOptionInput" />
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">我的参考背景</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerBasisOptions}}" wx:key="id" class="recommend-answer-chip {{recommendAnswerForm.answerBasis === item.id ? 'active' : ''}}" data-field="answerBasis" data-value="{{item.id}}" bindtap="onRecommendAnswerSingleSelect">{{item.label}}</view>
+          </view>
+          <view class="recommend-answer-error" wx:if="{{recommendAnswerErrors.answerBasis}}">{{recommendAnswerErrors.answerBasis}}</view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">我的常用场景</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerMySceneOptions}}" wx:key="id" class="recommend-answer-chip {{item.selected ? 'active' : ''}}" data-field="myScene" data-value="{{item.id}}" data-max="2" bindtap="onRecommendAnswerMultiSelect">{{item.label}}</view>
+          </view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">为什么适合楼主</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerFitReasonOptions}}" wx:key="id" class="recommend-answer-chip {{item.selected ? 'active' : ''}}" data-field="fitReasons" data-value="{{item.id}}" data-max="3" bindtap="onRecommendAnswerMultiSelect">{{item.label}}</view>
+          </view>
+          <view class="recommend-answer-error" wx:if="{{recommendAnswerErrors.fitReasons}}">{{recommendAnswerErrors.fitReasons}}</view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">一句补充判断</view>
+          <textarea class="recommend-answer-textarea" data-field="freeReasonText" value="{{recommendAnswerForm.freeReasonText}}" maxlength="120" placeholder="比如：你现在不是差那点顺滑，反而更需要容错。" bindinput="onRecommendAnswerInput"></textarea>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">不优先推荐另一条路的原因</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerNotRecommendOptions}}" wx:key="id" class="recommend-answer-chip {{item.selected ? 'active' : ''}}" data-field="notRecommendReasons" data-value="{{item.id}}" data-max="2" bindtap="onRecommendAnswerMultiSelect">{{item.label}}</view>
+          </view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">风险提醒</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerRiskOptions}}" wx:key="id" class="recommend-answer-chip {{recommendAnswerForm.riskNotePreset === item.id ? 'active' : ''}}" data-field="riskNotePreset" data-value="{{item.id}}" bindtap="onRecommendAnswerSingleSelect">{{item.label}}</view>
+          </view>
+          <textarea class="recommend-answer-textarea recommend-answer-textarea--sm" data-field="riskNoteText" value="{{recommendAnswerForm.riskNoteText}}" maxlength="100" placeholder="可补一句更具体的提醒" bindinput="onRecommendAnswerInput"></textarea>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">预算变化时我会怎么改</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendAnswerBudgetChangeOptions}}" wx:key="id" class="recommend-answer-chip {{recommendAnswerForm.budgetChangeAdvice === item.id ? 'active' : ''}}" data-field="budgetChangeAdvice" data-value="{{item.id}}" bindtap="onRecommendAnswerSingleSelect">{{item.label}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="comment-send-btn comment-send-btn--editor-mode comment-send-btn--answer-mode">
+      <button class="send-btn send-btn--editor-mode send-btn--answer-mode" bindtap="onPublishComment" disabled="{{!canSendComment}}">发送</button>
+    </view>
   </view>
 
   <view class="right-buttons" wx:if="{{!showCommentInput}}">

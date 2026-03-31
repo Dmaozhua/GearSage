@@ -24,6 +24,7 @@ const GEAR_CATEGORY_LABELS = {
   bait: '鱼饵',
   line: '鱼线',
   hook: '鱼钩',
+  combo: '整套搭配',
   other: '其他'
 };
 
@@ -64,6 +65,93 @@ const QUESTION_TYPE_LABELS = {
   recommend: '求推荐',
   avoid_pitfall: '求避坑',
   chat_with_photos: '晒图闲聊'
+};
+
+const RECOMMEND_INTENT_LABELS = {
+  first_set: '第一套入门',
+  strengthen_existing: '现有装备补强',
+  replace_old: '老装备替换',
+  upgrade: '想升级进阶',
+  compare_options: '二选一 / 三选一',
+  full_combo: '整套求配'
+};
+
+const BUDGET_RANGE_LABELS = {
+  under_300: '300 以内',
+  '300_500': '300~500',
+  '500_800': '500~800',
+  '800_1200': '800~1200',
+  '1200_1800': '1200~1800',
+  '1800_2500': '1800~2500',
+  '2500_4000': '2500~4000',
+  '4000_plus': '4000+'
+};
+
+const BUDGET_FLEXIBLE_LABELS = {
+  hard_limit: '预算基本卡死',
+  slightly_flexible: '可上浮一点',
+  accept_used: '可接受二手',
+  new_only: '只看全新'
+};
+
+const TARGET_FISH_LABELS = {
+  largemouth_bass: '鲈鱼',
+  topmouth_culter: '翘嘴',
+  mandarin_fish: '鳜鱼',
+  snakehead: '黑鱼',
+  stream_small_fish: '马口 / 溪流小型鱼',
+  seabass: '海鲈',
+  all_round: '综合泛用',
+  other: '其他'
+};
+
+const USE_SCENE_LABELS = {
+  wild_river: '野河',
+  reservoir: '水库',
+  stream: '溪流',
+  inshore: '近海',
+  urban_river: '城市河道',
+  managed_water: '黑坑 / 管理场',
+  mixed: '综合不固定'
+};
+
+const CARE_PRIORITY_LABELS = {
+  value_for_money: '性价比',
+  versatile: '泛用',
+  lightweight: '轻量',
+  long_cast: '远投',
+  smooth: '顺滑',
+  durable: '耐用',
+  beginner_friendly: '新手友好',
+  fish_control: '控鱼 / 腰力',
+  sensitive: '细腻手感',
+  appearance: '做工颜值',
+  resale: '保值'
+};
+
+const AVOID_POINT_LABELS = {
+  too_heavy: '不想太重',
+  too_expensive: '不想太贵',
+  too_delicate: '不想太娇气',
+  too_specialized: '不想太专用',
+  hard_to_use: '不想难上手',
+  high_maintenance: '不想后期维护麻烦',
+  picky_line_bait: '不想太挑线 / 挑饵',
+  other: '其他'
+};
+
+const CURRENT_STAGE_LABELS = {
+  beginner_no_gear: '刚入门，基本没有装备',
+  one_set_fill_gap: '已有一套，想补一个空位',
+  multi_set_upgrade: '已有多套，想升级一项',
+  replace_old: '旧装备用久了想替换'
+};
+
+const RECOMMEND_USAGE_FREQUENCY_LABELS = {
+  essential: '出钓必备 / 高频使用',
+  weekly_once: '每周一次左右',
+  monthly_several: '每月几次',
+  occasional: '偶尔玩玩'
 };
 
 const TOPIC_STATUS_LABELS = {
@@ -168,6 +256,36 @@ function normalizeTopicTags(tags = {}) {
   };
 }
 
+function normalizeRecommendMeta(value = {}) {
+  const source = value && typeof value === 'object' ? value : {};
+  const candidateOptions = Array.isArray(source.candidateOptions)
+    ? source.candidateOptions
+        .map((item) => {
+          if (item && typeof item === 'object' && !Array.isArray(item)) {
+            return String(item.label || '').trim();
+          }
+          return String(item || '').trim();
+        })
+        .filter(Boolean)
+        .slice(0, 3)
+    : [];
+
+  return {
+    recommendIntent: normalizeString(source.recommendIntent, ''),
+    budgetRange: normalizeString(source.budgetRange, ''),
+    budgetFlexible: normalizeString(source.budgetFlexible, ''),
+    targetFish: normalizeStringList(source.targetFish).slice(0, 3),
+    useScene: normalizeStringList(source.useScene).slice(0, 2),
+    carePriorities: normalizeStringList(source.carePriorities).slice(0, 3),
+    avoidPoints: normalizeStringList(source.avoidPoints).slice(0, 3),
+    currentStage: normalizeString(source.currentStage, ''),
+    currentGear: normalizeString(source.currentGear, ''),
+    candidateOptions,
+    usageFrequency: normalizeString(source.usageFrequency, ''),
+    coreQuestion: normalizeString(source.coreQuestion, '')
+  };
+}
+
 function formatUsageYearLabel(value) {
   return USAGE_YEAR_LABELS[value] || normalizeString(value, '');
 }
@@ -186,6 +304,17 @@ function formatRepurchaseLabel(value) {
 
 function formatQuestionTypeLabel(value) {
   return QUESTION_TYPE_LABELS[value] || normalizeString(value, '');
+}
+
+function mapOptionLabel(value, labelMap = {}) {
+  const text = normalizeString(value, '');
+  return labelMap[text] || text;
+}
+
+function mapOptionList(values = [], labelMap = {}) {
+  return normalizeStringList(values)
+    .map((item) => mapOptionLabel(item, labelMap))
+    .filter(Boolean);
 }
 
 function formatTopicStatusLabel(value) {
@@ -482,6 +611,27 @@ function buildTopicDetailView(postData = {}, options = {}) {
   if (customTargetFish) {
     targetFish.push(customTargetFish);
   }
+  const recommendMeta = normalizeRecommendMeta(postData.recommendMeta);
+  const recommendTargetFishItems = mapOptionList(recommendMeta.targetFish, TARGET_FISH_LABELS);
+  const recommendUseSceneItems = mapOptionList(recommendMeta.useScene, USE_SCENE_LABELS);
+  const recommendCarePriorityItems = mapOptionList(recommendMeta.carePriorities, CARE_PRIORITY_LABELS);
+  const recommendAvoidPointItems = mapOptionList(recommendMeta.avoidPoints, AVOID_POINT_LABELS);
+  const isRecommendQuestion = topicCategory === TOPIC_CATEGORY.QUESTION && postData.questionType === 'recommend';
+  const acceptedAnswerId = normalizeOptionalNumber(postData.acceptedAnswerId);
+  const acceptedByUserId = normalizeOptionalNumber(postData.acceptedByUserId);
+  const acceptedAt = normalizeString(postData.acceptedAt, '');
+  const acceptStatus = normalizeString(postData.acceptStatus, '');
+  const hasAcceptedAnswer = isRecommendQuestion && Boolean(acceptedAnswerId);
+  const recommendSummaryFacts = isRecommendQuestion
+    ? [
+        buildFact('装备类型', getGearCategoryLabel(postData.relatedGearCategory)),
+        buildFact('预算', mapOptionLabel(recommendMeta.budgetRange, BUDGET_RANGE_LABELS)),
+        buildFact('对象鱼', recommendTargetFishItems.join('、')),
+        buildFact('使用场景', recommendUseSceneItems.join('、')),
+        buildFact('当前阶段', mapOptionLabel(recommendMeta.currentStage, CURRENT_STAGE_LABELS)),
+        buildFact('使用频率', mapOptionLabel(recommendMeta.usageFrequency, RECOMMEND_USAGE_FREQUENCY_LABELS))
+      ].filter(Boolean)
+    : [];
   const environments = mappedEnvironments;
   const pros = normalizeStringList(postData.pros);
   const cons = normalizeStringList(postData.cons);
@@ -498,6 +648,7 @@ function buildTopicDetailView(postData = {}, options = {}) {
     formattedContent: parsedContent.html,
     productDetail: {
       id: postData.id || postData._id || 'preview',
+      userId: normalizeOptionalNumber(postData.userId),
       topicCategory,
       topicCategoryLabel: getTopicCategoryLabel(topicCategory),
       name: postData.title || '无标题',
@@ -576,6 +727,34 @@ function buildTopicDetailView(postData = {}, options = {}) {
       relatedGearModel: postData.relatedGearModel,
       relatedGearItemId: normalizeOptionalNumber(postData.relatedGearItemId),
       quickReplyOnly: Boolean(postData.quickReplyOnly),
+      isRecommendQuestion,
+      acceptedAnswerId,
+      acceptedByUserId,
+      acceptedAt,
+      acceptStatus,
+      hasAcceptedAnswer,
+      acceptStatusLabel: isRecommendQuestion
+        ? (hasAcceptedAnswer ? '已采纳 1 条回答' : '等待推荐中')
+        : '',
+      recommendMeta,
+      recommendIntentLabel: mapOptionLabel(recommendMeta.recommendIntent, RECOMMEND_INTENT_LABELS),
+      budgetRangeLabel: mapOptionLabel(recommendMeta.budgetRange, BUDGET_RANGE_LABELS),
+      budgetFlexibleLabel: mapOptionLabel(recommendMeta.budgetFlexible, BUDGET_FLEXIBLE_LABELS),
+      recommendTargetFishItems,
+      recommendTargetFishText: joinDisplay(recommendTargetFishItems),
+      recommendUseSceneItems,
+      recommendUseSceneText: joinDisplay(recommendUseSceneItems),
+      recommendCarePriorityItems,
+      recommendCarePriorityText: joinDisplay(recommendCarePriorityItems),
+      recommendAvoidPointItems,
+      recommendAvoidPointText: joinDisplay(recommendAvoidPointItems),
+      recommendCurrentStageLabel: mapOptionLabel(recommendMeta.currentStage, CURRENT_STAGE_LABELS),
+      recommendCurrentGear: recommendMeta.currentGear,
+      recommendUsageFrequencyLabel: mapOptionLabel(recommendMeta.usageFrequency, RECOMMEND_USAGE_FREQUENCY_LABELS),
+      recommendCandidateOptions: recommendMeta.candidateOptions,
+      recommendCandidateOptionsText: joinDisplay(recommendMeta.candidateOptions),
+      recommendCoreQuestion: recommendMeta.coreQuestion,
+      recommendSummaryFacts,
       locationTag: postData.locationTag,
       locationTagDisplay,
       length: postData.length,

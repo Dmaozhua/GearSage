@@ -20,6 +20,8 @@ export class CommentService {
         c.id,
         c."topicId",
         c.content,
+        c."commentType",
+        c."recommendAnswerMeta",
         c."replyCommentId" AS "replayCommentId",
         c."replyUserId" AS "replayUserId",
         c."userId",
@@ -54,6 +56,13 @@ export class CommentService {
       userName: row.userName || '匿名用户',
       userAvatarUrl: row.userAvatarUrl || '',
       content: row.content || '',
+      commentType: row.commentType || 'normal',
+      recommendAnswerMeta:
+        row.recommendAnswerMeta &&
+        typeof row.recommendAnswerMeta === 'object' &&
+        !Array.isArray(row.recommendAnswerMeta)
+          ? row.recommendAnswerMeta
+          : {},
       createTime: row.createTime,
       replayCommentId: row.replayCommentId ? Number(row.replayCommentId) : null,
       replayUserId: row.replayUserId ? Number(row.replayUserId) : null,
@@ -67,6 +76,7 @@ export class CommentService {
     const topicResult = await this.databaseService.query(
       `
       SELECT id, status, "isDelete", title, "userId"
+      , extra
       FROM bz_mini_topic
       WHERE id = $1
       LIMIT 1
@@ -80,6 +90,26 @@ export class CommentService {
 
     if (Number(topicResult.rows[0].status || 0) !== 2) {
       throw new ForbiddenException('当前帖子未发布，暂不支持评论');
+    }
+
+    const commentType = this.normalizeCommentType(dto.commentType);
+    const recommendAnswerMeta = this.normalizeRecommendAnswerMeta(dto.recommendAnswerMeta);
+    const topicExtra =
+      topicResult.rows[0].extra &&
+      typeof topicResult.rows[0].extra === 'object' &&
+      !Array.isArray(topicResult.rows[0].extra)
+        ? topicResult.rows[0].extra
+        : {};
+    const topicQuestionType = String(topicExtra.questionType || '').trim();
+
+    if (commentType === 'recommend_answer') {
+      if (dto.replayCommentId || dto.replayUserId) {
+        throw new ForbiddenException('规范回答暂不支持作为回复发送');
+      }
+
+      if (topicQuestionType !== 'recommend') {
+        throw new ForbiddenException('当前帖子不是求推荐帖，暂不支持规范回答');
+      }
     }
 
     const decision = await this.moderationService.reviewText(
@@ -107,14 +137,16 @@ export class CommentService {
     const insertResult = await this.databaseService.query(
       `
       INSERT INTO bz_topic_comment
-      ("topicId", content, "replyCommentId", "replyUserId", "userId", status, "isVisible", "createTime", "updateTime")
+      ("topicId", content, "commentType", "recommendAnswerMeta", "replyCommentId", "replyUserId", "userId", status, "isVisible", "createTime", "updateTime")
       VALUES
-      ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW())
+      ($1, $2, $3, $4::jsonb, $5, $6, $7, $8, $9, NOW(), NOW())
       RETURNING id
       `,
       [
         dto.topicId,
         dto.content,
+        commentType,
+        JSON.stringify(recommendAnswerMeta),
         dto.replayCommentId ?? null,
         dto.replayUserId ?? null,
         userId,
@@ -161,6 +193,20 @@ export class CommentService {
     }
 
     return true;
+  }
+
+  private normalizeCommentType(value?: string | null) {
+    const text = String(value || '')
+      .trim()
+      .toLowerCase();
+    return text === 'recommend_answer' ? 'recommend_answer' : 'normal';
+  }
+
+  private normalizeRecommendAnswerMeta(value?: Record<string, any>) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return {};
+    }
+    return value;
   }
 
   async remove(userId: number, commentId: number, isAdmin = false) {

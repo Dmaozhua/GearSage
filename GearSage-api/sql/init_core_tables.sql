@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS bz_topic_comment (
   id BIGSERIAL PRIMARY KEY,
   "topicId" BIGINT NOT NULL,
   content TEXT NOT NULL DEFAULT '',
+  "commentType" VARCHAR(32) NOT NULL DEFAULT 'normal',
+  "recommendAnswerMeta" JSONB NOT NULL DEFAULT '{}'::jsonb,
   "replyCommentId" BIGINT,
   "replyUserId" BIGINT,
   "userId" BIGINT NOT NULL,
@@ -341,7 +343,9 @@ ALTER TABLE bz_mini_topic
   ADD COLUMN IF NOT EXISTS extra JSONB NOT NULL DEFAULT '{}'::jsonb;
 
 ALTER TABLE bz_topic_comment
-  ADD COLUMN IF NOT EXISTS status INT NOT NULL DEFAULT 2;
+  ADD COLUMN IF NOT EXISTS status INT NOT NULL DEFAULT 2,
+  ADD COLUMN IF NOT EXISTS "commentType" VARCHAR(32) NOT NULL DEFAULT 'normal',
+  ADD COLUMN IF NOT EXISTS "recommendAnswerMeta" JSONB NOT NULL DEFAULT '{}'::jsonb;
 
 UPDATE bz_topic_comment
 SET status = CASE WHEN "isVisible" = 1 THEN 2 ELSE 9 END
@@ -366,6 +370,9 @@ ON bz_mini_user (phone);
 
 CREATE INDEX IF NOT EXISTS idx_bz_topic_comment_topic
 ON bz_topic_comment ("topicId", "createTime" DESC);
+
+CREATE INDEX IF NOT EXISTS idx_bz_topic_comment_type
+ON bz_topic_comment ("topicId", "commentType", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_bz_topic_like_topic
 ON bz_topic_like ("topicId");
