@@ -1,0 +1,85 @@
+<custom-navbar
+  title="钓友主页"
+  show-back="{{true}}">
+</custom-navbar>
+
+<view class="user-profile-page {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <view class="page-state" wx:if="{{loading}}">
+    <text class="page-state__text">加载中...</text>
+  </view>
+
+  <view class="page-state" wx:elif="{{notFound}}">
+    <text class="page-state__text">这个主页暂时没找到</text>
+  </view>
+
+  <scroll-view scroll-y class="user-profile-scroll" style="height: calc(100vh - {{navBarHeight}}px);" wx:else>
+    <view class="profile-hero">
+      <image
+        wx:if="{{profile.backgroundImage}}"
+        class="profile-hero__bg"
+        src="{{profile.backgroundImage}}"
+        mode="aspectFill">
+      </image>
+      <view class="profile-hero__fallback" wx:else></view>
+      <view class="profile-hero__mask"></view>
+      <view class="profile-hero__body">
+        <image class="profile-avatar" src="{{profile.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <view class="profile-name">{{profile.nickName}}</view>
+        <view class="profile-tag" wx:if="{{profile.displayTag}}">
+          <user-tag displayTag="{{profile.displayTag}}" size="sm"></user-tag>
+        </view>
+        <view class="profile-bio" wx:if="{{profile.bio}}">{{profile.bio}}</view>
+        <view class="profile-summary" wx:if="{{identitySummary}}">{{identitySummary}}</view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <view class="section-title">最小沉淀</view>
+      <view class="stats-grid">
+        <view class="stat-card" wx:for="{{summaryStats}}" wx:key="key">
+          <text class="stat-value">{{item.value}}</text>
+          <text class="stat-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card" wx:if="{{recentAcceptedAnswers.length}}">
+      <view class="section-title">最近被采纳回答</view>
+      <view
+        class="feed-card"
+        wx:for="{{recentAcceptedAnswers}}"
+        wx:key="commentId"
+        bindtap="onTapTopic"
+        data-topic-id="{{item.topicId}}">
+        <view class="feed-card__meta">
+          <text class="feed-badge feed-badge--warm">被采纳</text>
+          <text class="feed-time">{{item.acceptedAtText}}</text>
+        </view>
+        <view class="feed-title">{{item.topicTitle}}</view>
+        <view class="feed-desc" wx:if="{{item.summaryText}}">{{item.summaryText}}</view>
+      </view>
+    </view>
+
+    <view class="section-card" wx:if="{{recentTopics.length}}">
+      <view class="section-title">最近发布</view>
+      <view
+        class="feed-card"
+        wx:for="{{recentTopics}}"
+        wx:key="id"
+        bindtap="onTapTopic"
+        data-topic-id="{{item.id}}">
+        <view class="feed-card__meta">
+          <text class="feed-badge">{{item.badgeText}}</text>
+          <text class="feed-time">{{item.publishTimeText}}</text>
+        </view>
+        <view class="feed-title">{{item.title}}</view>
+        <view class="feed-desc" wx:if="{{item.topicMetaText}}">{{item.topicMetaText}}</view>
+      </view>
+    </view>
+
+    <view class="section-card section-card--empty" wx:if="{{!recentAcceptedAnswers.length && !recentTopics.length}}">
+      <view class="section-title">还在积累中</view>
+      <view class="empty-text">这个钓友还没有公开沉淀太多内容，后面可以再回来看看。</view>
+    </view>
+  </scroll-view>
+</view>

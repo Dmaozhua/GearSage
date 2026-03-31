@@ -836,6 +836,57 @@ Page({
       return '';
     },
 
+    buildAuthorStatsText(stats = {}, options = {}) {
+      const acceptedAnswerCount = Number(stats.acceptedAnswerCount || 0);
+      const recommendAnswerCount = Number(stats.recommendAnswerCount || 0);
+      const longReviewCount = Number(stats.longReviewCount || 0);
+      const likeReceivedCount = Number(stats.likeReceivedCount || 0);
+      const mode = this.normalizeString(options.mode, 'default');
+      const pieces = [];
+
+      if (mode === 'answer') {
+        if (recommendAnswerCount > 0 || acceptedAnswerCount > 0) {
+          pieces.push(`回答 ${recommendAnswerCount}`);
+          if (acceptedAnswerCount > 0) {
+            pieces.push(`被采纳 ${acceptedAnswerCount}`);
+          }
+        } else if (longReviewCount > 0) {
+          pieces.push(`长测评 ${longReviewCount}`);
+        }
+      } else {
+        if (acceptedAnswerCount > 0) {
+          pieces.push(`被采纳 ${acceptedAnswerCount}`);
+        }
+        if (likeReceivedCount > 0) {
+          pieces.push(`获赞 ${likeReceivedCount}`);
+        }
+        if (longReviewCount > 0) {
+          pieces.push(`长测评 ${longReviewCount}`);
+        }
+      }
+
+      return pieces.join(' · ');
+    },
+
+    navigateToUserProfileById(rawUserId) {
+      const targetUserId = Number(rawUserId || 0);
+      if (!targetUserId) {
+        return;
+      }
+
+      const currentUserId = Number(this.getCurrentUserId() || 0);
+      if (currentUserId && currentUserId === targetUserId) {
+        wx.switchTab({
+          url: '/pages/profile/profile'
+        });
+        return;
+      }
+
+      wx.navigateTo({
+        url: `/pkgContent/user-profile/user-profile?id=${targetUserId}`
+      });
+    },
+
     onTapTopicGear(e) {
       const gearId = Number(e.currentTarget.dataset.gearId || 0);
       const gearCategory = this.normalizeString(e.currentTarget.dataset.gearCategory, '');
@@ -849,6 +900,16 @@ Page({
       wx.navigateTo({
         url: `/pkgGear/pages/detail/detail?id=${gearId || ''}&type=${gearType}&gearModel=${encodedGearModel}&from=topic&postId=${this.data.postId}`
       });
+    },
+
+    onTapTopicAuthor(e) {
+      const userId = Number(e.currentTarget.dataset.userId || 0);
+      this.navigateToUserProfileById(userId);
+    },
+
+    onTapCommentAuthor(e) {
+      const userId = Number(e.currentTarget.dataset.userId || 0);
+      this.navigateToUserProfileById(userId);
     },
 
     formatCatchMeasure(label, value, isSecret, isEstimated, unit) {
@@ -1095,6 +1156,11 @@ Page({
             nextProductDetail.islike = nextCachedStatus;
             nextProductDetail.isLiked = nextCachedStatus;
           }
+
+          nextProductDetail.authorStatsText = this.buildAuthorStatsText(
+            nextProductDetail.authorStats,
+            { mode: 'topic' }
+          );
 
           this.setData({
             productDetail: nextProductDetail,
@@ -1426,6 +1492,10 @@ Page({
         userId: comment.userId,
         userAvatar: comment.userAvatarUrl || '/images/default-avatar.png',
         displayTag: comment.displayTag || null,
+        authorStats: comment.authorStats || null,
+        authorIdentityText: this.buildAuthorStatsText(comment.authorStats, {
+          mode: comment.commentType === 'recommend_answer' ? 'answer' : 'default'
+        }),
         tagName: comment.displayTag ? comment.displayTag.name : (comment.tagName || ''),
         tagRarityLevel: comment.displayTag ? comment.displayTag.rarityLevel : (comment.tagRarityLevel || 0),
         username: comment.userName || '匿名用户',

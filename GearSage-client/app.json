@@ -19,6 +19,7 @@
         "my-tags/my-tags",
         "tag-manager/tag-manager",
         "edit-profile/edit-profile",
+        "user-profile/user-profile",
         "publish/publish",
         "my-publish/my-publish",
         "search/search",

@@ -7,6 +7,7 @@ import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
 import { AcceptRecommendAnswerDto } from './dto/accept-recommend-answer.dto';
 import { ModerationService } from '../moderation/moderation.service';
 import { MessageService } from '../message/message.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class TopicService {
@@ -15,6 +16,7 @@ export class TopicService {
     private readonly moderationService: ModerationService,
     private readonly configService: ConfigService,
     private readonly messageService: MessageService,
+    private readonly userService: UserService,
   ) {}
 
   async getAllTopics(
@@ -165,7 +167,14 @@ export class TopicService {
       return null;
     }
 
-    return topic;
+    const identityMap = await this.userService.getPublicIdentityMap([Number(topic.userId || 0)]);
+    const identity = identityMap.get(Number(topic.userId || 0)) || null;
+
+    return {
+      ...topic,
+      displayTag: identity ? identity.displayTag || null : topic.displayTag || null,
+      authorStats: identity ? identity.authorStats || null : null,
+    };
   }
 
   async getLatestDraftByUserId(userId: number, currentUserId = 0) {

@@ -94,6 +94,82 @@ function normalizeObject(value, fallback = {}) {
   return fallback;
 }
 
+function safeDecodeURIComponent(value) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+  try {
+    return decodeURIComponent(value);
+  } catch (error) {
+    return value;
+  }
+}
+
+function normalizeCandidateOptionLabels(value) {
+  const source = Array.isArray(value)
+    ? value
+    : typeof value === 'string'
+      ? (() => {
+          try {
+            const parsed = JSON.parse(value);
+            return Array.isArray(parsed) ? parsed : [];
+          } catch (error) {
+            try {
+              const cached = typeof wx !== 'undefined' && wx.getStorageSync ? wx.getStorageSync(value) : null;
+              return Array.isArray(cached) ? cached : [];
+            } catch (storageError) {
+              return [];
+            }
+          }
+        })()
+      : [];
+
+  return source
+    .map(item => {
+      if (item && typeof item === 'object' && !Array.isArray(item)) {
+        return String(item.label || '').trim();
+      }
+      return String(item || '').trim();
+    })
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
+function buildQuestionEntryPrefill(options = {}) {
+  const from = String(options.from || '').trim();
+  if (from !== 'gear_detail' && from !== 'gear_compare') {
+    return null;
+  }
+
+  const gearCategory = String(options.gearCategory || '').trim();
+  const gearItemId = Number(options.gearItemId || 0) || null;
+  const gearLabel = safeDecodeURIComponent(options.gearLabel || '');
+  const candidateOptions = from === 'gear_compare'
+    ? normalizeCandidateOptionLabels(safeDecodeURIComponent(options.candidateOptions || ''))
+    : (gearLabel ? [gearLabel] : []);
+  const initialQuestionData = createModeInitialFormData('question');
+
+  return {
+    ...initialQuestionData,
+    questionType: 'recommend',
+    relatedGearCategory: gearCategory || '',
+    relatedGearItemId: gearItemId,
+    recommendMeta: {
+      ...initialQuestionData.recommendMeta,
+      recommendIntent: from === 'gear_compare' ? 'compare_options' : '',
+      candidateOptions: [
+        candidateOptions[0] || '',
+        candidateOptions[1] || '',
+        candidateOptions[2] || ''
+      ],
+      coreQuestion:
+        from === 'gear_compare' && candidateOptions.length >= 2
+          ? '这几个候选我已经看过参数了，但还是拿不准哪个更适合我当前场景。'
+          : ''
+    }
+  };
+}
+
 function buildDraftFormDataFromTopic(topic = {}) {
   const modeConfig = getModeConfigByTopicCategory(topic.topicCategory);
   const modeKey = modeConfig ? modeConfig.modeKey : 'experience';
@@ -284,7 +360,10 @@ Page({
 
     if (this.isDraftEditingEntry(options)) {
       await this.loadDraftForEditing(options);
+      return;
     }
+
+    this.applyEntryPrefill(options);
   },
 
   onShow: function () {
@@ -325,6 +404,25 @@ Page({
     
     console.log('选中的模式:', selectedMode);
     console.log('[publishMode] onCardSelect index=', index, 'card=', card, 'init formData.gearCategory=rod');
+  },
+
+  applyEntryPrefill(options = {}) {
+    const prefillFormData = buildQuestionEntryPrefill(options);
+    if (!prefillFormData) {
+      return;
+    }
+
+    const selectedMode = getModeConfigByKey('question') || this.data.postModes[2];
+    const selectedIndex = this.data.postModes.findIndex(item => item.modeKey === 'question');
+
+    this.setData({
+      selectedMode,
+      showModeSelection: false,
+      lastSelectedIndex: selectedIndex >= 0 ? selectedIndex : 2,
+      formData: prefillFormData,
+      editingDraftId: null
+    });
+    this.captureInitialDraftSnapshot();
   },
 
   async loadDraftForEditing(options = {}) {

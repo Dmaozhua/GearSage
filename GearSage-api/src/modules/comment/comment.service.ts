@@ -4,6 +4,7 @@ import { AddCommentDto } from './dto/add-comment.dto';
 import { ToggleCommentLikeDto } from './dto/toggle-comment-like.dto';
 import { ModerationService } from '../moderation/moderation.service';
 import { MessageService } from '../message/message.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class CommentService {
@@ -11,6 +12,7 @@ export class CommentService {
     private readonly databaseService: DatabaseService,
     private readonly moderationService: ModerationService,
     private readonly messageService: MessageService,
+    private readonly userService: UserService,
   ) {}
 
   async list(topicId: number, currentUserId = 0) {
@@ -49,7 +51,12 @@ export class CommentService {
       [topicId, currentUserId || 0],
     );
 
+    const identityMap = await this.userService.getPublicIdentityMap(
+      result.rows.map((row: any) => Number(row.userId || 0)),
+    );
+
     return result.rows.map((row: any) => ({
+      ...(identityMap.get(Number(row.userId || 0)) || {}),
       id: Number(row.id),
       topicId: Number(row.topicId),
       userId: Number(row.userId),
@@ -68,7 +75,6 @@ export class CommentService {
       replayUserId: row.replayUserId ? Number(row.replayUserId) : null,
       likeCount: Number(row.likeCount || 0),
       isLiked: Boolean(row.isLiked),
-      displayTag: null,
     }));
   }
 

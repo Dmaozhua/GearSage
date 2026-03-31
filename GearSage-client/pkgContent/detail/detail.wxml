@@ -87,7 +87,7 @@
           <text class="topic-kicker">好物速报</text>
           <view class="topic-title">{{productDetail.title}}</view>
           <view class="topic-subtitle {{(productDetail.gearItemId || productDetail.gearModel) ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
-          <view class="topic-author-card topic-author-card--light">
+          <view class="topic-author-card topic-author-card--light" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--sm" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
               <view class="topic-author-head">
@@ -96,6 +96,7 @@
               <view class="topic-author-tags" wx:if="{{productDetail.authorDisplayTag}}">
                 <user-tag displayTag="{{productDetail.authorDisplayTag}}" size="sm"></user-tag>
               </view>
+              <view class="topic-author-meta-line" wx:if="{{productDetail.authorStatsText}}">{{productDetail.authorStatsText}}</view>
             </view>
           </view>
           <view class="topic-summary-card" wx:if="{{productDetail.summaryDisplay || productDetail.summary}}">
@@ -158,7 +159,7 @@
           <text class="topic-kicker">长测评</text>
           <view class="topic-title">{{productDetail.title}}</view>
           <view class="topic-subtitle {{(productDetail.gearItemId || productDetail.gearModel) ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
-          <view class="topic-author-card topic-author-card--strong">
+          <view class="topic-author-card topic-author-card--strong" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--md" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
               <view class="topic-author-head">
@@ -168,6 +169,7 @@
               <view class="topic-author-tags" wx:if="{{productDetail.authorDisplayTag}}">
                 <user-tag displayTag="{{productDetail.authorDisplayTag}}" size="sm"></user-tag>
               </view>
+              <view class="topic-author-meta-line" wx:if="{{productDetail.authorStatsText}}">{{productDetail.authorStatsText}}</view>
             </view>
           </view>
           <view class="topic-summary-card" wx:if="{{productDetail.summary}}">{{productDetail.summary}}</view>
@@ -371,7 +373,7 @@
             <text class="topic-chip topic-chip--accept" wx:if="{{productDetail.isRecommendQuestion}}">{{productDetail.acceptStatusLabel}}</text>
           </view>
           <view class="topic-title">{{productDetail.title}}</view>
-          <view class="topic-author-card topic-author-card--mini">
+          <view class="topic-author-card topic-author-card--mini" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--xs" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
               <view class="topic-author-head">
@@ -381,6 +383,7 @@
               <view class="topic-author-tags" wx:if="{{productDetail.authorDisplayTag}}">
                 <user-tag displayTag="{{productDetail.authorDisplayTag}}" size="xs"></user-tag>
               </view>
+              <view class="topic-author-meta-line" wx:if="{{productDetail.authorStatsText}}">{{productDetail.authorStatsText}}</view>
             </view>
           </view>
           <view class="topic-subtitle {{(productDetail.relatedGearItemId || productDetail.relatedGearModel) ? 'topic-subtitle--link' : ''}}" wx:if="{{productDetail.relatedGearCategoryLabel || productDetail.relatedGearModel}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.relatedGearItemId}}" data-gear-category="{{productDetail.relatedGearCategory}}" data-gear-model="{{productDetail.relatedGearModel}}">
@@ -451,7 +454,7 @@
             <text class="topic-chip" wx:if="{{productDetail.catchBodyTypeText}}">体型 · {{productDetail.catchBodyTypeText}}</text>
           </view>
           <text class="topic-time">{{productDetail.createTimeFormatted}}</text>
-          <view class="topic-author-card topic-author-card--micro">
+          <view class="topic-author-card topic-author-card--micro" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--xxs" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
               <view class="topic-author-head">
@@ -460,6 +463,7 @@
               <view class="topic-author-tags" wx:if="{{productDetail.authorDisplayTag}}">
                 <user-tag displayTag="{{productDetail.authorDisplayTag}}" size="xs"></user-tag>
               </view>
+              <view class="topic-author-meta-line" wx:if="{{productDetail.authorStatsText}}">{{productDetail.authorStatsText}}</view>
             </view>
           </view>
         </view>
@@ -469,7 +473,7 @@
         <view class="topic-hero-card topic-hero-card--trip">
           <text class="topic-kicker">钓行分享</text>
           <view class="topic-title">{{productDetail.title}}</view>
-          <view class="topic-author-card topic-author-card--medium">
+          <view class="topic-author-card topic-author-card--medium" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--sm" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
               <view class="topic-author-head">
@@ -478,6 +482,7 @@
               <view class="topic-author-tags" wx:if="{{productDetail.authorDisplayTag}}">
                 <user-tag displayTag="{{productDetail.authorDisplayTag}}" size="sm"></user-tag>
               </view>
+              <view class="topic-author-meta-line" wx:if="{{productDetail.authorStatsText}}">{{productDetail.authorStatsText}}</view>
             </view>
           </view>
           <view class="topic-summary-card" wx:if="{{productDetail.tripResult}}">{{productDetail.tripResult}}</view>
@@ -566,12 +571,13 @@
           <view class="comments-list">
             <view class="comment-item comment-item--accepted">
               <view style="display: flex;">
-                <image class="comment-avatar" src="{{acceptedRecommendAnswer.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <image class="comment-avatar" src="{{acceptedRecommendAnswer.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{acceptedRecommendAnswer.userId}}"></image>
                 <view class="comment-content">
-                  <view class="comment-user-row">
+                  <view class="comment-user-row" bindtap="onTapCommentAuthor" data-user-id="{{acceptedRecommendAnswer.userId}}">
                     <view class="comment-user">{{acceptedRecommendAnswer.username}}</view>
                     <user-tag wx:if="{{acceptedRecommendAnswer.displayTag}}" class="comment-user-tag" displayTag="{{acceptedRecommendAnswer.displayTag}}" size="xs"></user-tag>
                   </view>
+                  <view class="comment-user-meta" wx:if="{{acceptedRecommendAnswer.authorIdentityText}}">{{acceptedRecommendAnswer.authorIdentityText}}</view>
                   <view class="answer-template-card answer-template-card--accepted" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay}}">
                     <view class="answer-template-badge-row">
                       <text class="answer-template-badge">已采纳</text>
@@ -625,9 +631,9 @@
 
               <view class="replies-list" wx:if="{{acceptedRecommendAnswer.replies && acceptedRecommendAnswer.replies.length > 0}}">
                 <view class="reply-item" wx:for="{{acceptedRecommendAnswer.replies}}" wx:for-item="reply" wx:key="id">
-                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}"></image>
                   <view class="reply-content">
-                    <view class="reply-user-row">
+                    <view class="reply-user-row" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}">
                       <view class="reply-user">{{reply.username}}</view>
                       <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
                     </view>
@@ -654,12 +660,13 @@
           <view class="comments-list">
             <view class="comment-item" wx:for="{{recommendAnswers}}" wx:key="id">
               <view style="display: flex;">
-                <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{item.userId}}"></image>
                 <view class="comment-content">
-                  <view class="comment-user-row">
+                  <view class="comment-user-row" bindtap="onTapCommentAuthor" data-user-id="{{item.userId}}">
                     <view class="comment-user">{{item.username}}</view>
                     <user-tag wx:if="{{item.displayTag}}" class="comment-user-tag" displayTag="{{item.displayTag}}" size="xs"></user-tag>
                   </view>
+                  <view class="comment-user-meta" wx:if="{{item.authorIdentityText}}">{{item.authorIdentityText}}</view>
                   <view class="answer-template-card" wx:if="{{item.recommendAnswerDisplay}}">
                     <view class="answer-template-row" wx:if="{{item.recommendAnswerDisplay.answerConclusionLabel}}">
                       <text class="answer-template-label">我的结论</text>
@@ -710,9 +717,9 @@
 
               <view class="replies-list" wx:if="{{item.replies && item.replies.length > 0}}">
                 <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="id">
-                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}"></image>
                   <view class="reply-content">
-                    <view class="reply-user-row">
+                    <view class="reply-user-row" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}">
                       <view class="reply-user">{{reply.username}}</view>
                       <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
                     </view>
@@ -738,9 +745,9 @@
           <view class="comments-list">
             <view class="comment-item" wx:for="{{normalComments}}" wx:key="id">
               <view style="display: flex;">
-                <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{item.userId}}"></image>
                 <view class="comment-content">
-                  <view class="comment-user-row">
+                  <view class="comment-user-row" bindtap="onTapCommentAuthor" data-user-id="{{item.userId}}">
                     <view class="comment-user">{{item.username}}</view>
                     <user-tag wx:if="{{item.displayTag}}" class="comment-user-tag" displayTag="{{item.displayTag}}" size="xs"></user-tag>
                   </view>
@@ -760,9 +767,9 @@
 
               <view class="replies-list" wx:if="{{item.replies && item.replies.length > 0}}">
                 <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="id">
-                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+                  <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}"></image>
                   <view class="reply-content">
-                    <view class="reply-user-row">
+                    <view class="reply-user-row" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}">
                       <view class="reply-user">{{reply.username}}</view>
                       <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
                     </view>
@@ -791,9 +798,9 @@
       <view class="comments-list" wx:elif="{{comments && comments.length > 0}}">
         <view class="comment-item" wx:for="{{comments}}" wx:key="index">
           <view style="display: flex;">
-            <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+            <image class="comment-avatar" src="{{item.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{item.userId}}"></image>
             <view class="comment-content">
-              <view class="comment-user-row">
+              <view class="comment-user-row" bindtap="onTapCommentAuthor" data-user-id="{{item.userId}}">
                 <view class="comment-user">{{item.username}}</view>
                 <user-tag wx:if="{{item.displayTag}}" class="comment-user-tag" displayTag="{{item.displayTag}}" size="xs"></user-tag>
               </view>
@@ -813,9 +820,9 @@
 
           <view class="replies-list" wx:if="{{item.replies && item.replies.length > 0}}">
             <view class="reply-item" wx:for="{{item.replies}}" wx:for-item="reply" wx:key="index">
-              <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+              <image class="reply-avatar" src="{{reply.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}"></image>
               <view class="reply-content">
-                <view class="reply-user-row">
+                <view class="reply-user-row" bindtap="onTapCommentAuthor" data-user-id="{{reply.userId}}">
                   <view class="reply-user">{{reply.username}}</view>
                   <user-tag wx:if="{{reply.displayTag}}" class="reply-user-tag" displayTag="{{reply.displayTag}}" size="xs"></user-tag>
                 </view>

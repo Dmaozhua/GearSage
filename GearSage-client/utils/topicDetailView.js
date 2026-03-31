@@ -659,6 +659,7 @@ function buildTopicDetailView(postData = {}, options = {}) {
       userName: postData.nickName || userInfo.nickname || '当前用户',
       nickName: postData.nickName || userInfo.nickname || '当前用户',
       authorDisplayTag,
+      authorStats: postData.authorStats && typeof postData.authorStats === 'object' ? postData.authorStats : null,
       userTag: authorDisplayTag ? authorDisplayTag.name : (postData.tagName || options.tagName || ''),
       tagName: authorDisplayTag ? authorDisplayTag.name : (postData.tagName || options.tagName || ''),
       userTagRarity: authorDisplayTag ? authorDisplayTag.rarityLevel : (postData.tagRarityLevel || options.tagRarityLevel || 1),

@@ -257,6 +257,26 @@ Page({
     }
   },
 
+  onGoRecommend() {
+    const gearCategory = this.resolveTopicGearCategory(this.data.gearType);
+    const gearItemId = Number(this.data.item && this.data.item.id || 0);
+    const detailName = String(this.data.item && (this.data.item.detailName || this.data.item.model) || '').trim();
+    const brandName = String(this.data.item && this.data.item.brand_name || '').trim();
+    const gearLabel = [brandName, detailName].filter(Boolean).join(' ').trim() || detailName;
+
+    if (!gearCategory || !gearItemId) {
+      wx.showToast({
+        title: '暂时无法带入这件装备',
+        icon: 'none'
+      });
+      return;
+    }
+
+    wx.navigateTo({
+      url: `/pkgContent/publishMode/publishMode?from=gear_detail&gearCategory=${encodeURIComponent(gearCategory)}&gearItemId=${gearItemId}&gearLabel=${encodeURIComponent(gearLabel)}`
+    });
+  },
+
   generateDynamicColumns(variants) {
     if (!variants || variants.length === 0) return [];
 

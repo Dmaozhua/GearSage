@@ -204,6 +204,13 @@
   margin-top: 6rpx;
 }
 
+.topic-author-meta-line {
+  margin-top: 8rpx;
+  font-size: 20rpx;
+  line-height: 1.5;
+  color: #6f8194;
+}
+
 .topic-author-tag {
   display: inline-flex;
   align-items: center;
@@ -577,6 +584,13 @@
 
 .comment-user-row {
   margin-bottom: 8rpx;
+}
+
+.comment-user-meta {
+  margin-bottom: 12rpx;
+  font-size: 22rpx;
+  line-height: 1.5;
+  color: #6e8196;
 }
 
 .reply-user-row {
@@ -1210,6 +1224,11 @@
 .dark .recommend-answer-editor__title,
 .dark .recommend-answer-label {
   color: #eef5ff;
+}
+
+.dark .topic-author-meta-line,
+.dark .comment-user-meta {
+  color: #90a4bc;
 }
 
 .dark .recommend-answer-editor__desc {

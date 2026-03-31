@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "custom-navbar": "../../components/custom-navbar/custom-navbar",
+    "user-tag": "../../components/user-tag/user-tag"
+  }
+}

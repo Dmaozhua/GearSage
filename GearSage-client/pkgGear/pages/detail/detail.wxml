@@ -117,6 +117,14 @@
         </view>
       </view>
     </view>
+
+    <view class="recommend-entry">
+      <view class="recommend-entry__copy">
+        <text class="recommend-entry__title">看完参数还是纠结？</text>
+        <text class="recommend-entry__desc">把这款装备直接带进求推荐，继续问真实场景下到底适不适合你。</text>
+      </view>
+      <view class="recommend-entry__button" bindtap="onGoRecommend">去求推荐</view>
+    </view>
   </block>
 
   <!-- Skeleton Loading -->

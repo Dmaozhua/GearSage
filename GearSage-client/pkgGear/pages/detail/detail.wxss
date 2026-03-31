@@ -248,9 +248,60 @@ page {
   box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.04);
 }
 
+.recommend-entry {
+  margin-top: 30rpx;
+  padding: 28rpx 26rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #244866 0%, #345f7f 100%);
+  box-shadow: 0 12rpx 28rpx rgba(26, 52, 75, 0.16);
+}
+
+.recommend-entry__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.recommend-entry__title {
+  font-size: 32rpx;
+  line-height: 1.35;
+  font-weight: 700;
+  color: #f3f8fd;
+}
+
+.recommend-entry__desc {
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: rgba(238, 246, 253, 0.9);
+}
+
+.recommend-entry__button {
+  margin-top: 20rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 74rpx;
+  padding: 0 28rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.96);
+  color: #234d6f;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
 .container.dark .related-section {
   background-color: #2c2c2c;
   box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.2);
+}
+
+.container.dark .recommend-entry {
+  background: linear-gradient(135deg, #23384a 0%, #2e4c62 100%);
+  box-shadow: 0 12rpx 28rpx rgba(0, 0, 0, 0.24);
+}
+
+.container.dark .recommend-entry__button {
+  background: rgba(244, 248, 252, 0.94);
+  color: #213d56;
 }
 
 .related-title {

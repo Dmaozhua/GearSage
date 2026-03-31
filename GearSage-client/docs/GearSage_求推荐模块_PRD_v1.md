@@ -1292,15 +1292,19 @@
 
 ## 10.5 用户信息接口
 
-当前 `GET /mini/user/info` 已实现但主页面尚未正式消费，适合后续接入“他人主页 / 用户详情页”。
+当前 `GET /mini/user/info` 已接入 `他人主页 / 用户详情页` 第一版，并已补求推荐相关统计与最近内容摘要。
 
-建议后续在用户详情返回中补：
+当前已补返回：
 
 - `recommendAnswerCount`
 - `acceptedAnswerCount`
 - `recommendPostCount`
 - `recommendSolvedCount`
 - `recommendFeedbackCount`
+- `longReviewCount`
+- `likeReceivedCount`
+- `recentTopics`
+- `recentAcceptedAnswers`
 
 ---
 
