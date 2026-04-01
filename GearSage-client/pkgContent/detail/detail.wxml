@@ -940,8 +940,8 @@
           <view class="recommend-answer-error" wx:if="{{recommendAnswerErrors.answerConclusion}}">{{recommendAnswerErrors.answerConclusion}}</view>
         </view>
 
-        <view class="recommend-answer-block" wx:if="{{recommendAnswerEditorVariant === 'full'}}">
-          <view class="recommend-answer-label">推荐方向 / 候选项</view>
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">{{recommendAnswerEditorVariant === 'quick' ? '推荐方向 / 候选项（选填）' : '推荐方向 / 候选项'}}</view>
           <input wx:for="{{[0,1,2]}}" wx:key="index" class="recommend-answer-input" data-index="{{item}}" value="{{recommendAnswerForm.recommendedOption[item]}}" maxlength="40" placeholder="可写型号、方向或备选方案" bindinput="onRecommendOptionInput" />
         </view>
 
