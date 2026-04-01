@@ -191,7 +191,14 @@ Page({
 
   getFieldValue(record, key) {
     if (!record || typeof record !== 'object') return '';
-    return this.normalizeText(record[key]);
+    const directValue = this.normalizeText(record[key]);
+    if (directValue) {
+      return directValue;
+    }
+    if (record.official_specs && typeof record.official_specs === 'object') {
+      return this.normalizeText(record.official_specs[key]);
+    }
+    return '';
   },
 
   formatSpecValue(value) {
@@ -212,6 +219,11 @@ Page({
         tags.push(normalized);
       }
     };
+
+    const traitTags = item && item.gsc_traits && Array.isArray(item.gsc_traits.fitStyleTags)
+      ? item.gsc_traits.fitStyleTags
+      : [];
+    traitTags.forEach(pushTag);
 
     pushTag(this.buildTagText('', item.model_year));
 
@@ -358,6 +370,9 @@ Page({
 
   buildSeriesInsights(item, variants) {
     const insights = [];
+    const profileWarnings = item && item.compare_profile && Array.isArray(item.compare_profile.warningHints)
+      ? item.compare_profile.warningHints
+      : [];
 
     if (variants.length <= 1) {
       insights.push('当前系列已收录的子型号还不多，后续补齐后会更适合做完整对比。');
@@ -374,6 +389,13 @@ Page({
     if (this.hasValue(item.type_tips)) {
       insights.push(`系列定位可先按“${this.normalizeText(item.type_tips)}”来理解，再回头看细参数。`);
     }
+
+    profileWarnings.forEach((warning) => {
+      const text = this.normalizeText(warning);
+      if (text) {
+        insights.push(`当前已归纳提示：${text}。`);
+      }
+    });
 
     if (SERIES_HINTS_BY_TYPE[this.data.gearType]) {
       insights.push(SERIES_HINTS_BY_TYPE[this.data.gearType]);

@@ -122,7 +122,14 @@ Page({
 
   getFieldValue(record, key) {
     if (!record || typeof record !== 'object') return '';
-    return this.normalizeText(record[key]);
+    const directValue = this.normalizeText(record[key]);
+    if (directValue) {
+      return directValue;
+    }
+    if (record.official_specs && typeof record.official_specs === 'object') {
+      return this.normalizeText(record.official_specs[key]);
+    }
+    return '';
   },
 
   getCompareItems() {
@@ -214,6 +221,22 @@ Page({
       warnings.push('这几项的子类方向并不完全一致，先确认是不是把不同用途的候选放到一起了。');
     }
 
+    compareCards.forEach((card) => {
+      const profileWarnings =
+        card &&
+        card.selectedVariant &&
+        card.selectedVariant.compare_profile &&
+        Array.isArray(card.selectedVariant.compare_profile.warningHints)
+          ? card.selectedVariant.compare_profile.warningHints
+          : [];
+      profileWarnings.forEach((warning) => {
+        const text = this.normalizeText(warning);
+        if (text && !warnings.includes(text)) {
+          warnings.push(text);
+        }
+      });
+    });
+
     return warnings;
   },
 
@@ -265,6 +288,21 @@ Page({
     const groups = [...new Set(compareCards.map((item) => item.compareGroupLabel).filter(Boolean))];
     if (groups.length === 1) {
       insights.push(`当前候选都属于「${groups[0]}」方向，更适合做同类收敛式比较。`);
+    }
+
+    const collectedFitTags = compareCards.reduce((acc, item) => {
+      const tags =
+        item &&
+        item.selectedVariant &&
+        item.selectedVariant.compare_profile &&
+        Array.isArray(item.selectedVariant.compare_profile.fitStyleTags)
+          ? item.selectedVariant.compare_profile.fitStyleTags
+          : [];
+      return acc.concat(tags.map((tag) => this.normalizeText(tag)).filter(Boolean));
+    }, []);
+    const fitTags = [...new Set(collectedFitTags)];
+    if (fitTags.length > 0) {
+      insights.push(`当前候选已归纳出的方向标签有 ${fitTags.slice(0, 4).join(' / ')}。`);
     }
 
     return insights.slice(0, 3);

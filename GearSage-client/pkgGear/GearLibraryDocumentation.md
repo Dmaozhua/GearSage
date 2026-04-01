@@ -164,6 +164,27 @@ module.exports = [
     *   GearSage 提示
     *   去求推荐承接
 
+### 4.5. 当前增量返回字段口径
+
+在不改动原有主链路字段的前提下，gear 返回当前新增三层增量结构：
+
+*   `official_specs`
+    *   从当前 master / variant 的官方字段中整理出的可直接比较参数
+    *   目的是减少前端继续直接遍历 `raw_json`
+*   `gsc_traits`
+    *   GearSage 解释层字段
+    *   当前允许为空
+    *   当前若 Excel 未显式维护，会由后端按现有字段做轻量归纳
+*   `compare_profile`
+    *   对比页专用聚合信息
+    *   当前包含同类比较所需的 `compareGroup / coreFieldKeys / warningHints / fitStyleTags` 等轻量字段
+
+当前原则：
+
+*   不删除原有平铺字段
+*   不改变 `GET /mini/gear/list` / `GET /mini/gear/detail` 的主 envelope
+*   前端优先消费新结构，缺失时再回退旧字段
+
 ## 5. 总结与建议
 
 该装备库系统架构设计良好，在数据维护的便利性、查询性能和用户体验之间取得了很好的平衡。

@@ -124,6 +124,17 @@ Page({
       }
     };
 
+    const traitTags =
+      item &&
+      item.compare_profile &&
+      Array.isArray(item.compare_profile.fitStyleTags)
+        ? item.compare_profile.fitStyleTags
+        : item && item.gsc_traits && Array.isArray(item.gsc_traits.fitStyleTags)
+          ? item.gsc_traits.fitStyleTags
+          : [];
+
+    traitTags.forEach(pushTag);
+
     if (this.data.currentType === 'reels') {
       pushTag(item.type);
       pushTag(item.type_tips);
@@ -142,6 +153,18 @@ Page({
   },
 
   buildCompareHint(item) {
+    const warningHints =
+      item &&
+      item.compare_profile &&
+      Array.isArray(item.compare_profile.warningHints)
+        ? item.compare_profile.warningHints
+        : item && item.gsc_traits && Array.isArray(item.gsc_traits.compareWarnings)
+          ? item.gsc_traits.compareWarnings
+          : [];
+    if (warningHints.length > 0) {
+      return this.normalizeText(warningHints[0]);
+    }
+
     if (this.data.currentType === 'lures') {
       return '当前以详情理解和筛选收敛为主';
     }

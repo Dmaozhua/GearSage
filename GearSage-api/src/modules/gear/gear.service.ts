@@ -43,6 +43,47 @@ interface GearCache {
 @Injectable()
 export class GearService {
   private excelCache: GearCache | null = null;
+  private readonly fieldLabels: Record<string, string> = {
+    SKU: '子型号',
+    sku: '子型号',
+    'GEAR RATIO': '速比',
+    DRAG: '实用卸力(kg)',
+    'MAX DRAG': '最大卸力(kg)',
+    WEIGHT: '自重(g)',
+    fluorocarbon_no_m: '氟碳线(号-m)',
+    fluorocarbon_lb_m: '氟碳线(lb-m)',
+    pe_no_m: 'PE线(号-m)',
+    cm_per_turn: '收线长(cm/圈)',
+    spool_diameter_per_turn_mm: '线杯径/一转(mm)',
+    Nylon_no_m: '尼龙线(号-m)',
+    Nylon_lb_m: '尼龙线(lb-m)',
+    handle_length_mm: '手把长(mm)',
+    'TOTAL LENGTH': '全长(m)',
+    Action: '调性',
+    PIECES: '节数',
+    CLOSELENGTH: '收纳长(cm)',
+    'Tip Diameter': '先径(mm)',
+    'LURE WEIGHT': '饵重(g)',
+    'Line Wt N F': '尼/氟线(lb)',
+    'PE Line Size': 'PE线(号)',
+    'Handle Length': '手把长(mm)',
+    'CONTENT CARBON': '含碳量(%)',
+    'Service Card': '首保价(元)',
+    'Jig Weight': '铁板重(g)',
+    'Squid Jig Size': '木虾(号)',
+    'Sinker Rating': '铅坠(号)',
+    TYPE: '类别',
+    type: '类别',
+    system: '体系',
+    action: '动作',
+    water_column: '水层',
+    'Reel Seat Position': '轮座位置',
+    Length: '长度(mm)',
+    Weight: '重量(g)',
+    Buoyancy: '浮力',
+    Range: '泳层',
+    Hook: '钩型',
+  };
 
   constructor(
     private readonly configService: ConfigService,
@@ -82,7 +123,7 @@ export class GearService {
     const total = filtered.length;
     const list = filtered
       .slice((page - 1) * pageSize, page * pageSize)
-      .map((item) => this.formatMasterItem(item, data.brandsMap));
+      .map((item) => this.formatMasterItem(item, data.brandsMap, normalizedType));
 
     return {
       list,
@@ -106,8 +147,9 @@ export class GearService {
       return null;
     }
 
-    const master = this.formatMasterItem(item, data.brandsMap);
+    const master = this.formatMasterItem(item, data.brandsMap, normalizedType);
     const brand = data.brandsMap[this.normalizeText(item.brand_id)] || null;
+    const variants = this.getVariantsForItem(normalizedType, item, data);
 
     return {
       ...master,
@@ -118,7 +160,10 @@ export class GearService {
             name: brand.name || '',
           }
         : null,
-      variants: this.getVariantsForItem(normalizedType, item, data),
+      variants,
+      official_specs: this.buildOfficialSpecs(normalizedType, item, 'master'),
+      gsc_traits: this.buildGscTraits(normalizedType, item, null),
+      compare_profile: this.buildCompareProfile(normalizedType, item, null, variants),
     };
   }
 
@@ -350,19 +395,28 @@ export class GearService {
       const detailRows = data.reelDetails[this.normalizeText(item.type)] || [];
       return detailRows
         .filter((variant) => this.normalizeText(variant.reel_id) === itemId)
-        .map((variant) => ({ ...variant }));
+        .map((variant) => this.decorateVariant(type, item, variant));
     }
 
     if (type === 'rods') {
       return data.rodDetails
         .filter((variant) => this.normalizeText(variant.rod_id) === itemId)
-        .map((variant) => ({ ...variant }));
+        .map((variant) => this.decorateVariant(type, item, variant));
     }
 
     const detailRows = data.lureDetails[this.normalizeText(item.system)] || [];
     return detailRows
       .filter((variant) => this.normalizeText(variant.lure_id) === itemId)
-      .map((variant) => ({ ...variant }));
+      .map((variant) => this.decorateVariant(type, item, variant));
+  }
+
+  private decorateVariant(type: GearType, master: any, variant: any) {
+    return {
+      ...variant,
+      official_specs: this.buildOfficialSpecs(type, variant, 'variant'),
+      gsc_traits: this.buildGscTraits(type, master, variant),
+      compare_profile: this.buildCompareProfile(type, master, variant),
+    };
   }
 
   private findMasterItem(rows: any[], id?: string | number, gearModel?: string) {
@@ -400,7 +454,7 @@ export class GearService {
     );
   }
 
-  private formatMasterItem(item: any, brandsMap: Record<string, any>) {
+  private formatMasterItem(item: any, brandsMap: Record<string, any>, type: GearType) {
     const brand = brandsMap[this.normalizeText(item.brand_id)] || null;
     const images = this.normalizeImages(item.images);
     return {
@@ -411,6 +465,9 @@ export class GearService {
       images,
       imageUrl: images[0] || '/images/default-gear.png',
       displayName: this.buildDisplayName(item),
+      official_specs: this.buildOfficialSpecs(type, item, 'master'),
+      gsc_traits: this.buildGscTraits(type, item, null),
+      compare_profile: this.buildCompareProfile(type, item),
     };
   }
 
@@ -628,6 +685,336 @@ export class GearService {
 
   private hydrateVariantRow(rawJson: Record<string, any>) {
     return { ...(rawJson || {}) };
+  }
+
+  private buildOfficialSpecs(
+    type: GearType,
+    row: Record<string, any>,
+    level: 'master' | 'variant',
+  ) {
+    const reservedKeys = new Set([
+      'id',
+      '_id',
+      '_openid',
+      'created_at',
+      'updated_at',
+      'raw_json',
+      'official_specs',
+      'gsc_traits',
+      'compare_profile',
+      'images',
+      'brand_id',
+      'reel_id',
+      'rod_id',
+      'lure_id',
+    ]);
+
+    const masterFieldsByType: Record<GearType, string[]> = {
+      reels: ['model', 'model_cn', 'model_year', 'type', 'alias', 'type_tips'],
+      rods: ['model', 'model_cn', 'model_year', 'type', 'action', 'type_tips'],
+      lures: ['model', 'model_cn', 'model_year', 'system', 'water_column', 'action'],
+    };
+
+    const variantFieldsByType: Record<GearType, string[]> = {
+      reels: [
+        'SKU',
+        'GEAR RATIO',
+        'WEIGHT',
+        'MAX DRAG',
+        'DRAG',
+        'cm_per_turn',
+        'spool_diameter_per_turn_mm',
+        'Nylon_lb_m',
+        'Nylon_no_m',
+        'fluorocarbon_lb_m',
+        'fluorocarbon_no_m',
+        'pe_no_m',
+        'handle_length_mm',
+      ],
+      rods: [
+        'SKU',
+        'TOTAL LENGTH',
+        'Action',
+        'LURE WEIGHT',
+        'Line Wt N F',
+        'PE Line Size',
+        'PIECES',
+        'CLOSELENGTH',
+        'Tip Diameter',
+        'Handle Length',
+        'CONTENT CARBON',
+        'Reel Seat Position',
+      ],
+      lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook'],
+    };
+
+    const preferredFields =
+      level === 'master' ? masterFieldsByType[type] || [] : variantFieldsByType[type] || [];
+
+    const result: Record<string, string> = {};
+    for (const field of preferredFields) {
+      const value = this.normalizeText(row[field]);
+      if (value) {
+        result[field] = value;
+        reservedKeys.add(field);
+      }
+    }
+
+    if (Object.keys(result).length > 0) {
+      return result;
+    }
+
+    Object.keys(row || {}).forEach((key) => {
+      if (reservedKeys.has(key)) {
+        return;
+      }
+      const value = this.normalizeText(row[key]);
+      if (value) {
+        result[key] = value;
+      }
+    });
+
+    return result;
+  }
+
+  private buildGscTraits(type: GearType, master: Record<string, any>, variant: Record<string, any> | null) {
+    const directTraits = this.normalizeTraitObject(
+      (variant && (variant.gsc_traits || variant.gscTraits)) ||
+        master.gsc_traits ||
+        master.gscTraits,
+    );
+    if (Object.keys(directTraits).length > 0) {
+      return directTraits;
+    }
+
+    const fitStyleTags = this.collectFitStyleTags(type, master, variant);
+    const compareWarnings = this.collectCompareWarnings(type, master, variant);
+    const traits: Record<string, any> = {};
+
+    if (fitStyleTags.length > 0) {
+      traits.fitStyleTags = fitStyleTags;
+    }
+
+    const lineCupDepth = this.inferLineCupDepth(variant);
+    if (lineCupDepth) {
+      traits.lineCupDepth = lineCupDepth;
+    }
+
+    const brakeTypeNormalized = this.inferBrakeType(master, variant);
+    if (brakeTypeNormalized) {
+      traits.brakeTypeNormalized = brakeTypeNormalized;
+    }
+
+    const minLureWeightHint = this.inferMinLureWeightHint(type, variant);
+    if (minLureWeightHint) {
+      traits.minLureWeightHint = minLureWeightHint;
+    }
+
+    const solidTip = this.inferSolidTip(master, variant);
+    if (solidTip !== null) {
+      traits.solidTip = solidTip;
+    }
+
+    if (compareWarnings.length > 0) {
+      traits.compareWarnings = compareWarnings;
+    }
+
+    return traits;
+  }
+
+  private buildCompareProfile(
+    type: GearType,
+    master: Record<string, any>,
+    variant?: Record<string, any> | null,
+    variants?: any[],
+  ) {
+    const variantProfile = this.normalizeTraitObject(
+      (variant && (variant.compare_profile || variant.compareProfile)) || {},
+    );
+    if (Object.keys(variantProfile).length > 0) {
+      return variantProfile;
+    }
+
+    const masterProfile = this.normalizeTraitObject(
+      (master.compare_profile || master.compareProfile) || {},
+    );
+    if (Object.keys(masterProfile).length > 0) {
+      return masterProfile;
+    }
+
+    const coreFieldKeysByType: Record<GearType, string[]> = {
+      reels: ['GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn', 'spool_diameter_per_turn_mm'],
+      rods: ['TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES'],
+      lures: ['TYPE', 'Length', 'Weight', 'Buoyancy', 'Range'],
+    };
+
+    const compareGroup = this.normalizeText(master.type || master.system || type);
+    const traits = this.buildGscTraits(type, master, variant || null);
+    const warningHints = Array.isArray(traits.compareWarnings) ? traits.compareWarnings : [];
+    const variantCount = Array.isArray(variants) ? variants.length : 0;
+
+    return {
+      compareGroup,
+      compareGroupLabel: compareGroup,
+      compareType: type,
+      coreFieldKeys: coreFieldKeysByType[type] || [],
+      warningHints,
+      fitStyleTags: Array.isArray(traits.fitStyleTags) ? traits.fitStyleTags : [],
+      variantCount: variantCount || undefined,
+    };
+  }
+
+  private normalizeTraitObject(value: any) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return {};
+    }
+    return { ...value };
+  }
+
+  private collectFitStyleTags(
+    type: GearType,
+    master: Record<string, any>,
+    variant: Record<string, any> | null,
+  ) {
+    const values: string[] = [];
+    const pushText = (value: any) => {
+      const text = this.normalizeText(value);
+      if (text && !values.includes(text)) {
+        values.push(text);
+      }
+    };
+
+    if (type === 'reels') {
+      pushText(master.type);
+      pushText(master.type_tips);
+    } else if (type === 'rods') {
+      pushText(master.type);
+      pushText(master.action);
+      pushText(master.type_tips);
+    } else {
+      pushText(master.system);
+      pushText(master.water_column);
+      pushText(master.action);
+    }
+
+    if (variant) {
+      pushText(variant.TYPE);
+      pushText(variant.Action);
+    }
+
+    return values.slice(0, 4);
+  }
+
+  private collectCompareWarnings(
+    type: GearType,
+    master: Record<string, any>,
+    variant: Record<string, any> | null,
+  ) {
+    const warnings: string[] = [];
+    if (type === 'reels') {
+      const typeTips = this.normalizeText(master.type_tips);
+      if (typeTips.includes('BFS') || typeTips.includes('精细')) {
+        warnings.push('更偏精细');
+      }
+      const lineCupDepth = this.inferLineCupDepth(variant);
+      if (lineCupDepth === 'shallow') {
+        warnings.push('更偏浅线杯方向');
+      }
+    }
+
+    if (type === 'rods') {
+      const action = this.normalizeText((variant && variant.Action) || master.action);
+      if (action.toLowerCase().includes('fast') || action.includes('快')) {
+        warnings.push('调性更偏快');
+      }
+      const totalLength = this.normalizeText(variant && variant['TOTAL LENGTH']);
+      if (totalLength && /^7(\.|')/.test(totalLength)) {
+        warnings.push('长度方向已拉开');
+      }
+    }
+
+    return warnings.slice(0, 3);
+  }
+
+  private inferLineCupDepth(variant: Record<string, any> | null) {
+    if (!variant) {
+      return '';
+    }
+    const sku = this.normalizeText(variant.SKU || variant.sku).toUpperCase();
+    if (!sku) {
+      return '';
+    }
+    if (sku.includes('SSS') || sku.includes('SS') || sku.includes('SHG') || sku.includes('SPOOL S')) {
+      return 'shallow';
+    }
+    if (sku.includes('MD') || sku.includes('MGL')) {
+      return 'mid';
+    }
+    if (sku.endsWith('HG') || sku.endsWith('XG')) {
+      return '';
+    }
+    if (sku.includes('D')) {
+      return 'deep';
+    }
+    return '';
+  }
+
+  private inferBrakeType(master: Record<string, any>, variant: Record<string, any> | null) {
+    const source = [
+      this.normalizeText(master.type_tips),
+      this.normalizeText(master.alias),
+      this.normalizeText(variant && variant['BRAKE SYSTEM']),
+      this.normalizeText(variant && variant['Brake System']),
+    ]
+      .join(' ')
+      .toLowerCase();
+
+    if (!source) {
+      return '';
+    }
+    if (source.includes('dc')) {
+      return 'digital';
+    }
+    if (source.includes('mag') || source.includes('磁')) {
+      return 'magnetic';
+    }
+    if (source.includes('svs') || source.includes('离心')) {
+      return 'centrifugal';
+    }
+    return '';
+  }
+
+  private inferMinLureWeightHint(type: GearType, variant: Record<string, any> | null) {
+    if (type !== 'reels' || !variant) {
+      return '';
+    }
+    const raw = this.normalizeText(variant['LURE WEIGHT'] || variant['Jig Weight'] || '');
+    if (!raw) {
+      return '';
+    }
+    const match = raw.match(/(\d+(\.\d+)?)/);
+    return match ? `${match[1]}g+` : '';
+  }
+
+  private inferSolidTip(master: Record<string, any>, variant: Record<string, any> | null) {
+    const source = [
+      this.normalizeText(master.type_tips),
+      this.normalizeText(variant && variant['Tip Diameter']),
+      this.normalizeText(variant && variant['TYPE']),
+    ]
+      .join(' ')
+      .toLowerCase();
+
+    if (!source) {
+      return null;
+    }
+    if (source.includes('实心') || source.includes('solid')) {
+      return true;
+    }
+    if (source.includes('空心') || source.includes('tubular')) {
+      return false;
+    }
+    return null;
   }
 
   private hydrateBrandRow(row: {
