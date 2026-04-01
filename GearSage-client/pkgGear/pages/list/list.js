@@ -174,6 +174,17 @@ Page({
     });
   },
 
+  onCompareAction() {
+    if (this.data.compareCount >= 2) {
+      wx.navigateTo({
+        url: '/pkgGear/pages/compare/compare'
+      });
+      return;
+    }
+
+    this.onClearComparePool();
+  },
+
   finishSearchUI() {
     const searchComp = this.selectComponent('.gear-search-filter');
     if (searchComp && searchComp.finishSearch) {

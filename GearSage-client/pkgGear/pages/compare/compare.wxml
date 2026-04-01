@@ -1,0 +1,123 @@
+<custom-navbar title="{{compareTitle}}" show-back="{{true}}"></custom-navbar>
+
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <block wx:if="{{!isLoading}}">
+    <block wx:if="{{compareCards.length > 0}}">
+      <view class="summary-card">
+        <view class="summary-copy">
+          <text class="summary-title">{{compareTitle}}</text>
+          <text class="summary-desc">
+            {{compareCards.length >= 2 ? '这页只把差异摊开给你看，方便你继续收敛。' : '再补 1 个候选，就能更像真正的同类对比。'}}
+          </text>
+        </view>
+        <view class="summary-actions">
+          <view class="summary-action summary-action--ghost" bindtap="onClearCompareItems">清空</view>
+          <view class="summary-action summary-action--primary" wx:if="{{compareCards.length >= 2}}" bindtap="onGoRecommend">去求推荐</view>
+        </view>
+      </view>
+
+      <view class="warning-list" wx:if="{{compareWarnings.length > 0}}">
+        <view class="warning-item" wx:for="{{compareWarnings}}" wx:key="*this">
+          <view class="warning-dot"></view>
+          <text class="warning-text">{{item}}</text>
+        </view>
+      </view>
+
+      <scroll-view scroll-x class="candidate-scroll" show-scrollbar="{{false}}">
+        <view class="candidate-list">
+          <view class="candidate-card" wx:for="{{compareCards}}" wx:key="key">
+            <image class="candidate-image" src="{{item.imageUrl || '/images/default-gear.png'}}" mode="aspectFit"></image>
+            <text class="candidate-brand">{{item.brandName}}</text>
+            <text class="candidate-master">{{item.masterLabel}}</text>
+            <text class="candidate-variant">{{item.selectedVariant.__displayName}}</text>
+            <text class="candidate-group" wx:if="{{item.compareGroupLabel}}">{{item.compareGroupLabel}}</text>
+            <view class="candidate-actions">
+              <view class="candidate-link" bindtap="onOpenDetail" data-id="{{item.masterId}}" data-type="{{item.gearType}}">看详情</view>
+              <view class="candidate-link candidate-link--danger" bindtap="onRemoveCompareItem" data-key="{{item.key}}">移除</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="compare-section" wx:if="{{compareInsights.length > 0}}">
+        <view class="section-head">
+          <text class="section-title">GearSage 提示</text>
+          <text class="section-subtitle">默认只提醒真正有助于继续收敛的差异，不给你伪装成自动结论。</text>
+        </view>
+        <view class="insight-list">
+          <view class="insight-item" wx:for="{{compareInsights}}" wx:key="*this">
+            <view class="insight-dot"></view>
+            <text class="insight-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="compare-section" wx:if="{{coreRows.length > 0}}">
+        <view class="section-head">
+          <text class="section-title">核心参数对比</text>
+          <text class="section-subtitle">先看最常拿来排除候选的几项。灰掉的是差异不明显的字段。</text>
+        </view>
+        <scroll-view scroll-x class="table-scroll" show-scrollbar="{{false}}">
+          <view class="compare-table">
+            <view class="table-row table-head">
+              <view class="table-cell table-cell--label">字段</view>
+              <view class="table-cell table-cell--value" wx:for="{{compareCards}}" wx:key="key">
+                <text class="head-name">{{item.selectedVariant.__displayName}}</text>
+                <text class="head-sub">{{item.brandName}}</text>
+              </view>
+            </view>
+            <view class="table-row {{row.isDifferent ? '' : 'table-row--same'}}" wx:for="{{coreRows}}" wx:key="key" wx:for-item="row">
+              <view class="table-cell table-cell--label">{{row.label}}</view>
+              <view class="table-cell table-cell--value" wx:for="{{row.values}}" wx:for-item="value">{{value || '-'}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view class="compare-section" wx:if="{{specSections.length > 0}}">
+        <view class="section-head section-head--inline">
+          <view class="section-copy">
+            <text class="section-title">完整规格对比</text>
+            <text class="section-subtitle">默认只展示有差异的规格。需要时再展开全部。</text>
+          </view>
+          <view class="toggle-link" bindtap="toggleShowAllSpecs">{{showAllSpecs ? '只看差异' : '展开全部'}}</view>
+        </view>
+
+        <block wx:for="{{specSections}}" wx:key="title" wx:for-item="group">
+          <view class="spec-group" wx:if="{{showAllSpecs || group.visibleDiffCount > 0}}">
+            <text class="spec-group__title">{{group.title}}</text>
+            <scroll-view scroll-x class="table-scroll" show-scrollbar="{{false}}">
+              <view class="compare-table">
+                <view class="table-row table-head">
+                  <view class="table-cell table-cell--label">字段</view>
+                  <view class="table-cell table-cell--value" wx:for="{{compareCards}}" wx:key="key">
+                    <text class="head-name">{{item.selectedVariant.__displayName}}</text>
+                    <text class="head-sub">{{item.brandName}}</text>
+                  </view>
+                </view>
+                <block wx:for="{{group.rows}}" wx:key="key" wx:for-item="row">
+                  <view class="table-row {{row.isDifferent ? '' : 'table-row--same'}}" wx:if="{{showAllSpecs || row.isDifferent}}">
+                    <view class="table-cell table-cell--label">{{row.label}}</view>
+                    <view class="table-cell table-cell--value" wx:for="{{row.values}}" wx:for-item="value">{{value || '-'}}</view>
+                  </view>
+                </block>
+              </view>
+            </scroll-view>
+          </view>
+        </block>
+      </view>
+    </block>
+
+    <view class="empty-state" wx:else>
+      <view class="empty-icon">对比</view>
+      <text class="empty-title">对比池还是空的</text>
+      <text class="empty-sub">先去装备详情里选好子型号，再把 2 到 3 个同类候选放进来。</text>
+    </view>
+  </block>
+
+  <view class="loading-state" wx:else>
+    <view class="loading-card skeleton-pulse"></view>
+    <view class="loading-card skeleton-pulse"></view>
+    <view class="loading-card skeleton-pulse"></view>
+  </view>
+</view>

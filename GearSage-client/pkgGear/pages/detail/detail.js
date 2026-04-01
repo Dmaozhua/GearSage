@@ -507,8 +507,9 @@ Page({
   syncCompareState() {
     const compareItems = this.getCompareItems();
     const currentEntry = this.buildCompareEntry();
+    const scopedCount = compareItems.filter((item) => item && item.gearType === this.data.gearType).length;
     this.setData({
-      compareCount: compareItems.length,
+      compareCount: scopedCount,
       isCurrentVariantCompared: !!(currentEntry && compareItems.some((item) => item.key === currentEntry.key))
     });
   },
@@ -571,6 +572,20 @@ Page({
     wx.showToast({
       title: '已加入对比池',
       icon: 'none'
+    });
+  },
+
+  onGoCompare() {
+    if (this.data.compareCount < 2) {
+      wx.showToast({
+        title: '至少 2 个候选再开始对比',
+        icon: 'none'
+      });
+      return;
+    }
+
+    wx.navigateTo({
+      url: '/pkgGear/pages/compare/compare'
     });
   },
 

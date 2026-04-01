@@ -192,6 +192,26 @@ page {
   color: #98a6ab;
 }
 
+.compare-entry-link {
+  align-self: flex-start;
+  margin-top: 4rpx;
+  min-height: 58rpx;
+  padding: 0 22rpx;
+  border-radius: 999rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #355260;
+  background: #edf3f4;
+}
+
+.container.dark .compare-entry-link {
+  color: #d8e5e9;
+  background: #344048;
+}
+
 .detail-section {
   margin-bottom: 24rpx;
   padding: 28rpx;

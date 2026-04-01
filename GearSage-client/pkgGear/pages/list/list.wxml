@@ -18,7 +18,7 @@
         {{compareCount > 0 ? '当前已放入 ' + compareCount + ' 个候选，后续会直接进入同类对比。' : '先在详情里选子型号，再放进同类对比。'}}
       </text>
     </view>
-    <view class="compare-strip__action" wx:if="{{compareCount > 0}}" bindtap="onClearComparePool">清空</view>
+    <view class="compare-strip__action" wx:if="{{compareCount > 0}}" bindtap="onCompareAction">{{compareCount >= 2 ? '去对比' : '清空'}}</view>
   </view>
 
   <!-- List Section -->
