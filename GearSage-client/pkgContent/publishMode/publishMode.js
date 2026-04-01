@@ -65,7 +65,6 @@ function createModeInitialFormData(modeKey) {
         useScene: [],
         carePriorities: [],
         avoidPoints: [],
-        currentStage: '',
         currentGear: '',
         candidateOptions: ['', '', ''],
         usageFrequency: '',

@@ -20,9 +20,9 @@ const GEAR_CATEGORIES = [
 
 const RECOMMEND_INTENT_OPTIONS = [
   { id: 'first_set', label: '第一套入门' },
-  { id: 'strengthen_existing', label: '现有装备补强' },
-  { id: 'replace_old', label: '老装备替换' },
-  { id: 'upgrade', label: '想升级进阶' },
+  { id: 'fill_gap', label: '已有一套，想补一个空位' },
+  { id: 'replace_old', label: '旧装备用久了想替换' },
+  { id: 'upgrade', label: '已有装备，想升级进阶' },
   { id: 'compare_options', label: '二选一 / 三选一' },
   { id: 'full_combo', label: '整套求配' }
 ];
@@ -91,13 +91,6 @@ const AVOID_POINT_OPTIONS = [
   { id: 'other', label: '其他' }
 ];
 
-const CURRENT_STAGE_OPTIONS = [
-  { id: 'beginner_no_gear', label: '刚入门，基本没有装备' },
-  { id: 'one_set_fill_gap', label: '已有一套，想补一个空位' },
-  { id: 'multi_set_upgrade', label: '已有多套，想升级一项' },
-  { id: 'replace_old', label: '旧装备用久了想替换' }
-];
-
 const RECOMMEND_USAGE_FREQUENCY_OPTIONS = [
   { id: 'essential', label: '出钓必备 / 高频使用' },
   { id: 'weekly_once', label: '每周一次左右' },
@@ -140,12 +133,36 @@ function createEmptyRecommendMeta() {
     useScene: [],
     carePriorities: [],
     avoidPoints: [],
-    currentStage: '',
     currentGear: '',
     candidateOptions: ['', '', ''],
     usageFrequency: '',
     coreQuestion: ''
   };
+}
+
+function normalizeRecommendIntent(value, legacyCurrentStage = '') {
+  const text = String(value || '').trim();
+  const legacyText = String(legacyCurrentStage || '').trim();
+  const source = text || legacyText;
+
+  if (!source) {
+    return '';
+  }
+
+  const aliasMap = {
+    strengthen_existing: 'fill_gap',
+    beginner_no_gear: 'first_set',
+    one_set_fill_gap: 'fill_gap',
+    multi_set_upgrade: 'upgrade',
+    replace_old: 'replace_old',
+    first_set: 'first_set',
+    fill_gap: 'fill_gap',
+    upgrade: 'upgrade',
+    compare_options: 'compare_options',
+    full_combo: 'full_combo'
+  };
+
+  return aliasMap[source] || source;
 }
 
 function normalizeRecommendMeta(value) {
@@ -158,6 +175,7 @@ function normalizeRecommendMeta(value) {
   return {
     ...createEmptyRecommendMeta(),
     ...source,
+    recommendIntent: normalizeRecommendIntent(source.recommendIntent, source.currentStage),
     targetFish: Array.isArray(source.targetFish) ? source.targetFish.filter(Boolean).slice(0, 3) : [],
     useScene: Array.isArray(source.useScene) ? source.useScene.filter(Boolean).slice(0, 2) : [],
     carePriorities: Array.isArray(source.carePriorities) ? source.carePriorities.filter(Boolean).slice(0, 3) : [],
@@ -248,7 +266,6 @@ Component({
     useSceneOptions: buildOptionView(USE_SCENE_OPTIONS),
     carePriorityOptions: buildOptionView(CARE_PRIORITY_OPTIONS),
     avoidPointOptions: buildOptionView(AVOID_POINT_OPTIONS),
-    currentStageOptions: CURRENT_STAGE_OPTIONS,
     recommendUsageFrequencyOptions: RECOMMEND_USAGE_FREQUENCY_OPTIONS,
     formData: {
       questionType: 'recommend',
@@ -270,7 +287,8 @@ Component({
     showGearModelOptions: false,
     maxImages: 3,
     maxTitleLength: 40,
-    maxContentLength: 300
+    maxContentLength: 300,
+    coreQuestionLength: 0
   },
 
   lifetimes: {
@@ -319,7 +337,8 @@ Component({
       };
 
       this.setData({
-        formData: nextFormData
+        formData: nextFormData,
+        coreQuestionLength: String(nextFormData.recommendMeta.coreQuestion || '').length
       });
       this.refreshQuestionTypePresentation(nextFormData.questionType);
       this.refreshRecommendOptionViews(nextFormData.recommendMeta);
@@ -353,7 +372,8 @@ Component({
 
     syncRecommendMeta(nextMeta) {
       this.setData({
-        'formData.recommendMeta': nextMeta
+        'formData.recommendMeta': nextMeta,
+        coreQuestionLength: String(nextMeta.coreQuestion || '').length
       });
       this.refreshRecommendOptionViews(nextMeta);
       this.triggerEvent('datachange', { field: 'recommendMeta', value: nextMeta });
@@ -665,11 +685,8 @@ Component({
         if (!recommendMeta.carePriorities.length) {
           errors.carePriorities = '至少选择 1 个在意点';
         }
-        if (!recommendMeta.currentStage) {
-          errors.currentStage = '请选择当前阶段';
-        }
-        if (!recommendMeta.coreQuestion || String(recommendMeta.coreQuestion).trim().length < 20) {
-          errors.coreQuestion = '核心纠结至少写 20 个字';
+        if (!recommendMeta.coreQuestion || String(recommendMeta.coreQuestion).trim().length < 10) {
+          errors.coreQuestion = '核心纠结至少写 10 个字';
         } else if (String(recommendMeta.coreQuestion).trim().length > 120) {
           errors.coreQuestion = '核心纠结不能超过 120 个字';
         }

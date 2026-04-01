@@ -83,9 +83,9 @@ const RATING_LABELS = {
   costScore: '性价比'
 };
 
-const RECOMMEND_ANSWER_CONCLUSION_OPTIONS = [
-  { id: 'prefer_a', label: '更推荐 A' },
-  { id: 'prefer_b', label: '更推荐 B' },
+const RECOMMEND_OPTION_PREFIXES = ['A', 'B', 'C'];
+
+const RECOMMEND_ANSWER_GENERIC_CONCLUSION_OPTIONS = [
   { id: 'buy_safe', label: '这预算建议先保守买' },
   { id: 'save_more', label: '这预算建议再攒一点' },
   { id: 'no_upgrade', label: '现在不建议升级' },
@@ -153,13 +153,29 @@ function buildOptionLabelMap(options = []) {
   }, {});
 }
 
-const RECOMMEND_ANSWER_CONCLUSION_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_CONCLUSION_OPTIONS);
+const RECOMMEND_ANSWER_CONCLUSION_LABELS = {
+  prefer_a: '更推荐 A',
+  prefer_b: '更推荐 B',
+  prefer_c: '更推荐 C',
+  ...buildOptionLabelMap(RECOMMEND_ANSWER_GENERIC_CONCLUSION_OPTIONS)
+};
 const RECOMMEND_ANSWER_BASIS_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_BASIS_OPTIONS);
 const RECOMMEND_ANSWER_SCENE_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_SCENE_OPTIONS);
 const RECOMMEND_ANSWER_FIT_REASON_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_FIT_REASON_OPTIONS);
 const RECOMMEND_ANSWER_NOT_RECOMMEND_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_NOT_RECOMMEND_OPTIONS);
 const RECOMMEND_ANSWER_RISK_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_RISK_OPTIONS);
 const RECOMMEND_ANSWER_BUDGET_CHANGE_LABELS = buildOptionLabelMap(RECOMMEND_ANSWER_BUDGET_CHANGE_OPTIONS);
+
+function buildRecommendAnswerConclusionOptions(candidateOptions = []) {
+  const preferredOptions = normalizeAnswerList(candidateOptions)
+    .slice(0, 3)
+    .map((item, index) => ({
+      id: `prefer_${String.fromCharCode(97 + index)}`,
+      label: `更推荐 ${RECOMMEND_OPTION_PREFIXES[index]}`
+    }));
+
+  return preferredOptions.concat(RECOMMEND_ANSWER_GENERIC_CONCLUSION_OPTIONS);
+}
 
 function normalizeAnswerText(value, fallback = '') {
   if (value === null || typeof value === 'undefined') {
@@ -180,6 +196,26 @@ function normalizeAnswerList(value) {
     return value.split(',').map((item) => item.trim()).filter(Boolean);
   }
   return [];
+}
+
+function getRecommendAnswerConclusionLabel(value, candidateOptions = []) {
+  const normalizedValue = normalizeAnswerText(value, '');
+  if (!normalizedValue) {
+    return '';
+  }
+
+  if (normalizedValue === 'prefer_a' || normalizedValue === 'prefer_b' || normalizedValue === 'prefer_c') {
+    const optionIndex = {
+      prefer_a: 0,
+      prefer_b: 1,
+      prefer_c: 2
+    }[normalizedValue];
+    const optionKey = RECOMMEND_OPTION_PREFIXES[optionIndex];
+    const hasOption = Boolean(normalizeAnswerList(candidateOptions)[optionIndex]);
+    return hasOption ? `更推荐 ${optionKey}` : `更推荐 ${optionKey}`;
+  }
+
+  return RECOMMEND_ANSWER_CONCLUSION_LABELS[normalizedValue] || normalizedValue;
 }
 
 function joinAnswerLabels(values, labelMap) {
@@ -226,10 +262,10 @@ function normalizeRecommendAnswerMeta(value) {
   };
 }
 
-function buildRecommendAnswerSummary(meta) {
+function buildRecommendAnswerSummary(meta, candidateOptions = []) {
   const normalized = normalizeRecommendAnswerMeta(meta);
   const parts = [];
-  const conclusion = RECOMMEND_ANSWER_CONCLUSION_LABELS[normalized.answerConclusion] || normalized.answerConclusion;
+  const conclusion = getRecommendAnswerConclusionLabel(normalized.answerConclusion, candidateOptions);
   const fitReasonText = joinAnswerLabels(normalized.fitReasons, RECOMMEND_ANSWER_FIT_REASON_LABELS);
 
   if (conclusion) {
@@ -245,7 +281,7 @@ function buildRecommendAnswerSummary(meta) {
   return parts.join('；').slice(0, 180);
 }
 
-function buildRecommendAnswerDisplay(meta) {
+function buildRecommendAnswerDisplay(meta, candidateOptions = []) {
   const normalized = normalizeRecommendAnswerMeta(meta);
   const riskPresetLabel =
     RECOMMEND_ANSWER_RISK_LABELS[normalized.riskNotePreset] || normalized.riskNotePreset;
@@ -253,8 +289,10 @@ function buildRecommendAnswerDisplay(meta) {
 
   return {
     ...normalized,
-    answerConclusionLabel:
-      RECOMMEND_ANSWER_CONCLUSION_LABELS[normalized.answerConclusion] || normalized.answerConclusion,
+    answerConclusionLabel: getRecommendAnswerConclusionLabel(
+      normalized.answerConclusion,
+      candidateOptions
+    ),
     recommendedOptionText: normalized.recommendedOption.join('、'),
     answerBasisLabel:
       RECOMMEND_ANSWER_BASIS_LABELS[normalized.answerBasis] || normalized.answerBasis,
@@ -352,7 +390,7 @@ Page({
       normalComments: [],
       recommendAnswerForm: createEmptyRecommendAnswerForm(),
       recommendAnswerErrors: {},
-      recommendAnswerConclusionOptions: RECOMMEND_ANSWER_CONCLUSION_OPTIONS,
+      recommendAnswerConclusionOptions: buildRecommendAnswerConclusionOptions(),
       recommendAnswerBasisOptions: RECOMMEND_ANSWER_BASIS_OPTIONS,
       recommendAnswerMySceneOptions: buildOptionView(RECOMMEND_ANSWER_SCENE_OPTIONS),
       recommendAnswerFitReasonOptions: buildOptionView(RECOMMEND_ANSWER_FIT_REASON_OPTIONS),
@@ -1433,9 +1471,21 @@ Page({
       return Boolean(currentUserId && topicUserId && currentUserId === topicUserId);
     },
 
+    getTopicCandidateOptions() {
+      const source =
+        this.data &&
+        this.data.productDetail &&
+        Array.isArray(this.data.productDetail.recommendCandidateOptions)
+          ? this.data.productDetail.recommendCandidateOptions
+          : [];
+      return normalizeAnswerList(source).slice(0, 3);
+    },
+
     refreshRecommendAnswerOptionViews(formValue) {
       const form = normalizeRecommendAnswerMeta(formValue);
+      const candidateOptions = this.getTopicCandidateOptions();
       this.setData({
+        recommendAnswerConclusionOptions: buildRecommendAnswerConclusionOptions(candidateOptions),
         recommendAnswerMySceneOptions: buildOptionView(
           RECOMMEND_ANSWER_SCENE_OPTIONS,
           buildSelectedMap(form.myScene)
@@ -1487,6 +1537,7 @@ Page({
 
     buildLoadedCommentItem(comment = {}) {
       const recommendAnswerMeta = normalizeRecommendAnswerMeta(comment.recommendAnswerMeta);
+      const candidateOptions = this.getTopicCandidateOptions();
       return {
         id: comment.id,
         userId: comment.userId,
@@ -1504,7 +1555,7 @@ Page({
         recommendAnswerMeta,
         recommendAnswerDisplay:
           comment.commentType === 'recommend_answer'
-            ? buildRecommendAnswerDisplay(recommendAnswerMeta)
+            ? buildRecommendAnswerDisplay(recommendAnswerMeta, candidateOptions)
             : null,
         time: comment.createTime,
         createTimeFormatted: this.formatTime(comment.createTime),
@@ -1730,6 +1781,7 @@ Page({
 
     buildRecommendAnswerPayload() {
       const form = normalizeRecommendAnswerMeta(this.data.recommendAnswerForm);
+      const candidateOptions = this.getTopicCandidateOptions();
       const payloadMeta = {
         ...form,
         recommendedOption: form.recommendedOption.filter(Boolean).slice(0, 3)
@@ -1737,7 +1789,7 @@ Page({
 
       return {
         topicId: this.data.productDetail.id || this.data.postId,
-        content: buildRecommendAnswerSummary(payloadMeta) || '给楼主的规范推荐',
+        content: buildRecommendAnswerSummary(payloadMeta, candidateOptions) || '给楼主的规范推荐',
         commentType: 'recommend_answer',
         recommendAnswerMeta: payloadMeta,
         replayCommentId: null,

@@ -399,10 +399,6 @@
                 <text class="topic-info-label">{{item.label}}</text>
                 <text class="topic-info-value">{{item.value}}</text>
               </view>
-              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendIntentLabel}}">
-                <text class="topic-info-label">求推荐意图</text>
-                <text class="topic-info-value">{{productDetail.recommendIntentLabel}}</text>
-              </view>
               <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.budgetFlexibleLabel}}">
                 <text class="topic-info-label">预算弹性</text>
                 <text class="topic-info-value">{{productDetail.budgetFlexibleLabel}}</text>
@@ -411,9 +407,14 @@
                 <text class="topic-info-label">已有装备</text>
                 <text class="topic-info-value">{{productDetail.recommendCurrentGear}}</text>
               </view>
-              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendCandidateOptionsText}}">
+              <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.recommendCandidateOptionItems.length}}">
                 <text class="topic-info-label">候选项</text>
-                <text class="topic-info-value">{{productDetail.recommendCandidateOptionsText}}</text>
+                <view class="topic-option-list">
+                  <view class="topic-option-item" wx:for="{{productDetail.recommendCandidateOptionItems}}" wx:key="key">
+                    <text class="topic-option-badge">{{item.key}}</text>
+                    <text class="topic-option-text">{{item.value}}</text>
+                  </view>
+                </view>
               </view>
             </view>
             <view class="topic-chip-row" wx:if="{{productDetail.recommendCarePriorityItems.length}}">

@@ -61,6 +61,18 @@
   line-height: 1.5;
 }
 
+.form-tip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.form-tip--count {
+  flex-shrink: 0;
+  text-align: right;
+}
+
 .recommend-section-title {
   font-size: 34rpx;
   font-weight: 600;
@@ -109,13 +121,15 @@
 .text-input,
 .textarea-input {
   width: 100%;
-  padding: 24rpx 28rpx;
+  padding: 32rpx 28rpx;
   box-sizing: border-box;
   border-radius: 18rpx;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
   font-size: 28rpx;
+  height: 80rpx;               /* 固定高度 */
+  padding: 0 28rpx;            /* 仅左右内边距 */
 }
 
 .textarea-input {

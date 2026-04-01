@@ -69,9 +69,13 @@ const QUESTION_TYPE_LABELS = {
 
 const RECOMMEND_INTENT_LABELS = {
   first_set: '第一套入门',
-  strengthen_existing: '现有装备补强',
-  replace_old: '老装备替换',
-  upgrade: '想升级进阶',
+  strengthen_existing: '已有一套，想补一个空位',
+  fill_gap: '已有一套，想补一个空位',
+  beginner_no_gear: '第一套入门',
+  one_set_fill_gap: '已有一套，想补一个空位',
+  multi_set_upgrade: '已有装备，想升级进阶',
+  replace_old: '旧装备用久了想替换',
+  upgrade: '已有装备，想升级进阶',
   compare_options: '二选一 / 三选一',
   full_combo: '整套求配'
 };
@@ -140,19 +144,14 @@ const AVOID_POINT_LABELS = {
   other: '其他'
 };
 
-const CURRENT_STAGE_LABELS = {
-  beginner_no_gear: '刚入门，基本没有装备',
-  one_set_fill_gap: '已有一套，想补一个空位',
-  multi_set_upgrade: '已有多套，想升级一项',
-  replace_old: '旧装备用久了想替换'
-};
-
 const RECOMMEND_USAGE_FREQUENCY_LABELS = {
   essential: '出钓必备 / 高频使用',
   weekly_once: '每周一次左右',
   monthly_several: '每月几次',
   occasional: '偶尔玩玩'
 };
+
+const RECOMMEND_CANDIDATE_PREFIXES = ['A', 'B', 'C'];
 
 const TOPIC_STATUS_LABELS = {
   0: '草稿',
@@ -271,19 +270,50 @@ function normalizeRecommendMeta(value = {}) {
     : [];
 
   return {
-    recommendIntent: normalizeString(source.recommendIntent, ''),
+    recommendIntent: mapLegacyRecommendIntent(
+      normalizeString(source.recommendIntent, ''),
+      normalizeString(source.currentStage, '')
+    ),
     budgetRange: normalizeString(source.budgetRange, ''),
     budgetFlexible: normalizeString(source.budgetFlexible, ''),
     targetFish: normalizeStringList(source.targetFish).slice(0, 3),
     useScene: normalizeStringList(source.useScene).slice(0, 2),
     carePriorities: normalizeStringList(source.carePriorities).slice(0, 3),
     avoidPoints: normalizeStringList(source.avoidPoints).slice(0, 3),
-    currentStage: normalizeString(source.currentStage, ''),
     currentGear: normalizeString(source.currentGear, ''),
     candidateOptions,
     usageFrequency: normalizeString(source.usageFrequency, ''),
     coreQuestion: normalizeString(source.coreQuestion, '')
   };
+}
+
+function buildRecommendCandidateOptionItems(options = []) {
+  return (Array.isArray(options) ? options : [])
+    .map((item) => normalizeString(item, ''))
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((item, index) => ({
+      key: RECOMMEND_CANDIDATE_PREFIXES[index],
+      value: item,
+      displayText: `${RECOMMEND_CANDIDATE_PREFIXES[index]} ${item}`
+    }));
+}
+
+function mapLegacyRecommendIntent(recommendIntent, legacyCurrentStage = '') {
+  const source = normalizeString(recommendIntent || legacyCurrentStage, '');
+  const aliasMap = {
+    strengthen_existing: 'fill_gap',
+    beginner_no_gear: 'first_set',
+    one_set_fill_gap: 'fill_gap',
+    multi_set_upgrade: 'upgrade',
+    replace_old: 'replace_old',
+    first_set: 'first_set',
+    fill_gap: 'fill_gap',
+    upgrade: 'upgrade',
+    compare_options: 'compare_options',
+    full_combo: 'full_combo'
+  };
+  return aliasMap[source] || source;
 }
 
 function formatUsageYearLabel(value) {
@@ -616,6 +646,9 @@ function buildTopicDetailView(postData = {}, options = {}) {
   const recommendUseSceneItems = mapOptionList(recommendMeta.useScene, USE_SCENE_LABELS);
   const recommendCarePriorityItems = mapOptionList(recommendMeta.carePriorities, CARE_PRIORITY_LABELS);
   const recommendAvoidPointItems = mapOptionList(recommendMeta.avoidPoints, AVOID_POINT_LABELS);
+  const recommendCandidateOptionItems = buildRecommendCandidateOptionItems(
+    recommendMeta.candidateOptions
+  );
   const isRecommendQuestion = topicCategory === TOPIC_CATEGORY.QUESTION && postData.questionType === 'recommend';
   const acceptedAnswerId = normalizeOptionalNumber(postData.acceptedAnswerId);
   const acceptedByUserId = normalizeOptionalNumber(postData.acceptedByUserId);
@@ -628,7 +661,7 @@ function buildTopicDetailView(postData = {}, options = {}) {
         buildFact('预算', mapOptionLabel(recommendMeta.budgetRange, BUDGET_RANGE_LABELS)),
         buildFact('对象鱼', recommendTargetFishItems.join('、')),
         buildFact('使用场景', recommendUseSceneItems.join('、')),
-        buildFact('当前阶段', mapOptionLabel(recommendMeta.currentStage, CURRENT_STAGE_LABELS)),
+        buildFact('当前情况', mapOptionLabel(recommendMeta.recommendIntent, RECOMMEND_INTENT_LABELS)),
         buildFact('使用频率', mapOptionLabel(recommendMeta.usageFrequency, RECOMMEND_USAGE_FREQUENCY_LABELS))
       ].filter(Boolean)
     : [];
@@ -738,7 +771,6 @@ function buildTopicDetailView(postData = {}, options = {}) {
         ? (hasAcceptedAnswer ? '已采纳 1 条回答' : '等待推荐中')
         : '',
       recommendMeta,
-      recommendIntentLabel: mapOptionLabel(recommendMeta.recommendIntent, RECOMMEND_INTENT_LABELS),
       budgetRangeLabel: mapOptionLabel(recommendMeta.budgetRange, BUDGET_RANGE_LABELS),
       budgetFlexibleLabel: mapOptionLabel(recommendMeta.budgetFlexible, BUDGET_FLEXIBLE_LABELS),
       recommendTargetFishItems,
@@ -749,11 +781,13 @@ function buildTopicDetailView(postData = {}, options = {}) {
       recommendCarePriorityText: joinDisplay(recommendCarePriorityItems),
       recommendAvoidPointItems,
       recommendAvoidPointText: joinDisplay(recommendAvoidPointItems),
-      recommendCurrentStageLabel: mapOptionLabel(recommendMeta.currentStage, CURRENT_STAGE_LABELS),
       recommendCurrentGear: recommendMeta.currentGear,
       recommendUsageFrequencyLabel: mapOptionLabel(recommendMeta.usageFrequency, RECOMMEND_USAGE_FREQUENCY_LABELS),
       recommendCandidateOptions: recommendMeta.candidateOptions,
-      recommendCandidateOptionsText: joinDisplay(recommendMeta.candidateOptions),
+      recommendCandidateOptionItems,
+      recommendCandidateOptionsText: joinDisplay(
+        recommendCandidateOptionItems.map((item) => item.displayText)
+      ),
       recommendCoreQuestion: recommendMeta.coreQuestion,
       recommendSummaryFacts,
       locationTag: postData.locationTag,

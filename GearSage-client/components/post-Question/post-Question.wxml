@@ -67,7 +67,7 @@
 
       <view class="form-item">
         <view class="form-label">
-          <text>你现在属于哪种情况</text>
+          <text>你现在更接近哪种情况</text>
           <text class="required">*</text>
         </view>
         <view class="option-flow">
@@ -212,26 +212,6 @@
 
       <view class="form-item">
         <view class="form-label">
-          <text>当前阶段</text>
-          <text class="required">*</text>
-        </view>
-        <view class="option-flow">
-          <view
-            wx:for="{{currentStageOptions}}"
-            wx:key="id"
-            class="option-chip option-chip--block {{formData.recommendMeta.currentStage === item.id ? 'active' : ''}}"
-            data-field="currentStage"
-            data-value="{{item.id}}"
-            bindtap="onRecommendSingleSelect"
-          >
-            {{item.label}}
-          </view>
-        </view>
-        <view class="error-text" wx:if="{{errors.currentStage}}">{{errors.currentStage}}</view>
-      </view>
-
-      <view class="form-item">
-        <view class="form-label">
           <text>已有装备</text>
           <text class="optional">（选填）</text>
         </view>
@@ -296,7 +276,10 @@
           placeholder="比如：第一次买轮，怕买重了；或者 A / B 两个型号不知道差价值不值。"
           bindinput="onRecommendInput"
         />
-        <view class="form-tip">20 ~ 120 字</view>
+        <view class="form-tip-row">
+          <view class="form-tip">10 ~ 120 字</view>
+          <view class="form-tip form-tip--count">{{coreQuestionLength}} / 120</view>
+        </view>
         <view class="error-text" wx:if="{{errors.coreQuestion}}">{{errors.coreQuestion}}</view>
       </view>
     </block>
