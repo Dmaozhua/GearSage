@@ -212,6 +212,7 @@ Page({
   buildIdentitySummary(stats = {}) {
     const acceptedAnswerCount = normalizeNumber(stats.acceptedAnswerCount);
     const recommendAnswerCount = normalizeNumber(stats.recommendAnswerCount);
+    const recommendAnswerLikeCount = normalizeNumber(stats.recommendAnswerLikeCount);
     const longReviewCount = normalizeNumber(stats.longReviewCount);
     const pieces = [];
 
@@ -221,6 +222,9 @@ Page({
     if (recommendAnswerCount > 0) {
       pieces.push(`写过 ${recommendAnswerCount} 条规范推荐`);
     }
+    if (recommendAnswerLikeCount > 0) {
+      pieces.push(`回答获赞 ${recommendAnswerLikeCount}`);
+    }
     if (longReviewCount > 0) {
       pieces.push(`发布过 ${longReviewCount} 篇长测评`);
     }
@@ -229,12 +233,33 @@ Page({
   },
 
   buildSummaryStats(stats = {}) {
-    return [
+    const summaryStats = [
       { key: 'accepted', label: '被采纳', value: normalizeNumber(stats.acceptedAnswerCount) },
       { key: 'answer', label: '求推荐回答', value: normalizeNumber(stats.recommendAnswerCount) },
       { key: 'recommend', label: '发起求推荐', value: normalizeNumber(stats.recommendPostCount) },
-      { key: 'feedback', label: '已补反馈', value: normalizeNumber(stats.recommendFeedbackCount) },
+      { key: 'solved', label: '已解决', value: normalizeNumber(stats.recommendSolvedCount) },
     ];
+
+    const recommendAnswerLikeCount = normalizeNumber(stats.recommendAnswerLikeCount);
+    const recommendFeedbackCount = normalizeNumber(stats.recommendFeedbackCount);
+
+    if (recommendAnswerLikeCount > 0) {
+      summaryStats.push({
+        key: 'answer_like',
+        label: '回答获赞',
+        value: recommendAnswerLikeCount,
+      });
+    }
+
+    if (recommendFeedbackCount > 0) {
+      summaryStats.push({
+        key: 'feedback',
+        label: '已补反馈',
+        value: recommendFeedbackCount,
+      });
+    }
+
+    return summaryStats;
   },
 
   buildRecentTopics(list = []) {

@@ -17,6 +17,7 @@ import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
 import { AcceptRecommendAnswerDto } from './dto/accept-recommend-answer.dto';
+import { SubmitRecommendFeedbackDto } from './dto/submit-recommend-feedback.dto';
 
 @Controller('mini/topic')
 export class TopicController {
@@ -198,6 +199,19 @@ export class TopicController {
       code: 0,
       message: 'ok',
       data: await this.topicService.acceptRecommendAnswer(Number(user.id), body),
+    };
+  }
+
+  @Post('recommend/feedback')
+  @UseGuards(JwtAuthGuard)
+  async submitRecommendFeedback(
+    @CurrentUser() user: { id: number },
+    @Body() body: SubmitRecommendFeedbackDto,
+  ) {
+    return {
+      code: 0,
+      message: 'ok',
+      data: await this.topicService.submitRecommendFeedback(Number(user.id), body),
     };
   }
 

@@ -146,6 +146,42 @@ const RECOMMEND_ANSWER_BUDGET_CHANGE_OPTIONS = [
   { id: 'budget_tight', label: '当前预算偏紧，建议先降低预期' }
 ];
 
+const RECOMMEND_FEEDBACK_DECISION_OPTIONS = [
+  { id: 'buy_followed', label: '按采纳建议买了' },
+  { id: 'buy_other', label: '参考采纳建议后买了别的' },
+  { id: 'not_buy_now', label: '暂时没买' },
+  { id: 'give_up_upgrade', label: '放弃这次升级 / 购买' }
+];
+
+const RECOMMEND_FEEDBACK_REASON_OPTIONS = [
+  { id: 'fit_budget', label: '更符合预算' },
+  { id: 'fit_scene', label: '更符合场景' },
+  { id: 'more_stable', label: '最终觉得更稳妥' },
+  { id: 'no_need_higher', label: '最终觉得没必要上更高价位' },
+  { id: 'clearer_after_advice', label: '看了大家建议后思路更清楚' },
+  { id: 'real_life_delay', label: '现实原因暂时不买' },
+  { id: 'other', label: '其他' }
+];
+
+const RECOMMEND_FEEDBACK_SATISFACTION_OPTIONS = [
+  { id: 'very_good', label: '很满意' },
+  { id: 'basic_good', label: '基本满意' },
+  { id: 'neutral', label: '一般' },
+  { id: 'regret', label: '有点后悔' },
+  { id: 'not_used_yet', label: '还没真正开始用' }
+];
+
+const RECOMMEND_FEEDBACK_LONG_REVIEW_OPTIONS = [
+  { id: 'will_post', label: '之后会补长测评' },
+  { id: 'maybe', label: '可能会补' },
+  { id: 'no_plan', label: '暂时不会' }
+];
+
+const RECOMMEND_ANSWER_EDITOR_VARIANTS = {
+  QUICK: 'quick',
+  FULL: 'full'
+};
+
 function buildOptionLabelMap(options = []) {
   return options.reduce((acc, item) => {
     acc[item.id] = item.label;
@@ -240,6 +276,17 @@ function createEmptyRecommendAnswerForm() {
   };
 }
 
+function createEmptyRecommendFeedbackForm() {
+  return {
+    finalDecisionType: '',
+    finalProduct: '',
+    decisionReason: [],
+    resultSatisfaction: '',
+    feedbackText: '',
+    willPostLongReview: ''
+  };
+}
+
 function normalizeRecommendAnswerMeta(value) {
   const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
   const recommendedOption = Array.isArray(source.recommendedOption)
@@ -259,6 +306,21 @@ function normalizeRecommendAnswerMeta(value) {
     riskNotePreset: normalizeAnswerText(source.riskNotePreset || source.riskNote, ''),
     riskNoteText: normalizeAnswerText(source.riskNoteText, ''),
     budgetChangeAdvice: normalizeAnswerText(source.budgetChangeAdvice, '')
+  };
+}
+
+function normalizeRecommendFeedbackForm(value) {
+  const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+
+  return {
+    ...createEmptyRecommendFeedbackForm(),
+    ...source,
+    finalDecisionType: normalizeAnswerText(source.finalDecisionType, ''),
+    finalProduct: normalizeAnswerText(source.finalProduct, ''),
+    decisionReason: normalizeAnswerList(source.decisionReason).slice(0, 2),
+    resultSatisfaction: normalizeAnswerText(source.resultSatisfaction, ''),
+    feedbackText: normalizeAnswerText(source.feedbackText, ''),
+    willPostLongReview: normalizeAnswerText(source.willPostLongReview, '')
   };
 }
 
@@ -390,6 +452,9 @@ Page({
       normalComments: [],
       recommendAnswerForm: createEmptyRecommendAnswerForm(),
       recommendAnswerErrors: {},
+      recommendAnswerEditorVariant: RECOMMEND_ANSWER_EDITOR_VARIANTS.FULL,
+      recommendFeedbackForm: createEmptyRecommendFeedbackForm(),
+      recommendFeedbackErrors: {},
       recommendAnswerConclusionOptions: buildRecommendAnswerConclusionOptions(),
       recommendAnswerBasisOptions: RECOMMEND_ANSWER_BASIS_OPTIONS,
       recommendAnswerMySceneOptions: buildOptionView(RECOMMEND_ANSWER_SCENE_OPTIONS),
@@ -397,6 +462,10 @@ Page({
       recommendAnswerNotRecommendOptions: buildOptionView(RECOMMEND_ANSWER_NOT_RECOMMEND_OPTIONS),
       recommendAnswerRiskOptions: RECOMMEND_ANSWER_RISK_OPTIONS,
       recommendAnswerBudgetChangeOptions: RECOMMEND_ANSWER_BUDGET_CHANGE_OPTIONS,
+      recommendFeedbackDecisionOptions: RECOMMEND_FEEDBACK_DECISION_OPTIONS,
+      recommendFeedbackReasonOptions: buildOptionView(RECOMMEND_FEEDBACK_REASON_OPTIONS),
+      recommendFeedbackSatisfactionOptions: RECOMMEND_FEEDBACK_SATISFACTION_OPTIONS,
+      recommendFeedbackLongReviewOptions: RECOMMEND_FEEDBACK_LONG_REVIEW_OPTIONS,
       replyTo: null,
       replyToCommentId: null,
       replyToUserId: null,
@@ -877,6 +946,7 @@ Page({
     buildAuthorStatsText(stats = {}, options = {}) {
       const acceptedAnswerCount = Number(stats.acceptedAnswerCount || 0);
       const recommendAnswerCount = Number(stats.recommendAnswerCount || 0);
+      const recommendAnswerLikeCount = Number(stats.recommendAnswerLikeCount || 0);
       const longReviewCount = Number(stats.longReviewCount || 0);
       const likeReceivedCount = Number(stats.likeReceivedCount || 0);
       const mode = this.normalizeString(options.mode, 'default');
@@ -887,6 +957,9 @@ Page({
           pieces.push(`回答 ${recommendAnswerCount}`);
           if (acceptedAnswerCount > 0) {
             pieces.push(`被采纳 ${acceptedAnswerCount}`);
+          }
+          if (recommendAnswerLikeCount > 0) {
+            pieces.push(`获赞 ${recommendAnswerLikeCount}`);
           }
         } else if (longReviewCount > 0) {
           pieces.push(`长测评 ${longReviewCount}`);
@@ -1481,6 +1554,12 @@ Page({
       return normalizeAnswerList(source).slice(0, 3);
     },
 
+    getDefaultRecommendAnswerEditorVariant() {
+      return this.data.productDetail && this.data.productDetail.quickReplyOnly
+        ? RECOMMEND_ANSWER_EDITOR_VARIANTS.QUICK
+        : RECOMMEND_ANSWER_EDITOR_VARIANTS.FULL;
+    },
+
     refreshRecommendAnswerOptionViews(formValue) {
       const form = normalizeRecommendAnswerMeta(formValue);
       const candidateOptions = this.getTopicCandidateOptions();
@@ -1501,38 +1580,84 @@ Page({
       });
     },
 
+    refreshRecommendFeedbackOptionViews(formValue) {
+      const form = normalizeRecommendFeedbackForm(formValue);
+      this.setData({
+        recommendFeedbackReasonOptions: buildOptionView(
+          RECOMMEND_FEEDBACK_REASON_OPTIONS,
+          buildSelectedMap(form.decisionReason)
+        )
+      });
+    },
+
     resetCommentEditor(mode = 'normal') {
       const recommendAnswerForm = createEmptyRecommendAnswerForm();
+      const recommendFeedbackForm = createEmptyRecommendFeedbackForm();
       this.setData({
         showCommentInput: false,
         commentEditorMode: mode,
         commentContent: '',
         canSendComment: false,
+        recommendAnswerEditorVariant: RECOMMEND_ANSWER_EDITOR_VARIANTS.FULL,
         replyTo: null,
         replyToCommentId: null,
         replyToUserId: null,
         replyToUsername: '',
         recommendAnswerForm,
-        recommendAnswerErrors: {}
+        recommendAnswerErrors: {},
+        recommendFeedbackForm,
+        recommendFeedbackErrors: {}
       });
       this.refreshRecommendAnswerOptionViews(recommendAnswerForm);
+      this.refreshRecommendFeedbackOptionViews(recommendFeedbackForm);
     },
 
     openCommentEditor(mode = 'normal') {
       const recommendAnswerForm = createEmptyRecommendAnswerForm();
+      const recommendFeedbackForm = createEmptyRecommendFeedbackForm();
       this.setData({
         showCommentInput: true,
         commentEditorMode: mode,
         commentContent: '',
         canSendComment: mode === 'recommend_answer',
+        recommendAnswerEditorVariant:
+          mode === 'recommend_answer'
+            ? this.getDefaultRecommendAnswerEditorVariant()
+            : RECOMMEND_ANSWER_EDITOR_VARIANTS.FULL,
         replyTo: null,
         replyToCommentId: null,
         replyToUserId: null,
         replyToUsername: '',
         recommendAnswerForm,
-        recommendAnswerErrors: {}
+        recommendAnswerErrors: {},
+        recommendFeedbackForm,
+        recommendFeedbackErrors: {}
       });
       this.refreshRecommendAnswerOptionViews(recommendAnswerForm);
+      this.refreshRecommendFeedbackOptionViews(recommendFeedbackForm);
+    },
+
+    onSwitchRecommendAnswerEditorVariant(e) {
+      const variant = e.currentTarget.dataset.variant || '';
+      if (
+        variant !== RECOMMEND_ANSWER_EDITOR_VARIANTS.QUICK &&
+        variant !== RECOMMEND_ANSWER_EDITOR_VARIANTS.FULL
+      ) {
+        return;
+      }
+
+      if (!this.data.productDetail || !this.data.productDetail.quickReplyOnly) {
+        return;
+      }
+
+      if (variant === this.data.recommendAnswerEditorVariant) {
+        return;
+      }
+
+      this.setData({
+        recommendAnswerEditorVariant: variant,
+        recommendAnswerErrors: {}
+      });
     },
 
     buildLoadedCommentItem(comment = {}) {
@@ -1759,22 +1884,112 @@ Page({
       });
     },
 
+    onRecommendFeedbackSingleSelect(e) {
+      const field = e.currentTarget.dataset.field || '';
+      const value = e.currentTarget.dataset.value || '';
+      if (!field) {
+        return;
+      }
+
+      const nextForm = {
+        ...normalizeRecommendFeedbackForm(this.data.recommendFeedbackForm),
+        [field]: value
+      };
+      this.setData({
+        recommendFeedbackForm: nextForm,
+        [`recommendFeedbackErrors.${field}`]: ''
+      });
+    },
+
+    onRecommendFeedbackMultiSelect(e) {
+      const field = e.currentTarget.dataset.field || '';
+      const value = e.currentTarget.dataset.value || '';
+      const max = Number(e.currentTarget.dataset.max || 0);
+      if (!field || !value || !max) {
+        return;
+      }
+
+      const currentForm = normalizeRecommendFeedbackForm(this.data.recommendFeedbackForm);
+      const currentValues = normalizeAnswerList(currentForm[field]);
+      const existed = currentValues.includes(value);
+      const nextValues = existed
+        ? currentValues.filter((item) => item !== value)
+        : currentValues.concat(value).slice(0, max);
+
+      if (!existed && currentValues.length >= max) {
+        wx.showToast({
+          title: `最多选择 ${max} 项`,
+          icon: 'none'
+        });
+        return;
+      }
+
+      const nextForm = {
+        ...currentForm,
+        [field]: nextValues
+      };
+      this.setData({
+        recommendFeedbackForm: nextForm,
+        [`recommendFeedbackErrors.${field}`]: ''
+      });
+      this.refreshRecommendFeedbackOptionViews(nextForm);
+    },
+
+    onRecommendFeedbackInput(e) {
+      const field = e.currentTarget.dataset.field || '';
+      if (!field) {
+        return;
+      }
+
+      const value = e.detail.value || '';
+      const nextForm = {
+        ...normalizeRecommendFeedbackForm(this.data.recommendFeedbackForm),
+        [field]: value
+      };
+      this.setData({
+        recommendFeedbackForm: nextForm,
+        [`recommendFeedbackErrors.${field}`]: ''
+      });
+    },
+
     validateRecommendAnswerForm() {
       const form = normalizeRecommendAnswerMeta(this.data.recommendAnswerForm);
+      const isQuickVariant =
+        this.data.recommendAnswerEditorVariant === RECOMMEND_ANSWER_EDITOR_VARIANTS.QUICK;
       const errors = {};
 
       if (!form.answerConclusion) {
         errors.answerConclusion = '请选择你的结论';
       }
-      if (!form.answerBasis) {
+      if (!isQuickVariant && !form.answerBasis) {
         errors.answerBasis = '请选择你的参考背景';
       }
-      if (!form.fitReasons.length) {
+      if (!isQuickVariant && !form.fitReasons.length) {
         errors.fitReasons = '至少选择 1 个适合原因';
+      }
+      if (isQuickVariant && !form.fitReasons.length && !form.freeReasonText) {
+        errors.fitReasons = '至少选 1 个适合原因，或补一句判断';
       }
 
       this.setData({
         recommendAnswerErrors: errors
+      });
+      return Object.keys(errors).length === 0;
+    },
+
+    validateRecommendFeedbackForm() {
+      const form = normalizeRecommendFeedbackForm(this.data.recommendFeedbackForm);
+      const errors = {};
+
+      if (!form.finalDecisionType) {
+        errors.finalDecisionType = '请选择最终结果';
+      }
+      if (!form.decisionReason.length) {
+        errors.decisionReason = '至少选择 1 个原因';
+      }
+
+      this.setData({
+        recommendFeedbackErrors: errors
       });
       return Object.keys(errors).length === 0;
     },
@@ -1794,6 +2009,23 @@ Page({
         recommendAnswerMeta: payloadMeta,
         replayCommentId: null,
         replayUserId: null
+      };
+    },
+
+    buildRecommendFeedbackPayload() {
+      const form = normalizeRecommendFeedbackForm(this.data.recommendFeedbackForm);
+      return {
+        topicId: this.data.productDetail.id || this.data.postId,
+        finalDecisionType: form.finalDecisionType,
+        finalProduct: form.finalProduct
+          ? {
+              label: form.finalProduct
+            }
+          : {},
+        decisionReason: form.decisionReason,
+        resultSatisfaction: form.resultSatisfaction,
+        feedbackText: form.feedbackText,
+        willPostLongReview: form.willPostLongReview
       };
     },
 
@@ -2431,6 +2663,14 @@ Page({
         return;
       }
 
+      if (this.isCurrentUserTopicOwner()) {
+        wx.showToast({
+          title: '不能使用规范回答自己的提问',
+          icon: 'none'
+        });
+        return;
+      }
+
       const AuthService = require('../../services/auth.js');
       try {
         await AuthService.ensureLogin();
@@ -2440,6 +2680,46 @@ Page({
       }
 
       this.openCommentEditor('recommend_answer');
+    },
+
+    async onShowRecommendFeedbackInput() {
+      if (!this.isRecommendQuestionTopic() || !this.isCurrentUserTopicOwner()) {
+        wx.showToast({
+          title: '只有楼主可以补反馈',
+          icon: 'none'
+        });
+        return;
+      }
+
+      if (!this.data.productDetail.hasAcceptedAnswer) {
+        wx.showToast({
+          title: '请先采纳一条回答',
+          icon: 'none'
+        });
+        return;
+      }
+
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
+      const currentFeedback = normalizeRecommendFeedbackForm({
+        finalDecisionType: this.data.productDetail.finalDecisionType || '',
+        finalProduct: this.data.productDetail.recommendFeedbackFinalProductText || '',
+        decisionReason: this.data.productDetail.decisionReason || [],
+        resultSatisfaction: this.data.productDetail.resultSatisfaction || '',
+        feedbackText: this.data.productDetail.recommendFeedbackText || '',
+        willPostLongReview: this.data.productDetail.willPostLongReview || ''
+      });
+      this.openCommentEditor('feedback');
+      this.setData({
+        recommendFeedbackForm: currentFeedback
+      });
+      this.refreshRecommendFeedbackOptionViews(currentFeedback);
     },
 
     onHideCommentInput() {
@@ -2468,6 +2748,14 @@ Page({
 
       const isRecommendAnswer = this.data.commentEditorMode === 'recommend_answer';
       const content = this.data.commentContent.trim();
+
+      if (isRecommendAnswer && this.isCurrentUserTopicOwner()) {
+        wx.showToast({
+          title: '不能使用规范回答自己的提问',
+          icon: 'none'
+        });
+        return;
+      }
 
       if (!isRecommendAnswer) {
         if (!content) {
@@ -2571,6 +2859,55 @@ Page({
           icon: 'none'
         });
         console.error('发布评论失败:', error);
+      }
+    },
+
+    async onPublishRecommendFeedback() {
+      if (!this.isRecommendQuestionTopic() || !this.isCurrentUserTopicOwner()) {
+        wx.showToast({
+          title: '只有楼主可以补反馈',
+          icon: 'none'
+        });
+        return;
+      }
+
+      if (!this.validateRecommendFeedbackForm()) {
+        wx.showToast({
+          title: '请补全反馈内容',
+          icon: 'none'
+        });
+        return;
+      }
+
+      try {
+        wx.showLoading({
+          title: '提交中...'
+        });
+
+        const payload = this.buildRecommendFeedbackPayload();
+        await api.submitRecommendFeedback(payload);
+        await this.loadDetailPage(payload.topicId);
+
+        this.setData({
+          showCommentInput: false,
+          commentEditorMode: 'normal',
+          recommendFeedbackForm: createEmptyRecommendFeedbackForm(),
+          recommendFeedbackErrors: {}
+        });
+        this.refreshRecommendFeedbackOptionViews(createEmptyRecommendFeedbackForm());
+
+        wx.hideLoading();
+        wx.showToast({
+          title: '反馈已补充',
+          icon: 'success'
+        });
+      } catch (error) {
+        wx.hideLoading();
+        console.error('补反馈失败:', error);
+        wx.showToast({
+          title: api.getErrorMessage(error, '提交失败'),
+          icon: 'none'
+        });
       }
     },
 

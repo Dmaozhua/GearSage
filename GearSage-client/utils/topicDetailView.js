@@ -153,6 +153,37 @@ const RECOMMEND_USAGE_FREQUENCY_LABELS = {
 
 const RECOMMEND_CANDIDATE_PREFIXES = ['A', 'B', 'C'];
 
+const RECOMMEND_FEEDBACK_DECISION_LABELS = {
+  buy_followed: '按采纳建议买了',
+  buy_other: '参考采纳建议后买了别的',
+  not_buy_now: '暂时没买',
+  give_up_upgrade: '放弃这次升级 / 购买'
+};
+
+const RECOMMEND_FEEDBACK_REASON_LABELS = {
+  fit_budget: '更符合预算',
+  fit_scene: '更符合场景',
+  more_stable: '最终觉得更稳妥',
+  no_need_higher: '最终觉得没必要上更高价位',
+  clearer_after_advice: '看了大家建议后思路更清楚',
+  real_life_delay: '现实原因暂时不买',
+  other: '其他'
+};
+
+const RECOMMEND_FEEDBACK_SATISFACTION_LABELS = {
+  very_good: '很满意',
+  basic_good: '基本满意',
+  neutral: '一般',
+  regret: '有点后悔',
+  not_used_yet: '还没真正开始用'
+};
+
+const RECOMMEND_FEEDBACK_LONG_REVIEW_LABELS = {
+  will_post: '之后会补长测评',
+  maybe: '可能会补',
+  no_plan: '暂时不会'
+};
+
 const TOPIC_STATUS_LABELS = {
   0: '草稿',
   1: '待审核',
@@ -297,6 +328,13 @@ function buildRecommendCandidateOptionItems(options = []) {
       value: item,
       displayText: `${RECOMMEND_CANDIDATE_PREFIXES[index]} ${item}`
     }));
+}
+
+function formatRecommendFinalProduct(value) {
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    return normalizeString(value.label, '');
+  }
+  return normalizeString(value, '');
 }
 
 function mapLegacyRecommendIntent(recommendIntent, legacyCurrentStage = '') {
@@ -649,6 +687,16 @@ function buildTopicDetailView(postData = {}, options = {}) {
   const recommendCandidateOptionItems = buildRecommendCandidateOptionItems(
     recommendMeta.candidateOptions
   );
+  const recommendFeedbackDecisionReasonItems = mapOptionList(
+    normalizeStringList(postData.decisionReason).slice(0, 2),
+    RECOMMEND_FEEDBACK_REASON_LABELS
+  );
+  const recommendFinalProductText = formatRecommendFinalProduct(postData.finalProduct);
+  const hasRecommendFeedback = Boolean(
+    normalizeString(postData.finalDecisionType, '') ||
+      recommendFinalProductText ||
+      normalizeString(postData.feedbackText, '')
+  );
   const isRecommendQuestion = topicCategory === TOPIC_CATEGORY.QUESTION && postData.questionType === 'recommend';
   const acceptedAnswerId = normalizeOptionalNumber(postData.acceptedAnswerId);
   const acceptedByUserId = normalizeOptionalNumber(postData.acceptedByUserId);
@@ -768,7 +816,11 @@ function buildTopicDetailView(postData = {}, options = {}) {
       acceptStatus,
       hasAcceptedAnswer,
       acceptStatusLabel: isRecommendQuestion
-        ? (hasAcceptedAnswer ? '已采纳 1 条回答' : '等待推荐中')
+        ? (hasRecommendFeedback
+            ? '已反馈购买结果'
+            : hasAcceptedAnswer
+              ? '已采纳 1 条回答'
+              : '等待推荐中')
         : '',
       recommendMeta,
       budgetRangeLabel: mapOptionLabel(recommendMeta.budgetRange, BUDGET_RANGE_LABELS),
@@ -789,6 +841,31 @@ function buildTopicDetailView(postData = {}, options = {}) {
         recommendCandidateOptionItems.map((item) => item.displayText)
       ),
       recommendCoreQuestion: recommendMeta.coreQuestion,
+      hasRecommendFeedback,
+      finalDecisionType: normalizeString(postData.finalDecisionType, ''),
+      finalProduct: postData.finalProduct && typeof postData.finalProduct === 'object'
+        ? postData.finalProduct
+        : {},
+      decisionReason: normalizeStringList(postData.decisionReason).slice(0, 2),
+      resultSatisfaction: normalizeString(postData.resultSatisfaction, ''),
+      willPostLongReview: normalizeString(postData.willPostLongReview, ''),
+      recommendFeedbackDecisionTypeLabel: mapOptionLabel(
+        normalizeString(postData.finalDecisionType, ''),
+        RECOMMEND_FEEDBACK_DECISION_LABELS
+      ),
+      recommendFeedbackDecisionReasonItems,
+      recommendFeedbackDecisionReasonText: joinDisplay(recommendFeedbackDecisionReasonItems),
+      recommendFeedbackFinalProductText: recommendFinalProductText,
+      recommendFeedbackSatisfactionLabel: mapOptionLabel(
+        normalizeString(postData.resultSatisfaction, ''),
+        RECOMMEND_FEEDBACK_SATISFACTION_LABELS
+      ),
+      recommendFeedbackText: normalizeString(postData.feedbackText, ''),
+      recommendFeedbackLongReviewLabel: mapOptionLabel(
+        normalizeString(postData.willPostLongReview, ''),
+        RECOMMEND_FEEDBACK_LONG_REVIEW_LABELS
+      ),
+      recommendFeedbackAt: normalizeString(postData.feedbackAt, ''),
       recommendSummaryFacts,
       locationTag: postData.locationTag,
       locationTagDisplay,

@@ -1,10 +1,11 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../../common/database.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
 import { AcceptRecommendAnswerDto } from './dto/accept-recommend-answer.dto';
+import { SubmitRecommendFeedbackDto } from './dto/submit-recommend-feedback.dto';
 import { ModerationService } from '../moderation/moderation.service';
 import { MessageService } from '../message/message.service';
 import { UserService } from '../user/user.service';
@@ -651,6 +652,110 @@ export class TopicService {
     }
 
     return this.buildAcceptedAnswerResult(dto.topicId, nextExtra, commentRow);
+  }
+
+  async submitRecommendFeedback(userId: number, dto: SubmitRecommendFeedbackDto) {
+    const topicResult = await this.databaseService.query(
+      `
+      SELECT id, status, "isDelete", "userId", extra
+      FROM bz_mini_topic
+      WHERE id = $1
+      LIMIT 1
+      `,
+      [dto.topicId],
+    );
+
+    if (!topicResult.rows.length || Number(topicResult.rows[0].isDelete || 0) === 1) {
+      throw new NotFoundException('topic not found');
+    }
+
+    const topicRow = topicResult.rows[0];
+    if (Number(topicRow.status || 0) !== 2) {
+      throw new ForbiddenException('当前帖子未发布，暂不支持补反馈');
+    }
+
+    if (Number(topicRow.userId || 0) !== Number(userId)) {
+      throw new ForbiddenException('只有楼主可以补结果反馈');
+    }
+
+    const topicExtra = this.normalizeTopicExtra(topicRow.extra);
+    if (this.normalizeText(topicExtra.questionType) !== 'recommend') {
+      throw new ForbiddenException('当前帖子不是求推荐帖，暂不支持补反馈');
+    }
+
+    const acceptedAnswerId = Number(topicExtra.acceptedAnswerId || 0);
+    if (!acceptedAnswerId) {
+      throw new ForbiddenException('请先采纳一条回答，再补结果反馈');
+    }
+
+    const finalDecisionType = this.normalizeText(dto.finalDecisionType);
+    const decisionReason = Array.isArray(dto.decisionReason)
+      ? dto.decisionReason.map((item) => this.normalizeText(item)).filter(Boolean).slice(0, 2)
+      : [];
+
+    if (!finalDecisionType) {
+      throw new BadRequestException('finalDecisionType is required');
+    }
+
+    if (!decisionReason.length) {
+      throw new BadRequestException('decisionReason is required');
+    }
+
+    const finalProductSource =
+      dto.finalProduct && typeof dto.finalProduct === 'object' && !Array.isArray(dto.finalProduct)
+        ? dto.finalProduct
+        : {};
+    const finalProduct = {
+      gearItemId: Number(finalProductSource.gearItemId || 0) || 0,
+      label: this.normalizeText(finalProductSource.label),
+    };
+    const normalizedFinalProduct =
+      finalProduct.gearItemId > 0 || finalProduct.label
+        ? finalProduct
+        : {};
+
+    const feedbackAt = new Date().toISOString();
+    const nextExtra = {
+      ...topicExtra,
+      finalDecisionType,
+      finalProduct: normalizedFinalProduct,
+      decisionReason,
+      resultSatisfaction: this.normalizeText(dto.resultSatisfaction),
+      feedbackText: this.normalizeText(dto.feedbackText),
+      willPostLongReview: this.normalizeText(dto.willPostLongReview),
+      feedbackAt,
+      acceptStatus: 'feedback_added',
+    };
+
+    await this.databaseService.query(
+      `
+      UPDATE bz_mini_topic
+      SET
+        extra = $2::jsonb,
+        "updateTime" = NOW()
+      WHERE id = $1
+      `,
+      [dto.topicId, JSON.stringify(nextExtra)],
+    );
+
+    return {
+      topicId: Number(dto.topicId),
+      topicStatus: {
+        acceptedAnswerId: Number(nextExtra.acceptedAnswerId || 0),
+        acceptedAt: nextExtra.acceptedAt || '',
+        acceptedByUserId: Number(nextExtra.acceptedByUserId || 0),
+        acceptStatus: this.normalizeText(nextExtra.acceptStatus) || 'none',
+      },
+      feedback: {
+        finalDecisionType,
+        finalProduct: normalizedFinalProduct,
+        decisionReason,
+        resultSatisfaction: this.normalizeText(nextExtra.resultSatisfaction),
+        feedbackText: this.normalizeText(nextExtra.feedbackText),
+        willPostLongReview: this.normalizeText(nextExtra.willPostLongReview),
+        feedbackAt,
+      },
+    };
   }
 
   private formatTopic(row: any) {

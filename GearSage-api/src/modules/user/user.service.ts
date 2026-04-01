@@ -44,6 +44,7 @@ export class UserService {
       longReviewCount: identity.longReviewCount,
       recommendAnswerCount: identity.recommendAnswerCount,
       acceptedAnswerCount: identity.acceptedAnswerCount,
+      recommendAnswerLikeCount: identity.recommendAnswerLikeCount,
       recommendPostCount: identity.recommendPostCount,
       recommendSolvedCount: identity.recommendSolvedCount,
       recommendFeedbackCount: identity.recommendFeedbackCount,
@@ -182,6 +183,7 @@ export class UserService {
       longReviewCount: 0,
       recommendAnswerCount: 0,
       acceptedAnswerCount: 0,
+      recommendAnswerLikeCount: 0,
       recommendPostCount: 0,
       recommendSolvedCount: 0,
       recommendFeedbackCount: 0,
@@ -204,6 +206,7 @@ export class UserService {
     return {
       acceptedAnswerCount: Number(stats.acceptedAnswerCount || 0),
       recommendAnswerCount: Number(stats.recommendAnswerCount || 0),
+      recommendAnswerLikeCount: Number(stats.recommendAnswerLikeCount || 0),
       longReviewCount: Number(stats.longReviewCount || 0),
       likeReceivedCount: Number(stats.likeReceivedCount || 0),
     };
@@ -258,6 +261,17 @@ export class UserService {
             AND (t.extra->>'acceptedAnswerId') ~ '^[0-9]+$'
             AND (t.extra->>'acceptedAnswerId')::bigint = c.id
         ) AS "acceptedAnswerCount",
+        (
+          SELECT COUNT(*)::int
+          FROM bz_topic_comment_like cl
+          JOIN bz_topic_comment c ON c.id = cl."commentId"
+          JOIN bz_mini_topic t ON t.id = c."topicId"
+          WHERE c."userId" = ids.user_id
+            AND c."commentType" = 'recommend_answer'
+            AND c."isVisible" = 1
+            AND t.status = 2
+            AND t."isDelete" = 0
+        ) AS "recommendAnswerLikeCount",
         (
           SELECT COUNT(*)::int
           FROM bz_mini_topic t
@@ -323,6 +337,7 @@ export class UserService {
         longReviewCount: Number(row.longReviewCount || 0),
         recommendAnswerCount: Number(row.recommendAnswerCount || 0),
         acceptedAnswerCount: Number(row.acceptedAnswerCount || 0),
+        recommendAnswerLikeCount: Number(row.recommendAnswerLikeCount || 0),
         recommendPostCount: Number(row.recommendPostCount || 0),
         recommendSolvedCount: Number(row.recommendSolvedCount || 0),
         recommendFeedbackCount: Number(row.recommendFeedbackCount || 0),

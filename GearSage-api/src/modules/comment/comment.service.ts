@@ -116,6 +116,10 @@ export class CommentService {
       if (topicQuestionType !== 'recommend') {
         throw new ForbiddenException('当前帖子不是求推荐帖，暂不支持规范回答');
       }
+
+      if (Number(topicResult.rows[0].userId || 0) === Number(userId || 0)) {
+        throw new ForbiddenException('不能使用规范回答自己的提问');
+      }
     }
 
     const decision = await this.moderationService.reviewText(

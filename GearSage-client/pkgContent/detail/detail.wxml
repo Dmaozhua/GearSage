@@ -567,6 +567,40 @@
         {{productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论'}}
       </view>
       <block wx:if="{{productDetail.isRecommendQuestion}}">
+        <view class="comment-subsection" wx:if="{{productDetail.hasRecommendFeedback}}">
+          <view class="comment-subsection__title">结果反馈</view>
+          <view class="feedback-card">
+            <view class="feedback-card__row" wx:if="{{acceptedRecommendAnswer}}">
+              <text class="feedback-card__label">最终采纳了谁的建议</text>
+              <text class="feedback-card__value">{{acceptedRecommendAnswer.username}}</text>
+            </view>
+            <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackDecisionTypeLabel}}">
+              <text class="feedback-card__label">最终结果</text>
+              <text class="feedback-card__value feedback-card__value--strong">{{productDetail.recommendFeedbackDecisionTypeLabel}}</text>
+            </view>
+            <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackFinalProductText}}">
+              <text class="feedback-card__label">最终买了什么</text>
+              <text class="feedback-card__value">{{productDetail.recommendFeedbackFinalProductText}}</text>
+            </view>
+            <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackDecisionReasonText}}">
+              <text class="feedback-card__label">为什么这么选</text>
+              <text class="feedback-card__value">{{productDetail.recommendFeedbackDecisionReasonText}}</text>
+            </view>
+            <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackSatisfactionLabel}}">
+              <text class="feedback-card__label">当前感受</text>
+              <text class="feedback-card__value">{{productDetail.recommendFeedbackSatisfactionLabel}}</text>
+            </view>
+            <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackText}}">
+              <text class="feedback-card__label">楼主补充</text>
+              <text class="feedback-card__value">{{productDetail.recommendFeedbackText}}</text>
+            </view>
+            <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackLongReviewLabel}}">
+              <text class="feedback-card__label">后续长测评</text>
+              <text class="feedback-card__value">{{productDetail.recommendFeedbackLongReviewLabel}}</text>
+            </view>
+          </view>
+        </view>
+
         <view class="comment-subsection" wx:if="{{acceptedRecommendAnswer}}">
           <view class="comment-subsection__title">已采纳回答</view>
           <view class="comments-list">
@@ -582,6 +616,7 @@
                   <view class="answer-template-card answer-template-card--accepted" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay}}">
                     <view class="answer-template-badge-row">
                       <text class="answer-template-badge">已采纳</text>
+                      <text class="answer-template-badge" wx:if="{{productDetail.hasRecommendFeedback}}">楼主已补反馈</text>
                       <text class="answer-template-badge-meta" wx:if="{{acceptedRecommendAnswer.acceptedAtFormatted}}">{{acceptedRecommendAnswer.acceptedAtFormatted}} 采纳</text>
                     </view>
                     <view class="answer-template-row" wx:if="{{acceptedRecommendAnswer.recommendAnswerDisplay.answerConclusionLabel}}">
@@ -853,11 +888,14 @@
 
 <view class="bottom-bar {{containerClass}} {{showCommentInput ? 'bottom-bar--editing' : ''}} {{showCommentInput ? 'bottom-bar--editor-mode' : ''}} {{showCommentInput && commentEditorMode === 'recommend_answer' ? 'bottom-bar--answer-mode' : ''}}" wx:if="{{!notFound}}">
   <view class="answer-entry-group" wx:if="{{!showCommentInput && productDetail.isRecommendQuestion}}">
-    <view class="comment-entry-btn comment-entry-btn--primary {{!productDetail.canComment ? 'comment-entry-btn--disabled' : ''}}" bindtap="onShowRecommendAnswerInput">
+    <view class="comment-entry-btn comment-entry-btn--primary {{(!productDetail.canComment || isTopicOwner) ? 'comment-entry-btn--disabled' : ''}}" bindtap="onShowRecommendAnswerInput">
       写规范推荐
     </view>
     <view class="comment-entry-btn {{!productDetail.canComment ? 'comment-entry-btn--disabled' : ''}}" bindtap="onShowCommentInput">
       补充评论
+    </view>
+    <view class="comment-entry-btn comment-entry-btn--feedback {{(!isTopicOwner || !productDetail.hasAcceptedAnswer) ? 'comment-entry-btn--disabled' : ''}}" wx:if="{{isTopicOwner && productDetail.hasAcceptedAnswer}}" bindtap="onShowRecommendFeedbackInput">
+      {{productDetail.hasRecommendFeedback ? '修改反馈' : '补充反馈'}}
     </view>
   </view>
 
@@ -881,7 +919,18 @@
     <view class="comment-input-expanded">
       <scroll-view scroll-y class="recommend-answer-editor">
         <view class="recommend-answer-editor__title">规范回答</view>
-        <view class="recommend-answer-editor__desc">先给结论，再把理由和边界说清楚。</view>
+        <view class="recommend-answer-editor__desc">
+          {{recommendAnswerEditorVariant === 'quick' ? '楼主更想先看简短直接建议，先给结论和关键理由就可以。' : '先给结论，再把理由和边界说清楚。'}}
+        </view>
+
+        <view class="recommend-answer-guide" wx:if="{{productDetail.quickReplyOnly}}">
+          <view class="recommend-answer-guide__title">这条求推荐已开启“只想看简短直接建议”</view>
+          <view class="recommend-answer-guide__desc">默认先用简版回答；如果你愿意把理由和边界讲完整，也可以切到完整模板。</view>
+          <view class="recommend-answer-mode-switch">
+            <view class="recommend-answer-mode-chip {{recommendAnswerEditorVariant === 'quick' ? 'active' : ''}}" data-variant="quick" bindtap="onSwitchRecommendAnswerEditorVariant">简版回答</view>
+            <view class="recommend-answer-mode-chip {{recommendAnswerEditorVariant === 'full' ? 'active' : ''}}" data-variant="full" bindtap="onSwitchRecommendAnswerEditorVariant">完整模板</view>
+          </view>
+        </view>
 
         <view class="recommend-answer-block">
           <view class="recommend-answer-label">我的结论</view>
@@ -891,12 +940,12 @@
           <view class="recommend-answer-error" wx:if="{{recommendAnswerErrors.answerConclusion}}">{{recommendAnswerErrors.answerConclusion}}</view>
         </view>
 
-        <view class="recommend-answer-block">
+        <view class="recommend-answer-block" wx:if="{{recommendAnswerEditorVariant === 'full'}}">
           <view class="recommend-answer-label">推荐方向 / 候选项</view>
           <input wx:for="{{[0,1,2]}}" wx:key="index" class="recommend-answer-input" data-index="{{item}}" value="{{recommendAnswerForm.recommendedOption[item]}}" maxlength="40" placeholder="可写型号、方向或备选方案" bindinput="onRecommendOptionInput" />
         </view>
 
-        <view class="recommend-answer-block">
+        <view class="recommend-answer-block" wx:if="{{recommendAnswerEditorVariant === 'full'}}">
           <view class="recommend-answer-label">我的参考背景</view>
           <view class="recommend-answer-option-flow">
             <view wx:for="{{recommendAnswerBasisOptions}}" wx:key="id" class="recommend-answer-chip {{recommendAnswerForm.answerBasis === item.id ? 'active' : ''}}" data-field="answerBasis" data-value="{{item.id}}" bindtap="onRecommendAnswerSingleSelect">{{item.label}}</view>
@@ -904,7 +953,7 @@
           <view class="recommend-answer-error" wx:if="{{recommendAnswerErrors.answerBasis}}">{{recommendAnswerErrors.answerBasis}}</view>
         </view>
 
-        <view class="recommend-answer-block">
+        <view class="recommend-answer-block" wx:if="{{recommendAnswerEditorVariant === 'full'}}">
           <view class="recommend-answer-label">我的常用场景</view>
           <view class="recommend-answer-option-flow">
             <view wx:for="{{recommendAnswerMySceneOptions}}" wx:key="id" class="recommend-answer-chip {{item.selected ? 'active' : ''}}" data-field="myScene" data-value="{{item.id}}" data-max="2" bindtap="onRecommendAnswerMultiSelect">{{item.label}}</view>
@@ -920,11 +969,11 @@
         </view>
 
         <view class="recommend-answer-block">
-          <view class="recommend-answer-label">一句补充判断</view>
-          <textarea class="recommend-answer-textarea" data-field="freeReasonText" value="{{recommendAnswerForm.freeReasonText}}" maxlength="120" placeholder="比如：你现在不是差那点顺滑，反而更需要容错。" bindinput="onRecommendAnswerInput"></textarea>
+          <view class="recommend-answer-label">{{recommendAnswerEditorVariant === 'quick' ? '一句补充判断（选填）' : '一句补充判断'}}</view>
+          <textarea class="recommend-answer-textarea" data-field="freeReasonText" value="{{recommendAnswerForm.freeReasonText}}" maxlength="120" placeholder="{{recommendAnswerEditorVariant === 'quick' ? '比如：先别急着上更贵的，当前场景更需要稳。' : '比如：你现在不是差那点顺滑，反而更需要容错。'}}" bindinput="onRecommendAnswerInput"></textarea>
         </view>
 
-        <view class="recommend-answer-block">
+        <view class="recommend-answer-block" wx:if="{{recommendAnswerEditorVariant === 'full'}}">
           <view class="recommend-answer-label">不优先推荐另一条路的原因</view>
           <view class="recommend-answer-option-flow">
             <view wx:for="{{recommendAnswerNotRecommendOptions}}" wx:key="id" class="recommend-answer-chip {{item.selected ? 'active' : ''}}" data-field="notRecommendReasons" data-value="{{item.id}}" data-max="2" bindtap="onRecommendAnswerMultiSelect">{{item.label}}</view>
@@ -939,7 +988,7 @@
           <textarea class="recommend-answer-textarea recommend-answer-textarea--sm" data-field="riskNoteText" value="{{recommendAnswerForm.riskNoteText}}" maxlength="100" placeholder="可补一句更具体的提醒" bindinput="onRecommendAnswerInput"></textarea>
         </view>
 
-        <view class="recommend-answer-block">
+        <view class="recommend-answer-block" wx:if="{{recommendAnswerEditorVariant === 'full'}}">
           <view class="recommend-answer-label">预算变化时我会怎么改</view>
           <view class="recommend-answer-option-flow">
             <view wx:for="{{recommendAnswerBudgetChangeOptions}}" wx:key="id" class="recommend-answer-chip {{recommendAnswerForm.budgetChangeAdvice === item.id ? 'active' : ''}}" data-field="budgetChangeAdvice" data-value="{{item.id}}" bindtap="onRecommendAnswerSingleSelect">{{item.label}}</view>
@@ -950,6 +999,59 @@
 
     <view class="comment-send-btn comment-send-btn--editor-mode comment-send-btn--answer-mode">
       <button class="send-btn send-btn--editor-mode send-btn--answer-mode" bindtap="onPublishComment" disabled="{{!canSendComment}}">发送</button>
+    </view>
+  </view>
+
+  <view class="recommend-answer-panel" wx:if="{{showCommentInput && commentEditorMode === 'feedback'}}">
+    <view class="comment-input-expanded">
+      <scroll-view scroll-y class="recommend-answer-editor">
+        <view class="recommend-answer-editor__title">结果反馈</view>
+        <view class="recommend-answer-editor__desc">把最终怎么选、现在感觉如何补上，这条求推荐就能沉淀成完整案例。</view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">最终结果</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendFeedbackDecisionOptions}}" wx:key="id" class="recommend-answer-chip {{recommendFeedbackForm.finalDecisionType === item.id ? 'active' : ''}}" data-field="finalDecisionType" data-value="{{item.id}}" bindtap="onRecommendFeedbackSingleSelect">{{item.label}}</view>
+          </view>
+          <view class="recommend-answer-error" wx:if="{{recommendFeedbackErrors.finalDecisionType}}">{{recommendFeedbackErrors.finalDecisionType}}</view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">最终买了什么</view>
+          <input class="recommend-answer-input" data-field="finalProduct" value="{{recommendFeedbackForm.finalProduct}}" maxlength="40" placeholder="可写最终买的型号，没买可留空" bindinput="onRecommendFeedbackInput" />
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">为什么这么选</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendFeedbackReasonOptions}}" wx:key="id" class="recommend-answer-chip {{item.selected ? 'active' : ''}}" data-field="decisionReason" data-value="{{item.id}}" data-max="2" bindtap="onRecommendFeedbackMultiSelect">{{item.label}}</view>
+          </view>
+          <view class="recommend-answer-error" wx:if="{{recommendFeedbackErrors.decisionReason}}">{{recommendFeedbackErrors.decisionReason}}</view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">当前感受</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendFeedbackSatisfactionOptions}}" wx:key="id" class="recommend-answer-chip {{recommendFeedbackForm.resultSatisfaction === item.id ? 'active' : ''}}" data-field="resultSatisfaction" data-value="{{item.id}}" bindtap="onRecommendFeedbackSingleSelect">{{item.label}}</view>
+          </view>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">楼主一句补充</view>
+          <textarea class="recommend-answer-textarea" data-field="feedbackText" value="{{recommendFeedbackForm.feedbackText}}" maxlength="120" placeholder="比如：最后没上更贵的，反而更适合我现在。" bindinput="onRecommendFeedbackInput"></textarea>
+        </view>
+
+        <view class="recommend-answer-block">
+          <view class="recommend-answer-label">后续会不会补长测评</view>
+          <view class="recommend-answer-option-flow">
+            <view wx:for="{{recommendFeedbackLongReviewOptions}}" wx:key="id" class="recommend-answer-chip {{recommendFeedbackForm.willPostLongReview === item.id ? 'active' : ''}}" data-field="willPostLongReview" data-value="{{item.id}}" bindtap="onRecommendFeedbackSingleSelect">{{item.label}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="comment-send-btn comment-send-btn--editor-mode comment-send-btn--answer-mode">
+      <button class="send-btn send-btn--editor-mode send-btn--answer-mode" bindtap="onPublishRecommendFeedback">提交反馈</button>
     </view>
   </view>
 

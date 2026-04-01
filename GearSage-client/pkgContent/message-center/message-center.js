@@ -14,7 +14,13 @@ function buildNavigateUrl(message = {}) {
     return '/pkgContent/my-publish/my-publish';
   }
 
-  if (type === 'topic_approved' || type === 'topic_restored' || type === 'comment_received' || type === 'like_received') {
+  if (
+    type === 'topic_approved' ||
+    type === 'topic_restored' ||
+    type === 'comment_received' ||
+    type === 'like_received' ||
+    type === 'recommend_answer_accepted'
+  ) {
     return topicId ? `/pkgContent/detail/detail?id=${topicId}` : '/pkgContent/my-publish/my-publish';
   }
 

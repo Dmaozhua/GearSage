@@ -1454,6 +1454,18 @@ class ApiService {
     }).then(result => result || null);
   }
 
+  submitRecommendFeedback(feedbackData) {
+    return this.post('/mini/topic/recommend/feedback', {
+      topicId: Number(feedbackData.topicId),
+      finalDecisionType: feedbackData.finalDecisionType,
+      finalProduct: feedbackData.finalProduct || {},
+      decisionReason: Array.isArray(feedbackData.decisionReason) ? feedbackData.decisionReason : [],
+      resultSatisfaction: feedbackData.resultSatisfaction || '',
+      feedbackText: feedbackData.feedbackText || '',
+      willPostLongReview: feedbackData.willPostLongReview || ''
+    }).then(result => result || null);
+  }
+
   /**
    * 根据帖子ID查询评论列表（小程序专用接口）
    */
