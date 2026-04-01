@@ -5,36 +5,113 @@
   <view class="return-to-post-float" wx:if="{{showBackToPost}}" bindtap="onBackToSourcePost">
     <text class="return-to-post-float__label">返回原帖</text>
   </view>
-  
+
   <block wx:if="{{!isLoading}}">
     <view class="detail-header">
-      <image 
-        class="detail-image" 
-        src="{{item.mainImage || '/images/empty.png'}}" 
+      <image
+        class="detail-image"
+        src="{{item.mainImage || '/images/empty.png'}}"
         mode="aspectFit"
       ></image>
       <view class="detail-info">
         <text class="detail-brand">{{item.brand_name}}</text>
         <text class="detail-name">{{item.detailName}}</text>
+        <view class="detail-tags" wx:if="{{infoTags.length > 0}}">
+          <text class="detail-tag" wx:for="{{infoTags}}" wx:key="*this">{{item}}</text>
+        </view>
         <text class="detail-desc" wx:if="{{item.description}}">{{item.description}}</text>
+        <view class="detail-actions">
+          <view class="detail-action detail-action--ghost" wx:if="{{canCompare}}" bindtap="onToggleCompare">
+            {{isCurrentVariantCompared ? '已在对比池' : '加入对比'}}
+          </view>
+          <view class="detail-action detail-action--primary" bindtap="onGoRecommend">去求推荐</view>
+        </view>
+        <text class="compare-note" wx:if="{{gearType !== 'lures'}}">
+          {{canCompare ? '对比池 ' + compareCount + ' / 3，只先收同类同子类候选。' : '当前还没有可加入对比的子型号数据。'}}
+        </text>
       </view>
     </view>
 
-    <view class="detail-table-container">
-      <view class="table-header">
-        <text>规格详情</text>
+    <view class="detail-section" wx:if="{{variantOptions.length > 0}}">
+      <view class="section-head">
+        <text class="section-title">先选子型号</text>
+        <text class="section-subtitle">先确认你真正要看的规格，再去看参数和对比。</text>
       </view>
-      <scroll-view 
-        scroll-x 
-        class="outer-scroll-x" 
-        enhanced="{{true}}" 
+      <scroll-view scroll-x class="variant-scroll" show-scrollbar="{{false}}">
+        <view class="variant-list">
+          <view
+            class="variant-pill {{selectedVariantKey === variant.key ? 'active' : ''}}"
+            wx:for="{{variantOptions}}"
+            wx:key="key"
+            wx:for-item="variant"
+            data-key="{{variant.key}}"
+            bindtap="onVariantSelect"
+          >
+            <text class="variant-pill__title">{{variant.label}}</text>
+            <text class="variant-pill__sub" wx:if="{{variant.secondary}}">{{variant.secondary}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="detail-section" wx:if="{{coreSpecs.length > 0}}">
+      <view class="section-head">
+        <text class="section-title">核心参数</text>
+        <text class="section-subtitle">先看最常被真正拿来排除候选的几项，不用一上来读完整张大表。</text>
+      </view>
+      <view class="core-grid">
+        <view class="core-card" wx:for="{{coreSpecs}}" wx:key="key" wx:for-item="spec">
+          <text class="core-card__label">{{spec.label}}</text>
+          <text class="core-card__value">{{spec.value}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-section" wx:if="{{specSections.length > 0}}">
+      <view class="section-head">
+        <text class="section-title">完整规格</text>
+        <text class="section-subtitle">以下仍是规格阅读区，但已经按阅读顺序分层，不再直接丢整张大表。</text>
+      </view>
+      <view class="spec-section" wx:for="{{specSections}}" wx:key="title" wx:for-item="group">
+        <text class="spec-section__title">{{group.title}}</text>
+        <view class="spec-list">
+          <view class="spec-row" wx:for="{{group.items}}" wx:key="key" wx:for-item="spec">
+            <text class="spec-row__label">{{spec.label}}</text>
+            <text class="spec-row__value">{{spec.value}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-section" wx:if="{{seriesInsights.length > 0}}">
+      <view class="section-head">
+        <text class="section-title">GearSage 提示</text>
+        <text class="section-subtitle">以下内容是解释性提示，不等同于厂家官方参数。</text>
+      </view>
+      <view class="insight-list">
+        <view class="insight-item" wx:for="{{seriesInsights}}" wx:key="*this">
+          <view class="insight-dot"></view>
+          <text class="insight-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-section" wx:if="{{item.variants && item.variants.length > 1}}">
+      <view class="section-head">
+        <text class="section-title">系列子型号速览</text>
+        <text class="section-subtitle">把同系列差异先摊开看清，再决定要不要继续做正式对比。</text>
+      </view>
+      <scroll-view
+        scroll-x
+        class="outer-scroll-x"
+        enhanced="{{true}}"
         show-scrollbar="{{false}}"
       >
-        <view class="inner-container" style="min-width: 100%; display: inline-block;">
-          <scroll-view 
-            scroll-y 
-            class="inner-scroll-y" 
-            enhanced="{{true}}" 
+        <view class="inner-container">
+          <scroll-view
+            scroll-y
+            class="inner-scroll-y"
+            enhanced="{{true}}"
             show-scrollbar="{{true}}"
           >
             <view class="table">
@@ -43,8 +120,8 @@
                   <view class="td">{{col.label}}</view>
                 </block>
               </view>
-              <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="id" wx:for-index="idx">
-                <view class="tr" wx:if="{{idx < 4 || isExpanded}}">
+              <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
+                <view class="tr {{selectedVariantKey === variant.__key ? 'tr-active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
                   <block wx:for="{{columns}}" wx:for-item="col" wx:key="key">
                     <view class="td">{{variant[col.key] || '-'}}</view>
                   </block>
@@ -54,21 +131,20 @@
           </scroll-view>
         </view>
       </scroll-view>
-      
-      <view class="expand-control" wx:if="{{item.variants.length > 4}}" bindtap="toggleExpand">
+
+      <view class="expand-control" wx:if="{{item.variants && item.variants.length > 4}}" bindtap="toggleExpand">
         <text>{{isExpanded ? '收起' : '展开更多 (' + (item.variants.length - 4) + ')'}}</text>
         <text class="arrow {{isExpanded ? 'up' : 'down'}}"></text>
       </view>
     </view>
 
-    <!-- Related Recommendations Section -->
     <view class="related-section">
       <view class="related-title">相关推荐</view>
-      
+
       <view class="related-tabs">
-        <view 
-          class="related-tab-item {{currentRelatedTab === index ? 'active' : ''}}" 
-          wx:for="{{relatedTabs}}" 
+        <view
+          class="related-tab-item {{currentRelatedTab === index ? 'active' : ''}}"
+          wx:for="{{relatedTabs}}"
           wx:key="id"
           bindtap="onRelatedTabChange"
           data-index="{{index}}"
@@ -80,9 +156,9 @@
 
       <view class="related-content">
         <block wx:if="{{relatedPosts[relatedTabs[currentRelatedTab].id] && relatedPosts[relatedTabs[currentRelatedTab].id].length > 0}}">
-          <view 
-            class="related-post-item" 
-            wx:for="{{relatedPosts[relatedTabs[currentRelatedTab].id]}}" 
+          <view
+            class="related-post-item"
+            wx:for="{{relatedPosts[relatedTabs[currentRelatedTab].id]}}"
             wx:key="id"
             bindtap="onRelatedPostTap"
             data-id="{{item._id || item.id}}"
@@ -103,16 +179,15 @@
           </view>
         </block>
         <view class="empty-state" wx:elif="{{!loadingRelated}}">
-          <image class="empty-image" src="/images/empty-state.png" mode="aspectFit" wx:if="{{false}}"></image>
           <text class="empty-text">这里还空着呢，要不要做第一个分享的人？</text>
         </view>
         <view class="related-content-skeleton" wx:else>
           <view class="related-post-item skeleton-post" wx:for="{{[1,2]}}" wx:key="*this">
-              <view class="post-cover skeleton-post-cover skeleton-pulse"></view>
-              <view class="post-info">
-                  <view class="skeleton-text skeleton-post-title skeleton-pulse"></view>
-                  <view class="skeleton-text skeleton-post-meta skeleton-pulse"></view>
-              </view>
+            <view class="post-cover skeleton-post-cover skeleton-pulse"></view>
+            <view class="post-info">
+              <view class="skeleton-text skeleton-post-title skeleton-pulse"></view>
+              <view class="skeleton-text skeleton-post-meta skeleton-pulse"></view>
+            </view>
           </view>
         </view>
       </view>
@@ -120,16 +195,14 @@
 
     <view class="recommend-entry">
       <view class="recommend-entry__copy">
-        <text class="recommend-entry__title">看完参数还是纠结？</text>
-        <text class="recommend-entry__desc">把这款装备直接带进求推荐，继续问真实场景下到底适不适合你。</text>
+        <text class="recommend-entry__title">看完还是纠结？</text>
+        <text class="recommend-entry__desc">可以直接带着这件装备去求推荐，继续问真实场景下到底适不适合你。</text>
       </view>
       <view class="recommend-entry__button" bindtap="onGoRecommend">去求推荐</view>
     </view>
   </block>
 
-  <!-- Skeleton Loading -->
   <view class="skeleton-container" wx:else>
-    <!-- Header Skeleton -->
     <view class="detail-header skeleton-header">
       <view class="skeleton-image skeleton-pulse"></view>
       <view class="detail-info">
@@ -139,30 +212,27 @@
       </view>
     </view>
 
-    <!-- Table Skeleton -->
-    <view class="detail-table-container skeleton-table">
-       <view class="table-header skeleton-table-header skeleton-pulse"></view>
-       <view class="skeleton-row skeleton-pulse" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"></view>
+    <view class="detail-section skeleton-section">
+      <view class="skeleton-section-title skeleton-pulse"></view>
+      <view class="skeleton-row skeleton-pulse" wx:for="{{[1,2,3]}}" wx:key="*this"></view>
     </view>
-    
-    <!-- Related Skeleton -->
+
     <view class="related-section skeleton-related">
       <view class="related-title skeleton-related-title skeleton-pulse"></view>
       <view class="related-tabs skeleton-tabs">
-          <view class="skeleton-tab-item skeleton-pulse"></view>
-          <view class="skeleton-tab-item skeleton-pulse"></view>
-          <view class="skeleton-tab-item skeleton-pulse"></view>
+        <view class="skeleton-tab-item skeleton-pulse"></view>
+        <view class="skeleton-tab-item skeleton-pulse"></view>
+        <view class="skeleton-tab-item skeleton-pulse"></view>
       </view>
       <view class="related-content">
-          <view class="related-post-item skeleton-post" wx:for="{{[1,2]}}" wx:key="*this">
-              <view class="post-cover skeleton-post-cover skeleton-pulse"></view>
-              <view class="post-info">
-                  <view class="skeleton-text skeleton-post-title skeleton-pulse"></view>
-                  <view class="skeleton-text skeleton-post-meta skeleton-pulse"></view>
-              </view>
+        <view class="related-post-item skeleton-post" wx:for="{{[1,2]}}" wx:key="*this">
+          <view class="post-cover skeleton-post-cover skeleton-pulse"></view>
+          <view class="post-info">
+            <view class="skeleton-text skeleton-post-title skeleton-pulse"></view>
+            <view class="skeleton-text skeleton-post-meta skeleton-pulse"></view>
           </view>
+        </view>
       </view>
     </view>
   </view>
-
 </view>

@@ -8,6 +8,7 @@ const {
 
 const QUERY_PAGE_SIZE = 20;
 const SEARCH_QUERY_PAGE_SIZE = 500;
+const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 
 Page({
   data: {
@@ -25,7 +26,8 @@ Page({
     isRefreshing: false,
     searchKeyword: '',
     activeFilters: {},
-    isSearchMode: false
+    isSearchMode: false,
+    compareCount: 0
   },
 
   onLoad(options) {
@@ -53,6 +55,10 @@ Page({
       const index = app.globalData.themeListeners.indexOf(this.themeListener);
       if (index > -1) app.globalData.themeListeners.splice(index, 1);
     }
+  },
+
+  onShow() {
+    this.syncCompareState();
   },
 
   async initData() {
@@ -97,10 +103,75 @@ Page({
       ...item,
       imageUrl,
       displayName,
-      brandName: item.brand_name || this.data.brandsMap[String(item.brand_id)] || ''
+      brandName: item.brand_name || this.data.brandsMap[String(item.brand_id)] || '',
+      summaryTags: this.buildSummaryTags(item),
+      compareHint: this.buildCompareHint(item)
     };
 
     return enrichGearItemWithSearchData(normalizedItem, this.data.currentType);
+  },
+
+  normalizeText(value) {
+    return String(value || '').trim();
+  },
+
+  buildSummaryTags(item) {
+    const tags = [];
+    const pushTag = (value) => {
+      const text = this.normalizeText(value);
+      if (text && !tags.includes(text)) {
+        tags.push(text);
+      }
+    };
+
+    if (this.data.currentType === 'reels') {
+      pushTag(item.type);
+      pushTag(item.type_tips);
+      pushTag(item.alias);
+    } else if (this.data.currentType === 'rods') {
+      pushTag(item.type);
+      pushTag(item.action);
+      pushTag(item.type_tips);
+    } else {
+      pushTag(item.system);
+      pushTag(item.water_column);
+      pushTag(item.action);
+    }
+
+    return tags.slice(0, 3);
+  },
+
+  buildCompareHint(item) {
+    if (this.data.currentType === 'lures') {
+      return '当前以详情理解和筛选收敛为主';
+    }
+
+    const subtype = this.normalizeText(item.type);
+    if (subtype) {
+      return `${subtype}子型号后续可直接进入同类对比`;
+    }
+
+    return '先在详情里选子型号，再放进同类对比';
+  },
+
+  getCompareItems() {
+    const stored = wx.getStorageSync(COMPARE_STORAGE_KEY);
+    return Array.isArray(stored) ? stored : [];
+  },
+
+  syncCompareState() {
+    const compareItems = this.getCompareItems();
+    const compareCount = compareItems.filter((item) => item && item.gearType === this.data.currentType).length;
+    this.setData({ compareCount });
+  },
+
+  onClearComparePool() {
+    wx.removeStorageSync(COMPARE_STORAGE_KEY);
+    this.syncCompareState();
+    wx.showToast({
+      title: '已清空对比池',
+      icon: 'none'
+    });
   },
 
   finishSearchUI() {

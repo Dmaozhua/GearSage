@@ -35,6 +35,71 @@ page {
   background-color: #1a1a1a;
 }
 
+.compare-strip {
+  margin: 16rpx 20rpx 0;
+  padding: 22rpx 24rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, #eef4f6 0%, #e6edf1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.container.dark .compare-strip {
+  background: linear-gradient(135deg, #24323a 0%, #202d34 100%);
+}
+
+.compare-strip__copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.compare-strip__title {
+  font-size: 26rpx;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #263841;
+}
+
+.container.dark .compare-strip__title {
+  color: #dbe6ea;
+}
+
+.compare-strip__desc {
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: #60727a;
+}
+
+.container.dark .compare-strip__desc {
+  color: #9fb0b8;
+}
+
+.compare-strip__action {
+  flex-shrink: 0;
+  min-width: 104rpx;
+  min-height: 58rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid rgba(53, 87, 102, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #365766;
+  font-size: 24rpx;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.container.dark .compare-strip__action {
+  color: #dce9ed;
+  border-color: rgba(159, 181, 189, 0.24);
+  background: rgba(22, 31, 36, 0.42);
+}
+
 .gear-list {
   flex: 1;
   height: 0;
@@ -94,7 +159,7 @@ page {
 
 .gear-info {
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .gear-name {
@@ -117,10 +182,47 @@ page {
 .gear-sub {
   font-size: 24rpx;
   color: #999;
+  display: block;
+  margin-bottom: 14rpx;
 }
 
 .container.dark .gear-sub {
   color: #777;
+}
+
+.gear-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.gear-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42rpx;
+  padding: 0 14rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  line-height: 1.4;
+  color: #48616d;
+  background: #edf3f5;
+}
+
+.container.dark .gear-tag {
+  color: #bfd0d6;
+  background: #33444c;
+}
+
+.gear-foot-note {
+  margin-top: 16rpx;
+  display: block;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: #6a7d85;
+}
+
+.container.dark .gear-foot-note {
+  color: #899aa1;
 }
 
 .empty-state {
