@@ -11,14 +11,24 @@ INPUT_FILE = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw/daiwa_reel
 OUTPUT_FILE = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw/daiwa_reel_normalized.json")
 
 def load_urls():
+    if not os.path.exists(INPUT_FILE):
+        return []
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
         return data.get("urls", [])
 
 def extract_text(element):
-    return "".join(element.css("::text").getall()).strip()
+    """Safely extract and clean text from a node."""
+    if not element:
+        return ""
+    # getall() returns all text nodes inside, join them
+    text = "".join(element.css("::text").getall())
+    return text.strip()
 
-def parse_detail_page(fetcher, url):
+def parse_detail_page(fetcher, item):
+    url = item.get("url") if isinstance(item, dict) else item
+    kind = item.get("kind", "reel") if isinstance(item, dict) else "reel"
+    
     print(f"[*] Fetching: {url}")
     page = fetcher.get(url)
     
@@ -45,6 +55,12 @@ def parse_detail_page(fetcher, url):
             if full_img not in images:
                 images.append(full_img)
                 
+    def safe_get(d, keys, default=""):
+        for key in keys:
+            if key in d:
+                return d[key]
+        return default
+
     # Spec Table
     variants = []
     tables = page.css("table")
@@ -59,9 +75,8 @@ def parse_detail_page(fetcher, url):
             
         # Parse data rows
         for row in rows[1:]:
-            tds = row.css("td")
-            # Relaxing length check slightly to handle missing final columns
-            if len(tds) < len(headers) - 2: 
+            tds = row.css("th, td")
+            if not tds:
                 continue
                 
             row_data = {}
@@ -69,21 +84,32 @@ def parse_detail_page(fetcher, url):
                 if i < len(headers):
                     row_data[headers[i]] = extract_text(td)
             
-            # Map to standard specs
-            sku = row_data.get("JAN", "")
-            name = row_data.get("アイテム", model)
-            weight = row_data.get("標準自重（ｇ）", "")
-            gear_ratio = row_data.get("ギア比", "")
-            max_drag = row_data.get("最大ドラグ力（kg）", "")
-            pe_capacity = row_data.get("標準巻糸量PE（号ｰm）", "")
+            # Use safe_get with possible variations of column names
+            sku = safe_get(row_data, ["JAN", "JANコード"])
+            name = safe_get(row_data, ["アイテム", "品名"], model)
+            weight = safe_get(row_data, ["標準自重（ｇ）", "自重（g）", "自重(g)", "標準自重(g)"])
+            gear_ratio = safe_get(row_data, ["ギア比", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"]) # Often the first col or ratio col
+            if "ギア比" in row_data:
+                gear_ratio = row_data["ギア比"]
+            max_drag = safe_get(row_data, ["最大ドラグ力（kg）", "最大ドラグ力(kg)"])
+            pe_capacity = safe_get(row_data, ["標準巻糸量PE（号ｰm）", "標準糸巻量PE（号-m）", "標準糸巻量 PE（号-m）", "標準糸巻量PE(号-m)"])
+            nylon_capacity = safe_get(row_data, ["標準巻糸量ナイロン（lb-m）", "標準糸巻量ナイロン（lb-m）", "標準糸巻量ナイロン(lb-m)", "標準巻糸量ナイロン(lb-m)"])
+            cm_per_turn = safe_get(row_data, ["巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"])
+            handle_length = safe_get(row_data, ["ハンドルアーム長（mm）", "ハンドルアーム長(mm)", "ハンドル長（mm）", "ハンドル長(mm)"])
+            bearing_count = safe_get(row_data, ["ベアリング（ボール/ローラー）", "ベアリング(ボール/ローラー)"])
+            price = safe_get(row_data, ["メーカー希望本体価格（円）", "メーカー希望本体価格(円)"])
+
             
             # Handle empty weight string conversion to int safely
             weight_val = None
             if weight:
                 # Remove non-digit chars if any
-                clean_w = ''.join(c for c in weight if c.isdigit())
+                clean_w = ''.join(c for c in weight if c.isdigit() or c == '.')
                 if clean_w:
-                    weight_val = int(clean_w)
+                    try:
+                        weight_val = float(clean_w)
+                    except:
+                        pass
                 
             variants.append({
                 "sku": sku,
@@ -92,7 +118,12 @@ def parse_detail_page(fetcher, url):
                     "gear_ratio": gear_ratio,
                     "weight_g": weight_val,
                     "max_drag_kg": max_drag,
-                    "line_capacity_pe": pe_capacity
+                    "line_capacity_pe": pe_capacity,
+                    "line_capacity_nylon": nylon_capacity,
+                    "cm_per_turn": cm_per_turn,
+                    "handle_length_mm": handle_length,
+                    "bearing_count_roller": bearing_count,
+                    "market_reference_price": price
                 }
             })
             
@@ -102,7 +133,7 @@ def parse_detail_page(fetcher, url):
     
     return {
         "brand": "Daiwa",
-        "kind": "reel",
+        "kind": kind,
         "model": model,
         "model_year": None,
         "source_url": url,

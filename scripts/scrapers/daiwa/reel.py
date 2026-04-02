@@ -15,37 +15,39 @@ def load_config():
 
 def extract_reel_urls():
     config = load_config()
-    daiwa_reels_url = None
     
-    # Find Daiwa reel URL from config
+    entry_points = []
     for entry in config.get("daiwa", {}).get("entry_points", []):
-        if entry.get("kind") == "reel":
-            daiwa_reels_url = entry.get("url")
-            break
+        if entry.get("kind") in ["spinning", "baitcasting"]:
+            entry_points.append(entry)
             
-    if not daiwa_reels_url:
-        print("Error: Daiwa reel entry point not found in source_config.json")
+    if not entry_points:
+        print("Error: Daiwa reel entry points not found in source_config.json")
         return []
 
-    print(f"[*] Starting extraction for Daiwa Reels List: {daiwa_reels_url}")
-    
     fetcher = Fetcher()
-    page = fetcher.get(daiwa_reels_url)
-    
-    # Extract links that match the product detail pattern
-    links = page.css("li a")
     product_urls = []
+    seen_urls = set()
     
-    for a in links:
-        href = a.attrib.get('href')
-        # Daiwa product detail pages look like /jp/product/adbrdfh
-        # Exclude 'productlist' to avoid pagination or category links
-        if href and '/jp/product/' in href and 'productlist' not in href:
-            full_url = urljoin("https://www.daiwa.com", href)
-            # Remove query params or hashes to ensure uniqueness
-            clean_url = full_url.split('?')[0].split('#')[0]
-            if clean_url not in product_urls:
-                product_urls.append(clean_url)
+    for entry in entry_points:
+        url = entry.get("url")
+        kind = entry.get("kind")
+        print(f"[*] Starting extraction for Daiwa {kind} Reels List: {url}")
+        
+        page = fetcher.get(url)
+        links = page.css("li a")
+        
+        for a in links:
+            href = a.attrib.get('href')
+            if href and '/jp/product/' in href and 'productlist' not in href:
+                full_url = urljoin("https://www.daiwa.com", href)
+                clean_url = full_url.split('?')[0].split('#')[0]
+                if clean_url not in seen_urls:
+                    seen_urls.add(clean_url)
+                    product_urls.append({
+                        "url": clean_url,
+                        "kind": kind
+                    })
                 
     return product_urls
 
@@ -56,7 +58,7 @@ def main():
     if urls:
         print(f"[*] Extracted {len(urls)} unique detail URLs.")
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            json.dump({"brand": "Daiwa", "kind": "reel", "total": len(urls), "urls": urls}, f, indent=2)
+            json.dump({"brand": "Daiwa", "total": len(urls), "urls": urls}, f, indent=2)
         print(f"[*] Saved URLs to {OUTPUT_FILE}")
     else:
         print("[!] No URLs found.")

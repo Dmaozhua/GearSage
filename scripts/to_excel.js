@@ -20,31 +20,65 @@ function main() {
     const variantsRows = [];
     
     data.forEach((item, i) => {
-        // Master Row
-        // id, category, brand, series, model, displayName, sourceUrl
-        const masterId = `R-DAIWA-${i+1}`.padStart(10, '0');
+        // Master Row (reel)
+        // reel_id should match the id in the reel table. If not exist, must be added to reel.
+        const brandPrefix = item.brand ? item.brand.substring(0, 2).toUpperCase() : 'XX';
+        const masterId = `R-${brandPrefix}-${item.model.replace(/\s+/g, '-').toUpperCase()}`;
         
         reelsRows.push({
             id: masterId,
-            category: item.kind,
-            brand: item.brand,
-            series: '',
+            brand_id: 1, // Assume 1 is Daiwa in brand.xlsx, update dynamically later if needed
             model: item.model,
-            displayName: `${item.brand} ${item.model}`,
-            sourceUrl: item.source_url,
-            images: item.images.join('|')
+            model_cn: '', // Requires manual input or translation
+            model_year: item.model_year || '',
+            alias: '',
+            type_tips: '', // Leave empty as requested
+            type: item.kind, // spinning or baitcasting from the updated scraping rules
+            images: item.images.join('|'),
+            created_at: '',
+            updated_at: ''
         });
         
         // Variants Rows
         item.variants.forEach(v => {
+            // For Daiwa, the JAN code is often marked as '*' in tables when the actual item name should be used as SKU
+            // The user wants SKU to be the specific model name (e.g., LT2000S-H) rather than a barcode or '*'.
+            
+            // Helper to convert full-width to half-width
+            const toHalfWidth = (str) => {
+                return str.replace(/[\uFF01-\uFF5E]/g, function(ch) {
+                    return String.fromCharCode(ch.charCodeAt(0) - 0xFEE0);
+                }).replace(/\u3000/g, ' '); // full width space to half width space
+            };
+
+            let actualSku = toHalfWidth(v.name).trim();
+            
+            // Optional: Strip redundant model name prefix if it exists
+            const modelNameNoSpace = item.model.replace(/\s+/g, '');
+            // Simple approach: if actualSku contains the model name, we might want to strip it
+            // but for now, just half-width is good enough.
+            
             variantsRows.push({
-                master_id: masterId,
-                sku: v.sku,
-                name: v.name,
-                gear_ratio: v.specs.gear_ratio,
-                weight_g: v.specs.weight_g,
-                max_drag_kg: v.specs.max_drag_kg,
-                line_capacity_pe: v.specs.line_capacity_pe
+                id: '', // Empty for manual fill or auto-generate later
+                reel_id: masterId,
+                SKU: actualSku,
+                'GEAR RATIO': v.specs.gear_ratio,
+                'DRAG': '', // Usually calculated or same as max drag
+                'MAX DRAG': v.specs.max_drag_kg,
+                'WEIGHT': v.specs.weight_g,
+                'spool_diameter_per_turn_mm': '',
+                'Nylon_no_m': '',
+                'Nylon_lb_m': v.specs.line_capacity_nylon,
+                'fluorocarbon_no_m': '',
+                'fluorocarbon_lb_m': '',
+                'pe_no_m': v.specs.line_capacity_pe,
+                'cm_per_turn': v.specs.cm_per_turn,
+                'handle_length_mm': v.specs.handle_length_mm,
+                'bearing_count_roller': v.specs.bearing_count_roller,
+                'market_reference_price': v.specs.market_reference_price,
+                'product_code': v.sku, // JAN code from the scraped data
+                'created_at': '',
+                'updated_at': ''
             });
         });
     });
