@@ -244,11 +244,9 @@ def main():
     fetcher = Fetcher()
     normalized_data = []
     
-    # ONLY PROCESS FIRST 2 URLs FOR DEMONSTRATION PURPOSES
-    limit = 2
-    print(f"[*] Processing first {limit} URLs for Phase 2 demonstration...")
+    print(f"[*] Processing all {len(urls)} URLs for Phase 2...")
     
-    for url in urls[:limit]:
+    for url in urls:
         try:
             data = parse_detail_page(fetcher, url)
             normalized_data.append(data)
