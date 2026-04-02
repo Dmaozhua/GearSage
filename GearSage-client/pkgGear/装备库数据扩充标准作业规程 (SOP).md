@@ -102,6 +102,7 @@
 3.  **选择器优先**: **必须** 优先使用CSS选择器或XPath精确定位信息块，再将该信息块交由AI进行结构化解析。此举可大幅节省Token并提高解析稳定性。
 4.  **元数据记录**: 每条采集记录都 **必须** 包含 `source_url` (来源URL) 和 `scraped_at` (采集时间戳)。
 5.  **动态页面等待**: 对于需要等待特定元素加载的动态页面，**必须** 在采集配置中明确声明 `wait_for_selector` 或 `wait_for_network_idle` 条件。
+6.  **主图下载策略**: 必须在采集详情页时下载单商品白底主图到本地 `/Users/tommy/Pictures/images/<brand>_<category>/` 目录。在定位图片时，需结合 URL 规律（如 `001_product_photo`）、排除关键词（如 `banner`, `sub`）并严格限制图片后缀（`.jpg`, `.png`, `.webp`）以防止抓取到通用占位图，最终将相对路径存入 `local_image_path`。
 
 ---
 
@@ -116,6 +117,7 @@
   "model": "string",
   "model_year": "integer",
   "source_url": "string (The specific page URL of the product)",
+  "local_image_path": "string (Relative path to the downloaded main product image with white background, e.g., 'images/daiwa_reels/EXIST_main.jpg')",
   "images": [
     "string (URL of a product image)"
   ],

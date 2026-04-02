@@ -2,504 +2,386 @@
   {
     "brand": "Daiwa",
     "kind": "spinning",
-    "model": "ソルティガ",
-    "model_year": null,
-    "source_url": "https://www.daiwa.com/jp/product/i25pggl",
+    "model": "EXIST",
+    "model_year": "22",
+    "source_url": "https://www.daiwa.com/jp/product/olqf9k0",
+    "local_image_path": "",
     "images": [
-      "https://www.daiwa.com/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/banner/saltiga30000_PC_2000_640",
-      "https://www.daiwa.com/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/banner/saltiga30000_SP_1000_750",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_8000-H_4550133351426.jpg?rev=9096f5ef6aaa49f7a0918bd0e53d69c8",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_10000-P_4550133351433.jpg?rev=d6352df40a3949bfaf3b25980845e3e5",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_14000-P_4550133351457.jpg?rev=db2f67377e5b42eabc178e610527b2c8",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_18000-H_4550133351471.jpg?rev=7286843903d645f8913e3bc2b7ff8187",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_20000-H_4550133351495.jpg?rev=428625de63a445bdbcf4eb3e25fd38de",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_25000-P_4550133351501.jpg?rev=21ab7bdba7024717b5c4580d065a089d",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/tuika/25SALTIGA_30000-P_4550133420207.jpg?rev=c3a30324c63e43b49856c338ff21feab",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_8000-H_4550133351426_01.jpg?rev=3b8edff8670145a096482c76a0a39b82",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_8000-H_4550133351426_02.jpg?rev=d29ba7dd40cc455a914aa1c9f0eaa767",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_8000-H_4550133351426_03.jpg?rev=fc66efec5afd40c88b4f4198df3833a6",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/25SALTIGA_8000-H_4550133351426_05.jpg?rev=1e81ebfc28b94a8c8d4e524016a1fb22",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/POWERDRIVE-DESIGN-CONCEPT.jpg?rev=a93514e77f09478bbd66857634376310",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/POWERDRIVE-DESIGN-CONCEPT2.jpg?rev=690b5b1309ee43bcbf1b93ef0b487964",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/POWERDRIVE_ENGINE_KV.jpg?rev=bb5f39dacf8949d080a274153a3f0b44",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/OVERSIZED_POWER_DIGIGEAR_KV.jpg?rev=1b413e572fa04ff1a739b8ddb6cda2ab",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/ROLLER-POWER-OSCILLATION.jpg?rev=77d279fbc6ae4279a2e9e78917b812c8",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/POWERDRIVE_ROTOR_KV.jpg?rev=645c113a672e4065933cfc694a319b72",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/CRANK_POWER_BALL_KV.jpg?rev=2516924c2fb942748364bbfee19fd662",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/TOUGH_LINE_ROLLER_SYSTEM_KV.jpg?rev=7d6cdb23f6ab4be8b5b507e1ab24cf0f",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGA-14000_DRD.jpg?rev=b3590b1cc80f466599262f958dcc16c4",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGA-14000_ATD.jpg?rev=0b0e75f7d39747da80b2797e3d431f5b",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGA_LC-ABS-SW.jpg?rev=15c37d3b63fb4772b2a07568323a332b",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGA_stopperless.jpg?rev=03c770b1c14d4cc2a8a98b5ac7922a54",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGA_return.jpg?rev=20b1a34d7b58490f9aa6af3169925b82",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGA14000handlegrip.jpg?rev=fac0a764e3034e95911ad68cf2688c95",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTIGASpool_graph.jpg?rev=7607e7288c5142d0b754e8a99ba6aa83",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25SALTTIGA_afterservice.jpg?rev=0c20b95fea004fdf9ba2fca7156bb71d",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/25_all_bk_sample.jpg?rev=8e4cc1363bea44c8880900f05d2b88c1",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/sub/slp-plus_black.jpg?rev=77febbc6bd634c24810408f31c37bb1f",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/banner/saltiga_SPsite_800_600.jpg?rev=cc622aecba664cff831031ef6c24bbd3",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/banner/after_25saltiga.jpg?rev=7550778bf09f42239ea8c437cee86d35",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/i25pggl_25SALTIGA_spining/banner/owner_support.jpg?rev=de2ccd8608bb4121b2abc4267331865c"
-    ],
-    "variants": [
-      {
-        "sku": "4550133351419",
-        "name": "２５ＳＡＬＴＩＧＡ　８０００－Ｐ",
-        "specs": {
-          "gear_ratio": "4.8",
-          "weight_g": 670.0,
-          "max_drag_kg": "25",
-          "line_capacity_pe": "3-460_4-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "80",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
-        }
-      },
-      {
-        "sku": "4550133351426",
-        "name": "２５ＳＡＬＴＩＧＡ　８０００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.6",
-          "weight_g": 680.0,
-          "max_drag_kg": "25",
-          "line_capacity_pe": "3-460_4-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "80",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
-        }
-      },
-      {
-        "sku": "4550133351433",
-        "name": "２５ＳＡＬＴＩＧＡ　１００００－Ｐ",
-        "specs": {
-          "gear_ratio": "4.8",
-          "weight_g": 675.0,
-          "max_drag_kg": "25",
-          "line_capacity_pe": "4-380_5-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
-        }
-      },
-      {
-        "sku": "4550133351440",
-        "name": "２５ＳＡＬＴＩＧＡ　１００００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.6",
-          "weight_g": 685.0,
-          "max_drag_kg": "25",
-          "line_capacity_pe": "4-380_5-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
-        }
-      },
-      {
-        "sku": "4550133351457",
-        "name": "２５ＳＡＬＴＩＧＡ　１４０００－Ｐ",
-        "specs": {
-          "gear_ratio": "4.8",
-          "weight_g": 690.0,
-          "max_drag_kg": "25",
-          "line_capacity_pe": "5-340_6-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
-        }
-      },
-      {
-        "sku": "4550133351464",
-        "name": "２５ＳＡＬＴＩＧＡ　１４０００－ＸＨ",
-        "specs": {
-          "gear_ratio": "6.2",
-          "weight_g": 690.0,
-          "max_drag_kg": "25",
-          "line_capacity_pe": "5-340_6-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
-        }
-      },
-      {
-        "sku": "4550133351471",
-        "name": "２５ＳＡＬＴＩＧＡ　１８０００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.5",
-          "weight_g": 930.0,
-          "max_drag_kg": "30",
-          "line_capacity_pe": "6-420_8-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
-        }
-      },
-      {
-        "sku": "4550133351488",
-        "name": "２５ＳＡＬＴＩＧＡ　２００００－Ｐ",
-        "specs": {
-          "gear_ratio": "4.4",
-          "weight_g": 940.0,
-          "max_drag_kg": "30",
-          "line_capacity_pe": "8-370_10-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
-        }
-      },
-      {
-        "sku": "4550133351495",
-        "name": "２５ＳＡＬＴＩＧＡ　２００００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.5",
-          "weight_g": 940.0,
-          "max_drag_kg": "30",
-          "line_capacity_pe": "8-370_10-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
-        }
-      },
-      {
-        "sku": "4550133351501",
-        "name": "２５ＳＡＬＴＩＧＡ　２５０００－Ｐ",
-        "specs": {
-          "gear_ratio": "4.4",
-          "weight_g": 950.0,
-          "max_drag_kg": "30",
-          "line_capacity_pe": "10-360_12-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
-        }
-      },
-      {
-        "sku": "4550133420207",
-        "name": "２５ＳＡＬＴＩＧＡ　３００００－Ｐ",
-        "specs": {
-          "gear_ratio": "4.4",
-          "weight_g": 1060.0,
-          "max_drag_kg": "30",
-          "line_capacity_pe": "12-400_15-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "95",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "200,000"
-        }
-      },
-      {
-        "sku": "4550133420214",
-        "name": "２５ＳＡＬＴＩＧＡ　３００００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.5",
-          "weight_g": 1060.0,
-          "max_drag_kg": "30",
-          "line_capacity_pe": "12-400_15-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "95",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "200,000"
-        }
-      }
-    ],
-    "raw_data_hash": "718646035fc7fede9e9ce13175d15af95c36d3e31cc16df6e2aed264a601a6e0",
-    "scraped_at": "2026-04-02T13:57:55.557532Z"
-  },
-  {
-    "brand": "Daiwa",
-    "kind": "spinning",
-    "model": "ソルティガ 4000/5000/6000",
-    "model_year": null,
-    "source_url": "https://www.daiwa.com/jp/product/pnelxmt",
-    "images": [
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_4000-H_4550133224027.jpg?rev=013e369067854758905a9c780a910b12",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_4000-XH_4550133224034.jpg?rev=bf21bc37892c46749a9843f0f1100de4",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_5000-H_4550133224041.jpg?rev=7d4a7caeaffb48529d00f62289da66b5",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_5000-XH_4550133224058.jpg?rev=050eb809c88b414abf78a0869427e305",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_6000-H_4550133224065.jpg?rev=e6cb0d62b23d4443ba4d4e5ecac482f2",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_6000-XH_4550133224072.jpg?rev=99b1aa4f4cc2431cba416022f8e7ff4c",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_6000-H_4550133224065_01.jpg?rev=b33f8a464a62420a904e324bbf3d338c",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_6000-H_4550133224065_02.jpg?rev=c637a79d7eb149888fd712e215237c73",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_6000-H_4550133224065_03.jpg?rev=b1db50336e1a4f3a9d06536f6048a563",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/main_23SALTIGA/23SALTIGA_6000-H_4550133224065_04.jpg?rev=437c5bafe79f4cd990985487a7b4f3ca",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub1.jpg?rev=0cca3a5aec4e4f0d8890f39297aad975",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub2.jpg?rev=8576e49e97594525ae720c2fa9896456",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub3.jpg?rev=1a691474d20f4eeaa90fab80f88118c1",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub4.jpg?rev=9688b93003734f3386d0966972ae652a",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub5.jpg?rev=d2f08a0e7fae4179b8f9c6b42fca6236",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub6.jpg?rev=5c3276285b584953be76b203ac468426",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/sub7.jpg?rev=96235172cec84d95a6f00943fc67f55e",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/25SALTTIGA_afterservice.jpg?rev=3cf4185188044e509c02df127913e2f6",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/slp-plus_black.jpg?rev=8288b1e3b6654ab4a842d56ddc4b09eb",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/SALTIGA4000_5000_6000_SPbanner.jpg?rev=3c03a1a69a7a42f7a12f85253af582f1",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/after_23saltiga4000_5000_6000.jpg?rev=21f64ba55f434d92aebdc178239fc582",
-      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pnelxmt_SALTIGA--4000_5000_600/sub/OWNRE-SUPPORT_1.jpg?rev=b3993ae628b24b27bae1ba4316a08d21",
+      "https://www.daiwa.com/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/22EXIST_image",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT2000S-H.jpg?rev=26e95ac1d9b24a8a9523ca15e3f19d7a",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT2000S-P.jpg?rev=db4d4f3880784de085c7f1b6a9cfa84c",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT2500S.jpg?rev=05a07284791043f4a96ea8b0856eefaf",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT2500S_DH.jpg?rev=8d2253e1e63445b5a562c452a31e3881",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT2500S-H.jpg?rev=2c1138f8b20443f892ff59e163680972",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT2500S-XH.jpg?rev=46627243c26540bca401b897c3a451f9",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_PCLT2500.jpg?rev=d0b295a10b50454a9899097cd7790c71",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_PCLT2500-H.jpg?rev=5e51a19ab3a64fb6be3fca11c02e2ee0",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT3000-H.jpg?rev=8b905e604edd41aa82548ac116ee9bd7",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT3000S.jpg?rev=fc311f3b4eb54aefaf7b682187d2eea9",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_PCLT3000.jpg?rev=301270db0c1844419940669f52986400",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_PCLT3000-XH.jpg?rev=2ee1ff7af3924709b624a98fc5cdd6f8",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT4000.jpg?rev=1fbe795ba5c74718951907767f3f47bd",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT4000-XH.jpg?rev=beee83bb355348ce889f84bcd5088dc7",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT5000-C.jpg?rev=f7b1ca0c52514e338b48042a0fefee46",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT5000-CXH.jpg?rev=80d045e813584166ac24a2f95a80c81f",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/SF_1000S-P.jpg?rev=9d110e394ad94945b0eff58e753c40bf",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/SF_2000SS-P.jpg?rev=ce02166274d6419c9ad6001197e28c70",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/SF_2500SS-H.jpg?rev=de5b420d0ffa466f96aa086856fef16f",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT_2500S_main/7F3_final.jpg?rev=8b219bf9fa1f42cc9fac670b37d71554",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT_2500S_main/E_final.jpg?rev=d4502b770cf148ee823f6d2679dc9b72",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT_2500S_main/_final.jpg?rev=f3110ed45a43458b80c14fabc2bbeb1a",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT_2500S_main/_final2.jpg?rev=cee194cb8c9d4fd296ba03d181149355",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/EXIST_LT_2500S_main/_final3.jpg?rev=213cf939e2bb400391f952dce21ca835",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/sub/sub1.jpg?rev=15c807e56d1b468c96c5af1f681c5f3c",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/sub/sub2.jpg?rev=c6d4931735d249b0803b50895045f5fd",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/sub/sub3.jpg?rev=4b02f9256fc5436484ef3f3a975ec9e4",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/banner/thumbnail_EXIST-lounge_banners_products.jpg?rev=b0b79412b8ba4c1cb89b1c97430553d9",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/banner/EXIST.jpg?rev=250fb54bd10a486ba386090e0593f09c",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/banner/EXIST_LT_top.jpg?rev=ecb224659f0b4059b8d5287966701f43",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/banner/EXIST_SF_top.jpg?rev=e4a6df7ddb6e40c4947faa12342cff20",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/banner/EXIST_after_service.jpg?rev=e8a0489c1128485a8c9dfdfebb30c63d",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/olqf9k0_EXIST/banner/EXIST_owner_support.jpg?rev=341db7e0ee81431ea7d76218d5882a37",
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
       {
-        "sku": "",
-        "name": "4000-H",
+        "sku": "4550133109379",
+        "name": "LT2000S-P",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "4.9",
+          "weight_g": 155.0,
+          "max_drag_kg": "5",
+          "line_capacity_pe": "0.4-200",
+          "line_capacity_nylon": "3-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "40",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "102,000"
         }
       },
       {
-        "sku": "",
-        "name": "4000-XH",
+        "sku": "4550133109386",
+        "name": "LT2000S-H",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.8",
+          "weight_g": 155.0,
+          "max_drag_kg": "5",
+          "line_capacity_pe": "0.4-200",
+          "line_capacity_nylon": "3-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "45",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "102,000"
         }
       },
       {
-        "sku": "",
-        "name": "5000-P",
+        "sku": "4550133109393",
+        "name": "LT2500S",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.1",
+          "weight_g": 160.0,
+          "max_drag_kg": "5",
+          "line_capacity_pe": "0.6-200",
+          "line_capacity_nylon": "4-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "50",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "103,000"
         }
       },
       {
-        "sku": "",
-        "name": "5000-H",
+        "sku": "4550133109409",
+        "name": "LT2500S-H",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.8",
+          "weight_g": 160.0,
+          "max_drag_kg": "5",
+          "line_capacity_pe": "0.6-200",
+          "line_capacity_nylon": "4-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "50",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "103,000"
         }
       },
       {
-        "sku": "",
-        "name": "5000-XH",
+        "sku": "4550133109423",
+        "name": "LT2500S-XH",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "6.2",
+          "weight_g": 160.0,
+          "max_drag_kg": "5",
+          "line_capacity_pe": "0.6-200",
+          "line_capacity_nylon": "4-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "50",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "103,000"
         }
       },
       {
-        "sku": "",
-        "name": "6000-P",
+        "sku": "4550133109416",
+        "name": "LT2500S-DH",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.1",
+          "weight_g": 170.0,
+          "max_drag_kg": "5",
+          "line_capacity_pe": "0.6-200",
+          "line_capacity_nylon": "4-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "90",
+          "bearing_count_roller": "14/1",
+          "market_reference_price": "106,000"
         }
       },
       {
-        "sku": "",
-        "name": "6000-H",
+        "sku": "4550133109430",
+        "name": "PC LT2500",
+        "year": "22",
         "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.2",
+          "weight_g": 175.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "0.8-200",
+          "line_capacity_nylon": "6-150",
           "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "handle_length_mm": "50",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "104,000"
         }
       },
       {
-        "sku": "",
-        "name": "6000-XH",
-        "specs": {
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
-        }
-      },
-      {
-        "sku": "4550133224027",
-        "name": "２３ソルティガ　４０００－Ｈ",
+        "sku": "4550133326004",
+        "name": "PC LT2500-H",
+        "year": "22",
         "specs": {
           "gear_ratio": "5.7",
-          "weight_g": 345.0,
-          "max_drag_kg": "12",
-          "line_capacity_pe": "2-300",
-          "line_capacity_nylon": "",
+          "weight_g": 175.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "0.8-200",
+          "line_capacity_nylon": "6-150",
           "cm_per_turn": "",
-          "handle_length_mm": "65",
+          "handle_length_mm": "55",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "104,000"
+        }
+      },
+      {
+        "sku": "4550133109454",
+        "name": "LT3000S",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "5.2",
+          "weight_g": 180.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "0.8-200",
+          "line_capacity_nylon": "6-150",
+          "cm_per_turn": "",
+          "handle_length_mm": "55",
           "bearing_count_roller": "12/1",
           "market_reference_price": "105,000"
         }
       },
       {
-        "sku": "4550133224034",
-        "name": "２３ソルティガ　４０００－ＸＨ",
+        "sku": "4550133326011",
+        "name": "LT3000-H",
+        "year": "22",
         "specs": {
-          "gear_ratio": "6.2",
-          "weight_g": 345.0,
-          "max_drag_kg": "12",
-          "line_capacity_pe": "2-300",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.7",
+          "weight_g": 180.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "1-200",
+          "line_capacity_nylon": "8-150",
           "cm_per_turn": "",
-          "handle_length_mm": "65",
+          "handle_length_mm": "55",
           "bearing_count_roller": "12/1",
           "market_reference_price": "105,000"
         }
       },
       {
-        "sku": "4550133431852",
-        "name": "２３ソルティガ　５０００－Ｐ",
+        "sku": "4550133109478",
+        "name": "PC LT3000",
+        "year": "22",
         "specs": {
-          "gear_ratio": "4.9",
-          "weight_g": 365.0,
-          "max_drag_kg": "15",
-          "line_capacity_pe": "2.5-300",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.2",
+          "weight_g": 190.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "1-200",
+          "line_capacity_nylon": "8-150",
           "cm_per_turn": "",
-          "handle_length_mm": "65",
+          "handle_length_mm": "60",
           "bearing_count_roller": "12/1",
-          "market_reference_price": "113,000"
+          "market_reference_price": "106,000"
         }
       },
       {
-        "sku": "4550133224041",
-        "name": "２３ソルティガ　５０００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.7",
-          "weight_g": 365.0,
-          "max_drag_kg": "15",
-          "line_capacity_pe": "2.5-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "65",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "113,000"
-        }
-      },
-      {
-        "sku": "4550133224058",
-        "name": "２３ソルティガ　５０００－ＸＨ",
+        "sku": "4550133109485",
+        "name": "PC LT3000-XH",
+        "year": "22",
         "specs": {
           "gear_ratio": "6.2",
-          "weight_g": 365.0,
-          "max_drag_kg": "15",
-          "line_capacity_pe": "2.5-300",
-          "line_capacity_nylon": "",
+          "weight_g": 190.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "1-200",
+          "line_capacity_nylon": "8-150",
           "cm_per_turn": "",
-          "handle_length_mm": "65",
+          "handle_length_mm": "60",
           "bearing_count_roller": "12/1",
-          "market_reference_price": "113,000"
+          "market_reference_price": "106,000"
         }
       },
       {
-        "sku": "4550133431869",
-        "name": "２３ソルティガ　６０００－Ｐ",
+        "sku": "4550133109492",
+        "name": "LT4000",
+        "year": "22",
         "specs": {
-          "gear_ratio": "4.9",
-          "weight_g": 400.0,
-          "max_drag_kg": "15",
-          "line_capacity_pe": "3-300",
-          "line_capacity_nylon": "",
+          "gear_ratio": "5.2",
+          "weight_g": 205.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "1.5-200",
+          "line_capacity_nylon": "12-150",
           "cm_per_turn": "",
-          "handle_length_mm": "70",
+          "handle_length_mm": "60",
           "bearing_count_roller": "12/1",
-          "market_reference_price": "115,000"
+          "market_reference_price": "107,000"
         }
       },
       {
-        "sku": "4550133224065",
-        "name": "２３ソルティガ　６０００－Ｈ",
-        "specs": {
-          "gear_ratio": "5.7",
-          "weight_g": 400.0,
-          "max_drag_kg": "15",
-          "line_capacity_pe": "3-300",
-          "line_capacity_nylon": "",
-          "cm_per_turn": "",
-          "handle_length_mm": "70",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "115,000"
-        }
-      },
-      {
-        "sku": "4550133224072",
-        "name": "２３ソルティガ　６０００－ＸＨ",
+        "sku": "4550133109508",
+        "name": "LT4000-XH",
+        "year": "22",
         "specs": {
           "gear_ratio": "6.2",
-          "weight_g": 400.0,
-          "max_drag_kg": "15",
-          "line_capacity_pe": "3-300",
-          "line_capacity_nylon": "",
+          "weight_g": 205.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "1.5-200",
+          "line_capacity_nylon": "12-150",
           "cm_per_turn": "",
-          "handle_length_mm": "70",
+          "handle_length_mm": "60",
           "bearing_count_roller": "12/1",
-          "market_reference_price": "115,000"
+          "market_reference_price": "107,000"
+        }
+      },
+      {
+        "sku": "4550133109515",
+        "name": "LT5000-C",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "5.2",
+          "weight_g": 220.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "2-300",
+          "line_capacity_nylon": "20-150",
+          "cm_per_turn": "",
+          "handle_length_mm": "60",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "110,000"
+        }
+      },
+      {
+        "sku": "4550133109522",
+        "name": "LT5000-CXH",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "6.2",
+          "weight_g": 220.0,
+          "max_drag_kg": "10",
+          "line_capacity_pe": "2-300",
+          "line_capacity_nylon": "20-150",
+          "cm_per_turn": "",
+          "handle_length_mm": "60",
+          "bearing_count_roller": "12/1",
+          "market_reference_price": "110,000"
+        }
+      },
+      {
+        "sku": "4550133173059",
+        "name": "SF1000S-P",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "4.6",
+          "weight_g": 135.0,
+          "max_drag_kg": "3",
+          "line_capacity_pe": "0.3-200",
+          "line_capacity_nylon": "2.5-100",
+          "cm_per_turn": "",
+          "handle_length_mm": "35",
+          "bearing_count_roller": "11/1",
+          "market_reference_price": "102,000"
+        }
+      },
+      {
+        "sku": "4550133173066",
+        "name": "SF2000SS-P",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "4.6",
+          "weight_g": 135.0,
+          "max_drag_kg": "3",
+          "line_capacity_pe": "0.3-200",
+          "line_capacity_nylon": "2.5-100",
+          "cm_per_turn": "",
+          "handle_length_mm": "40",
+          "bearing_count_roller": "11/1",
+          "market_reference_price": "102,000"
+        }
+      },
+      {
+        "sku": "4550133173073",
+        "name": "SF2000SS-H",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "5.7",
+          "weight_g": 135.0,
+          "max_drag_kg": "3",
+          "line_capacity_pe": "0.3-200",
+          "line_capacity_nylon": "2.5-100",
+          "cm_per_turn": "",
+          "handle_length_mm": "45",
+          "bearing_count_roller": "11/1",
+          "market_reference_price": "102,000"
+        }
+      },
+      {
+        "sku": "4550133173080",
+        "name": "SF2500SS",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "5.0",
+          "weight_g": 140.0,
+          "max_drag_kg": "3",
+          "line_capacity_pe": "0.4-200",
+          "line_capacity_nylon": "3-150",
+          "cm_per_turn": "",
+          "handle_length_mm": "45",
+          "bearing_count_roller": "11/1",
+          "market_reference_price": "103,000"
+        }
+      },
+      {
+        "sku": "4550133173097",
+        "name": "SF2500SS-H",
+        "year": "22",
+        "specs": {
+          "gear_ratio": "5.7",
+          "weight_g": 140.0,
+          "max_drag_kg": "3",
+          "line_capacity_pe": "0.4-200",
+          "line_capacity_nylon": "3-150",
+          "cm_per_turn": "",
+          "handle_length_mm": "45",
+          "bearing_count_roller": "11/1",
+          "market_reference_price": "103,000"
         }
       }
     ],
-    "raw_data_hash": "fa8b7f25345a96f6bda7702a3d480d5ec5db1551b78362a8394c5b2d5f594a85",
-    "scraped_at": "2026-04-02T13:57:57.244413Z"
+    "raw_data_hash": "7f4797b2fe4ee60ec83bc8112a75ea2eb0f747e2fd7045424914fc05877ee7df",
+    "scraped_at": "2026-04-02T16:44:56.212734Z"
   }
 ]

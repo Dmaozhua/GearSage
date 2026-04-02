@@ -34,7 +34,7 @@ function main() {
             alias: '',
             type_tips: '', // Leave empty as requested
             type: item.kind, // spinning or baitcasting from the updated scraping rules
-            images: item.images.join('|'),
+            images: item.local_image_path || '', // Use the downloaded local image path instead of joined remote URLs
             created_at: '',
             updated_at: ''
         });

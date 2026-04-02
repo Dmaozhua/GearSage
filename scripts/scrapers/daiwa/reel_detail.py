@@ -1,6 +1,9 @@
 import json
 import os
 import hashlib
+import re
+import unicodedata
+import requests
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapling import Fetcher
@@ -45,12 +48,66 @@ def parse_detail_page(fetcher, item):
     else:
         model = "Unknown"
         
-    # Images
-    # Looking for high res images in specific containers or just all media images
+    # Download main image (white background product photo)
+    # We want the first product display image. Usually these are specific model photos.
+    local_image_path = ""
+    # Set the base directory for all downloaded gear images
+    image_base_dir = "/Users/tommy/Pictures/images"
+    image_dir = os.path.join(image_base_dir, "daiwa_reels")
+    if not os.path.exists(image_dir):
+        os.makedirs(image_dir)
+
     raw_images = page.css("img::attr(src)").getall()
     images = []
+    main_image_url = None
+    
+    # Filter to find the actual product list images, excluding banners, logos, and the generic "image" placeholder
     for img in raw_images:
-        if "media" in img and ("001_product_photo" in img or "main" in img):
+        if "media" in img and "001_product_photo" in img:
+            full_img = urljoin("https://www.daiwa.com", img)
+            if full_img not in images:
+                images.append(full_img)
+                # The first image in the product list usually has the specific model name and a .jpg/.png extension
+                # Avoid the generic folder images like "22EXIST_image" or "banner"
+                if not main_image_url and "banner" not in img.lower() and "sub" not in img.lower():
+                    # Check if it has a typical image extension, ignoring query params
+                    clean_img = img.split('?')[0].lower()
+                    if clean_img.endswith('.jpg') or clean_img.endswith('.png') or clean_img.endswith('.webp'):
+                        main_image_url = full_img
+
+    # If we didn't find one with an extension, fallback to the first 001_product_photo we found
+    if not main_image_url and len(images) > 0:
+        main_image_url = images[0]
+
+    # If we found a main image, download it
+    if main_image_url:
+        try:
+            print(f"[*] Downloading main image: {main_image_url}")
+            response = requests.get(main_image_url, stream=True, timeout=10)
+            if response.status_code == 200:
+                # Clean up filename (e.g. use model name)
+                safe_model_name = re.sub(r'[^\w\-]', '_', model)
+                ext = ".jpg" # Default extension
+                if ".png" in main_image_url.lower(): ext = ".png"
+                elif ".webp" in main_image_url.lower(): ext = ".webp"
+                
+                filename = f"{safe_model_name}_main{ext}"
+                filepath = os.path.join(image_dir, filename)
+                
+                with open(filepath, 'wb') as f:
+                    for chunk in response.iter_content(1024):
+                        f.write(chunk)
+                
+                # Store relative path (e.g. "images/daiwa_reels/...") based on the new structure
+                # This aligns with the previous convention where images start with "images/..."
+                local_image_path = f"images/daiwa_reels/{filename}"
+                print(f"[*] Saved main image to {filepath}")
+        except Exception as e:
+            print(f"[!] Failed to download main image: {e}")
+            
+    # Include other banners/images
+    for img in raw_images:
+        if "media" in img and "001_product_photo" not in img and "main" in img:
             full_img = urljoin("https://www.daiwa.com", img)
             if full_img not in images:
                 images.append(full_img)
@@ -86,7 +143,33 @@ def parse_detail_page(fetcher, item):
             
             # Use safe_get with possible variations of column names
             sku = safe_get(row_data, ["JAN", "JANコード"])
-            name = safe_get(row_data, ["アイテム", "品名"], model)
+            
+            raw_name = safe_get(row_data, ["アイテム", "品名"], model)
+            # Normalize full-width characters to half-width
+            raw_name = unicodedata.normalize('NFKC', raw_name)
+            
+            # Extract year and sub-model
+            variant_year = None
+            variant_name = raw_name
+            
+            # Look for 2-digit year at the beginning (e.g. "22EXIST LT2000S-P" or "19 CERTATE LT...")
+            year_match = re.match(r"^(\d{2})\s*(.*)", variant_name)
+            if year_match:
+                year_str = year_match.group(1)
+                variant_name = year_match.group(2).strip()
+                variant_year = year_str
+                
+            # Remove the base model name from the variant name if it exists at the start
+            if model:
+                # e.g. model="EXIST", variant_name="EXIST LT2000S-P" -> "LT2000S-P"
+                # Need to escape model and make it case-insensitive
+                pattern = re.compile(r"^" + re.escape(model) + r"\s*", re.IGNORECASE)
+                clean_variant = pattern.sub("", variant_name).strip()
+                if clean_variant:
+                    variant_name = clean_variant
+                    
+            name = variant_name
+
             weight = safe_get(row_data, ["標準自重（ｇ）", "自重（g）", "自重(g)", "標準自重(g)"])
             gear_ratio = safe_get(row_data, ["ギア比", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"]) # Often the first col or ratio col
             if "ギア比" in row_data:
@@ -114,6 +197,7 @@ def parse_detail_page(fetcher, item):
             variants.append({
                 "sku": sku,
                 "name": name,
+                "year": variant_year,
                 "specs": {
                     "gear_ratio": gear_ratio,
                     "weight_g": weight_val,
@@ -127,6 +211,13 @@ def parse_detail_page(fetcher, item):
                 }
             })
             
+    # Determine master model_year from variants
+    master_year = None
+    for v in variants:
+        if v.get("year"):
+            master_year = v["year"]
+            break
+
     # Fix datetime warning
     from datetime import timezone
     scraped_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -135,8 +226,9 @@ def parse_detail_page(fetcher, item):
         "brand": "Daiwa",
         "kind": kind,
         "model": model,
-        "model_year": None,
+        "model_year": master_year,
         "source_url": url,
+        "local_image_path": local_image_path,
         "images": images,
         "variants": variants,
         "raw_data_hash": raw_html_hash,
