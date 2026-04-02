@@ -4,13 +4,13 @@
     "entry_points": [
       {
         "kind": "reel",
-        "url": "https://www.daiwa.com/jp/fishing/item/reel/spin_rl/index.html",
-        "description": "Daiwa Japan Spinning Reels List"
+        "url": "https://www.daiwa.com/jp/product/productlist?category1=%E3%83%AA%E3%83%BC%E3%83%AB",
+        "description": "Daiwa Japan Reels List"
       },
       {
         "kind": "rod",
-        "url": "https://www.daiwa.com/jp/fishing/item/rod/bass_rd/index.html",
-        "description": "Daiwa Japan Bass Rods List"
+        "url": "https://www.daiwa.com/jp/product/productlist?category1=%E3%83%AD%E3%83%83%E3%83%89",
+        "description": "Daiwa Japan Rods List"
       }
     ]
   },

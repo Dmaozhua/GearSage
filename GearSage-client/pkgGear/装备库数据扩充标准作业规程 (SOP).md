@@ -52,9 +52,13 @@
         scrapling install
         ```
 
-3.  **启动MCP服务**:
-    *   在前台启动服务进行测试: `scrapling serve`。
-    *   服务将在本地 `http://127.0.0.1:8000` 启动。建议在生产操作中使用 `tmux` 或 `screen` 将其作为后台服务长期运行。
+3.  **在客户端配置MCP服务 (一次性配置)**:
+    *   为了在您的IDE（如 Trae, Cursor 或 Claude Desktop）中使用Scrapling，您需要将其配置为MCP服务。
+    *   打开您的IDE的MCP配置页面，添加一个新的MCP服务器。
+    *   **类型**: `stdio` (或 `command`)
+    *   **命令 (Command)**: 虚拟环境中的 `scrapling` 可执行文件绝对路径（如 `/Users/tommy/GearSage/venv/bin/scrapling`）
+    *   **参数 (Args)**: `["mcp"]`
+    *   配置完成后，重启或刷新MCP服务。您现在可以直接在对话中要求AI调用 `fetch`, `stealthy_fetch` 等工具进行数据采集了！
 
 ### **第二阶段：采集任务配置 (低频操作)**
 
