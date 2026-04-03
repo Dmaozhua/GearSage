@@ -35,6 +35,7 @@ function main() {
             type_tips: '', // Leave empty as requested
             type: item.kind, // spinning or baitcasting from the updated scraping rules
             images: item.local_image_path || '', // Use the downloaded local image path instead of joined remote URLs
+            main_selling_points: item.main_selling_points ? item.main_selling_points.join(' | ') : '',
             created_at: '',
             updated_at: ''
         });
@@ -53,15 +54,26 @@ function main() {
 
             let actualSku = toHalfWidth(v.name).trim();
             
-            // Optional: Strip redundant model name prefix if it exists
-            const modelNameNoSpace = item.model.replace(/\s+/g, '');
-            // Simple approach: if actualSku contains the model name, we might want to strip it
-            // but for now, just half-width is good enough.
+            // --- Layer 3: GearSage Traits (Derived) ---
+            let spool_depth_normalized = '';
+            if (actualSku.includes('SS')) spool_depth_normalized = '极浅杯 (SS)';
+            else if (actualSku.match(/S($|-)/)) spool_depth_normalized = '浅杯 (S)';
+            else if (actualSku.match(/D($|-)/)) spool_depth_normalized = '深杯 (D)';
+            else spool_depth_normalized = '标准杯';
+            
+            let gear_ratio_normalized = '';
+            if (actualSku.includes('XH') || actualSku.includes('XG')) gear_ratio_normalized = '超高齿比 (XH/XG)';
+            else if (actualSku.includes('H') || actualSku.includes('HG')) gear_ratio_normalized = '高齿比 (H/HG)';
+            else if (actualSku.includes('P') || actualSku.includes('PG')) gear_ratio_normalized = '低齿比 (P/PG)';
+            else gear_ratio_normalized = '标准齿比';
             
             variantsRows.push({
                 id: '', // Empty for manual fill or auto-generate later
                 reel_id: masterId,
                 SKU: actualSku,
+                'SIZE FAMILY': v.specs.size_family || '',
+                'SPOOL DEPTH (GSC)': spool_depth_normalized,
+                'GEAR RATIO (GSC)': gear_ratio_normalized,
                 'GEAR RATIO': v.specs.gear_ratio,
                 'DRAG': '', // Usually calculated or same as max drag
                 'MAX DRAG': v.specs.max_drag_kg,

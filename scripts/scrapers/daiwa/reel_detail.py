@@ -2,10 +2,12 @@ import json
 import os
 import hashlib
 import re
+import time
 import unicodedata
 import requests
 from datetime import datetime
 from urllib.parse import urljoin
+from fake_useragent import UserAgent
 from scrapling import Fetcher
 
 # Paths
@@ -43,10 +45,40 @@ def parse_detail_page(fetcher, item):
     
     # Title (Model)
     model = page.css("h1::text").get()
+    master_year = None
     if model:
         model = model.strip()
+        # Try to extract year from main model name, e.g. "22EXIST" or "19 CERTATE"
+        model_year_match = re.search(r'(?:^|\b)(\d{2})[A-Z\u3040-\u309F\u30A0-\u30FF\s]', model)
+        if model_year_match:
+            y = int(model_year_match.group(1))
+            master_year = str(y + 2000) if y < 50 else str(y + 1900)
     else:
         model = "Unknown"
+        
+    # Extract main_selling_points
+    main_selling_points = []
+    main_area = page.css("main")
+    if main_area:
+        # Collect paragraphs with class "text"
+        paragraphs = main_area.css("p.text, div.text")
+        for p in paragraphs:
+            text = extract_text(p)
+            if text and len(text) > 15:
+                main_selling_points.append(text)
+        
+        # If still empty, try to get the first few regular paragraphs under product-intro or main
+        if not main_selling_points:
+            for p in main_area.css("p"):
+                text = extract_text(p)
+                # Ignore very short texts or obvious labels
+                if text and len(text) > 20 and "JAN" not in text and "自重" not in text:
+                    main_selling_points.append(text)
+                    if len(main_selling_points) >= 3:
+                        break
+                        
+    # Limit selling points to top 3 paragraphs
+    main_selling_points = main_selling_points[:3]
         
     # Download main image (white background product photo)
     # We want the first product display image. Usually these are specific model photos.
@@ -153,11 +185,13 @@ def parse_detail_page(fetcher, item):
             variant_name = raw_name
             
             # Look for 2-digit year at the beginning (e.g. "22EXIST LT2000S-P" or "19 CERTATE LT...")
-            year_match = re.match(r"^(\d{2})\s*(.*)", variant_name)
+            # Use (?!\d) to ensure we don't accidentally match the first two digits of a size like "4000"
+            year_match = re.match(r"^(\d{2})(?!\d)\s*(.*)", variant_name)
             if year_match:
                 year_str = year_match.group(1)
                 variant_name = year_match.group(2).strip()
-                variant_year = year_str
+                y = int(year_str)
+                variant_year = str(y + 2000) if y < 50 else str(y + 1900)
                 
             # Remove the base model name from the variant name if it exists at the start
             if model:
@@ -169,6 +203,13 @@ def parse_detail_page(fetcher, item):
                     variant_name = clean_variant
                     
             name = variant_name
+            
+            # Extract size_family (Second Layer Official Spec)
+            # e.g., from LT2000S-H extract 2000
+            size_family = ""
+            size_match = re.search(r'(\d{3,5})', variant_name)
+            if size_match:
+                size_family = size_match.group(1)
 
             weight = safe_get(row_data, ["標準自重（ｇ）", "自重（g）", "自重(g)", "標準自重(g)"])
             gear_ratio = safe_get(row_data, ["ギア比", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"]) # Often the first col or ratio col
@@ -199,6 +240,7 @@ def parse_detail_page(fetcher, item):
                 "name": name,
                 "year": variant_year,
                 "specs": {
+                    "size_family": size_family,
                     "gear_ratio": gear_ratio,
                     "weight_g": weight_val,
                     "max_drag_kg": max_drag,
@@ -211,12 +253,12 @@ def parse_detail_page(fetcher, item):
                 }
             })
             
-    # Determine master model_year from variants
-    master_year = None
-    for v in variants:
-        if v.get("year"):
-            master_year = v["year"]
-            break
+    # Determine master model_year from variants if not found in model name
+    if not master_year:
+        for v in variants:
+            if v.get("year"):
+                master_year = v["year"]
+                break
 
     # Fix datetime warning
     from datetime import timezone
@@ -227,6 +269,7 @@ def parse_detail_page(fetcher, item):
         "kind": kind,
         "model": model,
         "model_year": master_year,
+        "main_selling_points": main_selling_points,
         "source_url": url,
         "local_image_path": local_image_path,
         "images": images,
@@ -244,7 +287,8 @@ def main():
     fetcher = Fetcher()
     normalized_data = []
     
-    print(f"[*] Processing all {len(urls)} URLs for Phase 2...")
+    print(f"[*] Processing 3 URLs for testing phase...")
+    urls = urls[:3]
     
     for url in urls:
         try:
