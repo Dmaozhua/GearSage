@@ -303,9 +303,12 @@ CREATE TABLE IF NOT EXISTS gear_brands (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+DROP TABLE IF EXISTS gear_variants;
+DROP TABLE IF EXISTS gear_master;
+
 CREATE TABLE IF NOT EXISTS gear_master (
   kind VARCHAR(16) NOT NULL,
-  id BIGINT NOT NULL,
+  id VARCHAR(64) NOT NULL,
   "brandId" BIGINT,
   model VARCHAR(128) NOT NULL DEFAULT '',
   "modelCn" VARCHAR(128) NOT NULL DEFAULT '',
@@ -326,8 +329,8 @@ CREATE TABLE IF NOT EXISTS gear_master (
 CREATE TABLE IF NOT EXISTS gear_variants (
   kind VARCHAR(16) NOT NULL,
   "sourceKey" VARCHAR(64) NOT NULL,
-  "gearId" BIGINT NOT NULL,
-  "variantId" BIGINT NOT NULL,
+  "gearId" VARCHAR(64) NOT NULL,
+  "variantId" VARCHAR(64) NOT NULL,
   sku VARCHAR(255) NOT NULL DEFAULT '',
   raw_json JSONB NOT NULL DEFAULT '{}'::jsonb,
   "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),

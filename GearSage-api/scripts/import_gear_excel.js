@@ -71,11 +71,11 @@ async function main() {
     await client.query(initSql);
 
     const brands = readRows(path.join(excelDir, 'brand.xlsx')).map(normalizeBrandRow);
-    const masters = MASTER_SOURCES.flatMap(({ kind, file }) =>
-      readRows(path.join(excelDir, file)).map((row) => normalizeMasterRow(kind, row)),
+    const masters = MASTER_SOURCES.flatMap(({ kind, file, sheet }) =>
+      readRows(path.join(excelDir, file), sheet).map((row) => normalizeMasterRow(kind, row)),
     );
-    const variants = VARIANT_SOURCES.flatMap(({ kind, sourceKey, file, foreignKey }) =>
-      readRows(path.join(excelDir, file)).map((row) =>
+    const variants = VARIANT_SOURCES.flatMap(({ kind, sourceKey, file, foreignKey, sheet }) =>
+      readRows(path.join(excelDir, file), sheet).map((row) =>
         normalizeVariantRow(kind, sourceKey, foreignKey, row),
       ),
     );
@@ -200,14 +200,19 @@ function loadEnvFiles() {
   }
 }
 
-function readRows(filePath) {
+function readRows(filePath, sheetName) {
   if (!fs.existsSync(filePath)) {
-    throw new Error(`Excel file not found: ${filePath}`);
+    console.warn(`[import:gear] Warning: Excel file not found: ${filePath}, skipping...`);
+    return [];
   }
 
   const workbook = XLSX.readFile(filePath);
-  const sheetName = workbook.SheetNames[0];
-  return XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' });
+  const targetSheetName = sheetName || workbook.SheetNames[0];
+  if (!workbook.Sheets[targetSheetName]) {
+    console.warn(`[import:gear] Warning: Sheet '${targetSheetName}' not found in ${filePath}, skipping...`);
+    return [];
+  }
+  return XLSX.utils.sheet_to_json(workbook.Sheets[targetSheetName], { defval: '' });
 }
 
 function normalizeBrandRow(row) {
@@ -228,16 +233,17 @@ function normalizeBrandRow(row) {
 
 function normalizeMasterRow(kind, row) {
   const normalizedImages = normalizeImages(row.images);
+
   const normalized = sanitizeJson({
     ...row,
-    id: toNullableNumber(row.id),
+    id: normalizeText(row.id),
     brand_id: toNullableNumber(row.brand_id),
     images: normalizedImages,
   });
 
   return {
     kind,
-    id: toNullableNumber(row.id),
+    id: normalizeText(row.id),
     brandId: toNullableNumber(row.brand_id),
     model: normalizeText(row.model),
     modelCn: normalizeText(row.model_cn),
@@ -254,12 +260,19 @@ function normalizeMasterRow(kind, row) {
 }
 
 function normalizeVariantRow(kind, sourceKey, foreignKey, row) {
-  const gearId = toNullableNumber(row[foreignKey]);
-  const variantId = toNullableNumber(row.id);
+  const gearIdRaw = row[foreignKey] || row.reel_id || row.master_id;
+  const gearId = normalizeText(gearIdRaw);
+  
+  let variantId = normalizeText(row.id);
+  if (!variantId && gearId && (row.sku || row.SKU)) {
+    // Generate a variantId if missing
+    variantId = normalizeText(`${gearId}-${row.sku || row.SKU}`);
+  }
+
   const normalized = sanitizeJson({
     ...row,
-    id: variantId,
     [foreignKey]: gearId,
+    id: variantId,
   });
 
   return {
@@ -305,7 +318,7 @@ function generateSearchDataFile(masters) {
 
       return {
         type: item.kind,
-        id: Number(item.id),
+        id: item.id,
         name: nameParts.join(' ').trim(),
         alias: item.alias || '',
         type_tips: item.typeTips || '',
@@ -315,7 +328,7 @@ function generateSearchDataFile(masters) {
         family: family,
       };
     })
-    .filter((item) => item.name && Number.isFinite(item.id) && item.id > 0);
+    .filter((item) => item.name && item.id);
 
   const content = `module.exports = ${JSON.stringify(searchData, null, 2)};\n`;
   fs.writeFileSync(SEARCH_DATA_FILE, content, 'utf8');
