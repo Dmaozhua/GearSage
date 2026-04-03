@@ -862,6 +862,18 @@ n
   - `series_positioning`（系列定位）：在 Excel 脚本中新增此列，默认留空，待后续通过大语言模型或手动补充。
   - `market_status`（市场状态）：在 Excel 脚本中新增，默认赋值为“在售”。
   - `official_reference_price`（官方参考价）：在 Excel 脚本中实现，通过遍历型号下所有 Variant 的 `market_reference_price`，计算出最低与最高价的区间（例如 `¥155,000 - ¥165,000`）并填入 Master 表格中。
+
+### 2026-04-04：达亿瓦纺车轮专属 SKU 解析规则与表结构兼容
+- **达亿瓦纺车轮 SKU 专属解析 (GearSage Traits)**：
+  - `min_lure_weight_hint`：纺车轮统一留空不填写。
+  - `fit_style_tags`：提取 SKU 前缀（如 `PC`, `SF` 等），无前缀则留空。
+  - `spool_depth_normalized`：根据尺寸后的字母提取（`D`=深杯, `S`=浅杯, `SS`=超浅杯, 无=标准杯）。
+  - `is_compact_body`（新增）：根据后缀是否包含 `C` 判定为精巧机身。
+  - `gear_ratio_normalized`：过滤 `DH` 干扰后，提取 `XH`=超高速比, `H`=高速比, `P`=低速比, 无=中速比。
+  - `handle_style`（新增）：提取 `DH`=双摇臂, `OT`=折叠摇臂, `LB`=手刹把, `QD`=快速卸力。其他未识别的特定后缀直接填入原数据。
+- **Excel 表头结构兼容性还原**：
+  - **Reels Master (对应 reel 表)**：严格保持原有 11 个前置字段结构，将新扩充的 `series_positioning`, `main_selling_points`, `official_reference_price`, `market_status` 追加到表格末尾，实现只增不减。
+  - **Reels Variants (对应 spinning_reel_detail 表)**：严格保持原有 20 个前置字段结构（包含 `cm_per_turn`, `bearing_count_roller` 等映射），去除与老字段重复的 `name`, `year`, `size_family`, `retrieve_per_turn_cm`, `bearing_count_main`, `official_reference_price`，仅将纯新增的 8 个字段 (`drag_click`, `spool_depth_normalized`, `gear_ratio_normalized`, `brake_type_normalized`, `fit_style_tags`, `min_lure_weight_hint`, `is_compact_body`, `handle_style`) 附加到表尾，确保数据导入时的向下兼容。
   - **ID 及 Model 名称生成逻辑优化**：针对 `Reels Master` 表的 `id` 和 `model` 字段（如原先冗长的 `R-DA-ソルティガ-4000/5000/6000`），更新了 `to_excel.js` 中的生成逻辑。通过正则 `/(?:\s|-)*\d+(?:\s*[/,]\s*\d+)+\s*/g` 剔除了型号名称中包含的斜杠、逗号及带空格的尺寸区间数字（如 ` 8000 / 10000 `），使得展示的 `model` 字段只保留纯净的系列名（如 `セルテート SW`）。同时统一为 `id` 追加年份后缀以防冲突，最终生成类似 `R-DA-セルテート-SW-2026` 这样更规范的主键 ID。
   - `created_at` 与 `updated_at`（创建与更新时间）：在导出 Excel 时，自动获取并填充当前系统时间（格式 `YYYY-MM-DD HH:mm:ss`）。
 - **第二层补充**：

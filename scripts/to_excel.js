@@ -79,15 +79,15 @@ function main() {
             model_cn: '', // Requires manual input or translation
             model_year: item.model_year || '',
             alias: '',
-            series_positioning: '', // 留空待填或后续由LLM补充
             type_tips: '', // Leave empty as requested
             type: item.kind, // spinning or baitcasting from the updated scraping rules
             images: item.local_image_path || '', // Use the downloaded local image path instead of joined remote URLs
+            created_at: currentTime,
+            updated_at: currentTime,
+            series_positioning: '', // 留空待填或后续由LLM补充
             main_selling_points: item.main_selling_points ? item.main_selling_points.join(' | ') : '',
             official_reference_price: official_reference_price,
-            market_status: '在售',
-            created_at: currentTime,
-            updated_at: currentTime
+            market_status: '在售'
         });
         
         // Variants Rows
@@ -212,21 +212,28 @@ function main() {
 
             variantsRows.push({
                 id: '',
-                master_id: masterId,
-                sku: actualSku,
-                name: v.name,
-                year: item.model_year || '',
-                size_family: v.specs ? (v.specs.size_family || '') : '',
-                gear_ratio: v.specs ? (v.specs.gear_ratio || '') : '',
-                weight_g: v.specs ? (v.specs.weight_g || '') : '',
-                max_drag_kg: v.specs ? (v.specs.max_drag_kg || '') : '',
-                drag_click: v.specs ? (v.specs.drag_click || '') : '',
-                line_capacity_pe: v.specs ? (v.specs.line_capacity_pe || '') : '',
-                line_capacity_nylon: v.specs ? (v.specs.line_capacity_nylon || '') : '',
-                retrieve_per_turn_cm: v.specs ? (v.specs.retrieve_per_turn_cm || '') : '',
+                reel_id: masterId,
+                SKU: actualSku,
+                'GEAR RATIO': v.specs ? (v.specs.gear_ratio || '') : '',
+                DRAG: '', // 留空
+                'MAX DRAG': v.specs ? (v.specs.max_drag_kg || '') : '',
+                WEIGHT: v.specs ? (v.specs.weight_g || '') : '',
+                spool_diameter_per_turn_mm: '', // 留空
+                Nylon_no_m: '', // 留空
+                Nylon_lb_m: v.specs ? (v.specs.line_capacity_nylon || '') : '',
+                fluorocarbon_no_m: '', // 留空
+                fluorocarbon_lb_m: '', // 留空
+                pe_no_m: v.specs ? (v.specs.line_capacity_pe || '') : '',
+                cm_per_turn: v.specs ? (v.specs.retrieve_per_turn_cm || '') : '',
                 handle_length_mm: v.specs ? (v.specs.handle_length_mm || '') : '',
-                bearing_count_main: v.specs ? (v.specs.bearing_count_main || '') : '',
-                official_reference_price: v.specs ? (v.specs.official_reference_price || '') : '',
+                bearing_count_roller: v.specs ? (v.specs.bearing_count_main || '') : '',
+                market_reference_price: v.specs ? (v.specs.official_reference_price || '') : '',
+                product_code: '', // 留空
+                created_at: currentTime,
+                updated_at: currentTime,
+
+                // --- Newly Added Fields ---
+                drag_click: v.specs ? (v.specs.drag_click || '') : '',
                 spool_depth_normalized: spool_depth_normalized,
                 gear_ratio_normalized: gear_ratio_normalized,
                 brake_type_normalized: brake_type_normalized,
@@ -242,19 +249,18 @@ function main() {
     
     const reelsHeader = [
         "id", "brand_id", "model", "model_cn", "model_year", "alias", 
-        "series_positioning", "type_tips", "type", "images", "main_selling_points", 
-        "official_reference_price", "market_status",
-        "created_at", "updated_at"
+        "type_tips", "type", "images", "created_at", "updated_at",
+        "series_positioning", "main_selling_points", "official_reference_price", "market_status"
     ];
     const wsReels = XLSX.utils.json_to_sheet(reelsRows, { header: reelsHeader });
     XLSX.utils.book_append_sheet(wb, wsReels, "Reels Master");
     
     const variantsHeader = [
-        "id", "master_id", "sku", "name", "year", "size_family",
-        "gear_ratio", "weight_g", "max_drag_kg", "drag_click",
-        "line_capacity_pe", "line_capacity_nylon",
-        "retrieve_per_turn_cm", "handle_length_mm", "bearing_count_main",
-        "official_reference_price", "spool_depth_normalized", "gear_ratio_normalized", "brake_type_normalized",
+        "id", "reel_id", "SKU", "GEAR RATIO", "DRAG", "MAX DRAG", "WEIGHT", 
+        "spool_diameter_per_turn_mm", "Nylon_no_m", "Nylon_lb_m", "fluorocarbon_no_m", 
+        "fluorocarbon_lb_m", "pe_no_m", "cm_per_turn", "handle_length_mm", "bearing_count_roller", 
+        "market_reference_price", "product_code", "created_at", "updated_at",
+        "drag_click", "spool_depth_normalized", "gear_ratio_normalized", "brake_type_normalized",
         "fit_style_tags", "min_lure_weight_hint", "is_compact_body", "handle_style"
     ];
     const wsVariants = XLSX.utils.json_to_sheet(variantsRows, { header: variantsHeader });
