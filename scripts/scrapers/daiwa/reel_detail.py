@@ -173,6 +173,10 @@ def parse_detail_page(fetcher, item):
                 if i < len(headers):
                     row_data[headers[i]] = extract_text(td)
             
+            if len(variants) == 0:
+                print("--- Row Data Keys ---")
+                print(row_data.keys())
+                
             # Use safe_get with possible variations of column names
             sku = safe_get(row_data, ["JAN", "JANコード"])
             
@@ -244,6 +248,7 @@ def parse_detail_page(fetcher, item):
                     "gear_ratio": gear_ratio,
                     "weight_g": weight_val,
                     "max_drag_kg": max_drag,
+                    "drag_click": "", # Not typically in Daiwa specs table, leave empty for now
                     "line_capacity_pe": pe_capacity,
                     "line_capacity_nylon": nylon_capacity,
                     "cm_per_turn": cm_per_turn,
