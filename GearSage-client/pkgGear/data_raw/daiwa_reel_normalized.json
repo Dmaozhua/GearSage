@@ -57,13 +57,13 @@
           "gear_ratio": "4.8",
           "weight_g": 670.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-460_4-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "94",
           "handle_length_mm": "80",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "155,000"
         }
       },
       {
@@ -75,13 +75,13 @@
           "gear_ratio": "5.6",
           "weight_g": 680.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-460_4-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "110",
           "handle_length_mm": "80",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "155,000"
         }
       },
       {
@@ -93,13 +93,13 @@
           "gear_ratio": "4.8",
           "weight_g": 675.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "4-380_5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "99",
           "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "155,000"
         }
       },
       {
@@ -111,13 +111,13 @@
           "gear_ratio": "5.6",
           "weight_g": 685.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "4-380_5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "117",
           "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "155,000"
         }
       },
       {
@@ -129,13 +129,13 @@
           "gear_ratio": "4.8",
           "weight_g": 690.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "5-340_6-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "102",
           "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "155,000"
         }
       },
       {
@@ -147,13 +147,13 @@
           "gear_ratio": "6.2",
           "weight_g": 690.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "5-340_6-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "133",
           "handle_length_mm": "85",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "155,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "155,000"
         }
       },
       {
@@ -165,13 +165,13 @@
           "gear_ratio": "5.5",
           "weight_g": 930.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "6-420_8-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "129",
           "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "175,000"
         }
       },
       {
@@ -183,13 +183,13 @@
           "gear_ratio": "4.4",
           "weight_g": 940.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "8-370_10-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "111",
           "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "175,000"
         }
       },
       {
@@ -201,13 +201,13 @@
           "gear_ratio": "5.5",
           "weight_g": 940.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "8-370_10-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "138",
           "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "175,000"
         }
       },
       {
@@ -219,13 +219,13 @@
           "gear_ratio": "4.4",
           "weight_g": 950.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "10-360_12-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "118",
           "handle_length_mm": "90",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "175,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "175,000"
         }
       },
       {
@@ -237,13 +237,13 @@
           "gear_ratio": "4.4",
           "weight_g": 1060.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "12-400_15-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "125",
           "handle_length_mm": "95",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "200,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "200,000"
         }
       },
       {
@@ -255,18 +255,18 @@
           "gear_ratio": "5.5",
           "weight_g": 1060.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "12-400_15-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "155",
           "handle_length_mm": "95",
-          "bearing_count_roller": "14(14/1)",
-          "market_reference_price": "200,000"
+          "bearing_count_main": "14(14/1)",
+          "official_reference_price": "200,000"
         }
       }
     ],
     "raw_data_hash": "718646035fc7fede9e9ce13175d15af95c36d3e31cc16df6e2aed264a601a6e0",
-    "scraped_at": "2026-04-03T10:51:45.411232Z"
+    "scraped_at": "2026-04-03T16:42:49.862468Z"
   },
   {
     "brand": "Daiwa",
@@ -315,13 +315,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -333,13 +333,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -351,13 +351,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -369,13 +369,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -387,13 +387,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -405,13 +405,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -423,13 +423,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -441,13 +441,13 @@
           "gear_ratio": "",
           "weight_g": null,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "",
           "handle_length_mm": "",
-          "bearing_count_roller": "",
-          "market_reference_price": ""
+          "bearing_count_main": "",
+          "official_reference_price": ""
         }
       },
       {
@@ -459,13 +459,13 @@
           "gear_ratio": "5.7",
           "weight_g": 345.0,
           "max_drag_kg": "12",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "90",
           "handle_length_mm": "65",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "105,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "105,000"
         }
       },
       {
@@ -477,13 +477,13 @@
           "gear_ratio": "6.2",
           "weight_g": 345.0,
           "max_drag_kg": "12",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "98",
           "handle_length_mm": "65",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "105,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "105,000"
         }
       },
       {
@@ -495,13 +495,13 @@
           "gear_ratio": "4.9",
           "weight_g": 365.0,
           "max_drag_kg": "15",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2.5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "82",
           "handle_length_mm": "65",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "113,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "113,000"
         }
       },
       {
@@ -513,13 +513,13 @@
           "gear_ratio": "5.7",
           "weight_g": 365.0,
           "max_drag_kg": "15",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2.5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "96",
           "handle_length_mm": "65",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "113,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "113,000"
         }
       },
       {
@@ -531,13 +531,13 @@
           "gear_ratio": "6.2",
           "weight_g": 365.0,
           "max_drag_kg": "15",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2.5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "104",
           "handle_length_mm": "65",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "113,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "113,000"
         }
       },
       {
@@ -549,13 +549,13 @@
           "gear_ratio": "4.9",
           "weight_g": 400.0,
           "max_drag_kg": "15",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "86",
           "handle_length_mm": "70",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "115,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "115,000"
         }
       },
       {
@@ -567,13 +567,13 @@
           "gear_ratio": "5.7",
           "weight_g": 400.0,
           "max_drag_kg": "15",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "101",
           "handle_length_mm": "70",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "115,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "115,000"
         }
       },
       {
@@ -585,18 +585,18 @@
           "gear_ratio": "6.2",
           "weight_g": 400.0,
           "max_drag_kg": "15",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "110",
           "handle_length_mm": "70",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "115,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "115,000"
         }
       }
     ],
     "raw_data_hash": "fa8b7f25345a96f6bda7702a3d480d5ec5db1551b78362a8394c5b2d5f594a85",
-    "scraped_at": "2026-04-03T10:51:49.206558Z"
+    "scraped_at": "2026-04-03T16:42:58.482247Z"
   },
   {
     "brand": "Daiwa",
@@ -657,13 +657,13 @@
           "gear_ratio": "4.9",
           "weight_g": 155.0,
           "max_drag_kg": "5",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.4-200",
           "line_capacity_nylon": "3-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "64",
           "handle_length_mm": "40",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "102,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "102,000"
         }
       },
       {
@@ -675,13 +675,13 @@
           "gear_ratio": "5.8",
           "weight_g": 155.0,
           "max_drag_kg": "5",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.4-200",
           "line_capacity_nylon": "3-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "76",
           "handle_length_mm": "45",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "102,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "102,000"
         }
       },
       {
@@ -693,13 +693,13 @@
           "gear_ratio": "5.1",
           "weight_g": 160.0,
           "max_drag_kg": "5",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.6-200",
           "line_capacity_nylon": "4-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "72",
           "handle_length_mm": "50",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "103,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "103,000"
         }
       },
       {
@@ -711,13 +711,13 @@
           "gear_ratio": "5.8",
           "weight_g": 160.0,
           "max_drag_kg": "5",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.6-200",
           "line_capacity_nylon": "4-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "82",
           "handle_length_mm": "50",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "103,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "103,000"
         }
       },
       {
@@ -729,13 +729,13 @@
           "gear_ratio": "6.2",
           "weight_g": 160.0,
           "max_drag_kg": "5",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.6-200",
           "line_capacity_nylon": "4-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "87",
           "handle_length_mm": "50",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "103,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "103,000"
         }
       },
       {
@@ -747,13 +747,13 @@
           "gear_ratio": "5.1",
           "weight_g": 170.0,
           "max_drag_kg": "5",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.6-200",
           "line_capacity_nylon": "4-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "72",
           "handle_length_mm": "90",
-          "bearing_count_roller": "14/1",
-          "market_reference_price": "106,000"
+          "bearing_count_main": "14/1",
+          "official_reference_price": "106,000"
         }
       },
       {
@@ -765,13 +765,13 @@
           "gear_ratio": "5.2",
           "weight_g": 175.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.8-200",
           "line_capacity_nylon": "6-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "73",
           "handle_length_mm": "50",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "104,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "104,000"
         }
       },
       {
@@ -783,13 +783,13 @@
           "gear_ratio": "5.7",
           "weight_g": 175.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.8-200",
           "line_capacity_nylon": "6-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "80",
           "handle_length_mm": "55",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "104,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "104,000"
         }
       },
       {
@@ -801,13 +801,13 @@
           "gear_ratio": "5.2",
           "weight_g": 180.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.8-200",
           "line_capacity_nylon": "6-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "77",
           "handle_length_mm": "55",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "105,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "105,000"
         }
       },
       {
@@ -819,13 +819,13 @@
           "gear_ratio": "5.7",
           "weight_g": 180.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "1-200",
           "line_capacity_nylon": "8-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "85",
           "handle_length_mm": "55",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "105,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "105,000"
         }
       },
       {
@@ -837,13 +837,13 @@
           "gear_ratio": "5.2",
           "weight_g": 190.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "1-200",
           "line_capacity_nylon": "8-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "77",
           "handle_length_mm": "60",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "106,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "106,000"
         }
       },
       {
@@ -855,13 +855,13 @@
           "gear_ratio": "6.2",
           "weight_g": 190.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "1-200",
           "line_capacity_nylon": "8-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "93",
           "handle_length_mm": "60",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "106,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "106,000"
         }
       },
       {
@@ -873,13 +873,13 @@
           "gear_ratio": "5.2",
           "weight_g": 205.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "1.5-200",
           "line_capacity_nylon": "12-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "82",
           "handle_length_mm": "60",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "107,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "107,000"
         }
       },
       {
@@ -891,13 +891,13 @@
           "gear_ratio": "6.2",
           "weight_g": 205.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "1.5-200",
           "line_capacity_nylon": "12-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "99",
           "handle_length_mm": "60",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "107,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "107,000"
         }
       },
       {
@@ -909,13 +909,13 @@
           "gear_ratio": "5.2",
           "weight_g": 220.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2-300",
           "line_capacity_nylon": "20-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "87",
           "handle_length_mm": "60",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "110,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "110,000"
         }
       },
       {
@@ -927,13 +927,13 @@
           "gear_ratio": "6.2",
           "weight_g": 220.0,
           "max_drag_kg": "10",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "2-300",
           "line_capacity_nylon": "20-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "105",
           "handle_length_mm": "60",
-          "bearing_count_roller": "12/1",
-          "market_reference_price": "110,000"
+          "bearing_count_main": "12/1",
+          "official_reference_price": "110,000"
         }
       },
       {
@@ -945,13 +945,13 @@
           "gear_ratio": "4.6",
           "weight_g": 135.0,
           "max_drag_kg": "3",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.3-200",
           "line_capacity_nylon": "2.5-100",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "57",
           "handle_length_mm": "35",
-          "bearing_count_roller": "11/1",
-          "market_reference_price": "102,000"
+          "bearing_count_main": "11/1",
+          "official_reference_price": "102,000"
         }
       },
       {
@@ -963,13 +963,13 @@
           "gear_ratio": "4.6",
           "weight_g": 135.0,
           "max_drag_kg": "3",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.3-200",
           "line_capacity_nylon": "2.5-100",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "60",
           "handle_length_mm": "40",
-          "bearing_count_roller": "11/1",
-          "market_reference_price": "102,000"
+          "bearing_count_main": "11/1",
+          "official_reference_price": "102,000"
         }
       },
       {
@@ -981,13 +981,13 @@
           "gear_ratio": "5.7",
           "weight_g": 135.0,
           "max_drag_kg": "3",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.3-200",
           "line_capacity_nylon": "2.5-100",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "74",
           "handle_length_mm": "45",
-          "bearing_count_roller": "11/1",
-          "market_reference_price": "102,000"
+          "bearing_count_main": "11/1",
+          "official_reference_price": "102,000"
         }
       },
       {
@@ -999,13 +999,13 @@
           "gear_ratio": "5.0",
           "weight_g": 140.0,
           "max_drag_kg": "3",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.4-200",
           "line_capacity_nylon": "3-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "70",
           "handle_length_mm": "45",
-          "bearing_count_roller": "11/1",
-          "market_reference_price": "103,000"
+          "bearing_count_main": "11/1",
+          "official_reference_price": "103,000"
         }
       },
       {
@@ -1017,18 +1017,18 @@
           "gear_ratio": "5.7",
           "weight_g": 140.0,
           "max_drag_kg": "3",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.4-200",
           "line_capacity_nylon": "3-150",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "80",
           "handle_length_mm": "45",
-          "bearing_count_roller": "11/1",
-          "market_reference_price": "103,000"
+          "bearing_count_main": "11/1",
+          "official_reference_price": "103,000"
         }
       }
     ],
     "raw_data_hash": "56c822aa7b6fa90ef041b09adffbdff4359d32a3fa5de0745375324b65a94435",
-    "scraped_at": "2026-04-03T10:51:51.907877Z"
+    "scraped_at": "2026-04-03T16:43:00.755562Z"
   },
   {
     "brand": "Daiwa",
@@ -1076,13 +1076,13 @@
           "gear_ratio": "4.8",
           "weight_g": 655.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-460_4-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "94",
           "handle_length_mm": "80",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "93,100"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "93,100"
         }
       },
       {
@@ -1094,13 +1094,13 @@
           "gear_ratio": "5.6",
           "weight_g": 665.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "3-460_4-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "110",
           "handle_length_mm": "80",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "93,100"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "93,100"
         }
       },
       {
@@ -1112,13 +1112,13 @@
           "gear_ratio": "4.8",
           "weight_g": 660.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "4-380_5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "99",
           "handle_length_mm": "85",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "93,100"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "93,100"
         }
       },
       {
@@ -1130,13 +1130,13 @@
           "gear_ratio": "5.6",
           "weight_g": 670.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "4-380_5-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "117",
           "handle_length_mm": "85",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "93,100"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "93,100"
         }
       },
       {
@@ -1148,13 +1148,13 @@
           "gear_ratio": "4.8",
           "weight_g": 675.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "5-340_6-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "102",
           "handle_length_mm": "85",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "93,100"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "93,100"
         }
       },
       {
@@ -1166,13 +1166,13 @@
           "gear_ratio": "6.2",
           "weight_g": 675.0,
           "max_drag_kg": "25",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "5-340_6-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "133",
           "handle_length_mm": "85",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "93,100"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "93,100"
         }
       },
       {
@@ -1184,13 +1184,13 @@
           "gear_ratio": "5.5",
           "weight_g": 885.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "6-420_8-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "129",
           "handle_length_mm": "90",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "104,500"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "104,500"
         }
       },
       {
@@ -1202,13 +1202,13 @@
           "gear_ratio": "4.4",
           "weight_g": 895.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "8-370_10-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "111",
           "handle_length_mm": "90",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "104,500"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "104,500"
         }
       },
       {
@@ -1220,18 +1220,18 @@
           "gear_ratio": "5.5",
           "weight_g": 895.0,
           "max_drag_kg": "30",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "8-370_10-300",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "138",
           "handle_length_mm": "90",
-          "bearing_count_roller": "9(9/1)",
-          "market_reference_price": "104,500"
+          "bearing_count_main": "9(9/1)",
+          "official_reference_price": "104,500"
         }
       }
     ],
     "raw_data_hash": "c58e424d58d4da46b151bc65641363f524934f60b9b90ec50d69085fd80cbe28",
-    "scraped_at": "2026-04-03T10:51:54.775693Z"
+    "scraped_at": "2026-04-03T16:43:10.289509Z"
   },
   {
     "brand": "Daiwa",
@@ -1256,13 +1256,13 @@
           "gear_ratio": "4.9",
           "weight_g": 395.0,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.3-300_0.5-250",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "88",
           "handle_length_mm": "85",
-          "bearing_count_roller": "10/1",
-          "market_reference_price": "98,000"
+          "bearing_count_main": "10/1",
+          "official_reference_price": "98,000"
         }
       },
       {
@@ -1274,13 +1274,13 @@
           "gear_ratio": "4.1",
           "weight_g": 400.0,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.6-250_0.8-200",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "79",
           "handle_length_mm": "85",
-          "bearing_count_roller": "10/1",
-          "market_reference_price": "98,000"
+          "bearing_count_main": "10/1",
+          "official_reference_price": "98,000"
         }
       },
       {
@@ -1292,17 +1292,17 @@
           "gear_ratio": "3.5",
           "weight_g": 400.0,
           "max_drag_kg": "",
-          "drag_click": "",
+          "drag_click": "有",
           "line_capacity_pe": "0.6-250_0.8-200",
           "line_capacity_nylon": "",
-          "cm_per_turn": "",
+          "retrieve_per_turn_cm": "68",
           "handle_length_mm": "85",
-          "bearing_count_roller": "10/1",
-          "market_reference_price": "98,000"
+          "bearing_count_main": "10/1",
+          "official_reference_price": "98,000"
         }
       }
     ],
     "raw_data_hash": "82ade1f1c60458be67c516922f5ec150ac9b6040d21ae0d95966b80a3b633be5",
-    "scraped_at": "2026-04-03T10:51:56.012672Z"
+    "scraped_at": "2026-04-03T16:43:11.573610Z"
   }
 ]

@@ -216,13 +216,13 @@ def parse_detail_page(fetcher, item):
                 size_family = size_match.group(1)
 
             weight = safe_get(row_data, ["標準自重（ｇ）", "自重（g）", "自重(g)", "標準自重(g)"])
-            gear_ratio = safe_get(row_data, ["ギア比", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"]) # Often the first col or ratio col
+            gear_ratio = safe_get(row_data, ["ギア比", "巻き取り長さ（cm/ハンドル1回転）", "巻き取り長さ(cm/ハンドル1回転)", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"]) # Often the first col or ratio col
             if "ギア比" in row_data:
                 gear_ratio = row_data["ギア比"]
             max_drag = safe_get(row_data, ["最大ドラグ力（kg）", "最大ドラグ力(kg)"])
             pe_capacity = safe_get(row_data, ["標準巻糸量PE（号ｰm）", "標準糸巻量PE（号-m）", "標準糸巻量 PE（号-m）", "標準糸巻量PE(号-m)"])
             nylon_capacity = safe_get(row_data, ["標準巻糸量ナイロン（lb-m）", "標準糸巻量ナイロン（lb-m）", "標準糸巻量ナイロン(lb-m)", "標準巻糸量ナイロン(lb-m)"])
-            cm_per_turn = safe_get(row_data, ["巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"])
+            cm_per_turn = safe_get(row_data, ["巻き取り長さ（cm/ハンドル1回転）", "巻き取り長さ(cm/ハンドル1回転)", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"])
             handle_length = safe_get(row_data, ["ハンドルアーム長（mm）", "ハンドルアーム長(mm)", "ハンドル長（mm）", "ハンドル長(mm)"])
             bearing_count = safe_get(row_data, ["ベアリング（ボール/ローラー）", "ベアリング(ボール/ローラー)"])
             price = safe_get(row_data, ["メーカー希望本体価格（円）", "メーカー希望本体価格(円)"])
@@ -248,13 +248,13 @@ def parse_detail_page(fetcher, item):
                     "gear_ratio": gear_ratio,
                     "weight_g": weight_val,
                     "max_drag_kg": max_drag,
-                    "drag_click": "", # Not typically in Daiwa specs table, leave empty for now
+                    "drag_click": "有" if kind == "spinning" or any("ドラグ" in p and "クリック" in p for p in main_selling_points) else "", 
                     "line_capacity_pe": pe_capacity,
                     "line_capacity_nylon": nylon_capacity,
-                    "cm_per_turn": cm_per_turn,
+                    "retrieve_per_turn_cm": cm_per_turn,
                     "handle_length_mm": handle_length,
-                    "bearing_count_roller": bearing_count,
-                    "market_reference_price": price
+                    "bearing_count_main": bearing_count,
+                    "official_reference_price": price
                 }
             })
             
