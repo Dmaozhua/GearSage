@@ -292,8 +292,9 @@ def main():
     fetcher = Fetcher()
     normalized_data = []
     
-    print(f"[*] Processing 3 URLs for testing phase...")
-    urls = urls[:3]
+    # FOR TESTING: limit to 5 URLs to avoid long wait times
+    print(f"[*] Processing 5 URLs for testing phase...")
+    urls = urls[:5]
     
     for url in urls:
         try:

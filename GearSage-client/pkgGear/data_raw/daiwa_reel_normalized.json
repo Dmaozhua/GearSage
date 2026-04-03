@@ -266,7 +266,7 @@
       }
     ],
     "raw_data_hash": "718646035fc7fede9e9ce13175d15af95c36d3e31cc16df6e2aed264a601a6e0",
-    "scraped_at": "2026-04-03T04:53:37.458947Z"
+    "scraped_at": "2026-04-03T10:51:45.411232Z"
   },
   {
     "brand": "Daiwa",
@@ -596,7 +596,7 @@
       }
     ],
     "raw_data_hash": "fa8b7f25345a96f6bda7702a3d480d5ec5db1551b78362a8394c5b2d5f594a85",
-    "scraped_at": "2026-04-03T04:53:40.116486Z"
+    "scraped_at": "2026-04-03T10:51:49.206558Z"
   },
   {
     "brand": "Daiwa",
@@ -1027,7 +1027,282 @@
         }
       }
     ],
-    "raw_data_hash": "59406b7db6814ba2879ec905bcf478b2a0fc939eefa2609dace0acc5d8fa5709",
-    "scraped_at": "2026-04-03T04:53:43.740645Z"
+    "raw_data_hash": "56c822aa7b6fa90ef041b09adffbdff4359d32a3fa5de0745375324b65a94435",
+    "scraped_at": "2026-04-03T10:51:51.907877Z"
+  },
+  {
+    "brand": "Daiwa",
+    "kind": "spinning",
+    "model": "セルテート SW 8000 / 10000 / 14000 / 18000 / 20000",
+    "model_year": "2026",
+    "main_selling_points": [
+      "MONOCOQUE BODY\n                                                                    強靭・耐久テクノロジー、モノコックボディ。従来スピニングリールは、ボディとボディカバーでドライブギアの両端を支持し、それを数箇所のスクリューで固定する方式が一般的でした。この構造から、更なる精度と剛性の向上を目指し、ボディカバーを廃し、ボディに直接高精度のプレートをねじ込むことで固定したのがモノコックボディ。これによりギアの支持精度が高まり、また剛性･気密性も向上しました。更には、従来スクリューに取られていたスペースを活用し、ドライブギアのサイズを極限まで拡大することにも成功。モノコックボディとは、MONO（ひとつの） - COQUE（殻）という意味。一枚貝の殻がそうであるような強靭さを象徴する、まったく新しい形状はリール構造の常識を打ち破ります。",
+      "POWERDRIVE DESIGN\n                                                                    パワードライブデザインは、世界中の大型魚と安心して渡り合える高い信頼性を追求した次世代大型スピニングリールの設計思想。このパワードライブデザインは、高効率で力強い巻き上げ力を実現するボディユニット[パワードライブエンジン]と、合理的な球体形状で高剛性と低イナーシャの両立を実現したローターユニット[パワードライブローター]の２つのテクノロジーユニットからなる。ボディユニットの[パワードライブエンジン]は、[オーバーサイズドパワーデジギア]と[ローラーパワーオシレーション]の２つのテクノロジーによって構成される。[オーバーサイズドパワーデジギア]は大口径化・肉厚化と、最適化された歯面形状により、ギアの駆動効率を大幅にアップ。[ローラーパワーオシレーション]はオシレート機構にベアリング方式を採用することで、摩擦抵抗を大幅に低減し、初動レスポンスの向上と、軽い巻き上げを実現した。一方、フロントユニットは、[クランクパワーベール]と[タフラインローラーシステム]の２つのテクノロジーを搭載した[パワードライブローター]によって構成される。[クランクパワーベール]は、ベールの開閉力を強化するとともに、クランク形状を採用することで、ラインローラーへの確実な糸送りを実現。[タフラインローラーシステム]は、ラインローラーの支持構造や形状を見直すことで、耐久性やトラブルレス性を向上させた。これらのテクノロジーの相乗効果により、大型魚をターゲットとしたキャスティングゲームやジギングゲームにおいて、剛性・パワー・耐久性を高次元で実現する。獲るための“強さ”を、ビッグゲームを愛する、すべてのアングラーに。",
+      "ROLLER POWER OSCILLATION\n                                                                    高負荷が絶え間なく続く大型魚とのファイトでは、巻き上げで生じるオシレート部の摩擦抵抗がパワーの伝達ロスに繋がる。その摩擦を極限まで減らすべく、摺動部分は従来のピラー式から2ベアリング式オシレートに変更。これによりオシレート効率は約30%向上し、高負荷時でもスムーズな初動レスポンスと、軽くてパワフルな巻き上げを実現した。※当社比較テストによる。"
+    ],
+    "source_url": "https://www.daiwa.com/jp/product/x21du9v",
+    "local_image_path": "images/daiwa_reels/セルテート_SW_8000___10000___14000___18000___20000_main.jpg",
+    "images": [
+      "https://www.daiwa.com/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE SW/banner/CERTATE_SW_PC_2_2000_640",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/26CERTATE_SW_14000-P_4550133545276.jpg?rev=be8b10c33ce1411f984df03c7dedba66",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/26CERTATE_SW_14000-P_4550133545276_01.jpg?rev=b02e709b6257402cae6f44444e46a064",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/26CERTATE_SW_14000-P_4550133545276_02.jpg?rev=eaa367fb15514740b58803d902bdbd49",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/26CERTATE_SW_14000-P_4550133545276_03.jpg?rev=a4ab4e7ebc724d838c6e784de3be6d3b",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/26CERTATE_SW_14000-P_4550133545276_04.jpg?rev=69876747001541ac8b146c76cd189a1a",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/26CERTATE_SW_20000-H_4550133545313.jpg?rev=6ade800e2aa64da098c3303ad00cc7dc",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub01.jpg?rev=e24844f04af64b99ae818b3b8fcf3db9",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub02.jpg?rev=e7629918a63148a48c9c27224986644e",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub03.jpg?rev=170bf1c3f7b7491385ba383f1172a062",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub04.jpg?rev=3c5f992f1ad34dfcb0e3e6731cd020f9",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub05.jpg?rev=8f1bd567e92d4aabb92b4a9462a06420",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub06.jpg?rev=d46886c5b2634425a1e4b7ccc34cf139",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub07.jpg?rev=73dc2bfe971b4751b62cc8c6f086e9eb",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub08.jpg?rev=2efec6413a784a54bd33b6c409306040",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub09.jpg?rev=50f5187798144fb892fbf1c6b1382db7",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub10.jpg?rev=efaf2b0c351d41bea8fd16e035f54a66",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub11.jpg?rev=5b2bdc0452774a3a94a4f41f3106f467",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/sub12.jpg?rev=e053026281d641dcb03566e0d02ea301",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/sub/26CERTATE-HD_Spool_graph_WEB_2.jpg?rev=61b87610b69f4bf79e5671a90e3b2d68",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/x21du9v_26CERTATE-SW/banner/CERTATE_series_800_600.jpg?rev=dd7d5f3f2c984e9989b23fdb1f917931",
+      "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
+    ],
+    "variants": [
+      {
+        "sku": "4550133545238",
+        "name": "セルテート SW 8000-P",
+        "year": "2026",
+        "specs": {
+          "size_family": "8000",
+          "gear_ratio": "4.8",
+          "weight_g": 655.0,
+          "max_drag_kg": "25",
+          "drag_click": "",
+          "line_capacity_pe": "3-460_4-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "80",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "93,100"
+        }
+      },
+      {
+        "sku": "4550133545245",
+        "name": "セルテート SW 8000-H",
+        "year": "2026",
+        "specs": {
+          "size_family": "8000",
+          "gear_ratio": "5.6",
+          "weight_g": 665.0,
+          "max_drag_kg": "25",
+          "drag_click": "",
+          "line_capacity_pe": "3-460_4-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "80",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "93,100"
+        }
+      },
+      {
+        "sku": "4550133545252",
+        "name": "セルテート SW 10000-P",
+        "year": "2026",
+        "specs": {
+          "size_family": "10000",
+          "gear_ratio": "4.8",
+          "weight_g": 660.0,
+          "max_drag_kg": "25",
+          "drag_click": "",
+          "line_capacity_pe": "4-380_5-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "93,100"
+        }
+      },
+      {
+        "sku": "4550133545269",
+        "name": "セルテート SW 10000-H",
+        "year": "2026",
+        "specs": {
+          "size_family": "10000",
+          "gear_ratio": "5.6",
+          "weight_g": 670.0,
+          "max_drag_kg": "25",
+          "drag_click": "",
+          "line_capacity_pe": "4-380_5-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "93,100"
+        }
+      },
+      {
+        "sku": "4550133545276",
+        "name": "セルテート SW 14000-P",
+        "year": "2026",
+        "specs": {
+          "size_family": "14000",
+          "gear_ratio": "4.8",
+          "weight_g": 675.0,
+          "max_drag_kg": "25",
+          "drag_click": "",
+          "line_capacity_pe": "5-340_6-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "93,100"
+        }
+      },
+      {
+        "sku": "4550133545283",
+        "name": "セルテート SW 14000-XH",
+        "year": "2026",
+        "specs": {
+          "size_family": "14000",
+          "gear_ratio": "6.2",
+          "weight_g": 675.0,
+          "max_drag_kg": "25",
+          "drag_click": "",
+          "line_capacity_pe": "5-340_6-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "93,100"
+        }
+      },
+      {
+        "sku": "4550133545290",
+        "name": "セルテート SW 18000-H",
+        "year": "2026",
+        "specs": {
+          "size_family": "18000",
+          "gear_ratio": "5.5",
+          "weight_g": 885.0,
+          "max_drag_kg": "30",
+          "drag_click": "",
+          "line_capacity_pe": "6-420_8-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "90",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "104,500"
+        }
+      },
+      {
+        "sku": "4550133545306",
+        "name": "セルテート SW 20000-P",
+        "year": "2026",
+        "specs": {
+          "size_family": "20000",
+          "gear_ratio": "4.4",
+          "weight_g": 895.0,
+          "max_drag_kg": "30",
+          "drag_click": "",
+          "line_capacity_pe": "8-370_10-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "90",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "104,500"
+        }
+      },
+      {
+        "sku": "4550133545313",
+        "name": "セルテート SW 20000-H",
+        "year": "2026",
+        "specs": {
+          "size_family": "20000",
+          "gear_ratio": "5.5",
+          "weight_g": 895.0,
+          "max_drag_kg": "30",
+          "drag_click": "",
+          "line_capacity_pe": "8-370_10-300",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "90",
+          "bearing_count_roller": "9(9/1)",
+          "market_reference_price": "104,500"
+        }
+      }
+    ],
+    "raw_data_hash": "c58e424d58d4da46b151bc65641363f524934f60b9b90ec50d69085fd80cbe28",
+    "scraped_at": "2026-04-03T10:51:54.775693Z"
+  },
+  {
+    "brand": "Daiwa",
+    "kind": "spinning",
+    "model": "トーナメントサーフ 45",
+    "model_year": "2019",
+    "main_selling_points": [
+      "さらに先に。「TOURNAMENT」。TOURNAMENTは、トーナメンターを勝利に導くために、先進・先鋭のテクノロジーを搭載し、進化し続ける。「さらに遠くへ」「さらに感度よく」。激化するトーナメントシーンを勝ち残るための、トーナメンターの要求は厳しい。目指すのは、釣りの技術に革新をもたらし、アングラーの満足感へと繋がるプロダクト。最先端の技術をいち早く採り入れ、トーナメントの新しい基準を築き上げていく。TOURNAMENTの勝利への探求が終わることはなく、常にトーナメンターとともにある。",
+      "すべては勝つために。現在のキストーナメントシーンにおいて求められる性能とは何か。リール形状そのものから見直し、まさにゼロから新たなTOURNAMENTを創り上げた。45mmストロークだからこそ実現可能な中近距離から遠距離までカバーできる対応力。遠投域からトルクフル&スムーズな巻き上げ性能。起伏変化をキャスターへ伝えるブレのない回転性能。過酷なキストーナメントシーンで、初期性能を維持する高耐久性能。これらは単にスペックの向上ではない、とことん実釣にこだわり、キャスターの武器になるための進化だ。テーパー角別専用設計「LCスプール」搭載により、理想の放出性能を実現。強さと軽さをもたらすZAIONハウジング、心臓部には高負荷でも屈しないアルミマシンカットタフデジギアで武装し、さらなる高耐久性を実現。ワンピースエアベールによる至極の回転性能は、より快適に、より精悍に。シリーズ最速となるギア比「4.9」の登場により、キストーナメントシーンに衝撃を与える。「DAIWA TECHNOLOGY」のすべてを惜しむことなく投入し、飛距離、回転性能を追い求めた答えが、今ここにある。※ハンドルノブS交換可※ソルト対応",
+      "TOUGH DIGIGEAR\n                                                                    過酷な環境に耐え抜くにはリールを支える強靭な心臓部が必要です。滑らかな回転がより長く続く「タフデジギア」。"
+    ],
+    "source_url": "https://www.daiwa.com/jp/product/kz0z3be",
+    "local_image_path": "",
+    "images": [],
+    "variants": [
+      {
+        "sku": "4960652224550",
+        "name": "トーナメントサーフ45 HG 05PE",
+        "year": "2019",
+        "specs": {
+          "size_family": "",
+          "gear_ratio": "4.9",
+          "weight_g": 395.0,
+          "max_drag_kg": "",
+          "drag_click": "",
+          "line_capacity_pe": "0.3-300_0.5-250",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "10/1",
+          "market_reference_price": "98,000"
+        }
+      },
+      {
+        "sku": "4960652224567",
+        "name": "トーナメントサーフ45 06PE",
+        "year": "2019",
+        "specs": {
+          "size_family": "",
+          "gear_ratio": "4.1",
+          "weight_g": 400.0,
+          "max_drag_kg": "",
+          "drag_click": "",
+          "line_capacity_pe": "0.6-250_0.8-200",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "10/1",
+          "market_reference_price": "98,000"
+        }
+      },
+      {
+        "sku": "4960652224574",
+        "name": "トーナメントサーフ45 LG 06PE",
+        "year": "2019",
+        "specs": {
+          "size_family": "",
+          "gear_ratio": "3.5",
+          "weight_g": 400.0,
+          "max_drag_kg": "",
+          "drag_click": "",
+          "line_capacity_pe": "0.6-250_0.8-200",
+          "line_capacity_nylon": "",
+          "cm_per_turn": "",
+          "handle_length_mm": "85",
+          "bearing_count_roller": "10/1",
+          "market_reference_price": "98,000"
+        }
+      }
+    ],
+    "raw_data_hash": "82ade1f1c60458be67c516922f5ec150ac9b6040d21ae0d95966b80a3b633be5",
+    "scraped_at": "2026-04-03T10:51:56.012672Z"
   }
 ]

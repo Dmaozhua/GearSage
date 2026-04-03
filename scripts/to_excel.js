@@ -19,12 +19,38 @@ function main() {
     const reelsRows = [];
     const variantsRows = [];
     
+    // Get current time formatted as YYYY-MM-DD HH:mm:ss
+    const now = new Date();
+    const currentTime = now.getFullYear() + '-' + 
+        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+        String(now.getDate()).padStart(2, '0') + ' ' + 
+        String(now.getHours()).padStart(2, '0') + ':' + 
+        String(now.getMinutes()).padStart(2, '0') + ':' + 
+        String(now.getSeconds()).padStart(2, '0');
+
     data.forEach((item, i) => {
         // Master Row (reel)
         // reel_id should match the id in the reel table. If not exist, must be added to reel.
         const brandPrefix = item.brand ? item.brand.substring(0, 2).toUpperCase() : 'XX';
-        const masterId = `R-${brandPrefix}-${item.model.replace(/\s+/g, '-').toUpperCase()}`;
         
+        // Clean up the model name to generate a better ID
+        // 1. Remove size/number ranges like "4000/5000/6000" or "-4000_5000_6000"
+        // 2. Remove special characters like slashes or parentheses
+        // 3. Replace spaces with hyphens
+        let cleanModel = item.model.replace(/(?:\s|-)*\d+(?:\s*[/,]\s*\d+)+\s*/g, '') // remove " 4000/5000/6000 " or " 8000 / 10000 " or "-4000/5000"
+                                   .replace(/\s*\(\d+(?:\s*,\s*\d+)+\)\s*/g, '') // remove " (4000,5000) " or " ( 4000 , 5000 ) "
+                                   .replace(/[\/\(\)\[\]]/g, '') // remove remaining special chars
+                                   .replace(/\s+/g, '-') // spaces to hyphens
+                                   .replace(/-+$/g, '') // trim trailing hyphens
+                                   .toUpperCase();
+        // Append year if available to make it more unique and avoid collisions
+        let yearSuffix = item.model_year ? `-${item.model_year}` : '';
+        const masterId = `R-${brandPrefix}-${cleanModel}${yearSuffix}`;
+        
+        let displayModel = item.model.replace(/(?:\s|-)*\d+(?:\s*[/,]\s*\d+)+\s*/g, '') // remove " 4000/5000/6000 " or " 8000 / 10000 " or "-4000/5000"
+                                     .replace(/\s*\(\d+(?:\s*,\s*\d+)+\)\s*/g, '') // remove " (4000,5000) "
+                                     .trim();
+
         // --- Calculate Official Reference Price Range from Variants ---
         let prices = [];
         if (item.variants && item.variants.length > 0) {
@@ -49,7 +75,7 @@ function main() {
         reelsRows.push({
             id: masterId,
             brand_id: 1, // Assume 1 is Daiwa in brand.xlsx, update dynamically later if needed
-            model: item.model,
+            model: displayModel,
             model_cn: '', // Requires manual input or translation
             model_year: item.model_year || '',
             alias: '',
@@ -60,8 +86,8 @@ function main() {
             main_selling_points: item.main_selling_points ? item.main_selling_points.join(' | ') : '',
             official_reference_price: official_reference_price,
             market_status: '在售',
-            created_at: '',
-            updated_at: ''
+            created_at: currentTime,
+            updated_at: currentTime
         });
         
         // Variants Rows
@@ -86,15 +112,15 @@ function main() {
             else spool_depth_normalized = '标准杯';
             
             let gear_ratio_normalized = '';
-            if (actualSku.includes('XH') || actualSku.includes('XG')) gear_ratio_normalized = '超高齿比 (XH/XG)';
-            else if (actualSku.includes('H') || actualSku.includes('HG')) gear_ratio_normalized = '高齿比 (H/HG)';
-            else if (actualSku.includes('P') || actualSku.includes('PG')) gear_ratio_normalized = '低齿比 (P/PG)';
-            else gear_ratio_normalized = '标准齿比';
+            if (actualSku.includes('XH') || actualSku.includes('XG')) gear_ratio_normalized = '超高速比 (XH/XG)';
+            else if (actualSku.includes('H') || actualSku.includes('HG')) gear_ratio_normalized = '高速比 (H/HG)';
+            else if (actualSku.includes('P') || actualSku.includes('PG')) gear_ratio_normalized = '低速比 (P/PG)';
+            else gear_ratio_normalized = '标准速比';
             
             let brake_type_normalized = '';
             // "主要适用于水滴轮，纺车轮可标记为“无”或默认不填"
             if (item.kind === 'spinning') {
-                brake_type_normalized = '无';
+                brake_type_normalized = '';
             }
 
             variantsRows.push({
