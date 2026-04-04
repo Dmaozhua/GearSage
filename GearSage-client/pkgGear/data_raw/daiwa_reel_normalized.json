@@ -266,7 +266,7 @@
       }
     ],
     "raw_data_hash": "718646035fc7fede9e9ce13175d15af95c36d3e31cc16df6e2aed264a601a6e0",
-    "scraped_at": "2026-04-04T12:28:01.598122Z"
+    "scraped_at": "2026-04-04T13:15:07.774388Z"
   },
   {
     "brand": "Daiwa",
@@ -306,150 +306,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "4000-H",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-XH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-P",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-H",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-XH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000-P",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000-XH",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133224027",
         "name": "ソルティガ 4000-H",
@@ -595,8 +451,8 @@
         }
       }
     ],
-    "raw_data_hash": "fa8b7f25345a96f6bda7702a3d480d5ec5db1551b78362a8394c5b2d5f594a85",
-    "scraped_at": "2026-04-04T12:28:04.194986Z"
+    "raw_data_hash": "0efce2d2a3f260dabb6bac62f823d257b32121fff87b539618dd98fc0118e051",
+    "scraped_at": "2026-04-04T13:15:10.055078Z"
   },
   {
     "brand": "Daiwa",
@@ -1028,7 +884,7 @@
       }
     ],
     "raw_data_hash": "56c822aa7b6fa90ef041b09adffbdff4359d32a3fa5de0745375324b65a94435",
-    "scraped_at": "2026-04-04T12:28:06.370641Z"
+    "scraped_at": "2026-04-04T13:15:12.107371Z"
   },
   {
     "brand": "Daiwa",
@@ -1230,8 +1086,8 @@
         }
       }
     ],
-    "raw_data_hash": "c58e424d58d4da46b151bc65641363f524934f60b9b90ec50d69085fd80cbe28",
-    "scraped_at": "2026-04-04T12:28:08.824971Z"
+    "raw_data_hash": "519f14553fba9d7c11fca0d2d1f632232108c1791ccda0bbde80d53bd270f844",
+    "scraped_at": "2026-04-04T13:15:14.575378Z"
   },
   {
     "brand": "Daiwa",
@@ -1302,8 +1158,8 @@
         }
       }
     ],
-    "raw_data_hash": "82ade1f1c60458be67c516922f5ec150ac9b6040d21ae0d95966b80a3b633be5",
-    "scraped_at": "2026-04-04T12:28:09.820721Z"
+    "raw_data_hash": "a04e79b62424620de4c670288d06dab452cc543e7d8b90feba335c9aa4686f1b",
+    "scraped_at": "2026-04-04T13:15:15.603831Z"
   },
   {
     "brand": "Daiwa",
@@ -1493,8 +1349,8 @@
         }
       }
     ],
-    "raw_data_hash": "32a1cb8ddb4f175ec3164cbff492db50ac1263213efe8b5eb7b91ce51bd0ae70",
-    "scraped_at": "2026-04-04T12:28:13.323362Z"
+    "raw_data_hash": "9b7dd42e1c554c39a9287137ac1171430fda73c18142f4992bb62a0f765fa083",
+    "scraped_at": "2026-04-04T13:15:17.792625Z"
   },
   {
     "brand": "Daiwa",
@@ -1677,7 +1533,7 @@
       }
     ],
     "raw_data_hash": "6977fccf3d04f788d77abfedc35e2a97a14fd3cb3d79f10f0c7892dd2b93b068",
-    "scraped_at": "2026-04-04T12:28:15.581009Z"
+    "scraped_at": "2026-04-04T13:15:20.023974Z"
   },
   {
     "brand": "Daiwa",
@@ -1749,7 +1605,7 @@
       }
     ],
     "raw_data_hash": "980583c60a07c0d317c2281edc56f61b67912ddbff7eb4b29fcacbf9181523b8",
-    "scraped_at": "2026-04-04T12:28:16.517753Z"
+    "scraped_at": "2026-04-04T13:15:21.075387Z"
   },
   {
     "brand": "Daiwa",
@@ -2113,7 +1969,7 @@
       }
     ],
     "raw_data_hash": "7de9a58b28db08a1b67f2598a14b840cf1b5c7357438273ec6778fae4bb7edb2",
-    "scraped_at": "2026-04-04T12:28:18.906841Z"
+    "scraped_at": "2026-04-04T13:15:23.287723Z"
   },
   {
     "brand": "Daiwa",
@@ -2266,7 +2122,7 @@
       }
     ],
     "raw_data_hash": "985b81249b9c0f5d534858ea93647b21dfa8f29fb850114ed749dd9a1a24d42a",
-    "scraped_at": "2026-04-04T12:28:21.169566Z"
+    "scraped_at": "2026-04-04T13:15:25.433381Z"
   },
   {
     "brand": "Daiwa",
@@ -2593,7 +2449,7 @@
       }
     ],
     "raw_data_hash": "9e8fec78cc8ba25d909bf8dbbfc788f203872b12bac23c44bd91d635b15cf1da",
-    "scraped_at": "2026-04-04T12:28:23.501553Z"
+    "scraped_at": "2026-04-04T13:15:27.845818Z"
   },
   {
     "brand": "Daiwa",
@@ -2623,78 +2479,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT2500S",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "PC LT2500-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "PC LT2500-H",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133579561",
         "name": "EMERALDAS AIR LT2500S",
@@ -2769,7 +2553,7 @@
       }
     ],
     "raw_data_hash": "d8b15db6c6efe1c1897010f8127cf62f489dfdb02f62782b4a26f8d15d9357dc",
-    "scraped_at": "2026-04-04T12:28:25.721879Z"
+    "scraped_at": "2026-04-04T13:15:30.225250Z"
   },
   {
     "brand": "Daiwa",
@@ -2818,294 +2602,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "SF2000SS-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "SF2000SS-H",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "SF2500SS",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "SF2500SS-H",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "PC LT2500",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "PC LT2500-H",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000-H",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "PC LT3000",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "PC LT3000-XH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-XH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133388958",
         "name": "LUVIAS LT2000S-P",
@@ -3396,7 +2892,7 @@
       }
     ],
     "raw_data_hash": "adf342e9ae66a844166f253faeecf4b25caf35317db263e7fd30468fc6bc3cf4",
-    "scraped_at": "2026-04-04T12:28:28.001178Z"
+    "scraped_at": "2026-04-04T13:15:32.469325Z"
   },
   {
     "brand": "Daiwa",
@@ -3449,8 +2945,8 @@
         }
       }
     ],
-    "raw_data_hash": "2b9ba25405417608b3f6e7ab89d01dc427ea83fd6768b4753bca213f747fd868",
-    "scraped_at": "2026-04-04T12:28:30.348312Z"
+    "raw_data_hash": "cac5ad565b05d4d3e14e6cb7c124f82081e6f6cecf9870a540e068c6ebc62b11",
+    "scraped_at": "2026-04-04T13:15:33.416297Z"
   },
   {
     "brand": "Daiwa",
@@ -3468,1194 +2964,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/resources/fishing/item/reel/spin_rl/caldia_sw/__icsFiles/artimage/2022/03/30/c_041111178/main_tx_bg_1.jpg?rev=9af5d6ac02384fc9bbdbb11898efed90"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P / 8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-P / 10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-P",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-CXH\n        4000D-CXH\n        5000-CXH\n        5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H\n        6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P\n        8000-H\n        10000-P\n        10000-H\n        14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-CXH\n        4000D-CXH\n        5000-CXH\n        5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H\n        6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P\n        8000-H\n        10000-P\n        10000-H\n        14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-P",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-P",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-P",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133220654",
         "name": "CALDIA SW 4000-CXH",
@@ -4874,7 +3182,7 @@
       }
     ],
     "raw_data_hash": "e99963577a26f91a8429bbb12a2bd0435b357e87d00d7c840154e8757d1b9a41",
-    "scraped_at": "2026-04-04T12:28:31.546244Z"
+    "scraped_at": "2026-04-04T13:15:34.399284Z"
   },
   {
     "brand": "Daiwa",
@@ -4910,114 +3218,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/c3vm3s4_24LUVIAS/banner/luvias_sp_LINK.jpg?rev=f9290def0362457bb73e9e78d747b1fc"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "ST SF1000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "ST SF2000SS-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "ST SF2000SS-H",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "ST SF2500SS-H",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "ST LT2000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "ST LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133389146",
         "name": "LUVIAS ST SF1000S-P",
@@ -5128,7 +3328,7 @@
       }
     ],
     "raw_data_hash": "e0951fb83e3f37aab9eb6754c62fad20fdbe40ec21ea4f3a1821fe834ed70e8c",
-    "scraped_at": "2026-04-04T12:28:34.042195Z"
+    "scraped_at": "2026-04-04T13:15:36.707990Z"
   },
   {
     "brand": "Daiwa",
@@ -5182,13 +3382,13 @@
       }
     ],
     "raw_data_hash": "5b7fb29f5b029e1cb94defb0a779fa9de25f119188c0421ad012b85277270194",
-    "scraped_at": "2026-04-04T12:28:34.961205Z"
+    "scraped_at": "2026-04-04T13:15:37.818394Z"
   },
   {
     "brand": "Daiwa",
     "kind": "spinning",
     "model": "ロングビーム 35",
-    "model_year": "2006",
+    "model_year": null,
     "main_selling_points": [
       "●ZAION Vを採用　ボディ・ボディカバー・ローター素材にZAION Vを投げリールで初めて採用し、強度をキープした上で軽量化を実現。●LCスプール&クロスラップ　35mmストロークでは初のLC（ロングキャスト）スプールを搭載。更にはラインを綾巻きし、ライン同士の食い込みを抑えるクロスラップを搭載し、キャスト時のトラブルが少なく軽快なライン放出を実現。※スプールテーパー角度2°●軽量ハンドルアーム　85mmアルミマシンカット軽量ハンドルアーム採用。　安定した巻き上げ感覚をもたらす高剛性マシンカットハンドル。●ハンドルノブ交換可　Sサイズノブ対応。●35mmスプール互換性あり　過去のダイワ35mmストロークリールのスプールが取付可能。　ドラグ無し同士、QD同士でのスプール互換性あり。　※ドラグ無し⇔QDとの互換性はありません。",
       "ZAION V\n                                                                    リールを、もっと軽く、強く。そのために開発されたカーボンハイブリッド樹脂が、ザイオン V（ブイ）。ハイブリッドするカーボン量を緻密にコントロールすることで、金属を凌駕する軽量性と金属に比肩するほどの強度をハイレベルで実現するとともに、多くのリールに搭載可能なバーサタイル性をあわせ持たせました。カーボンハイブリッド樹脂のMAXスペックともいえるザイオンのエッセンスを受け継いでいます。",
@@ -5198,60 +3398,6 @@
     "local_image_path": "",
     "images": [],
     "variants": [
-      {
-        "sku": "",
-        "name": "PE",
-        "year": "2006",
-        "specs": {
-          "size_family": "",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "QD5号用",
-        "year": null,
-        "specs": {
-          "size_family": "",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "QD12号用",
-        "year": null,
-        "specs": {
-          "size_family": "",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133257698",
         "name": "ロングビーム35 06PE",
@@ -5307,8 +3453,8 @@
         }
       }
     ],
-    "raw_data_hash": "0b3a65b54797ffe0693168627d6832c22db69f20c136b82784545ec687e76eb5",
-    "scraped_at": "2026-04-04T12:28:36.086691Z"
+    "raw_data_hash": "677e05cc94ca41782aa26184804d4aca3d3c717aef995b5435bdb0202f527b0d",
+    "scraped_at": "2026-04-04T13:15:38.844460Z"
   },
   {
     "brand": "Daiwa",
@@ -5400,7 +3546,7 @@
       }
     ],
     "raw_data_hash": "e9f0bd0e6faf5e176573117691a3a42ecda4cae9b6886f764ce267b0ea37f720",
-    "scraped_at": "2026-04-04T12:28:38.172502Z"
+    "scraped_at": "2026-04-04T13:15:41.192965Z"
   },
   {
     "brand": "Daiwa",
@@ -5490,7 +3636,7 @@
       }
     ],
     "raw_data_hash": "fa54b79b61a55e3d9cd602c68f4a52489c1027c32d2ee09f001592f94079c901",
-    "scraped_at": "2026-04-04T12:28:39.170627Z"
+    "scraped_at": "2026-04-04T13:15:42.163557Z"
   },
   {
     "brand": "Daiwa",
@@ -5534,276 +3680,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "FC LT1000S",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "FC LT2000S",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "FC LT2000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "FC LT2500S",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "FC LT2500S-H",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000S-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000-XH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-C",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000-C",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133442414",
         "name": "CALDIA FC LT1000S",
@@ -6076,7 +3952,7 @@
       }
     ],
     "raw_data_hash": "4a1d406ff7a964d2bd2b6a63732c29546602028bdc277c96db45bca47e895607",
-    "scraped_at": "2026-04-04T12:28:41.297705Z"
+    "scraped_at": "2026-04-04T13:15:44.406666Z"
   },
   {
     "brand": "Daiwa",
@@ -6166,7 +4042,7 @@
       }
     ],
     "raw_data_hash": "d0d821cd1a25065e4a43077722704bed60c5737277d91ab346fe909fbd57dcbe",
-    "scraped_at": "2026-04-04T12:28:42.279191Z"
+    "scraped_at": "2026-04-04T13:15:45.432137Z"
   },
   {
     "brand": "Daiwa",
@@ -6219,8 +4095,8 @@
         }
       }
     ],
-    "raw_data_hash": "cd66b7e6c4362a2e745d5344fc649f04fed3816eb666dfee29408f65831f8bb7",
-    "scraped_at": "2026-04-04T12:28:43.350071Z"
+    "raw_data_hash": "e8b6c8f3d3c56bd54c9e903c6d5a475b512a6fa88a2bc72ab306fb04756954cb",
+    "scraped_at": "2026-04-04T13:15:46.519275Z"
   },
   {
     "brand": "Daiwa",
@@ -6244,60 +4120,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT1000S",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-H",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133304514",
         "name": "LT1000S",
@@ -6353,8 +4175,8 @@
         }
       }
     ],
-    "raw_data_hash": "ea74f71588089e20caffabbb17a551b4edf1fefeee4a1ff04276b9145a130198",
-    "scraped_at": "2026-04-04T12:28:45.664042Z"
+    "raw_data_hash": "b69985716dc19acfd0ab1b5adf5aae6fc4e1f1886900059adcfcfecd30245ccd",
+    "scraped_at": "2026-04-04T13:15:48.667725Z"
   },
   {
     "brand": "Daiwa",
@@ -6370,60 +4192,6 @@
     "local_image_path": "",
     "images": [],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT2500S-XH-QD",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "FC LT2500SS-QD",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "FC LT2500SS-H-QD",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133306457",
         "name": "TATULA FC LT2500SS-QD",
@@ -6480,7 +4248,7 @@
       }
     ],
     "raw_data_hash": "1058ee61366f187f7363a6e89183919734bc142201448e0140d4631631e76213",
-    "scraped_at": "2026-04-04T12:28:46.592585Z"
+    "scraped_at": "2026-04-04T13:15:49.639947Z"
   },
   {
     "brand": "Daiwa",
@@ -6588,7 +4356,7 @@
       }
     ],
     "raw_data_hash": "a09c934685b5a1fafd48fa07e563d95386a3367f2c533ceb3a2a685435ad4a72",
-    "scraped_at": "2026-04-04T12:28:47.660666Z"
+    "scraped_at": "2026-04-04T13:15:50.500949Z"
   },
   {
     "brand": "Daiwa",
@@ -6604,564 +4372,6 @@
     "local_image_path": "",
     "images": [],
     "variants": [
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-P",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH\n      5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-P\n      6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P\n        8000-H\n        10000-H\n      14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-P",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "4000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-P",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-P",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "8000-H",
-        "year": null,
-        "specs": {
-          "size_family": "8000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "10000-H",
-        "year": null,
-        "specs": {
-          "size_family": "10000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "14000-H",
-        "year": null,
-        "specs": {
-          "size_family": "14000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "18000",
-        "year": null,
-        "specs": {
-          "size_family": "18000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133347412",
         "name": "4000D-CXH",
@@ -7326,7 +4536,7 @@
       }
     ],
     "raw_data_hash": "6ae0a110291e5b1e2a4adf4ff2df4931c785b2001f2dd1d1eda726b55011f5d8",
-    "scraped_at": "2026-04-04T12:28:48.673976Z"
+    "scraped_at": "2026-04-04T13:15:51.543932Z"
   },
   {
     "brand": "Daiwa",
@@ -7575,8 +4785,8 @@
         }
       }
     ],
-    "raw_data_hash": "f7f50eb99b91a63cfa735cfec7d38668f8ac3a62966ce8bc0a2b7bb9ec5bd628",
-    "scraped_at": "2026-04-04T12:28:50.372126Z"
+    "raw_data_hash": "fee35be7f78e79b0abddb83055749d330aebe706c09ecea0aeff99b66d15b7d1",
+    "scraped_at": "2026-04-04T13:15:53.431597Z"
   },
   {
     "brand": "Daiwa",
@@ -7612,7 +4822,7 @@
       }
     ],
     "raw_data_hash": "34abcdc5d7257c71ae79205da0ad712899fdd48aea7ac2b07bfa77a555b19d09",
-    "scraped_at": "2026-04-04T12:28:51.219316Z"
+    "scraped_at": "2026-04-04T13:15:54.408559Z"
   },
   {
     "brand": "Daiwa",
@@ -7664,222 +4874,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT1000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500D",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000D-C",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-C",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000D-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133541810",
         "name": "FREAMS LT1000S-P",
@@ -8097,8 +5091,8 @@
         }
       }
     ],
-    "raw_data_hash": "03f7fab5cc843ef3d234927ecac473709edbab161f38b238a696cd8ba5185b2f",
-    "scraped_at": "2026-04-04T12:28:53.536073Z"
+    "raw_data_hash": "a1ff66ae1dd5adeae913c8070c219e68b09941d0986ce064e86d9f2fcf6191be",
+    "scraped_at": "2026-04-04T13:15:56.730092Z"
   },
   {
     "brand": "Daiwa",
@@ -8224,7 +5218,7 @@
       }
     ],
     "raw_data_hash": "5ea6a8202ba26c1927367bd06e229e073f3ef540542fab979f82a1e213d6b9b2",
-    "scraped_at": "2026-04-04T12:28:54.380787Z"
+    "scraped_at": "2026-04-04T13:15:57.796729Z"
   },
   {
     "brand": "Daiwa",
@@ -8252,60 +5246,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/masterimage/slp_works_seihinkensaku.jpg?rev=6105318184d649aab06cda9b4c6fd465"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT1000S",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133564888",
         "name": "IPRIMI LT1000S",
@@ -8362,7 +5302,7 @@
       }
     ],
     "raw_data_hash": "1eeff0714162ff133544f0dec461d120e961977162de160c92394aea8456f269",
-    "scraped_at": "2026-04-04T12:28:56.511760Z"
+    "scraped_at": "2026-04-04T13:15:59.912212Z"
   },
   {
     "brand": "Daiwa",
@@ -8390,78 +5330,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/b2tvxc4_24EMERALDAS_X/sub/24EMERALDAS_X_LT2500_4550133431470_sub02.jpg?rev=82d8316140d64d7ca426a794021c492b"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT2500",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500-XH-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133431470",
         "name": "LT2500",
@@ -8536,7 +5404,7 @@
       }
     ],
     "raw_data_hash": "1446a152b98bcf6d64b2f0d2d4eee6bcc91eb1b6d569c1231abaa86b616867da",
-    "scraped_at": "2026-04-04T12:28:58.762229Z"
+    "scraped_at": "2026-04-04T13:16:02.181799Z"
   },
   {
     "brand": "Daiwa",
@@ -8590,7 +5458,7 @@
       }
     ],
     "raw_data_hash": "7c08b00c7790e1d64c803724fc5bbca1cc99bca8983edd67ba343d7f70e4651c",
-    "scraped_at": "2026-04-04T12:28:59.725446Z"
+    "scraped_at": "2026-04-04T13:16:03.055025Z"
   },
   {
     "brand": "Daiwa",
@@ -8618,42 +5486,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/18dndwo_AORIMATIC_BR_LT/sub/sub06.jpg?rev=1dd73ccca00f455a9ea15d7dfa74dc78"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT3000",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000D",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133592447",
         "name": "3000",
@@ -8692,7 +5524,7 @@
       }
     ],
     "raw_data_hash": "185be529404c986d5afbc4cad958b4aba0885d5acdd2ec4dbe2e445431d1a24e",
-    "scraped_at": "2026-04-04T12:29:02.196687Z"
+    "scraped_at": "2026-04-04T13:16:05.348563Z"
   },
   {
     "brand": "Daiwa",
@@ -8719,60 +5551,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/pcd8uxg_24GEKKABIJIN_X_LT/sub/24GEKKABIJIN_X_LT2000S-P_4550133393297_sub03.jpg?rev=97a95acdd02a4929a86133c33e0da5ef"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT1000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-P",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133393280",
         "name": "月下美人X LT1000S-P",
@@ -8829,7 +5607,7 @@
       }
     ],
     "raw_data_hash": "a01dede172c65f2e66b07a93a83125bb76ebc5e06373f148a9c640b5c7e3bc09",
-    "scraped_at": "2026-04-04T12:29:04.593160Z"
+    "scraped_at": "2026-04-04T13:16:07.662750Z"
   },
   {
     "brand": "Daiwa",
@@ -8868,150 +5646,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/cx5krwk_23LEGALIS-LT/select_reel_1200_900.jpg?rev=a91d471574ee46c284444aad6ce2d770"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT1000S",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S-P・LT2000S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500D・LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000D-C・LT3000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133162626",
         "name": "LT1000S",
@@ -9211,8 +5845,8 @@
         }
       }
     ],
-    "raw_data_hash": "b7be7b6c541a6ed4075b8a1945307fd502056ccc0b8e7f77bab6d06bab08e000",
-    "scraped_at": "2026-04-04T12:29:06.965181Z"
+    "raw_data_hash": "936ee1a1a2062467a6cf208a4e043ae520c6f07d592d2d83718bf3ff6b13bade",
+    "scraped_at": "2026-04-04T13:16:10.226970Z"
   },
   {
     "brand": "Daiwa",
@@ -9337,8 +5971,8 @@
         }
       }
     ],
-    "raw_data_hash": "a13a5f6cdd6e675f12dd6d085df41d07262ec180078f8f0741729028b55ca3b4",
-    "scraped_at": "2026-04-04T12:29:07.903058Z"
+    "raw_data_hash": "0bc45ecad63a1dd44de109046a02355289a1dfc7b10e5b60791d149b32a16be1",
+    "scraped_at": "2026-04-04T13:16:11.109073Z"
   },
   {
     "brand": "Daiwa",
@@ -9379,150 +6013,6 @@
       "https://390386bd-1bf0-4900-aa10-cac1793c9a23-afd-dqdkdpcqgcc6hahm.z01.azurefd.net/-/media/Project/globeride/daiwa_com_jp/001_product_photo/reel/001/hlz949j_24REVROS/select_reel_1200_900.jpg?rev=32a6f99b56b84df4b7ca827093f5e874"
     ],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT1000S",
-        "year": null,
-        "specs": {
-          "size_family": "1000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S・LT2000S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500D・LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-DH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000D-C・LT3000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT6000D-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4550133399169",
         "name": "LT1000S",
@@ -9723,7 +6213,7 @@
       }
     ],
     "raw_data_hash": "7761dba8c77dd4a4c983b181618316226260ae909f8ef9d85f7e1ff611c85de4",
-    "scraped_at": "2026-04-04T12:29:10.283982Z"
+    "scraped_at": "2026-04-04T13:16:13.350806Z"
   },
   {
     "brand": "Daiwa",
@@ -9777,7 +6267,7 @@
       }
     ],
     "raw_data_hash": "7e801990f65d9cc54de06113b1f3c1d482bacbae87c8ea3101b2c29173600208",
-    "scraped_at": "2026-04-04T12:29:11.201239Z"
+    "scraped_at": "2026-04-04T13:16:14.285599Z"
   },
   {
     "brand": "Daiwa",
@@ -9813,7 +6303,7 @@
       }
     ],
     "raw_data_hash": "64fdd7a117160baab467cad75b6b26054d0bb012f221a8ebcb00f4edabcaa01e",
-    "scraped_at": "2026-04-04T12:29:12.235553Z"
+    "scraped_at": "2026-04-04T13:16:15.210901Z"
   },
   {
     "brand": "Daiwa",
@@ -9829,222 +6319,6 @@
     "local_image_path": "",
     "images": [],
     "variants": [
-      {
-        "sku": "",
-        "name": "LT2000",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2000S",
-        "year": null,
-        "specs": {
-          "size_family": "2000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT2500S-XH",
-        "year": null,
-        "specs": {
-          "size_family": "2500",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000-C",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT3000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "3000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-C",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT4000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "4000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000-C",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT5000-CXH",
-        "year": null,
-        "specs": {
-          "size_family": "5000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
-      {
-        "sku": "",
-        "name": "LT6000-H",
-        "year": null,
-        "specs": {
-          "size_family": "6000",
-          "gear_ratio": "",
-          "weight_g": null,
-          "max_drag_kg": "",
-          "drag_click": "有",
-          "line_capacity_pe": "",
-          "line_capacity_nylon": "",
-          "retrieve_per_turn_cm": "",
-          "handle_length_mm": "",
-          "bearing_count_main": "",
-          "official_reference_price": ""
-        }
-      },
       {
         "sku": "4960652309394",
         "name": "LT2000",
@@ -10262,8 +6536,8 @@
         }
       }
     ],
-    "raw_data_hash": "c1abd79d8b23907470764ec08d81104d66b58ce1bd89175d67e13e7b0673f961",
-    "scraped_at": "2026-04-04T12:29:13.120785Z"
+    "raw_data_hash": "e0a80215cd5ca6d755b8c0d186cdb37334278b3ba8fec7754490754fc8bff9fd",
+    "scraped_at": "2026-04-04T13:16:16.217157Z"
   },
   {
     "brand": "Daiwa",
@@ -10316,8 +6590,8 @@
         }
       }
     ],
-    "raw_data_hash": "e42a15b619f6e64af9dbdc01f9fce466f6cb798013a704b0971edefde4bfe571",
-    "scraped_at": "2026-04-04T12:29:14.091591Z"
+    "raw_data_hash": "9540631adf0c9d78973264bd491c9afbe981a9f885bcd99e2230f3275ab25bf1",
+    "scraped_at": "2026-04-04T13:16:17.244276Z"
   },
   {
     "brand": "Daiwa",
@@ -10478,8 +6752,8 @@
         }
       }
     ],
-    "raw_data_hash": "e50d1ffd246fcb54b4949e687b78393451c73ec4e62ddd6f486876953e9a5e75",
-    "scraped_at": "2026-04-04T12:29:15.384447Z"
+    "raw_data_hash": "b9e64b98d45f7d080bb6939806895defaaa40202c41af8785d04ee632c3893f7",
+    "scraped_at": "2026-04-04T13:16:18.275047Z"
   },
   {
     "brand": "Daiwa",
@@ -10569,7 +6843,7 @@
       }
     ],
     "raw_data_hash": "ed7d91abc8592e01e0732268e4316c855f0328e0a9a006fe4e8955e84ccf5ab5",
-    "scraped_at": "2026-04-04T12:29:16.435052Z"
+    "scraped_at": "2026-04-04T13:16:20.006607Z"
   },
   {
     "brand": "Daiwa",
@@ -10605,7 +6879,7 @@
       }
     ],
     "raw_data_hash": "1096fb9ccba1642bc6b1de463c16713f2aaf2e2e482e375d404cc517dc842155",
-    "scraped_at": "2026-04-04T12:29:17.413722Z"
+    "scraped_at": "2026-04-04T13:16:21.028364Z"
   },
   {
     "brand": "Daiwa",
@@ -10785,6 +7059,6 @@
       }
     ],
     "raw_data_hash": "ca7f408af47074c8f7e2715b6c67c7096769f35f30069e7aa6229dc03e56bca7",
-    "scraped_at": "2026-04-04T12:29:18.297669Z"
+    "scraped_at": "2026-04-04T13:16:21.877294Z"
   }
 ]

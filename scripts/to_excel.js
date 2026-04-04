@@ -91,6 +91,8 @@ function main() {
         });
         
         // Variants Rows
+        let seenSkus = new Set();
+        
         item.variants.forEach(v => {
             // For Daiwa, the JAN code is often marked as '*' in tables when the actual item name should be used as SKU
             // The user wants SKU to be the specific model name (e.g., LT2000S-H) rather than a barcode or '*'.
@@ -102,9 +104,29 @@ function main() {
                 }).replace(/\u3000/g, ' '); // full width space to half width space
             };
 
-            let actualSku = toHalfWidth(v.name).trim();
+            let rawSkuStr = toHalfWidth(v.name).trim();
             
-            // --- Layer 3: GearSage Traits (Derived) ---
+            // 1. Split multiple SKUs (e.g., "8000-P / 8000-H\n10000-P")
+            let skuList = rawSkuStr.split(/[\/\n,]+/).map(s => s.trim().replace(/\s+/g, ' ')).filter(s => s);
+            
+            skuList.forEach(actualSku => {
+                // 2. Deduplicate by actualSku within the same reel
+                // Also handle cases where one SKU is a prefixed version of another (e.g., "CALDIA SW 4000-CXH" vs "4000-CXH")
+                let isDuplicate = false;
+                for (let existingSku of seenSkus) {
+                    if (existingSku === actualSku || 
+                        existingSku.endsWith(" " + actualSku) || 
+                        actualSku.endsWith(" " + existingSku)) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (isDuplicate) {
+                    return;
+                }
+                seenSkus.add(actualSku);
+                
+                // --- Layer 3: GearSage Traits (Derived) ---
             let spool_depth_normalized = '';
             let gear_ratio_normalized = '';
             let brake_type_normalized = '';
@@ -119,13 +141,10 @@ function main() {
                 brake_type_normalized = '';
 
                 // 2. 达亿瓦纺车轮型号解读
-                // Prefix (fit_style_tags): 匹配 LT 或数字之前的字母，且不包含 LT 本身
-                let prefixMatch = actualSku.match(/^([A-Za-z]+?)(?:\s*LT)?(?=\s*\d)/i);
+                // Prefix (fit_style_tags): 从 FC、PC、SF、ST、ST FS、ST SF、SW、CF 中全字匹配（如果在型号中出现，并且其后紧跟空格、LT、数字、-、_或结尾）
+                let prefixMatch = actualSku.match(/(?:^|\s|-|_)(ST\s+FS|ST\s+SF|FC|PC|SF|ST|SW|CF)(?=\s|LT|\d|-|_|$)/i);
                 if (prefixMatch) {
-                    let prefix = prefixMatch[1].toUpperCase();
-                    if (prefix !== 'LT') {
-                        fit_style_tags = prefix;
-                    }
+                    fit_style_tags = prefixMatch[1].toUpperCase().replace(/\s+/g, ' ');
                 }
 
                 // Spool Depth: 匹配尺寸数字紧跟的字母
@@ -244,6 +263,7 @@ function main() {
                 min_lure_weight_hint: min_lure_weight_hint,
                 is_compact_body: is_compact_body,
                 handle_style: handle_style
+            });
             });
         });
     });

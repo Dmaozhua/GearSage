@@ -159,7 +159,15 @@ def parse_detail_page(fetcher, item):
             continue
             
         headers = [extract_text(th) for th in rows[0].css("th, td")]
-        if not headers or "アイテム" not in headers:
+        
+        # Ensure it is a valid spec table by checking for the item name column
+        if not headers or ("アイテム" not in headers and "品名" not in headers):
+            continue
+            
+        # Must contain at least two known spec columns to avoid parsing explanation/fish-target tables
+        spec_keywords = ["自重", "ギア比", "巻取り", "巻糸量", "ベアリング", "JAN", "価格", "ドラグ"]
+        matched_keywords = sum(1 for keyword in spec_keywords if any(keyword in h for h in headers))
+        if matched_keywords < 2:
             continue
             
         # Parse data rows

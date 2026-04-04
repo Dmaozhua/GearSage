@@ -293,10 +293,9 @@ PostgreSQL gear_brands / gear_master / gear_variants
 5. 不应直接进入强筛选主链，除非字段足够稳定
 
 ### 渔轮建议字段
-
 - `spool_depth_normalized`：浅杯 / 中杯 / 深杯
 - `brake_type_normalized`：磁力 / 离心 / 电子 / 混合
-- `fit_style_tags`：泛用 / BFS / 轻饵 / 远投 / 细线
+- `fit_style_tags`：泛用 / BFS / 轻饵 / 远投 / 细线 (对于达亿瓦纺车轮，从 FC、PC、SF、ST、ST FS、ST SF、SW、CF 中提取)
 - `min_lure_weight_hint`：约 3g+ / 约 5g+
 - `newbie_friendly_level`
 - `maintenance_friendliness`
@@ -866,7 +865,7 @@ n
 ### 2026-04-04：达亿瓦纺车轮专属 SKU 解析规则与表结构兼容
 - **达亿瓦纺车轮 SKU 专属解析 (GearSage Traits)**：
   - `min_lure_weight_hint`：纺车轮统一留空不填写。
-  - `fit_style_tags`：提取 SKU 前缀（例如 `PC`, `SF`, `FC` 等，不包含 `LT` 本身），无前缀则留空。
+  - `fit_style_tags`：提取 SKU 前缀（从 `FC`, `PC`, `SF`, `ST`, `ST FS`, `SW`, `CF` 中全字匹配，`ST FS` 当成一个完整的词，找不到为空）。
   - `spool_depth_normalized`：根据尺寸后的字母提取（`D`=深杯, `S`=浅杯, `SS`=超浅杯, 无=标准杯）。
   - `is_compact_body`（新增）：根据后缀是否包含 `C` 判定为精巧机身。
   - `gear_ratio_normalized`：过滤 `DH` 干扰后，提取 `XH`=超高速比, `H`=高速比, `P`=低速比, 无=中速比。
