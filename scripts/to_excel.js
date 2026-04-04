@@ -119,10 +119,13 @@ function main() {
                 brake_type_normalized = '';
 
                 // 2. 达亿瓦纺车轮型号解读
-                // Prefix (fit_style_tags): 匹配 LT 或数字之前的字母
-                let prefixMatch = actualSku.match(/^([A-Za-z]+)(?=\s*LT|\s*\d)/i);
+                // Prefix (fit_style_tags): 匹配 LT 或数字之前的字母，且不包含 LT 本身
+                let prefixMatch = actualSku.match(/^([A-Za-z]+?)(?:\s*LT)?(?=\s*\d)/i);
                 if (prefixMatch) {
-                    fit_style_tags = prefixMatch[1].toUpperCase();
+                    let prefix = prefixMatch[1].toUpperCase();
+                    if (prefix !== 'LT') {
+                        fit_style_tags = prefix;
+                    }
                 }
 
                 // Spool Depth: 匹配尺寸数字紧跟的字母

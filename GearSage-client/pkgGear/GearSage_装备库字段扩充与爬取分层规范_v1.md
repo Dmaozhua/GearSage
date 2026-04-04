@@ -866,7 +866,7 @@ n
 ### 2026-04-04：达亿瓦纺车轮专属 SKU 解析规则与表结构兼容
 - **达亿瓦纺车轮 SKU 专属解析 (GearSage Traits)**：
   - `min_lure_weight_hint`：纺车轮统一留空不填写。
-  - `fit_style_tags`：提取 SKU 前缀（如 `PC`, `SF` 等），无前缀则留空。
+  - `fit_style_tags`：提取 SKU 前缀（例如 `PC`, `SF`, `FC` 等，不包含 `LT` 本身），无前缀则留空。
   - `spool_depth_normalized`：根据尺寸后的字母提取（`D`=深杯, `S`=浅杯, `SS`=超浅杯, 无=标准杯）。
   - `is_compact_body`（新增）：根据后缀是否包含 `C` 判定为精巧机身。
   - `gear_ratio_normalized`：过滤 `DH` 干扰后，提取 `XH`=超高速比, `H`=高速比, `P`=低速比, 无=中速比。
