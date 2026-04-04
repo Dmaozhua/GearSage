@@ -20,9 +20,9 @@ function main() {
     data.forEach((item, index) => {
         const brandId = item.brand === 'Daiwa' ? 'B-DAIWA' : '';
         const safeModel = item.model.replace(/\s+/g, '-').toUpperCase();
-        let masterYear = item.model_year || 'Unknown';
+        let masterYear = item.model_year || '';
         
-        const masterId = `R-DA-${safeModel}-${masterYear}`;
+        const masterId = masterYear ? `R-DA-${safeModel}-${masterYear}` : `R-DA-${safeModel}`;
         
         const localImagePath = item.local_image_path || (item.images && item.images.length > 0 ? item.images[0] : '');
 
@@ -54,10 +54,14 @@ function main() {
                 const uniqueKey = `${masterId}-${actualSku}`;
                 let isDuplicate = false;
                 for (let existing of seenSkus) {
-                    if (existing === uniqueKey || existing.endsWith(actualSku) || actualSku.endsWith(existing.split('-').pop())) {
+                    const existingActualSku = existing.substring(masterId.length + 1);
+                    if (existing === uniqueKey) {
                         isDuplicate = true;
                         break;
                     }
+                    // We removed the aggressive endsWith logic because "100" and "100L" are different SKUs.
+                    // We just rely on exact uniqueKey matching to prevent exact duplicates, 
+                    // which handles the same variant row being listed twice.
                 }
                 if (isDuplicate) return;
                 seenSkus.add(uniqueKey);
