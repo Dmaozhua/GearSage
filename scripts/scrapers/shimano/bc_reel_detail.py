@@ -70,11 +70,6 @@ def scrape_shimano_bc_reels():
                         # Handle different spool dimension namings
                         spool_dim = raw_specs.get('线杯径（mm）/幅（mm）', '') or raw_specs.get('线杯径（mm）/一转（mm）', '')
                         
-                        # Handle capacity differences
-                        nylon_cap = raw_specs.get('尼龙线容线量（lb-m）', '') or raw_specs.get('尼龙线容线量（号-m）', '')
-                        fc_cap = raw_specs.get('氟碳线容线量（lb-m）', '')
-                        pe_cap = raw_specs.get('PE线容线量（号-m）', '')
-                        
                         variant_data = {
                             "variant_name": f"{title} {variant_name}" if variant_name else title,
                             "specs": {
@@ -82,9 +77,11 @@ def scrape_shimano_bc_reels():
                                 "max_drag_kg": raw_specs.get('最大卸力（kg）', ''),
                                 "weight_g": raw_specs.get('重量（g）', ''),
                                 "spool_diameter_stroke_mm": spool_dim,
-                                "nylon_capacity": nylon_cap,
-                                "fc_capacity": fc_cap,
-                                "pe_capacity": pe_cap,
+                                "nylon_no_m": raw_specs.get('尼龙线容线量（号-m）', ''),
+                                "nylon_lb_m": raw_specs.get('尼龙线容线量（lb-m）', '') or raw_specs.get('尼龙线容线量（磅-m）', ''),
+                                "fluoro_no_m": raw_specs.get('氟碳线容线量（号-m）', ''),
+                                "fluoro_lb_m": raw_specs.get('氟碳线容线量（lb-m）', '') or raw_specs.get('氟碳线容线量（磅-m）', ''),
+                                "pe_no_m": raw_specs.get('PE线容线量（号-m）', ''),
                                 "cm_per_turn": raw_specs.get('最大收线长（cm/手把转一圈）', ''),
                                 "handle_length_mm": raw_specs.get('手把长度（mm）', ''),
                                 "bearings": raw_specs.get('培林数/罗拉', ''),
