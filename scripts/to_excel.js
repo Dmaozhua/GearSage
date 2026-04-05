@@ -239,6 +239,7 @@ function main() {
                 'GEAR RATIO': v.specs ? (v.specs.gear_ratio || '') : '',
                 DRAG: '', // 留空
                 'MAX DRAG': v.specs ? (v.specs.max_drag_kg || '') : '',
+                'MAX DURABILITY': v.specs ? (v.specs.max_durability_kg || '') : '',
                 WEIGHT: v.specs ? (v.specs.weight_g || '') : '',
                 spool_diameter_per_turn_mm: '', // 留空
                 Nylon_no_m: '', // 留空

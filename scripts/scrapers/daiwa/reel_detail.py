@@ -111,31 +111,22 @@ def parse_detail_page(fetcher, item):
     if not main_image_url and len(images) > 0:
         main_image_url = images[0]
 
-    # If we found a main image, download it
+    # If we found a main image, construct path but skip download as requested
     if main_image_url:
         try:
-            print(f"[*] Downloading main image: {main_image_url}")
-            response = requests.get(main_image_url, stream=True, timeout=10)
-            if response.status_code == 200:
-                # Clean up filename (e.g. use model name)
-                safe_model_name = re.sub(r'[^\w\-]', '_', model)
-                ext = ".jpg" # Default extension
-                if ".png" in main_image_url.lower(): ext = ".png"
-                elif ".webp" in main_image_url.lower(): ext = ".webp"
-                
-                filename = f"{safe_model_name}_main{ext}"
-                filepath = os.path.join(image_dir, filename)
-                
-                with open(filepath, 'wb') as f:
-                    for chunk in response.iter_content(1024):
-                        f.write(chunk)
-                
-                # Store relative path (e.g. "images/daiwa_reels/...") based on the new structure
-                # This aligns with the previous convention where images start with "images/..."
-                local_image_path = f"images/daiwa_reels/{filename}"
-                print(f"[*] Saved main image to {filepath}")
+            safe_model_name = re.sub(r'[^\w\-]', '_', model)
+            ext = ".jpg" # Default extension
+            if ".png" in main_image_url.lower(): ext = ".png"
+            elif ".webp" in main_image_url.lower(): ext = ".webp"
+            
+            filename = f"{safe_model_name}_main{ext}"
+            filepath = os.path.join(image_dir, filename)
+            
+            # Store relative path
+            local_image_path = f"images/daiwa_reels/{filename}"
+            print(f"[*] Skipped download, set image path to {local_image_path}")
         except Exception as e:
-            print(f"[!] Failed to download main image: {e}")
+            print(f"[!] Failed to process main image path: {e}")
             
     # Include other banners/images
     for img in raw_images:
@@ -227,7 +218,8 @@ def parse_detail_page(fetcher, item):
             gear_ratio = safe_get(row_data, ["ギア比", "巻き取り長さ（cm/ハンドル1回転）", "巻き取り長さ(cm/ハンドル1回転)", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"]) # Often the first col or ratio col
             if "ギア比" in row_data:
                 gear_ratio = row_data["ギア比"]
-            max_drag = safe_get(row_data, ["最大ドラグ力（kg）", "最大ドラグ力(kg)"])
+            max_drag = safe_get(row_data, ["最大ドラグ力（kg）", "最大ドラグ力(kg)", "ドラグ力（kg）", "ドラグ力(kg)"])
+            max_durability = safe_get(row_data, ["実用耐力（kg）", "実用耐力(kg)", "最大耐久力（kg）", "最大耐久力(kg)"])
             pe_capacity = safe_get(row_data, ["標準巻糸量PE（号ｰm）", "標準糸巻量PE（号-m）", "標準糸巻量 PE（号-m）", "標準糸巻量PE(号-m)"])
             nylon_capacity = safe_get(row_data, ["標準巻糸量ナイロン（lb-m）", "標準糸巻量ナイロン（lb-m）", "標準糸巻量ナイロン(lb-m)", "標準巻糸量ナイロン(lb-m)"])
             cm_per_turn = safe_get(row_data, ["巻き取り長さ（cm/ハンドル1回転）", "巻き取り長さ(cm/ハンドル1回転)", "巻取り長さ（cm/ハンドル1回転）", "巻取り長さ(cm/ハンドル1回転)"])
@@ -256,6 +248,7 @@ def parse_detail_page(fetcher, item):
                     "gear_ratio": gear_ratio,
                     "weight_g": weight_val,
                     "max_drag_kg": max_drag,
+                    "max_durability_kg": max_durability,
                     "drag_click": "有" if kind == "spinning" or any("ドラグ" in p and "クリック" in p for p in main_selling_points) else "", 
                     "line_capacity_pe": pe_capacity,
                     "line_capacity_nylon": nylon_capacity,

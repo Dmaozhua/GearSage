@@ -8,7 +8,7 @@ from curl_cffi import requests
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 DATA_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
-TEST_OUTPUT = os.path.join(DATA_DIR, "shimano_spinning_reel_test.json")
+OUTPUT_FILE = os.path.join(DATA_DIR, "shimano_spinning_reel_normalized.json")
 
 def scrape_shimano_spinning_reels():
     # 1. First get the list of URLs
@@ -39,9 +39,8 @@ def scrape_shimano_spinning_reels():
             json.dump(detail_urls, f, indent=2)
         print(f"Saved URLs to {urls_file}")
     
-    # We'll just do a minimal scrape (e.g. first 5) as requested
-    limit = 5
-    test_urls = detail_urls[:limit]
+    # Scrape all detail URLs
+    test_urls = detail_urls
     
     results = []
     for url in test_urls:
@@ -82,8 +81,12 @@ def scrape_shimano_spinning_reels():
                 for row in rows[1:]:
                     cells = [td.get_text(strip=True) for td in row.find_all(['td', 'th'])]
                     if len(cells) == len(headers):
-                        raw_specs = dict(zip(headers, cells))
-                        
+                        raw_specs = {}
+                        for h, c in zip(headers, cells):
+                            # Normalize brackets for easier matching
+                            norm_h = h.replace('（', '(').replace('）', ')').replace(' ', '').lower()
+                            raw_specs[norm_h] = c
+                            
                         # Extract standard fields
                         variant_name = raw_specs.get('型号', '')
                         
@@ -91,21 +94,22 @@ def scrape_shimano_spinning_reels():
                             "variant_name": f"{title} {variant_name}" if variant_name else title,
                             "specs": {
                                 "gear_ratio": raw_specs.get('齿轮比', ''),
-                                "max_drag_kg": raw_specs.get('最大卸力（kg）', ''),
-                                "weight_g": raw_specs.get('重量（g）', ''),
-                                "spool_diameter_stroke_mm": raw_specs.get('线杯径（mm）/一转（mm）', ''),
-                                "nylon_no_m": raw_specs.get('尼龙线容线量（号-m）', ''),
-                                "nylon_lb_m": raw_specs.get('尼龙线容线量（lb-m）', '') or raw_specs.get('尼龙线容线量（磅-m）', ''),
-                                "fluoro_no_m": raw_specs.get('氟碳线容线量（号-m）', ''),
-                                "fluoro_lb_m": raw_specs.get('氟碳线容线量（lb-m）', '') or raw_specs.get('氟碳线容线量（磅-m）', ''),
-                                "pe_no_m": raw_specs.get('PE线容线量（号-m）', ''),
-                                "cm_per_turn": raw_specs.get('最大收线长（cm/手把转一圈）', ''),
-                                "handle_length_mm": raw_specs.get('手把长度（mm）', ''),
+                                "max_drag_kg": raw_specs.get('最大卸力(kg)', ''),
+                                "max_durability_kg": raw_specs.get('最大耐久力(kg)', ''),
+                                "weight_g": raw_specs.get('重量(g)', ''),
+                                "spool_diameter_stroke_mm": raw_specs.get('线杯径(mm)/一转(mm)', ''),
+                                "nylon_no_m": raw_specs.get('尼龙线容线量(号-m)', ''),
+                                "nylon_lb_m": raw_specs.get('尼龙线容线量(lb-m)', '') or raw_specs.get('尼龙线容线量(磅-m)', ''),
+                                "fluoro_no_m": raw_specs.get('氟碳线容线量(号-m)', ''),
+                                "fluoro_lb_m": raw_specs.get('氟碳线容线量(lb-m)', '') or raw_specs.get('氟碳线容线量(磅-m)', ''),
+                                "pe_no_m": raw_specs.get('pe线容线量(号-m)', ''),
+                                "cm_per_turn": raw_specs.get('最大收线长(cm/手把转一圈)', ''),
+                                "handle_length_mm": raw_specs.get('手把长度(mm)', ''),
                                 "bearings": raw_specs.get('培林数/罗拉', ''),
                                 "price": raw_specs.get('市场参考价', ''),
                                 "product_code": raw_specs.get('商品编码', '')
                             },
-                            "raw_specs": raw_specs
+                            "raw_specs": dict(zip(headers, cells))
                         }
                         variants.append(variant_data)
             
@@ -126,10 +130,10 @@ def scrape_shimano_spinning_reels():
             
     # Save test output
     os.makedirs(DATA_DIR, exist_ok=True)
-    with open(TEST_OUTPUT, "w", encoding="utf-8") as f:
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
         
-    print(f"\nDone! Minimal scrape saved to {TEST_OUTPUT}")
+    print(f"\nDone! Scraped {len(results)} reels. Saved to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     scrape_shimano_spinning_reels()

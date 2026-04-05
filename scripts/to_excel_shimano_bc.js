@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_test.json');
+const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
 
 function main() {
@@ -73,6 +73,7 @@ function main() {
                     "GEAR RATIO": specs.gear_ratio || '',
                     "DRAG": '', // Shimano usually just has max drag
                     "MAX DRAG": specs.max_drag_kg || '',
+                    "MAX DURABILITY": specs.max_durability_kg || '',
                     "WEIGHT": specs.weight_g || '',
                     "spool_diameter_per_turn_mm": specs.spool_diameter_stroke_mm || '',
                     "Nylon_no_m": specs.nylon_no_m || '',
