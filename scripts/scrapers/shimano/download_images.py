@@ -11,13 +11,18 @@ DATA_DIR = os.path.join(BASE_DIR, "GearSage-client", "pkgGear", "data_raw")
 # Target image directories as requested by user
 ROD_IMAGE_DIR = "/Users/tommy/GearSage/temp_images/shimano_rods"
 REEL_IMAGE_DIR = "/Users/tommy/GearSage/temp_images/shimano_reels"
+LINE_IMAGE_DIR = "/Users/tommy/GearSage/temp_images/shimano_lines"
+LURE_IMAGE_DIR = "/Users/tommy/GearSage/temp_images/shimano_lures"
 
-# Final destinations for reference
 FINAL_ROD_DIR = "/Users/tommy/Pictures/images/shimano_rods"
 FINAL_REEL_DIR = "/Users/tommy/Pictures/images/shimano_reels"
+FINAL_LINE_DIR = "/Users/tommy/Pictures/images/shimano_lines"
+FINAL_LURE_DIR = "/Users/tommy/Pictures/images/shimano_lures"
 
 os.makedirs(ROD_IMAGE_DIR, exist_ok=True)
 os.makedirs(REEL_IMAGE_DIR, exist_ok=True)
+os.makedirs(LINE_IMAGE_DIR, exist_ok=True)
+os.makedirs(LURE_IMAGE_DIR, exist_ok=True)
 
 def sanitize_filename(name):
     # Replace invalid filename characters with underscore
@@ -49,7 +54,7 @@ def download_image(url, save_path, final_path):
         print(f"Error downloading {url}: {e}")
         return False
 
-def process_file(json_filename, is_rod=False):
+def process_file(json_filename, kind="rod"):
     json_path = os.path.join(DATA_DIR, json_filename)
     if not os.path.exists(json_path):
         print(f"File not found: {json_path}")
@@ -76,20 +81,29 @@ def process_file(json_filename, is_rod=False):
             
         filename = f"{safe_name}_main{ext}"
         
-        if is_rod:
+        if kind == "rod":
             abs_save_path = os.path.join(ROD_IMAGE_DIR, filename)
             final_path = os.path.join(FINAL_ROD_DIR, filename)
             rel_save_path = f"images/shimano_rods/{filename}"
-        else:
+        elif kind == "reel":
             abs_save_path = os.path.join(REEL_IMAGE_DIR, filename)
             final_path = os.path.join(FINAL_REEL_DIR, filename)
             rel_save_path = f"images/shimano_reels/{filename}"
+        elif kind == "line":
+            abs_save_path = os.path.join(LINE_IMAGE_DIR, filename)
+            final_path = os.path.join(FINAL_LINE_DIR, filename)
+            rel_save_path = f"images/shimano_lines/{filename}"
+        elif kind == "lure":
+            abs_save_path = os.path.join(LURE_IMAGE_DIR, filename)
+            final_path = os.path.join(FINAL_LURE_DIR, filename)
+            rel_save_path = f"images/shimano_lures/{filename}"
+        else:
+            continue
             
         success = download_image(main_img_url, abs_save_path, final_path)
         if success:
-            if item.get("local_image_path") != rel_save_path:
-                item["local_image_path"] = rel_save_path
-                updated = True
+            item["local_image_path"] = rel_save_path
+            updated = True
                 
     if updated:
         print(f"Saving updated {json_filename}...")
@@ -97,7 +111,9 @@ def process_file(json_filename, is_rod=False):
             json.dump(data, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
-    process_file("shimano_rod_normalized.json", is_rod=True)
-    process_file("shimano_spinning_reel_normalized.json", is_rod=False)
-    process_file("shimano_baitcasting_reel_normalized.json", is_rod=False)
+    # process_file("shimano_rod_normalized.json", kind="rod")
+    # process_file("shimano_spinning_reel_normalized.json", kind="reel")
+    # process_file("shimano_baitcasting_reel_normalized.json", kind="reel")
+    # process_file("shimano_line_normalized.json", kind="line")
+    process_file("shimano_lure_normalized.json", kind="lure")
     print("Done!")
