@@ -16,12 +16,25 @@ def scrape_shimano_rods():
         detail_urls = json.load(f)
     print(f"Loaded {len(detail_urls)} URLs from {urls_file}")
     
+    # Load existing to skip
+    existing_urls = set()
+    if os.path.exists(OUTPUT_FILE):
+        with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
+            existing_data = json.load(f)
+            for item in existing_data:
+                existing_urls.add(item.get("url"))
+            results = existing_data
+    else:
+        results = []
+
     # We will process all detail URLs
     test_urls = detail_urls
 
     
-    results = []
     for url in test_urls:
+        if url in existing_urls:
+            continue
+            
         print(f"\nScraping detail: {url}")
         try:
             r = requests.get(url, impersonate="chrome")
@@ -78,7 +91,7 @@ def scrape_shimano_rods():
                                 "weight_g": raw_specs.get('重量(g)', ''),
                                 "tip_diameter_mm": raw_specs.get('先径(mm)', ''),
                                 "lure_weight_g": raw_specs.get('适合假饵重(g)', '') or raw_specs.get('适合路亚重量(g)', ''),
-                                "jig_weight_g": raw_specs.get('适合铁板(g)', ''),
+                                "jig_weight_g": raw_specs.get('适合铁板(g)', '') or raw_specs.get('适合铁板重(g)', ''),
                                 "squid_jig_no": raw_specs.get('适合木虾(号)', ''),
                                 "nylon_fluoro_lb": raw_specs.get('适合尼龙线(lb)', '') or raw_specs.get('适合尼龙・氟碳线(lb)', ''),
                                 "pe_no": raw_specs.get('适合pe线(号)', ''),

@@ -47,7 +47,7 @@ function main() {
             alias: '',
             type_tips: '',
             type: item.kind,
-            images: item.main_image_url || '', 
+            images: item.local_image_path || item.main_image_url || '', 
             created_at: currentTime,
             updated_at: currentTime,
             series_positioning: '',

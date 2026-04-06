@@ -46,7 +46,7 @@ for (const item of data) {
         'model_year': modelYear,
         'alias': '',
         'type_tips': 'BASS',
-        'images': item.main_image_url || '',
+        'images': item.local_image_path || item.main_image_url || '',
         'created_at': '',
         'updated_at': ''
     });
