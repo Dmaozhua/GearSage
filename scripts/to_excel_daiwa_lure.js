@@ -78,6 +78,16 @@ function classifyLure(modelName, buoyancy) {
         }
         action = 'flutter_fall';
         waterColumn = 'Bottom';
+    } else if (nameLower.includes('ワーム') || nameLower.includes('worm') || nameLower.includes('ホグ') || nameLower.includes('hog') || nameLower.includes('シュリンプ') || nameLower.includes('shrimp') || nameLower.includes('バグ') || nameLower.includes('bug') || nameLower.includes('カーリー') || nameLower.includes('curly') || nameLower.includes('シャッドテール') || nameLower.includes('shad') || nameLower.includes('グラブ') || nameLower.includes('grub') || nameLower.includes('ツインテール') || nameLower.includes('twin_tail') || nameLower.includes('ストレート') || nameLower.includes('straight') || nameLower.includes('スティック') || nameLower.includes('stick') || nameLower.includes('ソフト') || nameLower.includes('soft')) {
+        typeTips = 'worm';
+        if (nameLower.includes('ホグ') || nameLower.includes('hog') || nameLower.includes('シュリンプ') || nameLower.includes('shrimp') || nameLower.includes('バグ') || nameLower.includes('bug')) {
+            typeTips = 'creature_bug';
+        } else if (nameLower.includes('シャッド') || nameLower.includes('shad')) {
+            typeTips = 'swimbait';
+        }
+        system = 'soft';
+        action = 'variable';
+        waterColumn = 'Variable';
     } else if (nameLower.includes('フラッター') || nameLower.includes('flutter') || nameLower.includes('ふく魚')) {
         typeTips = 'topwater_walker';
         system = 'hardbait';
@@ -153,10 +163,19 @@ function generateDaiwaLureExcel() {
             const currentDetailId = `DLD${detailIdCounter++}`;
             const specs = v.specs;
             
+            // If size is missing but variant name looks like a size (e.g. "2.3", "3.3"), use it
+            let sizeVal = specs.length || '';
+            if (!sizeVal && system === 'soft' && v.variant_name) {
+                // simple check: if variant name has digits, maybe it's the size
+                if (/\d/.test(v.variant_name) && !v.variant_name.includes('g') && !v.variant_name.includes('oz')) {
+                    sizeVal = v.variant_name;
+                }
+            }
+
             const detailRow = {
                 'id': currentDetailId,
                 'lure_id': currentLureId,
-                'size': specs.length || '',
+                'size': sizeVal,
                 'weight': specs.weight || '',
                 'hook_size': '', // Hook size was not extracted to specs yet, but we could add it. Left blank for now
                 'color_name': specs.color || '',
@@ -167,6 +186,10 @@ function generateDaiwaLureExcel() {
                 'updated_at': '',
                 'buoyancy': specs.buoyancy || '' // Additional field appended at the end
             };
+
+            if (system === 'soft') {
+                detailRow['quantity (入数)'] = specs.quantity || ''; // Added quantity column for soft lures
+            }
 
             if (system === 'metal') {
                 metalDetailRows.push(detailRow);

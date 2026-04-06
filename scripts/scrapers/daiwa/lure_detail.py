@@ -51,7 +51,7 @@ def process_url(i, url, total):
         spec_table = None
         for t in tables:
             headers = [th.get_text(strip=True) for th in t.select("th")]
-            if any("自重" in h or "サイズ" in h or "フック" in h for h in headers):
+            if any("自重" in h or "サイズ" in h or "フック" in h or "入数" in h for h in headers):
                 spec_table = t
                 break
                 
@@ -77,10 +77,11 @@ def process_url(i, url, total):
                 
                 variant_name = item_name
                 weight = specs.get('標準自重（g）', '') or specs.get('自重（g）', '')
-                length = specs.get('サイズ（mm）', '') or specs.get('サイズ(mm)', '')
+                length = specs.get('サイズ（mm）', '') or specs.get('サイズ(mm)', '') or specs.get('サイズ（inch）', '') or specs.get('サイズ(inch)', '') or specs.get('サイズ', '')
                 buoyancy = specs.get('タイプ', '')
                 price = specs.get('メーカー希望本体価格（円）', '') or specs.get('価格（円）', '')
                 jan = specs.get('JAN', '') or specs.get('JANコード', '')
+                quantity = specs.get('入数', '') or specs.get('入数（本）', '') or specs.get('入数(本)', '')
                 
                 variants.append({
                     "variant_name": variant_name,
@@ -91,7 +92,8 @@ def process_url(i, url, total):
                         "length": length,
                         "weight": weight,
                         "price": price,
-                        "product_code": jan
+                        "product_code": jan,
+                        "quantity": quantity
                     }
                 })
         
