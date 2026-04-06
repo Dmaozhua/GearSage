@@ -3,6 +3,7 @@
 **版本**: 2.0
 **日期**: 2026-03-28
 **变更日志**:
+*   **v2.1**: 完善了假饵（Lure）品类的采集与导出链路。针对 Daiwa 假饵增加了自动分页与多线程（`ThreadPoolExecutor`）并发抓取及图片下载；在 Node.js 导出端引入 `classifyLure` 分类逻辑，实现假饵字段（`type_tips`, `system`, `water_column`, `action`）的自动化枚举填充，并支持按类型（hardbait, metal, soft, wire, jig）自动拆分多 Sheet 导出。该逻辑已同步应用至 Shimano 假饵导出。
 *   **v2.0**: 彻底重构SOP，引入标准的Scrapling MCP (Micro-Crawling Platform) 工作流。流程从“本地脚本”升级为“客户端-服务器”模式。明确了安装步骤、工具分层、中间数据范式和采集策略，为工业化数据采集奠定基础。
 *   **v1.1**: 引入 `Scrapling` 库和本地化脚本执行方案，将数据采集阶段从“手动复制”升级为“半自动化执行”，大幅提升效率和准确性。确立了 Python 虚拟环境的最佳实践。
 
@@ -157,4 +158,5 @@
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 1: MCP服务与采集配置 | ✅ 完成 | 修复了入口URL，编写了 `reel.py` 和 Node 编排器，成功提取 51 个详情页URL。 |
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 2: 详情页抓取与标准化 | ✅ 完成 | 编写了 `reel_detail.py`，成功抓取商品标题、高清图片和规格参数表格，输出 `normalized.json` 范式数据。 |
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 3: 预检查与数据转换 | ✅ 完成 | 编写了 `pre_check.js` 进行数据校验，并用 `to_excel.js` 将标准化JSON转换为便于人工复核的 Excel 文件 `daiwa_reels_import.xlsx`。 |
+| 2026-04-06 | Daiwa & Shimano 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 为 Daiwa 增加自动分页与并发下载（多线程），大幅提升爬取速度；在 Node.js 中实现 `classifyLure` 逻辑自动判断水层、类型及动作并多表导出。Shimano 假饵同步应用此分类分表导出逻辑。 |
 

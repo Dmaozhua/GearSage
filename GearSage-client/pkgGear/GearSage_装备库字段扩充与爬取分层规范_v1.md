@@ -881,3 +881,17 @@ n
   - `brake_type_normalized`（刹车类型归一化）：在 Excel 脚本中新增。基于该产品类别（`kind === 'spinning'`），将纺车轮的刹车类型默认赋值为空（不填写“无”）。水滴轮后续逻辑兼容留空。
   - `gear_ratio_normalized`（速比归一化）：将代码和表头中的“齿比”字样统一替换为更标准的“速比”（如“高速比”、“低速比”、“超高速比”等）。
 - **状态**：测试模式运行成功，相关逻辑已生效。
+
+### 2026-04-06：假饵 (Lure) 品类全量采集、自动分类与多表导出链路优化
+- **现象与需求**：前期针对假饵数据的采集缺乏自动分页支持且速度较慢；同时 Excel 导出端未充分利用原数据对假饵类型（如 Crank, Minnow, Spoon）进行智能推导，导致重要枚举字段缺失。
+- **第一层优化 (Python 采集端)**：
+  - **自动分页突破**：移除了 Daiwa 假饵采集列表中的 `[:10]` 限制，在 `save_lure_urls.py` 中引入 `while True` 自动分页提取逻辑，成功获取 122 个有效产品 URL。
+  - **多线程提速**：在 `lure_detail.py` 与 `download_images.py` 中引入 `concurrent.futures.ThreadPoolExecutor` (max_workers=5) 并发处理详情页抓取与图片下载，彻底解决单线程阻塞导致的全量爬取耗时问题。
+- **第三层优化 (Node.js 导出与归一化端)**：
+  - **智能分类逻辑 (`classifyLure`)**：在 Excel 转换脚本中实现了基于产品名称及官方浮力描述关键字（如 `クランク`, `ミノー`, `スプーン`, `フローティング` 等）推演 GearSage 标准枚举字段的能力，包括：
+    - `type_tips`（例如：crank, minnow, spoon 等）
+    - `system`（例如：hardbait, metal, soft, wire, jig）
+    - `water_column`（例如：Subsurface, Mid, Deep, Topwater 等）
+    - `action`（例如：wobble_roll, jerk_dart, walk_pop 等）
+  - **多详情表动态拆分**：摒弃单一 `lure_detail` 结构，将解析出的变体根据 `system` 枚举值精准分发至 `hardbait_lure_detail`, `metal_lure_detail`, `soft_lure_detail`, `wire_lure_detail`, `jig_lure_detail` 五个独立表格中，保持与 PostgreSQL 表结构强对齐。
+- **状态**：该分类与分表逻辑已成功在 Daiwa (122 个 URL) 数据的全量导出中跑通，并同步复用于此前已抓取的 Shimano (65 个 URL) 数据中。两次导出均已生成最新的 `_import.xlsx` 文件。
