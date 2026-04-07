@@ -48,8 +48,12 @@ def scrape_shimano_rods():
             title_el = page_soup.find('h1')
             title = title_el.get_text(strip=True) if title_el else "Unknown Model"
             
-            desc_el = page_soup.select_one('.cmp-text')
-            desc = desc_el.get_text(strip=True) if desc_el else ""
+            desc_el = page_soup.select_one('.product__description_section')
+            if desc_el:
+                desc = desc_el.get_text(separator='\n', strip=True)
+                desc = desc.replace('阅读更多', '').replace('减少显示', '').strip()
+            else:
+                desc = ""
             
             main_img = None
             for img in page_soup.find_all('img'):

@@ -41,6 +41,7 @@ for (const item of data) {
         'alias': '',
         'type_tips': 'ROD',
         'images': item.local_image_path || item.main_image_url || '',
+        'Description': item.series_description || item.description || '',
         'created_at': '',
         'updated_at': ''
     });
@@ -117,6 +118,7 @@ for (const item of data) {
             'Fly Line': raw['フライライン(No#=#)'] || '',
             'Grip Type': raw['グリップタイプ'] || '',
             'Reel Size': raw['リールサイズ'] || '',
+            'Description': v.variant_description || raw['説明'] || '',
             'created_at': '',
             'updated_at': ''
         };
