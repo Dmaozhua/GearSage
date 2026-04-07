@@ -61,12 +61,27 @@ for (const item of data) {
             rodType = 'C';
         }
         
+        let parsedPower = '';
+        // Convert to half-width for power regex
+        let cleanCode = v.variant_name.toUpperCase();
+        cleanCode = cleanCode.replace(/[\uff01-\uff5e]/g, function(ch) {
+            return String.fromCharCode(ch.charCodeAt(0) - 0xfee0);
+        }).replace(/\u3000/g, ' ');
+        
+        const powerBase = "(?:X{1,3}UL|S{1,2}UL|X{1,3}H|ML|MH|UL|M|H|L)";
+        const powerRegex = new RegExp(`\\d{2,4}((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
+        const pMatch = cleanCode.match(powerRegex);
+        if (pMatch) {
+            parsedPower = pMatch[1];
+        }
+        
         detailRows.push({
             'id': detailIdCounter++,
             'rod_id': currentRodId,
             'TYPE': rodType, // S for Spinning, C for Casting
             'SKU': v.variant_name,
             'TOTAL LENGTH': specs.total_length_m || '',
+            'POWER': parsedPower,
             'Action': specs.action || '',
             'PIECES': specs.pieces || '',
             'CLOSELENGTH': specs.close_length_cm || '',

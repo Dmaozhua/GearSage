@@ -55,29 +55,35 @@ for (const item of data) {
         }).replace(/\u3000/g, ' ');
         
         let rodType = '';
-        const modelName = item.model_name;
-        if (modelName.includes('月下美人')) {
-            // 月下美人系列中，枪柄通常带有 B，且 B 通常在连字符前面（如 63XULB-T・W）或结尾
-            rodType = (code.includes('B-') || code.endsWith('B') || code.includes('B・')) ? 'C' : 'S';
+        
+        // 规则 1：尝试匹配长度数字前面的 C 或 S (例如 C610M -> C，SC C66M -> C)
+        const typeMatch = code.match(/(?:^|[^A-Z])([CS])\d{2,4}/);
+        
+        if (typeMatch) {
+            rodType = typeMatch[1];
         } else {
-            const typeMatch = code.match(/^[A-Z]*([CS])\d/);
-            if (typeMatch) {
-                rodType = typeMatch[1];
+            // 规则 2：根据特殊字符/后缀判断兜底匹配，如果没有匹配到枪柄标识，则默认为直柄 S
+            if (code.endsWith('B') || code.includes('B-') || code.includes('B・') || code.includes('BAIT')) {
+                rodType = 'C';
             } else {
-                if (code.endsWith('B') || code.includes('BAIT') || code.startsWith('C')) {
-                    rodType = 'C';
-                } else if (code.endsWith('S') || code.includes('SPIN') || code.startsWith('S')) {
-                    rodType = 'S';
-                }
+                rodType = 'S';
             }
         }
 
         let parsedPower = '';
-        const powerBase = "X{0,3}U{0,2}L|ML|M|MH|X{0,3}H";
-        const powerRegex = new RegExp(`\\d{2,3}((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
-        const pMatch = code.match(powerRegex);
-        if (pMatch) {
-            parsedPower = pMatch[1];
+        const powerBase = "(?:X{1,3}UL|S{1,2}UL|X{1,3}H|ML|MH|UL|M|H|L)";
+        // 匹配长度在前的模式，例如: 1711MH+, 259SUL-S, 63XULB
+        const powerRegexAfter = new RegExp(`\\d{2,4}((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
+        // 匹配长度在后的模式，例如: H85, XH90, M/MH-240
+        const powerRegexBefore = new RegExp(`(?:^|\\s|\\b)((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)\\s*-?\\s*\\d{2,4}`);
+        
+        const pMatchAfter = code.match(powerRegexAfter);
+        const pMatchBefore = code.match(powerRegexBefore);
+        
+        if (pMatchAfter) {
+            parsedPower = pMatchAfter[1];
+        } else if (pMatchBefore) {
+            parsedPower = pMatchBefore[1];
         }
         
         const row = {
@@ -87,35 +93,43 @@ for (const item of data) {
             'SKU': v.variant_name,
             'TOTAL LENGTH': raw['全長（m）'] || raw['全長（m）/（ft.）'] || raw['全長(m)'] || '',
             'POWER': parsedPower,
-            'Action': raw['調子'] || '',
+            'Action': raw['テーパー'] || raw['調子'] || '',
             'PIECES': raw['継数'] || raw['継数（本）'] || raw['継数(本)'] || '',
             'CLOSELENGTH': raw['仕舞寸法（cm）'] || raw['仕舞（cm）'] || raw['仕舞(cm)'] || '',
             'WEIGHT': raw['標準自重（ｇ）'] || raw['自重（g）'] || raw['自重(g)'] || '',
             'Tip Diameter': raw['先径/元径（mm）'] || raw['先径/元径(mm)'] || raw['先径（mm）'] || '',
             'LURE WEIGHT': raw['ルアー重量（ｇ）'] || raw['ルアー重量（g）'] || raw['ルアー重量(g)'] || '',
+            'LURE WEIGHT (oz)': raw['ルアー重量（oz）'] || '',
             'Line Wt N F': raw['適合ライン ナイロン （lb.）'] || raw['適合ライン（lb.）'] || raw['適合ライン(lb.)'] || '',
             'PE Line Size': raw['適合ライン PE（号）'] || raw['適合ラインPE（号）'] || raw['適合ラインPE(号)'] || '',
             'Handle Length': '',
             'Reel Seat Position': '',
             'CONTENT CARBON': raw['カーボン含有率（％）'] || raw['カーボン含有率(%)'] || '',
             'Market Reference Price': raw['メーカー希望本体価格（円）'] || raw['価格（円）'] || '',
+            'Sale Price': raw['販売価格（円）'] || '',
             'AdminCode': raw['JAN'] || raw['JANコード'] || '',
             'Service Card': '',
-            ' Jig Weight': raw['ジグ重量（g）'] || raw['ジグ重量(g)'] || '',
-            'Squid Jig Size': raw['エギサイズ（号）'] || raw['エギサイズ(号)'] || '',
+            ' Jig Weight': raw['ルアー重量（ｇ）（ジグ）'] || raw['ジグ重量（g）'] || raw['ジグ重量(g)'] || '',
+            'Squid Jig Size': raw['対応エギサイズ'] || raw['エギサイズ（号）'] || raw['エギサイズ(号)'] || '',
             'Sinker Rating': raw['錘負荷（号）'] || raw['錘負荷(号)'] || '',
+            'Joint Type': raw['ジョイント仕様'] || '',
+            'Code Name': raw['コードネーム'] || '',
+            'Fly Line': raw['フライライン(No#=#)'] || '',
+            'Grip Type': raw['グリップタイプ'] || '',
+            'Reel Size': raw['リールサイズ'] || '',
             'created_at': '',
             'updated_at': ''
         };
 
         // Add any remaining keys from raw_specs that we haven't explicitly mapped
         const mappedKeys = [
-            'アイテム', '説明', '全長（m）', '全長（m）/（ft.）', '全長(m)', '調子', '継数', '継数（本）', '継数(本)',
+            'アイテム', '説明', '全長（m）', '全長（m）/（ft.）', '全長(m)', 'テーパー', '調子', '継数', '継数（本）', '継数(本)',
             '仕舞寸法（cm）', '仕舞（cm）', '仕舞(cm)', '標準自重（ｇ）', '自重（g）', '自重(g)',
-            '先径/元径（mm）', '先径/元径(mm)', '先径（mm）', 'ルアー重量（ｇ）', 'ルアー重量（g）', 'ルアー重量(g)',
+            '先径/元径（mm）', '先径/元径(mm)', '先径（mm）', 'ルアー重量（ｇ）', 'ルアー重量（g）', 'ルアー重量(g)', 'ルアー重量（oz）',
             '適合ライン ナイロン （lb.）', '適合ライン（lb.）', '適合ライン(lb.)', '適合ライン PE（号）', '適合ラインPE（号）', '適合ラインPE(号)',
-            'カーボン含有率（％）', 'カーボン含有率(%)', 'メーカー希望本体価格（円）', '価格（円）', 'JAN', 'JANコード',
-            'ジグ重量（g）', 'ジグ重量(g)', 'エギサイズ（号）', 'エギサイズ(号)', '錘負荷（号）', '錘負荷(号)'
+            'カーボン含有率（％）', 'カーボン含有率(%)', 'メーカー希望本体価格（円）', '価格（円）', '販売価格（円）', 'JAN', 'JANコード',
+            'ルアー重量（ｇ）（ジグ）', 'ジグ重量（g）', 'ジグ重量(g)', '対応エギサイズ', 'エギサイズ（号）', 'エギサイズ(号)', '錘負荷（号）', '錘負荷(号)',
+            'ジョイント仕様', 'コードネーム', 'フライライン(No#=#)', 'グリップタイプ', 'リールサイズ'
         ];
 
         for (const [key, value] of Object.entries(raw)) {
