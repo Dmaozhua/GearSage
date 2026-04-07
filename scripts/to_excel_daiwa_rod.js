@@ -72,10 +72,10 @@ for (const item of data) {
 
         let parsedPower = '';
         const powerBase = "(?:X{1,3}UL|S{1,2}UL|X{1,3}H|ML|MH|UL|M|H|L)";
-        // 匹配长度在前的模式，例如: 1711MH+, 259SUL-S, 63XULB
-        const powerRegexAfter = new RegExp(`\\d{2,4}((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
-        // 匹配长度在后的模式，例如: H85, XH90, M/MH-240
-        const powerRegexBefore = new RegExp(`(?:^|\\s|\\b)((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)\\s*-?\\s*\\d{2,4}`);
+        // Match power after digits, optionally preceded by 'T' (e.g., TMHB, TMLRB)
+        const powerRegexAfter = new RegExp(`\\d{2,4}T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
+        // Match power before digits
+        const powerRegexBefore = new RegExp(`(?:^|\\s|\\b)T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)\\s*-?\\s*\\d{2,4}`);
         
         const pMatchAfter = code.match(powerRegexAfter);
         const pMatchBefore = code.match(powerRegexBefore);
