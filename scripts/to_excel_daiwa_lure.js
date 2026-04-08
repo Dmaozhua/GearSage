@@ -175,15 +175,18 @@ function generateDaiwaLureExcel() {
             const detailRow = {
                 'id': currentDetailId,
                 'lure_id': currentLureId,
-                'size': sizeVal,
-                'weight': specs.weight || '',
-                'hook_size': '', // Hook size was not extracted to specs yet, but we could add it. Left blank for now
-                'color_name': specs.color || '',
-                'color_code': '',
-                'product_code': specs.product_code || '',
-                'price': specs.price || '',
+                'SKU': v.variant_name || specs.color || '',
+                'WEIGHT': specs.weight || '',
+                'length': sizeVal || '',
+                'size': '',
+                'sinkingspeed': specs.buoyancy || '',
+                'referenceprice': specs.price || '',
                 'created_at': '',
                 'updated_at': '',
+                'COLOR': specs.color || '',
+                'AdminCode': specs.product_code || '',
+                'hook_size': '', // Hook size was not extracted to specs yet, but we could add it. Left blank for now
+                'color_code': '',
                 'buoyancy': specs.buoyancy || '' // Additional field appended at the end
             };
 
@@ -209,31 +212,31 @@ function generateDaiwaLureExcel() {
     const wb = xlsx.utils.book_new();
 
     // Create worksheets
-    const wsLure = xlsx.utils.json_to_sheet(lureRows);
+    const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at"] });
     xlsx.utils.book_append_sheet(wb, wsLure, 'lure');
 
     if (hardbaitDetailRows.length > 0) {
-        const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows);
+        const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
         xlsx.utils.book_append_sheet(wb, wsHardbait, 'hardbait_lure_detail');
     }
     
     if (metalDetailRows.length > 0) {
-        const wsMetal = xlsx.utils.json_to_sheet(metalDetailRows);
+        const wsMetal = xlsx.utils.json_to_sheet(metalDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
         xlsx.utils.book_append_sheet(wb, wsMetal, 'metal_lure_detail');
     }
 
     if (softDetailRows.length > 0) {
-        const wsSoft = xlsx.utils.json_to_sheet(softDetailRows);
+        const wsSoft = xlsx.utils.json_to_sheet(softDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
         xlsx.utils.book_append_sheet(wb, wsSoft, 'soft_lure_detail');
     }
 
     if (wireDetailRows.length > 0) {
-        const wsWire = xlsx.utils.json_to_sheet(wireDetailRows);
+        const wsWire = xlsx.utils.json_to_sheet(wireDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
         xlsx.utils.book_append_sheet(wb, wsWire, 'wire_lure_detail');
     }
 
     if (jigDetailRows.length > 0) {
-        const wsJig = xlsx.utils.json_to_sheet(jigDetailRows);
+        const wsJig = xlsx.utils.json_to_sheet(jigDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
         xlsx.utils.book_append_sheet(wb, wsJig, 'jig_lure_detail');
     }
 
