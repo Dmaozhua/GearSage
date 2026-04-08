@@ -108,10 +108,10 @@ for (const item of data) {
 
 const wb = xlsx.utils.book_new();
 
-const rodSheet = xlsx.utils.json_to_sheet(rodRows);
+const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","images","created_at","updated_at"] });
 xlsx.utils.book_append_sheet(wb, rodSheet, 'rod');
 
-const detailSheet = xlsx.utils.json_to_sheet(detailRows);
+const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: ["id","rod_id","TYPE","SKU","TOTAL LENGTH","Action","PIECES","CLOSELENGTH","WEIGHT","Tip Diameter","LURE WEIGHT","Line Wt N F","PE Line Size","Handle Length","Reel Seat Position","CONTENT CARBON","Market Reference Price","AdminCode","Service Card"," Jig Weight","Squid Jig Size","Sinker Rating","created_at","updated_at"] });
 xlsx.utils.book_append_sheet(wb, detailSheet, 'rod_detail');
 
 xlsx.writeFile(wb, outputFile);
