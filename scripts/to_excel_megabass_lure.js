@@ -319,8 +319,6 @@ function generateMegabassLureExcel() {
                 'COLOR': specs.color || '',
                 'AdminCode': specs.product_code || '',
                 'hook_size': specs.hook || '', // Use the extracted hook size if available
-                'color_code': '',
-                'buoyancy': specs.buoyancy || '', // Additional field appended at the end
                 'depth': specs.depth || '', // Added depth
                 'action': specs.action || '', // Added action
                 'subname': specs.subname || '', // Added subname

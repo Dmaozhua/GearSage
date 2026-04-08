@@ -186,8 +186,6 @@ function generateDaiwaLureExcel() {
                 'COLOR': specs.color || '',
                 'AdminCode': specs.product_code || '',
                 'hook_size': '', // Hook size was not extracted to specs yet, but we could add it. Left blank for now
-                'color_code': '',
-                'buoyancy': specs.buoyancy || '' // Additional field appended at the end
             };
 
             if (system === 'soft') {
