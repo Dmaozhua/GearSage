@@ -44,6 +44,13 @@ def scrape_shimano_bc_reels():
             else:
                 desc = ""
             
+            # Try to extract model_year from description
+            model_year = ""
+            if desc:
+                year_match = re.search(r'(20[0-2]\d)\s*年', desc)
+                if year_match:
+                    model_year = year_match.group(1)
+
             main_img = None
             for img in page_soup.find_all('img'):
                 if 'main' in img.get('src', ''):
@@ -106,6 +113,7 @@ def scrape_shimano_bc_reels():
                 "kind": "baitcasting",
                 "url": url,
                 "model_name": title,
+                "model_year": model_year,
                 "description": desc,
                 "main_image_url": main_img,
                 "variants": variants

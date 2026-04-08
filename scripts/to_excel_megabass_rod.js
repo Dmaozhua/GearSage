@@ -33,7 +33,7 @@ for (const item of data) {
             series_name: item.series_name,
             category: item.category,
             series_description: item.series_description || '',
-            image: item.images && item.images.length > 0 ? item.images[0] : '',
+            image: item.local_image_path || (item.images && item.images.length > 0 ? item.images[0] : ''),
             models: []
         });
     }
