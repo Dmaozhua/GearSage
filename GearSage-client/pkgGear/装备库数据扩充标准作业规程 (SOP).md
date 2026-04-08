@@ -86,8 +86,10 @@
 1.  **校验中间数据**:
     *   我将运行 `scripts/pre-check.js` 脚本，对 `normalized.json` 进行严格校验（完整性、数据类型、唯一性等）。
 
-2.  **数据转换**:
-    *   校验通过后，我将运行一个转换脚本 (如 `scripts/to_excel.js`)，读取 `normalized.json` 并生成符合 `_templates` 规范的Excel文件。
+2.  **数据清洗与转换**:
+    *   校验通过后，我将运行专门的转换脚本 (如 `scripts/to_excel_megabass_lure.js`)。
+    *   脚本会在内存中执行动态枚举推导（如 `classifyLure`），将非结构化数据映射为系统的标准枚举（`type_tips`, `system`, `water_column` 等）。
+    *   最后，脚本会读取 `normalized.json` 并生成符合 `_templates` 规范的多张 Excel 文件，统一输出至 `scripts/data_raw/` 目录供后续人工抽检或直接覆盖。
 
 3.  **最终导入**:
     *   在您确认后，我将执行 `import_gear_excel.js` 脚本，将最终的Excel数据安全地导入数据库。
