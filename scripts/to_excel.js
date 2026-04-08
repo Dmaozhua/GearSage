@@ -19,6 +19,9 @@ function main() {
     const reelsRows = [];
     const variantsRows = [];
     
+    let reelIdCounter = 1000;
+    let detailIdCounter = 10000;
+
     // Get current time formatted as YYYY-MM-DD HH:mm:ss
     const now = new Date();
     const currentTime = now.getFullYear() + '-' + 
@@ -33,19 +36,7 @@ function main() {
         // reel_id should match the id in the reel table. If not exist, must be added to reel.
         const brandPrefix = item.brand ? item.brand.substring(0, 2).toUpperCase() : 'XX';
         
-        // Clean up the model name to generate a better ID
-        // 1. Remove size/number ranges like "4000/5000/6000" or "-4000_5000_6000"
-        // 2. Remove special characters like slashes or parentheses
-        // 3. Replace spaces with hyphens
-        let cleanModel = item.model.replace(/(?:\s|-)*\d+(?:\s*[/,]\s*\d+)+\s*/g, '') // remove " 4000/5000/6000 " or " 8000 / 10000 " or "-4000/5000"
-                                   .replace(/\s*\(\d+(?:\s*,\s*\d+)+\)\s*/g, '') // remove " (4000,5000) " or " ( 4000 , 5000 ) "
-                                   .replace(/[\/\(\)\[\]]/g, '') // remove remaining special chars
-                                   .replace(/\s+/g, '-') // spaces to hyphens
-                                   .replace(/-+$/g, '') // trim trailing hyphens
-                                   .toUpperCase();
-        // Append year if available to make it more unique and avoid collisions
-        let yearSuffix = item.model_year ? `-${item.model_year}` : '';
-        const masterId = `R-${brandPrefix}-${cleanModel}${yearSuffix}`;
+        const masterId = `DRE${reelIdCounter++}`;
         
         let displayModel = item.model.replace(/(?:\s|-)*\d+(?:\s*[/,]\s*\d+)+\s*/g, '') // remove " 4000/5000/6000 " or " 8000 / 10000 " or "-4000/5000"
                                      .replace(/\s*\(\d+(?:\s*,\s*\d+)+\)\s*/g, '') // remove " (4000,5000) "
@@ -233,7 +224,7 @@ function main() {
             }
 
             variantsRows.push({
-                id: '',
+                id: `DRED${detailIdCounter++}`,
                 reel_id: masterId,
                 SKU: actualSku,
                 'GEAR RATIO': v.specs ? (v.specs.gear_ratio || '') : '',

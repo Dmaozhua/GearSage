@@ -260,14 +260,14 @@ function generateMegabassLureExcel() {
     // Fields for soft/hardbait/metal/wire lure_detail tables
     // id, lure_id, size, weight, hook_size, color_name, color_code, product_code, price, created_at, updated_at
     
-    let lureIdCounter = 1000; // Start at 1000 to avoid clash with Shimano test data
+    let lureIdCounter = 1000;
     let detailIdCounter = 10000;
 
     rawData.forEach(item => {
         if (!item.variants || item.variants.length === 0) return;
         if (item.model_name.includes("製品情報Products")) return;
 
-        const currentLureId = `DL${lureIdCounter++}`;
+        const currentLureId = `ML${lureIdCounter++}`;
         
         const typeStr = (item.variants[0].specs.buoyancy || '').toLowerCase();
         const classification = classifyLure(item);
@@ -293,7 +293,7 @@ function generateMegabassLureExcel() {
 
         // Add detail rows
         item.variants.forEach(v => {
-            const currentDetailId = `DLD${detailIdCounter++}`;
+            const currentDetailId = `MLD${detailIdCounter++}`;
             const specs = v.specs;
             
             // If size is missing but variant name looks like a size (e.g. "2.3", "3.3"), use it

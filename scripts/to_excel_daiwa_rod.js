@@ -15,11 +15,11 @@ const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 const rodRows = [];
 const detailRows = [];
 
-let rodIdCounter = 1;
-let detailIdCounter = 1;
+let rodIdCounter = 1000;
+let detailIdCounter = 10000;
 
 for (const item of data) {
-    const currentRodId = rodIdCounter++;
+    const currentRodId = `DR${rodIdCounter++}`;
     
     let modelYear = '';
     const yearMatch = item.model_name.match(/(?:19|20)\d{2}/);
@@ -88,7 +88,7 @@ for (const item of data) {
         }
         
         const row = {
-            'id': detailIdCounter++,
+            'id': `DRD${detailIdCounter++}`,
             'rod_id': currentRodId,
             'TYPE': rodType,
             'SKU': v.variant_name,

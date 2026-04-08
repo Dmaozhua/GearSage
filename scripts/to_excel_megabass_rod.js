@@ -15,8 +15,8 @@ const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 const rodRows = [];
 const detailRows = [];
 
-let rodIdCounter = 1;
-let detailIdCounter = 1;
+let rodIdCounter = 1000;
+let detailIdCounter = 10000;
 
 // Group by series_name
 const seriesMap = new Map();
@@ -29,7 +29,7 @@ for (const item of data) {
     
     if (!seriesMap.has(item.series_name)) {
         seriesMap.set(item.series_name, {
-            id: rodIdCounter++,
+            id: `MR${rodIdCounter++}`,
             series_name: item.series_name,
             category: item.category,
             series_description: item.series_description || '',
@@ -97,7 +97,7 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
         }
 
         const row = {
-            'id': detailIdCounter++,
+            'id': `MRD${detailIdCounter++}`,
             'rod_id': seriesInfo.id,
             'TYPE': rodType,
             'SKU': item.model_name,

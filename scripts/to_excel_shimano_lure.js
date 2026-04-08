@@ -109,11 +109,11 @@ const softDetailRows = [];
 const wireDetailRows = [];
 const jigDetailRows = [];
 
-let lureIdCounter = 10000;
+let lureIdCounter = 1000;
 let detailIdCounter = 10000;
 
 for (const item of data) {
-    const currentLureId = lureIdCounter++;
+    const currentLureId = `SL${lureIdCounter++}`;
     
     // Shimano typically model year is not easily parsed from the name like Daiwa
     const modelYear = '';
@@ -157,9 +157,10 @@ for (const item of data) {
 
     for (const v of item.variants) {
         const specs = v.specs || {};
+        const currentDetailId = `SLD${detailIdCounter++}`;
         
         const detailRow = {
-            'id': detailIdCounter++,
+            'id': currentDetailId,
             'lure_id': currentLureId,
             'SKU': v.variant_name,
             'WEIGHT': specs.weight || '',

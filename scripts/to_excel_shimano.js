@@ -15,6 +15,9 @@ function main() {
 
     const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
     
+    let reelIdCounter = 1000;
+    let detailIdCounter = 10000;
+    
     const reelsMap = new Map();
     const variantsMap = new Map();
     
@@ -36,11 +39,11 @@ function main() {
                                    .replace(/-+$/g, '')
                                    .toUpperCase();
         
-        const masterId = `R-${brandPrefix}-${cleanModel}`;
+        const masterKey = `R-${brandPrefix}-${cleanModel}`;
         
-        if (!reelsMap.has(masterId)) {
-            reelsMap.set(masterId, {
-                id: masterId,
+        if (!reelsMap.has(masterKey)) {
+            reelsMap.set(masterKey, {
+                id: `SRE${reelIdCounter++}`,
                 brand_id: 2, // Assume 2 is Shimano
                 model: item.model_name,
                 model_cn: '',
@@ -60,13 +63,13 @@ function main() {
         
         if (item.variants && item.variants.length > 0) {
             item.variants.forEach(v => {
-                const skuId = `${masterId}-${v.variant_name.replace(/\s+/g, '-').toUpperCase()}`;
+                const skuId = `${masterKey}-${v.variant_name.replace(/\s+/g, '-').toUpperCase()}`;
                 const specs = v.specs || {};
                 
                 if (!variantsMap.has(skuId)) {
                     variantsMap.set(skuId, {
-                        id: skuId,
-                        reel_id: masterId,
+                        id: `SRED${detailIdCounter++}`,
+                        reel_id: reelsMap.get(masterKey).id,
                         "SKU": v.variant_name,
                         "GEAR RATIO": specs.gear_ratio || '',
                         "DRAG": '', // Shimano usually just has max drag
@@ -104,7 +107,7 @@ function main() {
     for (const [masterId, reel] of reelsMap.entries()) {
         let prices = [];
         for (const variant of variantsMap.values()) {
-            if (variant.reel_id === masterId) {
+            if (variant.reel_id === reel.id) {
                 let p = variant.market_reference_price ? variant.market_reference_price.replace(/[^\d]/g, '') : '';
                 if (p) prices.push(parseInt(p));
             }

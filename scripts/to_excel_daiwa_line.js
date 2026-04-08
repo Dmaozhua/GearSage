@@ -15,8 +15,8 @@ const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 const lineRows = [];
 const detailRows = [];
 
-let lineIdCounter = 1;
-let detailIdCounter = 1;
+let lineIdCounter = 1000;
+let detailIdCounter = 10000;
 
 function classifyLine(item) {
     let lineType = item.line_type || '';
@@ -50,7 +50,7 @@ function classifyLine(item) {
 for (const item of data) {
     if (!item || !item.model_name) continue;
     
-    const currentLineId = lineIdCounter++;
+    const currentLineId = `DLN${lineIdCounter++}`;
     
     let modelYear = '';
     const yearMatch = item.model_name.match(/(?:19|20)\d{2}/);
@@ -81,7 +81,7 @@ for (const item of data) {
         const specs = v.specs || {};
         
         detailRows.push({
-            'id': detailIdCounter++,
+            'id': `DLND${detailIdCounter++}`,
             'line_id': currentLineId,
             'SKU': v.variant_name,
             'COLOR': specs.color || '',

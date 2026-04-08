@@ -15,11 +15,13 @@ const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 const lineRows = [];
 const detailRows = [];
 
-let lineIdCounter = 1;
-let detailIdCounter = 1;
+let lineIdCounter = 1000;
+let detailIdCounter = 10000;
 
 for (const item of data) {
-    const currentLineId = lineIdCounter++;
+    if (!item || !item.model_name) continue;
+    
+    const currentLineId = `SLN${lineIdCounter++}`;
     
     // Model year extraction (just try to find a 2 digit year in title)
     let modelYear = '';
@@ -50,7 +52,7 @@ for (const item of data) {
         const specs = v.specs || {};
         
         detailRows.push({
-            'id': detailIdCounter++,
+            'id': `SLND${detailIdCounter++}`,
             'line_id': currentLineId,
             'SKU': v.variant_name,
             'COLOR': specs.color || '',

@@ -19,11 +19,11 @@ const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 const rodRows = [];
 const detailRows = [];
 
-let rodIdCounter = 1;
-let detailIdCounter = 1;
+let rodIdCounter = 1000;
+let detailIdCounter = 10000;
 
 for (const item of data) {
-    const currentRodId = rodIdCounter++;
+    const currentRodId = `SR${rodIdCounter++}`;
     
     // Model year extraction (just try to find a 2 digit year in title)
     // Shimano titles usually don't have year in the name directly but we'll try
@@ -77,7 +77,7 @@ for (const item of data) {
         }
         
         detailRows.push({
-            'id': detailIdCounter++,
+            'id': `SRD${detailIdCounter++}`,
             'rod_id': currentRodId,
             'TYPE': rodType, // S for Spinning, C for Casting
             'SKU': v.variant_name,

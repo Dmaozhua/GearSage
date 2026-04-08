@@ -14,6 +14,10 @@ function main() {
     const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
     const reelsRows = [];
     const variantsRows = [];
+    
+    let reelIdCounter = 5000;
+    let detailIdCounter = 50000;
+
     const currentTime = new Date().toISOString();
     const seenSkus = new Set(); // For deduplication
 
@@ -22,7 +26,7 @@ function main() {
         const safeModel = item.model.replace(/\s+/g, '-').toUpperCase();
         let masterYear = item.model_year || '';
         
-        const masterId = masterYear ? `R-DA-${safeModel}-${masterYear}` : `R-DA-${safeModel}`;
+        const masterId = `DRE${reelIdCounter++}`;
         
         const localImagePath = item.local_image_path || (item.images && item.images.length > 0 ? item.images[0] : '');
 
@@ -67,7 +71,7 @@ function main() {
                 seenSkus.add(uniqueKey);
 
                 variantsRows.push({
-                    id: '',
+                    id: `DRED${detailIdCounter++}`,
                     reel_id: masterId,
                     SKU: actualSku,
                     'GEAR RATIO': v.specs ? (v.specs.gear_ratio || '') : '',
