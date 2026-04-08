@@ -1,6 +1,7 @@
 const fs = require('fs');
 const xlsx = require('xlsx');
 const path = require('path');
+const SHIMANO_BRAND_ID = 1;
 
 function classifyLure(modelName, buoyancy) {
     let typeTips = 'special_lure';
@@ -141,7 +142,7 @@ for (const item of data) {
 
     lureRows.push({
         'id': currentLureId,
-        'brand_id': '',
+        'brand_id': SHIMANO_BRAND_ID,
         'model': item.model_name,
         'model_cn': '',
         'model_year': modelYear,
@@ -152,7 +153,8 @@ for (const item of data) {
         'action': classification.action,
         'images': item.local_image_path || item.main_image_url || '',
         'created_at': '',
-        'updated_at': ''
+        'updated_at': '',
+        'description': item.description || ''
     });
 
     for (const v of item.variants) {
@@ -190,7 +192,7 @@ for (const item of data) {
 
 const wb = xlsx.utils.book_new();
 
-const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at"] });
+const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at","description"] });
 xlsx.utils.book_append_sheet(wb, wsLure, "lure");
 
 if (hardbaitDetailRows.length > 0) {

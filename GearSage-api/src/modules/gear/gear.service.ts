@@ -5,8 +5,8 @@ import { basename, join } from 'path';
 import * as XLSX from 'xlsx';
 import { DatabaseService } from '../../common/database.service';
 
-type GearType = 'reels' | 'rods' | 'lures';
-type GearKind = 'reel' | 'rod' | 'lure';
+type GearType = 'reels' | 'rods' | 'lures' | 'lines';
+type GearKind = 'reel' | 'rod' | 'lure' | 'line';
 
 interface GearListQuery {
   type?: string;
@@ -34,9 +34,11 @@ interface GearCache {
   reels: any[];
   rods: any[];
   lures: any[];
+  lines: any[];
   reelDetails: Record<string, any[]>;
   rodDetails: any[];
   lureDetails: Record<string, any[]>;
+  lineDetails: any[];
   fieldSupport: Record<GearType, Record<string, boolean>>;
 }
 
@@ -280,10 +282,12 @@ export class GearService {
     const reels = type === 'reels' ? masters : [];
     const rods = type === 'rods' ? masters : [];
     const lures = type === 'lures' ? masters : [];
+    const lines = type === 'lines' ? masters : [];
 
     const reelDetails: Record<string, any[]> = {};
     const rodDetails: any[] = [];
     const lureDetails: Record<string, any[]> = {};
+    const lineDetails: any[] = [];
 
     for (const variant of variants) {
       const raw = this.hydrateVariantRow(variant.raw_json);
@@ -300,6 +304,11 @@ export class GearService {
         continue;
       }
 
+      if (type === 'lines') {
+        lineDetails.push(raw);
+        continue;
+      }
+
       const key = this.normalizeText(variant.sourceKey);
       const bucket = lureDetails[key] || [];
       bucket.push(raw);
@@ -312,13 +321,16 @@ export class GearService {
       reels,
       rods,
       lures,
+      lines,
       reelDetails,
       rodDetails,
       lureDetails,
+      lineDetails,
       fieldSupport: {
         reels: this.buildFieldSupport(reels),
         rods: this.buildFieldSupport(rods),
         lures: this.buildFieldSupport(lures),
+        lines: this.buildFieldSupport(lines),
       },
     };
   }
@@ -332,6 +344,7 @@ export class GearService {
     const reels = this.readExcelRows('reel.xlsx');
     const rods = this.readExcelRows('rod.xlsx');
     const lures = this.readExcelRows('lure.xlsx');
+    const lines = this.readExcelRows('line.xlsx');
 
     const brandsMap = brands.reduce<Record<string, any>>((acc, brand: any) => {
       acc[this.normalizeText(brand.id)] = brand;
@@ -357,13 +370,16 @@ export class GearService {
       reels,
       rods,
       lures,
+      lines,
       reelDetails,
       rodDetails: this.readExcelRows('rod_detail.xlsx'),
       lureDetails,
+      lineDetails: this.readExcelRows('line_detail.xlsx'),
       fieldSupport: {
         reels: this.buildFieldSupport(reels),
         rods: this.buildFieldSupport(rods),
         lures: this.buildFieldSupport(lures),
+        lines: this.buildFieldSupport(lines),
       },
     };
 
@@ -385,6 +401,7 @@ export class GearService {
   private getMasterRows(data: GearCache, type: GearType) {
     if (type === 'rods') return data.rods;
     if (type === 'lures') return data.lures;
+    if (type === 'lines') return data.lines;
     return data.reels;
   }
 
@@ -401,6 +418,12 @@ export class GearService {
     if (type === 'rods') {
       return data.rodDetails
         .filter((variant) => this.normalizeText(variant.rod_id) === itemId)
+        .map((variant) => this.decorateVariant(type, item, variant));
+    }
+
+    if (type === 'lines') {
+      return data.lineDetails
+        .filter((variant) => this.normalizeText(variant.line_id) === itemId)
         .map((variant) => this.decorateVariant(type, item, variant));
     }
 
@@ -459,7 +482,7 @@ export class GearService {
     const images = this.normalizeImages(item.images);
     return {
       ...item,
-      id: Number(item.id),
+      id: this.normalizeText(item.id),
       brand_id: item.brand_id,
       brand_name: brand?.name || '',
       images,
@@ -668,7 +691,7 @@ export class GearService {
     const raw = { ...(row.raw_json || {}) };
     return {
       ...raw,
-      id: Number(row.id),
+      id: this.normalizeText(row.id),
       brand_id: row.brandId ? Number(row.brandId) : raw.brand_id,
       model: row.model || raw.model || '',
       model_cn: row.modelCn || raw.model_cn || '',
@@ -707,12 +730,14 @@ export class GearService {
       'reel_id',
       'rod_id',
       'lure_id',
+      'line_id',
     ]);
 
     const masterFieldsByType: Record<GearType, string[]> = {
       reels: ['model', 'model_cn', 'model_year', 'type', 'alias', 'type_tips'],
       rods: ['model', 'model_cn', 'model_year', 'type', 'action', 'type_tips'],
       lures: ['model', 'model_cn', 'model_year', 'system', 'water_column', 'action'],
+      lines: ['model', 'model_cn', 'model_year', 'type_tips', 'description'],
     };
 
     const variantFieldsByType: Record<GearType, string[]> = {
@@ -746,6 +771,18 @@ export class GearService {
         'Reel Seat Position',
       ],
       lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook'],
+      lines: [
+        'SKU',
+        'COLOR',
+        'LENGTH(m)',
+        'SIZE NO.',
+        'MAX STRENGTH(lb)',
+        'MAX STRENGTH(kg)',
+        'AVG STRENGTH(lb)',
+        'AVG STRENGTH(kg)',
+        'Market Reference Price',
+        'AdminCode',
+      ],
     };
 
     const preferredFields =
@@ -846,6 +883,7 @@ export class GearService {
       reels: ['GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn', 'spool_diameter_per_turn_mm'],
       rods: ['TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES'],
       lures: ['TYPE', 'Length', 'Weight', 'Buoyancy', 'Range'],
+      lines: ['SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'Market Reference Price'],
     };
 
     const compareGroup = this.normalizeText(master.type || master.system || type);
@@ -891,6 +929,9 @@ export class GearService {
       pushText(master.type);
       pushText(master.action);
       pushText(master.type_tips);
+    } else if (type === 'lines') {
+      pushText(master.type_tips);
+      pushText(master.alias);
     } else {
       pushText(master.system);
       pushText(master.water_column);
@@ -1039,12 +1080,14 @@ export class GearService {
   private normalizeType(type?: string): GearType {
     if (type === 'rod' || type === 'rods') return 'rods';
     if (type === 'lure' || type === 'lures') return 'lures';
+    if (type === 'line' || type === 'lines') return 'lines';
     return 'reels';
   }
 
   private typeToKind(type: GearType): GearKind {
     if (type === 'rods') return 'rod';
     if (type === 'lures') return 'lure';
+    if (type === 'lines') return 'line';
     return 'reel';
   }
 

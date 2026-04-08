@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const SHIMANO_BRAND_ID = 1;
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_line_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_line_import.xlsx');
@@ -37,7 +38,7 @@ for (const item of data) {
     
     lineRows.push({
         'id': currentLineId,
-        'brand_id': '', // Fill manually or map to Shimano ID
+        'brand_id': SHIMANO_BRAND_ID,
         'model': item.model_name,
         'model_cn': '',
         'model_year': modelYear,
@@ -45,7 +46,8 @@ for (const item of data) {
         'type_tips': item.line_type || '', // PE, Nylon, Fluorocarbon, Ester
         'images': item.local_image_path || item.main_image_url || '',
         'created_at': '',
-        'updated_at': ''
+        'updated_at': '',
+        'description': item.description || ''
     });
     
     for (const v of item.variants) {
@@ -72,10 +74,10 @@ for (const item of data) {
 
 const wb = xlsx.utils.book_new();
 
-const lineSheet = xlsx.utils.json_to_sheet(lineRows);
+const lineSheet = xlsx.utils.json_to_sheet(lineRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","images","created_at","updated_at","description"] });
 xlsx.utils.book_append_sheet(wb, lineSheet, 'line');
 
-const detailSheet = xlsx.utils.json_to_sheet(detailRows);
+const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: ["id","line_id","SKU","COLOR","LENGTH(m)","SIZE NO.","MAX STRENGTH(lb)","MAX STRENGTH(kg)","AVG STRENGTH(lb)","AVG STRENGTH(kg)","Market Reference Price","AdminCode","created_at","updated_at"] });
 xlsx.utils.book_append_sheet(wb, detailSheet, 'line_detail');
 
 xlsx.writeFile(wb, outputFile);

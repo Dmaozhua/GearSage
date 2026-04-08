@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const DAIWA_BRAND_ID = 2;
 
 function classifyLure(modelName, buoyancy) {
     let typeTips = 'special_lure';
@@ -144,7 +145,7 @@ function generateDaiwaLureExcel() {
         // Add main lure row
         lureRows.push({
             'id': currentLureId,
-            'brand_id': '', // Will be filled in DB
+            'brand_id': DAIWA_BRAND_ID,
             'model': item.model_name,
             'model_cn': '',
             'model_year': '',
@@ -155,7 +156,8 @@ function generateDaiwaLureExcel() {
             'action': classification.action,
             'images': item.local_image_path || item.main_image_url || '',
             'created_at': '',
-            'updated_at': ''
+            'updated_at': '',
+            'description': item.description || ''
         });
 
         // Add detail rows
@@ -210,7 +212,7 @@ function generateDaiwaLureExcel() {
     const wb = xlsx.utils.book_new();
 
     // Create worksheets
-    const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at"] });
+    const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at","description"] });
     xlsx.utils.book_append_sheet(wb, wsLure, 'lure');
 
     if (hardbaitDetailRows.length > 0) {

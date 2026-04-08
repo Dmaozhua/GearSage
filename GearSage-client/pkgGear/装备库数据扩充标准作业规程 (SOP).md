@@ -84,14 +84,24 @@
 ### **第四阶段：校验、转换与导入 (自动化)**
 
 1.  **校验中间数据**:
-    *   我将运行 `scripts/pre-check.js` 脚本，对 `normalized.json` 进行严格校验（完整性、数据类型、唯一性等）。
+    *   我将运行 `scripts/pre-check.js` 脚本，对 `normalized.json` 进行严格校验（完整性、可导入性、唯一性等）。
+    *   当前 `pre-check` 已兼容历史采集器的字段别名差异，会统一识别 `model/model_name`、`source_url/url`、`images/local_image_path/main_image_url`、`sku/name/variant_name`、`specs/raw_specs`。
+    *   `raw_data_hash`、`scraped_at`、`model_year`、`local_image_path` 当前仍按 **warning** 处理；缺失主模型、来源链接、变体数组、变体名称、规格对象等会直接判定为 **error**。
 
 2.  **数据清洗与转换**:
     *   校验通过后，我将运行专门的转换脚本 (如 `scripts/to_excel_megabass_lure.js`)。
     *   脚本会在内存中执行动态枚举推导（如 `classifyLure`），将非结构化数据映射为系统的标准枚举（`type_tips`, `system`, `water_column` 等）。
-    *   最后，脚本会读取 `normalized.json` 并生成符合 `_templates` 规范的多张 Excel 文件，统一输出至 `scripts/data_raw/` 目录供后续人工抽检或直接覆盖。
+    *   转换脚本会读取 `normalized.json` 并生成品牌级的中间 Excel，统一输出至 `pkgGear/data_raw/` 目录，例如 `daiwa_lure_import.xlsx`、`shimano_line_import.xlsx`。
+    *   **注意**：`pkgGear/data_raw/*_import.xlsx` 只是中间产物，当前数据库导入仍以 `GearSage-client/rate/excel/` 目录下的总表为准。
 
-3.  **最终导入**:
+3.  **同步回总表 (`rate/excel`)**:
+    *   生成品牌级中间 Excel 后，我将运行 `scripts/sync_rate_excel_from_imports.js`。
+    *   该脚本会按前缀主键定向替换 `rate/excel` 中对应品牌切片：
+        Shimano 路亚 `SL*`、Daiwa 路亚 `DL*`、Shimano 鱼线 `SLN*`、Daiwa 鱼线 `DLN*`。
+    *   Megabass 与历史遗留的数字主键行不会被覆盖。
+    *   同步后，应以 `rate/excel/` 中的总表作为后续抽检与导入基线。
+
+4.  **最终导入**:
     *   在您确认后，我将执行 `import_gear_excel.js` 脚本，将最终的Excel数据安全地导入数据库。
 
 ---
@@ -112,14 +122,20 @@
 
 ## 附录B：中间层数据范式 (Schema)
 
-所有采集器必须输出一个包含对象数组的JSON文件 (`normalized.json`)。每个JSON对象必须遵循以下结构：
+所有采集器必须输出一个包含对象数组的 JSON 文件 (`normalized.json`)。当前标准分为“**规范字段**”与“**兼容别名**”两层：
+
+- **规范字段优先**：新采集器应尽量直接输出规范字段。
+- **兼容别名允许**：历史脚本仍可使用兼容别名，`pre-check.js` 会在校验时做统一映射。
+- **过渡目标**：后续逐步将 `model_name / url / variant_name / raw_specs` 等兼容别名收敛回规范字段。
+
+### 规范字段（推荐）
 
 ```json
 {
   "brand": "string",
-  "kind": "string (e.g., 'reel', 'rod', 'lure')",
+  "kind": "string (e.g., 'reel', 'rod', 'lure', 'line')",
   "model": "string",
-  "model_year": "integer",
+  "model_year": "integer|string",
   "source_url": "string (The specific page URL of the product)",
   "local_image_path": "string (Relative path to the downloaded main product image with white background, e.g., 'images/daiwa_reels/EXIST_main.jpg')",
   "images": [
@@ -142,6 +158,37 @@
 }
 ```
 
+### 兼容别名（当前 `pre-check` 支持）
+
+- 顶层：
+  - `model_name` -> `model`
+  - `url` -> `source_url`
+  - `main_image_url` 可作为图片来源兜底
+  - 文件名可临时推断 `brand/kind`，但仍建议尽快回填到 JSON 内
+- 变体层：
+  - `variant_name` / `name` -> 变体显示名
+  - `raw_specs` 可作为 `specs` 缺失时的兼容输入
+- 品类兼容：
+  - `spinning` / `baitcasting` 在校验阶段按 `reel` 处理，避免因渔轮子类命名造成误判
+
+### 当前闸门规则
+
+- **error**
+  - 缺少 `brand`（且文件名无法推断）
+  - 缺少 `kind`（且文件名无法推断）
+  - 缺少 `model/model_name`
+  - 缺少 `source_url/url`
+  - `variants` 不是数组或为空
+  - 变体缺少 `sku/name/variant_name`
+  - 变体同时缺少 `specs` 和 `raw_specs`
+- **warning**
+  - 缺少 `model_year`
+  - 缺少 `raw_data_hash`
+  - 缺少 `scraped_at`
+  - 缺少 `local_image_path`
+  - 缺少全部图片来源
+  - 仅存在 `raw_specs`，尚未落为结构化 `specs`
+
 ---
 
 ## 迭代与扩展
@@ -163,4 +210,3 @@
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 3: 预检查与数据转换 | ✅ 完成 | 编写了 `pre_check.js` 进行数据校验，并用 `to_excel.js` 将标准化JSON转换为便于人工复核的 Excel 文件 `daiwa_reels_import.xlsx`。 |
 | 2026-04-06 | Daiwa & Shimano 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 为 Daiwa 增加自动分页与并发下载（多线程），大幅提升爬取速度；在 Node.js 中实现 `classifyLure` 逻辑自动判断水层、类型及动作并多表导出。Shimano 假饵同步应用此分类分表导出逻辑。 |
 | 2026-04-08 | Megabass 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 修复了 description 多级语言抓取逻辑（排查空标签并清除干扰元素），优化了 `classifyLure` 中的水层深度判断与官网大分类强制映射，确保所有系统枚举值准确对应。 |
-
