@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-09T16:53:07.699Z
+generated_at: 2026-04-09T17:01:51.062Z
 
-summary: ok=12, diff=0, missing_import=0
+summary: ok=12, diff=1, missing_import=0
 
 ## shimano_lure
 #### master
@@ -158,6 +158,20 @@ summary: ok=12, diff=0, missing_import=0
 - extra in rate: 0 (none)
 - changed rows: 0
 
+## daiwa_spinning_reel
+#### master
+- status: OK
+- rows: import=47, rate=47
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+#### spinning_reel_detail
+- status: OK
+- rows: import=316, rate=316
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+
 ## shimano_spinning_reel
 #### master
 - status: OK
@@ -188,11 +202,14 @@ summary: ok=12, diff=0, missing_import=0
 
 ## daiwa_baitcasting_reel
 #### master
-- status: OK
-- rows: import=30, rate=30
-- missing in rate: 0 (none)
+- status: DIFF
+- rows: import=30, rate=0
+- missing in rate: 30 (DRE5000, DRE5001, DRE5002, DRE5003, DRE5004, DRE5005, DRE5006, DRE5007, DRE5008, DRE5009 ... (+20 more))
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: id, brand_id, model, model_cn, model_year, alias, type_tips, type, images, created_at, updated_at, series_positioning, main_selling_points, official_reference_price, market_status
+- rate-only headers: none
 #### baitcasting_reel_detail
 - status: OK
 - rows: import=141, rate=141

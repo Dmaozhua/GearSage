@@ -132,6 +132,20 @@ const TASKS = [
         ],
     },
     {
+        name: 'daiwa_spinning_reel',
+        importFile: 'daiwa_reels_import.xlsx',
+        master: {
+            importSheet: 'reel',
+            targetFile: 'reel.xlsx',
+            targetSheet: 'reel',
+            filter: (row) => normalizeValue(row.id).startsWith('DRE') && normalizeValue(row.type) === 'spinning',
+            rowKey: 'id',
+        },
+        details: [
+            { importSheet: 'spinning_reel_detail', targetFile: 'spinning_reel_detail.xlsx', targetSheet: 'spinning_reel_detail', foreignKey: 'reel_id', rowKey: 'id' },
+        ],
+    },
+    {
         name: 'shimano_spinning_reel',
         importFile: 'shimano_spinning_reels_import.xlsx',
         master: {

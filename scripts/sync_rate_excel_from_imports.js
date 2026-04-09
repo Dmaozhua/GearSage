@@ -85,8 +85,8 @@ const TASKS = [
         targetSheet: 'reel',
         headerKey: 'reelMaster',
         replacements: [
+            { sourceFiles: ['daiwa_reels_import.xlsx', 'daiwa_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'DRE' },
             { sourceFiles: ['shimano_spinning_reels_import.xlsx', 'shimano_baitcasting_reels_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'SRE' },
-            { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'reel', matchField: 'id', prefix: 'DRE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'reel', matchField: 'id', prefix: 'MRE' },
         ],
     },
@@ -95,6 +95,7 @@ const TASKS = [
         targetSheet: 'spinning_reel_detail',
         headerKey: 'spinningReelDetail',
         replacements: [
+            { sourceFile: 'daiwa_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
             { sourceFile: 'shimano_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
         ],
