@@ -11,7 +11,7 @@
     ></search-filter>
   </view>
 
-  <view class="compare-strip" wx:if="{{currentType !== 'lures'}}">
+  <view class="compare-strip" wx:if="{{currentType !== 'lures' && currentType !== 'line'}}">
     <view class="compare-strip__copy">
       <text class="compare-strip__title">对比池</text>
       <text class="compare-strip__desc">

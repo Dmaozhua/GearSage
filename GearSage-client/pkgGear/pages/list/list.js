@@ -143,6 +143,9 @@ Page({
       pushTag(item.type);
       pushTag(item.action);
       pushTag(item.type_tips);
+    } else if (this.data.currentType === 'line') {
+      pushTag(item.type_tips);
+      pushTag(item.alias);
     } else {
       pushTag(item.system);
       pushTag(item.water_column);
@@ -167,6 +170,10 @@ Page({
 
     if (this.data.currentType === 'lures') {
       return '当前以详情理解和筛选收敛为主';
+    }
+
+    if (this.data.currentType === 'line') {
+      return '当前以规格浏览和内容关联为主，正式对比后置处理';
     }
 
     const subtype = this.normalizeText(item.type);

@@ -26,10 +26,10 @@
           </view>
           <view class="detail-action detail-action--primary" bindtap="onGoRecommend">去求推荐</view>
         </view>
-        <text class="compare-note" wx:if="{{gearType !== 'lures'}}">
+        <text class="compare-note" wx:if="{{gearType !== 'lures' && gearType !== 'line'}}">
           {{canCompare ? '对比池 ' + compareCount + ' / 3，只先收同类同子类候选。' : '当前还没有可加入对比的子型号数据。'}}
         </text>
-        <view class="compare-entry-link" wx:if="{{gearType !== 'lures' && compareCount >= 2}}" bindtap="onGoCompare">去看正式对比</view>
+        <view class="compare-entry-link" wx:if="{{gearType !== 'lures' && gearType !== 'line' && compareCount >= 2}}" bindtap="onGoCompare">去看正式对比</view>
       </view>
     </view>
 

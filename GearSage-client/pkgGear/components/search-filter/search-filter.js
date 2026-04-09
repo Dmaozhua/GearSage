@@ -7,9 +7,12 @@ const TYPE_MAP = {
   reels: 'reel',
   rods: 'rod',
   lures: 'lure',
+  line: 'line',
+  lines: 'line',
   reel: 'reel',
   rod: 'rod',
-  lure: 'lure'
+  lure: 'lure',
+  line: 'line'
 };
 
 const ACTIVE_FILTER_SUPPORT = {
@@ -28,6 +31,9 @@ const ACTIVE_FILTER_SUPPORT = {
     system: true,
     water_column: true,
     action: true
+  },
+  line: {
+    brands: true
   }
 };
 

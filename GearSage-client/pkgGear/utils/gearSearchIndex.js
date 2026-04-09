@@ -4,9 +4,12 @@ const TYPE_MAP = {
   reels: 'reel',
   rods: 'rod',
   lures: 'lure',
+  line: 'line',
+  lines: 'line',
   reel: 'reel',
   rod: 'rod',
-  lure: 'lure'
+  lure: 'lure',
+  line: 'line'
 };
 
 const SEARCH_INDEX = buildSearchIndex(searchData);
@@ -29,8 +32,7 @@ function normalizeGearType(type) {
 }
 
 function normalizeId(value) {
-  const next = Number(value);
-  return Number.isFinite(next) && next > 0 ? String(next) : '';
+  return String(value || '').trim();
 }
 
 function getSearchIndexEntry(type, id) {

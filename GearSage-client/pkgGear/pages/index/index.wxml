@@ -64,5 +64,21 @@
         <view class="arrow"></view>
       </view>
     </view>
+
+    <view class="module-item" bindtap="navigateTo" data-type="line" data-title="鱼线">
+      <view class="card-bg-decoration"></view>
+      <view class="content-wrapper">
+        <view class="icon-container line-icon-bg">
+          <image class="module-icon" src="/images/icons/publis/线.png" mode="aspectFit"></image>
+        </view>
+        <view class="text-container">
+          <text class="module-title">鱼线</text>
+          <text class="module-desc">Lines</text>
+        </view>
+      </view>
+      <view class="arrow-icon">
+        <view class="arrow"></view>
+      </view>
+    </view>
   </view>
 </view>

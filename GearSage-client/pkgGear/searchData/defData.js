@@ -149,5 +149,14 @@ module.exports = [
         "then": ["weightless_soft_bait"]
       }
     ]
+  },
+  {
+    "type": "line",
+    "id": 4,
+    "brands": [
+      {"id": 1, "name": "禧玛诺"},
+      {"id": 2, "name": "达亿瓦"}
+    ],
+    "family": []
   }
 ];

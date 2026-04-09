@@ -1,9 +1,10 @@
-const searchData = require('../data/gear-search-data.js');
+const searchData = require('../pkgGear/searchData/Data.js');
 
 const CATEGORY_TO_TYPE_MAP = {
   rod: 'rod',
   reel: 'reel',
   bait: 'lure',
+  line: 'line',
 };
 
 const MAX_MATCH_CANDIDATE_COUNT = 20;

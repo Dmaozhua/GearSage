@@ -8,7 +8,8 @@ const MAX_COMPARE_ITEMS = 3;
 const CORE_FIELDS_BY_TYPE = {
   reels: ['SKU', 'GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn', 'spool_diameter_per_turn_mm'],
   rods: ['SKU', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES', 'CLOSELENGTH'],
-  lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook']
+  lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook'],
+  line: ['SKU', 'SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'COLOR', 'Market Reference Price']
 };
 
 const SPEC_GROUPS_BY_TYPE = {
@@ -36,13 +37,25 @@ const SPEC_GROUPS_BY_TYPE = {
   lures: [
     { title: '基础识别', fields: ['SKU', 'TYPE'] },
     { title: '核心规格', fields: ['Length', 'Weight', 'Buoyancy', 'Range', 'Hook'] }
+  ],
+  line: [
+    { title: '基础识别', fields: ['SKU', 'COLOR'] },
+    {
+      title: '核心规格',
+      fields: ['SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'AVG STRENGTH(lb)', 'AVG STRENGTH(kg)']
+    },
+    {
+      title: '补充信息',
+      fields: ['Market Reference Price', 'AdminCode']
+    }
   ]
 };
 
 const SERIES_HINTS_BY_TYPE = {
   reels: '先看线杯深浅、速比和自重，再回头判断卸力与收线节奏，更容易排除不适合自己的候选。',
   rods: '先确认长度、强度、调性和饵重区间，再看节数与收纳长度，通常能更快看清使用方向。',
-  lures: '鱼饵第一版仍以筛选和详情理解为主，正式对比页后置处理。'
+  lures: '鱼饵第一版仍以筛选和详情理解为主，正式对比页后置处理。',
+  line: '鱼线第一版先把线号、长度、强度和颜色看清，再结合内容区的真实使用经验判断是否适合当前场景。'
 };
 
 Page({
@@ -99,7 +112,16 @@ Page({
       Weight: '重量(g)',
       Buoyancy: '浮力',
       Range: '泳层',
-      Hook: '钩型'
+      Hook: '钩型',
+      COLOR: '颜色',
+      'SIZE NO.': '线号',
+      'LENGTH(m)': '长度(m)',
+      'MAX STRENGTH(lb)': '最大强度(lb)',
+      'MAX STRENGTH(kg)': '最大强度(kg)',
+      'AVG STRENGTH(lb)': '平均强度(lb)',
+      'AVG STRENGTH(kg)': '平均强度(kg)',
+      'Market Reference Price': '参考价格',
+      AdminCode: '编码'
     },
     ignoredFields: [
       'created_at', 'updated_at', 'bearing_count_roller',
@@ -130,6 +152,7 @@ Page({
     if (type === 'rods') return 'rod';
     if (type === 'reels') return 'reel';
     if (type === 'lures') return 'bait';
+    if (type === 'line') return 'line';
     return '';
   },
 
@@ -235,6 +258,9 @@ Page({
       pushTag(this.buildTagText('', item.type));
       pushTag(this.buildTagText('调性 ', item.action));
       pushTag(this.buildTagText('', item.type_tips));
+    } else if (this.data.gearType === 'line') {
+      pushTag(this.buildTagText('', item.type_tips));
+      pushTag(this.buildTagText('别名 ', item.alias));
     } else {
       pushTag(this.buildTagText('', item.system));
       pushTag(this.buildTagText('', item.water_column));
@@ -262,6 +288,9 @@ Page({
     } else if (this.data.gearType === 'rods') {
       pushPart('TOTAL LENGTH');
       pushPart('Action');
+    } else if (this.data.gearType === 'line') {
+      pushPart('SIZE NO.');
+      pushPart('MAX STRENGTH(lb)');
     } else {
       pushPart('Length');
       pushPart('Weight');
@@ -422,7 +451,7 @@ Page({
       specSections: this.buildSpecSections(displayRecord, columns),
       infoTags: this.buildInfoTags(item),
       seriesInsights: this.buildSeriesInsights(item, variants),
-      canCompare: this.data.gearType !== 'lures' && !!selectedVariant
+      canCompare: ['reels', 'rods'].includes(this.data.gearType) && !!selectedVariant
     };
   },
 
@@ -539,7 +568,11 @@ Page({
   onToggleCompare() {
     if (!this.data.canCompare) {
       wx.showToast({
-        title: this.data.gearType === 'lures' ? '鱼饵正式对比页后置' : '当前还没有可加入对比的子型号',
+        title: this.data.gearType === 'lures'
+          ? '鱼饵正式对比页后置'
+          : this.data.gearType === 'line'
+            ? '鱼线正式对比页后置'
+            : '当前还没有可加入对比的子型号',
         icon: 'none'
       });
       return;
@@ -737,6 +770,7 @@ Page({
     const preferredOrder = [
       'SKU', 'GEAR RATIO', 'DRAG', 'MAX DRAG', 'WEIGHT',
       'TOTAL LENGTH', 'Action', 'PIECES', 'Length', 'Weight', 'Buoyancy',
+      'SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'COLOR', 'Market Reference Price', 'AdminCode',
       'spool_diameter_per_turn_mm', 'cm_per_turn',
       'Nylon_lb_m', 'Nylon_no_m', 'fluorocarbon_lb_m', 'fluorocarbon_no_m', 'pe_no_m',
       'handle_length_mm'
