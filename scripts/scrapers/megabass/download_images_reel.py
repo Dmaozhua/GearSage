@@ -1,0 +1,97 @@
+import json
+import os
+import re
+from concurrent.futures import ThreadPoolExecutor
+from curl_cffi import requests
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
+DATA_DIR = os.path.join(BASE_DIR, "GearSage-client", "pkgGear", "data_raw")
+
+# Target image directories
+IMAGE_DIR = "/Users/tommy/GearSage/temp_images/megabass_reels"
+FINAL_DIR = "/Users/tommy/Pictures/images/megabass_reels"
+
+os.makedirs(IMAGE_DIR, exist_ok=True)
+try:
+    os.makedirs(FINAL_DIR, exist_ok=True)
+except PermissionError:
+    print(f"Warning: Could not create {FINAL_DIR} due to permissions. Skipping final path checks.")
+    FINAL_DIR = None
+
+def sanitize_filename(name):
+    # Replace invalid filename characters with underscore
+    return re.sub(r'[\\/*?:"<>|]', "_", name).strip()
+
+def download_image(url, save_path, final_path):
+    if final_path and os.path.exists(final_path):
+        return True
+    if os.path.exists(save_path):
+        return True
+        
+    print(f"Downloading {url} -> {save_path}")
+    headers = {
+        "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    }
+    try:
+        response = requests.get(url, impersonate="chrome", headers=headers, timeout=15)
+        if response.status_code == 200:
+            with open(save_path, "wb") as f:
+                f.write(response.content)
+            return True
+        else:
+            print(f"Failed to download {url}: {response.status_code}")
+            return False
+    except Exception as e:
+        print(f"Error downloading {url}: {e}")
+        return False
+
+def process_file(json_filename):
+    json_path = os.path.join(DATA_DIR, json_filename)
+    if not os.path.exists(json_path):
+        print(f"File not found: {json_path}")
+        return
+        
+    print(f"Processing {json_filename}...")
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    updated = False
+    
+    def process_item(item):
+        nonlocal updated
+        main_img_url = item.get("main_image_url")
+        if not main_img_url:
+            return
+            
+        model_name = item.get("model", "unknown")
+        safe_name = sanitize_filename(model_name)
+        ext = ".jpg"
+        if "png" in main_img_url.lower():
+            ext = ".png"
+        elif "webp" in main_img_url.lower():
+            ext = ".webp"
+            
+        filename = f"{safe_name}_main{ext}"
+        
+        abs_save_path = os.path.join(IMAGE_DIR, filename)
+        final_path = os.path.join(FINAL_DIR, filename) if FINAL_DIR else None
+        rel_save_path = f"images/megabass_reels/{filename}"
+            
+        success = download_image(main_img_url, abs_save_path, final_path)
+        if success:
+            item["local_image_path"] = rel_save_path
+            updated = True
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(process_item, data)
+                
+    if updated:
+        print(f"Saving updated {json_filename}...")
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+if __name__ == "__main__":
+    process_file("megabass_reel_normalized.json")
+    print("Done!")

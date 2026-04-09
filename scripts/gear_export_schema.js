@@ -192,6 +192,15 @@ const HEADERS = {
         'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
         'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1',
     ],
+    lineMaster: [
+        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'type_tips', 'images', 'created_at', 'updated_at', 'description',
+    ],
+    lineDetail: [
+        'id', 'line_id', 'SKU', 'COLOR', 'LENGTH(m)', 'SIZE NO.', 'MAX STRENGTH(lb)',
+        'MAX STRENGTH(kg)', 'AVG STRENGTH(lb)', 'AVG STRENGTH(kg)', 'Market Reference Price',
+        'AdminCode', 'created_at', 'updated_at',
+    ],
 };
 
 module.exports = {

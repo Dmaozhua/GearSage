@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-09T06:35:26.611Z
+generated_at: 2026-04-09T16:18:47.619Z
 
-summary: ok=11, diff=0, missing_import=0
+summary: ok=9, diff=3, missing_import=0
 
 ## shimano_lure
 #### master
@@ -160,42 +160,80 @@ summary: ok=11, diff=0, missing_import=0
 
 ## shimano_spinning_reel
 #### master
-- status: OK
+- status: DIFF
 - rows: import=67, rate=67
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: series, series_cn, water_type, description, source_url, main_image_url, local_image_path
+#### spinning_reel_detail
+- status: DIFF
+- rows: import=404, rate=404
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: type
+
+## shimano_baitcasting_reel
+#### master
+- status: DIFF
+- rows: import=72, rate=72
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: series, series_cn, water_type, description, source_url, main_image_url, local_image_path
+#### baitcasting_reel_detail
+- status: DIFF
+- rows: import=388, rate=388
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: type
+
+## daiwa_baitcasting_reel
+#### master
+- status: DIFF
+- rows: import=30, rate=30
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: series, series_cn, water_type, description, source_url, main_image_url, local_image_path
+#### baitcasting_reel_detail
+- status: DIFF
+- rows: import=141, rate=141
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: type
+
+## megabass_reel
+#### master
+- status: OK
+- rows: import=18, rate=18
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
 #### spinning_reel_detail
 - status: OK
-- rows: import=404, rate=404
-- missing in rate: 0 (none)
-- extra in rate: 0 (none)
-- changed rows: 0
-
-## shimano_baitcasting_reel
-#### master
-- status: OK
-- rows: import=72, rate=72
+- rows: import=2, rate=2
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
 #### baitcasting_reel_detail
 - status: OK
-- rows: import=388, rate=388
-- missing in rate: 0 (none)
-- extra in rate: 0 (none)
-- changed rows: 0
-
-## daiwa_baitcasting_reel
-#### master
-- status: OK
-- rows: import=30, rate=30
-- missing in rate: 0 (none)
-- extra in rate: 0 (none)
-- changed rows: 0
-#### baitcasting_reel_detail
-- status: OK
-- rows: import=141, rate=141
+- rows: import=16, rate=16
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0

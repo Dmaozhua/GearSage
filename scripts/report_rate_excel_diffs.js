@@ -173,6 +173,21 @@ const TASKS = [
             { importSheet: 'baitcasting_reel_detail', targetFile: 'baitcasting_reel_detail.xlsx', targetSheet: 'baitcasting_reel_detail', foreignKey: 'reel_id', rowKey: 'id' },
         ],
     },
+    {
+        name: 'megabass_reel',
+        importFile: 'megabass_reel_import.xlsx',
+        master: {
+            importSheet: 'reel',
+            targetFile: 'reel.xlsx',
+            targetSheet: 'reel',
+            filter: (row) => normalizeValue(row.id).startsWith('MRE'),
+            rowKey: 'id',
+        },
+        details: [
+            { importSheet: 'spinning_reel_detail', targetFile: 'spinning_reel_detail.xlsx', targetSheet: 'spinning_reel_detail', foreignKey: 'reel_id', rowKey: 'id' },
+            { importSheet: 'baitcasting_reel_detail', targetFile: 'baitcasting_reel_detail.xlsx', targetSheet: 'baitcasting_reel_detail', foreignKey: 'reel_id', rowKey: 'id' },
+        ],
+    },
 ];
 
 function readSheet(filePath, sheetName) {

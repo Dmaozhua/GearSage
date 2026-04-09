@@ -1,44 +1,36 @@
 const path = require('path');
 const xlsx = require('xlsx');
+const { HEADERS } = require('./gear_export_schema');
 
 const ROOT = path.resolve(__dirname, '..');
 const RATE_EXCEL_DIR = path.join(ROOT, 'GearSage-client/rate/excel');
 const DATA_RAW_DIR = path.join(ROOT, 'GearSage-client/pkgGear/data_raw');
 
-const HEADERS = {
-    lure: ['id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias', 'type_tips', 'system', 'water_column', 'action', 'images', 'created_at', 'updated_at', 'description'],
-    line: ['id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias', 'type_tips', 'images', 'created_at', 'updated_at', 'description'],
-    hardbait_lure_detail: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1'],
-    metal_lure_detail: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size'],
-    soft_lure_detail: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1', 'quantity (入数)'],
-    wire_lure_detail: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1'],
-    jig_lure_detail: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1'],
-    line_detail: ['id', 'line_id', 'SKU', 'COLOR', 'LENGTH(m)', 'SIZE NO.', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'AVG STRENGTH(lb)', 'AVG STRENGTH(kg)', 'Market Reference Price', 'AdminCode', 'created_at', 'updated_at'],
-};
-
 const TASKS = [
     {
         targetFile: 'lure.xlsx',
         targetSheet: 'lure',
-        headerKey: 'lure',
+        headerKey: 'lureMaster',
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'DL' },
+            { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'ML' },
         ],
     },
     {
         targetFile: 'hardbait_lure_detail.xlsx',
         targetSheet: 'hard_lure_detail',
-        headerKey: 'hardbait_lure_detail',
+        headerKey: 'hardbaitLureDetail',
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'DL' },
+            { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'ML' },
         ],
     },
     {
         targetFile: 'metal_lure_detail.xlsx',
         targetSheet: 'metal_lure_detail',
-        headerKey: 'metal_lure_detail',
+        headerKey: 'metalLureDetail',
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'DL' },
@@ -47,31 +39,33 @@ const TASKS = [
     {
         targetFile: 'soft_lure_detail.xlsx',
         targetSheet: 'soft_lure_detail',
-        headerKey: 'soft_lure_detail',
+        headerKey: 'softLureDetail',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'DL' },
+            { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'ML' },
         ],
     },
     {
         targetFile: 'wire_lure_detail.xlsx',
         targetSheet: 'wire_lure_detail',
-        headerKey: 'wire_lure_detail',
+        headerKey: 'wireLureDetail',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'DL' },
         ],
     },
     {
         targetFile: 'jig_lure_detail.xlsx',
-        targetSheet: 'hard_lure_detail',
-        headerKey: 'jig_lure_detail',
+        targetSheet: 'jig_lure_detail',
+        headerKey: 'jigLureDetail',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'DL' },
+            { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'ML' },
         ],
     },
     {
         targetFile: 'line.xlsx',
         targetSheet: 'line',
-        headerKey: 'line',
+        headerKey: 'lineMaster',
         replacements: [
             { sourceFile: 'shimano_line_import.xlsx', sourceSheet: 'line', matchField: 'id', prefix: 'SLN' },
             { sourceFile: 'daiwa_line_import.xlsx', sourceSheet: 'line', matchField: 'id', prefix: 'DLN' },
@@ -80,10 +74,59 @@ const TASKS = [
     {
         targetFile: 'line_detail.xlsx',
         targetSheet: 'line_detail',
-        headerKey: 'line_detail',
+        headerKey: 'lineDetail',
         replacements: [
             { sourceFile: 'shimano_line_import.xlsx', sourceSheet: 'line_detail', matchField: 'line_id', prefix: 'SLN' },
             { sourceFile: 'daiwa_line_import.xlsx', sourceSheet: 'line_detail', matchField: 'line_id', prefix: 'DLN' },
+        ],
+    },
+    {
+        targetFile: 'reel.xlsx',
+        targetSheet: 'reel',
+        headerKey: 'reelMaster',
+        replacements: [
+            { sourceFiles: ['shimano_spinning_reels_import.xlsx', 'shimano_baitcasting_reels_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'SRE' },
+            { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'reel', matchField: 'id', prefix: 'DRE' },
+            { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'reel', matchField: 'id', prefix: 'MRE' },
+        ],
+    },
+    {
+        targetFile: 'spinning_reel_detail.xlsx',
+        targetSheet: 'spinning_reel_detail',
+        headerKey: 'spinningReelDetail',
+        replacements: [
+            { sourceFile: 'shimano_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
+            { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
+        ],
+    },
+    {
+        targetFile: 'baitcasting_reel_detail.xlsx',
+        targetSheet: 'baitcasting_reel_detail',
+        headerKey: 'baitcastingReelDetail',
+        replacements: [
+            { sourceFile: 'shimano_baitcasting_reels_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
+            { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+            { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
+        ],
+    },
+    {
+        targetFile: 'rod.xlsx',
+        targetSheet: 'rod',
+        headerKey: 'rodMaster',
+        replacements: [
+            { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'SR' },
+            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR' },
+            { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'MR' },
+        ],
+    },
+    {
+        targetFile: 'rod_detail.xlsx',
+        targetSheet: 'rod_detail',
+        headerKey: 'rodDetail',
+        replacements: [
+            { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'SR' },
+            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR' },
+            { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'MR' },
         ],
     },
 ];
@@ -139,23 +182,25 @@ function main() {
         let rows = readRows(targetPath, task.targetSheet);
 
         for (const replacement of task.replacements) {
-            const sourcePath = path.join(DATA_RAW_DIR, replacement.sourceFile);
-            const incomingRows = readRows(sourcePath, replacement.sourceSheet);
-            const before = countPrefix(rows, replacement.matchField, replacement.prefix);
+            let incomingRows = [];
+            const sourceFiles = replacement.sourceFiles || [replacement.sourceFile];
+            for (const file of sourceFiles) {
+                const sourcePath = path.join(DATA_RAW_DIR, file);
+                incomingRows = incomingRows.concat(readRows(sourcePath, replacement.sourceSheet));
+            }
             const result = replaceSlice(rows, incomingRows, replacement.matchField, replacement.prefix);
             rows = result.rows;
-            const after = countPrefix(rows, replacement.matchField, replacement.prefix);
-
+            
             report.push({
                 targetFile: task.targetFile,
                 targetSheet: task.targetSheet,
                 prefix: replacement.prefix,
-                sourceFile: replacement.sourceFile,
+                sourceFile: sourceFiles.join(', '),
                 sourceSheet: replacement.sourceSheet,
-                before,
+                before: countPrefix(readRows(targetPath, task.targetSheet), replacement.matchField, replacement.prefix),
                 incoming: incomingRows.length,
                 replaced: result.replacedCount,
-                after,
+                after: countPrefix(rows, replacement.matchField, replacement.prefix),
             });
         }
 

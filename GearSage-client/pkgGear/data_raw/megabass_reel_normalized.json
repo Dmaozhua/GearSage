@@ -1,0 +1,427 @@
+[
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "GAUS 20X",
+    "source_url": "https://www.megabass.co.jp/site/products/gaus-20x/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/07/main_001_GAUS_20X-2.jpg",
+    "variants": [
+      {
+        "name": "GAUS 20X",
+        "specs": {
+          "line": "3lb./140m , 4lb./100m",
+          "weight": "210g",
+          "bearings": "6BB,1RB",
+          "gear ratio": "4.8:1",
+          "line /handle turn": "63cm",
+          "drag max": "2.0kg",
+          "price": "メーカー希望小売価格（税別）\n38,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:04.387Z",
+    "local_image_path": "images/megabass_reels/GAUS 20X_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "GAUS 30X",
+    "source_url": "https://www.megabass.co.jp/site/products/gaus-30x/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/07/main_001_GAUS_30X-1.jpg",
+    "variants": [
+      {
+        "name": "GAUS 30X",
+        "specs": {
+          "line": "10lb./195m , 12lb./150m",
+          "weight": "265g",
+          "bearings": "6BB , 1RB",
+          "gear ratio": "4.7:1",
+          "line /handle turn": "79cm",
+          "drag max": "7.0kg",
+          "price": "メーカー希望小売価格（税別）\n44,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:04.751Z",
+    "local_image_path": "images/megabass_reels/GAUS 30X_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "LIN258HM",
+    "source_url": "https://www.megabass.co.jp/site/products/lin258hm/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/07/main_001_LIN258HM.jpg",
+    "variants": [
+      {
+        "name": "LIN258HM",
+        "specs": {
+          "line": "6lb./210m, 8lb/150m",
+          "weight": "8.8oz.(248g)",
+          "bearings": "12BB / 1RB",
+          "gear ratio": "6.0:1",
+          "line /handle turn": "34.7in(91cm)",
+          "drag max": "7.0kg",
+          "price": "メーカー希望小売価格（税別）\n55,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:05.113Z",
+    "local_image_path": "images/megabass_reels/LIN258HM_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "RC-IDATEN 256",
+    "source_url": "https://www.megabass.co.jp/site/products/rc-idaten256/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2014/06/main_001_megabass_idaten-x_256.jpg",
+    "variants": [
+      {
+        "name": "RC-IDATEN 256",
+        "specs": {
+          "line": "4lb./190m, 5lb/150m",
+          "weight": "215g",
+          "bearings": "7BB / 1RB",
+          "gear ratio": "5.66:1",
+          "line /handle turn": "84cm",
+          "drag max": "3.0kg",
+          "price": "メーカー希望小売価格（税別）\n59,800 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:05.419Z",
+    "local_image_path": "images/megabass_reels/RC-IDATEN 256_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "MONOBLOCK SPECIALE GRIGIO STONE",
+    "source_url": "https://www.megabass.co.jp/site/products/monoblock_sp_grigio_stone/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2016/12/main_001_MONOBLOCK_SPECIALE_GRIGIO_STONE.jpg",
+    "variants": [
+      {
+        "name": "MONOBLOCK SPECIALE GRIGIO STONE",
+        "specs": {
+          "line": "14lb./120m , 16lb./105m",
+          "weight": "210g",
+          "bearings": "10BB , 1RB",
+          "gear ratio": "6.8:1",
+          "line /handle turn": "72cm",
+          "drag max": "4.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n92,500 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:05.733Z",
+    "local_image_path": "images/megabass_reels/MONOBLOCK SPECIALE GRIGIO STONE_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "MONOBLOCK SPECIALE ITO-GAMBLER",
+    "source_url": "https://www.megabass.co.jp/site/products/monoblock_ito-gambler/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2017/02/main_001_MONOBLOCK_SPECIALE_ITO-GAMBLER.jpg",
+    "variants": [
+      {
+        "name": "MONOBLOCK SPECIALE ITO-GAMBLER",
+        "specs": {
+          "line": "14lb./120m , 16lb./105m",
+          "weight": "210g",
+          "bearings": "10BB , 1RB",
+          "gear ratio": "6.8:1",
+          "line /handle turn": "72cm",
+          "drag max": "4.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n92,500 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:06.104Z",
+    "local_image_path": "images/megabass_reels/MONOBLOCK SPECIALE ITO-GAMBLER_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "MONOBLOCK SPECIALE",
+    "source_url": "https://www.megabass.co.jp/site/products/monoblock-speciale/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2015/04/main_001_MONOBLOCK_SPECIALE.jpg",
+    "variants": [
+      {
+        "name": "MONOBLOCK SPECIALE",
+        "specs": {
+          "line": "14lb./120m , 16lb./105m",
+          "weight": "210g",
+          "bearings": "10BB , 1RB",
+          "gear ratio": "6.8:1",
+          "line /handle turn": "72cm",
+          "drag max": "4.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n92,500 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:06.704Z",
+    "local_image_path": "images/megabass_reels/MONOBLOCK SPECIALE_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "RHODIUM 73",
+    "source_url": "https://www.megabass.co.jp/site/products/rhodium73/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2021/01/main_001_megabass_rhodium_73.jpg",
+    "variants": [
+      {
+        "name": "RHODIUM 73",
+        "specs": {
+          "line": "16lb. / 80m",
+          "weight": "200g",
+          "bearings": "6BB:1RB",
+          "gear ratio": "7.3:1",
+          "line /handle turn": "74cm",
+          "drag max": "5.0kg",
+          "type": "LEFT HANDLERIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n32,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:07.101Z",
+    "local_image_path": "images/megabass_reels/RHODIUM 73_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "RHODIUM 81",
+    "source_url": "https://www.megabass.co.jp/site/products/rhodium81/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2018/04/main_001_RHODIUM_81.jpg",
+    "variants": [
+      {
+        "name": "RHODIUM 81",
+        "specs": {
+          "line": "16lb. / 80m",
+          "weight": "200g",
+          "bearings": "6BB:1RB",
+          "gear ratio": "8.1:1",
+          "line /handle turn": "83cm",
+          "drag max": "5.0kg",
+          "type": "LEFT HANDLERIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n32,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:07.457Z",
+    "local_image_path": "images/megabass_reels/RHODIUM 81_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "RHODIUM 63",
+    "source_url": "https://www.megabass.co.jp/site/products/rhodium63/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2018/04/main_001_RHODIUM_63.jpg",
+    "variants": [
+      {
+        "name": "RHODIUM 63",
+        "specs": {
+          "line": "16lb. / 80m",
+          "weight": "200g",
+          "bearings": "6BB:1RB",
+          "gear ratio": "6.3:1",
+          "line /handle turn": "65cm",
+          "drag max": "5.0kg",
+          "type": "LEFT HANDLERIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n32,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:07.869Z",
+    "local_image_path": "images/megabass_reels/RHODIUM 63_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "Pagani R100",
+    "source_url": "https://www.megabass.co.jp/site/products/pagani-r100/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/07/main_001_Pagani_R100-1.jpg",
+    "variants": [
+      {
+        "name": "Pagani R100",
+        "specs": {
+          "line": "8lb./100yd , 10lb./75yd",
+          "weight": "255g",
+          "bearings": "5BB",
+          "gear ratio": "5.1 : 1",
+          "drag max": "5.5lb.",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n42,800 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:08.227Z",
+    "local_image_path": "images/megabass_reels/Pagani R100_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "Pagani P200",
+    "source_url": "https://www.megabass.co.jp/site/products/pagani-p200/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/07/main_001_Pagani_P200_black-chrome.jpg",
+    "variants": [
+      {
+        "name": "Pagani P200",
+        "specs": {
+          "weight": "230g",
+          "bearings": "5BB",
+          "gear ratio": "6.1:1",
+          "line /handle turn": "8lb./155yards、10lb./123yards",
+          "drag max": "3.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n41,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:08.638Z",
+    "local_image_path": "images/megabass_reels/Pagani P200_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "Pagani P300",
+    "source_url": "https://www.megabass.co.jp/site/products/pagani-p300/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/07/main_001_Pagani_P300_01_CHAMPAGNE_GOLD.jpg",
+    "variants": [
+      {
+        "name": "Pagani P300",
+        "specs": {
+          "line": "8lb./200yd , 10lb./160yd , 12lb./135yd",
+          "weight": "250g",
+          "bearings": "5BB",
+          "gear ratio": "6.1:1",
+          "drag max": "6.6lb(3kg)",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n40,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:09.002Z",
+    "local_image_path": "images/megabass_reels/Pagani P300_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "LAUDA58",
+    "source_url": "https://www.megabass.co.jp/site/products/lauda58/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2017/02/main_001_LAUDA_58.jpg",
+    "variants": [
+      {
+        "name": "LAUDA58",
+        "specs": {
+          "line": "12lb./40-80m , 14lb./35-70m",
+          "weight": "180g",
+          "bearings": "6BB , 1RB",
+          "gear ratio": "5.8:1",
+          "line /handle turn": "60cm",
+          "drag max": "4.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n38,500 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:09.406Z",
+    "local_image_path": "images/megabass_reels/LAUDA58_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "LAUDA72",
+    "source_url": "https://www.megabass.co.jp/site/products/lauda72/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2016/12/main_001_LAUDA_72.jpg",
+    "variants": [
+      {
+        "name": "LAUDA72",
+        "specs": {
+          "line": "12lb./40-80m , 14lb./35-70m",
+          "weight": "170g",
+          "bearings": "6BB , 1RB",
+          "gear ratio": "7.2:1",
+          "line /handle turn": "73cm",
+          "drag max": "4.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n38,500 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:09.802Z",
+    "local_image_path": "images/megabass_reels/LAUDA72_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "LAUDA72 LIMITED EDITION",
+    "source_url": "https://www.megabass.co.jp/site/products/lauda72ltd/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2017/02/main_001_LAUDA_72_LIMITED-EDITION.jpg",
+    "variants": [
+      {
+        "name": "LAUDA72 LIMITED EDITION",
+        "specs": {
+          "line": "12lb./40-80m , 14lb./35-70m",
+          "weight": "170g",
+          "bearings": "6BB , 1RB",
+          "gear ratio": "7.2:1",
+          "line /handle turn": "73cm",
+          "drag max": "4.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n42,500 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:10.384Z",
+    "local_image_path": "images/megabass_reels/LAUDA72 LIMITED EDITION_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "IP79",
+    "source_url": "https://www.megabass.co.jp/site/products/ip79/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2013/08/main_001_IP79.jpg",
+    "variants": [
+      {
+        "name": "IP79",
+        "specs": {
+          "line": "12lb./135m , 16lb./100m",
+          "weight": "215g",
+          "bearings": "10BB , 1RB",
+          "gear ratio": "7.9:1",
+          "line /handle turn": "89cm",
+          "drag max": "5.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n45,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:10.796Z",
+    "local_image_path": "images/megabass_reels/IP79_main.jpg"
+  },
+  {
+    "brand": "MEGABASS",
+    "kind": "reel",
+    "model": "IP68",
+    "source_url": "https://www.megabass.co.jp/site/products/ip68/",
+    "main_image_url": "https://www.megabass.co.jp/site/wp-content/uploads/2014/06/main_001_IP68.jpg",
+    "variants": [
+      {
+        "name": "IP68",
+        "specs": {
+          "line": "12lb./135m , 16lb./100m",
+          "weight": "215g",
+          "bearings": "10BB , 1RB",
+          "gear ratio": "6.8:1",
+          "line /handle turn": "77cm",
+          "drag max": "5.0kg",
+          "type": "LEFT HANDLE / RIGHT HANDLE",
+          "price": "メーカー希望小売価格（税別）\n45,000 円"
+        }
+      }
+    ],
+    "scraped_at": "2026-04-09T16:03:11.194Z",
+    "local_image_path": "images/megabass_reels/IP68_main.jpg"
+  }
+]
