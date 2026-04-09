@@ -260,12 +260,20 @@
     ```
     *   查看 `/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/rate_excel_diff_report.md`。
 
-6.  **只处理报告中的真实差异**
+6.  **同步主包搜索索引**
+    ```bash
+    node /Users/tommy/GearSage/scripts/sync_client_gear_search_data.js
+    ```
+    *   将 `pkgGear/searchData/Data.js` 同步到 `GearSage-client/data/gear-search-data.js`。
+    *   确保发布链（好物速报 / 长测评 / 提问）的型号联想与装备库使用同一份搜索基线。
+    *   如果后续会执行 `npm run import:gear`，这一步可以省略；导入脚本现在会自动完成同样的同步。
+
+7.  **只处理报告中的真实差异**
     *   如果是内容缺失：补抓取数据或最终表内容。
     *   如果是字段归位错：改 `to_excel_*` 脚本，不要每次手工修。
     *   如果是最终表规则本身不清晰：先定规则，再统一修改。
 
-7.  **差异清零后再进入导入或联调**
+8.  **差异清零后再进入导入或联调**
     *   推荐目标是 `summary: ok=..., diff=0, missing_import=0`。
     *   差异清零后，先运行导入前校验，再做导库、后端抽样接口验证、前端页面联调。
     ```bash

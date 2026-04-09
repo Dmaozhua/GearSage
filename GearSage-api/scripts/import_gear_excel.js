@@ -26,6 +26,13 @@ const SEARCH_DATA_DIR = path.join(
   'searchData',
 );
 const SEARCH_DATA_FILE = path.join(SEARCH_DATA_DIR, 'Data.js');
+const CLIENT_SEARCH_DATA_DIR = path.join(
+  ROOT_DIR,
+  '..',
+  'GearSage-client',
+  'data',
+);
+const CLIENT_SEARCH_DATA_FILE = path.join(CLIENT_SEARCH_DATA_DIR, 'gear-search-data.js');
 const INIT_SQL_PATH = path.join(ROOT_DIR, 'sql', 'init_core_tables.sql');
 
 const MASTER_SOURCES = [
@@ -175,7 +182,7 @@ async function main(options) {
 
     await client.query('COMMIT');
 
-    const searchDataCount = generateSearchDataFile(searchData);
+    const searchDataCount = generateSearchDataFiles(searchData);
 
     console.log(
       `[import:gear] Imported brands=${brands.length} masters=${masters.length} variants=${variants.length} searchData=${searchDataCount}`,
@@ -358,13 +365,23 @@ function buildSearchData(masters) {
     .filter((item) => item.name && item.id);
 }
 
-function generateSearchDataFile(searchData) {
-  if (!fs.existsSync(SEARCH_DATA_DIR)) {
-    fs.mkdirSync(SEARCH_DATA_DIR, { recursive: true });
+function ensureDir(targetDir) {
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
   }
+}
 
+function generateSearchDataFiles(searchData) {
   const content = `module.exports = ${JSON.stringify(searchData, null, 2)};\n`;
+
+  ensureDir(SEARCH_DATA_DIR);
   fs.writeFileSync(SEARCH_DATA_FILE, content, 'utf8');
+
+  ensureDir(CLIENT_SEARCH_DATA_DIR);
+  fs.writeFileSync(CLIENT_SEARCH_DATA_FILE, content, 'utf8');
+
+  console.log(`[import:gear] Search data synced: ${SEARCH_DATA_FILE}`);
+  console.log(`[import:gear] Search data synced: ${CLIENT_SEARCH_DATA_FILE}`);
   return searchData.length;
 }
 

@@ -3,13 +3,35 @@
  * 环境判断工具
  */
 class EnvUtil {
+  static getSystemSnapshot() {
+    if (typeof wx === 'undefined') {
+      return {
+        platform: 'node',
+        system: 'node',
+        brand: 'node',
+        model: 'node',
+        environment: 'unknown'
+      };
+    }
+
+    const deviceInfo = typeof wx.getDeviceInfo === 'function' ? wx.getDeviceInfo() : {};
+    const appBaseInfo = typeof wx.getAppBaseInfo === 'function' ? wx.getAppBaseInfo() : {};
+
+    return {
+      platform: deviceInfo.platform || appBaseInfo.platform || '',
+      system: deviceInfo.system || '',
+      brand: deviceInfo.brand || '',
+      model: deviceInfo.model || '',
+      environment: appBaseInfo.environment || 'unknown'
+    };
+  }
+
   /**
    * 判断是否在微信开发者工具中运行
    */
   static isDevTool() {
     try {
-      // 方法1：通过wx.getSystemInfoSync()判断
-      const systemInfo = wx.getSystemInfoSync();
+      const systemInfo = this.getSystemSnapshot();
       
       // 开发者工具的platform通常是'devtools'
       if (systemInfo.platform === 'devtools') {
@@ -49,7 +71,7 @@ class EnvUtil {
    * 获取当前环境信息
    */
   static getEnvInfo() {
-    if (typeof wx === 'undefined' || typeof wx.getSystemInfoSync !== 'function') {
+    if (typeof wx === 'undefined') {
       return {
         isDevTool: false,
         isRealDevice: true,
@@ -62,7 +84,7 @@ class EnvUtil {
     }
 
     const isDevTool = this.isDevTool();
-    const systemInfo = wx.getSystemInfoSync();
+    const systemInfo = this.getSystemSnapshot();
     
     return {
       isDevTool,

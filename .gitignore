@@ -19,3 +19,4 @@ __pycache__/
 # Local testing output (if needed)
 scripts/data_raw/
 normalized.json
+.omx/

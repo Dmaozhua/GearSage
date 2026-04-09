@@ -36,8 +36,9 @@
 3.  **动态多 Sheet 导出**: 在将 `normalized.json` 转换为 Excel 时，转换脚本（如 `to_excel_megabass_lure.js`）会根据推导出的 `system` 字段（如 hardbait, soft, wire）自动将数据路由并拆分到不同的 Excel Sheet 中，直接生成符合最终导入格式的文件，统一输出到 `data_raw/` 目录下。
 4.  **共享导出规范**: `scripts/gear_export_schema.js` 维护品牌 ID、sheet 名和标准 header。`data_raw` 导出层默认直接对齐 `rate/excel` 的最终字段和主键风格，尽量减少人工二次统一格式。
 5.  **差异报告**: `scripts/report_rate_excel_diffs.js` 会对比 `pkgGear/data_raw/*_import.xlsx` 与 `rate/excel` 当前基准切片，输出只读 markdown 报告到 `pkgGear/data_raw/rate_excel_diff_report.md`，用于人工确认是否需要回填最终表。
-6.  **最终基准约定**: `rate/excel` 是最终使用数据，`pkgGear/data_raw` 是抓取/清洗/导出中间层。扩充时默认先跑差异报告，不直接自动覆盖最终总表。日常执行可直接参考 [装备扩充操作清单_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备扩充操作清单_v1.md)。
-7.  **导入前校验**: `GearSage-api/scripts/import_gear_excel.js` 现已支持 `--dry-run`。推荐在正式导库前先执行 `npm run import:gear:check`，只校验 `rate/excel` 的品牌引用、主键、外键与重复 key，不连接数据库、不执行清表。
+6.  **发布链搜索同步**: `scripts/sync_client_gear_search_data.js` 会把 `pkgGear/searchData/Data.js` 同步到主包的 `data/gear-search-data.js`，确保发布链的型号联想与装备库使用同一份搜索基线。`GearSage-api/scripts/import_gear_excel.js` 在正式导入成功后也会自动执行同样的同步。
+7.  **最终基准约定**: `rate/excel` 是最终使用数据，`pkgGear/data_raw` 是抓取/清洗/导出中间层。扩充时默认先跑差异报告，不直接自动覆盖最终总表。日常执行可直接参考 [装备扩充操作清单_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备扩充操作清单_v1.md)。
+8.  **导入前校验**: `GearSage-api/scripts/import_gear_excel.js` 现已支持 `--dry-run`。推荐在正式导库前先执行 `npm run import:gear:check`，只校验 `rate/excel` 的品牌引用、主键、外键与重复 key，不连接数据库、不执行清表。
 
 ## 3. 数据流与核心流程
 

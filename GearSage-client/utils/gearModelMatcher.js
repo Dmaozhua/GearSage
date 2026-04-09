@@ -1,4 +1,4 @@
-const searchData = require('../pkgGear/searchData/Data.js');
+const searchData = require('../data/gear-search-data.js');
 
 const CATEGORY_TO_TYPE_MAP = {
   rod: 'rod',
