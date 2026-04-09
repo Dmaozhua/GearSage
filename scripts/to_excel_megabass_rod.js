@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_raw.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx');
@@ -43,7 +44,7 @@ for (const item of data) {
 for (const [seriesName, seriesInfo] of seriesMap.entries()) {
     rodRows.push({
         'id': seriesInfo.id,
-        'brand_id': '', // Megabass ID? leave empty for import
+        'brand_id': BRAND_IDS.MEGABASS,
         'model': seriesInfo.series_name,
         'model_cn': '',
         'model_year': '',
@@ -129,16 +130,21 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
             'Reel Size': '',
             'Description': item.description_en || '',
             'created_at': '',
-            'updated_at': ''
+            'updated_at': '',
+            'Extra Spec 1': '',
+            'Extra Spec 2': ''
         };
 
-        // Add remaining unmapped specs
+        // Keep export schema stable: fold remaining unmapped specs into generic extra-note fields.
         const mappedKeys = ['Length', 'Action', 'Taper', '継数', 'Weight', 'Lure', 'Lure capa', 'Line', 'Line capa', 'カーボン含有率', 'Price', 'Subname'];
+        const extraNotes = [];
         for (const [k, v] of Object.entries(specs)) {
             if (!mappedKeys.includes(k) && !v.includes('Closed Length')) {
-                row[k] = v;
+                extraNotes.push(`${k}: ${v}`);
             }
         }
+        row['Extra Spec 1'] = extraNotes[0] || row['Extra Spec 1'];
+        row['Extra Spec 2'] = extraNotes[1] || row['Extra Spec 2'];
 
         detailRows.push(row);
     }
@@ -146,11 +152,11 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
 
 const wb = xlsx.utils.book_new();
 
-const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","images","created_at","updated_at"] });
-xlsx.utils.book_append_sheet(wb, rodSheet, 'rod');
+const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: HEADERS.rodMaster });
+xlsx.utils.book_append_sheet(wb, rodSheet, SHEET_NAMES.rod);
 
-const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: ["id","rod_id","TYPE","SKU","TOTAL LENGTH","Action","PIECES","CLOSELENGTH","WEIGHT","Tip Diameter","LURE WEIGHT","Line Wt N F","PE Line Size","Handle Length","Reel Seat Position","CONTENT CARBON","Market Reference Price","AdminCode","Service Card"," Jig Weight","Squid Jig Size","Sinker Rating","created_at","updated_at"] });
-xlsx.utils.book_append_sheet(wb, detailSheet, 'rod_detail');
+const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: HEADERS.rodDetail });
+xlsx.utils.book_append_sheet(wb, detailSheet, SHEET_NAMES.rodDetail);
 
 xlsx.writeFile(wb, outputFile);
 console.log(`[To Excel] Done! Saved to: ${outputFile}`);

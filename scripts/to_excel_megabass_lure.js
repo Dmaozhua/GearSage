@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 function classifyLure(item) {
     let typeTips = 'special_lure';
@@ -276,7 +277,7 @@ function generateMegabassLureExcel() {
         // Add main lure row
         lureRows.push({
             'id': currentLureId,
-            'brand_id': '', // Will be filled in DB
+            'brand_id': BRAND_IDS.MEGABASS,
             'model': item.model_name,
             'model_cn': '',
             'model_year': '',
@@ -347,8 +348,8 @@ function generateMegabassLureExcel() {
     const wb = xlsx.utils.book_new();
 
     // Create worksheets
-    const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at"] });
-    xlsx.utils.book_append_sheet(wb, wsLure, 'lure');
+    const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: HEADERS.lureMaster });
+    xlsx.utils.book_append_sheet(wb, wsLure, SHEET_NAMES.lure);
 
     if (hardbaitDetailRows.length > 0) {
         const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx');
@@ -44,7 +45,7 @@ function main() {
         if (!reelsMap.has(masterKey)) {
             reelsMap.set(masterKey, {
                 id: `SRE${reelIdCounter++}`,
-                brand_id: 2, // Assume 2 is Shimano
+                brand_id: BRAND_IDS.SHIMANO,
                 model: item.model_name,
                 model_cn: '',
                 model_year: item.model_year || '',
@@ -74,7 +75,7 @@ function main() {
                         "GEAR RATIO": specs.gear_ratio || '',
                         "DRAG": '', // Shimano usually just has max drag
                         "MAX DRAG": specs.max_drag_kg || '',
-                        "MAX DURABILITY": specs.max_durability_kg || '',
+                        "MAX_DURABILITY": specs.max_durability_kg || '',
                         "WEIGHT": specs.weight_g || '',
                         "spool_diameter_per_turn_mm": specs.spool_diameter_stroke_mm || '',
                         "Nylon_no_m": specs.nylon_no_m || '',
@@ -128,25 +129,11 @@ function main() {
 
     const wb = XLSX.utils.book_new();
     
-    const reelsHeader = [
-        "id", "brand_id", "model", "model_cn", "model_year", "alias", 
-        "type_tips", "type", "images", "created_at", "updated_at",
-        "series_positioning", "main_selling_points", "official_reference_price", "market_status"
-    ];
-    const wsReels = XLSX.utils.json_to_sheet(reelsRows, { header: reelsHeader });
-    XLSX.utils.book_append_sheet(wb, wsReels, "Reels Master");
+    const wsReels = XLSX.utils.json_to_sheet(reelsRows, { header: HEADERS.reelMaster });
+    XLSX.utils.book_append_sheet(wb, wsReels, SHEET_NAMES.reel);
     
-    const variantsHeader = [
-        "id", "reel_id", "SKU", "GEAR RATIO", "DRAG", "MAX DRAG", "WEIGHT", 
-        "spool_diameter_per_turn_mm", "Nylon_no_m", "Nylon_lb_m", "fluorocarbon_no_m", 
-        "fluorocarbon_lb_m", "pe_no_m", "cm_per_turn", "handle_length_mm", "bearing_count_roller", 
-        "market_reference_price", "product_code", "created_at", "updated_at",
-        "drag_click", "spool_depth_normalized", "gear_ratio_normalized", "brake_type_normalized",
-        "fit_style_tags", "min_lure_weight_hint", "is_compact_body", "handle_style",
-        "MAX DURABILITY"
-    ];
-    const wsVariants = XLSX.utils.json_to_sheet(variantsRows, { header: variantsHeader });
-    XLSX.utils.book_append_sheet(wb, wsVariants, "Reels Variants");
+    const wsVariants = XLSX.utils.json_to_sheet(variantsRows, { header: HEADERS.spinningReelDetail });
+    XLSX.utils.book_append_sheet(wb, wsVariants, SHEET_NAMES.spinningReelDetail);
     
     XLSX.writeFile(wb, outputFile);
     console.log('[To Excel] Done! Saved to:', outputFile);

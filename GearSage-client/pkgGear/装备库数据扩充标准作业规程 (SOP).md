@@ -92,6 +92,8 @@
     *   校验通过后，我将运行专门的转换脚本 (如 `scripts/to_excel_megabass_lure.js`)。
     *   脚本会在内存中执行动态枚举推导（如 `classifyLure`），将非结构化数据映射为系统的标准枚举（`type_tips`, `system`, `water_column` 等）。
     *   转换脚本会读取 `normalized.json` 并生成品牌级的中间 Excel，统一输出至 `pkgGear/data_raw/` 目录，例如 `daiwa_lure_import.xlsx`、`shimano_line_import.xlsx`。
+    *   `data_raw` 导出规则现在要求直接对齐最终基准表：`brand_id` 使用 `brand.xlsx` 中的纯数字品牌 ID；装备主键/外键使用字符串前缀主键；sheet 名、表头顺序与 `rate/excel` 保持一致。
+    *   公共导出常量统一维护在 `scripts/gear_export_schema.js`。新增或修改 `to_excel_*` 脚本时，优先复用这里的品牌 ID、sheet 名和 header 定义，不再在各脚本内重复手写。
     *   **注意**：`pkgGear/data_raw/*_import.xlsx` 只是中间产物，当前数据库导入仍以 `GearSage-client/rate/excel/` 目录下的总表为准。
 
 3.  **同步回总表 (`rate/excel`)**:

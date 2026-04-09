@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_test.json');
 const outputFile = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_import.xlsx');
@@ -22,7 +23,6 @@ function main() {
     const seenSkus = new Set(); // For deduplication
 
     data.forEach((item, index) => {
-        const brandId = item.brand === 'Daiwa' ? 'B-DAIWA' : '';
         const safeModel = item.model.replace(/\s+/g, '-').toUpperCase();
         let masterYear = item.model_year || '';
         
@@ -32,7 +32,7 @@ function main() {
 
         reelsRows.push({
             id: masterId,
-            brand_id: brandId,
+            brand_id: BRAND_IDS.DAIWA,
             model: item.model,
             model_cn: '',
             model_year: masterYear,
@@ -77,7 +77,7 @@ function main() {
                     'GEAR RATIO': v.specs ? (v.specs.gear_ratio || '') : '',
                     DRAG: '',
                     'MAX DRAG': v.specs ? (v.specs.max_drag_kg || '') : '',
-                    'MAX DURABILITY': v.specs ? (v.specs.max_durability_kg || '') : '',
+                    'MAX_DURABILITY': v.specs ? (v.specs.max_durability_kg || '') : '',
                     WEIGHT: v.specs ? (v.specs.weight_g || '') : '',
                     spool_diameter_per_turn_mm: '',
                     Nylon_no_m: '',
@@ -119,32 +119,11 @@ function main() {
 
     const wb = XLSX.utils.book_new();
     
-    const reelsHeader = [
-        "id", "brand_id", "model", "model_cn", "model_year", "alias", 
-        "type_tips", "type", "images", "created_at", "updated_at",
-        "series_positioning", "main_selling_points", "official_reference_price", "market_status"
-    ];
-    const wsReels = XLSX.utils.json_to_sheet(reelsRows, { header: reelsHeader });
-    XLSX.utils.book_append_sheet(wb, wsReels, "Reels Master");
+    const wsReels = XLSX.utils.json_to_sheet(reelsRows, { header: HEADERS.reelMaster });
+    XLSX.utils.book_append_sheet(wb, wsReels, SHEET_NAMES.reel);
     
-    const variantsHeader = [
-        // 用户指定顺序：前 17 个字段
-        "id", "reel_id", "SKU", "GEAR RATIO", "MAX DRAG", "WEIGHT", 
-        "spool_diameter_per_turn_mm", "Nylon_lb_m", "fluorocarbon_lb_m", "pe_no_m", 
-        "cm_per_turn", "handle_length_mm", "bearing_count_roller", 
-        "market_reference_price", "product_code", "created_at", "updated_at",
-
-        // 其他衍生、官网特有以及后续扩充字段统一放在后面
-        "spool_diameter_mm", "spool_width_mm", "handle_knob_type", 
-        "handle_knob_exchange_size", "body_material", "gear_material", 
-        "battery_capacity", "battery_charge_time", "continuous_cast_count", 
-        "usage_environment", "DRAG", "Nylon_no_m", "fluorocarbon_no_m", 
-        "drag_click", "spool_depth_normalized", "gear_ratio_normalized", 
-        "brake_type_normalized", "fit_style_tags", "min_lure_weight_hint", 
-        "is_compact_body", "handle_style"
-    ];
-    const wsVariants = XLSX.utils.json_to_sheet(variantsRows, { header: variantsHeader });
-    XLSX.utils.book_append_sheet(wb, wsVariants, "Reels Variants");
+    const wsVariants = XLSX.utils.json_to_sheet(variantsRows, { header: HEADERS.baitcastingReelDetail });
+    XLSX.utils.book_append_sheet(wb, wsVariants, SHEET_NAMES.baitcastingReelDetail);
     
     XLSX.writeFile(wb, outputFile);
     console.log(`[To Excel] Conversion complete. Saved to ${outputFile}`);

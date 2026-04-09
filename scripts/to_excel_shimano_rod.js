@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 // We output a single excel file with multiple sheets, or two separate ones?
 // Usually, we've been outputting one file with multiple sheets, e.g., 'Rods Master' and 'Rod Variants'.
@@ -40,13 +41,13 @@ for (const item of data) {
     
     rodRows.push({
         'id': currentRodId,
-        'brand_id': '', // Fill manually or map to Shimano ID
+        'brand_id': BRAND_IDS.SHIMANO,
         'model': item.model_name,
         'model_cn': '',
         'model_year': modelYear,
         'alias': '',
         'type_tips': 'BASS',
-        'description': item.description || '',
+        'Description': item.description || '',
         'images': item.local_image_path || item.main_image_url || '',
         'created_at': '',
         'updated_at': ''
@@ -101,18 +102,20 @@ for (const item of data) {
             'Squid Jig Size': specs.squid_jig_no || '',
             'Sinker Rating': '',
             'created_at': '',
-            'updated_at': ''
+            'updated_at': '',
+            'Extra Spec 1': '',
+            'Extra Spec 2': ''
         });
     }
 }
 
 const wb = xlsx.utils.book_new();
 
-const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","images","created_at","updated_at"] });
-xlsx.utils.book_append_sheet(wb, rodSheet, 'rod');
+const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: HEADERS.rodMaster });
+xlsx.utils.book_append_sheet(wb, rodSheet, SHEET_NAMES.rod);
 
-const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: ["id","rod_id","TYPE","SKU","TOTAL LENGTH","Action","PIECES","CLOSELENGTH","WEIGHT","Tip Diameter","LURE WEIGHT","Line Wt N F","PE Line Size","Handle Length","Reel Seat Position","CONTENT CARBON","Market Reference Price","AdminCode","Service Card"," Jig Weight","Squid Jig Size","Sinker Rating","created_at","updated_at"] });
-xlsx.utils.book_append_sheet(wb, detailSheet, 'rod_detail');
+const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: HEADERS.rodDetail });
+xlsx.utils.book_append_sheet(wb, detailSheet, SHEET_NAMES.rodDetail);
 
 xlsx.writeFile(wb, outputFile);
 console.log(`[To Excel] Done! Saved to: ${outputFile}`);

@@ -34,6 +34,7 @@
 1.  **动态枚举推导 (`classifyLure` 等)**: 脚本不再仅仅是原样搬运数据，而是能够根据装备的名称、规格（如深度提取、浮力、包含数量）以及官网大分类，自动推导出符合 GearSage 系统的标准枚举值（如 `type_tips`, `system`, `water_column`, `action`）。
 2.  **多语言描述回退机制**: 针对具有多语言支持的官网（如 Megabass），爬虫实现了优先级回退抓取（优先有效中文 > 英文 > 日文），并在抓取过程中自动清洗无用节点（如 `script`, `style`, 语言切换器），确保描述文本的高质量与纯净。
 3.  **动态多 Sheet 导出**: 在将 `normalized.json` 转换为 Excel 时，转换脚本（如 `to_excel_megabass_lure.js`）会根据推导出的 `system` 字段（如 hardbait, soft, wire）自动将数据路由并拆分到不同的 Excel Sheet 中，直接生成符合最终导入格式的文件，统一输出到 `data_raw/` 目录下。
+4.  **共享导出规范**: `scripts/gear_export_schema.js` 维护品牌 ID、sheet 名和标准 header。`data_raw` 导出层默认直接对齐 `rate/excel` 的最终字段和主键风格，尽量减少人工二次统一格式。
 
 ## 3. 数据流与核心流程
 
@@ -71,8 +72,8 @@
 
 *   **`reel.xlsx`, `rod.xlsx`, `lure.xlsx` (主数据):**
     *   这些文件共享一套通用字段结构。
-    *   `id`: 装备唯一标识。
-    *   `brand_id`: 关联品牌。
+    *   `id`: 装备唯一标识。当前约定为**字符串前缀主键**（如 `SL1000`, `DL1000`, `MR1000`, `DLN1000`）。
+    *   `brand_id`: 关联品牌，保持为**纯数字品牌 ID**。
     *   `model`, `model_cn`, `model_year`: 型号、中文名、年份。
     *   `system`, `water_column`, `action`: **核心筛选维度**，定义了装备的基础分类属性（如：硬饵、水面、走狗）。这是实现路亚饵智能筛选的基础。
     *   `alias`, `type_tips`: 用于增强搜索和展示的辅助信息。
@@ -101,7 +102,7 @@
 module.exports = [
   {
     "type": "reel",
-    "id": 123,
+    "id": "SR1000",
     "name": "2022 STELLA C3000SDH",
     "alias": "斯特拉",
     "type_tips": "双摇把"

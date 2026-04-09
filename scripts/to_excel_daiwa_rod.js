@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_rod_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx');
@@ -34,7 +35,7 @@ for (const item of data) {
     
     rodRows.push({
         'id': currentRodId,
-        'brand_id': '', 
+        'brand_id': BRAND_IDS.DAIWA,
         'model': item.model_name,
         'model_cn': '',
         'model_year': modelYear,
@@ -120,10 +121,12 @@ for (const item of data) {
             'Reel Size': raw['リールサイズ'] || '',
             'Description': v.variant_description || raw['説明'] || '',
             'created_at': '',
-            'updated_at': ''
+            'updated_at': '',
+            'Extra Spec 1': '',
+            'Extra Spec 2': ''
         };
 
-        // Add any remaining keys from raw_specs that we haven't explicitly mapped
+        // Keep export schema stable: fold the first two unmapped notes into generic extra fields.
         const mappedKeys = [
             'アイテム', '説明', '全長（m）', '全長（m）/（ft.）', '全長(m)', 'テーパー', '調子', '継数', '継数（本）', '継数(本)',
             '仕舞寸法（cm）', '仕舞（cm）', '仕舞(cm)', '標準自重（ｇ）', '自重（g）', '自重(g)',
@@ -133,12 +136,14 @@ for (const item of data) {
             'ルアー重量（ｇ）（ジグ）', 'ジグ重量（g）', 'ジグ重量(g)', '対応エギサイズ', 'エギサイズ（号）', 'エギサイズ(号)', '錘負荷（号）', '錘負荷(号)',
             'ジョイント仕様', 'コードネーム', 'フライライン(No#=#)', 'グリップタイプ', 'リールサイズ'
         ];
-
+        const extraNotes = [];
         for (const [key, value] of Object.entries(raw)) {
-            if (!mappedKeys.includes(key) && key !== '*') {
-                row[key] = value;
+            if (!mappedKeys.includes(key) && key !== '*' && value) {
+                extraNotes.push(`${key}: ${value}`);
             }
         }
+        row['Extra Spec 1'] = extraNotes[0] || row['Extra Spec 1'];
+        row['Extra Spec 2'] = extraNotes[1] || row['Extra Spec 2'];
         
         detailRows.push(row);
     }
@@ -146,11 +151,11 @@ for (const item of data) {
 
 const wb = xlsx.utils.book_new();
 
-const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","images","created_at","updated_at"] });
-xlsx.utils.book_append_sheet(wb, rodSheet, 'rod');
+const rodSheet = xlsx.utils.json_to_sheet(rodRows, { header: HEADERS.rodMaster });
+xlsx.utils.book_append_sheet(wb, rodSheet, SHEET_NAMES.rod);
 
-const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: ["id","rod_id","TYPE","SKU","TOTAL LENGTH","Action","PIECES","CLOSELENGTH","WEIGHT","Tip Diameter","LURE WEIGHT","Line Wt N F","PE Line Size","Handle Length","Reel Seat Position","CONTENT CARBON","Market Reference Price","AdminCode","Service Card"," Jig Weight","Squid Jig Size","Sinker Rating","created_at","updated_at"] });
-xlsx.utils.book_append_sheet(wb, detailSheet, 'rod_detail');
+const detailSheet = xlsx.utils.json_to_sheet(detailRows, { header: HEADERS.rodDetail });
+xlsx.utils.book_append_sheet(wb, detailSheet, SHEET_NAMES.rodDetail);
 
 xlsx.writeFile(wb, outputFile);
 console.log(`[To Excel] Done! Saved to: ${outputFile}`);
