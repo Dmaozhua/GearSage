@@ -35,6 +35,7 @@
 2.  **多语言描述回退机制**: 针对具有多语言支持的官网（如 Megabass），爬虫实现了优先级回退抓取（优先有效中文 > 英文 > 日文），并在抓取过程中自动清洗无用节点（如 `script`, `style`, 语言切换器），确保描述文本的高质量与纯净。
 3.  **动态多 Sheet 导出**: 在将 `normalized.json` 转换为 Excel 时，转换脚本（如 `to_excel_megabass_lure.js`）会根据推导出的 `system` 字段（如 hardbait, soft, wire）自动将数据路由并拆分到不同的 Excel Sheet 中，直接生成符合最终导入格式的文件，统一输出到 `data_raw/` 目录下。
 4.  **共享导出规范**: `scripts/gear_export_schema.js` 维护品牌 ID、sheet 名和标准 header。`data_raw` 导出层默认直接对齐 `rate/excel` 的最终字段和主键风格，尽量减少人工二次统一格式。
+5.  **差异报告**: `scripts/report_rate_excel_diffs.js` 会对比 `pkgGear/data_raw/*_import.xlsx` 与 `rate/excel` 当前基准切片，输出只读 markdown 报告到 `pkgGear/data_raw/rate_excel_diff_report.md`，用于人工确认是否需要回填最终表。
 
 ## 3. 数据流与核心流程
 

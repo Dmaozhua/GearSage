@@ -102,6 +102,7 @@
         Shimano 路亚 `SL*`、Daiwa 路亚 `DL*`、Shimano 鱼线 `SLN*`、Daiwa 鱼线 `DLN*`。
     *   Megabass 与历史遗留的数字主键行不会被覆盖。
     *   同步后，应以 `rate/excel/` 中的总表作为后续抽检与导入基线。
+    *   如果当前阶段只想做对比、不想自动覆盖总表，可运行 `scripts/report_rate_excel_diffs.js`。该脚本会将 `data_raw` 导出与 `rate/excel` 最终基准做只读比对，并输出报告到 `pkgGear/data_raw/rate_excel_diff_report.md`。
 
 4.  **最终导入**:
     *   在您确认后，我将执行 `import_gear_excel.js` 脚本，将最终的Excel数据安全地导入数据库。
