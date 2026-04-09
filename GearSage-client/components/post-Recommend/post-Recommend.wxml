@@ -44,12 +44,12 @@
       <publish-checkbox checkboxItems="{{equipmentCategories}}" bind:checkboxChange="ongearCategorySelect" data-field="gearCategory"></publish-checkbox>
       <view class="gear-model-block" wx:if="{{canSelectGearModel}}">
         <view class="form-label gear-model-label">
-          <text class="label-text">具体型号</text>
+          <text class="label-text">{{gearModelLabel}}</text>
         </view>
         <view class="gear-model-input-wrap">
           <input
             class="gear-model-input"
-            placeholder="选择装备型号"
+            placeholder="{{gearModelPlaceholder}}"
             value="{{formData.gearModel}}"
             bindinput="onGearModelInput"
             bindfocus="onGearModelFocus"
@@ -62,6 +62,7 @@
           </view>
         </view>
       </view>
+      <view class="form-tip" wx:if="{{gearModelTip}}">{{gearModelTip}}</view>
       <view class="form-tip" wx:if="{{formData.gearCategory === 'other'}}">衣物、收纳、改装等</view>
       <view class="error-text" wx:if="{{errors.gearCategory}}">{{errors.gearCategory}}</view>
     </view>

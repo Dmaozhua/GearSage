@@ -282,6 +282,8 @@ Component({
     titlePlaceholder: '可留空，系统会帮你生成标题',
     contentPlaceholder: CONTENT_PLACEHOLDER_MAP.recommend,
     writingTips: QUESTION_TIPS_MAP.recommend,
+    gearModelPlaceholder: '搜索并关联装备',
+    gearModelTip: '先选装备分类，再输入关键词关联装备库中的型号',
     canSelectGearModel: false,
     gearModelOptions: [],
     showGearModelOptions: false,
@@ -363,10 +365,17 @@ Component({
         ? getGearModelSuggestions(gearCategory, keyword)
         : [];
 
+      const nextCategory = String(gearCategory || '').trim();
+      const isLine = nextCategory === 'line';
+
       this.setData({
         canSelectGearModel,
         gearModelOptions,
-        showGearModelOptions: canSelectGearModel ? showOptions : false
+        showGearModelOptions: canSelectGearModel ? showOptions : false,
+        gearModelPlaceholder: isLine ? '搜索并关联鱼线型号' : '搜索并关联装备',
+        gearModelTip: isLine
+          ? '可直接搜索系列名、材质或线号关键词，把问题和具体线款关联起来。'
+          : '先选装备分类，再输入关键词关联装备库中的型号'
       });
     },
 

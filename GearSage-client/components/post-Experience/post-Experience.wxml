@@ -58,12 +58,12 @@
       ></publish-checkbox>
       <view class="gear-model-block" wx:if="{{canSelectGearModel}}">
         <view class="form-label gear-model-label">
-          <text class="label-text">具体型号</text>
+          <text class="label-text">{{gearModelLabel}}</text>
         </view>
         <view class="gear-model-input-wrap">
           <input
             class="gear-model-input"
-            placeholder="输入或选择装备型号"
+            placeholder="{{gearModelPlaceholder}}"
             value="{{formData.gearModel}}"
             bindinput="onGearModelInput"
             bindfocus="onGearModelFocus"
@@ -76,6 +76,7 @@
           </view>
         </view>
       </view>
+      <view class="form-tip" wx:if="{{gearModelTip}}">{{gearModelTip}}</view>
       <view class="form-tip" wx:if="{{formData.gearCategory === 'other'}}">衣物、收纳、改装等</view>
       <view class="error-text" wx:if="{{errors.gearCategory}}">{{errors.gearCategory}}</view>
     </view>
@@ -223,7 +224,7 @@
       maxTitleLength="{{20}}"
       maxContentLength="{{1000}}"
       titlePlaceholder="请输入标题..."
-      contentPlaceholder="请结合真实使用经历来写：为什么买它、最常用在什么场景、最满意的地方、最大的缺点、哪些人适合用、哪些人可能会不习惯。越具体，越能帮助别人判断它是否适合自己。"
+      contentPlaceholder="{{contentPlaceholder}}"
       bind:titleinput="onTitleInput"
       bind:maincontentinput="onMainContentInput"
       bind:chooseimage="onChooseImage"

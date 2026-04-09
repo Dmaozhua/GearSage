@@ -86,6 +86,14 @@ const WRITING_TIPS = [
   '它适合哪类钓友关注或尝试',
   '有没有什么地方和你原本预期不一样。'
 ];
+const LINE_CONTENT_PLACEHOLDER = '可以重点写写：你把这款线当主线还是前导、常用线号和场景、顺滑度/耐磨/强度里最打动你的点，以及它更适合哪类钓友。';
+const LINE_WRITING_TIPS = [
+  '可以写写：',
+  '你最常用的线号、长度和搭配场景',
+  '它更偏顺滑、耐磨、灵敏还是强度信心',
+  '你把它当主线、前导还是专项补位',
+  '它适合哪些玩法，哪些场景下你反而不会优先选它。'
+];
 
 const createDefaultTags = () => ({
   scene: [],
@@ -241,6 +249,9 @@ Component({
     isDarkMode: false,
     contentPlaceholder: CONTENT_PLACEHOLDER,
     writingTips: WRITING_TIPS,
+    gearModelLabel: '具体型号',
+    gearModelPlaceholder: '选择装备型号',
+    gearModelTip: '',
     formData: {
       gearCategory: 'rod',
       gearModel: '',
@@ -318,6 +329,7 @@ Component({
     'formData.gearCategory': function(gearCategory) {
       const nextCategory = gearCategory || 'rod';
       this.updateEquipmentCategoryOptions((gearCategory || '').trim());
+      this.refreshCategoryPresentation(nextCategory);
       this.loadEnvironmentOptions(nextCategory);
       this.syncGearModelSuggestions(
         gearCategory,
@@ -375,6 +387,20 @@ Component({
 
       this.setData({ formData: nextFormData });
       this.updateEquipmentCategoryOptions((nextFormData.gearCategory || '').trim());
+      this.refreshCategoryPresentation(nextFormData.gearCategory || 'rod');
+    },
+
+    refreshCategoryPresentation(gearCategory) {
+      const nextCategory = String(gearCategory || '').trim();
+      const isLine = nextCategory === 'line';
+
+      this.setData({
+        gearModelLabel: isLine ? '具体线款' : '具体型号',
+        gearModelPlaceholder: isLine ? '输入或选择鱼线型号' : '选择装备型号',
+        gearModelTip: isLine ? '可直接搜索系列名、材质或常见关键词，例如 PE、Fluorocarbon、Nylon。' : '',
+        contentPlaceholder: isLine ? LINE_CONTENT_PLACEHOLDER : CONTENT_PLACEHOLDER,
+        writingTips: isLine ? LINE_WRITING_TIPS : WRITING_TIPS
+      });
     },
 
     updateEquipmentCategoryOptions(gearCategory) {

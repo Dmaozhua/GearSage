@@ -41,7 +41,7 @@
         <view class="gear-model-input-wrap">
           <input
             class="gear-model-input"
-            placeholder="搜索并关联装备"
+            placeholder="{{gearModelPlaceholder}}"
             value="{{formData.relatedGearModel}}"
             bindinput="onGearModelInput"
             bindfocus="onGearModelFocus"
@@ -54,8 +54,8 @@
           </view>
         </view>
       </view>
-      <view class="form-tip" wx:if="{{canSelectGearModel}}">先选装备分类，再输入关键词关联装备库中的型号</view>
-      <view class="form-tip" wx:if="{{formData.relatedGearCategory && !canSelectGearModel}}">当前装备库联想暂支持鱼竿、渔轮、鱼饵</view>
+      <view class="form-tip" wx:if="{{canSelectGearModel}}">{{gearModelTip}}</view>
+      <view class="form-tip" wx:if="{{formData.relatedGearCategory && !canSelectGearModel}}">当前装备库联想暂支持鱼竿、渔轮、鱼饵、鱼线</view>
       <view class="error-text" wx:if="{{errors.relatedGearCategory}}">{{errors.relatedGearCategory}}</view>
     </view>
 

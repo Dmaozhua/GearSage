@@ -248,6 +248,10 @@ Component({
   data: {
     currentStep: 1,
     isDarkMode: false,
+    gearModelLabel: '具体型号',
+    gearModelPlaceholder: '输入或选择装备型号',
+    gearModelTip: '',
+    contentPlaceholder: '请结合真实使用经历来写：为什么买它、最常用在什么场景、最满意的地方、最大的缺点、哪些人适合用、哪些人可能会不习惯。越具体，越能帮助别人判断它是否适合自己。',
     formData: {
         gearCategory: 'rod', // 默认分类为鱼竿，避免传递空值
       gearModel: '',
@@ -373,6 +377,7 @@ Component({
       if (currCategory) {
         this.loadEnvironmentOptions(currCategory);
       }
+      this.refreshCategoryPresentation(currCategory || 'rod');
 
       this.initThemeMode();
       this._themeChangeHandler = subscribeThemeChange(({ theme }) => {
@@ -393,6 +398,7 @@ Component({
     'formData.gearCategory': function(gearCategory) {
       console.log('[post-Experience] observer gearCategory=', gearCategory);
       this.updateEquipmentCategoryOptions((gearCategory || '').trim());
+      this.refreshCategoryPresentation(gearCategory || 'rod');
       if (gearCategory) {
         this.updateRatingDimensions(gearCategory); // 直接使用选中的分类
         this.loadEnvironmentOptions(gearCategory); // 加载对应的常用环境选项
@@ -442,6 +448,19 @@ Component({
         canSelectGearModel,
         gearModelOptions,
         showGearModelOptions: canSelectGearModel ? showOptions : false,
+      });
+    },
+
+    refreshCategoryPresentation(gearCategory) {
+      const nextCategory = String(gearCategory || '').trim();
+      const isLine = nextCategory === 'line';
+      this.setData({
+        gearModelLabel: isLine ? '具体线款' : '具体型号',
+        gearModelPlaceholder: isLine ? '输入或选择鱼线型号' : '输入或选择装备型号',
+        gearModelTip: isLine ? '可直接搜索系列名、材质或常见关键词，例如 PE、Fluorocarbon、Nylon。' : '',
+        contentPlaceholder: isLine
+          ? '请结合真实使用经历来写：你常用的线号和场景、把它当主线还是前导、顺滑/耐磨/强度里最满意的点、最大的短板，以及哪些钓友会更适合它。'
+          : '请结合真实使用经历来写：为什么买它、最常用在什么场景、最满意的地方、最大的缺点、哪些人适合用、哪些人可能会不习惯。越具体，越能帮助别人判断它是否适合自己。'
       });
     },
 
@@ -579,10 +598,12 @@ Component({
           formData: { ...this.data.formData, ...normalizedInitialData }
         });
         this.updateEquipmentCategoryOptions((normalizedInitialData.gearCategory || this.data.formData.gearCategory || '').trim());
+        this.refreshCategoryPresentation(normalizedInitialData.gearCategory || this.data.formData.gearCategory || 'rod');
         console.log('[post-Experience] initFormData merged with initialData:', normalizedInitialData);
         console.log('[post-Experience] initFormData result formData=', this.data.formData);
       } else {
         this.updateEquipmentCategoryOptions((this.data.formData.gearCategory || '').trim());
+        this.refreshCategoryPresentation(this.data.formData.gearCategory || 'rod');
       }
     },
 
