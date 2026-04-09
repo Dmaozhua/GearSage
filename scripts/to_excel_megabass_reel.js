@@ -11,6 +11,24 @@ function normalizeText(text) {
     return text.toString().replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+function resolveLocalImagePath(item) {
+    const localImagePath = normalizeText(item.local_image_path);
+    if (localImagePath) {
+        if (path.isAbsolute(localImagePath)) {
+            return localImagePath;
+        }
+        return path.join('/Users/tommy/Pictures', localImagePath);
+    }
+
+    const mainImageUrl = normalizeText(item.main_image_url);
+    if (!mainImageUrl) {
+        return '';
+    }
+
+    const imageFilename = mainImageUrl.split('/').pop();
+    return imageFilename ? `/Users/tommy/Pictures/images/megabass_reels/${imageFilename}` : '';
+}
+
 function processReel() {
     if (!fs.existsSync(RAW_DATA_PATH)) {
         console.error(`Raw data not found: ${RAW_DATA_PATH}`);
@@ -32,13 +50,7 @@ function processReel() {
         
         const masterId = `MRE${currentId++}`;
         const isSpinning = item.source_url.includes('spinning') || item.source_url.includes('gaus');
-        
-        let imageFilename = '';
-        if (item.main_image_url) {
-            const parts = item.main_image_url.split('/');
-            imageFilename = parts[parts.length - 1];
-        }
-        const localImagePath = imageFilename ? `/Users/tommy/Pictures/images/megabass_reels/${imageFilename}` : '';
+        const localImagePath = resolveLocalImagePath(item);
         
         // Push to Master
         reelMaster.push({
@@ -80,6 +92,7 @@ function processReel() {
             const detailObj = {
                 id: detailId,
                 reel_id: masterId,
+                type: isSpinning ? 'spinning' : 'baitcasting',
                 SKU: v.name,
                 'GEAR RATIO': normalizeText(gearRatio),
                 'MAX DRAG': normalizeText(maxDrag).replace(/kg/i, '').trim(),

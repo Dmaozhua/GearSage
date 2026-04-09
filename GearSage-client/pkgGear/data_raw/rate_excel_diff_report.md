@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-09T16:35:08.150Z
+generated_at: 2026-04-09T16:53:07.699Z
 
-summary: ok=9, diff=3, missing_import=0
+summary: ok=12, diff=0, missing_import=0
 
 ## shimano_lure
 #### master
@@ -166,14 +166,11 @@ summary: ok=9, diff=3, missing_import=0
 - extra in rate: 0 (none)
 - changed rows: 0
 #### spinning_reel_detail
-- status: DIFF
+- status: OK
 - rows: import=404, rate=404
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
-- header order match: false
-- import-only headers: none
-- rate-only headers: type
 
 ## shimano_baitcasting_reel
 #### master
@@ -183,14 +180,11 @@ summary: ok=9, diff=3, missing_import=0
 - extra in rate: 0 (none)
 - changed rows: 0
 #### baitcasting_reel_detail
-- status: DIFF
+- status: OK
 - rows: import=388, rate=388
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
-- header order match: false
-- import-only headers: none
-- rate-only headers: type
 
 ## daiwa_baitcasting_reel
 #### master
@@ -200,14 +194,11 @@ summary: ok=9, diff=3, missing_import=0
 - extra in rate: 0 (none)
 - changed rows: 0
 #### baitcasting_reel_detail
-- status: DIFF
+- status: OK
 - rows: import=141, rate=141
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
-- header order match: false
-- import-only headers: none
-- rate-only headers: type
 
 ## megabass_reel
 #### master

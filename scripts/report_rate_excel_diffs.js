@@ -223,12 +223,17 @@ function compareRows(importRows, targetRows, rowKey) {
 
     const diffSamples = [];
     const changedRows = [];
+    const targetOnlyValueSamples = [];
     const sharedHeaders = Array.from(
         new Set([
             ...Object.keys(importRows[0] || {}),
             ...Object.keys(targetRows[0] || {}),
         ]),
     ).filter((field) => field !== rowKey && !IGNORED_FIELDS.has(field));
+    const importHeaderSet = new Set(Object.keys(importRows[0] || {}));
+    const targetOnlyHeaders = Object.keys(targetRows[0] || {}).filter(
+        (field) => field !== rowKey && !IGNORED_FIELDS.has(field) && !importHeaderSet.has(field),
+    );
 
     for (const id of importIds) {
         if (!targetMap.has(id)) {
@@ -258,6 +263,20 @@ function compareRows(importRows, targetRows, rowKey) {
         if (changedFields.length > 0) {
             changedRows.push({ id, fields: changedFields });
         }
+
+        for (const field of targetOnlyHeaders) {
+            const targetValue = normalizeValue(targetRow[field]);
+            if (!targetValue) {
+                continue;
+            }
+            if (targetOnlyValueSamples.length < MAX_FIELD_SAMPLES) {
+                targetOnlyValueSamples.push({
+                    id,
+                    field,
+                    rateValue: targetValue,
+                });
+            }
+        }
     }
 
     return {
@@ -267,6 +286,7 @@ function compareRows(importRows, targetRows, rowKey) {
         extraInRate,
         changedRows,
         diffSamples,
+        targetOnlyValueSamples,
     };
 }
 
@@ -318,6 +338,13 @@ function reportBlock(title, compareResult, headers) {
         lines.push('- sample field diffs:');
         for (const sample of compareResult.diffSamples) {
             lines.push(`  - ${sample.id} :: ${sample.field} | import="${sample.importValue}" | rate="${sample.rateValue}"`);
+        }
+    }
+
+    if (compareResult.targetOnlyValueSamples.length > 0) {
+        lines.push('- populated rate-only fields:');
+        for (const sample of compareResult.targetOnlyValueSamples) {
+            lines.push(`  - ${sample.id} :: ${sample.field} | rate="${sample.rateValue}"`);
         }
     }
 

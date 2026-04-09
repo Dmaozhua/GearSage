@@ -3,12 +3,20 @@ const path = require('path');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
-const inputFile = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_test.json');
+const INPUT_CANDIDATES = [
+    path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_normalized.json'),
+    path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_test.json'),
+];
 const outputFile = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_import.xlsx');
 
+function resolveInputFile() {
+    return INPUT_CANDIDATES.find((filePath) => fs.existsSync(filePath)) || '';
+}
+
 function main() {
+    const inputFile = resolveInputFile();
     if (!fs.existsSync(inputFile)) {
-        console.error(`[!] Input file not found: ${inputFile}`);
+        console.error(`[!] Input file not found. checked: ${INPUT_CANDIDATES.join(', ')}`);
         return;
     }
 
@@ -73,6 +81,7 @@ function main() {
                 variantsRows.push({
                     id: `DRED${detailIdCounter++}`,
                     reel_id: masterId,
+                    type: 'baitcasting',
                     SKU: actualSku,
                     'GEAR RATIO': v.specs ? (v.specs.gear_ratio || '') : '',
                     DRAG: '',

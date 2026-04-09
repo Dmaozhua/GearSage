@@ -140,7 +140,7 @@ const HEADERS = {
         'market_reference_price', 'product_code', 'created_at', 'updated_at',
         'drag_click', 'spool_depth_normalized', 'gear_ratio_normalized', 'brake_type_normalized',
         'fit_style_tags', 'min_lure_weight_hint', 'is_compact_body', 'handle_style',
-        'MAX_DURABILITY',
+        'MAX_DURABILITY', 'type',
     ],
     baitcastingReelDetail: [
         'id', 'reel_id', 'SKU', 'GEAR RATIO', 'MAX DRAG', 'WEIGHT',
@@ -153,7 +153,7 @@ const HEADERS = {
         'usage_environment', 'DRAG', 'Nylon_no_m', 'fluorocarbon_no_m',
         'drag_click', 'spool_depth_normalized', 'gear_ratio_normalized',
         'brake_type_normalized', 'fit_style_tags', 'min_lure_weight_hint',
-        'is_compact_body', 'handle_style', 'MAX_DURABILITY',
+        'is_compact_body', 'handle_style', 'MAX_DURABILITY', 'type',
     ],
     rodMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',

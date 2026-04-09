@@ -71,6 +71,7 @@ function main() {
                     variantsMap.set(skuId, {
                         id: `SRED${detailIdCounter++}`,
                         reel_id: reelsMap.get(masterKey).id,
+                        type: 'baitcasting',
                         "SKU": v.variant_name,
                         "GEAR RATIO": specs.gear_ratio || '',
                         "DRAG": '', // Shimano usually just has max drag
