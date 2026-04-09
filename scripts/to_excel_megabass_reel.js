@@ -24,6 +24,7 @@ function processReel() {
     
     // Using counter to ensure unique IDs, Megabass reel starts with MRE and 5000-8999
     let currentId = 5000;
+    let detailIdCounter = 50000;
     
     for (const item of rawData) {
         // Skip items without variants
@@ -31,6 +32,13 @@ function processReel() {
         
         const masterId = `MRE${currentId++}`;
         const isSpinning = item.source_url.includes('spinning') || item.source_url.includes('gaus');
+        
+        let imageFilename = '';
+        if (item.main_image_url) {
+            const parts = item.main_image_url.split('/');
+            imageFilename = parts[parts.length - 1];
+        }
+        const localImagePath = imageFilename ? `/Users/tommy/Pictures/images/megabass_reels/${imageFilename}` : '';
         
         // Push to Master
         reelMaster.push({
@@ -40,14 +48,15 @@ function processReel() {
             model_cn: item.model,
             model_year: '',
             alias: '',
-            series: '',
-            series_cn: '',
+            type_tips: '',
             type: isSpinning ? 'spinning' : 'baitcasting',
-            water_type: 'freshwater',
-            description: '',
-            source_url: item.source_url,
-            main_image_url: item.main_image_url,
-            local_image_path: ''
+            images: localImagePath,
+            created_at: item.scraped_at,
+            updated_at: item.scraped_at,
+            series_positioning: '',
+            main_selling_points: '',
+            official_reference_price: '',
+            market_status: ''
         });
 
         // Push to Detail
@@ -66,8 +75,10 @@ function processReel() {
             let lineNylon = specs['line'] || specs['line capacity'] || specs['line capa'] || '';
             let linePe = specs['pe'] || specs['pe line'] || '';
             
+            const detailId = `MRED${detailIdCounter++}`;
+            
             const detailObj = {
-                id: '',
+                id: detailId,
                 reel_id: masterId,
                 SKU: v.name,
                 'GEAR RATIO': normalizeText(gearRatio),
