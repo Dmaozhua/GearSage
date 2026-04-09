@@ -6,6 +6,7 @@
   <view class="search-filter-wrapper">
     <search-filter class="gear-search-filter"
       type="{{currentType}}" 
+      brand-options="{{brandOptions}}"
       bind:search="onSearch" 
       bind:filter="onFilter"
     ></search-filter>

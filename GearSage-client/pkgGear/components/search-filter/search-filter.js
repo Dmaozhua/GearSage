@@ -51,6 +51,13 @@ Component({
         this.loadFilters(mappedType);
         this.resetUIState();
       }
+    },
+    brandOptions: {
+      type: Array,
+      value: [],
+      observer() {
+        this.loadFilters(this.data.mappedType);
+      }
     }
   },
 
@@ -189,6 +196,15 @@ Component({
       }));
 
       const filters = [];
+      const runtimeBrandOptions = Array.isArray(this.properties.brandOptions)
+        ? this.properties.brandOptions
+        : [];
+      const resolvedBrandOptions = runtimeBrandOptions.length > 0
+        ? runtimeBrandOptions.map((item) => ({
+            id: String(item.id || '').trim(),
+            name: String(item.name || '').trim()
+          })).filter((item) => item.id && item.name)
+        : mapOptions(typeConfig.brands, 'id', 'name');
 
       if ((type === 'reel' || type === 'rod') && support.types && typeConfig.types) {
         filters.push({ key: 'types', label: '类别', options: mapOptions(typeConfig.types, 'type', 'name') });
@@ -215,8 +231,8 @@ Component({
         }
       }
 
-      if (support.brands && typeConfig.brands) {
-        filters.push({ key: 'brands', label: '品牌', options: mapOptions(typeConfig.brands, 'id', 'name') });
+      if (support.brands && resolvedBrandOptions.length > 0) {
+        filters.push({ key: 'brands', label: '品牌', options: resolvedBrandOptions });
       }
 
       this.setData({ filters, selectedFilters: {} });

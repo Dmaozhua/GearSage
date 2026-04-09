@@ -18,6 +18,7 @@ Page({
     list: [],
     allList: [],
     brandsMap: {},
+    brandOptions: [],
     isDarkMode: false,
     page: 1,
     pageSize: 10,
@@ -70,8 +71,15 @@ Page({
     try {
       const res = await apiService.getGearBrands(this.data.currentType);
       const brandsMap = {};
-      (Array.isArray(res) ? res : []).forEach((b) => { brandsMap[String(b.id)] = b.name; });
-      this.setData({ brandsMap });
+      const brandOptions = (Array.isArray(res) ? res : []).map((b) => {
+        const id = String(b.id || '').trim();
+        const name = String(b.name || '').trim();
+        if (id && name) {
+          brandsMap[id] = name;
+        }
+        return { id, name };
+      }).filter((item) => item.id && item.name);
+      this.setData({ brandsMap, brandOptions });
       if (this.data.list.length > 0) this.updateListWithBrands();
     } catch (e) {
       console.error('[List Page] Load brands failed:', e);
