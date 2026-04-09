@@ -5182,7 +5182,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "1",
+    "id": "LF1000",
     "name": "响尾蛇VIB",
     "alias": "vib",
     "type_tips": "vib",
@@ -5193,7 +5193,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "2",
+    "id": "LF1001",
     "name": "青虾VIB",
     "alias": "vib",
     "type_tips": "vib",
@@ -5204,7 +5204,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "3",
+    "id": "LF1002",
     "name": "25 竞技T尾2代",
     "alias": "t尾",
     "type_tips": "",
@@ -5215,7 +5215,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "4",
+    "id": "LF1003",
     "name": "竞技T尾",
     "alias": "t尾",
     "type_tips": "",
@@ -5226,7 +5226,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "5",
+    "id": "LF1004",
     "name": "CC系列-缓沉",
     "alias": "胖子",
     "type_tips": "crank",
@@ -5237,7 +5237,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "6",
+    "id": "LF1005",
     "name": "CC系列-浮水",
     "alias": "胖子",
     "type_tips": "crank",
@@ -5248,7 +5248,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "7",
+    "id": "LF1006",
     "name": "CC系列-速沉",
     "alias": "胖子",
     "type_tips": "crank",
@@ -5259,7 +5259,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "8",
+    "id": "LF1007",
     "name": "超级响尾蛇",
     "alias": "vib",
     "type_tips": "vib",
@@ -5270,7 +5270,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "9",
+    "id": "LF1008",
     "name": "DK系列",
     "alias": "vib",
     "type_tips": "vib",
@@ -5281,7 +5281,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "10",
+    "id": "LF1009",
     "name": "V8波爬",
     "alias": "波爬",
     "type_tips": "popper",
@@ -5292,7 +5292,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "11",
+    "id": "OSP1000",
     "name": "复合亮片HIGH PITCHER",
     "alias": "复合亮片",
     "type_tips": "spinnerbait",
@@ -5303,7 +5303,7 @@ module.exports = [
   },
   {
     "type": "lure",
-    "id": "12",
+    "id": "YY1000",
     "name": "危牙JIG",
     "alias": "精细jig",
     "type_tips": "finesse_jig",
