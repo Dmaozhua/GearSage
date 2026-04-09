@@ -134,11 +134,66 @@ Page({
 
   getCompareItems() {
     const stored = wx.getStorageSync(COMPARE_STORAGE_KEY);
-    return Array.isArray(stored) ? stored : [];
+    return this.normalizeCompareItems(Array.isArray(stored) ? stored : []);
   },
 
   saveCompareItems(items) {
     wx.setStorageSync(COMPARE_STORAGE_KEY, items);
+  },
+
+  normalizeGearType(type) {
+    const normalized = this.normalizeText(type);
+    if (normalized === 'reel') return 'reels';
+    if (normalized === 'rod') return 'rods';
+    if (normalized === 'lure' || normalized === 'bait') return 'lures';
+    return normalized;
+  },
+
+  normalizeCompareEntry(entry) {
+    if (!entry || typeof entry !== 'object') return null;
+
+    const rawKey = this.normalizeText(entry.key);
+    const keyParts = rawKey.split(':');
+    const recoveredMasterId = keyParts.length >= 3 ? keyParts[1] : '';
+    const recoveredVariantKey = keyParts.length >= 3 ? keyParts.slice(2).join(':') : '';
+    const gearType = this.normalizeGearType(entry.gearType || keyParts[0]);
+    const masterId = this.normalizeText(entry.masterId) || recoveredMasterId;
+    const variantKey = this.normalizeText(entry.variantKey) || recoveredVariantKey;
+
+    if (!gearType || !masterId || !variantKey) {
+      return null;
+    }
+
+    return {
+      ...entry,
+      key: rawKey || `${gearType}:${masterId}:${variantKey}`,
+      gearType,
+      masterId,
+      variantKey
+    };
+  },
+
+  normalizeCompareItems(items) {
+    const normalizedItems = (Array.isArray(items) ? items : [])
+      .map((item) => this.normalizeCompareEntry(item))
+      .filter(Boolean);
+
+    const hasChanged =
+      normalizedItems.length !== items.length ||
+      normalizedItems.some((item, index) => {
+        const original = items[index] || {};
+        return (
+          item.masterId !== this.normalizeText(original.masterId) ||
+          item.variantKey !== this.normalizeText(original.variantKey) ||
+          item.gearType !== this.normalizeGearType(original.gearType)
+        );
+      });
+
+    if (hasChanged) {
+      wx.setStorageSync(COMPARE_STORAGE_KEY, normalizedItems);
+    }
+
+    return normalizedItems;
   },
 
   resolveTopicGearCategory(type) {
@@ -397,9 +452,18 @@ Page({
     const candidateOptions = this.data.compareCards.map((item) => item.compareLabel).filter(Boolean);
     const first = this.data.compareCards[0];
     const gearCategory = this.resolveTopicGearCategory(this.data.compareType);
+    const gearItemId = this.normalizeText(first && first.masterId);
+
+    if (!gearCategory || !gearItemId) {
+      wx.showToast({
+        title: '暂时无法带入这些候选',
+        icon: 'none'
+      });
+      return;
+    }
 
     wx.navigateTo({
-      url: `/pkgContent/publishMode/publishMode?from=gear_compare&gearCategory=${encodeURIComponent(gearCategory)}&gearItemId=${Number(first.masterId || 0)}&candidateOptions=${encodeURIComponent(JSON.stringify(candidateOptions))}`
+      url: `/pkgContent/publishMode/publishMode?from=gear_compare&gearCategory=${encodeURIComponent(gearCategory)}&gearItemId=${encodeURIComponent(gearItemId)}&candidateOptions=${encodeURIComponent(JSON.stringify(candidateOptions))}`
     });
   }
 });

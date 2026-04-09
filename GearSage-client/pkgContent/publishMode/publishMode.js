@@ -104,6 +104,14 @@ function safeDecodeURIComponent(value) {
   }
 }
 
+function normalizeOptionalId(value) {
+  if (value === null || typeof value === 'undefined') {
+    return null;
+  }
+  const text = String(value).trim();
+  return text || null;
+}
+
 function normalizeCandidateOptionLabels(value) {
   const source = Array.isArray(value)
     ? value
@@ -141,7 +149,7 @@ function buildQuestionEntryPrefill(options = {}) {
   }
 
   const gearCategory = String(options.gearCategory || '').trim();
-  const gearItemId = Number(options.gearItemId || 0) || null;
+  const gearItemId = normalizeOptionalId(options.gearItemId);
   const gearLabel = safeDecodeURIComponent(options.gearLabel || '');
   const candidateOptions = from === 'gear_compare'
     ? normalizeCandidateOptionLabels(safeDecodeURIComponent(options.candidateOptions || ''))
@@ -188,7 +196,7 @@ function buildDraftFormDataFromTopic(topic = {}) {
       questionType: topic.questionType || 'recommend',
       relatedGearCategory: topic.relatedGearCategory || '',
       relatedGearModel: topic.relatedGearModel || '',
-      relatedGearItemId: topic.relatedGearItemId || null,
+      relatedGearItemId: normalizeOptionalId(topic.relatedGearItemId),
       quickReplyOnly: Boolean(topic.quickReplyOnly),
       recommendMeta: {
         ...createModeInitialFormData(modeKey).recommendMeta,
@@ -248,7 +256,7 @@ function buildDraftFormDataFromTopic(topic = {}) {
       ...base,
       gearCategory: topic.gearCategory || 'rod',
       gearModel: topic.gearModel || '',
-      gearItemId: topic.gearItemId || null,
+      gearItemId: normalizeOptionalId(topic.gearItemId),
       usageYear: topic.usageYear || '',
       usageFrequency: topic.usageFrequency || '',
       environments: Array.isArray(topic.environments) ? topic.environments : [],
@@ -271,7 +279,7 @@ function buildDraftFormDataFromTopic(topic = {}) {
     ...base,
     gearCategory: topic.gearCategory || 'rod',
     gearModel: topic.gearModel || '',
-    gearItemId: topic.gearItemId || null,
+    gearItemId: normalizeOptionalId(topic.gearItemId),
     usageYear: topic.usageYear || '',
     usageFrequency: topic.usageFrequency || '',
     verifyImage: topic.verifyImage || '',

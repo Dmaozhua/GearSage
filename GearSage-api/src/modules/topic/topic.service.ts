@@ -705,12 +705,13 @@ export class TopicService {
       dto.finalProduct && typeof dto.finalProduct === 'object' && !Array.isArray(dto.finalProduct)
         ? dto.finalProduct
         : {};
+    const normalizedFinalProductGearId = this.normalizeText(finalProductSource.gearItemId);
     const finalProduct = {
-      gearItemId: Number(finalProductSource.gearItemId || 0) || 0,
+      gearItemId: normalizedFinalProductGearId || '',
       label: this.normalizeText(finalProductSource.label),
     };
     const normalizedFinalProduct =
-      finalProduct.gearItemId > 0 || finalProduct.label
+      finalProduct.gearItemId || finalProduct.label
         ? finalProduct
         : {};
 

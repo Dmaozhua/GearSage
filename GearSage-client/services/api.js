@@ -100,6 +100,14 @@ function normalizeNumberValue(value) {
   return Number.isFinite(numberValue) ? numberValue : undefined;
 }
 
+function normalizeIdValue(value) {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+  const text = String(value).trim();
+  return text ? text : undefined;
+}
+
 function getBaseUrl() {
   return ServerConfig.getBaseUrl();
 }
@@ -268,7 +276,10 @@ function buildTopicPayload(topicData = {}) {
     'recommendationScore',
     'knowledgeScore'
   ].forEach((key) => {
-    const normalizedValue = normalizeNumberValue(topicData[key]);
+    const normalizedValue =
+      key === 'gearItemId' || key === 'relatedGearItemId'
+        ? normalizeIdValue(topicData[key])
+        : normalizeNumberValue(topicData[key]);
     if (normalizedValue !== undefined) {
       extra[key] = normalizedValue;
     }

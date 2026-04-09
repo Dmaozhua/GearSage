@@ -579,7 +579,7 @@ Component({
     onGearModelSelect(e) {
       this.clearGearModelBlurTimer();
       const gearModel = e.currentTarget.dataset.name || '';
-      const gearItemId = Number(e.currentTarget.dataset.sourceId || 0) || null;
+      const gearItemId = e.currentTarget.dataset.sourceId ? String(e.currentTarget.dataset.sourceId).trim() : null;
       this.setData({
         'formData.gearModel': gearModel,
         'formData.gearItemId': gearItemId,

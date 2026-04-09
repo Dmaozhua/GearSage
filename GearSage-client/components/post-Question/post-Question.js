@@ -454,7 +454,7 @@ Component({
     onGearModelSelect(e) {
       this.clearGearModelBlurTimer();
       const relatedGearModel = e.currentTarget.dataset.name || '';
-      const relatedGearItemId = Number(e.currentTarget.dataset.sourceId || 0) || null;
+      const relatedGearItemId = e.currentTarget.dataset.sourceId ? String(e.currentTarget.dataset.sourceId).trim() : null;
       this.setData({
         'formData.relatedGearModel': relatedGearModel,
         'formData.relatedGearItemId': relatedGearItemId,

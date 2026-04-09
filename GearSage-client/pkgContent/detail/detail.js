@@ -999,7 +999,7 @@ Page({
     },
 
     onTapTopicGear(e) {
-      const gearId = Number(e.currentTarget.dataset.gearId || 0);
+      const gearId = this.normalizeString(e.currentTarget.dataset.gearId, '');
       const gearCategory = this.normalizeString(e.currentTarget.dataset.gearCategory, '');
       const gearModel = this.normalizeString(e.currentTarget.dataset.gearModel, '');
       const gearType = this.resolveGearDetailType(gearCategory);

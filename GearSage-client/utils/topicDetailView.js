@@ -266,6 +266,14 @@ function normalizeOptionalNumber(value) {
   return Number.isFinite(numberValue) && numberValue > 0 ? numberValue : null;
 }
 
+function normalizeOptionalId(value) {
+  if (value === null || typeof value === 'undefined') {
+    return null;
+  }
+  const text = String(value).trim();
+  return text || null;
+}
+
 function normalizeTopicTags(tags = {}) {
   const source = tags && typeof tags === 'object' ? tags : {};
   return {
@@ -775,7 +783,7 @@ function buildTopicDetailView(postData = {}, options = {}) {
       gearCategory: gearCategory,
       gearCategoryLabel: getGearCategoryLabel(gearCategory),
       gearModel: postData.gearModel,
-      gearItemId: normalizeOptionalNumber(postData.gearItemId),
+      gearItemId: normalizeOptionalId(postData.gearItemId),
       usagePeriod: formatUsageYearLabel(postData.usagePeriod || postData.usageYear),
       usageFrequency: formatUsageFrequencyLabel(postData.usageFrequency),
       environments,
@@ -807,7 +815,7 @@ function buildTopicDetailView(postData = {}, options = {}) {
       relatedGearCategory: postData.relatedGearCategory,
       relatedGearCategoryLabel: getGearCategoryLabel(postData.relatedGearCategory),
       relatedGearModel: postData.relatedGearModel,
-      relatedGearItemId: normalizeOptionalNumber(postData.relatedGearItemId),
+      relatedGearItemId: normalizeOptionalId(postData.relatedGearItemId),
       quickReplyOnly: Boolean(postData.quickReplyOnly),
       isRecommendQuestion,
       acceptedAnswerId,

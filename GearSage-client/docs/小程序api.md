@@ -258,7 +258,9 @@ wx.cloud.callFunction({
   - 装备筛选（用于装备详情页的“关联帖子”）：
     - `gearCategory?: string`
     - `gearModel?: string`
-    - `gearItemId?: number`
+    - `gearItemId?: string`
+      - 新增装备库数据默认传字符串主键（如 `SR1000`、`DLN1000`）
+      - 服务端继续兼容历史数字 ID
   - `debugSource?: string` 仅用于日志
 - 返回结构：
   - `data: TopicListItem[]`

@@ -197,7 +197,7 @@
 | --- | --- | --- | --- |
 | `gearCategory` | `string` | 是 | 装备分类 |
 | `gearModel` | `string` | 否 | 装备型号展示文案 |
-| `gearItemId` | `number` | 否 | 装备库唯一 ID，推荐按选择器带出 |
+| `gearItemId` | `string` | 否 | 装备库唯一 ID，推荐按选择器带出；新增 gear 数据默认使用字符串主键，兼容历史数字 ID |
 | `usageYear` | `string` | 是 | 使用时长 |
 | `usageFrequency` | `string` | 是 | 使用频率 |
 | `environments` | `string[]` | 是 | 使用场景 |
@@ -322,7 +322,7 @@
 | `questionType` | `string` | 是 | 问题类型 |
 | `relatedGearCategory` | `string` | 否 | 关联装备分类 |
 | `relatedGearModel` | `string` | 否 | 关联装备型号展示文案 |
-| `relatedGearItemId` | `number` | 否 | 关联装备在装备库中的唯一 ID |
+| `relatedGearItemId` | `string` | 否 | 关联装备在装备库中的唯一 ID；新增 gear 数据默认使用字符串主键，兼容历史数字 ID |
 | `quickReplyOnly` | `boolean` | 否 | 是否偏好简短回复 |
 
 ### `questionType` 枚举
@@ -579,7 +579,7 @@
 | `title` | `string` | 否 | 标题搜索 |
 | `gearCategory` | `string` | 否 | 装备类帖子筛选 |
 | `gearModel` | `string` | 否 | 装备型号文本筛选，兼容旧帖和手输型号 |
-| `gearItemId` | `number` | 否 | 装备库唯一 ID 筛选，推荐优先使用 |
+| `gearItemId` | `string` | 否 | 装备库唯一 ID 筛选，推荐优先使用；新增 gear 数据默认使用字符串主键，兼容历史数字 ID |
 | `questionType` | `string` | 否 | 问答模式筛选 |
 | `page` | `number` | 否 | 页码 |
 | `limit` | `number` | 否 | 每页数量 |

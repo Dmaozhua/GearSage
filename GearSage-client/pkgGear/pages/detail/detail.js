@@ -516,7 +516,7 @@ Page({
       gearType,
       compareGroup,
       compareGroupLabel,
-      masterId: Number(item.id),
+      masterId: this.normalizeText(item.id),
       masterName: this.normalizeText(item.detailName || item.model),
       brandName: this.normalizeText(item.brand_name),
       variantKey: selectedVariant.__key,
@@ -614,7 +614,7 @@ Page({
   async fetchRelatedPosts() {
     const { item, currentRelatedTab, relatedTabs } = this.data;
     const gearModel = String(item.model || '').trim();
-    const gearItemId = Number(item.id || 0) || null;
+    const gearItemId = this.normalizeText(item.id) || null;
     const gearCategory = this.resolveTopicGearCategory(this.data.gearType);
     if (!gearModel && gearItemId === null) return;
 
@@ -693,7 +693,7 @@ Page({
 
   onGoRecommend() {
     const gearCategory = this.resolveTopicGearCategory(this.data.gearType);
-    const gearItemId = Number((this.data.item && this.data.item.id) || 0);
+    const gearItemId = this.normalizeText(this.data.item && this.data.item.id);
     const detailName = String((this.data.item && (this.data.item.detailName || this.data.item.model)) || '').trim();
     const brandName = String((this.data.item && this.data.item.brand_name) || '').trim();
     const gearLabel = [brandName, detailName].filter(Boolean).join(' ').trim() || detailName;
@@ -701,7 +701,7 @@ Page({
     if (!gearCategory || !gearItemId) {
       wx.showToast({
         title: '暂时无法带入这件装备',
-        icon: 'none'
+      icon: 'none'
       });
       return;
     }
