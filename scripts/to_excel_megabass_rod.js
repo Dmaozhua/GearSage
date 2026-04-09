@@ -3,6 +3,30 @@ const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
+function normalizeExtraNote(key, value) {
+    return /^Other\.\d+$/i.test(key) ? value : `${key}: ${value}`;
+}
+
+function assignExtraNote(row, note, preferredSlot) {
+    if (!note) return;
+
+    if (preferredSlot === 1) {
+        row['Extra Spec 1'] = row['Extra Spec 1'] || note;
+        return;
+    }
+
+    if (preferredSlot === 2) {
+        row['Extra Spec 2'] = row['Extra Spec 2'] || note;
+        return;
+    }
+
+    if (!row['Extra Spec 1']) {
+        row['Extra Spec 1'] = note;
+    } else if (!row['Extra Spec 2']) {
+        row['Extra Spec 2'] = note;
+    }
+}
+
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_raw.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx');
 
@@ -50,7 +74,7 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
         'model_year': '',
         'alias': '',
         'Description': seriesInfo.series_description,
-        'type_tips': 'ROD',
+        'type_tips': '',
         'images': seriesInfo.image,
         'created_at': '',
         'updated_at': ''
@@ -137,14 +161,18 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
 
         // Keep export schema stable: fold remaining unmapped specs into generic extra-note fields.
         const mappedKeys = ['Length', 'Action', 'Taper', '継数', 'Weight', 'Lure', 'Lure capa', 'Line', 'Line capa', 'カーボン含有率', 'Price', 'Subname'];
-        const extraNotes = [];
         for (const [k, v] of Object.entries(specs)) {
             if (!mappedKeys.includes(k) && !v.includes('Closed Length')) {
-                extraNotes.push(`${k}: ${v}`);
+                const note = normalizeExtraNote(k, v);
+                if (/^Other\.1$/i.test(k)) {
+                    assignExtraNote(row, note, 1);
+                } else if (/^Other\.2$/i.test(k)) {
+                    assignExtraNote(row, note, 2);
+                } else {
+                    assignExtraNote(row, note);
+                }
             }
         }
-        row['Extra Spec 1'] = extraNotes[0] || row['Extra Spec 1'];
-        row['Extra Spec 2'] = extraNotes[1] || row['Extra Spec 2'];
 
         detailRows.push(row);
     }

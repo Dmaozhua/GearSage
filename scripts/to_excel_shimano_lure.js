@@ -1,6 +1,7 @@
 const fs = require('fs');
 const xlsx = require('xlsx');
 const path = require('path');
+const { SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 const SHIMANO_BRAND_ID = 1;
 
 function classifyLure(modelName, buoyancy) {
@@ -192,32 +193,32 @@ for (const item of data) {
 
 const wb = xlsx.utils.book_new();
 
-const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: ["id","brand_id","model","model_cn","model_year","alias","type_tips","system","water_column","action","images","created_at","updated_at","description"] });
-xlsx.utils.book_append_sheet(wb, wsLure, "lure");
+const wsLure = xlsx.utils.json_to_sheet(lureRows, { header: HEADERS.lureMaster });
+xlsx.utils.book_append_sheet(wb, wsLure, SHEET_NAMES.lure);
 
 if (hardbaitDetailRows.length > 0) {
-    const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-    xlsx.utils.book_append_sheet(wb, wsHardbait, "hardbait_lure_detail");
+    const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows, { header: HEADERS.hardbaitLureDetail });
+    xlsx.utils.book_append_sheet(wb, wsHardbait, SHEET_NAMES.hardbaitLureDetail);
 }
 
 if (metalDetailRows.length > 0) {
-    const wsMetal = xlsx.utils.json_to_sheet(metalDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-    xlsx.utils.book_append_sheet(wb, wsMetal, "metal_lure_detail");
+    const wsMetal = xlsx.utils.json_to_sheet(metalDetailRows, { header: HEADERS.metalLureDetail });
+    xlsx.utils.book_append_sheet(wb, wsMetal, SHEET_NAMES.metalLureDetail);
 }
 
 if (softDetailRows.length > 0) {
-    const wsSoft = xlsx.utils.json_to_sheet(softDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-    xlsx.utils.book_append_sheet(wb, wsSoft, "soft_lure_detail");
+    const wsSoft = xlsx.utils.json_to_sheet(softDetailRows, { header: HEADERS.softLureDetail });
+    xlsx.utils.book_append_sheet(wb, wsSoft, SHEET_NAMES.softLureDetail);
 }
 
 if (wireDetailRows.length > 0) {
-    const wsWire = xlsx.utils.json_to_sheet(wireDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-    xlsx.utils.book_append_sheet(wb, wsWire, "wire_lure_detail");
+    const wsWire = xlsx.utils.json_to_sheet(wireDetailRows, { header: HEADERS.wireLureDetail });
+    xlsx.utils.book_append_sheet(wb, wsWire, SHEET_NAMES.wireLureDetail);
 }
 
 if (jigDetailRows.length > 0) {
-    const wsJig = xlsx.utils.json_to_sheet(jigDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-    xlsx.utils.book_append_sheet(wb, wsJig, "jig_lure_detail");
+    const wsJig = xlsx.utils.json_to_sheet(jigDetailRows, { header: HEADERS.jigLureDetail });
+    xlsx.utils.book_append_sheet(wb, wsJig, SHEET_NAMES.jigLureDetail);
 }
 
 xlsx.writeFile(wb, outputPath);

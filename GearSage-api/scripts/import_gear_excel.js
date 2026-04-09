@@ -47,22 +47,55 @@ const VARIANT_SOURCES = [
   { kind: 'line', sourceKey: 'line', file: 'line_detail.xlsx', foreignKey: 'line_id' },
 ];
 
-main().catch((error) => {
+const cliOptions = parseArgs(process.argv.slice(2));
+
+main(cliOptions).catch((error) => {
   console.error('[import:gear] Failed:', error);
   process.exit(1);
 });
 
-async function main() {
+async function main(options) {
   loadEnvFiles();
-
-  const databaseUrl = process.env.DATABASE_URL;
-  if (!databaseUrl) {
-    throw new Error('DATABASE_URL is not configured');
-  }
 
   const excelDir = process.env.GEAR_EXCEL_DIR || DEFAULT_EXCEL_DIR;
   if (!fs.existsSync(excelDir)) {
     throw new Error(`GEAR_EXCEL_DIR not found: ${excelDir}`);
+  }
+
+  const brands = readRows(path.join(excelDir, 'brand.xlsx')).map(normalizeBrandRow);
+  const masters = MASTER_SOURCES.flatMap(({ kind, file, sheet }) =>
+    readRows(path.join(excelDir, file), sheet).map((row) => normalizeMasterRow(kind, row)),
+  );
+  const variants = VARIANT_SOURCES.flatMap(({ kind, sourceKey, file, foreignKey, sheet }) =>
+    readRows(path.join(excelDir, file), sheet).map((row) =>
+      normalizeVariantRow(kind, sourceKey, foreignKey, row),
+    ),
+  );
+  const validation = validateDataset(brands, masters, variants);
+  const searchData = buildSearchData(masters);
+
+  if (validation.warnings.length > 0) {
+    for (const warning of validation.warnings) {
+      console.warn(`[import:gear] Warning: ${warning}`);
+    }
+  }
+
+  if (validation.errors.length > 0) {
+    throw new Error(
+      `validation failed with ${validation.errors.length} error(s):\n- ${validation.errors.join('\n- ')}`,
+    );
+  }
+
+  if (options.dryRun) {
+    console.log(
+      `[import:gear] Dry run OK brands=${brands.length} masters=${masters.length} variants=${variants.length} searchData=${searchData.length}`,
+    );
+    return;
+  }
+
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL is not configured');
   }
 
   const client = new Client({ connectionString: databaseUrl });
@@ -71,16 +104,6 @@ async function main() {
   try {
     const initSql = fs.readFileSync(INIT_SQL_PATH, 'utf8');
     await client.query(initSql);
-
-    const brands = readRows(path.join(excelDir, 'brand.xlsx')).map(normalizeBrandRow);
-    const masters = MASTER_SOURCES.flatMap(({ kind, file, sheet }) =>
-      readRows(path.join(excelDir, file), sheet).map((row) => normalizeMasterRow(kind, row)),
-    );
-    const variants = VARIANT_SOURCES.flatMap(({ kind, sourceKey, file, foreignKey, sheet }) =>
-      readRows(path.join(excelDir, file), sheet).map((row) =>
-        normalizeVariantRow(kind, sourceKey, foreignKey, row),
-      ),
-    );
 
     await client.query('BEGIN');
     await client.query('TRUNCATE TABLE gear_variants, gear_master, gear_brands');
@@ -152,7 +175,7 @@ async function main() {
 
     await client.query('COMMIT');
 
-    const searchDataCount = generateSearchDataFile(masters);
+    const searchDataCount = generateSearchDataFile(searchData);
 
     console.log(
       `[import:gear] Imported brands=${brands.length} masters=${masters.length} variants=${variants.length} searchData=${searchDataCount}`,
@@ -261,6 +284,12 @@ function normalizeMasterRow(kind, row) {
   };
 }
 
+function parseArgs(argv) {
+  return {
+    dryRun: argv.includes('--dry-run') || argv.includes('--check'),
+  };
+}
+
 function normalizeVariantRow(kind, sourceKey, foreignKey, row) {
   const gearIdRaw = row[foreignKey] || row.reel_id || row.master_id;
   const gearId = normalizeText(gearIdRaw);
@@ -296,12 +325,8 @@ function normalizeImages(value) {
     .filter(Boolean);
 }
 
-function generateSearchDataFile(masters) {
-  if (!fs.existsSync(SEARCH_DATA_DIR)) {
-    fs.mkdirSync(SEARCH_DATA_DIR, { recursive: true });
-  }
-
-  const searchData = masters
+function buildSearchData(masters) {
+  return masters
     .filter((item) => ['reel', 'rod', 'lure', 'line'].includes(item.kind))
     .map((item) => {
       const nameParts = [item.modelYear, item.model, item.modelCn].filter(Boolean);
@@ -331,10 +356,96 @@ function generateSearchDataFile(masters) {
       };
     })
     .filter((item) => item.name && item.id);
+}
+
+function generateSearchDataFile(searchData) {
+  if (!fs.existsSync(SEARCH_DATA_DIR)) {
+    fs.mkdirSync(SEARCH_DATA_DIR, { recursive: true });
+  }
 
   const content = `module.exports = ${JSON.stringify(searchData, null, 2)};\n`;
   fs.writeFileSync(SEARCH_DATA_FILE, content, 'utf8');
   return searchData.length;
+}
+
+function validateDataset(brands, masters, variants) {
+  const errors = [];
+  const warnings = [];
+
+  const brandIds = new Set();
+  for (const brand of brands) {
+    if (brand.id === null) {
+      errors.push(`brand id is missing or invalid: ${JSON.stringify(brand.raw_json)}`);
+      continue;
+    }
+
+    if (brandIds.has(brand.id)) {
+      errors.push(`duplicate brand id: ${brand.id}`);
+      continue;
+    }
+
+    brandIds.add(brand.id);
+  }
+
+  const masterKeys = new Set();
+  for (const item of masters) {
+    const key = `${item.kind}:${item.id}`;
+
+    if (!item.id) {
+      errors.push(`missing master id for kind=${item.kind} model=${item.model || '(empty)'}`);
+      continue;
+    }
+
+    if (item.brandId === null) {
+      errors.push(`missing brand_id for master ${key}`);
+    } else if (!brandIds.has(item.brandId)) {
+      errors.push(`master ${key} references missing brand_id=${item.brandId}`);
+    }
+
+    if (!item.model) {
+      warnings.push(`master ${key} has empty model`);
+    }
+
+    if (masterKeys.has(key)) {
+      errors.push(`duplicate master key: ${key}`);
+      continue;
+    }
+
+    masterKeys.add(key);
+  }
+
+  const variantKeys = new Set();
+  for (const variant of variants) {
+    const masterKey = `${variant.kind}:${variant.gearId}`;
+    const variantKey = `${variant.kind}:${variant.variantId}`;
+
+    if (!variant.gearId) {
+      errors.push(`missing gearId for variant kind=${variant.kind} sku=${variant.sku || '(empty)'}`);
+      continue;
+    }
+
+    if (!masterKeys.has(masterKey)) {
+      errors.push(`variant ${variant.variantId || '(empty)'} references missing master ${masterKey}`);
+    }
+
+    if (!variant.variantId) {
+      errors.push(`missing variantId for ${masterKey} sku=${variant.sku || '(empty)'}`);
+      continue;
+    }
+
+    if (variantKeys.has(variantKey)) {
+      errors.push(`duplicate variant key: ${variantKey}`);
+      continue;
+    }
+
+    if (!variant.sku) {
+      warnings.push(`variant ${variantKey} has empty sku`);
+    }
+
+    variantKeys.add(variantKey);
+  }
+
+  return { errors, warnings };
 }
 
 function mapImage(input) {

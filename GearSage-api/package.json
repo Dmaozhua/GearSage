@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "import:gear": "node scripts/import_gear_excel.js",
+    "import:gear:check": "node scripts/import_gear_excel.js --dry-run",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

@@ -1,8 +1,9 @@
 # 装备库数据扩充标准作业规程 (SOP)
 
-**版本**: 2.0
-**日期**: 2026-03-28
+**版本**: 2.3
+**日期**: 2026-04-09
 **变更日志**:
+*   **v2.3**: 固化 `rate/excel` 为最终基准、`pkgGear/data_raw` 为抓取/清洗/导出中间层的工作方式。补充“装备扩充标准操作清单”，明确字段、表头、sheet 名默认冻结；新增/扩充时优先补数据内容，再通过 `pre-check -> to_excel_* -> report_rate_excel_diffs.js` 做差异比对，不再默认自动覆盖 `rate/excel`。
 *   **v2.2**: 优化了 Megabass 假饵 (Lure) 的抓取与分类链路。完善了 description 的多级语言回退提取（优先查找包含有效内容的中文 > 英文 > 日文），清除了 `script` / `style` / 语言切换器等干扰节点。增强了 `classifyLure` 的解析逻辑（基于正则表达式提取深度值并映射为 Deep/Mid/Subsurface），引入官网大分类覆盖机制（如优先采用官网标注的 TOPWATER/CRANKBAIT 分类），并严格对齐 `type_tips`, `system`, `water_column`, `action` 等字段与系统枚举值。
 *   **v2.1**: 完善了假饵（Lure）品类的采集与导出链路。针对 Daiwa 假饵增加了自动分页与多线程（`ThreadPoolExecutor`）并发抓取及图片下载；在 Node.js 导出端引入 `classifyLure` 分类逻辑，实现假饵字段（`type_tips`, `system`, `water_column`, `action`）的自动化枚举填充，并支持按类型（hardbait, metal, soft, wire, jig）自动拆分多 Sheet 导出。该逻辑已同步应用至 Shimano 假饵导出。
 *   **v2.0**: 彻底重构SOP，引入标准的Scrapling MCP (Micro-Crawling Platform) 工作流。流程从“本地脚本”升级为“客户端-服务器”模式。明确了安装步骤、工具分层、中间数据范式和采集策略，为工业化数据采集奠定基础。
@@ -33,6 +34,26 @@
 ---
 
 ## 标准作业流程 (SOP)
+
+### **0. 最终基准约定（每次扩充前先确认）**
+
+1.  **`rate/excel` 是最终基准**:
+    *   `/Users/tommy/GearSage/GearSage-client/rate/excel/` 目录下的总表是最终使用数据。
+    *   数据库导入、前后端联调、抽样核对都以这里为准。
+
+2.  **`pkgGear/data_raw` 是中间层**:
+    *   `/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/` 用于存放抓取原始数据、`normalized.json`、中间导出的 `*_import.xlsx` 和差异报告。
+    *   默认不要把这里的脚本产物直接视为最终可导库数据。
+
+3.  **默认冻结结构，优先补内容**:
+    *   默认不要改最终表的字段名、字段顺序、sheet 名。
+    *   默认不要增加空表头列、匿名列、临时列。
+    *   能通过“补内容”和“改导出脚本规则”解决的问题，不先改最终表结构。
+
+4.  **主键约定必须稳定**:
+    *   `brand.xlsx` 继续使用纯数字品牌 ID，且只扩充，不修改既有编号。
+    *   装备主表/详情表统一使用字符串前缀主键与外键。
+    *   新品牌接入时，先补品牌 ID 规则，再导出。
 
 ### **第一阶段：MCP服务搭建 (首次执行)**
 
@@ -96,13 +117,13 @@
     *   公共导出常量统一维护在 `scripts/gear_export_schema.js`。新增或修改 `to_excel_*` 脚本时，优先复用这里的品牌 ID、sheet 名和 header 定义，不再在各脚本内重复手写。
     *   **注意**：`pkgGear/data_raw/*_import.xlsx` 只是中间产物，当前数据库导入仍以 `GearSage-client/rate/excel/` 目录下的总表为准。
 
-3.  **同步回总表 (`rate/excel`)**:
-    *   生成品牌级中间 Excel 后，我将运行 `scripts/sync_rate_excel_from_imports.js`。
-    *   该脚本会按前缀主键定向替换 `rate/excel` 中对应品牌切片：
-        Shimano 路亚 `SL*`、Daiwa 路亚 `DL*`、Shimano 鱼线 `SLN*`、Daiwa 鱼线 `DLN*`。
-    *   Megabass 与历史遗留的数字主键行不会被覆盖。
-    *   同步后，应以 `rate/excel/` 中的总表作为后续抽检与导入基线。
-    *   如果当前阶段只想做对比、不想自动覆盖总表，可运行 `scripts/report_rate_excel_diffs.js`。该脚本会将 `data_raw` 导出与 `rate/excel` 最终基准做只读比对，并输出报告到 `pkgGear/data_raw/rate_excel_diff_report.md`。
+3.  **对比最终总表，不默认自动覆盖**:
+    *   生成品牌级中间 Excel 后，默认先运行 `scripts/report_rate_excel_diffs.js`。
+    *   该脚本会将 `data_raw` 导出与 `rate/excel` 最终基准做只读比对，并输出报告到 `pkgGear/data_raw/rate_excel_diff_report.md`。
+    *   报告重点关注：
+        新增型号、缺失型号、字段值差异、表头不一致、外键不一致。
+    *   只有在您确认“导出规则”和“最终表规则”都合理后，才手动更新 `rate/excel`。
+    *   `scripts/sync_rate_excel_from_imports.js` 只适用于受控批量回填场景，不再作为默认步骤。
 
 4.  **最终导入**:
     *   在您确认后，我将执行 `import_gear_excel.js` 脚本，将最终的Excel数据安全地导入数据库。
@@ -204,6 +225,72 @@
 
 ---
 
+## 装备扩充标准操作清单（推荐直接照此执行）
+
+### 适用场景
+
+*   新增品牌
+*   扩充某品牌现有型号
+*   补充新字段内容
+*   纠正抓取脚本导出的字段归位
+
+### 固定流程
+
+1.  **先确认最终表结构不动**
+    *   检查 `rate/excel` 对应主表、detail 表的字段名、字段顺序、sheet 名是否已经是目标格式。
+    *   如果只是补数据，不改结构。
+
+2.  **补抓取/清洗数据**
+    *   更新 `pkgGear/data_raw/*.json` 或 `*_normalized.json`。
+    *   如新增品牌，先补 `brand.xlsx` 与导出脚本中的品牌 ID 映射。
+
+3.  **运行预检查**
+    ```bash
+    node /Users/tommy/GearSage/scripts/pre-check.js /绝对路径/xxx_normalized.json
+    ```
+    *   先消除 `error`，再决定是否接受 `warning`。
+
+4.  **运行对应导出脚本**
+    *   生成 `pkgGear/data_raw/*_import.xlsx`。
+    *   默认要求导出结果直接对齐最终 `rate/excel` 的主键、表头、sheet 名规则。
+
+5.  **运行差异报告**
+    ```bash
+    node /Users/tommy/GearSage/scripts/report_rate_excel_diffs.js
+    ```
+    *   查看 `/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/rate_excel_diff_report.md`。
+
+6.  **只处理报告中的真实差异**
+    *   如果是内容缺失：补抓取数据或最终表内容。
+    *   如果是字段归位错：改 `to_excel_*` 脚本，不要每次手工修。
+    *   如果是最终表规则本身不清晰：先定规则，再统一修改。
+
+7.  **差异清零后再进入导入或联调**
+    *   推荐目标是 `summary: ok=..., diff=0, missing_import=0`。
+    *   差异清零后，先运行导入前校验，再做导库、后端抽样接口验证、前端页面联调。
+    ```bash
+    cd /Users/tommy/GearSage/GearSage-api
+    npm run import:gear:check
+    ```
+    *   `import:gear:check` 会只读取 `rate/excel` 并校验品牌引用、主键、外键、重复 key，不会连接数据库，也不会执行 `TRUNCATE`。
+
+### 什么时候才改字段/结构
+
+只有同时满足以下条件，才建议改最终表字段：
+
+1.  当前字段已经无法承载真实业务语义。
+2.  这个新字段会长期存在，不是一次性补丁。
+3.  导出脚本、最终表、导入脚本、前后端消费链路都能同步更新。
+4.  对应文档会一起回写，不留下“Excel 里悄悄多一列”的隐性规则。
+
+### 日常执行口径
+
+一句话就是：
+
+**先补内容，再跑导出，再看差异报告，再增量修规则；不要先动最终表结构。**
+
+---
+
 ## 执行进度记录 (Execution Log)
 
 | 日期 | 任务/品类 | 阶段 | 状态 | 备注 |
@@ -213,3 +300,4 @@
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 3: 预检查与数据转换 | ✅ 完成 | 编写了 `pre_check.js` 进行数据校验，并用 `to_excel.js` 将标准化JSON转换为便于人工复核的 Excel 文件 `daiwa_reels_import.xlsx`。 |
 | 2026-04-06 | Daiwa & Shimano 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 为 Daiwa 增加自动分页与并发下载（多线程），大幅提升爬取速度；在 Node.js 中实现 `classifyLure` 逻辑自动判断水层、类型及动作并多表导出。Shimano 假饵同步应用此分类分表导出逻辑。 |
 | 2026-04-08 | Megabass 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 修复了 description 多级语言抓取逻辑（排查空标签并清除干扰元素），优化了 `classifyLure` 中的水层深度判断与官网大分类强制映射，确保所有系统枚举值准确对应。 |
+| 2026-04-09 | 装备扩充流程标准化 | 规则收口与基线对齐 | ✅ 完成 | 固化了 `rate/excel` 为最终基准、`data_raw` 为中间层的工作方式；统一主键、品牌 ID、sheet/header 规则；新增 `report_rate_excel_diffs.js` 并将差异报告收敛到全绿。 |

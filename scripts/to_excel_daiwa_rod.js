@@ -40,7 +40,7 @@ for (const item of data) {
         'model_cn': '',
         'model_year': modelYear,
         'alias': '',
-        'type_tips': 'ROD',
+        'type_tips': '',
         'images': item.local_image_path || item.main_image_url || '',
         'Description': item.series_description || item.description || '',
         'created_at': '',

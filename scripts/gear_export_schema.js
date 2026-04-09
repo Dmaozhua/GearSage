@@ -65,6 +65,26 @@ const HEADERS = {
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'system', 'water_column', 'action', 'images', 'created_at', 'updated_at', 'description',
     ],
+    hardbaitLureDetail: [
+        'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
+        'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1',
+    ],
+    metalLureDetail: [
+        'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
+        'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size',
+    ],
+    softLureDetail: [
+        'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
+        'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1', 'quantity (入数)',
+    ],
+    wireLureDetail: [
+        'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
+        'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1',
+    ],
+    jigLureDetail: [
+        'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
+        'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1',
+    ],
 };
 
 module.exports = {

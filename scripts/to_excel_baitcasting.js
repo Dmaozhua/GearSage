@@ -37,7 +37,7 @@ function main() {
             model_cn: '',
             model_year: masterYear,
             alias: '',
-            type_tips: item.kind,
+            type_tips: '',
             type: 'baitcasting',
             images: localImagePath,
             created_at: currentTime,

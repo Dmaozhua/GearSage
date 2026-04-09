@@ -3,6 +3,23 @@ const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
+function splitJigBuoyancyAndHook(specs, system) {
+    const buoyancy = specs.buoyancy || '';
+    const hook = specs.hook || '';
+
+    if (system === 'jig' && !hook && /hook\s*:/i.test(buoyancy)) {
+        return {
+            sinkingspeed: '',
+            hookSize: buoyancy
+        };
+    }
+
+    return {
+        sinkingspeed: buoyancy,
+        hookSize: hook
+    };
+}
+
 function classifyLure(item) {
     let typeTips = 'special_lure';
     let system = 'hardbait';
@@ -296,6 +313,7 @@ function generateMegabassLureExcel() {
         item.variants.forEach(v => {
             const currentDetailId = `MLD${detailIdCounter++}`;
             const specs = v.specs;
+            const jigSplit = splitJigBuoyancyAndHook(specs, system);
             
             // If size is missing but variant name looks like a size (e.g. "2.3", "3.3"), use it
             let sizeVal = specs.length || '';
@@ -313,13 +331,13 @@ function generateMegabassLureExcel() {
                 'WEIGHT': specs.weight || '',
                 'length': sizeVal || '',
                 'size': '',
-                'sinkingspeed': specs.buoyancy || '',
+                'sinkingspeed': jigSplit.sinkingspeed,
                 'referenceprice': specs.price || '',
                 'created_at': '',
                 'updated_at': '',
                 'COLOR': specs.color || '',
                 'AdminCode': specs.product_code || '',
-                'hook_size': specs.hook || '', // Use the extracted hook size if available
+                'hook_size': jigSplit.hookSize,
                 'depth': specs.depth || '', // Added depth
                 'action': specs.action || '', // Added action
                 'subname': specs.subname || '', // Added subname
@@ -352,28 +370,28 @@ function generateMegabassLureExcel() {
     xlsx.utils.book_append_sheet(wb, wsLure, SHEET_NAMES.lure);
 
     if (hardbaitDetailRows.length > 0) {
-        const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-        xlsx.utils.book_append_sheet(wb, wsHardbait, 'hardbait_lure_detail');
+        const wsHardbait = xlsx.utils.json_to_sheet(hardbaitDetailRows, { header: HEADERS.hardbaitLureDetail });
+        xlsx.utils.book_append_sheet(wb, wsHardbait, SHEET_NAMES.hardbaitLureDetail);
     }
     
     if (metalDetailRows.length > 0) {
-        const wsMetal = xlsx.utils.json_to_sheet(metalDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-        xlsx.utils.book_append_sheet(wb, wsMetal, 'metal_lure_detail');
+        const wsMetal = xlsx.utils.json_to_sheet(metalDetailRows, { header: HEADERS.metalLureDetail });
+        xlsx.utils.book_append_sheet(wb, wsMetal, SHEET_NAMES.metalLureDetail);
     }
 
     if (softDetailRows.length > 0) {
-        const wsSoft = xlsx.utils.json_to_sheet(softDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-        xlsx.utils.book_append_sheet(wb, wsSoft, 'soft_lure_detail');
+        const wsSoft = xlsx.utils.json_to_sheet(softDetailRows, { header: HEADERS.softLureDetail });
+        xlsx.utils.book_append_sheet(wb, wsSoft, SHEET_NAMES.softLureDetail);
     }
 
     if (wireDetailRows.length > 0) {
-        const wsWire = xlsx.utils.json_to_sheet(wireDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-        xlsx.utils.book_append_sheet(wb, wsWire, 'wire_lure_detail');
+        const wsWire = xlsx.utils.json_to_sheet(wireDetailRows, { header: HEADERS.wireLureDetail });
+        xlsx.utils.book_append_sheet(wb, wsWire, SHEET_NAMES.wireLureDetail);
     }
 
     if (jigDetailRows.length > 0) {
-        const wsJig = xlsx.utils.json_to_sheet(jigDetailRows, { header: ["id","lure_id","SKU","WEIGHT","length","size","sinkingspeed","referenceprice","created_at","updated_at"] });
-        xlsx.utils.book_append_sheet(wb, wsJig, 'jig_lure_detail');
+        const wsJig = xlsx.utils.json_to_sheet(jigDetailRows, { header: HEADERS.jigLureDetail });
+        xlsx.utils.book_append_sheet(wb, wsJig, SHEET_NAMES.jigLureDetail);
     }
 
     const outputPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_lure_import.xlsx');
