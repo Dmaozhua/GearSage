@@ -5,6 +5,21 @@ const { HEADERS } = require('./gear_export_schema');
 const ROOT = path.resolve(__dirname, '..');
 const RATE_EXCEL_DIR = path.join(ROOT, 'GearSage-client/rate/excel');
 const DATA_RAW_DIR = path.join(ROOT, 'GearSage-client/pkgGear/data_raw');
+const REQUIRED_FIELDS_BY_HEADER = {
+    reelMaster: ['id', 'brand_id', 'model', 'type'],
+    spinningReelDetail: ['id', 'reel_id', 'SKU', 'type'],
+    baitcastingReelDetail: ['id', 'reel_id', 'SKU', 'type'],
+    rodMaster: ['id', 'brand_id', 'model'],
+    rodDetail: ['id', 'rod_id', 'SKU'],
+    lureMaster: ['id', 'brand_id', 'model'],
+    hardbaitLureDetail: ['id', 'lure_id', 'SKU'],
+    metalLureDetail: ['id', 'lure_id', 'SKU'],
+    softLureDetail: ['id', 'lure_id', 'SKU'],
+    wireLureDetail: ['id', 'lure_id', 'SKU'],
+    jigLureDetail: ['id', 'lure_id', 'SKU'],
+    lineMaster: ['id', 'brand_id', 'model'],
+    lineDetail: ['id', 'line_id', 'SKU'],
+};
 
 const TASKS = [
     {
@@ -132,33 +147,103 @@ const TASKS = [
     },
 ];
 
-function readRows(filePath, sheetName) {
+function normalizeText(value) {
+    return String(value === 0 ? '0' : (value || '')).trim();
+}
+
+function readRows(filePath, sheetName, options = {}) {
+    const { strict = false } = options;
+    if (!xlsx || !filePath) {
+        return [];
+    }
+    if (!require('fs').existsSync(filePath)) {
+        if (strict) {
+            throw new Error(`source workbook missing: ${filePath}`);
+        }
+        return [];
+    }
     const wb = xlsx.readFile(filePath);
     const ws = wb.Sheets[sheetName];
-    if (!ws) return [];
+    if (!ws) {
+        if (strict) {
+            throw new Error(`sheet missing: ${filePath}#${sheetName}`);
+        }
+        return [];
+    }
     return xlsx.utils.sheet_to_json(ws, { defval: '' });
 }
 
 function replaceSlice(rows, incomingRows, matchField, prefix) {
-    let inserted = false;
     let replacedCount = 0;
     const output = [];
-
+    
+    // Map existing rows by ID
+    const existingById = new Map();
     for (const row of rows) {
-        const value = String(row[matchField] || '');
-        if (value.startsWith(prefix)) {
-            replacedCount += 1;
-            if (!inserted) {
-                output.push(...incomingRows);
-                inserted = true;
-            }
+        if (row.id) {
+            existingById.set(row.id, row);
+        }
+    }
+    
+    const processedIncomingIds = new Set();
+    const mergedIncomingRows = [];
+
+    // Process incoming rows
+    for (const incoming of incomingRows) {
+        // Ensure the incoming row actually belongs to this slice
+        const matchValue = String(incoming[matchField] || '');
+        if (!matchValue.startsWith(prefix)) {
             continue;
         }
-        output.push(row);
+        
+        const id = incoming.id;
+        if (!id) {
+            mergedIncomingRows.push(incoming);
+            continue;
+        }
+
+        if (processedIncomingIds.has(id)) {
+            continue; // Skip duplicates in incoming
+        }
+        processedIncomingIds.add(id);
+
+        if (existingById.has(id)) {
+            replacedCount += 1;
+            const existing = existingById.get(id);
+            const merged = { ...existing };
+            
+            // Merge logic: only overwrite if incoming value is not empty
+            for (const key of Object.keys(incoming)) {
+                const incValue = incoming[key];
+                const incStr = String(incValue === 0 ? '0' : (incValue || '')).trim();
+                if (incStr !== '') {
+                    merged[key] = incValue;
+                }
+            }
+            mergedIncomingRows.push(merged);
+        } else {
+            mergedIncomingRows.push(incoming);
+        }
     }
 
-    if (!inserted && incomingRows.length > 0) {
-        output.push(...incomingRows);
+    // Construct output
+    // 1. Keep existing rows, replace the ones we merged in-place to preserve order
+    for (const row of rows) {
+        const id = row.id;
+        if (id && processedIncomingIds.has(id)) {
+            const merged = mergedIncomingRows.find(m => m.id === id);
+            if (merged) output.push(merged);
+        } else {
+            // Keep old row exactly as is (prevents deleting untouched data)
+            output.push(row);
+        }
+    }
+
+    // 2. Append brand new rows
+    for (const merged of mergedIncomingRows) {
+        if (!merged.id || !existingById.has(merged.id)) {
+            output.push(merged);
+        }
     }
 
     return { rows: output, replacedCount };
@@ -166,6 +251,71 @@ function replaceSlice(rows, incomingRows, matchField, prefix) {
 
 function countPrefix(rows, matchField, prefix) {
     return rows.filter((row) => String(row[matchField] || '').startsWith(prefix)).length;
+}
+
+function countEmptyRequiredFields(rows, requiredFields) {
+    const missing = [];
+    rows.forEach((row) => {
+        const rowId = normalizeText(row.id) || '(missing id)';
+        requiredFields.forEach((field) => {
+            if (!normalizeText(row[field])) {
+                missing.push(`${rowId}:${field}`);
+            }
+        });
+    });
+    return missing;
+}
+
+function findDuplicateIds(rows) {
+    const counts = new Map();
+    rows.forEach((row) => {
+        const id = normalizeText(row.id);
+        if (!id) {
+            return;
+        }
+        counts.set(id, (counts.get(id) || 0) + 1);
+    });
+    return [...counts.entries()]
+        .filter(([, count]) => count > 1)
+        .map(([id]) => id);
+}
+
+function validateReplacementResult(task, replacement, beforeRows, incomingRows, afterRows) {
+    const beforeCount = countPrefix(beforeRows, replacement.matchField, replacement.prefix);
+    const afterCount = countPrefix(afterRows, replacement.matchField, replacement.prefix);
+    const filteredIncomingRows = incomingRows.filter((row) =>
+        normalizeText(row[replacement.matchField]).startsWith(replacement.prefix),
+    );
+
+    if (filteredIncomingRows.length === 0) {
+        throw new Error(
+            `[sync_rate_excel_from_imports] empty incoming slice: ${task.targetFile} ${replacement.prefix} ${replacement.sourceSheet}`,
+        );
+    }
+
+    if (afterCount < beforeCount) {
+        throw new Error(
+            `[sync_rate_excel_from_imports] slice shrank unexpectedly: ${task.targetFile} ${replacement.prefix} before=${beforeCount} after=${afterCount}`,
+        );
+    }
+
+    const afterSliceRows = afterRows.filter((row) =>
+        normalizeText(row[replacement.matchField]).startsWith(replacement.prefix),
+    );
+    const duplicateIds = findDuplicateIds(afterSliceRows);
+    if (duplicateIds.length > 0) {
+        throw new Error(
+            `[sync_rate_excel_from_imports] duplicate ids after merge: ${task.targetFile} ${replacement.prefix} ${duplicateIds.slice(0, 10).join(', ')}`,
+        );
+    }
+
+    const requiredFields = REQUIRED_FIELDS_BY_HEADER[task.headerKey] || [];
+    const missingRequired = countEmptyRequiredFields(afterSliceRows, requiredFields);
+    if (missingRequired.length > 0) {
+        throw new Error(
+            `[sync_rate_excel_from_imports] missing required fields after merge: ${task.targetFile} ${replacement.prefix} ${missingRequired.slice(0, 10).join(', ')}`,
+        );
+    }
 }
 
 function writeSheet(filePath, sheetName, header, rows) {
@@ -180,17 +330,19 @@ function main() {
 
     for (const task of TASKS) {
         const targetPath = path.join(RATE_EXCEL_DIR, task.targetFile);
-        let rows = readRows(targetPath, task.targetSheet);
+        let rows = readRows(targetPath, task.targetSheet, { strict: true });
 
         for (const replacement of task.replacements) {
             let incomingRows = [];
             const sourceFiles = replacement.sourceFiles || [replacement.sourceFile];
+            const beforeRows = rows;
             for (const file of sourceFiles) {
                 const sourcePath = path.join(DATA_RAW_DIR, file);
-                incomingRows = incomingRows.concat(readRows(sourcePath, replacement.sourceSheet));
+                incomingRows = incomingRows.concat(readRows(sourcePath, replacement.sourceSheet, { strict: true }));
             }
             const result = replaceSlice(rows, incomingRows, replacement.matchField, replacement.prefix);
             rows = result.rows;
+            validateReplacementResult(task, replacement, beforeRows, incomingRows, rows);
             
             report.push({
                 targetFile: task.targetFile,
@@ -198,7 +350,7 @@ function main() {
                 prefix: replacement.prefix,
                 sourceFile: sourceFiles.join(', '),
                 sourceSheet: replacement.sourceSheet,
-                before: countPrefix(readRows(targetPath, task.targetSheet), replacement.matchField, replacement.prefix),
+                before: countPrefix(beforeRows, replacement.matchField, replacement.prefix),
                 incoming: incomingRows.length,
                 replaced: result.replacedCount,
                 after: countPrefix(rows, replacement.matchField, replacement.prefix),
