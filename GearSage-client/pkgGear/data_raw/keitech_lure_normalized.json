@@ -5,18 +5,22 @@
     "model": "スイングベイト2.8\"",
     "model_cn": "スイングベイト2.8\"",
     "source_url": "https://keitech.co.jp/pages/613/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9021/p/202501241430404411.jpg?1756792074",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202501241430404411.jpg",
+    "description": "スイムベイトの名作を、忠実に、完全復刻！ 野尻湖や桧原湖をはじめとするハイランドクリアレイクのシークレットとして噂がうわさを呼び、ローカルの猛者たちから一般アングラーへと徐々に浸透、やがて定番化したTEMPTブランドの『スイングベイト』。 惜しまれながらも廃盤となったこのスイムベイト（シャッドテールワーム）を、ケイテックが完全復刻いたしました。",
     "variants": [
       {
-        "sku": "スイングベイト2.8\"",
-        "size": "",
-        "weight": "",
+        "size": "ジグヘッドリグ",
+        "quantity": "",
+        "weight": "1/32oz",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:09.333Z"
+    "scraped_at": "2026-04-10T05:39:11.615Z",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll"
   },
   {
     "brand": "KEITECH",
@@ -24,18 +28,57 @@
     "model": "スイングインパクト",
     "model_cn": "スイングインパクト",
     "source_url": "https://keitech.co.jp/pages/39/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5736/p/202212191540483278.jpg?1671432050",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191540483278.jpg",
+    "description": "キビキビと、そして大きくスイングするテールアクション。ボトムでのズル引きやカーブフォールによるスイミングで効果絶大です。水を良く掴み、水流負けしないテールデザインがミソ。ジグヘッドはもとより、テキサス、キャロライナ、ダウンショットリグ、そしてネコリグやジグトレーラー等、あらゆる使い方で効果を発揮します。あまりシェイク等の小技を入れずに、スローにシンプルに使うことをお勧めいたします。",
     "variants": [
       {
-        "sku": "スイングインパクト",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2\"",
+        "quantity": "12",
+        "weight": "0.9g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "2.5\"",
+        "quantity": "10",
+        "weight": "1.3g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "3\"",
+        "quantity": "10",
+        "weight": "2.0g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "3.5\"",
+        "quantity": "8",
+        "weight": "3.2g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4\"",
+        "quantity": "8",
+        "weight": "4.6g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4.5\"",
+        "quantity": "6",
+        "weight": "9.0g",
+        "price": "740",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:16.169Z"
+    "scraped_at": "2026-04-10T05:39:18.540Z",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll"
   },
   {
     "brand": "KEITECH",
@@ -43,18 +86,71 @@
     "model": "スイングインパクトファット",
     "model_cn": "スイングインパクトファット",
     "source_url": "https://keitech.co.jp/pages/57/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5737/p/202212191547352876.jpg?1671432456",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191547352876.jpg",
+    "description": "ワイドなスイングアクション、最強の水噛み、絶妙なロール、群を抜く集魚力。ある時はアシを抜けるスピナーベイト、ある時はボトムをつつくクランクベイト、ある時はウィードに絡むテキサスリグワーム、ある時は優秀なジグトレーラー…。試行錯誤の末に行きついた究極の広域性能をありったけの技術でお届け致します。",
     "variants": [
       {
-        "sku": "スイングインパクトファット",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2.8\"",
+        "quantity": "8",
+        "weight": "3.5g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3.3\"",
+        "quantity": "7",
+        "weight": "5.6g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3.8\"",
+        "quantity": "6",
+        "weight": "8.5g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4.3\"",
+        "quantity": "6",
+        "weight": "10.3g",
+        "price": "860",
+        "color": ""
+      },
+      {
+        "size": "4.8\"",
+        "quantity": "5",
+        "weight": "12.8g",
+        "price": "860",
+        "color": ""
+      },
+      {
+        "size": "5.8\"",
+        "quantity": "4",
+        "weight": "22.8g",
+        "price": "860",
+        "color": ""
+      },
+      {
+        "size": "6.8\"",
+        "quantity": "3",
+        "weight": "36.5g",
+        "price": "1080",
+        "color": ""
+      },
+      {
+        "size": "7.8\"",
+        "quantity": "2",
+        "weight": "54.2g",
+        "price": "1080",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:26.223Z"
+    "scraped_at": "2026-04-10T05:39:27.448Z",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll"
   },
   {
     "brand": "KEITECH",
@@ -62,18 +158,64 @@
     "model": "イージーシャイナー",
     "model_cn": "イージーシャイナー",
     "source_url": "https://keitech.co.jp/pages/232/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5738/p/202212191558078979.jpg?1671433088",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191558078979.jpg",
+    "description": "機敏なテールアクション、完璧なバランス、そして絶妙なロール･･･。確かに、そしてイージーに釣果を伸ばすための特別なスペックです。ただ巻くだけで反応してしまう。そんな魚のいかに多いことか、をご自信でお確かめ下さい。イージーシャイナー、好評発売中。",
     "variants": [
       {
-        "sku": "イージーシャイナー",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2\"",
+        "quantity": "12",
+        "weight": "1.0 g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3\"",
+        "quantity": "10",
+        "weight": "2.2 g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3.5\"",
+        "quantity": "7",
+        "weight": "3.9 g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4\"",
+        "quantity": "7",
+        "weight": "5.5 g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4.5\"",
+        "quantity": "6",
+        "weight": "7.4 g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "5\"",
+        "quantity": "5",
+        "weight": "10.4 g",
+        "price": "840",
+        "color": ""
+      },
+      {
+        "size": "8\"",
+        "quantity": "2",
+        "weight": "43 g",
+        "price": "1080",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:31.150Z"
+    "scraped_at": "2026-04-10T05:39:32.312Z",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll"
   },
   {
     "brand": "KEITECH",
@@ -81,8 +223,9 @@
     "model": "グライドカマロン3.5\"",
     "model_cn": "グライドカマロン3.5\"",
     "source_url": "https://keitech.co.jp/pages/608/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9046/p/202401161646502833.jpg?1756793892",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202401161646502833.jpg",
+    "description": "これが、ケイテックのバックスライド“専用”ワームバックスライド仕様の高比重ワームが釣れる理由のひとつに、文字どおり後方へのスライドフォールが挙げられます。同じカバー攻略でも、それはジグやテキサスリグにはけっして真似のできない芸当。いや、数多あるなかで、アングラーから逆の方向へと慣性が働くルアー自体、たぐいまれ。だから『グライドカマロン』の開発は、“いかにバックスライドさせるか”に重きを置きました。魚にこたえを聞いた理想的なフォール姿勢とスライド幅は、ハサミやヒゲを含めたボディデザインとマテリアルのたまもの。もちろん、フォール後のボトムステイやロッドワークでアクションを与えた際の挙動、カバーの抜け方（抜きやすさ）、回収のしやすさも徹底的に検証しています。オープンウォーターのミドストやボトストなど、自由な発想で使い方の幅を拡げていくのは釣りの醍醐味ですが、まずはノーシンカーリグでの、バックスライドを活かしたシャローカバー攻略を強くおすすめいたします。",
     "variants": [
       {
         "sku": "グライドカマロン3.5\"",
@@ -92,7 +235,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:32.478Z"
+    "scraped_at": "2026-04-10T05:39:33.792Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -100,18 +246,22 @@
     "model": "フラッパーグラブ4\"",
     "model_cn": "フラッパーグラブ4\"",
     "source_url": "https://keitech.co.jp/pages/599/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9047/p/202401161654221750.jpg?1756794055",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202401161654221750.jpg",
+    "description": "それまで、 障害物周りやボトムでのスローな誘いに限定されていたワームフィッシングに、表・中層で巻いて喰わせるという革命的ストラテジーの扉を開いたカーリーテールグラブ。バスアングラーが増加の一途をたどった90年代中盤、投げて巻くだけのシンプルな操作で魚を手にすることのできるこのルアーは、バス釣りそのものの門戸を広げる重要な役割を担っていました。 『フラッパーグラブ』はまさにこの“投げて巻く”というシンプルな使用法に重きを置いて開発。したがって適するリグはさまざまあれど、私たちがもっともおすすめしたいのはずばり、ノーシンカーリグでのグラビンバズです。水面を使い、食性だけでなくリアクション的要素でもバスを反応させる釣法はむしろいまの時勢に即しており、一連の動作をよどみなく続けるための理想を形にしています。 釣法が細分化され、高度な技術を要する場面も少なくない昨今にあって、シンプルに、投げて巻いて、巻いて投げて、ルアー釣りの醍醐味を味わうためのツール、それが『フラッパーグラブ』なのです。",
     "variants": [
       {
-        "sku": "フラッパーグラブ4\"",
-        "size": "",
+        "size": "4\"",
+        "quantity": "7",
         "weight": "",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:33.726Z"
+    "scraped_at": "2026-04-10T05:39:35.679Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -119,18 +269,22 @@
     "model": "ハイパースパイダー",
     "model_cn": "ハイパースパイダー",
     "source_url": "https://keitech.co.jp/pages/582/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9048/p/202212191655435515.jpg?1756794625",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191655435515.jpg",
+    "description": "まだシリコンスカート仕様の“スモラバ”が存在していなかったころに発売を開始、以来、釣れるワームとしての位置付けをゆるぎないものとしてきた『リトルスパイダー』。そのたしかなコンセプトを継承しつつ、個体数減少が叫ばれる昨今のフィールド事情に最適化したもうひとつのフィネススカーテッドベイトこそ『ハイパースパイダー』です。『リトルスパイダー』との最大の相違点は、アクション入力時の存在感にあります。水のつかみ方、押し方、逃がし方を徹底的に検証し、全パーツをイチから設計。フォール、スイミング、シェイク…リグに合わせたどんな誘い方でも各部がレスポンスよく強く作動し、そのサイズからは想像できない誘引力を発揮します。『リトルスパイダー』との併用で根こそぎ釣るもよし、一発狙いの切り札として起用するもよし、強さを備えたフィネスの新たなトビラを開いてください。",
     "variants": [
       {
-        "sku": "ハイパースパイダー",
-        "size": "",
-        "weight": "",
+        "size": "3.2\"",
+        "quantity": "6",
+        "weight": "約5g",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:35.359Z"
+    "scraped_at": "2026-04-10T05:39:37.181Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -138,18 +292,22 @@
     "model": "パドリンビーバー",
     "model_cn": "パドリンビーバー",
     "source_url": "https://keitech.co.jp/pages/581/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9049/p/202212191701313136.jpg?1756794706",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191701313136.jpg",
+    "description": "カバーゲームをアップデートする、 第三世代パドルテールグラブ『パドリンビーバー』。アプローチがスムーズに行なえること。しっかりとバスを誘えること。あらゆる障害物で使用できること。これらは、ともするとキャスト数が釣果に直結する現代のカバーフィッシングにおいて、とても大切な要素だと言えるでしょう。さらに効率を高めたい。そんなカバーフィッシャーマンの“釣欲”を満たすべく、熟慮と実践を繰り返して辿り着いた形状こそがパドルテールグラブでした。 『パドリンビーバー』。カバーゲームをアップデートするための、我々からの提案です。",
     "variants": [
       {
-        "sku": "パドリンビーバー",
-        "size": "",
+        "size": "3.5\"",
+        "quantity": "7",
         "weight": "",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:37.011Z"
+    "scraped_at": "2026-04-10T05:39:39.295Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -157,18 +315,22 @@
     "model": "ネコカマロン",
     "model_cn": "ネコカマロン",
     "source_url": "https://keitech.co.jp/pages/551/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9050/p/20250418163325698.jpg?1756795473",
+    "local_image_path": "pkgGear/images/lure/KEITECH/20250418163325698.jpg",
+    "description": "エビ食いバスを刺激する、エビ系クローラー。エビを捕食するバスを釣るために開発したエビ系クローラー『ネコカマロン』。特にネコリグでの使用において、入水姿勢、着底後の倒れ込み、シェイク時のボディ部横振りアクションなど、着水からピックアップまで、水中にいる間、常に“エビ食いバス”を刺激するよう各パーツをデザインしました。素材は硬すぎず、柔らかすぎずの中弾性材料に、エビの淡い存在感を再現するための適量な塩、そして釣れる匂いと評判の“天然イカフレーバー”を配合しました。",
     "variants": [
       {
-        "sku": "ネコカマロン",
-        "size": "",
-        "weight": "",
+        "size": "5.5\"",
+        "quantity": "7",
+        "weight": "約7.4g",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:38.559Z"
+    "scraped_at": "2026-04-10T05:39:40.991Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -176,18 +338,50 @@
     "model": "フレックスチャンク",
     "model_cn": "フレックスチャンク",
     "source_url": "https://keitech.co.jp/pages/456/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5745/p/202212191729594683.jpg?1671438600",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191729594683.jpg",
+    "description": "長年にわたり、ジグフィッシャーマンがこだわったジグ着底時の自発的アクションがあります。ジグ着底後“パッ”とスカートがフレアし、少し遅れて“テローン”とトレーラーが倒れこむ。テロテロ１軍ポークでのみ出し得たこの“余韻アクション”は今までに多くのバスを虜にしてきました。そのなまめかしい動きを再現すべく開発したプラスティックチャンクこそが“フレックスチャンク”です。肉厚な脚をフレキシブルにアクションさせる“マクラギ構造”。最適な材料の柔らかさ、塩含有量による最適な比重。バイトを強烈に誘発する“天然イカフレーバー”。そしてワーム素材ならではの自在なカラーリング。水押し系チャンクトレーラー、フレックスチャンクの完成です。",
     "variants": [
       {
-        "sku": "フレックスチャンク",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "Small",
+        "quantity": "8",
+        "weight": "約1.7g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "Small-Medium",
+        "quantity": "7",
+        "weight": "約3.3g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "Medium",
+        "quantity": "6",
+        "weight": "6.5g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "Medium-Large",
+        "quantity": "5",
+        "weight": "約8.4g",
+        "price": "670",
+        "color": ""
+      },
+      {
+        "size": "Large",
+        "quantity": "5",
+        "weight": "約13.5g",
+        "price": "740",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:40.270Z"
+    "scraped_at": "2026-04-10T05:39:42.698Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -195,18 +389,57 @@
     "model": "Easy Shaker",
     "model_cn": "Easy Shaker",
     "source_url": "https://keitech.co.jp/pages/549/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/3950/p/202208011701561170.jpg?1659340917",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202208011701561170.jpg",
+    "description": "コアは細身ながらリングをまとうことで、シルエットにボリュームを持たせつつ生命体ならではの自然な動き＝“Ultimate Lifelike Action”を実現した『イージーシェイカー』。 リングボディ＋ノンソルティマテリアルの組み合わせにより、ジグヘッドリグのスイミング時、あるいはダウンショットリグでボトムから浮かせた状態で誘った時など、絶妙な姿勢に加えて、トリッキーなダートやもだえるような艶めかしいアクションがその名のとおり“イージー”に演出可能となっています。 近年はバスフィッシングのみならず、アジングやロックフィッシュゲームをはじめソルトウォーターの世界でもその効能が認められており、弊社ラインナップのなかにあって「釣れるルアーは魚種を選ばない」を地で行く製品のひとつ。 バスで言うところのウルトラフィネスからオーソドックスなライトリグ仕様まで、ラインナップを拡充してまいりました。フィールドコンディションや対象魚にあわせた、最適なサイズをお選びください。",
     "variants": [
       {
-        "sku": "Easy Shaker",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2\"",
+        "quantity": "14",
+        "weight": "約0.5g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "2.5\"",
+        "quantity": "14",
+        "weight": "約0.7g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "3\"",
+        "quantity": "13",
+        "weight": "約1.2g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "3.5\"",
+        "quantity": "12",
+        "weight": "約1.9g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "4.5\"",
+        "quantity": "10",
+        "weight": "約3.3g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "5.5\"",
+        "quantity": "10",
+        "weight": "約5.6g",
+        "price": "740",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:42.551Z"
+    "scraped_at": "2026-04-10T05:39:45.196Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -214,18 +447,22 @@
     "model": "カスタムリーチ",
     "model_cn": "カスタムリーチ",
     "source_url": "https://keitech.co.jp/pages/450/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5748/p/202212191804546996.jpg?1671440695",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191804546996.jpg",
+    "description": "チョン掛け専用ダウンショットワーム、究極の食わせ系として名を馳せたカスタムリーチ。私達は、10数年ぶりにこれを復活させることに致しました。とは言っても、当時のままの仕様でのリバイバルではありません。デザイン、製法、そしてパッケージングとそれぞれ意匠を凝らし再開発。今の私達をして、「最高の仕事」と言えるレベルにまで高めての復活です。",
     "variants": [
       {
-        "sku": "カスタムリーチ",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "3\"",
+        "quantity": "10",
+        "weight": "約1.3g",
+        "price": "740",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:45.695Z"
+    "scraped_at": "2026-04-10T05:39:48.055Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -233,18 +470,22 @@
     "model": "ノイジーフラッパー",
     "model_cn": "ノイジーフラッパー",
     "source_url": "https://keitech.co.jp/pages/423/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9074/p/202208011702381439.jpg?1756797804",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202208011702381439.jpg",
+    "description": "水面をキープしながらスロー＆ステディなリトリーブ。微かなスプラッシュと均質な引き波を水面に作り込む。ノイジーフラッパーの大いなるバス吸引力は、こうした静かな展開でこそ発揮されます。カバーにタイトに、ゆっくり滑らかに、期待を膨らませて･･･。魔性のバジングフロッグ、ノイジーフラッパー。",
     "variants": [
       {
-        "sku": "ノイジーフラッパー",
-        "size": "",
-        "weight": "",
+        "size": "3.5\"",
+        "quantity": "5",
+        "weight": "16.3g",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:49.253Z"
+    "scraped_at": "2026-04-10T05:39:51.253Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -252,18 +493,57 @@
     "model": "クレイジーフラッパー",
     "model_cn": "クレイジーフラッパー",
     "source_url": "https://keitech.co.jp/pages/381/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5749/p/202212191814411193.jpg?1671441282",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191814411193.jpg",
+    "description": "あまたあるザリガニワームの中で輝くような異彩を放つ。超アクション系クローワーム、クレイジーフラッパー!!",
     "variants": [
       {
-        "sku": "クレイジーフラッパー",
-        "size": "",
+        "size": "2.4および2.8インチ インナートレー×2※2.4\"のみインナートレーを1枚増やし",
+        "quantity": "",
         "weight": "",
         "price": "",
         "color": ""
+      },
+      {
+        "size": "2\"",
+        "quantity": "8",
+        "weight": "約1.2g",
+        "price": "720",
+        "color": ""
+      },
+      {
+        "size": "2.4\"",
+        "quantity": "10",
+        "weight": "約2.1g",
+        "price": "770",
+        "color": ""
+      },
+      {
+        "size": "2.8\"",
+        "quantity": "8",
+        "weight": "3.4g",
+        "price": "770",
+        "color": ""
+      },
+      {
+        "size": "3.6\"",
+        "quantity": "7",
+        "weight": "6.6g",
+        "price": "820",
+        "color": ""
+      },
+      {
+        "size": "4.4\"",
+        "quantity": "6",
+        "weight": "12.0g",
+        "price": "860",
+        "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:00:52.359Z"
+    "scraped_at": "2026-04-10T05:39:55.263Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -271,18 +551,43 @@
     "model": "セクシーインパクト",
     "model_cn": "セクシーインパクト",
     "source_url": "https://keitech.co.jp/pages/158/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5750/p/202212191820097952.jpg?1671441610",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191820097952.jpg",
+    "description": "ライフライクな動きを追求したピンテール系ストレートワーム。ワームに与えられた全ての動きは、完成されたテーパーデザインにより横振りテールアクションに変換。本物のベイトフィッシュに見まごうばかりのリアルさです。ノーシンカーのただ巻きから、ジグヘッド、ダウンショット、果てはヘビーテキサスまであらゆるリグにフィット。2.8”〜5.8”すべてワームをクセから守る専用ブリスターケースにてお届けします。もちろん強力天然イカフレーバー配合。バイトを長く、そして深くします。",
     "variants": [
       {
-        "sku": "セクシーインパクト",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2.8\"",
+        "quantity": "12",
+        "weight": "1.5g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3.8\"",
+        "quantity": "10",
+        "weight": "3.3g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4.8\"",
+        "quantity": "8",
+        "weight": "6.3g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "5.8\"",
+        "quantity": "6",
+        "weight": "10.6g",
+        "price": "860",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:05.353Z"
+    "scraped_at": "2026-04-10T05:40:06.614Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -290,18 +595,36 @@
     "model": "リトルスパイダー",
     "model_cn": "リトルスパイダー",
     "source_url": "https://keitech.co.jp/pages/455/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5752/p/202212191828058722.jpg?1671442086",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191828058722.jpg",
+    "description": "透明感のある繊細なスカート、そしてピリピリと俊敏に動くダブルテール。シリコンスカート製のスモールラバージグがまだ世に出回っていなかった時代に、林圭一が思い描き開発したフィネススカーテッドグラブです。 当時からジグヘッド、ダウンショット、キャロライナそしてスプリットショットとあらゆるフィネスリグに対応し、常にステディな釣果をマークしてきました。最近のものは、透明感をさらに高めたノンソルティのワーム素材を使用。また天然イカフレーバーを配合した匂いつきの現代仕様でお届けします。 リトルスパイダー。今なおケイテックが誇るフィネスベイトの決定版です。",
     "variants": [
       {
-        "sku": "リトルスパイダー",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2\"",
+        "quantity": "8",
+        "weight": "1.1g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3\"",
+        "quantity": "8",
+        "weight": "1.7g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3.5\"",
+        "quantity": "5",
+        "weight": "2.7g",
+        "price": "740",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:10.963Z"
+    "scraped_at": "2026-04-10T05:40:13.153Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -309,18 +632,43 @@
     "model": "シャッドインパクト",
     "model_cn": "シャッドインパクト",
     "source_url": "https://keitech.co.jp/pages/35/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5753/p/20221219183446307.jpg?1671442487",
+    "local_image_path": "pkgGear/images/lure/KEITECH/20221219183446307.jpg",
+    "description": "ジグヘッドやダウンショット。シェイクすることによりタイトでキレのあるローリングアクションを生み出します。 独自に開発した精密２色成型にこのアクションが相まって超リアルな小魚を表現します。バスはためらいもなく腹からスパッと吸い込んでしまう、そんな強い”食わせ力”を持ったアイテムです。",
     "variants": [
       {
-        "sku": "シャッドインパクト",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "2\"",
+        "quantity": "12",
+        "weight": "0.9g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "3\"",
+        "quantity": "10",
+        "weight": "2.2g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "4\"",
+        "quantity": "8",
+        "weight": "5.2g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "5\"",
+        "quantity": "6",
+        "weight": "7.2g",
+        "price": "740",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:20.888Z"
+    "scraped_at": "2026-04-10T05:40:20.195Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -328,18 +676,29 @@
     "model": "ソルティ・コアチューブ",
     "model_cn": "ソルティ・コアチューブ",
     "source_url": "https://keitech.co.jp/pages/293/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5756/p/202212191843366790.jpg?1671443017",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191843366790.jpg",
+    "description": "私共が手にした新技術、それは超高精度コアショット成型技術。この新たな技術領域で今までにない機能を持ったワームを作りたい、そんな思いを具現化したのがソルティ・コアチューブ。テキサスリグによるカバー撃ち、ノーシンカー・リバースセットによるバックスライディングと様々なカバーフィッシングに対応。使いやすさと着実な釣果を約束するワームの新ジャンルです。",
     "variants": [
       {
-        "sku": "ソルティ・コアチューブ",
-        "size": "",
-        "weight": "",
-        "price": "",
+        "size": "3.5\"",
+        "quantity": "6",
+        "weight": "7.8g",
+        "price": "820",
+        "color": ""
+      },
+      {
+        "size": "4.25\"",
+        "quantity": "6",
+        "weight": "14.0g",
+        "price": "960",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:24.581Z"
+    "scraped_at": "2026-04-10T05:40:24.698Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -347,18 +706,71 @@
     "model": "マッドワグ",
     "model_cn": "マッドワグ",
     "source_url": "https://keitech.co.jp/pages/276/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5746/p/20221219174541338.jpg?1671439543",
+    "local_image_path": "pkgGear/images/lure/KEITECH/20221219174541338.jpg",
+    "description": "デザイン極めたロングカーリーテール。 ウィードエリアでテキサスリグをスイムさせる。琵琶湖に代表されるそんな釣りを視野に開発。ごくスローなリトリーブでも強くワイドに水を掻くよう、特別なテールをデザインしました。ボディ形状にもこだわり、ウィードに対する絶対的な“スナッグレス性能”を盛り込んでいます。マッドワグ。ウィードの隙間をなめらかにかいくぐり、絶え間なく発散される強烈な集魚力。テールとボディのバランスに配慮したうえで４つのサイズそれぞれをしっかりと試し、丹念に作り込んだスイミングテキサス（マキマキ）用ワームの決定版です。",
     "variants": [
       {
-        "sku": "マッドワグ",
-        "size": "",
+        "size": "Mini 2.5\"",
+        "quantity": "12",
+        "weight": "0.6g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "Mini 3.5\"",
+        "quantity": "10",
+        "weight": "1.8g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "Slim 4.5\"",
+        "quantity": "9",
+        "weight": "2.9g",
+        "price": "620",
+        "color": ""
+      },
+      {
+        "size": "Original 7\"",
+        "quantity": "6",
+        "weight": "12.3g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "Long 8\"",
+        "quantity": "7",
+        "weight": "7.7g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "Long 11\"",
+        "quantity": "6",
+        "weight": "10.9g",
+        "price": "740",
+        "color": ""
+      },
+      {
+        "size": "ジグヘッドリグ　2.5\" & 3.5\"",
+        "quantity": "",
+        "weight": "",
+        "price": "",
+        "color": ""
+      },
+      {
+        "size": "スモラバトレーラー　2.5\" & 3.5\"",
+        "quantity": "",
         "weight": "",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:30.282Z"
+    "scraped_at": "2026-04-10T05:40:28.288Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -366,18 +778,36 @@
     "model": "ライブインパクト",
     "model_cn": "ライブインパクト",
     "source_url": "https://keitech.co.jp/pages/18/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/5757/p/202212191850068911.jpg?1671443407",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202212191850068911.jpg",
+    "description": "しなやかさと、ぎこちなさが入り混じった本物の生命感。ライブインパクトはそんな温もりを封じ込めたケイテックの会心作。高い汎用性を誇り、どんなリグで 使っても命が宿ったかのようにアクションします。ジグヘッド、ダウンショット、テキサスリグ、ワッキー系リグ、ジグトレーラーとあらゆる用途に対応しま す。 ※ ジグヘッドがボトムで立つほどの高浮力材料を使用。フォールスピードを抑え、ボトムで立つ、あるいは水中で漂う。 ※ 浮力により、ボトムでの根掛かりが激減。 ※ 水噛みに優れたリングボディとナチュラルさを醸し出すフィンテール。※ 歴然とした食いの良さ、天然イカフレーバー配合。",
     "variants": [
       {
-        "sku": "ライブインパクト",
-        "size": "",
+        "size": "2.5\"",
+        "quantity": "12",
+        "weight": "",
+        "price": "",
+        "color": ""
+      },
+      {
+        "size": "3\"",
+        "quantity": "12",
+        "weight": "",
+        "price": "",
+        "color": ""
+      },
+      {
+        "size": "4\"",
+        "quantity": "10",
         "weight": "",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:35.219Z"
+    "scraped_at": "2026-04-10T05:40:33.878Z",
+    "type_tips": "worm",
+    "water_column": "Variable",
+    "action": "variable"
   },
   {
     "brand": "KEITECH",
@@ -385,8 +815,9 @@
     "model": "TEEボーンバズベイト",
     "model_cn": "TEEボーンバズベイト",
     "source_url": "https://keitech.co.jp/pages/660/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9438/20260128162612996.jpg?1769585173",
+    "local_image_path": "pkgGear/images/lure/KEITECH/20260128162612996.jpg",
+    "description": "同じワイヤーベイトでも、バズベイトがスピナーベイトと明らかに異なるのはトレースレンジが限定されていること。 投げて、水面を巻く。 この実に単純な作業が、バズベイトを扱うアングラーに与えられた仕事なのです。 もちろん、障害物との距離感等バスのポジションを想定したコース取りは重要だし、状況に応じたスピードコントロールも大切です。",
     "variants": [
       {
         "sku": "TEEボーンバズベイト",
@@ -396,7 +827,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:36.834Z"
+    "scraped_at": "2026-04-10T05:40:37.872Z",
+    "type_tips": "spinnerbait",
+    "water_column": "Variable",
+    "action": "spin_flash"
   },
   {
     "brand": "KEITECH",
@@ -404,18 +838,22 @@
     "model": "ベイビーTEE-BONE スピナーベイト",
     "model_cn": "ベイビーTEE-BONE スピナーベイト",
     "source_url": "https://keitech.co.jp/pages/617/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9091/202501241436271305.jpg?1756798590",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202501241436271305.jpg",
+    "description": "日本基準のザ・スピナーベイト『ベイビーTEE-BONEスピナーベイト』オリジナルのTEEボーンスピナーベイトは、奇をてらうことなく、サーチベイトに求められる基本性能「よく飛び、よく動き、よく掛かる」を重視してパーツを選び、デザインに落とし込んだ“ザ・スピナーベイト”。そのコンセプトはまったく変えず、構成要素それぞれの役割をしっかりと調整してコンパクトにまとめたのが『ベイビーTEEボーンスピナーベイト』です。ハイプレッシャーや過度のアピールを嫌う状況において“小さい”ことがバイトチャンス増につながるのは真理であり、その点において日本基準と言えるでしょう。",
     "variants": [
       {
-        "sku": "ベイビーTEE-BONE スピナーベイト",
-        "size": "",
-        "weight": "",
+        "size": "ウエイトは3サイズで展開",
+        "quantity": "",
+        "weight": "1/2oz",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:39.158Z"
+    "scraped_at": "2026-04-10T05:40:41.227Z",
+    "type_tips": "spinnerbait",
+    "water_column": "Variable",
+    "action": "spin_flash"
   },
   {
     "brand": "KEITECH",
@@ -423,8 +861,9 @@
     "model": "TEE-BONE スピナーベイト",
     "model_cn": "TEE-BONE スピナーベイト",
     "source_url": "https://keitech.co.jp/pages/554/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9092/202403141759512800.jpg?1756798662",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202403141759512800.jpg",
+    "description": "基本性能を、丁寧に紡いだ “Theケイテックカスタム”。誕生してから１世紀が経つとも言われるトラディショナルバスルアー、スピナーベイト。このルアーの特筆すべき基本性能は、ずばり“ウィードレスなサーチベイト”であること。その基本性能にフォーカスをあて、開発いたしました。よく飛び、よく動き、よく掛かる、サーチベイトに重要なこの３つの基本性能を重視しデザイン、部材選定を行ないました。スタンダードスピナーベイトとして、KEITECHが自信をもってお勧めいたします。",
     "variants": [
       {
         "sku": "TEE-BONE スピナーベイト",
@@ -434,7 +873,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:40.855Z"
+    "scraped_at": "2026-04-10T05:40:43.082Z",
+    "type_tips": "spinnerbait",
+    "water_column": "Variable",
+    "action": "spin_flash"
   },
   {
     "brand": "KEITECH",
@@ -442,18 +884,22 @@
     "model": "ランブレードジグ",
     "model_cn": "ランブレードジグ",
     "source_url": "https://keitech.co.jp/pages/625/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9093/202407031757493567.jpg?1756798735",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202407031757493567.jpg",
+    "description": "ブレーデッドジグという難題へのこたえ『ランブレードジグ』開発の発端は、ケイテックU.S.A.からの提案でした。「スイングインパクトFATをはじめ、多くのアングラーがブレーデッドジグのトレーラーとしてうちのワームを使っている。だから、それに見合ったオリジナルを作ってくれないか？」。バスルアーのカテゴリーのひとつとして定着し、すでに20年。最後発である以上、独自の発想をデザインに落とし込まなければ意味がありません。何より、釣れる道具であることが大前提であるのは、ほかのルアーと同じ。着手から5年。これがブレーデッドジグという難題への、わたしたちのこたえなのです。",
     "variants": [
       {
-        "sku": "ランブレードジグ",
-        "size": "",
-        "weight": "",
+        "size": "ウエイトは3サイズウエイトラインナップは3/8、1/2、5/8oz の3サイズをご用意しております",
+        "quantity": "",
+        "weight": "5/8oz",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:42.781Z"
+    "scraped_at": "2026-04-10T05:40:45.753Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -461,8 +907,9 @@
     "model": "キャスティングジグ",
     "model_cn": "キャスティングジグ",
     "source_url": "https://keitech.co.jp/pages/575/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9094/p/202208011732559977.jpg?1756798794",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202208011732559977.jpg",
+    "description": "ザ・スタンダード！使う場所・状況を選ばないセミフルサイズジグ多くのアングラーに愛され続けてきたラバージグ・モデルⅠのヘッドデザインを踏襲し、使いやすさを追求しました。モデルⅠと同じ角度で設計した横向きアイ、最適な硬さ・本数・長さでそろえたブラシガードと相まって、障害物に対する適度な引っ掛かり感とその後の絶妙な抜け感はジグマンの要求を高い次元で満たし、ストレスのないカバー攻略を実現可能にします。",
     "variants": [
       {
         "sku": "キャスティングジグ",
@@ -472,7 +919,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:44.227Z"
+    "scraped_at": "2026-04-10T05:40:47.419Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -480,8 +930,9 @@
     "model": "スイングスイマー",
     "model_cn": "スイングスイマー",
     "source_url": "https://keitech.co.jp/pages/655/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9413/p/202601091020542528.jpg?1767921654",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202601091020542528.jpg",
+    "description": "ラインアイがフックと異なる線径であることにお気づきでしょうか。実はコレ、ヘッドのノーズをよりシャープにしてベジテーションのすり抜け性能を向上させるため、フックとは異なるパーツで構成しているのです。また、アイはラインの結び目がヘッドとの付け根に偏らないよう、オーバル形にデザインしました。",
     "variants": [
       {
         "sku": "スイングスイマー",
@@ -491,7 +942,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:45.770Z"
+    "scraped_at": "2026-04-10T05:40:50.108Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -499,8 +953,9 @@
     "model": "クランキンフットボールジグ",
     "model_cn": "クランキンフットボールジグ",
     "source_url": "https://keitech.co.jp/pages/576/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9095/p/202208011733324565.jpg?1756798865",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202208011733324565.jpg",
+    "description": "ボトムノックで食わせる、NEWコンセプトラバージグスカートベイトを得意とするケイテックの新提案。フットボールジグとスイムジグの釣れる要素を抽出し、ハードボトムをスローに巻くだけで甲殻類など底生動物のライブリーなアクションを演出できます。使い方の基本は、ボトムを感じながらゆっくり巻くこと。同じクランキンでも、クランクベイトのボトムノックとは一線を画す、クランキンフットボールジグならではの無二のメソッドをお試しください。",
     "variants": [
       {
         "sku": "クランキンフットボールジグ",
@@ -510,7 +965,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:47.045Z"
+    "scraped_at": "2026-04-10T05:40:51.763Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -518,8 +976,9 @@
     "model": "ラバージグ モデル Ⅰ Ver.2.0",
     "model_cn": "ラバージグ モデル Ⅰ Ver.2.0",
     "source_url": "https://keitech.co.jp/pages/602/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9097/p/202401161640403055.jpg?1756799106",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202401161640403055.jpg",
+    "description": "ボリュームを抑えたコンパクトな仕様。すり抜け性とスナッグレス性を両立するブラシガードホールの構造。トレーラーとマッチするスカートカラーのバリエーション。フレアに優れたシリコンラバーの採用… いまでは当たり前となったジャパニーズジグのさまざまな工夫を、創業当初から独自の発想で盛り込み、必要に応じて都度マイナーチェンジを繰り返してまいりました。 『ModelⅠ』はいわば、ケイテックの理念『経験は、品質に。』を象徴する製品。 四半世紀にわたり愛され続けている理由がそこにあります。そして2023年春、ヘッドの仕様を見直した『モデル Ⅰ Ver.2.0』を、満を持してJIG MANの皆さまにお届けいたします。",
     "variants": [
       {
         "sku": "ラバージグ モデル Ⅰ Ver.2.0",
@@ -529,7 +988,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:48.745Z"
+    "scraped_at": "2026-04-10T05:40:53.441Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -537,18 +999,22 @@
     "model": "ラバージグ モデル Ⅳ ヘビーデューティージグ",
     "model_cn": "ラバージグ モデル Ⅳ ヘビーデューティージグ",
     "source_url": "https://keitech.co.jp/pages/603/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9098/p/202401161641262646.jpg?1756799266",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202401161641262646.jpg",
+    "description": "カバージグの理想形である『ModelⅠ』のコンセプトやデザインをすべて継承し、このカテゴリーのルアーに本来備わっているビッグフィッシュへの対応力を強化しました。 ヘビーウェイト＆フルサイズでありながら、樹脂タングステンをヘッド素材に用いることで全体ボリュームを抑え高いすり抜け性を発揮。なおかつ、抵抗の大きいバルキートレーラーと組み合わせても力負けすることなく、ヘッドを支点とするメリハリの利いた操作を可能にしています。 つまり、シャローのみならずミドル～ディープボトムのヘビーカバーでもスカーテッドベイトならではの有機的存在感で誘えるわけです。 リーズ帯の奥の奥、折り重なった流木や浮葉植物のヘビーマット、崩落跡のディープウォーターカバーなど、複雑に入り組んだピンスポットさえ狙い撃つことができる、オールレンジ対応“食わせのビッグベイト”。 ボリュームのあるトレーラーと『モデルⅣ』のコンボをそんなイメージでお使いいただくと、ジグフィッシングの新たなトビラが開くはずです。",
     "variants": [
       {
-        "sku": "ラバージグ モデル Ⅳ ヘビーデューティージグ",
-        "size": "",
-        "weight": "",
+        "size": "パワーゲームに必要な3サイズ",
+        "quantity": "",
+        "weight": "1oz",
         "price": "",
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:50.828Z"
+    "scraped_at": "2026-04-10T05:40:55.491Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -556,8 +1022,9 @@
     "model": "タングステンラバージグ　モデル II Ver. 2.0",
     "model_cn": "タングステンラバージグ　モデル II Ver. 2.0",
     "source_url": "https://keitech.co.jp/pages/10/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/8571/p/202501300927538741.jpg?1738196874",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202501300927538741.jpg",
+    "description": "比重13、樹脂タングステンヘッドのフットボールラバージグ。着底姿勢にこだわりたいミドル～ディープレンジの釣りにうってつけです。 ヘッド素材はとても硬く、鉛製品に比べ感度が大幅にアップ。着底の瞬間やボトムの様子が一層明確に把握できます。繊細なガードは見た目以上の効果。臆することなく水中のストラクチャーを直撃できます。繊細でよくフレアーするオリジナルシリコンスカートSR-40。丁寧かつ熟練の手巻きです。",
     "variants": [
       {
         "sku": "タングステンラバージグ　モデル II Ver. 2.0",
@@ -567,7 +1034,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:52.477Z"
+    "scraped_at": "2026-04-10T05:40:57.481Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -575,8 +1045,9 @@
     "model": "モデルIII スイムジグ",
     "model_cn": "モデルIII スイムジグ",
     "source_url": "https://keitech.co.jp/pages/206/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9099/p/202209221617177492.jpg?1756799500",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202209221617177492.jpg",
+    "description": "コンパクトな樹脂タングステン製バナナヘッド、特製スカートを巻いたスクリューパーツ、丈夫な特注フック。ありそうで無かった理想のバランスを手に入れるため、吟味され尽くしたカスタムパーツ達。水面直下や中層をリトリーブする、ボトムをウィードや岩に当てながら泳がせる。従来のラバージグとはまったく違う、新たな境地・機能を開発しました。トレーラーには、弊社『スイングインパクトFAT4.8”』を“強く強く”お勧めいたします。比類なきバランス、バルキーな存在感、強い波動、卓越したウィードレス／スリ抜け性能。ビッグフィッシュを仕留めるための数々の要諦が、この組み合わせには込められています。",
     "variants": [
       {
         "sku": "モデルIII スイムジグ",
@@ -586,7 +1057,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:55.893Z"
+    "scraped_at": "2026-04-10T05:41:00.188Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -594,8 +1068,9 @@
     "model": "ガードスピンジグ",
     "model_cn": "ガードスピンジグ",
     "source_url": "https://keitech.co.jp/pages/13/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9100/p/202208011735477115.jpg?1756799561",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202208011735477115.jpg",
+    "description": "比重13樹脂タングステンを用い、カチッとコンパクトに仕上げたガード付きスモールラバージグ。小さいのにしっかりしたガード力、そして軽いくせに目を見張るカバー突破力。繊細かつ大胆にスモールベイトでカバーを攻める、そんな昨今の釣りにマッチしたアイテムです。やや硬め、機敏にフレアーするSR-40シリコンスカートを丁寧に手巻きしています。-0-0-0-0-0-0",
     "variants": [
       {
         "sku": "ガードスピンジグ",
@@ -605,7 +1080,10 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:57.179Z"
+    "scraped_at": "2026-04-10T05:41:01.840Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   },
   {
     "brand": "KEITECH",
@@ -613,8 +1091,9 @@
     "model": "モノスピンジグ",
     "model_cn": "モノスピンジグ",
     "source_url": "https://keitech.co.jp/pages/14/",
-    "main_image_url": "https://keitech.co.jp/files/libs/5945/202212201812536583.png?1671527573",
-    "description": "",
+    "main_image_url": "https://keitech.co.jp/files/libs/9101/p/202208011736112779.jpg?1756799617",
+    "local_image_path": "pkgGear/images/lure/KEITECH/202208011736112779.jpg",
+    "description": "ラウンドヘッドに今どきのラバーカッティング。そして繊細・精密を極めた“モノ（1本）ガード”。パラアシ、岩、ロープ、ウィード等ほとんどの障害物を難なくクリア、そしてフッキングは超イージーなノーガード感覚に仕上げています。昨今のパワーフィネスを知り尽くした仕様です。デコイ・リマリック #3フック、1/32, 1/20, 1/16, 3/32oz。ヘッドはもちろん比重13、樹脂タングステン製。",
     "variants": [
       {
         "sku": "モノスピンジグ",
@@ -624,6 +1103,9 @@
         "color": ""
       }
     ],
-    "scraped_at": "2026-04-10T05:01:58.540Z"
+    "scraped_at": "2026-04-10T05:41:03.332Z",
+    "type_tips": "rubber_jig",
+    "water_column": "Bottom",
+    "action": "flutter_fall"
   }
 ]

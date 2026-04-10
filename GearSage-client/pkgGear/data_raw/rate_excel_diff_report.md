@@ -1,16 +1,19 @@
 # rate/excel diff report
 
-generated_at: 2026-04-10T05:04:11.533Z
+generated_at: 2026-04-10T05:41:22.410Z
 
-summary: ok=14, diff=0, missing_import=0
+summary: ok=11, diff=3, missing_import=0
 
 ## shimano_lure
 #### master
-- status: OK
+- status: DIFF
 - rows: import=65, rate=65
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: official_link
 #### hardbait_lure_detail
 - status: OK
 - rows: import=544, rate=544
@@ -26,11 +29,14 @@ summary: ok=14, diff=0, missing_import=0
 
 ## daiwa_lure
 #### master
-- status: OK
+- status: DIFF
 - rows: import=117, rate=117
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: official_link
 #### hardbait_lure_detail
 - status: OK
 - rows: import=1057, rate=1057
@@ -64,11 +70,14 @@ summary: ok=14, diff=0, missing_import=0
 
 ## megabass_lure
 #### master
-- status: OK
+- status: DIFF
 - rows: import=168, rate=168
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: official_link
 #### hardbait_lure_detail
 - status: OK
 - rows: import=1821, rate=1821
@@ -97,7 +106,7 @@ summary: ok=14, diff=0, missing_import=0
 - changed rows: 0
 #### soft_lure_detail
 - status: OK
-- rows: import=20, rate=20
+- rows: import=70, rate=70
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0

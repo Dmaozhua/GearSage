@@ -1,7 +1,7 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 const BASE_URL = 'https://keitech.co.jp';
 const OUTPUT_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_lure_normalized.json');
@@ -24,6 +24,40 @@ async function fetchHtml(url) {
     } catch (e) {
         console.error(`Error fetching ${url}:`, e.message);
         return null;
+    }
+}
+
+const IMAGE_DIR = path.join(__dirname, '../GearSage-client/pkgGear/images/lure/KEITECH');
+if (!fs.existsSync(IMAGE_DIR)) {
+    fs.mkdirSync(IMAGE_DIR, { recursive: true });
+}
+
+// Helper to download image
+async function downloadImage(url, filename) {
+    if (!url) return '';
+    try {
+        const filepath = path.join(IMAGE_DIR, filename);
+        if (fs.existsSync(filepath)) {
+            return `pkgGear/images/lure/KEITECH/${filename}`; // Return relative path
+        }
+        
+        const response = await axios({
+            url,
+            method: 'GET',
+            responseType: 'stream',
+            timeout: 10000
+        });
+        
+        const writer = fs.createWriteStream(filepath);
+        response.data.pipe(writer);
+        
+        return new Promise((resolve, reject) => {
+            writer.on('finish', () => resolve(`pkgGear/images/lure/KEITECH/${filename}`));
+            writer.on('error', reject);
+        });
+    } catch (error) {
+        console.error(`Failed to download image ${url}: ${error.message}`);
+        return '';
     }
 }
 
@@ -76,36 +110,67 @@ async function scrapeKeitech() {
         if (!modelName) modelName = $('h1').text().trim() || $('h2').first().text().trim();
         
         // Main Image
-        let mainImage = $('.b_image img').first().attr('src') || $('img').first().attr('src');
+        let mainImage = '';
+        $('#page-content img').each((i, el) => {
+            const src = $(el).attr('src');
+            if (src && !src.includes('dummy') && !src.includes('logo') && !src.includes('banner')) {
+                mainImage = src;
+                return false; // Break
+            }
+        });
         if (mainImage && !mainImage.startsWith('http')) mainImage = BASE_URL + mainImage;
         
         // Description
-        const description = $('.b_text').first().text().replace(/\s+/g, ' ').trim();
+        let description = '';
+        $('#page-content div.b_text, #page-content div.text').each((i, el) => {
+            const text = $(el).text().replace(/\s+/g, ' ').trim();
+            if (text.length > 50 && !text.includes('価格') && !text.includes('重量')) {
+                description = text;
+                return false; // Break
+            }
+        });
         
+        // Helper to convert full-width numbers/letters to half-width
+        const toHalfWidth = (str) => {
+            if (!str) return '';
+            return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)).replace(/．/g, '.').replace(/”/g, '"');
+        };
+
         // Parse Sizes
         const variants = [];
-        const sizesText = $('#page-content').text().replace(/\s+/g, ' ');
-        
-        // Simple regex to find patterns like: 2"（１２尾入り／パック）１尾重量：０.９g推奨フックサイズ：オフセットワームフック #６価格：620円
-        // Or for jigs: 重量：3/8oz.
-        const sizeRegex = /([0-9\.]+(?:"|oz|g|cm|mm))[^0-9]*(?:（([^）]+)）)?[^重]*重量：([0-9\.a-zA-Z\/]+)[^推]*推奨フックサイズ：([^価]+)?価格：([0-9,]+)円/g;
-        
-        let match;
-        let foundVariants = false;
-        while ((match = sizeRegex.exec(sizesText)) !== null) {
-            foundVariants = true;
-            variants.push({
-                size: match[1].trim(),
-                quantity: match[2] ? match[2].trim() : '',
-                weight: match[3].trim(),
-                hook_size: match[4] ? match[4].trim() : '',
-                price: match[5].trim(),
-                color: '' // Colors are usually separate, we'll leave it blank or just use one generic variant per size
-            });
-        }
+        $('#page-content h3.record-title, #page-content h4.record-title').each((i, el) => {
+            const titleText = $(el).text().trim();
+            if (titleText.includes('"') || titleText.includes('入り') || titleText.includes('oz') || titleText.includes('インチ') || titleText.includes('g') || titleText.includes('サイズ')) {
+                const recordText = $(el).closest('.record').text().replace(/\s+/g, ' ');
+                
+                // Try to extract size, qty, weight, hook, price
+                // e.g. 2.5"（ １０尾入り／パック ）１尾重量：１.３ｇ推奨フックサイズ：オフセットワームフック ＃４価格：620円
+                const sizeMatch = recordText.match(/^([^（(]+)(?:（|\(|入り|重量)/);
+                const qtyMatch = recordText.match(/[（\(]\s*([0-9０-９]+)\s*[尾個]入り/);
+                const weightMatch = recordText.match(/重量：([^推価]+)/) || recordText.match(/([0-9０-９\.\/]+(?:g|oz))/i);
+                const priceMatch = recordText.match(/価格：([0-9,]+)円/);
+
+                let size = sizeMatch ? sizeMatch[1].trim() : titleText;
+                if (size.includes('尾入り') || size.includes('重量')) size = titleText.split('（')[0].trim();
+                
+                const variant = {
+                    size: toHalfWidth(size),
+                    quantity: qtyMatch ? toHalfWidth(qtyMatch[1]) : '',
+                    weight: weightMatch ? toHalfWidth(weightMatch[1].trim()) : '',
+                    price: priceMatch ? priceMatch[1].replace(/,/g, '') : '',
+                    color: ''
+                };
+                
+                // Only push if it has at least some valid spec (weight, price, or qty)
+                // or if the size explicitly has inches/oz/g
+                if (variant.weight || variant.price || variant.quantity || /[0-9]+(?:"|oz|g|cm|mm)/i.test(variant.size)) {
+                    variants.push(variant);
+                }
+            }
+        });
         
         // If the regex didn't catch sizes (e.g. for jigs or different format), just add a generic variant
-        if (!foundVariants) {
+        if (variants.length === 0) {
             variants.push({
                 sku: modelName,
                 size: '',
@@ -124,17 +189,51 @@ async function scrapeKeitech() {
         // In GearSage, usually we need Size x Color combinations, but if colors are many, 
         // we might just generate Size variants. The user can enrich colors later.
         
-        results.push({
+        // Download image if available
+        let localImagePath = '';
+        if (mainImage) {
+            const filename = path.basename(new URL(mainImage).pathname);
+            localImagePath = await downloadImage(mainImage, filename);
+            console.log(`Downloaded image: ${localImagePath}`);
+        }
+
+        const product = {
             brand: 'KEITECH',
             category: prod.category,
             model: modelName,
             model_cn: modelName,
             source_url: prod.url,
             main_image_url: mainImage,
+            local_image_path: localImagePath,
             description: description,
             variants: variants,
             scraped_at: new Date().toISOString()
-        });
+        };
+
+        // Map type_tips, water_column, action based on category
+        if (prod.category.includes('swin baits') || prod.category.includes('swim baits')) {
+            product.type_tips = 'swimbait';
+            product.water_column = 'Variable';
+            product.action = 'wobble_roll';
+        } else if (prod.category.includes('soft baits')) {
+            product.type_tips = 'worm';
+            product.water_column = 'Variable';
+            product.action = 'variable';
+        } else if (prod.category.includes('wire baits')) {
+            product.type_tips = 'spinnerbait'; // Assuming mostly spinnerbaits, could also be buzzbait
+            product.water_column = 'Variable';
+            product.action = 'spin_flash';
+        } else if (prod.category.includes('rubber jigs')) {
+            product.type_tips = 'rubber_jig';
+            product.water_column = 'Bottom';
+            product.action = 'flutter_fall';
+        } else {
+            product.type_tips = 'worm';
+            product.water_column = 'Variable';
+            product.action = 'variable';
+        }
+
+        results.push(product);
         
         // Optional: slight delay to be polite
         await new Promise(r => setTimeout(r, 500));

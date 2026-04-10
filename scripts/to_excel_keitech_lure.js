@@ -67,11 +67,12 @@ function main() {
             model_cn: normalizeText(item.model_cn || item.model),
             model_year: '',
             alias: '',
-            type_tips: '',
+            type_tips: item.type_tips || '',
             system: systemType,
-            water_column: '',
-            action: '',
-            images: item.local_image_path || '', // Assuming standard local path
+            water_column: item.water_column || '',
+            action: item.action || '',
+            images: item.local_image_path || item.main_image_url || '', // Use local image path, fallback to remote
+            official_link: item.source_url || '',
             created_at: item.scraped_at || new Date().toISOString(),
             updated_at: item.scraped_at || new Date().toISOString(),
             description: normalizeText(item.description || ''),
