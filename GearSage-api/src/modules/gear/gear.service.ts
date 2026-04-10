@@ -5,8 +5,8 @@ import { basename, join } from 'path';
 import * as XLSX from 'xlsx';
 import { DatabaseService } from '../../common/database.service';
 
-type GearType = 'reels' | 'rods' | 'lures' | 'lines';
-type GearKind = 'reel' | 'rod' | 'lure' | 'line';
+type GearType = 'reels' | 'rods' | 'lures' | 'lines' | 'hooks';
+type GearKind = 'reel' | 'rod' | 'lure' | 'line' | 'hook';
 
 interface GearListQuery {
   type?: string;
@@ -35,10 +35,12 @@ interface GearCache {
   rods: any[];
   lures: any[];
   lines: any[];
+  hooks: any[];
   reelDetails: Record<string, any[]>;
   rodDetails: any[];
   lureDetails: Record<string, any[]>;
   lineDetails: any[];
+  hookDetails: any[];
   fieldSupport: Record<GearType, Record<string, boolean>>;
 }
 
@@ -85,6 +87,13 @@ export class GearService {
     Buoyancy: '浮力',
     Range: '泳层',
     Hook: '钩型',
+    subType: '子类',
+    gapWidth: '钩门宽度',
+    coating: '涂层',
+    size: '尺寸',
+    quantityPerPack: '每包数量',
+    price: '价格',
+    status: '状态',
   };
 
   constructor(
@@ -279,15 +288,17 @@ export class GearService {
     brandsMap: Record<string, any>,
     variants: Array<{ sourceKey: string; gearId: string; raw_json: Record<string, any> }>,
   ): GearCache {
-    const reels = type === 'reels' ? masters : [];
-    const rods = type === 'rods' ? masters : [];
-    const lures = type === 'lures' ? masters : [];
-    const lines = type === 'lines' ? masters : [];
+      const reels = type === 'reels' ? masters : [];
+      const rods = type === 'rods' ? masters : [];
+      const lures = type === 'lures' ? masters : [];
+      const lines = type === 'lines' ? masters : [];
+      const hooks = type === 'hooks' ? masters : [];
 
     const reelDetails: Record<string, any[]> = {};
     const rodDetails: any[] = [];
     const lureDetails: Record<string, any[]> = {};
-    const lineDetails: any[] = [];
+      const lineDetails: any[] = [];
+      const hookDetails: any[] = [];
 
     for (const variant of variants) {
       const raw = this.hydrateVariantRow(variant.raw_json);
@@ -309,6 +320,11 @@ export class GearService {
         continue;
       }
 
+      if (type === 'hooks') {
+        hookDetails.push(raw);
+        continue;
+      }
+
       const key = this.normalizeText(variant.sourceKey);
       const bucket = lureDetails[key] || [];
       bucket.push(raw);
@@ -322,15 +338,18 @@ export class GearService {
       rods,
       lures,
       lines,
+      hooks,
       reelDetails,
       rodDetails,
       lureDetails,
       lineDetails,
+      hookDetails,
       fieldSupport: {
         reels: this.buildFieldSupport(reels),
         rods: this.buildFieldSupport(rods),
         lures: this.buildFieldSupport(lures),
         lines: this.buildFieldSupport(lines),
+        hooks: this.buildFieldSupport(hooks),
       },
     };
   }
@@ -345,6 +364,7 @@ export class GearService {
     const rods = this.readExcelRows('rod.xlsx');
     const lures = this.readExcelRows('lure.xlsx');
     const lines = this.readExcelRows('line.xlsx');
+    const hooks = this.readExcelRows('hook.xlsx');
 
     const brandsMap = brands.reduce<Record<string, any>>((acc, brand: any) => {
       acc[this.normalizeText(brand.id)] = brand;
@@ -371,15 +391,18 @@ export class GearService {
       rods,
       lures,
       lines,
+      hooks,
       reelDetails,
       rodDetails: this.readExcelRows('rod_detail.xlsx'),
       lureDetails,
       lineDetails: this.readExcelRows('line_detail.xlsx'),
+      hookDetails: this.readExcelRows('hook_detail.xlsx'),
       fieldSupport: {
         reels: this.buildFieldSupport(reels),
         rods: this.buildFieldSupport(rods),
         lures: this.buildFieldSupport(lures),
         lines: this.buildFieldSupport(lines),
+        hooks: this.buildFieldSupport(hooks),
       },
     };
 
@@ -402,6 +425,7 @@ export class GearService {
     if (type === 'rods') return data.rods;
     if (type === 'lures') return data.lures;
     if (type === 'lines') return data.lines;
+    if (type === 'hooks') return data.hooks;
     return data.reels;
   }
 
@@ -424,6 +448,12 @@ export class GearService {
     if (type === 'lines') {
       return data.lineDetails
         .filter((variant) => this.normalizeText(variant.line_id) === itemId)
+        .map((variant) => this.decorateVariant(type, item, variant));
+    }
+
+    if (type === 'hooks') {
+      return data.hookDetails
+        .filter((variant) => this.normalizeText(variant.hookId) === itemId)
         .map((variant) => this.decorateVariant(type, item, variant));
     }
 
@@ -508,7 +538,7 @@ export class GearService {
       return false;
     }
 
-    if (type !== 'lures' && fieldSupport.type && !this.matchesField(item.type, query.types)) {
+    if (type !== 'lures' && type !== 'hooks' && fieldSupport.type && !this.matchesField(item.type, query.types)) {
       return false;
     }
 
@@ -738,6 +768,7 @@ export class GearService {
       rods: ['model', 'model_cn', 'model_year', 'type', 'action', 'type_tips'],
       lures: ['model', 'model_cn', 'model_year', 'system', 'water_column', 'action'],
       lines: ['model', 'model_cn', 'model_year', 'type_tips', 'description'],
+      hooks: ['model', 'model_cn', 'model_year', 'type_tips', 'description'],
     };
 
     const variantFieldsByType: Record<GearType, string[]> = {
@@ -783,6 +814,7 @@ export class GearService {
         'Market Reference Price',
         'AdminCode',
       ],
+      hooks: ['sku', 'type', 'subType', 'size', 'quantityPerPack', 'coating', 'gapWidth', 'price', 'status'],
     };
 
     const preferredFields =
@@ -884,6 +916,7 @@ export class GearService {
       rods: ['TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES'],
       lures: ['TYPE', 'Length', 'Weight', 'Buoyancy', 'Range'],
       lines: ['SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'Market Reference Price'],
+      hooks: ['type', 'subType', 'size', 'quantityPerPack', 'coating', 'gapWidth'],
     };
 
     const compareGroup = this.normalizeText(master.type || master.system || type);
@@ -932,6 +965,10 @@ export class GearService {
     } else if (type === 'lines') {
       pushText(master.type_tips);
       pushText(master.alias);
+    } else if (type === 'hooks') {
+      pushText(master.type_tips);
+      pushText(variant && variant.type);
+      pushText(variant && variant.subType);
     } else {
       pushText(master.system);
       pushText(master.water_column);
@@ -1081,6 +1118,7 @@ export class GearService {
     if (type === 'rod' || type === 'rods') return 'rods';
     if (type === 'lure' || type === 'lures') return 'lures';
     if (type === 'line' || type === 'lines') return 'lines';
+    if (type === 'hook' || type === 'hooks') return 'hooks';
     return 'reels';
   }
 
@@ -1088,6 +1126,7 @@ export class GearService {
     if (type === 'rods') return 'rod';
     if (type === 'lures') return 'lure';
     if (type === 'lines') return 'line';
+    if (type === 'hooks') return 'hook';
     return 'reel';
   }
 

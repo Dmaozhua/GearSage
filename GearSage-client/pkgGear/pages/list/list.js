@@ -154,6 +154,9 @@ Page({
     } else if (this.data.currentType === 'line') {
       pushTag(item.type_tips);
       pushTag(item.alias);
+    } else if (this.data.currentType === 'hook') {
+      pushTag(item.type_tips);
+      pushTag(item.alias);
     } else {
       pushTag(item.system);
       pushTag(item.water_column);
@@ -182,6 +185,10 @@ Page({
 
     if (this.data.currentType === 'line') {
       return '当前以规格浏览和内容关联为主，正式对比后置处理';
+    }
+
+    if (this.data.currentType === 'hook') {
+      return '当前以规格查看和内容关联为主，正式对比后置处理';
     }
 
     const subtype = this.normalizeText(item.type);

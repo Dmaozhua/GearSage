@@ -26,17 +26,17 @@
           </view>
           <view class="detail-action detail-action--primary" bindtap="onGoRecommend">去求推荐</view>
         </view>
-        <text class="compare-note" wx:if="{{gearType !== 'lures' && gearType !== 'line'}}">
+        <text class="compare-note" wx:if="{{gearType !== 'lures' && gearType !== 'line' && gearType !== 'hook'}}">
           {{canCompare ? '对比池 ' + compareCount + ' / 3，只先收同类同子类候选。' : '当前还没有可加入对比的子型号数据。'}}
         </text>
-        <view class="compare-entry-link" wx:if="{{gearType !== 'lures' && gearType !== 'line' && compareCount >= 2}}" bindtap="onGoCompare">去看正式对比</view>
+        <view class="compare-entry-link" wx:if="{{gearType !== 'lures' && gearType !== 'line' && gearType !== 'hook' && compareCount >= 2}}" bindtap="onGoCompare">去看正式对比</view>
       </view>
     </view>
 
     <view class="detail-section" wx:if="{{variantOptions.length > 0}}">
       <view class="section-head">
-        <text class="section-title">先选子型号</text>
-        <text class="section-subtitle">先确认你真正要看的规格，再去看参数和对比。</text>
+        <text class="section-title">{{sectionCopy.variantTitle || '先选子型号'}}</text>
+        <text class="section-subtitle">{{sectionCopy.variantSubtitle || '先确认你真正要看的规格，再去看参数和对比。'}}</text>
       </view>
       <scroll-view scroll-x class="variant-scroll" show-scrollbar="{{false}}">
         <view class="variant-list">
@@ -57,8 +57,8 @@
 
     <view class="detail-section" wx:if="{{coreSpecs.length > 0}}">
       <view class="section-head">
-        <text class="section-title">核心参数</text>
-        <text class="section-subtitle">先看最常被真正拿来排除候选的几项，不用一上来读完整张大表。</text>
+        <text class="section-title">{{sectionCopy.coreTitle || '核心参数'}}</text>
+        <text class="section-subtitle">{{sectionCopy.coreSubtitle || '先看最常被真正拿来排除候选的几项，不用一上来读完整张大表。'}}</text>
       </view>
       <view class="core-grid">
         <view class="core-card" wx:for="{{coreSpecs}}" wx:key="key" wx:for-item="spec">
@@ -70,8 +70,8 @@
 
     <view class="detail-section" wx:if="{{specSections.length > 0}}">
       <view class="section-head">
-        <text class="section-title">完整规格</text>
-        <text class="section-subtitle">以下仍是规格阅读区，但已经按阅读顺序分层，不再直接丢整张大表。</text>
+        <text class="section-title">{{sectionCopy.specTitle || '完整规格'}}</text>
+        <text class="section-subtitle">{{sectionCopy.specSubtitle || '以下仍是规格阅读区，但已经按阅读顺序分层，不再直接丢整张大表。'}}</text>
       </view>
       <view class="spec-section" wx:for="{{specSections}}" wx:key="title" wx:for-item="group">
         <text class="spec-section__title">{{group.title}}</text>
@@ -86,8 +86,8 @@
 
     <view class="detail-section" wx:if="{{seriesInsights.length > 0}}">
       <view class="section-head">
-        <text class="section-title">GearSage 提示</text>
-        <text class="section-subtitle">以下内容是解释性提示，不等同于厂家官方参数。</text>
+        <text class="section-title">{{sectionCopy.insightTitle || 'GearSage 提示'}}</text>
+        <text class="section-subtitle">{{sectionCopy.insightSubtitle || '以下内容是解释性提示，不等同于厂家官方参数。'}}</text>
       </view>
       <view class="insight-list">
         <view class="insight-item" wx:for="{{seriesInsights}}" wx:key="*this">
@@ -99,8 +99,8 @@
 
     <view class="detail-section" wx:if="{{item.variants && item.variants.length > 1}}">
       <view class="section-head">
-        <text class="section-title">系列子型号速览</text>
-        <text class="section-subtitle">把同系列差异先摊开看清，再决定要不要继续做正式对比。</text>
+        <text class="section-title">{{sectionCopy.seriesTitle || '系列子型号速览'}}</text>
+        <text class="section-subtitle">{{sectionCopy.seriesSubtitle || '把同系列差异先摊开看清，再决定要不要继续做正式对比。'}}</text>
       </view>
       <scroll-view
         scroll-x

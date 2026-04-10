@@ -158,5 +158,13 @@ module.exports = [
       {"id": 2, "name": "达亿瓦"}
     ],
     "family": []
+  },
+  {
+    "type": "hook",
+    "id": 5,
+    "brands": [
+      {"id": 19, "name": "Gamakatsu"}
+    ],
+    "family": []
   }
 ];

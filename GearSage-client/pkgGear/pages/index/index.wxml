@@ -80,5 +80,21 @@
         <view class="arrow"></view>
       </view>
     </view>
+
+    <view class="module-item" bindtap="navigateTo" data-type="hook" data-title="鱼钩">
+      <view class="card-bg-decoration"></view>
+      <view class="content-wrapper">
+        <view class="icon-container hook-icon-bg">
+          <image class="module-icon" src="/images/icons/publis/钩.png" mode="aspectFit"></image>
+        </view>
+        <view class="text-container">
+          <text class="module-title">鱼钩</text>
+          <text class="module-desc">Hooks</text>
+        </view>
+      </view>
+      <view class="arrow-icon">
+        <view class="arrow"></view>
+      </view>
+    </view>
   </view>
 </view>

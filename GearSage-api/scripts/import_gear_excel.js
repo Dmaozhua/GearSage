@@ -40,6 +40,7 @@ const MASTER_SOURCES = [
   { kind: 'rod', file: 'rod.xlsx' },
   { kind: 'lure', file: 'lure.xlsx' },
   { kind: 'line', file: 'line.xlsx' },
+  { kind: 'hook', file: 'hook.xlsx' },
 ];
 
 const VARIANT_SOURCES = [
@@ -52,6 +53,7 @@ const VARIANT_SOURCES = [
   { kind: 'lure', sourceKey: 'jig', file: 'jig_lure_detail.xlsx', foreignKey: 'lure_id' },
   { kind: 'lure', sourceKey: 'wire', file: 'wire_lure_detail.xlsx', foreignKey: 'lure_id' },
   { kind: 'line', sourceKey: 'line', file: 'line_detail.xlsx', foreignKey: 'line_id' },
+  { kind: 'hook', sourceKey: 'hook', file: 'hook_detail.xlsx', foreignKey: 'hookId' },
 ];
 
 const cliOptions = parseArgs(process.argv.slice(2));
@@ -334,7 +336,7 @@ function normalizeImages(value) {
 
 function buildSearchData(masters) {
   return masters
-    .filter((item) => ['reel', 'rod', 'lure', 'line'].includes(item.kind))
+    .filter((item) => ['reel', 'rod', 'lure', 'line', 'hook'].includes(item.kind))
     .map((item) => {
       const nameParts = [item.modelYear, item.model, item.modelCn].filter(Boolean);
       

@@ -9,10 +9,13 @@ const TYPE_MAP = {
   lures: 'lure',
   line: 'line',
   lines: 'line',
+  hook: 'hook',
+  hooks: 'hook',
   reel: 'reel',
   rod: 'rod',
   lure: 'lure',
-  line: 'line'
+  line: 'line',
+  hook: 'hook'
 };
 
 const ACTIVE_FILTER_SUPPORT = {
@@ -33,6 +36,9 @@ const ACTIVE_FILTER_SUPPORT = {
     action: true
   },
   line: {
+    brands: true
+  },
+  hook: {
     brands: true
   }
 };
