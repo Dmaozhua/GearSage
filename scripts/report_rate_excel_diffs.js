@@ -144,6 +144,20 @@ const TASKS = [
         ],
     },
     {
+        name: 'owner_hook',
+        importFile: 'owner_hook_import.xlsx',
+        master: {
+            importSheet: 'hook',
+            targetFile: 'hook.xlsx',
+            targetSheet: 'hook',
+            filter: (row) => Number(row.brand_id) === 46,
+            rowKey: 'id',
+        },
+        details: [
+            { importSheet: 'hook_detail', targetFile: 'hook_detail.xlsx', targetSheet: 'hook_detail', foreignKey: 'hookId', rowKey: 'id' },
+        ],
+    },
+    {
         name: 'shimano_rod',
         importFile: 'shimano_rod_import.xlsx',
         master: {

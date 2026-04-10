@@ -108,6 +108,7 @@ const TASKS = [
         headerKey: 'hookMaster',
         replacements: [
             { sourceFile: 'gamakatsu_hook_import.xlsx', sourceSheet: 'hook', matchField: 'id', prefix: 'GHK' },
+            { sourceFile: 'owner_hook_import.xlsx', sourceSheet: 'hook', matchField: 'id', prefix: 'OHK' },
         ],
     },
     {
@@ -116,6 +117,7 @@ const TASKS = [
         headerKey: 'hookDetail',
         replacements: [
             { sourceFile: 'gamakatsu_hook_import.xlsx', sourceSheet: 'hook_detail', matchField: 'hookId', prefix: 'GHK' },
+            { sourceFile: 'owner_hook_import.xlsx', sourceSheet: 'hook_detail', matchField: 'hookId', prefix: 'OHK' },
         ],
     },
     {
