@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-10T05:41:22.410Z
+generated_at: 2026-04-10T06:01:48.647Z
 
-summary: ok=11, diff=3, missing_import=0
+summary: ok=12, diff=3, missing_import=0
 
 ## shimano_lure
 #### master
@@ -189,6 +189,20 @@ summary: ok=11, diff=3, missing_import=0
 #### rod_detail
 - status: OK
 - rows: import=186, rate=186
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+
+## keitech_rod
+#### master
+- status: OK
+- rows: import=4, rate=4
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+#### rod_detail
+- status: OK
+- rows: import=21, rate=21
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0

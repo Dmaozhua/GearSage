@@ -137,6 +137,7 @@ const TASKS = [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'SR' },
             { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR' },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'MR' },
+            { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'KR' },
         ],
     },
     {
@@ -147,6 +148,7 @@ const TASKS = [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'SR' },
             { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR' },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'MR' },
+            { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'KR' },
         ],
     },
 ];

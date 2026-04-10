@@ -148,6 +148,20 @@ const TASKS = [
         ],
     },
     {
+        name: 'keitech_rod',
+        importFile: 'keitech_rod_import.xlsx',
+        master: {
+            importSheet: 'rod',
+            targetFile: 'rod.xlsx',
+            targetSheet: 'rod',
+            filter: (row) => Number(row.brand_id) === 35,
+            rowKey: 'id',
+        },
+        details: [
+            { importSheet: 'rod_detail', targetFile: 'rod_detail.xlsx', targetSheet: 'rod_detail', foreignKey: 'rod_id', rowKey: 'id' },
+        ],
+    },
+    {
         name: 'daiwa_spinning_reel',
         importFile: 'daiwa_reels_import.xlsx',
         master: {
