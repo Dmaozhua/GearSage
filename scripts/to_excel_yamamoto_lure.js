@@ -55,19 +55,21 @@ function generateExcel() {
                     id: detailId,
                     lure_id: masterId,
                     SKU: variant.sku || detailId,
-                    Size: variant.length || '',
+                    length: variant.length || '',
+                    size: variant.length || '',
                     WEIGHT: variant.weight || '',
-                    'Market Reference Price': variant.price || '',
-                    Quantity: variant.quantity || '',
-                    Hook: '',
-                    'Hook Size': '',
-                    'Ring Size': '',
-                    Material: '',
+                    sinkingspeed: '',
+                    referenceprice: variant.price || '',
+                    'quantity (入数)': variant.quantity || '',
+                    COLOR: variant.color || '',
+                    hook_size: '',
+                    depth: '',
+                    action: '',
+                    subname: '',
+                    'other.1': '',
                     AdminCode: '',
                     created_at: item.scraped_at || '',
-                    updated_at: item.scraped_at || '',
-                    'Sale Price': '',
-                    Description: ''
+                    updated_at: item.scraped_at || ''
                 });
             });
         }

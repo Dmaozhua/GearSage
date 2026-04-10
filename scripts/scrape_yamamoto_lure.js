@@ -135,9 +135,10 @@ async function scrapeProduct(url, catConfig) {
                     let sizeLabel = '', colorLabel = '';
                     if (v.options) {
                         v.options.forEach(opt => {
-                            if (opt.option_display_name && opt.option_display_name.toLowerCase().includes('size')) {
+                            const optName = (opt.option_display_name || '').toLowerCase();
+                            if (optName.includes('size') || optName.includes('length') || optName.includes('weight')) {
                                 sizeLabel = opt.label;
-                            } else if (opt.option_display_name && opt.option_display_name.toLowerCase().includes('color')) {
+                            } else if (optName.includes('color')) {
                                 colorLabel = opt.label;
                             }
                         });
