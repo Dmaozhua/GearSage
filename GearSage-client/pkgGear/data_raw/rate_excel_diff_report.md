@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-09T17:23:10.268Z
+generated_at: 2026-04-10T05:04:11.533Z
 
-summary: ok=13, diff=0, missing_import=0
+summary: ok=14, diff=0, missing_import=0
 
 ## shimano_lure
 #### master
@@ -84,6 +84,32 @@ summary: ok=13, diff=0, missing_import=0
 #### jig_lure_detail
 - status: OK
 - rows: import=29, rate=29
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+
+## keitech_lure
+#### master
+- status: OK
+- rows: import=33, rate=33
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+#### soft_lure_detail
+- status: OK
+- rows: import=20, rate=20
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+#### wire_lure_detail
+- status: OK
+- rows: import=3, rate=3
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+#### jig_lure_detail
+- status: OK
+- rows: import=10, rate=10
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0

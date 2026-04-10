@@ -62,6 +62,22 @@ const TASKS = [
         ],
     },
     {
+        name: 'keitech_lure',
+        importFile: 'keitech_lure_import.xlsx',
+        master: {
+            importSheet: 'lure',
+            targetFile: 'lure.xlsx',
+            targetSheet: 'lure',
+            filter: (row) => Number(row.brand_id) === 35,
+            rowKey: 'id',
+        },
+        details: [
+            { importSheet: 'soft_lure_detail', targetFile: 'soft_lure_detail.xlsx', targetSheet: 'soft_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
+            { importSheet: 'wire_lure_detail', targetFile: 'wire_lure_detail.xlsx', targetSheet: 'wire_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
+            { importSheet: 'jig_lure_detail', targetFile: 'jig_lure_detail.xlsx', targetSheet: 'jig_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
+        ],
+    },
+    {
         name: 'shimano_line',
         importFile: 'shimano_line_import.xlsx',
         master: {

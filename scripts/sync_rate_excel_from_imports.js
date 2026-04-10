@@ -30,6 +30,7 @@ const TASKS = [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'ML' },
+            { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'KL' },
         ],
     },
     {
@@ -58,6 +59,7 @@ const TASKS = [
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'ML' },
+            { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'KL' },
         ],
     },
     {
@@ -66,6 +68,7 @@ const TASKS = [
         headerKey: 'wireLureDetail',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'DL' },
+            { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'KL' },
         ],
     },
     {
@@ -75,6 +78,7 @@ const TASKS = [
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'ML' },
+            { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'KL' },
         ],
     },
     {
