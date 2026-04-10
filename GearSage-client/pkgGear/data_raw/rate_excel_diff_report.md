@@ -1,6 +1,6 @@
 # rate/excel diff report
 
-generated_at: 2026-04-10T06:01:48.647Z
+generated_at: 2026-04-10T08:48:11.340Z
 
 summary: ok=12, diff=3, missing_import=0
 
