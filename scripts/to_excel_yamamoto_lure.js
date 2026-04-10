@@ -13,7 +13,7 @@ function generateExcel() {
     }
 
     const rawData = JSON.parse(fs.readFileSync(RAW_DATA_PATH, 'utf8'));
-    const brandId = BRAND_IDS['Gary Yamamoto'] || 112; // Use ID 112 if not found, though user might have created it as something else. Wait, user created BKK as 111. Let's assume Gary Yamamoto is 112.
+    const brandId = BRAND_IDS['Gary Yamamoto'] || 21; 
 
     const lureMasterData = [];
     const softLureDetailData = [];
@@ -37,13 +37,14 @@ function generateExcel() {
             model_cn: item.name || '',
             model_year: '',
             alias: '',
-            type_tips: item.category || 'softbait',
-            water_column: item.water_column || 'bottom',
-            action: item.action || 'swimming',
+            type_tips: item.type_tips || 'weightless_soft_bait',
+            system: item.system || 'soft',
+            water_column: item.water_column || 'Variable',
+            action: item.action || 'worm',
             images: item.local_image_path || item.main_image_url || '',
             created_at: item.scraped_at || '',
             updated_at: item.scraped_at || '',
-            Description: item.description || ''
+            description: item.description || ''
         });
 
         if (item.variants && item.variants.length > 0) {

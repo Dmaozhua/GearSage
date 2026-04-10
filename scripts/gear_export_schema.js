@@ -110,7 +110,7 @@ const BRAND_IDS = {
     '飞蚂蚁': 109,
     '高森 Gosen': 110,
     'BKK': 111,
-    'Gary Yamamoto': 112,
+    'Gary Yamamoto': 21,
 };
 
 const SHEET_NAMES = {

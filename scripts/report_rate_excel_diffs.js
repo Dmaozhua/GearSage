@@ -84,7 +84,7 @@ const TASKS = [
             importSheet: 'lure',
             targetFile: 'lure.xlsx',
             targetSheet: 'lure',
-            filter: (row) => Number(row.brand_id) === 112,
+            filter: (row) => Number(row.brand_id) === 21,
             rowKey: 'id',
         },
         details: [

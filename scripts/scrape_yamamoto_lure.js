@@ -12,12 +12,12 @@ if (!fs.existsSync(IMAGE_DIR)) {
 
 // Categories mapped to our standard
 const CATEGORY_MAP = {
-    'fuzzy-series': { category: 'softbait', water_column: 'subsurface', action: 'swimming' },
-    'senkos': { category: 'softbait', water_column: 'bottom', action: 'wacky' },
-    'worms': { category: 'softbait', water_column: 'bottom', action: 'crawling' },
-    'grubs': { category: 'softbait', water_column: 'subsurface', action: 'swimming' },
-    'craws-and-creatures': { category: 'softbait', water_column: 'bottom', action: 'crawling' },
-    'swim-baits': { category: 'softbait', water_column: 'subsurface', action: 'swimming' },
+    'fuzzy-series': { system: 'soft', type_tips: 'weightless_soft_bait', water_column: 'Variable', action: 'worm' },
+    'senkos': { system: 'soft', type_tips: 'weightless_soft_bait', water_column: 'Variable', action: 'worm' },
+    'worms': { system: 'soft', type_tips: 'weightless_soft_bait', water_column: 'Bottom', action: 'worm' },
+    'grubs': { system: 'soft', type_tips: 'weightless_soft_bait', water_column: 'Subsurface (0–0.5m)', action: 'wobble_roll' },
+    'craws-and-creature': { system: 'soft', type_tips: 'weightless_soft_bait', water_column: 'Bottom', action: 'crawl_creature' },
+    'swim-baits': { system: 'soft', type_tips: 'swimbait', water_column: 'Variable', action: 'wobble_roll' },
 };
 
 const BASE_URL = 'https://www.yamamotobaits.com';
@@ -117,7 +117,7 @@ async function scrapeProduct(url, catConfig) {
         const title = $('.bc-product-single__title, .bc-product__title, h1').first().text().trim();
         if (!title) return null;
         
-        const descriptionHtml = $('.bc-product__description, .product-description, #tab-description').html() || '';
+        const descriptionHtml = $('.suma-post-content, .bc-product__description, .product-description, #tab-description').html() || '';
         const description = cheerio.load(descriptionHtml).text().replace(/\s+/g, ' ').trim();
         
         let mainImageUrl = $('.bc-product__gallery-image img').attr('src') || $('meta[property="og:image"]').attr('content') || '';
@@ -207,7 +207,8 @@ async function scrapeProduct(url, catConfig) {
             description: description,
             main_image_url: mainImageUrl,
             local_image_path: localImagePath,
-            category: catConfig.category,
+            system: catConfig.system,
+            type_tips: catConfig.type_tips,
             water_column: catConfig.water_column,
             action: catConfig.action,
             variants: uniqueVariants,

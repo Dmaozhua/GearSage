@@ -3,12 +3,13 @@
     "brand": "Gary Yamamoto",
     "name": "Fuzzy Senko",
     "source_url": "https://www.yamamotobaits.com/products/fuzzy-senko/",
-    "description": "",
+    "description": "It’s the gold standard by which all stick baits are judged, but fuzzy. The Fuzzy Senko from Yamamoto Baits is exactly what it sounds like. The legendary Senko is now outfitted with threaded fine skirt material to create a new profile and tantalizing secondary action. The Fuzzy Senko is available in both 4\" and 5\" sizes, coming 5 and 4 per pack respectively, and can be found in 8 proven colors.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-9FUZ-4-297__14455.1752081387.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fuzzy_senko.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9SFUZ-5-297",
@@ -31,18 +32,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37044_source_1767741277-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:14.137Z"
+    "scraped_at": "2026-04-10T10:42:44.627Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Fuzzy Nuki",
     "source_url": "https://www.yamamotobaits.com/products/fuzzy-nuki/",
-    "description": "",
+    "description": "The Yamatanuki just got fuzzy. The ultimate “heavy plastic” bait has joined the fuzzy bait family, now threaded with strands of fine skirt material to create a totally new profile and action. Just as much as it catches your eye, it also catches fish. Available in 8 Yamamoto colors, the Fuzzy Nuki is available in both 2.5\" and 3.5\" sizes. Pack Size: 2.5\" - 5/pack 3.5\" - 4/pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/Fuzzy_Nuki_web-2__01913.1753117984.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fuzzy_nuki.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-FUZNUKI25-5-297",
@@ -65,18 +67,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37043_source_1759873130-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:16.243Z"
+    "scraped_at": "2026-04-10T10:42:45.804Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Fuzzy Nut 6pk",
     "source_url": "https://www.yamamotobaits.com/products/fuzzy-nut/",
-    "description": "",
+    "description": "The Yamamoto Fuzzy Nut appears odd at first glance, but once you see it in the water and see how the fish react to it, you’ll look at it in an all-new light. The 1.5\" Fuzzy Nut lives up to its name thanks to its threaded skirt material providing a very subtle secondary action. It is the perfect length to completely conceal a nail weight, while the heavyweight Yamamoto salted formula allows for the perfect fall rate. Especially killer on smallmouth and spotted bass, the Fuzzy Nut comes 6 per pack in 10 irresistible Yamamoto colors.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-FUZNUT-6-297__10246.1759870576.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fuzzy_nut_6pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-FUZNUT-6-297",
@@ -89,18 +92,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/36973_source_1759870549-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:18.376Z"
+    "scraped_at": "2026-04-10T10:42:58.235Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Uni",
     "source_url": "https://www.yamamotobaits.com/products/uni/",
-    "description": "",
+    "description": "The Yamamoto Uni is designed to be irresistible to bass. A TPE urchin-style bait, the Uni features bulbed appendages that catch water and shimmy with each twitch of the rod tip, falling with a very lifelike quiver. The custom Yamamoto TPE formula allows for a flexible yet durable bait that delivers the perfect buoyancy and action, while holding up fish after fish. If you're looking for a profile and action that fish have absolutely never seen before the Uni is your ticket to triggering more bites. 1 per pack.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-UNI-297__68528.1752066468.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_uni.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "",
@@ -113,18 +117,19 @@
         "image": ""
       }
     ],
-    "scraped_at": "2026-04-10T10:18:20.464Z"
+    "scraped_at": "2026-04-10T10:42:59.418Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Ultimate Senko Kit – 100pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/ultimate-senko-kit-100pc-assortment/",
-    "description": "",
+    "description": "The Ultimate Senko Kit is loaded with every size of the original Senko, the 4\",5\", 6\" and the 7\". Get a Senko for every situation. *Kits are subject to change based on availability refer to chart below for the most up to date offering 10/pc 305 - Baby Bass 10/pc 306 - Natural Shad 10/pc 194 - Watermelon With Large Black 10/pc 912 - Green Pumpkin/Watermelon 10/pc 021 - Black With Large Blue 10/pc 363 - Green Pumpkin Blue 10/pc 963 - Gooseberry Laminate 5/pc 208 - Watermelon With Black & Red Flake 5/pc 318 - Green Pumpkin With Large Red 5/pc 301 - Green Pumpkin With Large Green And Large Purple 5/pc 330 - Green Pumpkin With Purple and Small Copper 5/pc 925 - Green Pumpkin With Small Red / 042J Laminate 5/pc 297 - Green Pumpkin With Large Black",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/3d546f20-3e25-458a-90fd-f23001144b72__23302.1747692717.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_ultimate_senko_kit___100pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "SENKO5",
@@ -137,18 +142,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/3d546f20-3e25-458a-90fd-f23001144b72__23302.1747692717.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:23.621Z"
+    "scraped_at": "2026-04-10T10:43:01.210Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Senko Kit – 160pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/senko-kit-160pc-assortment/",
-    "description": "",
+    "description": "The 5\" Senko Kit is the big brother of our Senko Bundle. This Senko Kit comes loaded with 16 different bags of 5\" Senkos, giving you a color for whatever conditions you find yourself in. *Kits are subject to change based on availability refer to chart below for the most up to date offering 10/pc 213 - June Bug - Purple With Emerald Flake 10/pc 363 - Green Pumpkin Blue 10/pc 020 - Black 10/pc 355 - Green Pumpkin Magic 10/pc 297 - Green Pumpkin Pepper 10/pc 912 - Green Pumpkin/Watermelon 10/pc 305 - Baby Bass 10/pc 918 - Peanut Butter And Jelly 017/213 Laminate 10/pc 337 - Watermelon With Red 10/pc 963 - Gooseberry Laminate 10/pc 904 - Blue And Black Laminate 10/pc 952 - Bama Bug 10/pc 964 - Watermelon Slice Laminate 10/pc 356 - Plum Apple 10/pc 547 - 297/192 Tip 10/pc 306 - Natural Shad",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/c7abad41-947d-4a1d-85e8-4930bdb080dc__70030.1747429922.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_senko_kit___160pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "SENKO4",
@@ -161,18 +167,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/c7abad41-947d-4a1d-85e8-4930bdb080dc__70030.1747429922.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:25.835Z"
+    "scraped_at": "2026-04-10T10:43:02.450Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ Senko Baitfish Bundle – 50pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/5-senko-baitfish-bundle-50pc-assortment-8nsg/",
-    "description": "",
+    "description": "Packed with 50 of the legendary 5” Senkos, this bundle is all about matching local forage. Each color is hand-picked to mimic common baitfish, giving you an edge when targeting bass that are keyed in on local forage. A go-to for pros and weekend anglers alike, the Senko’s unmatched action and versatility make it the top soft plastic in the game. Grab the Baitfish Bundle and be ready for any bass bite that comes your way. *Kits are subject to change based on availability refer to chart below for the most up to date offering 10/pc 5\" Senko, 305 - Baby Bass 10/pc 5\" Senko, 967 - Goby 10/pc 5\" Senko, 306 - Natural Shad 10/pc 5\" Senko, 968 - Perch 10/pc 5\" Senko, 9008 - Green Gizzard",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/cd345aa3-b5fe-408f-bbec-ba59fcc065a8__20540.1747084797.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__senko_baitfish_bundle___50pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-SENKO3",
@@ -185,18 +192,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/cd345aa3-b5fe-408f-bbec-ba59fcc065a8__20540.1747084797.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:27.985Z"
+    "scraped_at": "2026-04-10T10:43:03.622Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ Senko Green Pumpkin Bundle – 50pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/5-senko-baitfish-bundle-50pc-assortment/",
-    "description": "",
+    "description": "This bundle includes 50 of the legendary 5” Senkos in five proven Green Pumpkin variations—one of the most reliable and versatile color groups in bass fishing. Known for their natural appeal, Green Pumpkin tones effectively mimic a wide range of baitfish and forage, making them a must-have in any tackle box. Trusted by pros and weekend anglers alike, the Senko delivers unmatched action and consistent results. Load up with the Pumpkin Bundle and stay ready for any bass bite, anytime. *Kits are subject to change based on availability refer to chart below for the most up to date offering 10/pc 5\" Senko, 297 - Green Pumpkin with Black Flake 10/pc 5\" Senko, 912 - Green Pumpkin with Watermelon 10/pc 5\" Senko, 301 - #297 NF/LG Green Pumpkin 10/pc 5\" Senko, 355 - Green Pumpkin Magic 10/pc 5\" Senko, 925 - Green Pumpkin with red Flake/042J",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/a8e2bdf7-c9b8-49c9-bea1-2f8404d88c89__14681.1746827730.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__senko_green_pumpkin_bundle___50pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-SENKO2",
@@ -209,18 +217,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/a8e2bdf7-c9b8-49c9-bea1-2f8404d88c89__14681.1746827730.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:30.130Z"
+    "scraped_at": "2026-04-10T10:43:04.872Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Senko Bundle – 90pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/senko-bundle-90pc-assortment/",
-    "description": "",
+    "description": "The original soft stick bait just got better. Stock up on Senkos from some classic colors to some new ones you may not have tried yet. This 90pc assortment will not dissappoint. *Kits are subject to change based on availability refer to chart below for the most up to date offering 1/bag 5\" SENKO / 10 PACK / WATERMELON W/ CREAM LAMINATE 1/bag 5\" SENKO / 10 PACK / WATERMELON W/ RED FLAKE 1/bag 5\" SENKO / 10 PACK / BLACK W/ LARGE BLUE FLAKE 1/bag 5\" SENKO / 10 PACK / GREEN PUMPKIN MAGIC 1/bag 5\" SENKO / 10 PACK / B-BUG GRINDER 1/bag 5\" SENKO / 10 PACK / BAMA BUG 1/bag 5\" SENKO / 10 PACK / PRO BLUE 1/bag 5\" SENKO / 10 PACK / GREEN PUMPKIN BLACK FLAKE 1/bag 5\" SENKO / 10 PACK / JUNE BUG PURPLE W/ EMERALD FLAKE",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/Senko_Bundle-90pc-v2-3__14601.1775137778.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_senko_bundle___90pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-SENKO1",
@@ -233,18 +242,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/Senko_Bundle-90pc-v2-3__14601.1775137778.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:33.272Z"
+    "scraped_at": "2026-04-10T10:43:06.043Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Fat Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-fat-senko/",
-    "description": "",
+    "description": "Rounding out Yamamoto’s extensive line-up of soft plastics, the Yamamoto Fat Senko provides an incredibly versatile, slightly chunkier profile that will have your livewell overflowing. Similar to the traditional Senko, the Yamamoto Fat Senko features a plumped-up stickbait construction that imparts time-tested, subtle Senko action. Incredibly effective weightless, on a shakey head, neko rig, and much more, the Yamamoto Fat Senko delivers a slightly different look that can be the key to unlocking the bite. More thickness also means increased angler visibility on sonar screens with forward-facing sonar techniques, the Fat Senko also improves success when fishing in windy conditions compared to the original due to its increased weight. Available in Yamamoto’s proven Senko color schemes, the Yamamoto Fat Senko continues to deliver the same bass-catching performance that anglers trust with additional features to help you catch more fish. 10 per pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-9FAT-VAR__32762.1756498179.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fat_senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9C-10-020",
@@ -257,18 +267,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33456_source_1749063694-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:35.432Z"
+    "scraped_at": "2026-04-10T10:43:07.273Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Swimming Senko",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-swimming-senko/",
-    "description": "",
+    "description": "A twist on a classic - the Swimming Senko is everything that's great about the legendary Senko, but with a little extra magic. Thanks to the tail, the Swimming Senko presents a hard-to-resist horizontal action that's more than enough to tempt a lunker to bite. The Swimming Senko marries the natural profile and subtleness of the Senko with the vibration and movement of a paddletail swimbait. The result is the perfect amount of subtle shimmy, and the perfect amount of kick. Available in 4 sizes ranging from 3.5\" to 5.5\" long, the Swimming Senko is a favorite of anglers everywhere. 3.5\"- 7 Pack 4\"- 10 Pack 5\"- 10 Pack 5.5\"- 7 Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/Swimming_Senko_TN__89960.1756498414.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_swimming_senko.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-31-10-020",
@@ -281,18 +292,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33405_source_1738076377-1.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:36.702Z"
+    "scraped_at": "2026-04-10T10:43:08.495Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Senko Bulk Packs",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-senkos-bulk-packs/",
-    "description": "",
+    "description": "The 5\" Senko and 4\" Senko are staples in the fishing world, and it's now available in our most popular colors in bulk packs of 50 or 100! The original soft-plastic stickbait is the #1 choice of anglers everywhere. \"Iconic\" is an understatement - the Senko has spawned thousands of imposters, but nothing beats the original. Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-BulkPack__15513.1756498655.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_senko_bulk_packs.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9-50-021",
@@ -305,18 +317,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32911_source_1738074518.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:38.783Z"
+    "scraped_at": "2026-04-10T10:43:09.676Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Megastrike Fish Attractant",
     "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
-    "description": "",
+    "description": "The MegaStrike Fish Attractant is comprised of the proper balance of Amino Acids and Proteins to make the fish strike, hold onto, and consume the product Extra long-lasting gel No mess tube Tube Size: 1 oz",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-39-MEGA",
@@ -329,18 +342,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:40.908Z"
+    "scraped_at": "2026-04-10T10:43:10.851Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "7″ Speed Senko 7pk",
     "source_url": "https://www.yamamotobaits.com/products/7-speed-senko/",
-    "description": "",
+    "description": "The Speed Senko is sure to be your new favorite worm for covering water. Designed at the request of our pro’s, the Speed Senko is the ultimate worm for fishing grass and brush. Its thumping tail feels like a Colorado coming through the water and makes it easy for bass to zero in on it in grass, laydowns, brushpiles or any other cover. Try Texas rigging it with a light weight and swimming it over grass.. Or Texas rigged with a lift and drop retrieve in and around cover. This is one the fish will find, so you better find you some too! 7 per pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/speed-senko__74896.1669909889.1280.1280.png",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_7__speed_senko_7pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-SPSEN7-021",
@@ -353,18 +367,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/7757_source_1659044371.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:43.146Z"
+    "scraped_at": "2026-04-10T10:43:12.066Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "3″ Ned Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/3-ned-senko/",
-    "description": "",
+    "description": "The exact same shape as the 3” fat Senko but built utilizing our “Mega Floater Formula” to make this bait stand up on a Ned head. The size is perfect. The shape is perfect and now the formula is perfect for Ned rigging. While the Original Senko formula is hands down the best for a lot of applications, it isn’t for Ned rigging. We designed this bait to have the same feel and texture of the time-tested Senko, but it floats making it stand up and be more visible when dancing around the bottom of your favorite fishing hole. The Yamamoto Ned Senko is available in 21 different fish catching colors. 10 Per Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/06/ned-senko__49527.1669909863.1280.1280.png",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3__ned_senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9N3-10-021",
@@ -377,18 +392,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/06/7742_source_1655239366.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:45.238Z"
+    "scraped_at": "2026-04-10T10:43:13.291Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "3″ Slim Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/3-slim-senko/",
-    "description": "",
+    "description": "The Senko is a staple in the fishing world. The original soft-plastic stickbait comes in sizes ranging from 3 inches up to 7, and it has become the #1 choice of anglers everywhere. “Iconic” is an understatement – the Senko has spawned thousands of imposters, but nothing beats the original. Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko. 10 per pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/senkos-slim-9b__32940.1638479227.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3__slim_senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9B-10-009",
@@ -401,18 +417,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6664_source_1638479230.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:47.330Z"
+    "scraped_at": "2026-04-10T10:43:14.466Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ Pro Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/5-pro-senko/",
-    "description": "",
+    "description": "The Yamamoto 5” Pro Senko Soft Bait tweaks the design of the world-famous Senko worm to provide anglers with a new way to fish this popular lure. The thinner construction and tapered tail give it a unique shaky worm action, while the redesigned head makes it easier to rig on shaky jigs or with a screw-in bullet sinker. Its versatility offers a great way to draw out the bigger fish from deeper water.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/senkos-slim-9p__67617.1638479223.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__pro_senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9P-10-021",
@@ -425,18 +442,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6655_source_1723493770.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:49.421Z"
+    "scraped_at": "2026-04-10T10:43:15.636Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ Thin Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/5-thin-senko/",
-    "description": "",
+    "description": "Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/senkos-slim-9m__52311.1638479220.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__thin_senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9M-10-157",
@@ -449,18 +467,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6647_source_1725895733.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:51.127Z"
+    "scraped_at": "2026-04-10T10:43:16.934Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "7″ Senko 5pk",
     "source_url": "https://www.yamamotobaits.com/products/7-senko/",
-    "description": "",
+    "description": "The Senko is a staple in the fishing world. The original soft-plastic stickbait comes in sizes ranging from 3 inches up to 7, and it has become the #1 choice of anglers everywhere. “Iconic” is an understatement – the Senko has spawned thousands of imposters, but nothing beats the original. Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7inchsenko-main__59890.1638479214.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_7__senko_5pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9X-05-021",
@@ -473,18 +492,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6637_source_1638479215.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:53.263Z"
+    "scraped_at": "2026-04-10T10:43:18.214Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "6″ Senko 5pk",
     "source_url": "https://www.yamamotobaits.com/products/6-senko/",
-    "description": "",
+    "description": "New 2025 Colors: 9025 - Sungill, 424 - Redbug, 425 - OG Junebug, & 991 - 021/297 Green Pumpkin/Black Blue Laminate The Senko is a staple in the fishing world. The original soft-plastic stickbait comes in sizes ranging from 3 inches up to 7, and it has become the #1 choice of anglers everywhere. “Iconic” is an understatement – the Senko has spawned thousands of imposters, but nothing beats the original. Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/YAM-9L-05-991__13624.1755526924.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_6__senko_5pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9L-05-020",
@@ -497,18 +517,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6616_source_1638479210.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:55.387Z"
+    "scraped_at": "2026-04-10T10:43:19.631Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "4″ Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/4-senko/",
-    "description": "",
+    "description": "New 2025 Colors: 433 - Glowstick, 9025 - Sungill, 424 - Redbug, 425 - OG Junebug, & 991 - 021/297 Green Pumpkin/Black Blue Laminate. The Senko is a staple in the fishing world. The original soft-plastic stickbait comes in sizes ranging from 3 inches up to 7, and it has become the #1 choice of anglers everywhere. “Iconic” is an understatement – the Senko has spawned thousands of imposters, but nothing beats the original. Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/4-_Senko__55764.1755527147.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9S-10-009",
@@ -521,18 +542,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6543_source_1727377511.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:57.476Z"
+    "scraped_at": "2026-04-10T10:43:21.844Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ Senko 10pk",
     "source_url": "https://www.yamamotobaits.com/products/5-senko/",
-    "description": "",
+    "description": "New 2025 Colors: 433 - Glowstick, 9025 - Sungill, 424 - Redbug, 425 - OG Junebug, & 991 - 021/297 Green Pumpkin/Black Blue Laminate The Senko is a staple in the fishing world. The original soft-plastic stickbait comes in sizes ranging from 3 inches up to 7, and it has become the #1 choice of anglers everywhere. “Iconic” is an understatement – the Senko has spawned thousands of imposters, but nothing beats the original. Versatility is a key attribute of the Senko, allowing it to be fished in a multitude of ways that all end up putting more fish in the boat. The only wrong way to fish a Senko is to not fish with the original Senko. 10 per pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/YAM-9-10-425__27735.1755527358.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__senko_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "wacky",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Variable",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-9-10-002",
@@ -545,18 +567,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6426_source_1638479172.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:18:59.215Z"
+    "scraped_at": "2026-04-10T10:43:23.253Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Fat Shad Shape Worm 8pk",
     "source_url": "https://www.yamamotobaits.com/products/fat-shad-shape-worm/",
-    "description": "",
+    "description": "The new 4\" Fat Shad Shape Worm is a larger offering of a Yamamoto staple. Still featuring the same proven Shad Shape Worm design, the 4\" version provides a fatter body construction that makes it perfect for drop shotting, on a jighead or as a scrounger trailer. Its profile and action make it more visible for more bites. Coming 8 per pack, the 4\" Fat Shad Shape Worm is available in 12 awesome Yamamoto colors.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-68F-8-297__61820.1752523988.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fat_shad_shape_worm_8pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-68F-8-9005",
@@ -569,18 +592,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37363_source_1752524476-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:00.636Z"
+    "scraped_at": "2026-04-10T10:43:24.763Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Shad Shape Worm 10pk",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-shad-shape-worm/",
-    "description": "",
+    "description": "New 2025 Color: 3.75\" | 433 - Glowstick The Yamamoto Shad Shape Worm gives anglers yet another reason to fish Yamamoto Baits. Combining the elements of a ribbed Senko and a tiny shad-like bait, these finesse worms are an ideal choice for drop shotting and darter heading, as well as, a range of other applications. Popular in Japan prior to their release in North America, the Yamamoto Shad Shape Worms offer a killer bait fish presentation that won't overpower the situation if the fish get finicky. The Shad Shapped worm comes in a 3\" and 3.75\" model and 10 per bag.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-68L-10-433__30260.1755284878.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_shad_shape_worm_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-68JR-10-031",
@@ -593,18 +617,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33131_source_1738075282.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:02.734Z"
+    "scraped_at": "2026-04-10T10:43:26.035Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Kut Tail Worm",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-kut-tail-worm/",
-    "description": "",
+    "description": "The Kut Tail Worm is a great plastic to rig if you want to simplify finesse fishing. Its unique tail provides a subtle action that pairs well with the slender design. This combination is incredibly hard for even the most finnicky of fish to resist. Available in a wide range of sizes ranging from 4\" all the way to 7.75\", the Kut Tail is an excellent choice for drop-shotting or any other finesse style. Pack Size: 4\" - 20pk 5\" - 10pk 7.75\" - 5pk",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/Kut_Tail_Worm_thumbnail__69178.1748627356.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_kut_tail_worm.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-7-20-021",
@@ -617,18 +642,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32777_source_1738074288-1.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:04.912Z"
+    "scraped_at": "2026-04-10T10:43:27.289Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "6.5″ Sensei Worm 10pk",
     "source_url": "https://www.yamamotobaits.com/products/6-5-sensei-worm/",
-    "description": "",
+    "description": "From the creators of the most successful soft plastic worm of all time comes the ultimate bait for finesse fishing applications. The all-new Sensei worm from Yamamoto Baits is a straight tail finesse worm measuring 6.5” in length. The Sensei worm features a custom-tailored soft plastic formula that leaves the worm neutrally buoyant in the water. This allows for an incredibly lifelike presentation when rigged on a drop shot, a neko rig, or your preferred rigging method of choice. The balance between the head of the worm and the subtle bulb of the tail allows the Sensei worm to have a wide, but slow shimmy when rigged weightless on a wacky rig. Whether you choose to fish it weightless in the shallows or on a shaky head out deep the Sensei worm is sure to be any anglers preferred tool when looking to outwit wily bass. Available in 12 fish catching colors. 10 Per pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/02/sensei-worm-green-pumpkin__65095.1710521420.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_6_5__sensei_worm_10pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-SENSEI65-10-297",
@@ -641,18 +667,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2024/02/10240_source_1710522430.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:07.068Z"
+    "scraped_at": "2026-04-10T10:43:28.557Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Oki Worm 6pk",
     "source_url": "https://www.yamamotobaits.com/products/oki-worm/",
-    "description": "",
+    "description": "New 2025 Colors: 425 - OG Junebug & 424 - Redbug Due to the overwhelming requests from our professional anglers as well as our dedicated Yamamoto customers, we are very excited to introduce the brand-new Oki worm. “Oki” means long sword in Japanese, and that is exactly what this worm will remind you of – a long weapon used to put more bass in your boat. The 10” Oki is a straight-tail worm that is formulated using our popular Mega Floater Formula, which ensures that the Oki will float vertically and be more visible as well as have more action when presented on a standup jig head. 6 Per Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/Oki_Worm__59625.1755526426.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_oki_worm_6pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-OKI-06-301",
@@ -665,18 +692,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/9408_source_1724093435.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:10.212Z"
+    "scraped_at": "2026-04-10T10:43:29.786Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Ichi Worm 6pk",
     "source_url": "https://www.yamamotobaits.com/products/ichi-worm/",
-    "description": "",
+    "description": "New 2025 Colors: 424 - Redbug & 425 - OG Junebug As with most things, all big worms are not created equally. Oftentimes, the details hidden in the design and formula are the true difference maker. In the case of the all-new Ichi Worm, the design paired with the formula sets this big worm apart from its competitors. By utilizing the ribbed body much akin to our popular Slinko, the Ichi Worm offers a bulky profile that displaces water and releases bubbles. Despite the bulk, this design doesn’t hinder hookups as it allows for maximum hook penetration. The combination of the ribbon tail, bulky ringed body, & our Mega Floater Formula ensures that the Ichi stands up and moves with ease, even with the slowest movement or lightest weights. Available in 16 colors, the 10” Ichi worm has incredible action and appeals to the quality of bass that you tell stories about for years to come. 6 Per pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/Ichi_Worm__04468.1755526640.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_ichi_worm_6pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-ICHI-06-301",
@@ -689,18 +717,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/9393_source_1689092940.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:12.347Z"
+    "scraped_at": "2026-04-10T10:43:31.016Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Megastrike Fish Attractant",
     "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
-    "description": "",
+    "description": "The MegaStrike Fish Attractant is comprised of the proper balance of Amino Acids and Proteins to make the fish strike, hold onto, and consume the product Extra long-lasting gel No mess tube Tube Size: 1 oz",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-39-MEGA",
@@ -713,18 +742,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:13.514Z"
+    "scraped_at": "2026-04-10T10:43:32.248Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Slinko Floater",
     "source_url": "https://www.yamamotobaits.com/products/5-5-slinko-floater/",
-    "description": "",
+    "description": "The 3.25\" Slinko from Yamamoto is a bite-sized version of the original 5.5\" Slinko. Built using the same Mega Floater Formula that makes its bigger predecessor so unique, the 3.25\" Slinko produces in multiples applications, ranging from Ned rigs to Carolina rigs. The 3.25\" Slinko is available in 10 winning colors and comes 8 per pack. The 5.5” Slinko is unlike anything in our product line. First, the ribbed shape body allows for bulk while maintaining the classic Senko profile. The ribs not only make for great hooksets, they put off bubbles to give a more lifelike presentation. The most important aspect of the Slinko is its construction from our new Mega Floater Formula. It stands up on a jighead, dances vertically on Neko rig, and floats on a Carolina Rig. Although new, it has the unmatched action that you would expect to get only from Yamamoto Baits! 7 Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/slinko-918__19802.1669909792.1280.1280.png",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_slinko_floater.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-SLNKO325-8-021",
@@ -747,18 +777,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/36349_source_1749845207-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:15.237Z"
+    "scraped_at": "2026-04-10T10:43:33.489Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ Shad Shape Floater 8pk",
     "source_url": "https://www.yamamotobaits.com/products/5-shad-shape-floater/",
-    "description": "",
+    "description": "Utilizing the shape of the Shad Shape Worm, but pairing with our new “Mega Floater Formula”, we are really excited about the new 5” Shad Shape Worm! This new version floats, which makes it absolute MONEY on a drop shot when you want a bigger profile bait. It is also incredible on a scrounger head! The profile and action make it an awesome baitfish imitator that will fool fish no matter how clear the water or how you rig it.. Largemouth, Smallmouth and Spots will all be suckers for the 5” Shad Shape floater! 8 Per Bag",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/5shadshapefloater__79054.1659372546.1280.1280.png",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__shad_shape_floater_8pk.jpg",
-    "category": "softbait",
-    "water_column": "bottom",
-    "action": "crawling",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "worm",
     "variants": [
       {
         "sku": "YAM-68M-08-031",
@@ -771,18 +802,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/7810_source_1659039440.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:17.364Z"
+    "scraped_at": "2026-04-10T10:43:34.738Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "3.5″ Shinobi Grub 8pk",
     "source_url": "https://www.yamamotobaits.com/products/3-5-shinobi-grub/",
-    "description": "",
+    "description": "The new Yamamoto Shinobi Grub is an all-around tool for serious anglers. The 3.5\" double tail kicking grub catches fish on a variety of different rigs. The Shinobi can be used as a trailer on a jig, chatterbait, buzzbait, or spinnerbait. It is also deadly rigged independently such as on a Texas rig, jig head, swing head or Carolina Rig. Available in 8 proven Yamamoto colors, the Shinobi comes 8 per pack. The only wrong way to fish it is not to fish it.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-SHINOBI35-8-700__60283.1756499094.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3_5__shinobi_grub_8pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-SHINOBI35-8-297",
@@ -795,18 +827,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37028_source_1756499141-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:20.468Z"
+    "scraped_at": "2026-04-10T10:43:36.238Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Hula Grub Bundle – 50pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/hula-grub-bundle-50pc-assortment/",
-    "description": "",
+    "description": "Packed with five bags of 5” Double Tail Hula Grubs, this grab bag delivers the ultimate in offshore soft plastic versatility. A go-to bait for decades, the Hula Grub is known for its unique design that hugs the bottom while producing irresistible action. Whether you’re fishing ledges, points, or rock piles, this bundle gives you 50 chances to hook into something big. *Kits are subject to change based on availability refer to chart below for the most up to date offering 10/pc 5\" Double Tail Hula Grub - 021 Black with Large Blue Flake 10/pc 5\" Double Tail Hula Grub - 297 Green Pumpkin with Large Black Flake 10/pc 5\" Double Tail Hula Grub - 9003 Fire Craw 10/pc 5\" Double Tail Hula Grub - 301 Green Pumpkin with Large Green & Purple Flake 10/pc 5\" Double Tail Hula Grub - 208 Watermelon with Black & Red Flake",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/4bf56035-fd3f-4d25-9123-9e29a0760462__27868.1746827020.1280.1280-1.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_hula_grub_bundle___50pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-HULK1",
@@ -819,18 +852,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/4bf56035-fd3f-4d25-9123-9e29a0760462__27868.1746827020.1280.1280-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:23.545Z"
+    "scraped_at": "2026-04-10T10:43:37.464Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Yamatanuki",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-yamatanuki/",
-    "description": "",
+    "description": "New 2025 Color: 2.5\" | 433 - Glowstick The Yamatanuki, a popular Japanese Yamamoto bait now available in the US, revolutionized the \"heavy\" soft plastic lure trend. The Yamatanuki features a custom formula for weightless fishing, offering excellent casting distance and fast fall. Perfect for flipping, casting, and dragging, it's also effective with forward-facing sonar. Available in 8 pro-chosen colors, it’s a versatile addition to any angler's toolkit. Offered in 3 sizes: 4.25\" (6 pack), 3.5\" (8 pack), and 2.5\" (10 pack).",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/8031_source_1676574305__24577.1738075311.1280.1280.png",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_yamatanuki.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-NUKI35-08-305",
@@ -843,18 +877,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33249_source_1738075336-960x291.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:26.555Z"
+    "scraped_at": "2026-04-10T10:43:38.701Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Double Tail Hula Grub 10pk",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-double-tail-hula-grub/",
-    "description": "",
+    "description": "It is impossible to talk about Yamamoto baits without talking about the Hula Grub. The bait that started it all for us. The Hula Grub is a golden standard for offshore fishing with a soft plastic bait. Thanks to its unique shape, this plastic stays on the bottom while providing a ton of action. Available in 2.5\", 4\", and 5\" offerings and comes 10 per pack the Hula Grub is a timeless classic that will always have a place in an experienced angler's tacklebox.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/6865_source_1638479301__53704.1738075201.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_double_tail_hula_grub_10pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-97-10-031",
@@ -867,18 +902,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33001_source_1738075227.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:28.669Z"
+    "scraped_at": "2026-04-10T10:43:39.969Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Double Tail Grub 20pk",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-double-tail-grub/",
-    "description": "",
+    "description": "The Double Tail Grub knows how to make a splash. Available in both 4\" and 5\" and come 20 per pack, the Double Tail Grub offers a simple, timeless profile that that bass seem to lock in on. The Double Tail Grub excels as a jig trailer where it's shape and size appeal to crawfish eaters.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/6860_source_1638479294__30564.1738074362.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_double_tail_grub_20pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-15-20-021",
@@ -891,18 +927,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32843_source_1738074370.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:30.873Z"
+    "scraped_at": "2026-04-10T10:43:41.219Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Single Tail Grub 20pk",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-single-tail-grub/",
-    "description": "",
+    "description": "The Single Tail Grub is a Yamamoto staple. Available in 4\" and 5\", the Single Tail Grub covers the gamut of potential applications. Whether you fish it alone or as a trailer, this plastic has a proven record of success. Smaller sizes provide the subtleness that finnicky fish desire, while the larger sizes can really beef up a presentation when the time is right. A versatile angler is a good angler, and nothing is more versatile than the Single Tail Grub. 20 Per Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/6801_source_1638479279__70297.1738074318.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_single_tail_grub_20pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-40-20-031",
@@ -915,18 +952,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32817_source_1738074339.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:32.965Z"
+    "scraped_at": "2026-04-10T10:43:42.456Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Megastrike Fish Attractant",
     "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
-    "description": "",
+    "description": "The MegaStrike Fish Attractant is comprised of the proper balance of Amino Acids and Proteins to make the fish strike, hold onto, and consume the product Extra long-lasting gel No mess tube Tube Size: 1 oz",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Subsurface (0–0.5m)",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-39-MEGA",
@@ -939,18 +977,344 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:34.128Z"
+    "scraped_at": "2026-04-10T10:43:43.673Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Yama Bug 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/yama-bug/",
+    "description": "The Yama Bug from Yamamoto was built due to demand from our pros and incorporates their input into what would make the ultimate creature bait. The Yama Bug is perfect for flipping and pitching, but it can get the job done as a jig trailer and in other scenarios as well. The Yama Bug’s reverse facing legs provide a quivering action that drives bass crazy, and its custom Yamamoto plastic formula provides the rest of the magic. Coming 6 per clamshell pack, the Yama Bug is available in 10 fish-catching colors.",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-YAMABUG-6-301__85649.1752608332.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_yama_bug_6pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-YAMABUG-6-297",
+        "color": "297 - Green Pumpkin",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37507_source_1752608587-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:46.069Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Uni",
+    "source_url": "https://www.yamamotobaits.com/products/uni/",
+    "description": "The Yamamoto Uni is designed to be irresistible to bass. A TPE urchin-style bait, the Uni features bulbed appendages that catch water and shimmy with each twitch of the rod tip, falling with a very lifelike quiver. The custom Yamamoto TPE formula allows for a flexible yet durable bait that delivers the perfect buoyancy and action, while holding up fish after fish. If you're looking for a profile and action that fish have absolutely never seen before the Uni is your ticket to triggering more bites. 1 per pack.",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-UNI-297__68528.1752066468.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_uni.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": "17.997.999.997.99",
+        "image": ""
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:47.285Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Yamacraw",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-yamacraw/",
+    "description": "Released in December 2022, the Yama Craw quickly became a favorite for its incredible action and Mega Floater Formula. This bait maintains the perfect balance of body thickness to prevent splitting on jig keepers, while still accommodating a Texas rig and larger hooks. The action is unmatched for its size, and the Yamamoto quality remains top-notch. Available in 19 colors, the 3\" Yama Craw comes in 8 packs and the 4\" comes in 6 packs.",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/9437_source_1689096021__71393.1738075381.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_yamacraw.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-CRAW3-08-952",
+        "color": "952 - BAMA BUG",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33361_source_1738075423.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:49.506Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Flappin’ Hog",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-flappin-hog/",
+    "description": "New 2025 Color: 991 - 021/297 Green Pumpkin/Black Blue Laminate The Flappin' Hog was built for pigs. As versatile as a bait can be, the Flappin Hog is a like a Swiss Army knife in your tackle box. Texas Rig it. Carolina Rig it. Use it as a jig trailer. No matter how you rig it, the bulky body and 3 different types of appendages will put off vibes that bass can't resist. Available in both a 3.75\" size as well as 4.5\", the Flappin' Hog will bring home the bacon. 3.75\" - 7 Per pack 4.5\" - 5 Per pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-FH-07-991__70413.1755287881.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_flappin__hog.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-FH-07-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32758_source_1738074215.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:51.759Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Sanshouo 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/sanshouo/",
+    "description": "Due to popular demand from anglers across the country, the Sanshouo is back and ready to be rigged on your favorite texas rig, jig or carolina rig. Fashioned to resemble a waterdog, sculpin, goby, or a bluegill, the Sanshouo has a distinct profile that fish don’t see all of the time. Its unique shape allows it to work equally whether you are on Lake Erie fishing for trophy smallmouth, at Okeechobee punching heavy mats, or sight fishing and flipping in California. The Sanshouo’s wide, flat tail allows it to glide back-and-forth with each twitch of the rod tip, creating a bait that triggers strikes whether fished deep or shallow. If you are looking for a go-to creature bait that fish have rarely seen, be sure to grab a bag of Sanshouos while they last! 6 Per pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/11/929e1aa1-04bf-40a5-9b0d-285575f365b5__11557.1744925807.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_sanshouo_6pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-133-06-955",
+        "color": "955 - Watermelon Black w/ Red/Light Watermelon w/ Black & Red",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2024/11/35923_source_1744925810.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:53.894Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "2.5″ Covert Craw Floater 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/2-5-covert-craw-floater/",
+    "description": "The Yamamoto Covert Craw is just as sneaky as it sounds. Based on a popular Japanese design, the 2.5'' Covert Craw can be used on a Ned rig or as a jig trailer. Its Mega Floater Formula gives it both versatility and appeal, the buoyant claws are complimented by 6 lifelike legs. Available in 8 proven colors and 10 per pack, the Covert Craw is sure to be your new favorite finesse craw offering.",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/07/YAM-COVERT25-10-021_H001.png__54940.1720455318.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_2_5__covert_craw_floater_10pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-COVERT25-10-021",
+        "color": "021 - Black with Large Blue Flakes",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2024/07/10438_source_1720455644.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:56.086Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "3.5″ Nuki Bug 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/3-5-nuki-bug/",
+    "description": "The Yamatanuki just got a little bugged out. Yamamoto’s Nuki Bug is everything anglers love about the Yamatanuki, but with the addition of 2 flanged claws and 6 legs. The 3.5’’ Nuki Bug falls like the original but has a subtle swimming action, even when rigged weightless on an EWG Hook. Available in 8 gorgeous colors with 6 per pack.",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/07/YAM-NUKIBUG35-6-297_H001.png__11836.1720210599.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3_5__nuki_bug_6pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-NUKIBUG35-6-297",
+        "color": "297 - Green Pumpkin with Black Flakes",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 8.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2024/07/10401_source_1720210566.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:57.923Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Megastrike Fish Attractant",
+    "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
+    "description": "The MegaStrike Fish Attractant is comprised of the proper balance of Amino Acids and Proteins to make the fish strike, hold onto, and consume the product Extra long-lasting gel No mess tube Tube Size: 1 oz",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-39-MEGA",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 16.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:43:59.172Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "3.75″ Cowboy 7pk",
+    "source_url": "https://www.yamamotobaits.com/products/3-75-cowboy/",
+    "description": "This Cowboy is well-armed. This creature bait pairs the bulky body of the 4.5” Flappin’ Hawg and the swimming tail kick of the iconic DT Grub to create a well-rounded plastic that shines in any scenario. If you need to be shallow, the Cowboy excels as a stand-alone Texas Rig as well as on the back of a jig. Conversely, the Cowboy will do just as much damage out away from the bank as part of a Carolina Rig or on a wobble-head jig. Bulky and loud, the Cowboy is ready for a showdown with big bass! 7 Per Pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/cowboy-bait__45587.1669910010.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3_75__cowboy_7pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-136-07-021",
+        "color": "021 - Black With Large Blue Flake",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "7",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7310_source_1638479428.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:44:01.827Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "PsychoDad 5pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-psychodad/",
+    "description": "Things get crazy when the Psycho Dad comes out. Featuring a built-in rattle chamber and large claws that act like swimbait tails, the Psycho Dad is the center of attention anytime it finds water. This 3.75” crawfish imitator was built for punching through cover, but it can do a whole lot more. Try it out on a Carolina Rig, standup head, or a jig trailer – you won’t be disappointed! 5 Per Pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/psychodad-main02__76282.1638479383.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_psychodad_5pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-3K-05-208",
+        "color": "208 - Watermelon Red",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "5",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7219_source_1638479385.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:44:04.914Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "4″ Kreature 7pk",
+    "source_url": "https://www.yamamotobaits.com/products/4-yamamoto-kreature/",
+    "description": "The Kreature is sure to cause a stir. Featuring swimming “wings” and a free-flowing skirt of tentacles, the Kreature is impossible to ignore. 4” in size but much larger in attitude, the Kreature produces results as both a trailer and a standalone plastic. Try it on a Texas Rig in cover, or back off the bank and put it on a Carolina Rig. Either way, the fish are going to find it. 7 Per Pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/yamamoto-kreature__72982.1669909936.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__kreature_7pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-5-07-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "7",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6710_source_1638479244.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:44:07.309Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "3.75″ Fat Baby Craw 7pk",
+    "source_url": "https://www.yamamotobaits.com/products/3-75-fat-baby-craw/",
+    "description": "The Fat Baby Craw is a phenomenal finesse trailer. Its round design keeps it from sticking to cover while the bulk of the plastic ensures that it stays on the hook regardless of what it encounters. This 3.75” trailer has a nice, subtle movement that comes in handy in finesse applications. The Baby Craw is a slightly slimmed-down version of the Fat Baby Craw. 3.75”. It is a more-finesse style trailer for clearer water, smaller jigs, lighter line applications and wary bass. Both craw trailers are very lifelike in size and shape. 7 Per Pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/3fs-main__29401.1638479239.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3_75__fat_baby_craw_7pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-3FS-07-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "7",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6703_source_1638479240.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:44:09.439Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "4″ Fat Ika 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/4-fat-ika/",
+    "description": "Don’t let looks deceive you – the Ika isn’t your run-of-the-mill tube bait. Featuring a grub-style body and a tube-style skirt, the Ika can offer tons of rigging possibilities to fit any scenario. Pitch or flip a Fat Ika and experience bite-getting power that they harness. The 4.5” version shines in finesse situations, thanks to its subtle motion. Regardless of size or application, the common theme is that an Ika gets bit! 10 Per Pack",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/ikas-category__27667.1638479235.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__fat_ika_10pk.jpg",
+    "system": "soft",
+    "type_tips": "weightless_soft_bait",
+    "water_column": "Bottom",
+    "action": "crawl_creature",
+    "variants": [
+      {
+        "sku": "YAM-92F-10-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 8.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6690_source_1638479237.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:44:11.576Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Shibo Swimmer",
     "source_url": "https://www.yamamotobaits.com/products/shibo-swimmer/",
-    "description": "",
+    "description": "The Yamamoto Shibo Swimmer was built to outperform traditional paddle tail swimbaits, delivering a harder thump and more water displacement for its size than any bait in its class. The custom Yamamoto soft plastic formula provides the ideal combination of a powerful tail kick, natural swimming action, and pronounced head wobble that bass can feel from a distance. The Shibo Swimmer truly separates itself with its versatility, consistently producing across a wide range of conditions. In colder water or during post-front conditions, it maintains a strong swimming action even on a slow, steady retrieve—when many swimbaits go dead. At moderate to fast retrieve speeds, its pronounced vibration makes it deadly in more stained water or when looking to trigger a reaction strike. Whether rigged on the back of a bladed jig, an Alabama rig, or a traditional ballhead jighead, the Shibo Swimmer comes alive, loading the rod tip with a deep, heavy thump that feels more like a hard bait than a soft plastic. If you’re looking for a swimbait that moves more than most, look no further than the Yamamoto Shibo Swimmer. 2.7”-8 pk | 3.2”-7pk | 3.7”-6pk",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2026/01/YAM-SHIBO37-6-992__20285.1767808975.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_shibo_swimmer.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-SHIBO27-8-9005",
@@ -983,18 +1347,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2026/01/38354_source_1767809355-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:37.985Z"
+    "scraped_at": "2026-04-10T10:44:12.978Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Hinge Minnow",
     "source_url": "https://www.yamamotobaits.com/products/hinge-minnow/",
-    "description": "",
+    "description": "The Yamamoto Hinge Minnow is exactly what you expect from the most premium soft bait brand on earth. THE ultimate rolling minnow. A jointed, or “hinged” tail section allows the Hinge Minnow to roll, even on a straight retrieve which makes it easy for beginners and adds a constant fleeing action any time the bait is moving. Flanges run the length of the shoulders of the Hinge Minnow help slow the bait down, while its laminated top and bottom sections with independent weighting creates the perfect rate of roll. Available in 3.5\", 5\", 6\" and even 7\" sizes, the Hinge Minnow is a must-have in your arsenal and can be found in 10 winning Yamamoto colors. Keep rolling. 3.5\" - 7pk 5\" - 6pk 6\" - 5pk 7\" - 4pk",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/HINGE_Minnow-web-2__96167.1758546691.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_hinge_minnow.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-HINGMIN35-7-9005",
@@ -1037,18 +1402,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/36673_source_1764888492-960x960.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:39.734Z"
+    "scraped_at": "2026-04-10T10:44:14.192Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Zako Swimbait Kit – 84pc Assortment",
     "source_url": "https://www.yamamotobaits.com/products/zako-swimbait-kit/",
-    "description": "",
+    "description": "The Zako Swimbait shines as a vibrating jig trailer but is a deadly combo on any bait that you want to swim. We have compiled some of the top color options in the 3\" and 4\" and married them together to create this kit. The Zako Swimbait kit comes loaded with 84 zako swimbaits and picked to ensure that you have a Zako for any condition you find in front of you. *items are subject to change based on availability, check graph below for the most up to date product mix 6/pc Zako Swimbait 4\" - Black with Blue Flake YAM-134-06-021 6/pc Zako Swimbait 4\" - Cream White YAM-134-06-036 6/pc Zako Swimbait 4\" - Fading Watermelon with Large Black Flake YAM-134-06-194J 6/pc Zako Swimbait 4\" - Tilapia Magic YAM-134-06-414 6/pc Zako Swimbait 4\" - Blue Craw YAM-134-06-700 6/pc Zako Swimbait 4\" - Green Gizzard YAM-134-06-9008 8/pc Zako Swimbait 3\" - Rainbow Shad YAM-134JR-08-992 8/pc Zako Swimbait 3\" - Black With Blue Flake YAM-134JR-08-021 8/pc Zako Swimbait 3\" - Watermelon with Copper/Orange with Red Laminate YAM-134JR-08-956 8/pc Zako Swimbait 3\" - Disco Green YAM-134JR-08-375 8/pc Zako Swimbait 3\" - Sexy Shad YAM-134JR-08-9005 8/pc Zako Swimbait 3\" - Pro Blue YAM-134JR-08-9004",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/04/540417c6-05bd-4fc5-aab3-1045331e7b06__90892.1745617415.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_zako_swimbait_kit___84pc_assortment.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "BAITS-ZAKK1",
@@ -1061,18 +1427,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/04/540417c6-05bd-4fc5-aab3-1045331e7b06__90892.1745617415.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:41.850Z"
+    "scraped_at": "2026-04-10T10:44:15.403Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Zako Slim 6pk",
     "source_url": "https://www.yamamotobaits.com/products/zako-slim/",
-    "description": "",
+    "description": "The 3.5” Zako Slim from Yamamoto Baits is the perfect companion for smaller chatterbaits. Designed by Brett Hite, this updated version of the original Zako features a more sleek, compact profile that delivers a subtle presentation without sacrificing action. The tapered body and responsive tail create a lifelike movement that perfectly mirrors the action of any bladed jig, drawing in bass with an irresistible side to side quiver. Ideal for finesse fishing or when a smaller profile is needed, the Zako Slim gives you the versatility and performance to tackle tough conditions and bring in more bites. 6 Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/YAM-134S-6-9003__86197.1742411691.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_zako_slim_6pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-134S-6-021",
@@ -1085,18 +1452,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/34753_source_1742411693.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:43.096Z"
+    "scraped_at": "2026-04-10T10:44:16.609Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Scope Shad",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-scope-shad/",
-    "description": "",
+    "description": "Building off the success of last year’s Scope Shad, Yamamoto has added both a 3.5’ and 4’’ offering for anglers wanting to upsize. Made from Yamamoto’s Mega Floater Formula, the Scope Shad is a forward-facing sonar weapon that can deliver in other finesse applications as well such as a trailer and on a dropshot. Available in 12 existing colors, as well as 5 brand new Stealth Series colors, the 3.5’’ and 4’’ offerings are proof that you can never have too much of a good thing. The 3\" version is 10 per pack, 3.5’’ version is 8 per pack and the 4’’ version is 6 per pack.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/d20207c5-08df-4199-baf0-be9d216f2065__42777.1738957194.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_scope_shad.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-SSHAD3-10-305",
@@ -1109,18 +1477,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33549_source_1738079803.png"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:45.246Z"
+    "scraped_at": "2026-04-10T10:44:17.821Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Swimming Senko",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-swimming-senko/",
-    "description": "",
+    "description": "A twist on a classic - the Swimming Senko is everything that's great about the legendary Senko, but with a little extra magic. Thanks to the tail, the Swimming Senko presents a hard-to-resist horizontal action that's more than enough to tempt a lunker to bite. The Swimming Senko marries the natural profile and subtleness of the Senko with the vibration and movement of a paddletail swimbait. The result is the perfect amount of subtle shimmy, and the perfect amount of kick. Available in 4 sizes ranging from 3.5\" to 5.5\" long, the Swimming Senko is a favorite of anglers everywhere. 3.5\"- 7 Pack 4\"- 10 Pack 5\"- 10 Pack 5.5\"- 7 Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/Swimming_Senko_TN__89960.1756498414.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_swimming_senko.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-31-10-020",
@@ -1133,18 +1502,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33405_source_1738076377-1.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:46.411Z"
+    "scraped_at": "2026-04-10T10:44:19.044Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Shad Shape Swimmer 8pk",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-shad-shape-swimmer/",
-    "description": "",
+    "description": "Finesse is the name of the game in swimbaits right now, and the Shad Shape Swimmer provides the perfect action and profile that anglers (and fish) are craving. Available in 3 sizes (3.2'', 3.7'', 4.2'') and 17 colors, 5 of which are brand new Stealth Series colors, the Shad Shape Swimmer is a must-have for any serious swimbait fisherman. High quality materials and incredible color options, both of which Yamamoto is known for, team up with an awesome design to offer you a swim bait that produces as well as it looks. 8 Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/10437_source_1720453317__06179.1738074589.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_shad_shape_swimmer_8pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-SSSWIM32-8-297",
@@ -1157,18 +1527,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32949_source_1738074604.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:48.508Z"
+    "scraped_at": "2026-04-10T10:44:20.265Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Zako Swimbait",
     "source_url": "https://www.yamamotobaits.com/products/yamamoto-zako-swimbait/",
-    "description": "",
+    "description": "New 2025 Color: 4\" | 9025 - Sungill The Zako Swimbait is the number 1 vibrating jig trailer on the market for good reason. Measuring in at 3 inches and 4 inches long, the Zako's segmented design and natural profile makes it the perfect match for your favorite vibrating jig. But don't limit it to just that application, it can be used a spinnerbait trailer and many other ways as well. Tie one on and find out for yourself. 3\"- 8 Pack 4\"- 6 Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-134-06-9025__33584.1755287085.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_zako_swimbait.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-134-06-036",
@@ -1181,18 +1552,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32861_source_1738074465.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:50.589Z"
+    "scraped_at": "2026-04-10T10:44:21.490Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "4″ Zako Swimbait Bulk Packs",
     "source_url": "https://www.yamamotobaits.com/products/4-zako-swimbait-bulk-packs/",
-    "description": "",
+    "description": "The Zako Swimbait is the number 1 vibrating jig trailer on the market for good reason. Measuring in at 4 inches long, the Zako’s segmented design and natural profile makes it the perfect match for your favorite vibrating jig. But don’t limit it to just that application, it can be used a spinnerbait trailer and many other ways as well. Tie one on and find out for yourself. Available in 50 or 100 packs.",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/05/zako-main__63181.1638479421.1280.1280__50669.1716478212.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__zako_swimbait_bulk_packs.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-134-BP-99-50",
@@ -1205,18 +1577,19 @@
         "image": ""
       }
     ],
-    "scraped_at": "2026-04-10T10:19:52.662Z"
+    "scraped_at": "2026-04-10T10:44:22.697Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "Megastrike Fish Attractant",
     "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
-    "description": "",
+    "description": "The MegaStrike Fish Attractant is comprised of the proper balance of Amino Acids and Proteins to make the fish strike, hold onto, and consume the product Extra long-lasting gel No mess tube Tube Size: 1 oz",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-39-MEGA",
@@ -1229,18 +1602,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:53.801Z"
+    "scraped_at": "2026-04-10T10:44:23.893Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "4″ Paddle Tail Zako 5pk",
     "source_url": "https://www.yamamotobaits.com/products/4-yamamoto-paddle-tail-zako/",
-    "description": "",
+    "description": "The Paddle Tail Zako is everything you know and love about the Zako swimbait, but with a little more action! Featuring the same durable body as the traditional Zako, the Paddle Tail Zako implements a rectangular tail to give it that hard-kicking swimming motion anglers desire. The Paddle Tail Zako shines brightest on the back of a swim jig, but it can be used as a trailer for anything an angler may desire. 5 per Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/pt-zako-leadin__30517.1638479437.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__paddle_tail_zako_5pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-134P-05-021",
@@ -1253,18 +1627,19 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7346_source_1638479438.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:55.958Z"
+    "scraped_at": "2026-04-10T10:44:25.094Z"
   },
   {
     "brand": "Gary Yamamoto",
     "name": "5″ D-Shad 7pk",
     "source_url": "https://www.yamamotobaits.com/products/5-d-shad/",
-    "description": "",
+    "description": "New 2025 Color: 433 - Glowstick The D-Shad is a new twist on an old classic. Heavier than a traditional soft-body jerk bait, the D-Shad allows for aggressive action, while allowing you to fish it more effectively all-throughout the water column. This comes in handy when fish want fast retrieval. When paused, the D-Shad will sink much like a Senko. The D-Shad's heavier tail provides a shimmy that drives fish mad. 7 Per Pack",
     "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/YAM-121-07-433-2__49351.1756499494.1280.1280.jpg",
     "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__d_shad_7pk.jpg",
-    "category": "softbait",
-    "water_column": "subsurface",
-    "action": "swimming",
+    "system": "soft",
+    "type_tips": "swimbait",
+    "water_column": "Variable",
+    "action": "wobble_roll",
     "variants": [
       {
         "sku": "YAM-121-07-208",
@@ -1277,6 +1652,6 @@
         "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7194_source_1638479376.jpg"
       }
     ],
-    "scraped_at": "2026-04-10T10:19:57.724Z"
+    "scraped_at": "2026-04-10T10:44:26.290Z"
   }
 ]

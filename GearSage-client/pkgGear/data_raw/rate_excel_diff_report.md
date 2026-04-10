@@ -1,6 +1,6 @@
 # rate/excel diff report
 
-generated_at: 2026-04-10T10:23:53.102Z
+generated_at: 2026-04-10T10:46:41.447Z
 
 summary: ok=11, diff=5, missing_import=0
 
@@ -138,16 +138,16 @@ summary: ok=11, diff=5, missing_import=0
 ## yamamoto_lure
 #### master
 - status: DIFF
-- rows: import=46, rate=46
+- rows: import=57, rate=57
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
 - header order match: false
 - import-only headers: none
-- rate-only headers: official_link
+- rate-only headers: official_link, Description
 #### soft_lure_detail
 - status: OK
-- rows: import=54, rate=54
+- rows: import=65, rate=65
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
