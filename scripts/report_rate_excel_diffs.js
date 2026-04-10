@@ -21,6 +21,8 @@ const TASKS = [
             targetSheet: 'lure',
             filter: (row) => Number(row.brand_id) === 1,
             rowKey: 'id',
+            ignoreRateOnlyHeaders: ['official_link'],
+            ignoreHeaderOrder: true,
         },
         details: [
             { importSheet: 'hardbait_lure_detail', targetFile: 'hardbait_lure_detail.xlsx', targetSheet: 'hard_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
@@ -36,6 +38,8 @@ const TASKS = [
             targetSheet: 'lure',
             filter: (row) => Number(row.brand_id) === 2,
             rowKey: 'id',
+            ignoreRateOnlyHeaders: ['official_link'],
+            ignoreHeaderOrder: true,
         },
         details: [
             { importSheet: 'hardbait_lure_detail', targetFile: 'hardbait_lure_detail.xlsx', targetSheet: 'hard_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
@@ -54,6 +58,8 @@ const TASKS = [
             targetSheet: 'lure',
             filter: (row) => Number(row.brand_id) === 7,
             rowKey: 'id',
+            ignoreRateOnlyHeaders: ['official_link'],
+            ignoreHeaderOrder: true,
         },
         details: [
             { importSheet: 'hardbait_lure_detail', targetFile: 'hardbait_lure_detail.xlsx', targetSheet: 'hard_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
@@ -70,6 +76,8 @@ const TASKS = [
             targetSheet: 'lure',
             filter: (row) => Number(row.brand_id) === 35,
             rowKey: 'id',
+            ignoreFields: ['model_cn', 'official_link'],
+            ignoreRateOnlyHeaders: ['official_link'],
         },
         details: [
             { importSheet: 'soft_lure_detail', targetFile: 'soft_lure_detail.xlsx', targetSheet: 'soft_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
@@ -86,6 +94,8 @@ const TASKS = [
             targetSheet: 'lure',
             filter: (row) => Number(row.brand_id) === 21,
             rowKey: 'id',
+            ignoreRateOnlyHeaders: ['official_link'],
+            ignoreHeaderOrder: true,
         },
         details: [
             { importSheet: 'soft_lure_detail', targetFile: 'soft_lure_detail.xlsx', targetSheet: 'soft_lure_detail', foreignKey: 'lure_id', rowKey: 'id' },
@@ -269,7 +279,8 @@ function buildMap(rows, keyField) {
     return new Map(rows.map((row) => [normalizeValue(row[keyField]), row]));
 }
 
-function compareRows(importRows, targetRows, rowKey) {
+function compareRows(importRows, targetRows, rowKey, options = {}) {
+    const ignoreFields = new Set(options.ignoreFields || []);
     const importMap = buildMap(importRows, rowKey);
     const targetMap = buildMap(targetRows, rowKey);
 
@@ -287,7 +298,7 @@ function compareRows(importRows, targetRows, rowKey) {
             ...Object.keys(importRows[0] || {}),
             ...Object.keys(targetRows[0] || {}),
         ]),
-    ).filter((field) => field !== rowKey && !IGNORED_FIELDS.has(field));
+    ).filter((field) => field !== rowKey && !IGNORED_FIELDS.has(field) && !ignoreFields.has(field));
     const importHeaderSet = new Set(Object.keys(importRows[0] || {}));
     const targetOnlyHeaders = Object.keys(targetRows[0] || {}).filter(
         (field) => field !== rowKey && !IGNORED_FIELDS.has(field) && !importHeaderSet.has(field),
@@ -348,15 +359,20 @@ function compareRows(importRows, targetRows, rowKey) {
     };
 }
 
-function headerDiff(importRows, targetRows) {
+function headerDiff(importRows, targetRows, options = {}) {
+    const ignoreHeaderFields = new Set(options.ignoreHeaderFields || []);
+    const ignoreRateOnlyHeaders = new Set(options.ignoreRateOnlyHeaders || []);
+    const ignoreHeaderOrder = Boolean(options.ignoreHeaderOrder);
     const importHeaders = Object.keys(importRows[0] || {});
     const targetHeaders = Object.keys(targetRows[0] || {});
+    const filteredImportHeaders = importHeaders.filter((header) => !ignoreHeaderFields.has(header));
+    const filteredTargetHeaders = targetHeaders.filter((header) => !ignoreHeaderFields.has(header));
     return {
-        importHeaders,
-        targetHeaders,
-        sameOrder: JSON.stringify(importHeaders) === JSON.stringify(targetHeaders),
-        importOnly: importHeaders.filter((header) => !targetHeaders.includes(header)),
-        rateOnly: targetHeaders.filter((header) => !importHeaders.includes(header)),
+        importHeaders: filteredImportHeaders,
+        targetHeaders: filteredTargetHeaders,
+        sameOrder: ignoreHeaderOrder || JSON.stringify(filteredImportHeaders) === JSON.stringify(filteredTargetHeaders),
+        importOnly: filteredImportHeaders.filter((header) => !filteredTargetHeaders.includes(header)),
+        rateOnly: filteredTargetHeaders.filter((header) => !filteredImportHeaders.includes(header) && !ignoreRateOnlyHeaders.has(header)),
     };
 }
 
@@ -427,8 +443,8 @@ function main() {
         const importMasterRows = readSheet(importPath, task.master.importSheet);
         const targetMasterRowsAll = readSheet(path.join(RATE_EXCEL_DIR, task.master.targetFile), task.master.targetSheet);
         const targetMasterRows = targetMasterRowsAll.filter(task.master.filter);
-        const masterHeaders = headerDiff(importMasterRows, targetMasterRows);
-        const masterCompare = compareRows(importMasterRows, targetMasterRows, task.master.rowKey);
+        const masterHeaders = headerDiff(importMasterRows, targetMasterRows, task.master);
+        const masterCompare = compareRows(importMasterRows, targetMasterRows, task.master.rowKey, task.master);
         const masterIds = new Set(importMasterRows.map((row) => normalizeValue(row.id)).filter(Boolean));
 
         const sections = [
@@ -440,8 +456,8 @@ function main() {
             const importDetailRows = readSheet(importPath, detail.importSheet);
             const targetDetailRowsAll = readSheet(path.join(RATE_EXCEL_DIR, detail.targetFile), detail.targetSheet);
             const targetDetailRows = targetDetailRowsAll.filter((row) => masterIds.has(normalizeValue(row[detail.foreignKey])));
-            const detailHeaders = headerDiff(importDetailRows, targetDetailRows);
-            const detailCompare = compareRows(importDetailRows, targetDetailRows, detail.rowKey);
+            const detailHeaders = headerDiff(importDetailRows, targetDetailRows, detail);
+            const detailCompare = compareRows(importDetailRows, targetDetailRows, detail.rowKey, detail);
             sections.push(reportBlock(detail.importSheet, detailCompare, detailHeaders));
         }
 

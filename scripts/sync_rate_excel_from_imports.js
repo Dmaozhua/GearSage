@@ -30,7 +30,6 @@ const TASKS = [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'ML' },
-            { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'KL' },
             { sourceFile: 'yamamoto_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'YAM' },
         ],
     },
