@@ -19,6 +19,8 @@ const REQUIRED_FIELDS_BY_HEADER = {
     jigLureDetail: ['id', 'lure_id', 'SKU'],
     lineMaster: ['id', 'brand_id', 'model'],
     lineDetail: ['id', 'line_id', 'SKU'],
+    hookMaster: ['id', 'brand_id', 'model'],
+    hookDetail: ['id', 'hookId', 'sku'],
 };
 
 const TASKS = [
@@ -98,6 +100,22 @@ const TASKS = [
         replacements: [
             { sourceFile: 'shimano_line_import.xlsx', sourceSheet: 'line_detail', matchField: 'line_id', prefix: 'SLN' },
             { sourceFile: 'daiwa_line_import.xlsx', sourceSheet: 'line_detail', matchField: 'line_id', prefix: 'DLN' },
+        ],
+    },
+    {
+        targetFile: 'hook.xlsx',
+        targetSheet: 'hook',
+        headerKey: 'hookMaster',
+        replacements: [
+            { sourceFile: 'gamakatsu_hook_import.xlsx', sourceSheet: 'hook', matchField: 'id', prefix: 'GHK' },
+        ],
+    },
+    {
+        targetFile: 'hook_detail.xlsx',
+        targetSheet: 'hook_detail',
+        headerKey: 'hookDetail',
+        replacements: [
+            { sourceFile: 'gamakatsu_hook_import.xlsx', sourceSheet: 'hook_detail', matchField: 'hookId', prefix: 'GHK' },
         ],
     },
     {

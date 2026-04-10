@@ -127,6 +127,8 @@ const SHEET_NAMES = {
     jigLureDetail: 'jig_lure_detail',
     line: 'line',
     lineDetail: 'line_detail',
+    hook: 'hook',
+    hookDetail: 'hook_detail',
 };
 
 const HEADERS = {
@@ -202,6 +204,14 @@ const HEADERS = {
         'id', 'line_id', 'SKU', 'COLOR', 'LENGTH(m)', 'SIZE NO.', 'MAX STRENGTH(lb)',
         'MAX STRENGTH(kg)', 'AVG STRENGTH(lb)', 'AVG STRENGTH(kg)', 'Market Reference Price',
         'AdminCode', 'created_at', 'updated_at',
+    ],
+    hookMaster: [
+        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'type_tips', 'images', 'created_at', 'updated_at', 'description',
+    ],
+    hookDetail: [
+        'id', 'hookId', 'brand', 'sku', 'type', 'subType', 'gapWidth', 'coating',
+        'size', 'quantityPerPack', 'price', 'status', 'description',
     ],
 };
 

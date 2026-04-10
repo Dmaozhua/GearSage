@@ -1,10 +1,46 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 const OUTPUT_DIR = path.join(__dirname, '../GearSage-client/pkgGear/data_raw');
 const NORMALIZED_PATH = path.join(OUTPUT_DIR, 'gamakatsu_hook_normalized.json');
 const EXCEL_PATH = path.join(OUTPUT_DIR, 'gamakatsu_hook_import.xlsx');
+const IMAGE_DIR = path.join(__dirname, '../GearSage-client/pkgGear/images/hook/GAMAKATSU');
+const FALLBACK_IMAGE_BY_SLUG = {
+  'antenna-hook': 'https://gamakatsu.com/wp-content/uploads/2026/03/4812-Antenna-Hook-Main.webp',
+  'super-tuned-drop-shot': 'https://gamakatsu.com/wp-content/uploads/2025/12/4722-Super-Tuned-Dropshot-Main-2.webp',
+  'catfish-circle-weedless': 'https://gamakatsu.com/wp-content/uploads/2023/10/4624-CatfishCircleWeedlessAngled-002-920x920-1.jpg',
+  stiletto: 'https://gamakatsu.com/wp-content/uploads/2023/05/4534-NSBStilettoMain.jpg',
+  sticker: 'https://gamakatsu.com/wp-content/uploads/2023/05/4544-NSBStickerMain.jpg',
+  'trout-stinger': 'https://gamakatsu.com/wp-content/uploads/2022/11/Trout-Stinger-Main.jpg',
+  'spin-bait': 'https://gamakatsu.com/wp-content/uploads/2020/06/3892-SpinBaitMain.jpg',
+  'aberdeen-hooks': 'https://gamakatsu.com/wp-content/uploads/2018/05/091-BronzeAberdeenMain.jpg',
+  'walleye-wide-gap': 'https://gamakatsu.com/wp-content/uploads/2017/04/2024-BKWalleyeWideGapMain.jpg',
+  'wicked-wacky': 'https://gamakatsu.com/wp-content/uploads/2017/04/3064-BKWickedWackyMain.jpg',
+  'tw-hooks': 'https://gamakatsu.com/wp-content/uploads/2017/04/2621-BRTWHookMain.jpg',
+  'trailer-hook-sp': 'https://gamakatsu.com/wp-content/uploads/2017/04/2844-BKTrailerSPMain.jpg',
+  'split-shotdrop-shot-weedless': 'https://gamakatsu.com/wp-content/uploads/2017/04/509-BKSplitDropShotWeedlessMain.jpg',
+  'split-shotdrop-shot-hooks': 'https://gamakatsu.com/wp-content/uploads/2017/04/503and504SplitShotDropMain.jpg',
+  'spinner-bait-hooks': 'https://gamakatsu.com/wp-content/uploads/2017/04/550-NickelSpinnerBaitValuePakMain.jpg',
+  'single-egg-hooks-barb-on-shank': 'https://gamakatsu.com/wp-content/uploads/2017/04/042and043-RedBrzSingleEggMain-1.jpg',
+  'shiner-hooks-upturned-eye': 'https://gamakatsu.com/wp-content/uploads/2017/04/524-BKShinerUEMain.jpg',
+  'shiner-hooks-straight-eye': 'https://gamakatsu.com/wp-content/uploads/2017/04/514-BKShinerSEMain.jpg',
+  'micro-v-gap': 'https://gamakatsu.com/wp-content/uploads/2017/04/3424-BKMicroVGapMain.jpg',
+  'micro-wide-gap': 'https://gamakatsu.com/wp-content/uploads/2017/04/3434-BKMicroWideGapMain.jpg',
+  'micro-perfect-gap': 'https://gamakatsu.com/wp-content/uploads/2017/04/3444-BKMicroPerfectGapMain.jpg',
+  'g-stinger': 'https://gamakatsu.com/wp-content/uploads/2017/04/2194-BKGStingerMain.jpg',
+  'g-carp-super-hook': 'https://gamakatsu.com/wp-content/uploads/2017/04/3512-GCarpA1SuperMain.jpg',
+  'g-carp-hump-back': 'https://gamakatsu.com/wp-content/uploads/2017/04/3482-GCarpHumpBackMain.jpg',
+  'g-carp-specialist-r': 'https://gamakatsu.com/wp-content/uploads/2017/04/3492-GCarpSpecialistRMain.jpg',
+  'g-carp-specialist-rx': 'https://gamakatsu.com/wp-content/uploads/2017/04/3502-GCarpSpecialistRXMain.jpg',
+  'finesse-wide-gap-weedless': 'https://gamakatsu.com/wp-content/uploads/2017/04/2309-BKFinesseWGWeedlessMain.jpg',
+  'finesse-wide-gap': 'https://gamakatsu.com/wp-content/uploads/2017/04/2304-BKFinesseWidGapMain.jpg',
+  'crappie-hooks-assortment': 'https://gamakatsu.com/wp-content/uploads/2017/04/026-CrappiePanAssortmentMain.jpg',
+  'catfish-hook-assortment': 'https://gamakatsu.com/wp-content/uploads/2017/04/258-CatfishAssortmentMain.jpg',
+  'big-cat-circle': 'https://gamakatsu.com/wp-content/uploads/2017/04/3564-BKBigCatCircleMain.jpg',
+};
 
 const BRAND_ID = 19;
 const BRAND_NAME = 'Gamakatsu';
@@ -586,18 +622,186 @@ function buildWorkbook(normalizedData) {
   return { wb, masterRows, detailRows };
 }
 
-function main() {
+function slugify(input) {
+  return String(input || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
+function extFromUrl(imageUrl) {
+  try {
+    const urlObj = new URL(imageUrl);
+    const ext = path.extname(urlObj.pathname).toLowerCase();
+    if (ext && ext.length <= 5) {
+      return ext;
+    }
+  } catch (_) {
+    // ignore
+  }
+  return '.jpg';
+}
+
+function decodeHtml(html) {
+  return String(html || '')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+}
+
+function slugFromSourceUrl(sourceUrl) {
+  const parts = String(sourceUrl || '').split('/').filter(Boolean);
+  return parts.length > 0 ? parts[parts.length - 1] : '';
+}
+
+async function fetchProductMainImage(productUrl) {
+  if (!productUrl) {
+    return '';
+  }
+  try {
+    const response = await axios.get(productUrl, {
+      timeout: 30000,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)',
+      },
+    });
+    const $ = cheerio.load(response.data);
+    const candidates = [
+      $('meta[property="og:image"]').attr('content'),
+      $('meta[name="twitter:image"]').attr('content'),
+      $('.woocommerce-product-gallery__wrapper img').first().attr('src'),
+      $('.woocommerce-product-gallery__wrapper img').first().attr('data-src'),
+      $('figure.woocommerce-product-gallery__wrapper img').first().attr('src'),
+      $('.wp-post-image').first().attr('src'),
+    ].map((v) => decodeHtml(v)).filter(Boolean);
+    if (candidates.length === 0) {
+      return '';
+    }
+    return new URL(candidates[0], productUrl).toString();
+  } catch (_) {
+    return '';
+  }
+}
+
+async function downloadImage(imageUrl, model) {
+  if (!imageUrl) {
+    return '';
+  }
+  fs.mkdirSync(IMAGE_DIR, { recursive: true });
+  const filename = `${slugify(model) || 'gamakatsu_hook'}${extFromUrl(imageUrl)}`;
+  const localPath = path.join(IMAGE_DIR, filename);
+  const relativePath = `pkgGear/images/hook/GAMAKATSU/${filename}`;
+  if (fs.existsSync(localPath)) {
+    return relativePath;
+  }
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: imageUrl,
+      responseType: 'stream',
+      timeout: 30000,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)',
+      },
+    });
+    await new Promise((resolve, reject) => {
+      const writer = fs.createWriteStream(localPath);
+      response.data.pipe(writer);
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
+    return relativePath;
+  } catch (_) {
+    return '';
+  }
+}
+
+async function backfillImages(normalizedData) {
+  let filledCount = 0;
+  for (const item of normalizedData) {
+    if (normalizeText(item.images)) {
+      continue;
+    }
+    const slug = slugFromSourceUrl(item.source_url);
+    const imageUrl = FALLBACK_IMAGE_BY_SLUG[slug] || await fetchProductMainImage(item.source_url);
+    const localImagePath = await downloadImage(imageUrl, item.model);
+    if (localImagePath) {
+      item.images = localImagePath;
+      filledCount += 1;
+    }
+  }
+  return filledCount;
+}
+
+function updateExcelImagesOnly(excelPath, normalizedData) {
+  if (!fs.existsSync(excelPath)) {
+    return { updatedRows: 0, totalRows: 0 };
+  }
+  const byModel = new Map();
+  normalizedData.forEach((item) => {
+    const model = normalizeText(item.model);
+    if (model) {
+      byModel.set(model, normalizeText(item.images));
+    }
+  });
+  const wb = XLSX.readFile(excelPath);
+  const hookSheet = wb.Sheets.hook;
+  if (!hookSheet) {
+    return { updatedRows: 0, totalRows: 0 };
+  }
+  const rows = XLSX.utils.sheet_to_json(hookSheet, { defval: '' });
+  let updatedRows = 0;
+  rows.forEach((row) => {
+    const current = normalizeText(row.images);
+    const model = normalizeText(row.model);
+    const imagePath = byModel.get(model) || '';
+    if (!current && imagePath) {
+      row.images = imagePath;
+      updatedRows += 1;
+    }
+  });
+  wb.Sheets.hook = XLSX.utils.json_to_sheet(rows, { header: MASTER_HEADERS });
+  XLSX.writeFile(wb, excelPath);
+  return { updatedRows, totalRows: rows.length };
+}
+
+async function main() {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  const normalizedData = buildNormalizedData();
+  let normalizedData = [];
+  if (fs.existsSync(NORMALIZED_PATH)) {
+    normalizedData = JSON.parse(fs.readFileSync(NORMALIZED_PATH, 'utf8'));
+  } else {
+    normalizedData = buildNormalizedData();
+  }
+
+  const filledCount = await backfillImages(normalizedData);
   fs.writeFileSync(NORMALIZED_PATH, JSON.stringify(normalizedData, null, 2), 'utf8');
 
-  const { wb, masterRows, detailRows } = buildWorkbook(normalizedData);
-  XLSX.writeFile(wb, EXCEL_PATH);
+  let masterRows = [];
+  let detailRows = [];
+  if (fs.existsSync(EXCEL_PATH)) {
+    const result = updateExcelImagesOnly(EXCEL_PATH, normalizedData);
+    const wb = XLSX.readFile(EXCEL_PATH);
+    masterRows = XLSX.utils.sheet_to_json(wb.Sheets.hook || {}, { defval: '' });
+    detailRows = XLSX.utils.sheet_to_json(wb.Sheets.hook_detail || {}, { defval: '' });
+    console.log(`[hook] excel image rows updated=${result.updatedRows}/${result.totalRows}`);
+  } else {
+    const built = buildWorkbook(normalizedData);
+    XLSX.writeFile(built.wb, EXCEL_PATH);
+    masterRows = built.masterRows;
+    detailRows = built.detailRows;
+  }
 
   console.log(`[hook] wrote normalized data: ${NORMALIZED_PATH}`);
   console.log(`[hook] wrote excel: ${EXCEL_PATH}`);
+  console.log(`[hook] images filled=${filledCount}`);
   console.log(`[hook] master rows=${masterRows.length} detail rows=${detailRows.length}`);
 }
 
-main();
+main().catch((err) => {
+  console.error('[hook] failed:', err.message || err);
+  process.exit(1);
+});

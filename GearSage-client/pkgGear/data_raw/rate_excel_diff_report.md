@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-10T13:24:52.627Z
+generated_at: 2026-04-10T17:31:26.472Z
 
-summary: ok=16, diff=0, missing_import=0
+summary: ok=16, diff=1, missing_import=0
 
 ## shimano_lure
 #### master
@@ -155,6 +155,23 @@ summary: ok=16, diff=0, missing_import=0
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+
+## gamakatsu_hook
+#### master
+- status: OK
+- rows: import=31, rate=31
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+#### hook_detail
+- status: DIFF
+- rows: import=417, rate=417
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: none
 
 ## shimano_rod
 #### master
