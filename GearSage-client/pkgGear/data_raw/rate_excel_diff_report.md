@@ -1,8 +1,8 @@
 # rate/excel diff report
 
-generated_at: 2026-04-10T08:51:14.913Z
+generated_at: 2026-04-10T10:23:53.102Z
 
-summary: ok=12, diff=3, missing_import=0
+summary: ok=11, diff=5, missing_import=0
 
 ## shimano_lure
 #### master
@@ -13,7 +13,7 @@ summary: ok=12, diff=3, missing_import=0
 - changed rows: 0
 - header order match: false
 - import-only headers: none
-- rate-only headers: official_link
+- rate-only headers: official_link, Description
 #### hardbait_lure_detail
 - status: OK
 - rows: import=544, rate=544
@@ -36,7 +36,7 @@ summary: ok=12, diff=3, missing_import=0
 - changed rows: 0
 - header order match: false
 - import-only headers: none
-- rate-only headers: official_link
+- rate-only headers: official_link, Description
 #### hardbait_lure_detail
 - status: OK
 - rows: import=1057, rate=1057
@@ -50,11 +50,14 @@ summary: ok=12, diff=3, missing_import=0
 - extra in rate: 0 (none)
 - changed rows: 0
 #### soft_lure_detail
-- status: OK
+- status: DIFF
 - rows: import=142, rate=142
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: Size, Market Reference Price, Quantity, Hook, Hook Size, Ring Size, Material, Sale Price, Description
 #### wire_lure_detail
 - status: OK
 - rows: import=14, rate=14
@@ -77,7 +80,7 @@ summary: ok=12, diff=3, missing_import=0
 - changed rows: 0
 - header order match: false
 - import-only headers: none
-- rate-only headers: official_link
+- rate-only headers: official_link, Description
 #### hardbait_lure_detail
 - status: OK
 - rows: import=1821, rate=1821
@@ -85,11 +88,14 @@ summary: ok=12, diff=3, missing_import=0
 - extra in rate: 0 (none)
 - changed rows: 0
 #### soft_lure_detail
-- status: OK
+- status: DIFF
 - rows: import=132, rate=132
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: Size, Market Reference Price, Quantity, Hook, Hook Size, Ring Size, Material, Sale Price, Description
 #### jig_lure_detail
 - status: OK
 - rows: import=29, rate=29
@@ -99,17 +105,23 @@ summary: ok=12, diff=3, missing_import=0
 
 ## keitech_lure
 #### master
-- status: OK
+- status: DIFF
 - rows: import=33, rate=33
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: Description
 #### soft_lure_detail
-- status: OK
+- status: DIFF
 - rows: import=70, rate=70
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: Size, Market Reference Price, Quantity, Hook, Hook Size, Ring Size, Material, Sale Price, Description
 #### wire_lure_detail
 - status: OK
 - rows: import=3, rate=3
@@ -119,6 +131,23 @@ summary: ok=12, diff=3, missing_import=0
 #### jig_lure_detail
 - status: OK
 - rows: import=10, rate=10
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+
+## yamamoto_lure
+#### master
+- status: DIFF
+- rows: import=46, rate=46
+- missing in rate: 0 (none)
+- extra in rate: 0 (none)
+- changed rows: 0
+- header order match: false
+- import-only headers: none
+- rate-only headers: official_link
+#### soft_lure_detail
+- status: OK
+- rows: import=54, rate=54
 - missing in rate: 0 (none)
 - extra in rate: 0 (none)
 - changed rows: 0

@@ -1,0 +1,1282 @@
+[
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Fuzzy Senko",
+    "source_url": "https://www.yamamotobaits.com/products/fuzzy-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-9FUZ-4-297__14455.1752081387.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fuzzy_senko.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-9SFUZ-5-297",
+        "color": "297 - Green Pumpkin Black Flake",
+        "size_raw": "4\" (5pk)",
+        "length": "4",
+        "weight": "",
+        "quantity": "5",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37045_source_1767741277-960x960.jpg"
+      },
+      {
+        "sku": "YAM-9FUZ-4-297",
+        "color": "297 - Green Pumpkin Black Flake",
+        "size_raw": "5\" (4pk)",
+        "length": "5",
+        "weight": "",
+        "quantity": "4",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37044_source_1767741277-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:14.137Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Fuzzy Nuki",
+    "source_url": "https://www.yamamotobaits.com/products/fuzzy-nuki/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/Fuzzy_Nuki_web-2__01913.1753117984.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fuzzy_nuki.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-FUZNUKI25-5-297",
+        "color": "297 - Green Pumpkin Black Flake",
+        "size_raw": "2.5\" (5pk)",
+        "length": "2.5",
+        "weight": "",
+        "quantity": "5",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37042_source_1759873130-960x960.jpg"
+      },
+      {
+        "sku": "YAM-FUZNUKI35-4-297",
+        "color": "297 - Green Pumpkin Black Flake",
+        "size_raw": "3.5\" (4pk)",
+        "length": "3.5",
+        "weight": "",
+        "quantity": "4",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37043_source_1759873130-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:16.243Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Fuzzy Nut 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/fuzzy-nut/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-FUZNUT-6-297__10246.1759870576.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fuzzy_nut_6pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-FUZNUT-6-297",
+        "color": "297 - Green Pumpkin Black Flake",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/36973_source_1759870549-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:18.376Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Uni",
+    "source_url": "https://www.yamamotobaits.com/products/uni/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-UNI-297__68528.1752066468.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_uni.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": "17.997.999.997.99",
+        "image": ""
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:20.464Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Ultimate Senko Kit – 100pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/ultimate-senko-kit-100pc-assortment/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/3d546f20-3e25-458a-90fd-f23001144b72__23302.1747692717.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_ultimate_senko_kit___100pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "SENKO5",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "100",
+        "price": 87.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/3d546f20-3e25-458a-90fd-f23001144b72__23302.1747692717.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:23.621Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Senko Kit – 160pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/senko-kit-160pc-assortment/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/c7abad41-947d-4a1d-85e8-4930bdb080dc__70030.1747429922.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_senko_kit___160pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "SENKO4",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "160",
+        "price": 114.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/c7abad41-947d-4a1d-85e8-4930bdb080dc__70030.1747429922.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:25.835Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ Senko Baitfish Bundle – 50pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/5-senko-baitfish-bundle-50pc-assortment-8nsg/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/cd345aa3-b5fe-408f-bbec-ba59fcc065a8__20540.1747084797.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__senko_baitfish_bundle___50pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-SENKO3",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "50",
+        "price": 35.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/cd345aa3-b5fe-408f-bbec-ba59fcc065a8__20540.1747084797.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:27.985Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ Senko Green Pumpkin Bundle – 50pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/5-senko-baitfish-bundle-50pc-assortment/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/a8e2bdf7-c9b8-49c9-bea1-2f8404d88c89__14681.1746827730.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__senko_green_pumpkin_bundle___50pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-SENKO2",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "50",
+        "price": 35.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/a8e2bdf7-c9b8-49c9-bea1-2f8404d88c89__14681.1746827730.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:30.130Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Senko Bundle – 90pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/senko-bundle-90pc-assortment/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/Senko_Bundle-90pc-v2-3__14601.1775137778.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_senko_bundle___90pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-SENKO1",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "90",
+        "price": 64.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/Senko_Bundle-90pc-v2-3__14601.1775137778.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:33.272Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Fat Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-fat-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-9FAT-VAR__32762.1756498179.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fat_senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9C-10-020",
+        "color": "020 - Black",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33456_source_1749063694-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:35.432Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Swimming Senko",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-swimming-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/Swimming_Senko_TN__89960.1756498414.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_swimming_senko.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-31-10-020",
+        "color": "020 - Black",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 8.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33405_source_1738076377-1.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:36.702Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Senko Bulk Packs",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-senkos-bulk-packs/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-BulkPack__15513.1756498655.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_senko_bulk_packs.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9-50-021",
+        "color": "021 - Black with Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 34.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32911_source_1738074518.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:38.783Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Megastrike Fish Attractant",
+    "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-39-MEGA",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 16.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:40.908Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "7″ Speed Senko 7pk",
+    "source_url": "https://www.yamamotobaits.com/products/7-speed-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/speed-senko__74896.1669909889.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_7__speed_senko_7pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-SPSEN7-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "7",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/7757_source_1659044371.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:43.146Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "3″ Ned Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/3-ned-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/06/ned-senko__49527.1669909863.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3__ned_senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9N3-10-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/06/7742_source_1655239366.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:45.238Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "3″ Slim Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/3-slim-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/senkos-slim-9b__32940.1638479227.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3__slim_senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9B-10-009",
+        "color": "009 - Red With Large Red",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6664_source_1638479230.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:47.330Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ Pro Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/5-pro-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/senkos-slim-9p__67617.1638479223.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__pro_senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9P-10-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6655_source_1723493770.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:49.421Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ Thin Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/5-thin-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/senkos-slim-9m__52311.1638479220.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__thin_senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9M-10-157",
+        "color": "157 - Smoke With Large Black And Purple",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6647_source_1725895733.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:51.127Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "7″ Senko 5pk",
+    "source_url": "https://www.yamamotobaits.com/products/7-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7inchsenko-main__59890.1638479214.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_7__senko_5pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9X-05-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "5",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6637_source_1638479215.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:53.263Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "6″ Senko 5pk",
+    "source_url": "https://www.yamamotobaits.com/products/6-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/YAM-9L-05-991__13624.1755526924.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_6__senko_5pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9L-05-020",
+        "color": "020 - Black",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "5",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6616_source_1638479210.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:55.387Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "4″ Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/4-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/4-_Senko__55764.1755527147.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9S-10-009",
+        "color": "009 - Red With Large Red",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6543_source_1727377511.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:57.476Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ Senko 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/5-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/YAM-9-10-425__27735.1755527358.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__senko_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "wacky",
+    "variants": [
+      {
+        "sku": "YAM-9-10-002",
+        "color": "002 - Smoke",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/6426_source_1638479172.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:18:59.215Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Fat Shad Shape Worm 8pk",
+    "source_url": "https://www.yamamotobaits.com/products/fat-shad-shape-worm/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-68F-8-297__61820.1752523988.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_fat_shad_shape_worm_8pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-68F-8-9005",
+        "color": "9005 - Sexy Shad",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "8",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37363_source_1752524476-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:00.636Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Shad Shape Worm 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-shad-shape-worm/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-68L-10-433__30260.1755284878.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_shad_shape_worm_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-68JR-10-031",
+        "color": "031 - Blue Pearl with Large Silver",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 4.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33131_source_1738075282.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:02.734Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Kut Tail Worm",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-kut-tail-worm/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/Kut_Tail_Worm_thumbnail__69178.1748627356.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_kut_tail_worm.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-7-20-021",
+        "color": "021 - Black with Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 8.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32777_source_1738074288-1.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:04.912Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "6.5″ Sensei Worm 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/6-5-sensei-worm/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/02/sensei-worm-green-pumpkin__65095.1710521420.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_6_5__sensei_worm_10pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-SENSEI65-10-297",
+        "color": "297 - Green Pumpkin",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2024/02/10240_source_1710522430.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:07.068Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Oki Worm 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/oki-worm/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/Oki_Worm__59625.1755526426.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_oki_worm_6pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-OKI-06-301",
+        "color": "301 - NF/LARGE GREEN PURPLE",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 7.49,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/9408_source_1724093435.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:10.212Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Ichi Worm 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/ichi-worm/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/Ichi_Worm__04468.1755526640.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_ichi_worm_6pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-ICHI-06-301",
+        "color": "301 - NF/LARGE GREEN PURPLE",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 7.49,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/07/9393_source_1689092940.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:12.347Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Megastrike Fish Attractant",
+    "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-39-MEGA",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 16.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:13.514Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Slinko Floater",
+    "source_url": "https://www.yamamotobaits.com/products/5-5-slinko-floater/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/slinko-918__19802.1669909792.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_slinko_floater.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-SLNKO325-8-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "3.25\" (8pk)",
+        "length": "3.25",
+        "weight": "",
+        "quantity": "8",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/36347_source_1749843779-960x960.jpg"
+      },
+      {
+        "sku": "YAM-SLINKO5.5-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "5.5\" (7pk)",
+        "length": "5.5",
+        "weight": "",
+        "quantity": "7",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/36349_source_1749845207-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:15.237Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ Shad Shape Floater 8pk",
+    "source_url": "https://www.yamamotobaits.com/products/5-shad-shape-floater/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/5shadshapefloater__79054.1659372546.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__shad_shape_floater_8pk.jpg",
+    "category": "softbait",
+    "water_column": "bottom",
+    "action": "crawling",
+    "variants": [
+      {
+        "sku": "YAM-68M-08-031",
+        "color": "031 - Blue Pearl with Large Silver",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "8",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2022/07/7810_source_1659039440.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:17.364Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "3.5″ Shinobi Grub 8pk",
+    "source_url": "https://www.yamamotobaits.com/products/3-5-shinobi-grub/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/YAM-SHINOBI35-8-700__60283.1756499094.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_3_5__shinobi_grub_8pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-SHINOBI35-8-297",
+        "color": "297 - Green Pumpkin Black Flake",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "8",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/07/37028_source_1756499141-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:20.468Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Hula Grub Bundle – 50pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/hula-grub-bundle-50pc-assortment/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/4bf56035-fd3f-4d25-9123-9e29a0760462__27868.1746827020.1280.1280-1.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_hula_grub_bundle___50pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-HULK1",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "50",
+        "price": 34.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/05/4bf56035-fd3f-4d25-9123-9e29a0760462__27868.1746827020.1280.1280-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:23.545Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Yamatanuki",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-yamatanuki/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/8031_source_1676574305__24577.1738075311.1280.1280.png",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_yamatanuki.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-NUKI35-08-305",
+        "color": "305 - BABY BASS",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33249_source_1738075336-960x291.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:26.555Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Double Tail Hula Grub 10pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-double-tail-hula-grub/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/6865_source_1638479301__53704.1738075201.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_double_tail_hula_grub_10pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-97-10-031",
+        "color": "031 - Blue Pearl with Large Silver",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "10",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33001_source_1738075227.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:28.669Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Double Tail Grub 20pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-double-tail-grub/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/6860_source_1638479294__30564.1738074362.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_double_tail_grub_20pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-15-20-021",
+        "color": "021 - Black With Large Blue",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "20",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32843_source_1738074370.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:30.873Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Single Tail Grub 20pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-single-tail-grub/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/6801_source_1638479279__70297.1738074318.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_single_tail_grub_20pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-40-20-031",
+        "color": "031 - Blue Pearl With Large Silver",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "20",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32817_source_1738074339.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:32.965Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Megastrike Fish Attractant",
+    "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-39-MEGA",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 16.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:34.128Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Shibo Swimmer",
+    "source_url": "https://www.yamamotobaits.com/products/shibo-swimmer/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2026/01/YAM-SHIBO37-6-992__20285.1767808975.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_shibo_swimmer.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-SHIBO27-8-9005",
+        "color": "9005 - Sexy Shad",
+        "size_raw": "2.7\" (8pk)",
+        "length": "2.7",
+        "weight": "",
+        "quantity": "8",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2026/01/38330_source_1767809236-960x960.jpg"
+      },
+      {
+        "sku": "YAM-SHIBO32-7-9005",
+        "color": "9005 - Sexy Shad",
+        "size_raw": "3.2\" (7pk)",
+        "length": "3.2",
+        "weight": "",
+        "quantity": "7",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2026/01/38342_source_1767809236-960x960.jpg"
+      },
+      {
+        "sku": "YAM-SHIBO37-6-9005",
+        "color": "9005 - Sexy Shad",
+        "size_raw": "3.7\" (6pk)",
+        "length": "3.7",
+        "weight": "",
+        "quantity": "6",
+        "price": 7.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2026/01/38354_source_1767809355-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:37.985Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Hinge Minnow",
+    "source_url": "https://www.yamamotobaits.com/products/hinge-minnow/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/HINGE_Minnow-web-2__96167.1758546691.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_hinge_minnow.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-HINGMIN35-7-9005",
+        "color": "Sexy Shad",
+        "size_raw": "3.5\" (7pk)",
+        "length": "3.5",
+        "weight": "",
+        "quantity": "7",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/36643_source_1764888492-960x960.jpg"
+      },
+      {
+        "sku": "YAM-HINGMIN5-6-9005",
+        "color": "Sexy Shad",
+        "size_raw": "5\" (6pk)",
+        "length": "5",
+        "weight": "",
+        "quantity": "6",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/36653_source_1764888492-960x960.jpg"
+      },
+      {
+        "sku": "YAM-HINGMIN6-5-9005",
+        "color": "Sexy Shad",
+        "size_raw": "6\" (5pk)",
+        "length": "6",
+        "weight": "",
+        "quantity": "5",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/36663_source_1758558142-960x960.jpg"
+      },
+      {
+        "sku": "YAM-HINGMIN7-4-9005",
+        "color": "Sexy Shad",
+        "size_raw": "7\" (4pk)",
+        "length": "7",
+        "weight": "",
+        "quantity": "4",
+        "price": 9.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/06/36673_source_1764888492-960x960.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:39.734Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Zako Swimbait Kit – 84pc Assortment",
+    "source_url": "https://www.yamamotobaits.com/products/zako-swimbait-kit/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/04/540417c6-05bd-4fc5-aab3-1045331e7b06__90892.1745617415.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_zako_swimbait_kit___84pc_assortment.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "BAITS-ZAKK1",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "84",
+        "price": 64.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/04/540417c6-05bd-4fc5-aab3-1045331e7b06__90892.1745617415.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:41.850Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Zako Slim 6pk",
+    "source_url": "https://www.yamamotobaits.com/products/zako-slim/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/YAM-134S-6-9003__86197.1742411691.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_zako_slim_6pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-134S-6-021",
+        "color": "021 - Black W/ Large Blue Flk",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "6",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/03/34753_source_1742411693.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:43.096Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Scope Shad",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-scope-shad/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/d20207c5-08df-4199-baf0-be9d216f2065__42777.1738957194.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_scope_shad.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-SSHAD3-10-305",
+        "color": "305 - Baby Bass",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33549_source_1738079803.png"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:45.246Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Swimming Senko",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-swimming-senko/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/Swimming_Senko_TN__89960.1756498414.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_swimming_senko.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-31-10-020",
+        "color": "020 - Black",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 8.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/33405_source_1738076377-1.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:46.411Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Shad Shape Swimmer 8pk",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-shad-shape-swimmer/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/10437_source_1720453317__06179.1738074589.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_shad_shape_swimmer_8pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-SSSWIM32-8-297",
+        "color": "297 - Green Pumpkin with Black Flakes",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "8",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32949_source_1738074604.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:48.508Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Zako Swimbait",
+    "source_url": "https://www.yamamotobaits.com/products/yamamoto-zako-swimbait/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/YAM-134-06-9025__33584.1755287085.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_zako_swimbait.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-134-06-036",
+        "color": "036 - Cream White",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2025/01/32861_source_1738074465.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:50.589Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "4″ Zako Swimbait Bulk Packs",
+    "source_url": "https://www.yamamotobaits.com/products/4-zako-swimbait-bulk-packs/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2024/05/zako-main__63181.1638479421.1280.1280__50669.1716478212.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__zako_swimbait_bulk_packs.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-134-BP-99-50",
+        "color": "994 - Tennessee Shad",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 34.99,
+        "image": ""
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:52.662Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "Megastrike Fish Attractant",
+    "source_url": "https://www.yamamotobaits.com/products/megastrike-fish-attractant/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_megastrike_fish_attractant.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-39-MEGA",
+        "color": "",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "",
+        "price": 16.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2023/01/39-MEGA__75923.1681324773.1280.1280.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:53.801Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "4″ Paddle Tail Zako 5pk",
+    "source_url": "https://www.yamamotobaits.com/products/4-yamamoto-paddle-tail-zako/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/pt-zako-leadin__30517.1638479437.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_4__paddle_tail_zako_5pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-134P-05-021",
+        "color": "021 - Black With Blue Flake",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "5",
+        "price": 6.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7346_source_1638479438.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:55.958Z"
+  },
+  {
+    "brand": "Gary Yamamoto",
+    "name": "5″ D-Shad 7pk",
+    "source_url": "https://www.yamamotobaits.com/products/5-d-shad/",
+    "description": "",
+    "main_image_url": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/YAM-121-07-433-2__49351.1756499494.1280.1280.jpg",
+    "local_image_path": "pkgGear/images/lure/YAMAMOTO/yamamoto_5__d_shad_7pk.jpg",
+    "category": "softbait",
+    "water_column": "subsurface",
+    "action": "swimming",
+    "variants": [
+      {
+        "sku": "YAM-121-07-208",
+        "color": "208 - Watermelon With Black And Red Flake",
+        "size_raw": "",
+        "length": "",
+        "weight": "",
+        "quantity": "7",
+        "price": 5.99,
+        "image": "https://www.yamamotobaits.com/wp-content/uploads/2021/12/7194_source_1638479376.jpg"
+      }
+    ],
+    "scraped_at": "2026-04-10T10:19:57.724Z"
+  }
+]
