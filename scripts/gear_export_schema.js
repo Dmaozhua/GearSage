@@ -109,6 +109,7 @@ const BRAND_IDS = {
     '领峰': 108,
     '飞蚂蚁': 109,
     '高森 Gosen': 110,
+    'BKK': 111,
 };
 
 const SHEET_NAMES = {
