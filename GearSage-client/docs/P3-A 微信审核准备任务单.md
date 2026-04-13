@@ -677,6 +677,21 @@ P3-A 的完成标准不是“微信一定通过”，而是：
   - 当前目的：
     - 先修复 `remote` 环境下的历史本地地址污染
     - 不要求立刻做数据库批量回填
+- 2026-04-13 已完成 `remote` 第二轮 smoke：
+  - 接口层：
+    - `GET /mini/topic/all?limit=3` 返回的 `avatarUrl` 已统一为 `https://static.gearsage.club/gearsage/...`
+    - 带图帖子 `images` 已统一为 `https://static.gearsage.club/gearsage/topic/...`
+    - 新用户外网测试登录链路已验证：
+      - `POST /auth/send-code`
+      - `POST /auth/login`
+      - 首轮通过；验证码过期后再次登录会正常返回 `verification code expired`
+  - 上传链路：
+    - `POST /upload/image` 新上传图片已返回 `https://static.gearsage.club/gearsage/topic/...`
+  - 静态资源：
+    - 新上传图片 `HEAD https://static.gearsage.club/gearsage/topic/...` 已返回 `200`
+  - 当前结论：
+    - `remote` API 主链、媒体 URL、静态资源访问、新上传图片链路已恢复
+    - 下一步可以继续进入真机 `remote` 全链路 smoke 与主体变更主线
 
 ---
 
