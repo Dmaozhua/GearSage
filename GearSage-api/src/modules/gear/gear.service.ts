@@ -7,6 +7,7 @@ import { DatabaseService } from '../../common/database.service';
 
 type GearType = 'reels' | 'rods' | 'lures' | 'lines' | 'hooks';
 type GearKind = 'reel' | 'rod' | 'lure' | 'line' | 'hook';
+const STATIC_GEAR_IMAGE_BASE_URL = 'https://static.gearsage.club/gearsage/Gearimg/images';
 
 interface GearListQuery {
   type?: string;
@@ -657,6 +658,11 @@ export class GearService {
       return text;
     }
 
+    const staticUrl = this.mapPkgGearImageToStaticUrl(text);
+    if (staticUrl) {
+      return staticUrl;
+    }
+
     const fileName = basename(text);
     const clientAssetPath = join(this.getClientWebpDir(), fileName);
     if (existsSync(clientAssetPath)) {
@@ -664,6 +670,37 @@ export class GearService {
     }
 
     return '/images/default-gear.png';
+  }
+
+  private mapPkgGearImageToStaticUrl(input: string) {
+    const normalized = this.normalizeText(input).replace(/\\/g, '/');
+    const marker = 'pkgGear/images/';
+    const markerIndex = normalized.indexOf(marker);
+    if (markerIndex === -1) {
+      return '';
+    }
+
+    const relative = normalized.slice(markerIndex + marker.length);
+    const segments = relative.split('/').filter(Boolean);
+    if (segments.length < 3) {
+      return '';
+    }
+
+    const category = this.normalizeText(segments[0]).toLowerCase();
+    const brand = this.normalizeText(segments[1]);
+    const fileName = segments.slice(2).join('/');
+    if (!category || !brand || !fileName) {
+      return '';
+    }
+
+    const dir = `${brand}_${category === 'hook' ? 'hooks' : `${category}s`}`;
+    const encodedFile = fileName
+      .split('/')
+      .filter(Boolean)
+      .map((segment) => encodeURIComponent(segment))
+      .join('/');
+
+    return `${STATIC_GEAR_IMAGE_BASE_URL}/${encodeURIComponent(dir)}/${encodedFile}`;
   }
 
   private buildGearModelCandidates(gearModel?: string) {

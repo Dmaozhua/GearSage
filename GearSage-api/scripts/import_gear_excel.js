@@ -26,6 +26,7 @@ const SEARCH_DATA_DIR = path.join(
   'searchData',
 );
 const SEARCH_DATA_FILE = path.join(SEARCH_DATA_DIR, 'Data.js');
+const STATIC_GEAR_IMAGE_BASE_URL = 'https://static.gearsage.club/gearsage/Gearimg/images';
 const CLIENT_SEARCH_DATA_DIR = path.join(
   ROOT_DIR,
   '..',
@@ -481,6 +482,11 @@ function mapImage(input) {
     return text;
   }
 
+  const staticUrl = mapPkgGearImageToStaticUrl(text);
+  if (staticUrl) {
+    return staticUrl;
+  }
+
   // If the text already has a directory path like images/daiwa_reels/...
   // we should prepend '/' to make it an absolute path from the public root
   if (text.startsWith('images/')) {
@@ -497,6 +503,48 @@ function mapImage(input) {
   }
 
   return `/rate/webp/${fileName}`;
+}
+
+function mapPkgGearImageToStaticUrl(input) {
+  const normalized = normalizeText(input).replace(/\\/g, '/');
+  const marker = 'pkgGear/images/';
+  const markerIndex = normalized.indexOf(marker);
+  if (markerIndex === -1) {
+    return '';
+  }
+
+  const relative = normalized.slice(markerIndex + marker.length);
+  const segments = relative.split('/').filter(Boolean);
+  if (segments.length < 3) {
+    return '';
+  }
+
+  const category = segments[0];
+  const brand = segments[1];
+  const fileName = segments.slice(2).join('/');
+  const dir = resolveStaticGearImageDir(category, brand);
+  if (!dir || !fileName) {
+    return '';
+  }
+
+  return `${STATIC_GEAR_IMAGE_BASE_URL}/${encodeURIComponent(dir)}/${encodePathSegments(fileName)}`;
+}
+
+function resolveStaticGearImageDir(category, brand) {
+  const safeCategory = normalizeText(category).toLowerCase();
+  const safeBrand = normalizeText(brand);
+  if (!safeCategory || !safeBrand) {
+    return '';
+  }
+  return `${safeBrand}_${safeCategory === 'hook' ? 'hooks' : `${safeCategory}s`}`;
+}
+
+function encodePathSegments(value) {
+  return String(value || '')
+    .split('/')
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment))
+    .join('/');
 }
 
 function sanitizeJson(value) {
