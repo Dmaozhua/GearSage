@@ -1,6 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { SaveTopicDto } from './dto/save-topic.dto';
 import { PublishTopicDto } from './dto/publish-topic.dto';
 import { ToggleTopicLikeDto } from './dto/toggle-topic-like.dto';
@@ -14,6 +15,7 @@ import { UserService } from '../user/user.service';
 export class TopicService {
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly moderationService: ModerationService,
     private readonly configService: ConfigService,
     private readonly messageService: MessageService,
@@ -767,7 +769,7 @@ export class TopicService {
       topicCategory: row.topicCategory,
       title: row.title,
       content: row.content,
-      images: row.images,
+      images: this.mediaUrlService.normalizeUrlArray(row.images),
       rejectReason: row.rejectReason || '',
       status: row.status,
       userId: Number(row.userId),
@@ -778,7 +780,7 @@ export class TopicService {
       commentCount: row.commentCount,
       isDelete: row.isDelete,
       nickName: row.nickName || '',
-      avatarUrl: row.avatarUrl || '',
+      avatarUrl: this.mediaUrlService.normalizeUrl(row.avatarUrl),
       level: row.level || 1,
       isLike: Boolean(row.isLike),
       displayTag: null,
@@ -787,7 +789,7 @@ export class TopicService {
   }
 
   private normalizeTopicExtra(value: any) {
-    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+    return this.mediaUrlService.normalizeTopicExtra(value);
   }
 
   private buildAcceptedAnswerResult(topicId: number, topicExtra: Record<string, any>, commentRow: any) {

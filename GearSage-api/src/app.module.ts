@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './modules/app/app.controller';
 import { AdminJwtAuthGuard } from './common/admin-jwt-auth.guard';
 import { DatabaseService } from './common/database.service';
+import { MediaUrlService } from './common/media-url.service';
 import { JwtAuthGuard } from './common/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from './common/optional-jwt-auth.guard';
 import { AdminAuthController } from './modules/admin/admin-auth.controller';
@@ -70,6 +71,7 @@ import { MessageService } from './modules/message/message.service';
   ],
   providers: [
     DatabaseService,
+    MediaUrlService,
     AdminJwtAuthGuard,
     JwtAuthGuard,
     OptionalJwtAuthGuard,

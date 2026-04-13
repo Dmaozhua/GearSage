@@ -1,11 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { AdminLogService } from './admin-log.service';
 
 @Injectable()
 export class AdminUserService {
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly adminLogService: AdminLogService,
   ) {}
 
@@ -181,7 +183,7 @@ export class AdminUserService {
       id: Number(row.id),
       phone: row.phone || '',
       nickName: row.nickName || '',
-      avatarUrl: row.avatarUrl || '',
+      avatarUrl: this.mediaUrlService.normalizeUrl(row.avatarUrl),
       status: Number(row.status || 0),
       points: Number(row.points || 0),
       level: Number(row.level || 1),

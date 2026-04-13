@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ModerationService } from '../moderation/moderation.service';
 import { TagService } from '../tag/tag.service';
@@ -8,6 +9,7 @@ import { TagService } from '../tag/tag.service';
 export class UserService {
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly moderationService: ModerationService,
     private readonly tagService: TagService,
   ) {}
@@ -155,16 +157,18 @@ export class UserService {
   }
 
   private mapUser(row: any) {
+    const avatarUrl = this.mediaUrlService.normalizeUrl(row.avatarUrl);
+    const background = this.mediaUrlService.normalizeUrl(row.background);
     return {
       id: Number(row.id),
       phone: row.phone || '',
       nickName: row.nickName || '',
       nickname: row.nickName || '',
-      avatarUrl: row.avatarUrl || '',
-      avatar: row.avatarUrl || '',
+      avatarUrl,
+      avatar: avatarUrl,
       bio: row.bio || '',
-      background: row.background || '',
-      backgroundImage: row.background || '',
+      background,
+      backgroundImage: background,
       shipAddress: row.shipAddress || '',
       status: Number(row.status || 0),
       points: Number(row.points || 0),

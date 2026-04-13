@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { AdminLogService } from './admin-log.service';
 import { MessageService } from '../message/message.service';
 
@@ -7,6 +8,7 @@ import { MessageService } from '../message/message.service';
 export class AdminReviewService {
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly adminLogService: AdminLogService,
     private readonly messageService: MessageService,
   ) {}
@@ -724,7 +726,7 @@ export class AdminReviewService {
     }
 
     if (typeof value === 'string') {
-      return value.trim();
+      return this.mediaUrlService.normalizeUrl(value.trim());
     }
 
     if (typeof value === 'object') {
@@ -735,7 +737,7 @@ export class AdminReviewService {
         || value.path
         || value.tempFileURL
         || '';
-      return typeof candidate === 'string' ? candidate.trim() : '';
+      return typeof candidate === 'string' ? this.mediaUrlService.normalizeUrl(candidate.trim()) : '';
     }
 
     return '';

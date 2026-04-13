@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomBytes } from 'crypto';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { LoginDto } from './dto/login.dto';
 import { SmsService } from './sms.service';
 
@@ -36,6 +37,7 @@ export class AuthService {
 
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly smsService: SmsService,
@@ -296,16 +298,18 @@ export class AuthService {
   }
 
   private mapUser(row: UserRow) {
+    const avatarUrl = this.mediaUrlService.normalizeUrl(row.avatarUrl);
+    const background = this.mediaUrlService.normalizeUrl(row.background);
     return {
       id: Number(row.id),
       phone: row.phone || '',
       nickName: row.nickName || '',
       nickname: row.nickName || '',
-      avatarUrl: row.avatarUrl || '',
-      avatar: row.avatarUrl || '',
+      avatarUrl,
+      avatar: avatarUrl,
       bio: row.bio || '',
-      background: row.background || '',
-      backgroundImage: row.background || '',
+      background,
+      backgroundImage: background,
       shipAddress: row.shipAddress || '',
       status: Number(row.status || 0),
       points: Number(row.points || 0),

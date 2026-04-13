@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { AddCommentDto } from './dto/add-comment.dto';
 import { ToggleCommentLikeDto } from './dto/toggle-comment-like.dto';
 import { ModerationService } from '../moderation/moderation.service';
@@ -10,6 +11,7 @@ import { UserService } from '../user/user.service';
 export class CommentService {
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly moderationService: ModerationService,
     private readonly messageService: MessageService,
     private readonly userService: UserService,
@@ -61,7 +63,7 @@ export class CommentService {
       topicId: Number(row.topicId),
       userId: Number(row.userId),
       userName: row.userName || '匿名用户',
-      userAvatarUrl: row.userAvatarUrl || '',
+      userAvatarUrl: this.mediaUrlService.normalizeUrl(row.userAvatarUrl),
       content: row.content || '',
       commentType: row.commentType || 'normal',
       recommendAnswerMeta:
