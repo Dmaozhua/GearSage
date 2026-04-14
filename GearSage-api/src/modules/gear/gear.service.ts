@@ -60,6 +60,11 @@ export class GearService {
     pe_no_m: 'PE线(号-m)',
     cm_per_turn: '收线长(cm/圈)',
     spool_diameter_per_turn_mm: '线杯径/一转(mm)',
+    spool_diameter_mm: '线杯直径φ(mm)',
+    spool_width_mm: '线杯宽度(mm)',
+    spool_depth_normalized: '线杯深度',
+    brake_type_normalized: '刹车类型',
+    size_family: '尺寸家族',
     Nylon_no_m: '尼龙线(号-m)',
     Nylon_lb_m: '尼龙线(lb-m)',
     handle_length_mm: '手把长(mm)',
@@ -816,6 +821,11 @@ export class GearService {
         'MAX DRAG',
         'DRAG',
         'cm_per_turn',
+        'spool_diameter_mm',
+        'spool_width_mm',
+        'spool_depth_normalized',
+        'brake_type_normalized',
+        'size_family',
         'spool_diameter_per_turn_mm',
         'Nylon_lb_m',
         'Nylon_no_m',
@@ -889,31 +899,57 @@ export class GearService {
         master.gsc_traits ||
         master.gscTraits,
     );
-    if (Object.keys(directTraits).length > 0) {
-      return directTraits;
-    }
+    const traits: Record<string, any> = { ...directTraits };
 
     const fitStyleTags = this.collectFitStyleTags(type, master, variant);
     const compareWarnings = this.collectCompareWarnings(type, master, variant);
-    const traits: Record<string, any> = {};
 
     if (fitStyleTags.length > 0) {
       traits.fitStyleTags = fitStyleTags;
+      traits.fit_style_tags = fitStyleTags;
     }
 
-    const lineCupDepth = this.inferLineCupDepth(variant);
-    if (lineCupDepth) {
-      traits.lineCupDepth = lineCupDepth;
+    const spoolDepthNormalized =
+      this.pickFirstTextValue(
+        variant && variant.spool_depth_normalized,
+        variant && variant.spoolDepthNormalized,
+        master.spool_depth_normalized,
+        master.spoolDepthNormalized,
+      ) || this.inferLineCupDepth(variant);
+    if (spoolDepthNormalized) {
+      traits.lineCupDepth = spoolDepthNormalized;
+      traits.spoolDepthNormalized = spoolDepthNormalized;
+      traits.spool_depth_normalized = spoolDepthNormalized;
     }
 
-    const brakeTypeNormalized = this.inferBrakeType(master, variant);
+    const brakeTypeNormalized =
+      this.pickFirstTextValue(
+        variant && variant.brake_type_normalized,
+        variant && variant.brakeTypeNormalized,
+        master.brake_type_normalized,
+        master.brakeTypeNormalized,
+      ) || this.inferBrakeType(master, variant);
     if (brakeTypeNormalized) {
       traits.brakeTypeNormalized = brakeTypeNormalized;
+      traits.brake_type_normalized = brakeTypeNormalized;
+    }
+
+    const sizeFamily =
+      this.pickFirstTextValue(
+        variant && variant.size_family,
+        variant && variant.sizeFamily,
+        master.size_family,
+        master.sizeFamily,
+      ) || this.inferSizeFamily(master, variant);
+    if (sizeFamily) {
+      traits.sizeFamily = sizeFamily;
+      traits.size_family = sizeFamily;
     }
 
     const minLureWeightHint = this.inferMinLureWeightHint(type, variant);
     if (minLureWeightHint) {
       traits.minLureWeightHint = minLureWeightHint;
+      traits.min_lure_weight_hint = minLureWeightHint;
     }
 
     const solidTip = this.inferSolidTip(master, variant);
@@ -949,7 +985,17 @@ export class GearService {
     }
 
     const coreFieldKeysByType: Record<GearType, string[]> = {
-      reels: ['GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn', 'spool_diameter_per_turn_mm'],
+      reels: [
+        'GEAR RATIO',
+        'WEIGHT',
+        'MAX DRAG',
+        'DRAG',
+        'cm_per_turn',
+        'spool_diameter_mm',
+        'spool_depth_normalized',
+        'brake_type_normalized',
+        'size_family',
+      ],
       rods: ['TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES'],
       lures: ['TYPE', 'Length', 'Weight', 'Buoyancy', 'Range'],
       lines: ['SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'Market Reference Price'],
@@ -991,8 +1037,15 @@ export class GearService {
         values.push(text);
       }
     };
+    const pushList = (value: any) => {
+      this.normalizeTextList(value).forEach(pushText);
+    };
 
     if (type === 'reels') {
+      pushList(master.fit_style_tags);
+      pushList(master.fitStyleTags);
+      pushList(variant && variant.fit_style_tags);
+      pushList(variant && variant.fitStyleTags);
       pushText(master.type);
       pushText(master.type_tips);
     } else if (type === 'rods') {
@@ -1071,6 +1124,46 @@ export class GearService {
     if (sku.includes('D')) {
       return 'deep';
     }
+    return '';
+  }
+
+  private inferSizeFamily(master: Record<string, any>, variant: Record<string, any> | null) {
+    const direct = this.pickFirstTextValue(
+      variant && variant.size_family,
+      variant && variant.sizeFamily,
+      master.size_family,
+      master.sizeFamily,
+    );
+    if (direct) {
+      return direct;
+    }
+
+    const source = [
+      this.normalizeText(variant && (variant.SKU || variant.sku)),
+      this.normalizeText(master.model),
+      this.normalizeText(master.alias),
+    ]
+      .join(' ')
+      .toUpperCase();
+
+    if (!source) {
+      return '';
+    }
+
+    if (source.includes('BFS')) {
+      return 'BFS';
+    }
+
+    const spinningMatch = source.match(/(?:^|[^0-9])(500|1000|2000|2500|3000|4000|5000|6000|8000)(?:[^0-9]|$)/);
+    if (spinningMatch) {
+      return spinningMatch[1];
+    }
+
+    const baitMatch = source.match(/(?:^|[^0-9])(70|80|90|100|150|200|300)(?:[^0-9]|$)/);
+    if (baitMatch) {
+      return baitMatch[1];
+    }
+
     return '';
   }
 
@@ -1176,6 +1269,47 @@ export class GearService {
 
   private getClientWebpDir() {
     return join(process.cwd(), '..', 'GearSage-client', 'rate', 'webp');
+  }
+
+  private pickFirstTextValue(...values: any[]) {
+    for (const value of values) {
+      const text = this.normalizeText(value);
+      if (text) {
+        return text;
+      }
+    }
+    return '';
+  }
+
+  private normalizeTextList(value: any) {
+    if (Array.isArray(value)) {
+      return value
+        .map((item) => this.normalizeText(item))
+        .filter(Boolean);
+    }
+
+    const text = this.normalizeText(value);
+    if (!text) {
+      return [];
+    }
+
+    if ((text.startsWith('[') && text.endsWith(']')) || (text.startsWith('{') && text.endsWith('}'))) {
+      try {
+        const parsed = JSON.parse(text);
+        if (Array.isArray(parsed)) {
+          return parsed
+            .map((item) => this.normalizeText(item))
+            .filter(Boolean);
+        }
+      } catch (error) {
+        // fall through to text splitting
+      }
+    }
+
+    return text
+      .split(/[,\n/|]+/)
+      .map((item) => this.normalizeText(item))
+      .filter(Boolean);
   }
 
   private normalizeText(value: any) {

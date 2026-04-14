@@ -6,7 +6,17 @@ const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const MAX_COMPARE_ITEMS = 3;
 
 const CORE_FIELDS_BY_TYPE = {
-  reels: ['SKU', 'GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn', 'spool_diameter_per_turn_mm'],
+  reels: [
+    'SKU',
+    'GEAR RATIO',
+    'WEIGHT',
+    'MAX DRAG',
+    'cm_per_turn',
+    'spool_diameter_mm',
+    'spool_depth_normalized',
+    'brake_type_normalized',
+    'size_family'
+  ],
   rods: ['SKU', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES', 'CLOSELENGTH'],
   lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook'],
   line: ['SKU', 'SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'COLOR', 'Market Reference Price'],
@@ -15,13 +25,23 @@ const CORE_FIELDS_BY_TYPE = {
 
 const SPEC_GROUPS_BY_TYPE = {
   reels: [
-    { title: '基础识别', fields: ['SKU'] },
+    { title: '基础识别', fields: ['SKU', 'size_family'] },
     { title: '核心性能', fields: ['GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn'] },
     {
       title: '线杯与线量',
-      fields: ['spool_diameter_per_turn_mm', 'Nylon_lb_m', 'Nylon_no_m', 'fluorocarbon_lb_m', 'fluorocarbon_no_m', 'pe_no_m']
+      fields: [
+        'spool_diameter_mm',
+        'spool_width_mm',
+        'spool_depth_normalized',
+        'spool_diameter_per_turn_mm',
+        'Nylon_lb_m',
+        'Nylon_no_m',
+        'fluorocarbon_lb_m',
+        'fluorocarbon_no_m',
+        'pe_no_m'
+      ]
     },
-    { title: '结构补充', fields: ['handle_length_mm'] }
+    { title: '制动与结构', fields: ['brake_type_normalized', 'handle_length_mm'] }
   ],
   rods: [
     { title: '基础识别', fields: ['SKU'] },
@@ -97,6 +117,11 @@ Page({
       pe_no_m: 'PE线(号-m)',
       cm_per_turn: '收线长(cm/圈)',
       spool_diameter_per_turn_mm: '线杯径/一转(mm)',
+      spool_diameter_mm: '线杯直径φ(mm)',
+      spool_width_mm: '线杯宽度(mm)',
+      spool_depth_normalized: '线杯深度',
+      brake_type_normalized: '刹车类型',
+      size_family: '尺寸家族',
       Nylon_no_m: '尼龙线(号-m)',
       Nylon_lb_m: '尼龙线(lb-m)',
       handle_length_mm: '手把长(mm)',
@@ -233,17 +258,43 @@ Page({
 
   getFieldValue(record, key) {
     if (!record || typeof record !== 'object') return '';
-    if (record[key] && typeof record[key] === 'object') {
+    const keyCandidates = this.resolveFieldCandidates(key);
+    const sources = [record, record.official_specs, record.gsc_traits, record.compare_profile];
+
+    for (const source of sources) {
+      if (!source || typeof source !== 'object') continue;
+      for (const candidate of keyCandidates) {
+        const rawValue = source[candidate];
+        const normalized = this.normalizeFieldValue(rawValue);
+        if (normalized) {
+          return normalized;
+        }
+      }
+    }
+
+    return '';
+  },
+
+  resolveFieldCandidates(key) {
+    const aliases = {
+      fit_style_tags: ['fit_style_tags', 'fitStyleTags'],
+      spool_depth_normalized: ['spool_depth_normalized', 'spoolDepthNormalized', 'lineCupDepth'],
+      brake_type_normalized: ['brake_type_normalized', 'brakeTypeNormalized'],
+      size_family: ['size_family', 'sizeFamily'],
+      min_lure_weight_hint: ['min_lure_weight_hint', 'minLureWeightHint']
+    };
+    return aliases[key] || [key];
+  },
+
+  normalizeFieldValue(value) {
+    if (Array.isArray(value)) {
+      const items = value.map((item) => this.normalizeText(item)).filter(Boolean);
+      return items.length ? items.join(' / ') : '';
+    }
+    if (value && typeof value === 'object') {
       return '';
     }
-    const directValue = this.normalizeText(record[key]);
-    if (directValue) {
-      return directValue;
-    }
-    if (record.official_specs && typeof record.official_specs === 'object') {
-      return this.normalizeText(record.official_specs[key]);
-    }
-    return '';
+    return this.normalizeText(value);
   },
 
   formatSpecValue(value) {
@@ -848,6 +899,7 @@ Page({
       'TOTAL LENGTH', 'Action', 'PIECES', 'Length', 'Weight', 'Buoyancy',
       'SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'COLOR', 'Market Reference Price', 'AdminCode',
       'sku', 'type', 'subType', 'size', 'quantityPerPack', 'coating', 'gapWidth', 'price', 'status',
+      'spool_diameter_mm', 'spool_width_mm', 'spool_depth_normalized', 'brake_type_normalized', 'size_family',
       'spool_diameter_per_turn_mm', 'cm_per_turn',
       'Nylon_lb_m', 'Nylon_no_m', 'fluorocarbon_lb_m', 'fluorocarbon_no_m', 'pe_no_m',
       'handle_length_mm'
