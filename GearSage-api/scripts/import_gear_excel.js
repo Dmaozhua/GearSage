@@ -142,14 +142,15 @@ async function main(options) {
       await client.query(
         `
           INSERT INTO gear_master (
-            kind, id, "brandId", model, "modelCn", "modelYear", type,
+            kind, id, "brandId", "isShow", model, "modelCn", "modelYear", type,
             system, "waterColumn", action, alias, "typeTips", images, raw_json
-          ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14::jsonb)
+          ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
         `,
         [
           item.kind,
           item.id,
           item.brandId,
+          item.isShow,
           item.model,
           item.modelCn,
           item.modelYear,
@@ -268,11 +269,13 @@ function normalizeBrandRow(row) {
 
 function normalizeMasterRow(kind, row) {
   const normalizedImages = normalizeImages(row.images);
+  const isShow = normalizeVisibilityFlag(row.is_show);
 
   const normalized = sanitizeJson({
     ...row,
     id: normalizeText(row.id),
     brand_id: toNullableNumber(row.brand_id),
+    is_show: isShow,
     images: normalizedImages,
   });
 
@@ -280,6 +283,7 @@ function normalizeMasterRow(kind, row) {
     kind,
     id: normalizeText(row.id),
     brandId: toNullableNumber(row.brand_id),
+    isShow,
     model: normalizeText(row.model),
     modelCn: normalizeText(row.model_cn),
     modelYear: normalizeText(row.model_year),
@@ -338,6 +342,7 @@ function normalizeImages(value) {
 function buildSearchData(masters) {
   return masters
     .filter((item) => ['reel', 'rod', 'lure', 'line', 'hook'].includes(item.kind))
+    .filter((item) => item.isShow === 1)
     .map((item) => {
       const nameParts = [item.modelYear, item.model, item.modelCn].filter(Boolean);
       
@@ -424,6 +429,10 @@ function validateDataset(brands, masters, variants) {
 
     if (!item.model) {
       warnings.push(`master ${key} has empty model`);
+    }
+
+    if (![0, 1].includes(item.isShow)) {
+      errors.push(`master ${key} has invalid is_show=${item.isShow}`);
     }
 
     if (masterKeys.has(key)) {
@@ -581,4 +590,17 @@ function toNullableNumber(value) {
 
 function normalizeText(value) {
   return String(value ?? '').trim();
+}
+
+function normalizeVisibilityFlag(value) {
+  const text = normalizeText(value);
+  if (!text) {
+    return 1;
+  }
+
+  if (text === '0') {
+    return 0;
+  }
+
+  return 1;
 }

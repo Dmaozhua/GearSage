@@ -111,7 +111,7 @@ export class GearService {
   async getBrands(type?: string) {
     const normalizedType = this.normalizeType(type);
     const data = await this.getData(normalizedType);
-    const rows = this.getMasterRows(data, normalizedType);
+    const rows = this.getMasterRows(data, normalizedType).filter((item) => this.isVisibleItem(item));
     const brandIds = new Set(
       rows.map((item) => this.normalizeText(item.brand_id)).filter(Boolean),
     );
@@ -161,7 +161,7 @@ export class GearService {
       query.gearModel,
     );
 
-    if (!item) {
+    if (!item || !this.isVisibleItem(item)) {
       return null;
     }
 
@@ -200,6 +200,7 @@ export class GearService {
       const masterResult = await this.databaseService.query<{
         id: string;
         brandId: string | null;
+        isShow: number;
         model: string;
         modelCn: string;
         modelYear: string;
@@ -216,6 +217,7 @@ export class GearService {
           SELECT
             id,
             "brandId",
+            "isShow",
             model,
             "modelCn",
             "modelYear",
@@ -537,6 +539,10 @@ export class GearService {
     query: GearListQuery,
     fieldSupport: Record<string, boolean>,
   ) {
+    if (!this.isVisibleItem(item)) {
+      return false;
+    }
+
     if (!this.matchesKeyword(item, query.keyword)) {
       return false;
     }
@@ -771,6 +777,7 @@ export class GearService {
   private hydrateMasterRow(row: {
     id: string;
     brandId: string | null;
+    isShow: number;
     model: string;
     modelCn: string;
     modelYear: string;
@@ -788,6 +795,7 @@ export class GearService {
       ...raw,
       id: this.normalizeText(row.id),
       brand_id: row.brandId ? Number(row.brandId) : raw.brand_id,
+      is_show: this.normalizeVisibilityFlag(row.isShow ?? raw.is_show),
       model: row.model || raw.model || '',
       model_cn: row.modelCn || raw.model_cn || '',
       model_year: row.modelYear || raw.model_year || '',
@@ -1046,6 +1054,21 @@ export class GearService {
       return {};
     }
     return { ...value };
+  }
+
+  private normalizeVisibilityFlag(value: any) {
+    const text = this.normalizeText(value);
+    if (!text) {
+      return 1;
+    }
+    return text === '0' ? 0 : 1;
+  }
+
+  private isVisibleItem(item: Record<string, any> | null | undefined) {
+    if (!item) {
+      return false;
+    }
+    return this.normalizeVisibilityFlag(item.is_show) === 1;
   }
 
   private collectFitStyleTags(
