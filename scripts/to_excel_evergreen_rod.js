@@ -7,7 +7,10 @@ const XLSX = require('xlsx');
 const { BRAND_IDS, HEADERS, SHEET_NAMES } = require('./gear_export_schema');
 
 const BASE_URL = 'https://www.evergreen-fishing.com';
-const ENTRY_URL = `${BASE_URL}/freshwater/`;
+const ENTRY_URLS = [
+  `${BASE_URL}/saltwater/`,
+  `${BASE_URL}/trout/`,
+];
 
 const OUTPUT_DIR = path.join(__dirname, '../GearSage-client/pkgGear/data_raw');
 const NORMALIZED_PATH = path.join(OUTPUT_DIR, 'evergreen_rod_normalized.json');
@@ -240,16 +243,18 @@ async function downloadImage(url, model, sku) {
   return `images/evergreen_rods/${fileName}`;
 }
 
-async function fetchCategoryUrls() {
-  const { data } = await getWithRetry(ENTRY_URL);
-  const $ = cheerio.load(data);
+async function fetchCategoryUrls(entryUrls) {
   const urls = new Set();
 
-  $('a[href*="goods_list_22rod.php"]').each((_, a) => {
-    const href = normalizeText($(a).attr('href'));
-    if (!href) return;
-    urls.add(absoluteUrl(href));
-  });
+  for (const entryUrl of entryUrls) {
+    const { data } = await getWithRetry(entryUrl);
+    const $ = cheerio.load(data);
+    $('a[href*="goods_list_22rod.php"]').each((_, a) => {
+      const href = normalizeText($(a).attr('href'));
+      if (!href) return;
+      urls.add(absoluteUrl(href));
+    });
+  }
 
   return [...urls];
 }
@@ -428,7 +433,7 @@ async function main() {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   fs.mkdirSync(IMAGE_DIR, { recursive: true });
 
-  const categoryUrls = await fetchCategoryUrls();
+  const categoryUrls = await fetchCategoryUrls(ENTRY_URLS);
   const productEntries = await fetchProductEntries(categoryUrls);
   const normalized = [];
   const concurrency = 8;
@@ -468,7 +473,7 @@ async function main() {
   XLSX.utils.book_append_sheet(wb, detailSheet, SHEET_NAMES.rodDetail);
   XLSX.writeFile(wb, EXCEL_PATH);
 
-  console.log(`[evergreen_rod] categoryUrls=${categoryUrls.length} productUrls=${productEntries.length}`);
+  console.log(`[evergreen_rod] entryUrls=${ENTRY_URLS.length} categoryUrls=${categoryUrls.length} productUrls=${productEntries.length}`);
   console.log(`[evergreen_rod] master=${rodRows.length} detail=${detailRows.length}`);
   console.log(`[evergreen_rod] wrote normalized data: ${NORMALIZED_PATH}`);
   console.log(`[evergreen_rod] wrote excel: ${EXCEL_PATH}`);
