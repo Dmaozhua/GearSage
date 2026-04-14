@@ -2,13 +2,19 @@
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a071000000e4muhaaq.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a071000000e4muhaaq.html",
     "model_name": "TIAGRA",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "利用跟大鱼拼博时候产生的摩擦热能，刹车力度自动感应，调整为适当的刹车力度，因为搭载着热感应油压补助刹车系统，在跟超大鱼博斗时候，非常有信心可以将大鱼一举攻陷。",
+    "page_title": "TIAGRA | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a071000000e4muHAAQ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TIAGRA 16",
+        "sku_suffix": "16",
         "specs": {
           "gear_ratio": "3.9",
           "max_drag_kg": "14",
@@ -42,6 +48,7 @@
       },
       {
         "variant_name": "TIAGRA 20A",
+        "sku_suffix": "20A",
         "specs": {
           "gear_ratio": "3.9",
           "max_drag_kg": "12",
@@ -75,6 +82,7 @@
       },
       {
         "variant_name": "TIAGRA 30A",
+        "sku_suffix": "30A",
         "specs": {
           "gear_ratio": "3.9",
           "max_drag_kg": "16",
@@ -108,6 +116,7 @@
       },
       {
         "variant_name": "TIAGRA 30W LRSA",
+        "sku_suffix": "30W LRSA",
         "specs": {
           "gear_ratio": "3.9",
           "max_drag_kg": "16",
@@ -141,6 +150,7 @@
       },
       {
         "variant_name": "TIAGRA 50A",
+        "sku_suffix": "50A",
         "specs": {
           "gear_ratio": "3.1",
           "max_drag_kg": "12",
@@ -174,6 +184,7 @@
       },
       {
         "variant_name": "TIAGRA 50WA",
+        "sku_suffix": "50WA",
         "specs": {
           "gear_ratio": "3.1",
           "max_drag_kg": "12",
@@ -207,6 +218,7 @@
       },
       {
         "variant_name": "TIAGRA 50W LRSA",
+        "sku_suffix": "50W LRSA",
         "specs": {
           "gear_ratio": "3.1",
           "max_drag_kg": "18",
@@ -240,6 +252,7 @@
       },
       {
         "variant_name": "TIAGRA 80WA",
+        "sku_suffix": "80WA",
         "specs": {
           "gear_ratio": "2.5",
           "max_drag_kg": "18",
@@ -273,6 +286,7 @@
       },
       {
         "variant_name": "TIAGRA 130A",
+        "sku_suffix": "130A",
         "specs": {
           "gear_ratio": "2.1",
           "max_drag_kg": "40",
@@ -305,19 +319,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TIAGRA_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:00",
+    "raw_data_hash": "0026ad19831ac99eec8e94fb02e1065ef4ef2388fa8f9f706ec00913c2dec63c"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a071000000ozntfaa3.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a071000000ozntfaa3.html",
     "model_name": "TALICA",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "坚固、坚固、还是不受影响那么坚固。搭载Compact以及手控卸力装置，提高以钓大鱼为目标的信赖感。游钓、以及对应Trawling等大型鱼种的手控卸力渔轮［TALICA］。［双速比手控卸力装置］ 为了在使用中能够调节切换高速比及低速比。按手杆后切换成高速比、达到快速的回收钓组。按下按钮调整为低速比，和大鱼搏斗时能够不占下风。顺畅、坚固、信赖感等三方兼备，除此之外[碳纤十字交叉垫片防水机构内置卸力装置]这样构造及超精密一体构造[S Compact Body]，大幅提高耐腐蚀的[E.I表面处理]，这些都能给您带来安心感。不仅是性能、强度，给您带来非常高动力。",
+    "page_title": "TALICA | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a071000000OzNTFAA3_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TALICA 20Ⅱ",
+        "sku_suffix": "20Ⅱ",
         "specs": {
           "gear_ratio": "5.2",
           "max_drag_kg": "20",
@@ -351,6 +371,7 @@
       },
       {
         "variant_name": "TALICA 25 II",
+        "sku_suffix": "25 II",
         "specs": {
           "gear_ratio": "5.2",
           "max_drag_kg": "20",
@@ -384,6 +405,7 @@
       },
       {
         "variant_name": "TALICA 50 II",
+        "sku_suffix": "50 II",
         "specs": {
           "gear_ratio": "3.8",
           "max_drag_kg": "27",
@@ -416,19 +438,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TALICA_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:01",
+    "raw_data_hash": "8f40e07e71dea5438f83faa5730847ff4a5480fee1fc1cdfd36f87b9998bb0e5"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003s9y5cqau.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003s9y5cqau.html",
     "model_name": "EXSENCE DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "技术进化而重生的NEW 4x8 DC EXSENCE TUNE，实现了SHIMANO至今未有的精密刹车力。MGL SPOOLⅢ，SILENTUNE，S3D线杯效果相辅相成，使得抛投距离大幅进化。特别是解决了使用PE线时的缠线问题，瞬间的刹车控制能力大幅减少了切线的可能性。另外增加了最大卸力和收线量，使其泛用性更强。具备可以和海水鱼对抗潜力的两轴轮诞生。",
+    "page_title": "EXSENCE DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003s9Y5CQAU_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "EXSENCE DC XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "5",
@@ -463,6 +491,7 @@
       },
       {
         "variant_name": "EXSENCE DC XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "5",
@@ -496,19 +525,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/EXSENCE DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:02",
+    "raw_data_hash": "77034c9ca672751e157cbe29df781e4085623d1c431c906ad4f70b6ca87377c3"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47feqab.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47feqab.html",
     "model_name": "ANTARES DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "追求稳抛投距离的ANTARES DC，集结SHIMANO最新技术后进化。MGL SPOOL Ⅲ第一次在SHIMANO DC渔轮上采用，使其拥有更优秀的飞行弹道。4x8DC刹车系统能精密制动，两者效果相辅相成，进一步提升了远投性能。S3D线杯和SILENT TUNE技术抑制了转动时的振动。在MICROMODULE GEAR、X-SHIP、手把轴受力部增加培林的加持下，收放线性能都有了大幅提升。",
+    "page_title": "ANTARES DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003T47feQAB_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "ANTARES DC R",
+        "sku_suffix": "R",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "5",
@@ -542,6 +577,7 @@
       },
       {
         "variant_name": "ANTARES DC L",
+        "sku_suffix": "L",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "5",
@@ -575,6 +611,7 @@
       },
       {
         "variant_name": "ANTARES DC HG R",
+        "sku_suffix": "HG R",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -608,6 +645,7 @@
       },
       {
         "variant_name": "ANTARES DC HG L",
+        "sku_suffix": "HG L",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -641,6 +679,7 @@
       },
       {
         "variant_name": "ANTARES DC XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "5",
@@ -674,6 +713,7 @@
       },
       {
         "variant_name": "ANTARES DC XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "5",
@@ -706,19 +746,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/ANTARES DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:03",
+    "raw_data_hash": "5b42c254a14a0a74b39d2e7bd16818b43b2b1af27371ebab8ebd5b659b9baac8"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042png4qac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042png4qac.html",
     "model_name": "ANTARES DC MD",
-    "description": "※HG RIGHT、XG RIGHT：2023年5月底预计上市、HG LEFT、XG LEFT：2023年6月底预计上市、※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "SHIMANO FREESTYLE的巅峰，ANTARES DC MD，作为奋斗在世界舞台的旗舰产品，搭载了MGL SPOOL Ⅲ和新4X8DC MD TUNE刹车系统后，进化成了更具战斗力的规格。第三代MGL线杯带来了抛投时更轻量的手感和更优秀的抛投距离，新4X8DC MD TUNE则在刹车介入时有着更好的精度，和以往抛投时相比抛投得更远且更不易发生缠线问题。另外，搭载精密齿轮后也带来了顺滑的转动性能，在驱动齿轮轴增加支撑培林让构造更强大坚固，转动手把时也能有效降低卡顿问题，带来更顺滑的收线手感。流线美丽的机身传达出的跃动感和信赖感，不断积累厚重的历史步伐，带着更高目标并带着钓手向着高处进发，SHIMANO FREESTYLE的顶点。",
+    "page_title": "ANTARES DC MD | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042Png4QAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "ANTARES DC MD HG RIGHT",
+        "sku_suffix": "HG RIGHT",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -752,6 +798,7 @@
       },
       {
         "variant_name": "ANTARES DC MD HG LEFT",
+        "sku_suffix": "HG LEFT",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -785,6 +832,7 @@
       },
       {
         "variant_name": "ANTARES DC MD XG RIGHT",
+        "sku_suffix": "XG RIGHT",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "6",
@@ -818,6 +866,7 @@
       },
       {
         "variant_name": "ANTARES DC MD XG LEFT",
+        "sku_suffix": "XG LEFT",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "6",
@@ -850,19 +899,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/ANTARES DC MD_main.png",
-    "model_year": "2023"
+    "scraped_at": "2026-04-15 02:13:04",
+    "raw_data_hash": "d5c5e418e4f6666b10a7afb3e5863d10ff7738986eb7f3514eed218f735e94c2"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003iit9tqae.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003iit9tqae.html",
     "model_name": "TALICA",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "搭载INFINITYDRIVE和X PROTECT技术，更好地支援钓手攻略大型目标。除了HAGANE技术带来的安心感外，提升了收线顺滑度以及防水性能，在严苛的作钓环境下发挥出更强大的实力。",
+    "page_title": "TALICA | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003iiT9tQAE_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TALICA 12II",
+        "sku_suffix": "12II",
         "specs": {
           "gear_ratio": "5.7",
           "max_drag_kg": "20",
@@ -895,6 +950,7 @@
       },
       {
         "variant_name": "TALICA 16II",
+        "sku_suffix": "16II",
         "specs": {
           "gear_ratio": "5.7",
           "max_drag_kg": "20",
@@ -927,6 +983,7 @@
       },
       {
         "variant_name": "TALICA 20II",
+        "sku_suffix": "20II",
         "specs": {
           "gear_ratio": "5.2",
           "max_drag_kg": "22.5",
@@ -959,6 +1016,7 @@
       },
       {
         "variant_name": "TALICA 25II",
+        "sku_suffix": "25II",
         "specs": {
           "gear_ratio": "5.2",
           "max_drag_kg": "22.5",
@@ -991,6 +1049,7 @@
       },
       {
         "variant_name": "TALICA 40II",
+        "sku_suffix": "40II",
         "specs": {
           "gear_ratio": "4.1",
           "max_drag_kg": "30",
@@ -1023,6 +1082,7 @@
       },
       {
         "variant_name": "TALICA 50II",
+        "sku_suffix": "50II",
         "specs": {
           "gear_ratio": "4.1",
           "max_drag_kg": "30",
@@ -1054,19 +1114,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TALICA_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:06",
+    "raw_data_hash": "2fadfca7c40dd6b88e52e0586a430a501e2476f069aa2aebbb90a98cd80c39ff"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00002wgo0gqaa.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00002wgo0gqaa.html",
     "model_name": "OCEA JIGGER 4000/4000HG",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "铁板钓用两轴渔轮的经典产品OCEA JIGGER中，新加入了专为深海和离岛大物而生的4000号。以紧凑且高容线量为设计理念。3号PE线的容线量可达1200m，同时外径又保持紧凑。继承OCEA JIGGER传统坚固的性能。搭载大直径的星型卸力，可以精确的调整卸力。",
+    "page_title": "OCEA JIGGER 4000/4000HG | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002wgo0gQAA_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA JIGGER 4000/4000HG 4000",
+        "sku_suffix": "4000",
         "specs": {
           "gear_ratio": "4.4",
           "max_drag_kg": "18",
@@ -1100,6 +1166,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 4000/4000HG 4000HG",
+        "sku_suffix": "4000HG",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "18",
@@ -1132,19 +1199,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA JIGGER 4000_4000HG_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:07",
+    "raw_data_hash": "130ff870e54b3794a4705412d28bd0358bc53f5dde818c5d5e470d88f0d6fbaa"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002xcal5qac_p.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002xcal5qac_p.html",
     "model_name": "CALCUTTA CONQUEST DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "CACUTTA CONQUEST DC搭载了可进行细腻刹车设定的I-DC5，防炸线性能有了飞越性提升。新搭载的W模式加强了对强风的应对能力，搭载MGL线杯后实现了轻量收线力和低弹道远距离抛投，抛投性和抛投距离进一步提升。空气阻力较大卷物系饵也能在强风情况下轻松远投，高强度冷锻机身搭配MICROMODULE GEAR实现了低噪音顺滑收线，同时新罗拉装置减少了回转阻力，收线力量也进一步提升，备受期待的100型规格登场，全新CONQUEST DC制霸卷物钓法！",
+    "page_title": "CALCUTTA CONQUEST DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002xCal5QAC_p_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST DC 200",
+        "sku_suffix": "200",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "6",
@@ -1178,6 +1251,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 201",
+        "sku_suffix": "201",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "6",
@@ -1211,6 +1285,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 100",
+        "sku_suffix": "100",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "4",
@@ -1244,6 +1319,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 101",
+        "sku_suffix": "101",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "4",
@@ -1277,6 +1353,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 100HG",
+        "sku_suffix": "100HG",
         "specs": {
           "gear_ratio": "6.8",
           "max_drag_kg": "4",
@@ -1310,6 +1387,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 101HG",
+        "sku_suffix": "101HG",
         "specs": {
           "gear_ratio": "6.8",
           "max_drag_kg": "4",
@@ -1343,6 +1421,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -1376,6 +1455,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -1408,19 +1488,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:08",
+    "raw_data_hash": "a978d3e437dae1f3d54e1629c862372d1b59a7a2b0ff160db62d0cc56b16ade8"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003ze5htqay.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003ze5htqay.html",
     "model_name": "OCEA JIGGER LD",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "扳手样式的卸力在操作上会比较方便，不易发热的卸力构造也适合长时间和金枪鱼搏斗。从构造上来说，随着卸力值的提升，手把在转动时会变得更沉。但有了INFINITY DRIVE技术后，高卸力状态下转动手把时，也能比之前SHIMANO产品中未搭载该技术的渔轮，转动时重量感减少约30%。另外，配备105mm长的手把和T型握丸，让你能够对抗大型目标鱼。在OCEA JIGGER系列中发挥出特性（易抓握的外框架形状、操作便捷的卸力手把），另外，也附带了可以对应细线的卸力开关。",
+    "page_title": "OCEA JIGGER LD | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003ze5HTQAY_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA JIGGER LD 2500MG",
+        "sku_suffix": "2500MG",
         "specs": {
           "gear_ratio": "5.7",
           "max_drag_kg": "20",
@@ -1454,6 +1540,7 @@
       },
       {
         "variant_name": "OCEA JIGGER LD 2500HG",
+        "sku_suffix": "2500HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "20",
@@ -1487,6 +1574,7 @@
       },
       {
         "variant_name": "OCEA JIGGER LD 2501MG",
+        "sku_suffix": "2501MG",
         "specs": {
           "gear_ratio": "5.7",
           "max_drag_kg": "20",
@@ -1520,6 +1608,7 @@
       },
       {
         "variant_name": "OCEA JIGGER LD 2501HG",
+        "sku_suffix": "2501HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "20",
@@ -1552,19 +1641,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA JIGGER LD_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:10",
+    "raw_data_hash": "a6707106f355011f348b853d9c5332254e349e0e4a4888ec991b839d60929cfa"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f000035om2wqac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f000035om2wqac.html",
     "model_name": "OCEA JIGGER F CUSTOM",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "那款经典系列OCEA JIGGER搭载了缓降功能。以F CUSTOM之名登场，新型缓降功能仅用一根手指就能瞬间操作。控制下沉速度可以自由自在掌控假饵在水中的泳姿、让下沉式诱鱼的效率更上一层楼。另外，易握易发力的轻量握把让钓友在中深海钓鱼时也能轻松应对高负荷情况，减少钓友的负担。INFINITY DRIVE和MICROMODULE GEAR保证了渔轮顺滑且强大的收线力，高强度高耐久性以及顺滑的卸力性能等技术也依旧延续下来。1000型-1500型适合真鲷、带鱼、根鱼等中深海铁板，2000-3000型适合剥皮鱼、金枪鱼等近海大型鱼。",
+    "page_title": "OCEA JIGGER F CUSTOM | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000035Om2wQAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA JIGGER F CUSTOM 1000HG",
+        "sku_suffix": "1000HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -1598,6 +1693,7 @@
       },
       {
         "variant_name": "OCEA JIGGER F CUSTOM 1001HG",
+        "sku_suffix": "1001HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -1631,6 +1727,7 @@
       },
       {
         "variant_name": "OCEA JIGGER F CUSTOM 1500HG",
+        "sku_suffix": "1500HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -1664,6 +1761,7 @@
       },
       {
         "variant_name": "OCEA JIGGER F CUSTOM 1501HG",
+        "sku_suffix": "1501HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -1697,6 +1795,7 @@
       },
       {
         "variant_name": "OCEA JIGGER F CUSTOM 2000NRHG",
+        "sku_suffix": "2000NRHG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "10",
@@ -1730,6 +1829,7 @@
       },
       {
         "variant_name": "OCEA JIGGER F CUSTOM 2001NRHG",
+        "sku_suffix": "2001NRHG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "10",
@@ -1763,6 +1863,7 @@
       },
       {
         "variant_name": "OCEA JIGGER F CUSTOM 3000HG",
+        "sku_suffix": "3000HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "10",
@@ -1795,19 +1896,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA JIGGER F CUSTOM_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:11",
+    "raw_data_hash": "baf75de39548bc69b673f2df25c63f626a75ea28f687e511d95b1fc0f7f820b0"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00004dfpq5qad.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00004dfpq5qad.html",
     "model_name": "CALCUTTA CONQUEST DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。※200PG、200HG、200XG：2026年05月预计上市、101MG LEFT、101HG LEFT：2026年06月预计上市",
+    "model_year": "",
+    "description": "以顺畅的收线手感和稳定的抛投性能闻名的CQ DC，如今实现了进一步进化。除了采用精密齿轮与紧凑机身结构，带来丝滑手感的精密齿轮，26款机型还搭载INFINITYDRIVE和SILENTDRIVE，实现更强劲、更顺畅的收线体验。新增第四代MGL线杯，进一步提升线杯转动性能，并配备全新I-DC5，可在更广范围内精细控制刹车力度，将远投性能与防炸线性能同时提升。凭借新技术，实现舒适的远投与操控，这就是SHIMANO的旗舰级鼓轮。",
+    "page_title": "NEW CALCUTTA CONQUEST DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00004DFpq5QAD_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST DC 100MG",
+        "sku_suffix": "100MG",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "4.5",
@@ -1841,6 +1948,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 101MG",
+        "sku_suffix": "101MG",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "4.5",
@@ -1874,6 +1982,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 100HG",
+        "sku_suffix": "100HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4",
@@ -1907,6 +2016,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 101HG",
+        "sku_suffix": "101HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4",
@@ -1940,6 +2050,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 200PG",
+        "sku_suffix": "200PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "6",
@@ -1973,6 +2084,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "6",
@@ -2006,6 +2118,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST DC 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "6",
@@ -2038,19 +2151,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST DC_main.jpg",
-    "model_year": "2026"
+    "scraped_at": "2026-04-15 02:13:12",
+    "raw_data_hash": "ec105a009e86638f54fdcbd2dfb85407ac97e819e633db4c5e05f48e17737833"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003zd3uzqaa.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003zd3uzqaa.html",
     "model_name": "OCEA CONQUEST CT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "OCEA CONQUEST CT有着高精度金属机身，加上MICROMODULE GEAR技术后收线更顺滑，另外，搭载数显屏幕和缓降握把的技术提升了高再现性。而搭载INFINITYDRIVE技术使其进一步提升了收线轻量感和感度。新的数显屏幕可视角度扩大，还搭载了收线距离警报，让你制定更精细的作钓战略。高耐久性的出线开关、高耐腐蚀性的不锈钢零件加上X-PROTECT技术沿袭了OCEA CONQUEST所筑起的防水性和坚韧性。更易握、屏幕可容易看清等细节方面都所有提升，皆在满足钓鱼人的期待。新的MG规格适合鲷鱼钓法，并配备了合适的CI4+材质圆形握丸。",
+    "page_title": "NEW OCEA CONQUEST CT | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003zd3uzQAA_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA CONQUEST CT 300XG",
+        "sku_suffix": "300XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "7",
@@ -2084,6 +2203,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 301XG",
+        "sku_suffix": "301XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "7",
@@ -2117,6 +2237,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 300PG",
+        "sku_suffix": "300PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -2150,6 +2271,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 300MG",
+        "sku_suffix": "300MG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "8",
@@ -2183,6 +2305,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 301MG",
+        "sku_suffix": "301MG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "8",
@@ -2216,6 +2339,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "7.5",
@@ -2249,6 +2373,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 301HG",
+        "sku_suffix": "301HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "7.5",
@@ -2282,6 +2407,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 200PG",
+        "sku_suffix": "200PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -2315,6 +2441,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 201PG",
+        "sku_suffix": "201PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -2348,6 +2475,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 200MG",
+        "sku_suffix": "200MG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "7.5",
@@ -2381,6 +2509,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 201MG",
+        "sku_suffix": "201MG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "7.5",
@@ -2414,6 +2543,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "7",
@@ -2447,6 +2577,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST CT 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "7",
@@ -2479,19 +2610,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA CONQUEST CT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:13",
+    "raw_data_hash": "a9cf60d526cc0edad9b26de578436d02379b3470e6ed5740baa1426d9bdcc05f"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a071000000ttj1xaag.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a071000000ttj1xaag.html",
     "model_name": "KAIKON",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "让人信赖的力度和速度。石鲷渔轮的旗舰产品。 拥有高硬度的金属离合器和顺滑收线性能的曲轴手柄，并搭载了使用十字碳纤维垫片的全气候适用的卸力装置，来应对斑石鲷凶猛的暴冲。坚韧的铝合金切割机身中蕴藏着取之不尽的驱动力。",
+    "page_title": "KAIKON | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a071000000tTJ1xAAG_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "KAIKON 2000T",
+        "sku_suffix": "2000T",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "12",
@@ -2526,6 +2663,7 @@
       },
       {
         "variant_name": "KAIKON 3000T",
+        "sku_suffix": "3000T",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "12",
@@ -2560,6 +2698,7 @@
       },
       {
         "variant_name": "KAIKON 4000T",
+        "sku_suffix": "4000T",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "12",
@@ -2593,19 +2732,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/KAIKON_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:14",
+    "raw_data_hash": "b8080bfb65bfa60ea5f8f27f81966c60a3518f94fb8781ea24923cb12465cf73"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000049n3noqaq.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000049n3noqaq.html",
     "model_name": "ANTARES",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "采用SVS∞（INFINITY）刹车，在抛投后半程也能顺滑出线。新ANTARES探索发挥线杯特性的尺寸，最终选择尼龙线14lb-100m的容线量、径幅37/21mm的数值。MGL SPOOL IV技术采用逆锥形设计，可以矫正收线形状，和麻花棒相辅相成，使得收线有规律地保持平衡，减少抛投时的振动。沿袭过去就有的SILENTUNE、S3D线杯技术，减少抛投时的力量流失，实现出色的抛投表现，和令人心旷神怡的抛投感。两轴轮第一次搭载SILENTDRIVE技术，在驱动齿轮处用3个培林支撑，实现舒适的转动手感。自然贴合手掌的磨砂外观，加上可以轻松操作的出线开关形状设计，从握轮到开关出线，再到抛投和假饵操作，一连串的动作都可以行云流水地完成。华丽爽快的抛投表现加上上乘的操作感，新ANTERES目标是SHIMANO远投离心刹车轮的新旗舰。",
+    "page_title": "NEW ANTARES | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000049n3nOQAQ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "ANTARES 100MG",
+        "sku_suffix": "100MG",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "5",
@@ -2639,6 +2784,7 @@
       },
       {
         "variant_name": "ANTARES 101MG",
+        "sku_suffix": "101MG",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "5",
@@ -2672,6 +2818,7 @@
       },
       {
         "variant_name": "ANTARES 100HG",
+        "sku_suffix": "100HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -2705,6 +2852,7 @@
       },
       {
         "variant_name": "ANTARES 101HG",
+        "sku_suffix": "101HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -2738,6 +2886,7 @@
       },
       {
         "variant_name": "ANTARES 100XG",
+        "sku_suffix": "100XG",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "5",
@@ -2771,6 +2920,7 @@
       },
       {
         "variant_name": "ANTARES 101XG",
+        "sku_suffix": "101XG",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "5",
@@ -2803,19 +2953,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/ANTARES_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:15",
+    "raw_data_hash": "9f97aa8d527981256f42c2f8da8386ce928dc2c83a68d409c595d7cd3d82bb35"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003vfanqqax_p.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003vfanqqax_p.html",
     "model_name": "OCEA JIGGER",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "易握性高的S COMPACT加上HAGANE的刚性。MIRCOMODULE GEAR和INFINITYDRIVE带来了顺滑且轻量的收线感。满足铁板轮所需要的性能，收线速度和抽竿模式十分契合。X PROTECT大幅提高其防水性能，不吝啬先进的技术。从近海到中深海都能适用。",
+    "page_title": "OCEA JIGGER | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003VFAnQQAX_p_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA JIGGER 1500XG",
+        "sku_suffix": "1500XG",
         "specs": {
           "gear_ratio": "7.3",
           "max_drag_kg": "6",
@@ -2849,6 +3005,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1501XG",
+        "sku_suffix": "1501XG",
         "specs": {
           "gear_ratio": "7.3",
           "max_drag_kg": "6",
@@ -2882,6 +3039,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2000NRMG",
+        "sku_suffix": "2000NRMG",
         "specs": {
           "gear_ratio": "5.7",
           "max_drag_kg": "10",
@@ -2915,6 +3073,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2001NRMG",
+        "sku_suffix": "2001NRMG",
         "specs": {
           "gear_ratio": "5.7",
           "max_drag_kg": "10",
@@ -2948,6 +3107,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2000NRXG",
+        "sku_suffix": "2000NRXG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "10",
@@ -2981,6 +3141,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2001NRXG",
+        "sku_suffix": "2001NRXG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "10",
@@ -3014,6 +3175,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1000HG",
+        "sku_suffix": "1000HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -3047,6 +3209,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1001HG",
+        "sku_suffix": "1001HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -3080,6 +3243,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1500HG",
+        "sku_suffix": "1500HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -3113,6 +3277,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1500PG",
+        "sku_suffix": "1500PG",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "7.5",
@@ -3146,6 +3311,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1501HG",
+        "sku_suffix": "1501HG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "7",
@@ -3179,6 +3345,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 1501PG",
+        "sku_suffix": "1501PG",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "7.5",
@@ -3212,6 +3379,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2000NRHG",
+        "sku_suffix": "2000NRHG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "10",
@@ -3245,6 +3413,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2000NRPG",
+        "sku_suffix": "2000NRPG",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "10",
@@ -3278,6 +3447,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2001NRHG",
+        "sku_suffix": "2001NRHG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "10",
@@ -3311,6 +3481,7 @@
       },
       {
         "variant_name": "OCEA JIGGER 2001NRPG",
+        "sku_suffix": "2001NRPG",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "10",
@@ -3343,19 +3514,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA JIGGER_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:16",
+    "raw_data_hash": "2b2577e330a6db06b7dfd6ee4e03e4ad39dda58147fe87548f0be6e94bc57ef9"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgoobqa0.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgoobqa0.html",
     "model_name": "CALCUTTA CONQUEST MD",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "大型鲈鱼、海鲈等目标鱼，岸钓、海钓等各种海水钓法，针对Freestyle进行强化，适用各种假饵对抗怪物级目标的鼓轮旗舰产品。最大收线长101cm，最大卸力8kg，对应大型鱼的规格。MICROMODULE GEAR和INFINITY DRIVE确保了顺滑轻量的回转性能，构造上则通过高刚性HAGANE机身，带来了稳定和舒适的操作感。和旧款相比更紧凑的设计让钓手更易握住渔轮机身，拿在手上的稳定感更好，并且搭载了符合MD之名的SVS MD TUNE，提升了远投性和防炸线性，出线口联动的设计让你出线时能更顺滑地放线，全方位无空隙的设计，坚如磐石的一颗渔轮。",
+    "page_title": "CALCUTTA CONQUEST MD | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003rGoOBQA0_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST MD 300XG",
+        "sku_suffix": "300XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "8",
@@ -3390,6 +3567,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST MD 300XGLH",
+        "sku_suffix": "300XGLH",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "8",
@@ -3424,6 +3602,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST MD 301XGLH",
+        "sku_suffix": "301XGLH",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "8",
@@ -3458,6 +3637,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST MD 400XG",
+        "sku_suffix": "400XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "8",
@@ -3492,6 +3672,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST MD 400XGLH",
+        "sku_suffix": "400XGLH",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "8",
@@ -3526,6 +3707,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST MD 401XGLH",
+        "sku_suffix": "401XGLH",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "8",
@@ -3559,19 +3741,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST MD_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:18",
+    "raw_data_hash": "027778950ea97ab67ea7a102c3f2bc117b0f3a22cdb34bd1e344dd543a268fc6"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a07f900004j2ut2iaf.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a07f900004j2ut2iaf.html",
     "model_name": "CALCUTTA CONQUEST BFS LIMITED",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。※HG RIGHT、XG RIGHT：2026年04月预计上市",
+    "model_year": "",
+    "description": "将优秀技术凝聚于精美的圆形机身，专为精细作钓设计，并标配梦屋铝合金高感度握丸，带来如同指尖触碰水中信息般的操作感。专属配色展现金属机身的华丽光彩，结合铝合金制造的握丸所带来的高感度，打造出一款奢华精致的限量版产品。搭载MGL III & FTB，让轻量假饵的也能顺畅地低弹道抛投，并提升远投性能。配备X-SHIP强力齿轮构造、碳纤维垫片带来的顺滑性能，即使使用细线也能安心操作，兼具坚固与顺畅的回转机构。CALCUTTA CONQUEST BFS，集轻快操控与强韧性能于一身，发挥魅力与质感，是一款特别的精品之作。",
+    "page_title": "CALCUTTA CONQUEST BFS LIMITED | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a07F900004J2Ut2IAF_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST BFS LIMITED HG RIGHT",
+        "sku_suffix": "HG RIGHT",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "3.5",
@@ -3606,6 +3794,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST BFS LIMITED HG LEFT",
+        "sku_suffix": "HG LEFT",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "3.5",
@@ -3640,6 +3829,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST BFS LIMITED XG RIGHT",
+        "sku_suffix": "XG RIGHT",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -3674,6 +3864,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST BFS LIMITED XG LEFT",
+        "sku_suffix": "XG LEFT",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -3707,19 +3898,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST BFS LIMITED_main.jpg",
-    "model_year": "2026"
+    "scraped_at": "2026-04-15 02:13:19",
+    "raw_data_hash": "9a858e89ea3670e910dcec525aaf4611847c6e713187c07ca38ed30c6c2dee7f"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000045zv32qag.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000045zv32qag.html",
     "model_name": "Metanium DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "前一款产品推出之后经过了9年，Metanium DC作为一款泛用规格登场，采用34/19mm的低惯性第三代MGL线杯，抛投手感轻量，弹道平衡性也不错，泛用性非常好。刹车系统则是根据线杯转动变化来感知和调整刹车力的DC刹车系统，新提升的刹车系统有着更好的远投性能和防炸线性能。S3D线杯、SILENTTUNE也提升了抛投性能。另外，MICROMODULE齿轮和X-SHIP则贡献了收线顺滑度，CORE SOLID机身则兼顾了刚性和轻量化，高质感的黑色基调涂装，映射出产品的深义，在不同钓点使用时也能备受瞩目。",
+    "page_title": "Metanium DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000045ZV32QAG_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Metanium DC 70",
+        "sku_suffix": "70",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -3753,6 +3950,7 @@
       },
       {
         "variant_name": "Metanium DC 71",
+        "sku_suffix": "71",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -3786,6 +3984,7 @@
       },
       {
         "variant_name": "Metanium DC 70HG",
+        "sku_suffix": "70HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -3819,6 +4018,7 @@
       },
       {
         "variant_name": "Metanium DC 71HG",
+        "sku_suffix": "71HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -3852,6 +4052,7 @@
       },
       {
         "variant_name": "Metanium DC 70XG",
+        "sku_suffix": "70XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -3885,6 +4086,7 @@
       },
       {
         "variant_name": "Metanium DC 71XG",
+        "sku_suffix": "71XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -3917,19 +4119,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Metanium DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:20",
+    "raw_data_hash": "4572142d8bbece0baef7ef81c448ab60caf239c022065ac071c7e803a053db7a"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47fjqab.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47fjqab.html",
     "model_name": "CALCUTTA CONQUEST",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "金属机身搭配充满刚性感收线力，全新升级的CALCUTTA CONQUEST首次搭载海水轮上备受好评的INFINITY DRIVE技术，大幅减少转动抵抗并大幅提升收线感度、力量和手感。机身在低重心化之后控轮性能提升，另外采用低惯性的MGL线杯Ⅲ让你可以用更低的弹道抛投到更深处位置。",
+    "page_title": "CALCUTTA CONQUEST | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003T47fjQAB_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST 100",
+        "sku_suffix": "100",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "4.5",
@@ -3963,6 +4171,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 101",
+        "sku_suffix": "101",
         "specs": {
           "gear_ratio": "5.6",
           "max_drag_kg": "4.5",
@@ -3996,6 +4205,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 200",
+        "sku_suffix": "200",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "6",
@@ -4029,6 +4239,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 201",
+        "sku_suffix": "201",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "6",
@@ -4062,6 +4273,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 100HG",
+        "sku_suffix": "100HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4",
@@ -4095,6 +4307,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 101HG",
+        "sku_suffix": "101HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4",
@@ -4128,6 +4341,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "6",
@@ -4161,6 +4375,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "6",
@@ -4194,6 +4409,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "6",
@@ -4227,6 +4443,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST 201XG",
+        "sku_suffix": "201XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "6",
@@ -4259,19 +4476,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:21",
+    "raw_data_hash": "d29c206f0b6dea21ba4d7edbc6eb4df5f848925c6d7add1c302ef1d3c6a53af7"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003jz5pnqay.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003jz5pnqay.html",
     "model_name": "OCEA CONQUEST",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "凝聚SHIMANO渔轮技术，拥有较高的强韧性、顺滑度和操作性的船钓两轴海水轮OCEA CONQUEST。采用MICROMODULE齿轮和坚牢的HAGANE机身、高耐久内部部件，一体感带来了顺滑且强力的收线性能，支持着钓手们在船上奋战。新款进一步提升性能，搭载INFINITYDRIVE让收线轻量感、力量和感度都有所提升。另外还配置了X PROTECT技术，提升防水性能和耐久性能，搭载新的缓降握把，采用了重视握感的新形状，可以让钓组更快下沉到正确的位置。缓降构造通过培林重新构建，让收线时原本的沉重感有所减少，产品规格除了PG和HG规格外，还追加了最大收线长101cm的高速齿轮比规格。如此丰富的阵容，犹如铜墙铁壁般帮助你攻略船钓铁板，强力的帮手。",
+    "page_title": "OCEA CONQUEST | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003jz5PNQAY_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA CONQUEST 300PG",
+        "sku_suffix": "300PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -4305,6 +4528,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 301PG",
+        "sku_suffix": "301PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -4338,6 +4562,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "7.5",
@@ -4371,6 +4596,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 301HG",
+        "sku_suffix": "301HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "7.5",
@@ -4404,6 +4630,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 300XG",
+        "sku_suffix": "300XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "7",
@@ -4437,6 +4664,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 301XG",
+        "sku_suffix": "301XG",
         "specs": {
           "gear_ratio": "7.5",
           "max_drag_kg": "7",
@@ -4470,6 +4698,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 200PG",
+        "sku_suffix": "200PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -4503,6 +4732,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 201PG",
+        "sku_suffix": "201PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -4536,6 +4766,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "7",
@@ -4569,6 +4800,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "7",
@@ -4601,19 +4833,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA CONQUEST_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:22",
+    "raw_data_hash": "1c276a84be1fa737eb203a066769aeff275b48693f7ebb544d31f17dfcf9626c"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000044smcdqao.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000044smcdqao.html",
     "model_name": "CALCUTTA CONQUEST SHALLOW EDITION",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "CALCUTTA CONQUEST保持了惯有的实质刚健风格，SHALLOW EDITION浅线杯规格搭载了第三代MGL线杯，尼龙线容线量8lb-100m，线杯规格33/19mm。通过搭载SVS∞适应性更好，特别擅长抛投轻饵打点，通过CALCUTTA CONQUEST的高质感保持舒适手感。另外，INFINITY DRIVE和MICROMODULE GEAR也带来了优秀的收线性能。推荐给喜欢技巧作钓的路亚玩家。",
+    "page_title": "CALCUTTA CONQUEST SHALLOW EDITION | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000044SMCdQAO_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST SHALLOW EDITION 30HG",
+        "sku_suffix": "30HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4",
@@ -4647,6 +4885,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST SHALLOW EDITION 31HG",
+        "sku_suffix": "31HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4",
@@ -4679,19 +4918,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST SHALLOW EDITION_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:23",
+    "raw_data_hash": "fc9b4073ba7b54d2513539acdf2c709dd49f2200a7f5299f44874b39218546be"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgosxqa0.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgosxqa0.html",
     "model_name": "CALCUTTA CONQUEST BFS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "将先进机能凝缩在圆型机身中的微物专用轮，CALCUTTA CONQUEST BFS搭载了低惯性MGL SPOOLⅢ和NEW FTB刹车后获得了重生。让轻量假饵可以更贴近水面地抛投出去，1g左右的假饵也能轻抛，不在线杯内配置刹车部件的FTB刹车系统贡献了线杯的低惯性化，活用离心力特性磁石刹车，带来了稳定且长距离的抛投性能，并且刹车部件扩大后，配置了磁性环让刹车力调整到最小时几乎无磁力，这样对刹车的抑制性能变得更优秀。X-SHIP构造给予了齿轮强力支持，碳纤维十字纹垫片让你使用细线时也能放心，刹车提示音也能够激发钓手的热情，将这些精细作钓所需的功能毫不吝啬地网罗起来。最后，冷锻素材通过高精度切割加工后成型的圆型机身，除了外形优美外其小巧紧凑的样式，提升了抓握性能。功能先进并充满温柔性的CALCUTTA CONQUEST BFS，在自然中映射着美丽景色的这个圆型机身，给与这个渔轮甜美的世界观。",
+    "page_title": "CALCUTTA CONQUEST BFS | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003rGoSXQA0_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CALCUTTA CONQUEST BFS HG RIGHT",
+        "sku_suffix": "HG RIGHT",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "3.5",
@@ -4725,6 +4970,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST BFS HG LEFT",
+        "sku_suffix": "HG LEFT",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "3.5",
@@ -4758,6 +5004,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST BFS XG RIGHT",
+        "sku_suffix": "XG RIGHT",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -4791,6 +5038,7 @@
       },
       {
         "variant_name": "CALCUTTA CONQUEST BFS XG LEFT",
+        "sku_suffix": "XG LEFT",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -4823,19 +5071,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CALCUTTA CONQUEST BFS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:24",
+    "raw_data_hash": "bfe284e04ea17b989d1246f1249a00a2d5b0aac830e7c87aa8daddeab3486eba"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a07f900004dfisjiar.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a07f900004dfisjiar.html",
     "model_name": "OCEA CONQUEST FT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "在延续OCEA CONQUEST系列设计理念的基础上，追求轻量化、紧凑化以及高转速线杯性能的敏捷型号。采用黄铜材质的精密齿轮与X-SHIP结构，实现顺滑的转动。专注于线杯旋转性能的结构设计，可高精度支持海钓中的触底感知。搭载FTB系统，通过将刹车部件从线杯中移除，让线杯低惯性化。外部旋钮调节刹车力能灵活应对潮流变化及抛投操作。系列中顶级的线杯性能，将海钓拓展至全新阶段。",
+    "page_title": "OCEA CONQUEST FT | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a07F900004DfisJIAR_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "OCEA CONQUEST FT 60MG",
+        "sku_suffix": "60MG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -4869,6 +5123,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST FT 61MG",
+        "sku_suffix": "61MG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -4902,6 +5157,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST FT 60HG",
+        "sku_suffix": "60HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -4935,6 +5191,7 @@
       },
       {
         "variant_name": "OCEA CONQUEST FT 61HG",
+        "sku_suffix": "61HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -4967,19 +5224,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/OCEA CONQUEST FT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:25",
+    "raw_data_hash": "2cc341b1624ae2ed56c64ed057b05783a9148d13c97bc67b0398d763393aba73"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnwbqas.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnwbqas.html",
     "model_name": "ALDEBARAN DC",
-    "description": "※上市时间未定。※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "通过DC单元小型化使得小直径线杯可以配合DC刹车使用。轻量且低惯性的线杯和1/1000秒单位内制动刹车的DC刹车效果相辅相成，即使使用轻量假饵也可以实现低弹道、出色的远投性能、防炸线性能。DC刹车则采用制动性能更高精度的新I-DC5。无论什么种类的渔线，通过多达15段的多段化变化，更容易设定合适的刹车力。另外还搭载MGL SPOOL IV、SILENTUNE、S3D线杯等技术减少线杯振动以及抛投时的力量流失问题。大限度地发挥线杯转动性能，进一步提升抛投性能。另外，MICROMODULE GEAR、X-SHIP、HAGANE BODY等基本性能也有配备。从黑鲈、黑鲷到轻型岩鱼，有着出色泛用性的新型技巧型DC就此诞生。",
+    "page_title": "ALDEBARAN DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PnwBQAS_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "ALDEBARAN DC 30HG",
+        "sku_suffix": "30HG",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "4",
@@ -5014,6 +5277,7 @@
       },
       {
         "variant_name": "ALDEBARAN DC 31HG",
+        "sku_suffix": "31HG",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "4",
@@ -5048,6 +5312,7 @@
       },
       {
         "variant_name": "ALDEBARAN DC 30XG",
+        "sku_suffix": "30XG",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "4",
@@ -5082,6 +5347,7 @@
       },
       {
         "variant_name": "ALDEBARAN DC 31XG",
+        "sku_suffix": "31XG",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "4",
@@ -5115,19 +5381,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/ALDEBARAN DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:26",
+    "raw_data_hash": "273d3bcb740de86e67b4d4a92ad5ff72ac2e908a035e79f707e3e668e935d7c3"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003q6evpqay.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003q6evpqay.html",
     "model_name": "STILE",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "作为技巧型钓法而设计的STILE，进一步进化兼具强度和操作性后登场。55mm的长握把使其实现了面对高负荷下的强力收线，高刚性的HAGANE机身也支持其应对高负荷。内部搭载MICROMODULE GEAR，实现顺滑的收线性能提高钓友的集中力。新形状的出线开关提升操作性，支持技巧型的进攻。此外，还设想了使用细线的情况，搭载了碳纤维交叉垫片使得可以通过听觉识辨卸力的EXCITING DRAG SOUND等丰富多彩的功能。在具备这些丰富性能的同时还实现了自身的轻量化。进一步提升性能得到了这台新STILE。",
+    "page_title": "NEW STILE | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003q6eVPQAY_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "STILE 100PG",
+        "sku_suffix": "100PG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "4.5",
@@ -5161,6 +5433,7 @@
       },
       {
         "variant_name": "STILE 101PG",
+        "sku_suffix": "101PG",
         "specs": {
           "gear_ratio": "6.4",
           "max_drag_kg": "4.5",
@@ -5194,6 +5467,7 @@
       },
       {
         "variant_name": "STILE 100XG",
+        "sku_suffix": "100XG",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -5227,6 +5501,7 @@
       },
       {
         "variant_name": "STILE 101XG",
+        "sku_suffix": "101XG",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -5259,19 +5534,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/STILE_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:27",
+    "raw_data_hash": "a4a05e8e7acf8570c0b209eedc55cfa112450428bd4068af45a09fb474bb76ce"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003k1omiqam.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003k1omiqam.html",
     "model_name": "BARCHETTA PREMIUM",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "搭载MICROMODULE齿轮、HAGANE机身和X-SHIP等技术，让这款数显轮轻量的同时也具备了顺滑收线感和刚性，BARCHETTA PREMIUM全新升级后登场。搭载单项培林后的NEW缓降握把，在刹车起效时转动手把手感也不会变沉，针对慢速下沉诱鱼钓法所需的METAL SUTTE、带鱼、比目鱼、真鲷、超轻铁板等目标和钓法，收线时不会晃动，也可以大范围细腻地调整下降速度。新的数显屏识别性提升后，根据设定距离能够发出收线距离提示音的功能让你也能更好掌握水深，握着竿时也可以不用盯着竿梢看便可知道所在水层，渔轮有单手把和双手把两种规格，采用CI4+素材后比旧款整体更轻量。",
+    "page_title": "BARCHETTA PREMIUM | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003k1OMiQAM_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BARCHETTA PREMIUM 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -5306,6 +5587,7 @@
       },
       {
         "variant_name": "BARCHETTA PREMIUM 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -5340,6 +5622,7 @@
       },
       {
         "variant_name": "BARCHETTA PREMIUM 150DH",
+        "sku_suffix": "150DH",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -5374,6 +5657,7 @@
       },
       {
         "variant_name": "BARCHETTA PREMIUM 151DH",
+        "sku_suffix": "151DH",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -5408,6 +5692,7 @@
       },
       {
         "variant_name": "BARCHETTA PREMIUM 150DHXG",
+        "sku_suffix": "150DHXG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -5442,6 +5727,7 @@
       },
       {
         "variant_name": "BARCHETTA PREMIUM 151DHXG",
+        "sku_suffix": "151DHXG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -5475,19 +5761,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BARCHETTA PREMIUM_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:29",
+    "raw_data_hash": "0057a5ab7e118d0effffb7ddedb36de0edc056fc75c45d69b9c480d3f2fd8fa9"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003iml5rqaw.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003iml5rqaw.html",
     "model_name": "GRAPPLER PREMIUM",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "轻铁板&SLJ规格，搭载单向培林的NEW缓降握把，使用时手把转动收线也不会觉得手感沉。打开新搭载的收线距离提示音功能后，在开始晃竿的水深开始作钓，每收线一定距离能发出提示音，侧边采用了CI4+素材，整体重量比旧款更轻。冷锻60mm强力手把&CI4圆型握丸的组合，让你在使用细铁板时可以更好掌控并提升了操作性，就算突然中大鱼也能游刃有余地搏鱼。",
+    "page_title": "GRAPPLER PREMIUM | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003iML5RQAW_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "GRAPPLER PREMIUM 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -5521,6 +5813,7 @@
       },
       {
         "variant_name": "GRAPPLER PREMIUM 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -5553,19 +5846,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/GRAPPLER PREMIUM_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:30",
+    "raw_data_hash": "72e2558daa83fe854a0e5a58262c8b8f082b1049b912c52850495bfb328777bb"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47foqab.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47foqab.html",
     "model_name": "ALDEBARAN BFS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "ALDEBARAN BFS搭载了第一次在SHIMANO BFS渔轮上运用的MGLⅢ技术。专门为BFS设计的低惯性线杯将在轻钓组的世界里掀起一场风暴。采用不易炸线的FTB磁刹系统。不在线杯上配置刹车单位配件，使其低惯性化，相比过去刹车单位配件行程拉长，使刹车更易调节。此外，新配置的磁环在最小刹车力时能够吸收磁力的影响，即使抖动抛投假饵弹道也不易上浮，彷如在水面上爬行般达到结构钓点的深处。此外，其重量仅130g，满载了MICROMODULE GEAR和EXCITING DRAG SOUND等先进技术。于是高性价比的ALDEBARAN诞生了。",
+    "page_title": "ALDEBARAN BFS | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003T47foQAB_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "ALDEBARAN BFS HG R",
+        "sku_suffix": "HG R",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "3.5",
@@ -5599,6 +5898,7 @@
       },
       {
         "variant_name": "ALDEBARAN BFS HG L",
+        "sku_suffix": "HG L",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "3.5",
@@ -5632,6 +5932,7 @@
       },
       {
         "variant_name": "ALDEBARAN BFS XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -5665,6 +5966,7 @@
       },
       {
         "variant_name": "ALDEBARAN BFS XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "8.9",
           "max_drag_kg": "3.5",
@@ -5697,19 +5999,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/ALDEBARAN BFS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:31",
+    "raw_data_hash": "407043b324549c87cc29f7ca5928c52c31d8f7bc9432e1c823bab4350a113bf9"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002ntgjkqaa.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002ntgjkqaa.html",
     "model_name": "ALDEBARAN MGL",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "轻假饵专用的ALDEBARAN，浅杯化并搭载新设计的MagnumLITE线杯。通过在线杯侧面打孔减轻了惯性及重量，这样减少了需要控制的刹车力。轻量假饵的适应性进一步提升，提升了远投性能。轻量假饵那轻微的重量能够瞬间加速，提升抛投的距离，覆盖至微物钓的领域。",
+    "page_title": "ALDEBARAN MGL | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002ntgjkQAA_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "ALDEBARAN MGL 30",
+        "sku_suffix": "30",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "4.5",
@@ -5743,6 +6051,7 @@
       },
       {
         "variant_name": "ALDEBARAN MGL 31",
+        "sku_suffix": "31",
         "specs": {
           "gear_ratio": "6.5",
           "max_drag_kg": "4.5",
@@ -5776,6 +6085,7 @@
       },
       {
         "variant_name": "ALDEBARAN MGL 30 HG",
+        "sku_suffix": "30 HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4.5",
@@ -5809,6 +6119,7 @@
       },
       {
         "variant_name": "ALDEBARAN MGL 31 HG",
+        "sku_suffix": "31 HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "4.5",
@@ -5841,19 +6152,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/ALDEBARAN MGL_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:33",
+    "raw_data_hash": "3fc3085d7995434184a25e9ba0a2e07cfa6648be50df40ac002904e5cea76438"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003k1ldfqa2.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003k1ldfqa2.html",
     "model_name": "Metanium SHALLOW EDITION",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "轻量泛用的代表产品Metanium上，配备受到众多钓友好评的梦屋浅杯。更注重技巧型钓法的特殊规格。浓缩后也适合近距离作钓，比20 Metanium减轻了10g，进一步提升了操作性。远投自不用说，即使是抛投次数多的短距离作钓也有很高的精度。在使用假饵多样化的现代路亚钓中，是能够实现弥补渔具体系空隙的一款渔轮。",
+    "page_title": "Metanium SHALLOW EDITION | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003k1LDFQA2_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Metanium SHALLOW EDITION R",
+        "sku_suffix": "R",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -5887,6 +6204,7 @@
       },
       {
         "variant_name": "Metanium SHALLOW EDITION L",
+        "sku_suffix": "L",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -5920,6 +6238,7 @@
       },
       {
         "variant_name": "Metanium SHALLOW EDITION HG R",
+        "sku_suffix": "HG R",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -5953,6 +6272,7 @@
       },
       {
         "variant_name": "Metanium SHALLOW EDITION HG L",
+        "sku_suffix": "HG L",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -5986,6 +6306,7 @@
       },
       {
         "variant_name": "Metanium SHALLOW EDITION XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6019,6 +6340,7 @@
       },
       {
         "variant_name": "Metanium SHALLOW EDITION XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6051,19 +6373,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Metanium SHALLOW EDITION_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:34",
+    "raw_data_hash": "04bbd1eecc17482178df5194e3a8ee74dfea0b659438730e70048738d99c9012"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002xcbu7qac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002xcbu7qac.html",
     "model_name": "Metanium",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
-    "main_image_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002xcbu7qac/_jcr_content/root/fullwidthbanner.coreimg.jpeg/1703652949391/main.jpeg",
+    "model_year": "",
+    "description": "覆盖范围广泛的技巧款泛用规格，操作性优秀且轻量，采用镁金属一体成型的CORESOLID机身并搭载了第三代MGL线杯。轻快的操作性和坚韧的适应力，经过提升后，都能更技巧地收线打点和操控轻量假饵。另外在保证轻量的同时，采用超高强度黄铜素材的驱动齿轮，让渔轮更耐用。",
+    "page_title": "Metanium | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
+    "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002xCbu7QAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Metanium 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -6097,6 +6425,7 @@
       },
       {
         "variant_name": "Metanium 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -6130,6 +6459,7 @@
       },
       {
         "variant_name": "Metanium 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -6163,6 +6493,7 @@
       },
       {
         "variant_name": "Metanium 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -6196,6 +6527,7 @@
       },
       {
         "variant_name": "Metanium 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6229,6 +6561,7 @@
       },
       {
         "variant_name": "Metanium 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6262,6 +6595,7 @@
       },
       {
         "variant_name": "Metanium 70",
+        "sku_suffix": "70",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -6295,6 +6629,7 @@
       },
       {
         "variant_name": "Metanium 71",
+        "sku_suffix": "71",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -6328,6 +6663,7 @@
       },
       {
         "variant_name": "Metanium 70HG",
+        "sku_suffix": "70HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -6361,6 +6697,7 @@
       },
       {
         "variant_name": "Metanium 71HG",
+        "sku_suffix": "71HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -6394,6 +6731,7 @@
       },
       {
         "variant_name": "Metanium 70XG",
+        "sku_suffix": "70XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6427,6 +6765,7 @@
       },
       {
         "variant_name": "Metanium 71XG",
+        "sku_suffix": "71XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6460,6 +6799,7 @@
       },
       {
         "variant_name": "Metanium 100HG",
+        "sku_suffix": "100HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -6493,6 +6833,7 @@
       },
       {
         "variant_name": "Metanium 101HG",
+        "sku_suffix": "101HG",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -6526,6 +6867,7 @@
       },
       {
         "variant_name": "Metanium 100XG",
+        "sku_suffix": "100XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6559,6 +6901,7 @@
       },
       {
         "variant_name": "Metanium 101XG",
+        "sku_suffix": "101XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -6591,19 +6934,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Metanium_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:35",
+    "raw_data_hash": "998b11ef8a63072e577e96efa2e8e0c9e855e31dae2a59838b093c96dce05801"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003imkt8qag.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003imkt8qag.html",
     "model_name": "SPEEDMASTER 石鲷",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "作为质实刚健的实战派石鲷轮，SPEEDMASTER 石鲷大幅提升了卸力并搭载了离心力刹车系统后全新升级。新的配重设计让力量型手把不用手握也能稳定停止，避免钓组不经意间的移动，配合计数显示屏让你可以将钓组放在精确的位置。符合SPEEDMASTER之名，最大收线长达到了116cm，一转动握把收线即可将石鲷远离危险地带。金属感强烈的炮铜配色充满了高级感，这款石鲷轮在经过性能和实战的磨练后，拥有了更多可能性。",
+    "page_title": "（停产）SPEEDMASTER 石鲷 | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003iMKt8QAG_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SPEEDMASTER 石鲷 2000T",
+        "sku_suffix": "2000T",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "12",
@@ -6638,6 +6987,7 @@
       },
       {
         "variant_name": "SPEEDMASTER 石鲷 3000T",
+        "sku_suffix": "3000T",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "12",
@@ -6672,6 +7022,7 @@
       },
       {
         "variant_name": "SPEEDMASTER 石鲷 4000T",
+        "sku_suffix": "4000T",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "12",
@@ -6705,19 +7056,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SPEEDMASTER 石鲷_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:37",
+    "raw_data_hash": "fe774a8c9283486df7a6cb657f417893d08ed9bee03e36ed23cd68a75d110579"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002kohycqag.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002kohycqag.html",
     "model_name": "TYRNOS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "在海外的市场有着非常高的评价TYRNOS，特征就是刹车手把，只要调整刹车手把，就可以从无刹车力度状态，瞬间变为MAX刹车力度，在挂底时候，也可以瞬间调整为无刹车状态。",
+    "page_title": "TYRNOS | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002kOHycQAG_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TYRNOS 16",
+        "sku_suffix": "16",
         "specs": {
           "gear_ratio": "5",
           "max_drag_kg": "15",
@@ -6752,6 +7109,7 @@
       },
       {
         "variant_name": "TYRNOS 20",
+        "sku_suffix": "20",
         "specs": {
           "gear_ratio": "5",
           "max_drag_kg": "14",
@@ -6786,6 +7144,7 @@
       },
       {
         "variant_name": "TYRNOS 30",
+        "sku_suffix": "30",
         "specs": {
           "gear_ratio": "5",
           "max_drag_kg": "14",
@@ -6819,19 +7178,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TYRNOS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:38",
+    "raw_data_hash": "425353d4081e4d1d81a7751d32b029b9dbc09119cf2635aa14cb7fe7fa55b94e"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003duv4bqah.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003duv4bqah.html",
     "model_name": "EXSENCE DC SS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "海鲈水滴轮更为亲民！为此开发的EXSENCE新机型，采用海鲈用特殊设计的I-DC 4 EXSENCE TUNE设计，通过简单的4段拨盘操作，就可对应PE线、氟碳线以及假饵重量和类型的搭配。搭载HAGANE机身、MICROMODULE齿轮和X-SHIP等先进技术后，让您作钓时能更舒适地进行长距离抛投。",
+    "page_title": "EXSENCE DC SS | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003DUV4bQAH_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "EXSENCE DC SS HG R",
+        "sku_suffix": "HG R",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -6866,6 +7231,7 @@
       },
       {
         "variant_name": "EXSENCE DC SS HG L",
+        "sku_suffix": "HG L",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -6900,6 +7266,7 @@
       },
       {
         "variant_name": "EXSENCE DC SS XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5",
@@ -6934,6 +7301,7 @@
       },
       {
         "variant_name": "EXSENCE DC SS XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5",
@@ -6967,19 +7335,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/EXSENCE DC SS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:39",
+    "raw_data_hash": "e6d7138569f9921a63e518b352ef3d34c863fb19380677b45c9304c27fc852a1"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000049n3puqaq.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000049n3puqaq.html",
     "model_name": "TRANX 400",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "和300型一样，采用CORE SOLID与HAGANE的机身技术，将B侧盖、出线开关保护部和轮框整合为一体式超高刚性铝合金结构。这种设计带来了优秀的刚性与灵敏度，将钓手的操作直接转化为强劲的收线力。该机型配备SHIMANO的 SVS Infinity MD Tune 刹车系统，通过外部旋钮即可轻松进行实时调节。无论是重型还是轻型饵，都能精准微调，兼顾控制力与抛投精度。凭借一系列提升抛投与收线性能的设计，为钓手带来全新体验。",
+    "page_title": "NEW TRANX 400 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000049n3pUQAQ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TRANX 400 400",
+        "sku_suffix": "400",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "10",
@@ -7013,6 +7387,7 @@
       },
       {
         "variant_name": "TRANX 400 401",
+        "sku_suffix": "401",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "10",
@@ -7046,6 +7421,7 @@
       },
       {
         "variant_name": "TRANX 400 400HG",
+        "sku_suffix": "400HG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -7079,6 +7455,7 @@
       },
       {
         "variant_name": "TRANX 400 401HG",
+        "sku_suffix": "401HG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -7111,19 +7488,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TRANX 400_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:41",
+    "raw_data_hash": "22c87a1c8a9bd691a523bc36a5cd1d67e4f0201d78670fcd4d840e8b6f549d4c"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003ihbm1qai.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003ihbm1qai.html",
     "model_name": "Bantam",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "开拓了强力泛用轮的新世界的Bantam再次进化。新Bantam搭载了150号尺寸MGLⅢ线杯。抛竿时的轻便和舒适感彷如19 ANTARES。兼具高刚性和紧凑握感的CORE SOLID机身中，蕴藏SHIMANO第一次在水滴轮上运用的INFINITYDRIVE。减少转动阻力使其可以在全力状态下收线。将强力泛用轮带向新台阶的一款渔轮。",
+    "page_title": "Bantam | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003ihbM1QAI_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Bantam R",
+        "sku_suffix": "R",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -7157,6 +7540,7 @@
       },
       {
         "variant_name": "Bantam L",
+        "sku_suffix": "L",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -7190,6 +7574,7 @@
       },
       {
         "variant_name": "Bantam HG R",
+        "sku_suffix": "HG R",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -7223,6 +7608,7 @@
       },
       {
         "variant_name": "Bantam HG L",
+        "sku_suffix": "HG L",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "5",
@@ -7256,6 +7642,7 @@
       },
       {
         "variant_name": "Bantam XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -7289,6 +7676,7 @@
       },
       {
         "variant_name": "Bantam XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -7321,19 +7709,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Bantam_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:42",
+    "raw_data_hash": "6b90dac6c1ddff75ba57d569b0eb9e1639a1effcf521b937e69bea1011c17208"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002jagt4qam.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002jagt4qam.html",
     "model_name": "TRANX 400",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "TRANX系列面向大物的规格，有双手把和单手把两种类型可选择。",
+    "page_title": "TRANX 400 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002jaGT4QAM_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TRANX 400 400HG",
+        "sku_suffix": "400HG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -7367,6 +7761,7 @@
       },
       {
         "variant_name": "TRANX 400 401HG",
+        "sku_suffix": "401HG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -7400,6 +7795,7 @@
       },
       {
         "variant_name": "TRANX 400 400",
+        "sku_suffix": "400",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "10",
@@ -7433,6 +7829,7 @@
       },
       {
         "variant_name": "TRANX 400 401",
+        "sku_suffix": "401",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "10",
@@ -7465,19 +7862,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TRANX 400_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:43",
+    "raw_data_hash": "0686b627ebd39f8a49274cd9455137c37e67073d571fa9c7db2754abb7fbd772"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pntmqac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pntmqac.html",
     "model_name": "TRANX 300",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "机身和Bantam一样采用了CORESOLID BODY，整体强度更优秀。另外，刹车系统也更新为SVS MD TUNE，8豆配置提升了刹车力，方方面面的提升让你有更多的搭配和选择方向。",
+    "page_title": "NEW TRANX 300 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PntmQAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TRANX 300 300",
+        "sku_suffix": "300",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "10",
@@ -7511,6 +7914,7 @@
       },
       {
         "variant_name": "TRANX 300 301",
+        "sku_suffix": "301",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "10",
@@ -7544,6 +7948,7 @@
       },
       {
         "variant_name": "TRANX 300 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -7577,6 +7982,7 @@
       },
       {
         "variant_name": "TRANX 300 301HG",
+        "sku_suffix": "301HG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -7609,19 +8015,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TRANX 300_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:44",
+    "raw_data_hash": "bb1d60a7835848cda1c5eebb0c185f2c8bfd0d21377632e51e03004d0d40a5f7"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002k32xsqaq_p.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002k32xsqaq_p.html",
     "model_name": "BAYGAME",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "有着充足容线量的300PG/301PG型号登场。采用HAGANE BODY的设计，达成了高刚性。采用X-SHIP和MICROMODULE GEAR，实现顺滑的收线性能，确保能捕捉细微咬讯。可容纳380m的2号PE线，最大卸力8kg，70mm的长握把加上强力齿轮实现极强的收线力，提高其对抗大物的能力。",
+    "page_title": "BAYGAME | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002k32xSQAQ_p_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BAYGAME 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5",
@@ -7656,6 +8068,7 @@
       },
       {
         "variant_name": "BAYGAME 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5",
@@ -7690,6 +8103,7 @@
       },
       {
         "variant_name": "BAYGAME 150DH",
+        "sku_suffix": "150DH",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5",
@@ -7724,6 +8138,7 @@
       },
       {
         "variant_name": "BAYGAME 151DH",
+        "sku_suffix": "151DH",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5",
@@ -7758,6 +8173,7 @@
       },
       {
         "variant_name": "BAYGAME 300PG",
+        "sku_suffix": "300PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -7792,6 +8208,7 @@
       },
       {
         "variant_name": "BAYGAME 301PG",
+        "sku_suffix": "301PG",
         "specs": {
           "gear_ratio": "4.8",
           "max_drag_kg": "8",
@@ -7825,19 +8242,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BAYGAME_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:45",
+    "raw_data_hash": "716eda986f7d8c09b3de097d7820ca1951e0b0e9da3100b66572ab8f20ed22eb"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00004axe1fqah.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00004axe1fqah.html",
     "model_name": "GRAPPLER",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "高刚性的两轴轮搭配HAGANE机身，搭载X-SHIP、精密齿轮、卸力报警等技术，适合近海铁板钓的GRAPPLER系列，现以更进一步的进化全新登场。采用CORESOLID BODY的一体成型全铝合金机身来增强坚固性，并配备易于调节的离心刹车系统SVS Infinity，精准应对下投操作。此外，手把加长至75mm，并对各部件进行优化，使操作更为顺手。除了不挑使用者或钓法的泛用型HG速比外，还新增7.6的XG速比，进一步满足更广泛的使用场景，是一款高适应性的渔轮。",
+    "page_title": "NEW GRAPPLER | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00004AXE1fQAH_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "GRAPPLER 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "7.5",
@@ -7871,6 +8294,7 @@
       },
       {
         "variant_name": "GRAPPLER 301HG",
+        "sku_suffix": "301HG",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "7.5",
@@ -7904,6 +8328,7 @@
       },
       {
         "variant_name": "GRAPPLER 300XG",
+        "sku_suffix": "300XG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "7",
@@ -7937,6 +8362,7 @@
       },
       {
         "variant_name": "GRAPPLER 301XG",
+        "sku_suffix": "301XG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "7",
@@ -7969,19 +8395,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/GRAPPLER_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:46",
+    "raw_data_hash": "2c5bc88b8466d39321cc95584c8952f99e7578b9fdc19c9bb12c86e27ba3493e"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f000044rcoxqag.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f000044rcoxqag.html",
     "model_name": "BARCHETTA F CUSTOM",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "搭载新缓降握把，应对多种轻型船钓的轻量数显轮。即使在有刹车的状态下转动手把也不会觉得过重，在下沉过程中中鱼的话可以立马转换开始收线。双手把加长到60mm，150\\151都采用CI4+握丸。另外，收线距离警报功能使得不用特意看显示屏也能通过声音辨识距离。指定线学习可以应对0.6、0.8、1.0、1.2、1.5号PE线。以METAL SUTTE为代表，适合多种钓法。",
+    "page_title": "NEW BARCHETTA F CUSTOM | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000044RCoxQAG_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BARCHETTA F CUSTOM 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -8016,6 +8448,7 @@
       },
       {
         "variant_name": "BARCHETTA F CUSTOM 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -8050,6 +8483,7 @@
       },
       {
         "variant_name": "BARCHETTA F CUSTOM 150DH",
+        "sku_suffix": "150DH",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -8084,6 +8518,7 @@
       },
       {
         "variant_name": "BARCHETTA F CUSTOM 151DH",
+        "sku_suffix": "151DH",
         "specs": {
           "gear_ratio": "6.9",
           "max_drag_kg": "5.5",
@@ -8118,6 +8553,7 @@
       },
       {
         "variant_name": "BARCHETTA F CUSTOM 150DHXG",
+        "sku_suffix": "150DHXG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -8152,6 +8588,7 @@
       },
       {
         "variant_name": "BARCHETTA F CUSTOM 151DHXG",
+        "sku_suffix": "151DHXG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -8185,19 +8622,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BARCHETTA F CUSTOM_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:47",
+    "raw_data_hash": "b8dde5032878d2324c0d4b7b41aa9d6ab8be3dacc7739690346a3b5a9811870c"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00002jab08qae.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00002jab08qae.html",
     "model_name": "GRAPPLER",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "搭载强度优秀的[HAGANE机身]，搭配[X-SHIP]、[MICROMODULE GEAR]等先进构造，拥有PE3号250m的大容量和6.2的齿轮速可供钓友选择，对应各种轻铁板、深海鲷钓和慢摇铁板。",
+    "page_title": "GRAPPLER（300线杯） | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002jaB08QAE_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "GRAPPLER 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "7",
@@ -8231,6 +8674,7 @@
       },
       {
         "variant_name": "GRAPPLER 301HG",
+        "sku_suffix": "301HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "7",
@@ -8263,19 +8707,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/GRAPPLER_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:48",
+    "raw_data_hash": "a908c9b78190fdad82e846d1fdaf57598856c43ed2734c1ad472041d1a98d76f"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00004dfpu0qad.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00004dfpu0qad.html",
     "model_name": "Scorpion DC MD",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "在FREESTYLE领域占据核心地位的Scorpion系列，迎来了期待已久的DC MD。搭载最新I-DC5 与第四代MGL来提升抛投性能。MGL Ⅳ通过逆锥形设计矫正绕线形状，降低旋转时的晃动，同时采用来自ANTARES DC MD 的规格：线杯规格 38mm/21mm，实现高线容量与顺畅抛投手感的平衡。新I-DC5 可在更广范围内精细控制刹车力，减少炸线并能更远距离地精准抛投。坚固机身蕴藏强劲动力，结合强大的抛投性能，挑战全球大型鱼类——新一代Monster Drive由此诞生。",
+    "page_title": "Scorpion DC MD | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00004DFpu0QAD_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Scorpion DC MD 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -8309,6 +8759,7 @@
       },
       {
         "variant_name": "Scorpion DC MD 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -8341,19 +8792,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Scorpion DC MD_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:49",
+    "raw_data_hash": "abe36fe424ebff79b8a0f179f00efea5a1c2e7885f78ac7f8b8b61c1668dd19d"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003ihbqcqay.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003ihbqcqay.html",
     "model_name": "SLX DC XT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "运用范围极广的技巧型泛用规格。在两轴轮上配备CALCUTTA CONQUEST DC上广受好评的I-DC5。远投性能、抗炸线性能优异，以及对抗大风等得以进一步进化。线杯采用超薄MGL SPOOLⅢ。低惯性可以做到快速回转，特别可以发挥轻量假饵的威力，即使在狭窄的地方也可以随心所欲的抛投。驱动中心配置了MICROMODULE GEAR，顺滑有力的收线，可以应对多种假饵。",
+    "page_title": "SLX DC XT | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003ihbQCQAY_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SLX DC XT 70",
+        "sku_suffix": "70",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5.5",
@@ -8387,6 +8844,7 @@
       },
       {
         "variant_name": "SLX DC XT 71",
+        "sku_suffix": "71",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5.5",
@@ -8420,6 +8878,7 @@
       },
       {
         "variant_name": "SLX DC XT 70HG",
+        "sku_suffix": "70HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -8453,6 +8912,7 @@
       },
       {
         "variant_name": "SLX DC XT 71HG",
+        "sku_suffix": "71HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -8486,6 +8946,7 @@
       },
       {
         "variant_name": "SLX DC XT 70XG",
+        "sku_suffix": "70XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5.5",
@@ -8519,6 +8980,7 @@
       },
       {
         "variant_name": "SLX DC XT 71XG",
+        "sku_suffix": "71XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5.5",
@@ -8551,19 +9013,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SLX DC XT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:50",
+    "raw_data_hash": "649c7852c3f1ebd1a8f2791082e19b123d30eaf9001e8d734a5b3c4c2731bbec"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47ftqab.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47ftqab.html",
     "model_name": "Scorpion DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "对应各种钓法的高自由度水滴轮。新搭载MGL线杯后实现了优秀的抛投性能。另外，增加容线量后扩大了钓种应对范围。驱动中枢采用了强力收线且少噪音的精密齿轮，I-DC5刹车系统能在即将炸线时调整适当刹车力。速比有6.2的普速轮，7.4的高速轮以及8.5的超高速轮，不仅仅是鲈鱼，海鲈和其它多个鱼种皆可攻略。",
+    "page_title": "Scorpion DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003T47ftQAB_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Scorpion DC 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5.5",
@@ -8597,6 +9065,7 @@
       },
       {
         "variant_name": "Scorpion DC 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5.5",
@@ -8630,6 +9099,7 @@
       },
       {
         "variant_name": "Scorpion DC 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -8663,6 +9133,7 @@
       },
       {
         "variant_name": "Scorpion DC 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -8696,6 +9167,7 @@
       },
       {
         "variant_name": "Scorpion DC 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -8729,6 +9201,7 @@
       },
       {
         "variant_name": "Scorpion DC 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -8761,19 +9234,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Scorpion DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:51",
+    "raw_data_hash": "df23115ff22054a8dfea9b73d468c2cb620eff1294544b3c96e606dcb50a9848"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnecqas_1.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnecqas_1.html",
     "model_name": "Scorpion MD 300",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "从黑鲈到青物，可以应对各种大物的Scorpion MD朝着更强、更易操作进化。在大物钓中，和大型鱼正面对抗需要机身有足够的刚性。新款的Scorpion MD第一次在300型上采用CORESOLID BODY。高刚性使其不惧强力收线，抑制机身歪曲，在大物钓中发挥其价值。刹车系统采用新的SVS INFINITY MD TUNE，可以从外部拨盘调整刹车力，8个刹车豆保证了高刹车力。可以应对空气阻力很大的大型假饵，和突如其来的风向变化。沿袭旧款的MICROMODULE GEAR和X-SHIP技术，有着高容线量和高卸力。人气高涨的FREESTYLE，邀请您挑战大鱼。",
+    "page_title": "Scorpion MD 300 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PneCQAS_1_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Scorpion MD 300 300XG",
+        "sku_suffix": "300XG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -8808,6 +9287,7 @@
       },
       {
         "variant_name": "Scorpion MD 300 301XG",
+        "sku_suffix": "301XG",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -8842,6 +9322,7 @@
       },
       {
         "variant_name": "Scorpion MD 300 300XGLH",
+        "sku_suffix": "300XGLH",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -8876,6 +9357,7 @@
       },
       {
         "variant_name": "Scorpion MD 300 301XGLH",
+        "sku_suffix": "301XGLH",
         "specs": {
           "gear_ratio": "7.6",
           "max_drag_kg": "8",
@@ -8909,19 +9391,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Scorpion MD 300_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:52",
+    "raw_data_hash": "e06ffd1bf71be3f2918e899fb15f7b03e4115a91e1972ea99fbea269b28fc732"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003vfikaqax.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003vfikaqax.html",
     "model_name": "GRAPPLER",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "GRAPPLER搭载缓降握把和出线口联动装置使其拥有顺滑的下落能力。最大收线长达到78cm的高速齿轮不对纤细的抽竿操作施加压力，从石鲈到青物，近海目标鱼都能应对。 当然也搭载了不可缺少的MICROMODULE GEAR和X-SHIP。HAGANE BODY先进的性能使之在与鱼搏斗时有着安心感，辅助你的铁板钓。",
+    "page_title": "GRAPPLER（150线杯） | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003VFIkAQAX_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "GRAPPLER 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "4",
@@ -8955,6 +9443,7 @@
       },
       {
         "variant_name": "GRAPPLER 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.8",
           "max_drag_kg": "4",
@@ -8987,19 +9476,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/GRAPPLER_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:53",
+    "raw_data_hash": "84da0c1453146452a82ba7b5fe41ffee162b74ca99686d1a3fe37d77a7cc76f3"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f000046sjplqak.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f000046sjplqak.html",
     "model_name": "GRAPPLER CT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "GRAPPLER CT在轻铁板为主的各种近海作钓都能适合，自由控制下沉速度、掌握水层情况，优秀的再现性，性价比也非常优秀。全新升级的25款GRAPPLER CT，采用新的缓降握把，刹车作用时手把转起来也不会感觉重。搭载的收线距离提示音功能，用起来更顺手。另外，保持HAGANE机身的刚性和防水性外，轻量化15g，带给钓手更高性价比。",
+    "page_title": "NEW GRAPPLER CT | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000046SjPlQAK_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "GRAPPLER CT 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -9033,6 +9528,7 @@
       },
       {
         "variant_name": "GRAPPLER CT 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5",
@@ -9065,19 +9561,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/GRAPPLER CT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:54",
+    "raw_data_hash": "4c231e9e5098629927777673dadf58d3f47737c0e4ce5d307c08085b9ee308af"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003nrfpoqau.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003nrfpoqau.html",
     "model_name": "CURADO DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "有着20lb-100m的容线量，加上DC刹车，享受FREESTYLE的新标准规格登场。采用远投性和抑制炸线性能都和优异的I-DC4系统，从10g左右的米诺到300g级别的大型假饵，都可以通过调试刹车的方式来应对。主轴采用X-SHIP的构造，实现高耐久性和顺滑收线，应对各种鱼种和作钓环境。",
+    "page_title": "CURADO DC（200线杯） | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003nrFpOQAU_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO DC 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -9110,6 +9612,7 @@
       },
       {
         "variant_name": "CURADO DC 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -9142,6 +9645,7 @@
       },
       {
         "variant_name": "CURADO DC 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5",
@@ -9174,6 +9678,7 @@
       },
       {
         "variant_name": "CURADO DC 201XG",
+        "sku_suffix": "201XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5",
@@ -9205,19 +9710,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:55",
+    "raw_data_hash": "decbe64aeed67fdea52bc1bc61399f08ac95b1788c27c98b92cd019f5fdcbe3d"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ksdjnqam.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ksdjnqam.html",
     "model_name": "CHINUMATIC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "黑鲷用两轴轮的经典型号CHINUMATIC右手规格登场。1000SP/1001SP采用7.1:1高速比和42mm长握把的设计，有珍珠白和金色两种。1000XT・1001XT采用暗沉的金属色，6.2：1的齿轮比。具备充足性能的标准型号。",
+    "page_title": "CHINUMATIC | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002ksDJnQAM_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CHINUMATIC 1000SP",
+        "sku_suffix": "1000SP",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "0.6",
@@ -9251,6 +9762,7 @@
       },
       {
         "variant_name": "CHINUMATIC 1001SP",
+        "sku_suffix": "1001SP",
         "specs": {
           "gear_ratio": "7.1",
           "max_drag_kg": "0.6",
@@ -9284,6 +9796,7 @@
       },
       {
         "variant_name": "CHINUMATIC 1000XT",
+        "sku_suffix": "1000XT",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "0.6",
@@ -9317,6 +9830,7 @@
       },
       {
         "variant_name": "CHINUMATIC 1001XT",
+        "sku_suffix": "1001XT",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "0.6",
@@ -9350,6 +9864,7 @@
       },
       {
         "variant_name": "CHINUMATIC 1000",
+        "sku_suffix": "1000",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "0.6",
@@ -9383,6 +9898,7 @@
       },
       {
         "variant_name": "CHINUMATIC 1001",
+        "sku_suffix": "1001",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "0.6",
@@ -9415,19 +9931,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CHINUMATIC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:56",
+    "raw_data_hash": "f318d0a7e76240d15c5b33d0a69d415fec2810090719c3937a850ea8314f6079"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002jabf3qam.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002jabf3qam.html",
     "model_name": "CURADO DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "CURADO系列在耐久性，可靠性和泛用性是众所周知的，现在搭载了SHIMANO新型电子控制刹车系统，利用微型计算机每秒1000次监测线杯转动速度，采用适当的刹车力来防止炸线炒粉和实现远距离抛投。这是SHIMANO带给钓友的又一款利器，让各个不同水准的钓友能实现自由抛投。",
+    "page_title": "CURADO DC（150线杯） | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002jaBF3QAM_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO DC 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -9460,6 +9982,7 @@
       },
       {
         "variant_name": "CURADO DC 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "5",
@@ -9492,6 +10015,7 @@
       },
       {
         "variant_name": "CURADO DC 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -9524,6 +10048,7 @@
       },
       {
         "variant_name": "CURADO DC 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5",
@@ -9556,6 +10081,7 @@
       },
       {
         "variant_name": "CURADO DC 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5",
@@ -9588,6 +10114,7 @@
       },
       {
         "variant_name": "CURADO DC 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5",
@@ -9619,19 +10146,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:57",
+    "raw_data_hash": "18183b3e4e3e49f071d9e266f988de1f957f4b38929e9d9dc01156e5eaafc582"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ja8iyqaa.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ja8iyqaa.html",
     "model_name": "Stephano SS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "希望更多钓友体验剥皮鱼钓渔轮所需的高规格而设计开发了Stephano SS。紧凑的机身和X DRAG提升了整体的平衡，重量仅160g。X SHIP使其有着顺滑的收线感。SVS刹车系统可以抑制炸线问题。机身框架采用铝的材质提升了刚性和耐久性。体现高水准的钓鱼体验感吧。",
+    "page_title": "Stephano SS | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002ja8iyQAA_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Stephano SS 100HG",
+        "sku_suffix": "100HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "3",
@@ -9666,6 +10199,7 @@
       },
       {
         "variant_name": "Stephano SS 101HG",
+        "sku_suffix": "101HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "3",
@@ -9699,19 +10233,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Stephano SS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:58",
+    "raw_data_hash": "97676527b7f5d91b6d8c5f78a36a1f8aa8590a167a14a054d8fbe2728651a792"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ja8qeqai.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ja8qeqai.html",
     "model_name": "STILE SS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "HAGANE BODY加上X SHIP，实现干练的外观设计和稳定的收线性能。从Stile继承了离心力刹车技术，EXCITE DRAG SOUND，51mm的长握把等先进技术。紧身更紧凑的同时容线量也得以提升，可以应对更多的目标鱼。",
+    "page_title": "STILE SS | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002ja8QeQAI_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "STILE SS 150PG",
+        "sku_suffix": "150PG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "4.5",
@@ -9746,6 +10286,7 @@
       },
       {
         "variant_name": "STILE SS 151PG",
+        "sku_suffix": "151PG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "4.5",
@@ -9780,6 +10321,7 @@
       },
       {
         "variant_name": "STILE SS 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "4",
@@ -9814,6 +10356,7 @@
       },
       {
         "variant_name": "STILE SS 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "4",
@@ -9847,19 +10390,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/STILE SS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:13:59",
+    "raw_data_hash": "07bc88cd079c8c17c7f42cf94a5bc7d5b254f5048c27cd2ded876210a2930146"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnecqas.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnecqas.html",
     "model_name": "Scorpion MD 200",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "FREESTYLE系列中的Scorpion MD也推出了备受期望的200规格，操控和抛投性优秀的第三代MGL线杯配上20lb-100m的容线量，最大卸力达到5.5-6kg，对应FREESTYLE的产品规格。刹车系统是SVS INFINITY，抛投手感和远投性能都能兼顾，从中型到大型假饵都能使用。另外，MICROMODULE齿轮和X-SHIP带来了顺滑的收线手感，而HAGANE机身则提供了强度，让你对抗大型鱼时也能安心作钓。",
+    "page_title": "Scorpion MD 200 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PneCQAS_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "Scorpion MD 200 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -9893,6 +10442,7 @@
       },
       {
         "variant_name": "Scorpion MD 200 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -9926,6 +10476,7 @@
       },
       {
         "variant_name": "Scorpion MD 200 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -9959,6 +10510,7 @@
       },
       {
         "variant_name": "Scorpion MD 200 201XG",
+        "sku_suffix": "201XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -9991,19 +10543,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/Scorpion MD 200_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:00",
+    "raw_data_hash": "deb902eb345ff85d53519e01da4cf8f278c90d12e0b8843bb3ee50bd2efd8625"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00002wgo3kqaq.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00002wgo3kqaq.html",
     "model_name": "TORIUM",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "追求高性价比的入门规格，采用高强度HAGANE和S COMPACT机身。搭载线杯锁定和手把转动自动返回构造，让钓友钓铁板时更易集中精神，有1500HG、2000HG和2000PG三个规格可供选择。",
+    "page_title": "TORIUM | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002wgo3KQAQ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TORIUM 1500HG",
+        "sku_suffix": "1500HG",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "7",
@@ -10037,6 +10595,7 @@
       },
       {
         "variant_name": "TORIUM 2000PG",
+        "sku_suffix": "2000PG",
         "specs": {
           "gear_ratio": "4.6",
           "max_drag_kg": "15",
@@ -10070,6 +10629,7 @@
       },
       {
         "variant_name": "TORIUM 2000HG",
+        "sku_suffix": "2000HG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "11",
@@ -10102,19 +10662,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TORIUM_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:01",
+    "raw_data_hash": "4c33bc727a5a1ec0bcd03258234abad9a2162d772f389849c666d2cd4daf704d"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003abjtmqax.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003abjtmqax.html",
     "model_name": "TRANX 200",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "TRANX系列偏泛用的200规格登场，根据自身需求选择合适型号吧。",
+    "page_title": "TRANX 200 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003ABJtMQAX_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TRANX 200 200",
+        "sku_suffix": "200",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -10147,6 +10713,7 @@
       },
       {
         "variant_name": "TRANX 200 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "6",
@@ -10179,6 +10746,7 @@
       },
       {
         "variant_name": "TRANX 200 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "6",
@@ -10211,6 +10779,7 @@
       },
       {
         "variant_name": "TRANX 200 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -10242,19 +10811,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TRANX 200_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:02",
+    "raw_data_hash": "6018e5428015b7362d10c015cf449ec6a1df642a9041861c8a2270de31c3974b"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003uqoumqaf.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003uqoumqaf.html",
     "model_name": "TRANX",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "搭载HAGANE机身保证了渔轮强度，S3D线杯设计让你在使用过程中尽可能地减少渔轮产生的噪音。",
+    "page_title": "TRANX | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003UqOumQAF_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TRANX 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "6",
@@ -10286,6 +10861,7 @@
       },
       {
         "variant_name": "TRANX 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "6",
@@ -10317,6 +10893,7 @@
       },
       {
         "variant_name": "TRANX 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "6",
@@ -10348,6 +10925,7 @@
       },
       {
         "variant_name": "TRANX 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "6",
@@ -10378,19 +10956,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TRANX_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:03",
+    "raw_data_hash": "b5bc987929ab9b1a45c1d59b7baf9e42c3bc26dc770080b6eca1d61ae737d37f"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003jfwpvqa3.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003jfwpvqa3.html",
     "model_name": "BARCHETTA",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "这款轻量规格从轻铁板、鲷鱼钓法、METAL SUTTE等假饵钓，到带鱼、竹荚鱼、鸡鱼、乌贼章鱼等船钓都能适用，搭载LED背光显示屏配备加长握把更好地支持钓手出行作钓，这次还追加了300PG/300HG等规格，可以在更广泛的钓点使用，希望大家能够从中享受到乐趣。",
+    "page_title": "BARCHETTA | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003JfWPVQA3_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BARCHETTA 100DHHG",
+        "sku_suffix": "100DHHG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "4.5",
@@ -10425,6 +11009,7 @@
       },
       {
         "variant_name": "BARCHETTA 101DHHG",
+        "sku_suffix": "101DHHG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "4.5",
@@ -10459,6 +11044,7 @@
       },
       {
         "variant_name": "BARCHETTA 150DHPG",
+        "sku_suffix": "150DHPG",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "5",
@@ -10493,6 +11079,7 @@
       },
       {
         "variant_name": "BARCHETTA 151DHPG",
+        "sku_suffix": "151DHPG",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "5",
@@ -10527,6 +11114,7 @@
       },
       {
         "variant_name": "BARCHETTA 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "4.5",
@@ -10561,6 +11149,7 @@
       },
       {
         "variant_name": "BARCHETTA 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "4.5",
@@ -10595,6 +11184,7 @@
       },
       {
         "variant_name": "BARCHETTA 150DHHG",
+        "sku_suffix": "150DHHG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "4.5",
@@ -10629,6 +11219,7 @@
       },
       {
         "variant_name": "BARCHETTA 151DHHG",
+        "sku_suffix": "151DHHG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "4.5",
@@ -10663,6 +11254,7 @@
       },
       {
         "variant_name": "BARCHETTA 300PG",
+        "sku_suffix": "300PG",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "6",
@@ -10697,6 +11289,7 @@
       },
       {
         "variant_name": "BARCHETTA 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "5.5",
@@ -10730,19 +11323,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BARCHETTA_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:04",
+    "raw_data_hash": "bfb3a17ea3570b2f4cc5101f9c6313f88822736b594f4467df865cc4d8acff95"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002k32ylqaq.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002k32ylqaq.html",
     "model_name": "BARCHETTA SC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "为了让钓组能更快达到想要的水层，同时为了确保巨大钓货，有了附带数显轻量轮将会让这一切变得很简单，新设计机身的全新Barchetta在采用了无需更换的太阳能电池SOLAR CELL之后，搭配数显功能。规格从800-3000型的4个型号能够对应各种目标鱼种，喜爱挑战船钓的钓友请务必尝试这款产品。",
+    "page_title": "BARCHETTA SC | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002k32yLQAQ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BARCHETTA SC 800",
+        "sku_suffix": "800",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "5",
@@ -10777,6 +11376,7 @@
       },
       {
         "variant_name": "BARCHETTA SC 1000",
+        "sku_suffix": "1000",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "5",
@@ -10811,6 +11411,7 @@
       },
       {
         "variant_name": "BARCHETTA SC 2000",
+        "sku_suffix": "2000",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "5.5",
@@ -10845,6 +11446,7 @@
       },
       {
         "variant_name": "BARCHETTA SC 3000",
+        "sku_suffix": "3000",
         "specs": {
           "gear_ratio": "4.6",
           "max_drag_kg": "8",
@@ -10878,19 +11480,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BARCHETTA SC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:06",
+    "raw_data_hash": "f3d07c2a6f6a3e7773f135a243c5a21121ec1bd469b6f31055703455d2b000a4"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgorkqa0.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgorkqa0.html",
     "model_name": "SLX DC",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "有着优秀的抛投性能和防炸线性能的SLX DC，在SHIMANO该级别首次搭载低惯性MGL SPOOL Ⅲ，并且电子刹车系统I-DC4，除了能更好发挥出低惯性线杯的特性外，通过致密控制刹车力可以轻松使用轻量假饵到大型假饵，想要调节至最佳状态也变得更容易。轻量的线杯特性，远投、近距离低弹道抛投、各种钓况都能胜任。并且，采用超高强度黄铜主齿、碳纤维十字纹垫片、HAGANE机身等高耐久部件，任何钓手都能轻松使用，适合各种情况的SLX DC，请务必亲自感受一下，这款搭载SHIMANO最新机能的坚韧、搭载高规格的泛用渔轮。",
+    "page_title": "SLX DC | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003rGoRKQA0_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SLX DC 70",
+        "sku_suffix": "70",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -10924,6 +11532,7 @@
       },
       {
         "variant_name": "SLX DC 71",
+        "sku_suffix": "71",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -10957,6 +11566,7 @@
       },
       {
         "variant_name": "SLX DC 70HG",
+        "sku_suffix": "70HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5.5",
@@ -10990,6 +11600,7 @@
       },
       {
         "variant_name": "SLX DC 71HG",
+        "sku_suffix": "71HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5.5",
@@ -11023,6 +11634,7 @@
       },
       {
         "variant_name": "SLX DC 70XG",
+        "sku_suffix": "70XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5",
@@ -11056,6 +11668,7 @@
       },
       {
         "variant_name": "SLX DC 71XG",
+        "sku_suffix": "71XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5",
@@ -11088,19 +11701,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SLX DC_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:07",
+    "raw_data_hash": "76e1e1816bb8369a96a88f467d4f50786c2fcabbc657914c28cf33dcf9de7bc7"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgoswqak.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgoswqak.html",
     "model_name": "CURADO",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "搭载第三代MGL线杯后，CURADO朝着更远的抛投距离前进，加持MICROMODULE GEAR和SILENTTUNE技术后，手感也有所提升，适合大饵的200型也是你攻略巨物的好伙伴。",
+    "page_title": "CURADO（200线杯） | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003rGoSwQAK_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO 200",
+        "sku_suffix": "200",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -11133,6 +11752,7 @@
       },
       {
         "variant_name": "CURADO 201",
+        "sku_suffix": "201",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -11165,6 +11785,7 @@
       },
       {
         "variant_name": "CURADO 200HG",
+        "sku_suffix": "200HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -11197,6 +11818,7 @@
       },
       {
         "variant_name": "CURADO 201HG",
+        "sku_suffix": "201HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -11229,6 +11851,7 @@
       },
       {
         "variant_name": "CURADO 200XG",
+        "sku_suffix": "200XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -11261,6 +11884,7 @@
       },
       {
         "variant_name": "CURADO 201XG",
+        "sku_suffix": "201XG",
         "specs": {
           "gear_ratio": "8.5",
           "max_drag_kg": "5.5",
@@ -11292,19 +11916,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:08",
+    "raw_data_hash": "f23bfda99e5a2cbfbbcc4e58c08dd7026b7bd40a58bf9821cdd39cab15372a27"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000045avkvqae.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000045avkvqae.html",
     "model_name": "CURADO 150",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "CURADO的性价比进一步提升，这次更新除了原本就有的HAGANE机身、SVS∞刹车外，采用了第三代MGL线杯，获得了更低的惯性以便于更好地低弹道抛投。HAGANE机身让你在抛投泛用偏大的假饵以及搏鱼时，让你能感受到安心感并游刃有余地上鱼。CURADO系列不断地改进自身并让路亚玩家获得更好的体验。",
+    "page_title": "NEW CURADO 150 | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000045aVkvQAE_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO 150 150MG",
+        "sku_suffix": "150MG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -11337,6 +11967,7 @@
       },
       {
         "variant_name": "CURADO 150 151MG",
+        "sku_suffix": "151MG",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -11369,6 +12000,7 @@
       },
       {
         "variant_name": "CURADO 150 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -11401,6 +12033,7 @@
       },
       {
         "variant_name": "CURADO 150 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -11433,6 +12066,7 @@
       },
       {
         "variant_name": "CURADO 150 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "6",
@@ -11465,6 +12099,7 @@
       },
       {
         "variant_name": "CURADO 150 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "6",
@@ -11496,19 +12131,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO 150_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:09",
+    "raw_data_hash": "5551d97dbb0cdd4e00087623cf6c2e3da7f6ef6be589d0fdfd93248cee58b2cf"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003hw4bgqat.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003hw4bgqat.html",
     "model_name": "CURADO",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "汇聚SHIMANO高端技术的CURADO推出300规格。",
+    "page_title": "CURADO | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003HW4bGQAT_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO 300",
+        "sku_suffix": "300",
         "specs": {
           "gear_ratio": "4.7",
           "max_drag_kg": "10",
@@ -11543,6 +12184,7 @@
       },
       {
         "variant_name": "CURADO 301",
+        "sku_suffix": "301",
         "specs": {
           "gear_ratio": "4.7",
           "max_drag_kg": "10",
@@ -11577,6 +12219,7 @@
       },
       {
         "variant_name": "CURADO 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "6.6",
           "max_drag_kg": "8",
@@ -11611,6 +12254,7 @@
       },
       {
         "variant_name": "CURADO 301HG",
+        "sku_suffix": "301HG",
         "specs": {
           "gear_ratio": "6.6",
           "max_drag_kg": "8",
@@ -11644,19 +12288,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:10",
+    "raw_data_hash": "4c518ced8b97b6297c62a1f2db2f78202258721009a610c312dc78602323fc6c"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003qusspqa3.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003qusspqa3.html",
     "model_name": "CURADO MGL",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "手感小巧，耐用性、可靠性和抛投性能都非常出色，CURADO系列中轻盈收线、梦寐以求的新成员。MGL线杯拥有更低的抛投惯性，和旧款相比可以抛投更远距离。MICROMODULE GEAR提供了顺滑的收线手感，HAGANE机身则是确保了渔轮强度，多功能CURADO MGL在抛投性能、平滑度、刚性和耐用性全面提升。",
+    "page_title": "CURADO MGL（70线杯） | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003QuSSPQA3_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO MGL 70HG",
+        "sku_suffix": "70HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -11689,6 +12339,7 @@
       },
       {
         "variant_name": "CURADO MGL 71HG",
+        "sku_suffix": "71HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "5.5",
@@ -11721,6 +12372,7 @@
       },
       {
         "variant_name": "CURADO MGL 70XG",
+        "sku_suffix": "70XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5.5",
@@ -11753,6 +12405,7 @@
       },
       {
         "variant_name": "CURADO MGL 71XG",
+        "sku_suffix": "71XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "5.5",
@@ -11784,19 +12437,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO MGL_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:11",
+    "raw_data_hash": "b90f3b43372004d0caf16ca5dfa3c222ab48ac33e9c7eaee8542988a7becb2e3"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003uqouhqaf.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003uqouhqaf.html",
     "model_name": "CURADO MGL",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "手感小巧，耐用性、可靠性和抛投性能都非常出色，CURADO系列中轻盈收线、梦寐以求的新成员。MGL线杯拥有更低的抛投惯性，和旧款相比可以抛投更远距离。MICROMODULE GEAR提供了顺滑的收线手感，HAGANE机身则是确保了渔轮强度，多功能CURADO MGL在抛投性能、平滑度、刚性和耐用性全面提升。",
+    "page_title": "CURADO MGL（150线杯） | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003UqOuhQAF_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO MGL 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -11829,6 +12488,7 @@
       },
       {
         "variant_name": "CURADO MGL 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.2",
           "max_drag_kg": "6",
@@ -11861,6 +12521,7 @@
       },
       {
         "variant_name": "CURADO MGL 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -11893,6 +12554,7 @@
       },
       {
         "variant_name": "CURADO MGL 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.4",
           "max_drag_kg": "6",
@@ -11925,6 +12587,7 @@
       },
       {
         "variant_name": "CURADO MGL 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "6",
@@ -11957,6 +12620,7 @@
       },
       {
         "variant_name": "CURADO MGL 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.1",
           "max_drag_kg": "6",
@@ -11988,19 +12652,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO MGL_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:12",
+    "raw_data_hash": "fe2aaa6edc6391f65118f9c01b16e9bb8f5ff5028bddc620f858cb550ea9992e"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003mtn6tqac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003mtn6tqac.html",
     "model_name": "CURADO BFS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "原本主打泛用及大物的CURADO又追加新款式，面向微物并搭载FTB刹车系统全新登场。另外，搭载精密齿轮、X-SHIP和MGL线杯等高端产品的技术，让CURADO BFS更有性价比，请务必体验一下这款微物轮，带给你更好的路亚体验。",
+    "page_title": "CURADO BFS | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003mTn6tQAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CURADO BFS XG R",
+        "sku_suffix": "XG R",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "3.5",
@@ -12033,6 +12703,7 @@
       },
       {
         "variant_name": "CURADO BFS XG L",
+        "sku_suffix": "XG L",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "3.5",
@@ -12064,19 +12735,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CURADO BFS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:13",
+    "raw_data_hash": "2cff157fb2f59c7329b7f40a1717d4a9bb67fc27828a06d1098facd17e453785"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnchqac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnchqac.html",
     "model_name": "SLX",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "70线杯的容线量搭配32mm的线杯直径，低弹道抛投轻量假饵的能力，这也是旧款SLX MGL被大家喜欢的原因。NEW SLX搭载了第三代MGL线杯，带来了更低惯性化，低弹道性和抛投稳定性再次提升，SVS INFINITY刹车则让你能调整到适合的刹车力。新搭载的SILENTTUNE也提升了抛投手感，搭配HAGANE机身和高耐久的碳纤维十字纹垫片，就算突然中大鱼也能立刻应战。",
+    "page_title": "SLX | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PnchQAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SLX 70",
+        "sku_suffix": "70",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -12110,6 +12787,7 @@
       },
       {
         "variant_name": "SLX 71",
+        "sku_suffix": "71",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -12143,6 +12821,7 @@
       },
       {
         "variant_name": "SLX 70HG",
+        "sku_suffix": "70HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5.5",
@@ -12176,6 +12855,7 @@
       },
       {
         "variant_name": "SLX 71HG",
+        "sku_suffix": "71HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5.5",
@@ -12209,6 +12889,7 @@
       },
       {
         "variant_name": "SLX 70XG",
+        "sku_suffix": "70XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5.5",
@@ -12242,6 +12923,7 @@
       },
       {
         "variant_name": "SLX 71XG",
+        "sku_suffix": "71XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5.5",
@@ -12274,19 +12956,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SLX_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:15",
+    "raw_data_hash": "2344cfedd049dfa23275a828964329d69291a91e3694a67c39de10a8daad135d"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003jfwpfqan.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003jfwpfqan.html",
     "model_name": "BARCHETTA BB",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "对比旧款加长了握把，提升了收线性能，搭载LED夜光显示屏并且能更换电池，夜钓自然不在话下，在白天也有高识别性。无论是假饵钓还是船钓都能让你获得很好的体验。",
+    "page_title": "BARCHETTA BB | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003JfWPfQAN_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BARCHETTA BB 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "5",
@@ -12321,6 +13009,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "5",
@@ -12355,6 +13044,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 150DHPG",
+        "sku_suffix": "150DHPG",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "5",
@@ -12389,6 +13079,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 151DHPG",
+        "sku_suffix": "151DHPG",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "5",
@@ -12423,6 +13114,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 150DHHG",
+        "sku_suffix": "150DHHG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "5",
@@ -12457,6 +13149,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 151DHHG",
+        "sku_suffix": "151DHHG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "5",
@@ -12491,6 +13184,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 300PG",
+        "sku_suffix": "300PG",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "6",
@@ -12525,6 +13219,7 @@
       },
       {
         "variant_name": "BARCHETTA BB 300HG",
+        "sku_suffix": "300HG",
         "specs": {
           "gear_ratio": "7",
           "max_drag_kg": "5.5",
@@ -12558,19 +13253,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BARCHETTA BB_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:16",
+    "raw_data_hash": "537350e70cf2951a841b0ef09152845279de4335a939ce66b7839761342b854e"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000049n3orqaq.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000049n3orqaq.html",
     "model_name": "SLX BFS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "打磨抛投精度，SLX BFS脱胎换骨。搭载轻量铝合金线杯提升对应轻量假饵的能力，可以用低弹道抛投假饵。不容易发生炸线，离心刹车和FTB磁力刹车相性很好，实现顺滑远投。轻量高刚性的HAGANE BODY加上实现顺滑卸力性能的碳纤维垫片等基本性能也很充实。从路亚到轻型海水，自由地应对各种场合。",
+    "page_title": "SLX BFS | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000049n3oRQAQ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SLX BFS XG RIGHT",
+        "sku_suffix": "XG RIGHT",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "3.5",
@@ -12605,6 +13306,7 @@
       },
       {
         "variant_name": "SLX BFS XG LEFT",
+        "sku_suffix": "XG LEFT",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "3.5",
@@ -12638,19 +13340,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SLX BFS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:17",
+    "raw_data_hash": "cfba1705d23cf713e212479efaccc7daeaef166bf0fced9237ee767f537f571d"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003imnx9qao.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitsalt/a075f00003imnx9qao.html",
     "model_name": "GRAPPLER BB",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "GRAPPLER BB是初学者也能轻松操纵入门型号，具备所需性能的轻型铁板专用型号。有着高操作性和高性价比，可以捕捉带鱼、真鲷、青物等目标。采用HAGANE机身和X PROTECT提升了刚性和强度，60mm的手把也提高了收线强度。加上出线口联动装置，使其下落和卸力出线时的动作更顺滑。利用轻型铁板搭配细线这个组合，可以猎取到意想不到的的大鱼。",
+    "page_title": "GRAPPLER BB | 海水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "海水路亚",
+    "category_path": "baitsalt",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003iMNX9QAO_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "GRAPPLER BB 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -12684,6 +13392,7 @@
       },
       {
         "variant_name": "GRAPPLER BB 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -12716,19 +13425,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/GRAPPLER BB_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:18",
+    "raw_data_hash": "0d0659750924e43753afc52fe539250ea48efc83452cd28f784d368da1854b58"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnssqac.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnssqac.html",
     "model_name": "SLX XT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "新搭载了SILENTTUNE，获得更顺滑的收线手感。",
+    "page_title": "NEW SLX XT | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PnssQAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SLX XT 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -12761,6 +13476,7 @@
       },
       {
         "variant_name": "SLX XT 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -12793,6 +13509,7 @@
       },
       {
         "variant_name": "SLX XT 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -12825,6 +13542,7 @@
       },
       {
         "variant_name": "SLX XT 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -12857,6 +13575,7 @@
       },
       {
         "variant_name": "SLX XT 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5",
@@ -12889,6 +13608,7 @@
       },
       {
         "variant_name": "SLX XT 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5",
@@ -12920,19 +13640,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SLX XT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:19",
+    "raw_data_hash": "c15c35b80a92e33223536d74fe72827f7c63b1b679f14226373c763b709df998"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002k331jqaa.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002k331jqaa.html",
     "model_name": "小船",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "能够轻松钓起竹荚鱼和鸡鱼以及真鲷等深海鱼的入门级手摇轮，拥有丰富容线量和顺滑的卸力性能，减轻压力且不易缠线，广泛对应中小物钓法。这是船钓新手非常容易上手的产品。",
+    "page_title": "小船 | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002k331jQAA_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "小船 800",
+        "sku_suffix": "800",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "5",
@@ -12967,6 +13693,7 @@
       },
       {
         "variant_name": "小船 1000",
+        "sku_suffix": "1000",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "5",
@@ -13001,6 +13728,7 @@
       },
       {
         "variant_name": "小船 2000",
+        "sku_suffix": "2000",
         "specs": {
           "gear_ratio": "5.1",
           "max_drag_kg": "5.5",
@@ -13035,6 +13763,7 @@
       },
       {
         "variant_name": "小船 3000",
+        "sku_suffix": "3000",
         "specs": {
           "gear_ratio": "4.6",
           "max_drag_kg": "8",
@@ -13068,19 +13797,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/小船_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:20",
+    "raw_data_hash": "23b0627a534f52f51560872593e19c6b8a5c9bbe91871c8cd849498a86523937"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a071000002xm0reaad.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a071000002xm0reaad.html",
     "model_name": "CARDIFF",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "高性价比的鼓轮款式。",
+    "page_title": "CARDIFF | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a071000002XM0reAAD_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CARDIFF 200",
+        "sku_suffix": "200",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "4.5",
@@ -13111,6 +13846,7 @@
       },
       {
         "variant_name": "CARDIFF 201",
+        "sku_suffix": "201",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "4.5",
@@ -13141,6 +13877,7 @@
       },
       {
         "variant_name": "CARDIFF 300",
+        "sku_suffix": "300",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "4.5",
@@ -13171,6 +13908,7 @@
       },
       {
         "variant_name": "CARDIFF 301",
+        "sku_suffix": "301",
         "specs": {
           "gear_ratio": "5.8",
           "max_drag_kg": "4.5",
@@ -13201,6 +13939,7 @@
       },
       {
         "variant_name": "CARDIFF 400",
+        "sku_suffix": "400",
         "specs": {
           "gear_ratio": "5.2",
           "max_drag_kg": "5",
@@ -13231,6 +13970,7 @@
       },
       {
         "variant_name": "CARDIFF 401",
+        "sku_suffix": "401",
         "specs": {
           "gear_ratio": "5.2",
           "max_drag_kg": "5",
@@ -13260,19 +14000,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CARDIFF_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:22",
+    "raw_data_hash": "0f3a6f38ded0767bcdb9f4b020838939e041b2827964fa0f6e462027f99f2ccb"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003o6sknqaj.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003o6sknqaj.html",
     "model_name": "幻风 XT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "船小物钓等广泛对应的幻风XT采用了红黑配色设计，150/151将手把握把大型化。55mm曲柄双握把拥有更好的收线力，200PG/201PG则采用以大物为目标的60mm加强CI4+曲柄握把。在和大物搏斗时保持稳定感，除了易控制外，200PG/201PG线量为2号200m，可对应深场。",
+    "page_title": "幻风 XT | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003O6sKnQAJ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "幻风 XT 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "4.5",
@@ -13307,6 +14053,7 @@
       },
       {
         "variant_name": "幻风 XT 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "4.5",
@@ -13341,6 +14088,7 @@
       },
       {
         "variant_name": "幻风 XT 200PG",
+        "sku_suffix": "200PG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "5",
@@ -13375,6 +14123,7 @@
       },
       {
         "variant_name": "幻风 XT 201PG",
+        "sku_suffix": "201PG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "5",
@@ -13408,19 +14157,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/幻风 XT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:23",
+    "raw_data_hash": "53a693e72fcd4b2419e7540989704451e3bfc9ff959b2a319765cbb3552034d2"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003c623mqaa.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003c623mqaa.html",
     "model_name": "SLX",
-    "description": "Cookies 偏好设置",
+    "model_year": "",
+    "description": "SLX搭载SILENTTUNE后升级，更顺滑的收线手感，HAGANE机身则确保了机身强度，非常高性价比的一款产品。",
+    "page_title": "SLX（150线杯） | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003c623mQAA_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "SLX 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -13453,6 +14208,7 @@
       },
       {
         "variant_name": "SLX 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "6.3",
           "max_drag_kg": "5.5",
@@ -13485,6 +14241,7 @@
       },
       {
         "variant_name": "SLX 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13517,6 +14274,7 @@
       },
       {
         "variant_name": "SLX 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13549,6 +14307,7 @@
       },
       {
         "variant_name": "SLX 150XG",
+        "sku_suffix": "150XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5",
@@ -13581,6 +14340,7 @@
       },
       {
         "variant_name": "SLX 151XG",
+        "sku_suffix": "151XG",
         "specs": {
           "gear_ratio": "8.2",
           "max_drag_kg": "5",
@@ -13612,19 +14372,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/SLX_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:24",
+    "raw_data_hash": "4921525e031c0bd91f9c0caa13886010667df58d3b100077d711fee730fc9229"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ksdhsqa2.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ksdhsqa2.html",
     "model_name": "TITANOS FUNE GT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "超轻量、高强度、容易上手，具优秀性能的入门款式。",
+    "page_title": "TITANOS FUNE GT | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002ksDHSQA2_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "TITANOS FUNE GT GT2000",
+        "sku_suffix": "GT2000",
         "specs": {
           "gear_ratio": "4.3",
           "max_drag_kg": "8",
@@ -13658,6 +14424,7 @@
       },
       {
         "variant_name": "TITANOS FUNE GT GT3000",
+        "sku_suffix": "GT3000",
         "specs": {
           "gear_ratio": "4.3",
           "max_drag_kg": "8",
@@ -13690,19 +14457,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/TITANOS FUNE GT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:25",
+    "raw_data_hash": "2a51bcf38f6d8bbb445e812992936def38f559d2675adeb7a45173ce4d8a8f70"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a071000002jtv8oaat.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a071000002jtv8oaat.html",
     "model_name": "BASS ONE XT",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "BASS ONE作为多用途、泛用性好的入门级产品，通过全新设计再次登场。内置SVS刹车系统实现顺滑的抛投手感和较好的弹道，减少让人不愉快的炸线问题。为配合现在路亚钓将容线量从原先的200型调整为150型规格、适应性更佳。超越同级别的高规格和不缠线特性，堪称路亚钓中的基石。",
+    "page_title": "BASS ONE XT | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a071000002JTv8OAAT_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BASS ONE XT 150",
+        "sku_suffix": "150",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13736,6 +14509,7 @@
       },
       {
         "variant_name": "BASS ONE XT 151",
+        "sku_suffix": "151",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13768,19 +14542,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BASS ONE XT_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:26",
+    "raw_data_hash": "1bac6f356f4857e36c0367203bb9cfcb643f392be5b44963cf901c3a200db1e8"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnrvqas.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042pnrvqas.html",
     "model_name": "CAIUS",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "带给广大路亚玩家的入门级规格",
+    "page_title": "CAIUS | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042PnrVQAS_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CAIUS 150HG",
+        "sku_suffix": "150HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13813,6 +14593,7 @@
       },
       {
         "variant_name": "CAIUS 151HG",
+        "sku_suffix": "151HG",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13844,19 +14625,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CAIUS_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:27",
+    "raw_data_hash": "7bd70c9c1befbb33f60f7001dfa598890b88ed46c265877dfacb04d07f5eacf2"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002loktdqak.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00002loktdqak.html",
     "model_name": "BASS RISE",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "具备主要性能高人气的BASS RISE推出了新规格。线容量从200规格改为了150规格、实际收线时重量有所减轻。在对应粗线的同时抑制惯性，提升了抛投性能，同时采用了能够简单操作的Easy Mag磁石刹车系统。",
+    "page_title": "BASS RISE | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "淡水路亚",
+    "category_path": "baitlurecasting",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002lOkTdQAK_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "BASS RISE R",
+        "sku_suffix": "R",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13890,6 +14677,7 @@
       },
       {
         "variant_name": "BASS RISE R 带线",
+        "sku_suffix": "R 带线",
         "specs": {
           "gear_ratio": "7.2",
           "max_drag_kg": "5",
@@ -13922,19 +14710,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/BASS RISE_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:28",
+    "raw_data_hash": "fd041af1da0444d06ef77bdbc54d85841fa318fdb3d72c246e3d7bd8bd886b0a"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003o6sl2qaj.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00003o6sl2qaj.html",
     "model_name": "幻风",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "具备PE2号200m的容线量、强力收线力。手把长度增加至55mm并提升了握把尺寸，无论是小型目标还是近海大型目标都能对应。",
+    "page_title": "幻风 | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00003O6sL2QAJ_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "幻风 200PG",
+        "sku_suffix": "200PG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "5",
@@ -13969,6 +14763,7 @@
       },
       {
         "variant_name": "幻风 201PG",
+        "sku_suffix": "201PG",
         "specs": {
           "gear_ratio": "5.5",
           "max_drag_kg": "5",
@@ -14002,19 +14797,25 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/幻风_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:29",
+    "raw_data_hash": "3d4b64c11854620306d2f309d2554e85619c353f42d4978912e15f9965316628"
   },
   {
     "brand": "shimano",
     "kind": "baitcasting",
+    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ksdftqam.html",
     "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitfune/a075f00002ksdftqam.html",
     "model_name": "CHINU SPECIAL",
-    "description": "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。",
+    "model_year": "",
+    "description": "性能出色的CHINU SP上加上了特殊线杯",
+    "page_title": "CHINU SPECIAL | 船钓手摇 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
+    "official_environment": "船钓手摇",
+    "category_path": "baitfune",
     "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F00002ksDFtQAM_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
     "variants": [
       {
         "variant_name": "CHINU SPECIAL 500",
+        "sku_suffix": "500",
         "specs": {
           "gear_ratio": "4",
           "max_drag_kg": "",
@@ -14047,6 +14848,7 @@
       },
       {
         "variant_name": "CHINU SPECIAL 1000",
+        "sku_suffix": "1000",
         "specs": {
           "gear_ratio": "4",
           "max_drag_kg": "",
@@ -14078,7 +14880,7 @@
         }
       }
     ],
-    "local_image_path": "images/shimano_reels/CHINU SPECIAL_main.jpg",
-    "model_year": ""
+    "scraped_at": "2026-04-15 02:14:30",
+    "raw_data_hash": "c51091b1289ee814672cbcff41c2da38761cd683d83f31871e2984912f6fd5cb"
   }
 ]
