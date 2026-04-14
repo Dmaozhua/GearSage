@@ -2552,28 +2552,6 @@ module.exports = [
     "family": ""
   },
   {
-    "type": "reel",
-    "id": "MRE5016",
-    "name": "IP79 IP79",
-    "alias": "",
-    "type_tips": "",
-    "system": "",
-    "water_column": "",
-    "action": "",
-    "family": ""
-  },
-  {
-    "type": "reel",
-    "id": "MRE5017",
-    "name": "IP68 IP68",
-    "alias": "",
-    "type_tips": "",
-    "system": "",
-    "water_column": "",
-    "action": "",
-    "family": ""
-  },
-  {
     "type": "rod",
     "id": "SR1000",
     "name": "24 WORLD SHAULA TECHNICAL EDITION 沙湖啦 TECHNICAEDITION",
