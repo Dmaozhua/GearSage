@@ -160,10 +160,13 @@ function pickImageFile(row, fileIndex) {
 }
 
 function main() {
+  const cliFiles = process.argv.slice(2).map((v) => norm(v)).filter(Boolean);
+  const cliFileSet = new Set(cliFiles);
   const topDirs = collectTopDirs(LOCAL_IMAGE_ROOT);
   const files = fs
     .readdirSync(DATA_RAW_DIR)
     .filter((f) => f.endsWith('_import.xlsx'))
+    .filter((f) => !cliFileSet.size || cliFileSet.has(f))
     .sort();
 
   const report = [];

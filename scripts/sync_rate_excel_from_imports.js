@@ -33,6 +33,7 @@ const TASKS = [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'ML' },
             { sourceFile: 'yamamoto_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'YAM' },
+            { sourceFile: 'evergreen_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'EL' },
         ],
     },
     {
@@ -43,6 +44,7 @@ const TASKS = [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'ML' },
+            { sourceFile: 'evergreen_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'EL' },
         ],
     },
     {
@@ -52,6 +54,7 @@ const TASKS = [
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'DL' },
+            { sourceFile: 'evergreen_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'EL' },
         ],
     },
     {
@@ -63,6 +66,7 @@ const TASKS = [
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'ML' },
             { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'KL' },
             { sourceFile: 'yamamoto_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'YAM' },
+            { sourceFile: 'evergreen_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'EL' },
         ],
     },
     {
@@ -72,6 +76,7 @@ const TASKS = [
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'KL' },
+            { sourceFile: 'evergreen_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'EL' },
         ],
     },
     {
@@ -82,6 +87,7 @@ const TASKS = [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'ML' },
             { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'KL' },
+            { sourceFile: 'evergreen_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'EL' },
         ],
     },
     {
@@ -161,6 +167,7 @@ const TASKS = [
             { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR' },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'KR' },
+            { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'ER' },
         ],
     },
     {
@@ -172,6 +179,7 @@ const TASKS = [
             { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR' },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'KR' },
+            { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'ER' },
         ],
     },
 ];
