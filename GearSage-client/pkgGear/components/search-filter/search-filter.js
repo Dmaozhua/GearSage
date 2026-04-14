@@ -23,7 +23,8 @@ const ACTIVE_FILTER_SUPPORT = {
     brands: true,
     types: true,
     options: false,
-    brakeSys: false
+    brakeSys: false,
+    usageTags: true
   },
   rod: {
     brands: true,
@@ -44,7 +45,7 @@ const ACTIVE_FILTER_SUPPORT = {
 };
 
 const MAX_KEYWORD_LENGTH = 30;
-const MULTI_SELECT_FILTER_KEYS = ['brands', 'water_column', 'action', 'brakeSys', 'options'];
+const MULTI_SELECT_FILTER_KEYS = ['brands', 'water_column', 'action', 'brakeSys', 'options', 'usageTags'];
 
 Component({
   properties: {
@@ -217,6 +218,9 @@ Component({
       }
 
       if (type === 'reel') {
+        if (support.usageTags && typeConfig.usageTags) {
+          filters.push({ key: 'usageTags', label: '使用方向', options: mapOptions(typeConfig.usageTags, 'type', 'name') });
+        }
         if (support.options && typeConfig.options) {
           filters.push({ key: 'options', label: '功能特点', options: mapOptions(typeConfig.options, 'type', 'name') });
         }

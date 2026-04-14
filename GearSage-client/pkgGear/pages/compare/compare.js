@@ -380,23 +380,16 @@ Page({
 
   buildCompareInsights(compareCards, coreRows, warnings) {
     const insights = [];
+    const compareType = this.normalizeText(compareCards[0] && compareCards[0].gearType);
+    const pushInsight = (text) => {
+      const normalized = this.normalizeText(text);
+      if (normalized && !insights.includes(normalized)) {
+        insights.push(normalized);
+      }
+    };
 
     const diffCoreLabels = coreRows.filter((row) => row.isDifferent).map((row) => row.label);
-    if (diffCoreLabels.length > 0) {
-      insights.push(`这几个候选最值得先看的差异是 ${diffCoreLabels.slice(0, 4).join(' / ')}。`);
-    } else {
-      insights.push('当前候选在核心参数上差异不大，可以继续结合手感、场景和帖子经验判断。');
-    }
-
-    if (!warnings.length && compareCards.length >= 2) {
-      insights.push('这页只负责把差异摊开，不会替你直接下购买结论。看完还纠结，再带着候选去求推荐会更有效。');
-    }
-
     const groups = [...new Set(compareCards.map((item) => item.compareGroupLabel).filter(Boolean))];
-    if (groups.length === 1) {
-      insights.push(`当前候选都属于「${groups[0]}」方向，更适合做同类收敛式比较。`);
-    }
-
     const collectedFitTags = compareCards.reduce((acc, item) => {
       const tags =
         item &&
@@ -408,8 +401,27 @@ Page({
       return acc.concat(tags.map((tag) => this.normalizeText(tag)).filter(Boolean));
     }, []);
     const fitTags = [...new Set(collectedFitTags)];
+
+    if (compareType === 'reels' && warnings.length > 0) {
+      pushInsight(`这组候选先别急着只比纸面参数，当前最该先确认的是：${warnings[0]}。`);
+    }
+
     if (fitTags.length > 0) {
-      insights.push(`当前候选已归纳出的方向标签有 ${fitTags.slice(0, 4).join(' / ')}。`);
+      pushInsight(`当前候选被归纳出的方向标签有 ${fitTags.slice(0, 4).join(' / ')}。`);
+    }
+
+    if (diffCoreLabels.length > 0) {
+      pushInsight(`这几个候选最值得先看的差异是 ${diffCoreLabels.slice(0, 4).join(' / ')}。`);
+    } else {
+      pushInsight('当前候选在核心参数上差异不大，可以继续结合手感、场景和帖子经验判断。');
+    }
+
+    if (groups.length === 1) {
+      pushInsight(`当前候选都属于「${groups[0]}」方向，更适合做同类收敛式比较。`);
+    }
+
+    if (!warnings.length && compareCards.length >= 2) {
+      pushInsight('这页只负责把差异摊开，不会替你直接下购买结论。看完还纠结，再带着候选去求推荐会更有效。');
     }
 
     return insights.slice(0, 3);

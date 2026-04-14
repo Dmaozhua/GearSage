@@ -12,6 +12,17 @@ module.exports = [
       {"type": "baitcasting", "name": "水滴"},
       {"type": "conventional", "name": "鼓轮"}
     ],
+    "usageTags": [
+      {"type": "SW", "name": "SW"},
+      {"type": "海水近岸", "name": "海水近岸"},
+      {"type": "海水大物", "name": "海水大物"},
+      {"type": "淡水泛用", "name": "淡水泛用"},
+      {"type": "轻饵精细", "name": "轻饵精细"},
+      {"type": "重饵方向", "name": "重饵方向"},
+      {"type": "细线方向", "name": "细线方向"},
+      {"type": "快收方向", "name": "快收方向"},
+      {"type": "慢卷方向", "name": "慢卷方向"}
+    ],
     "options": [
       {"type": "stream", "name": "溪流"},
       {"type": "general", "name": "泛用"},

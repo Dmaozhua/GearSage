@@ -21,6 +21,7 @@ interface GearListQuery {
   action?: string | string[];
   options?: string | string[];
   brakeSys?: string | string[];
+  usageTags?: string | string[];
 }
 
 interface GearDetailQuery {
@@ -568,6 +569,10 @@ export class GearService {
       return false;
     }
 
+    if (type === 'reels' && !this.matchesDerivedTags(type, item, query.usageTags)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -605,6 +610,24 @@ export class GearService {
     }
 
     return candidates.some((item) => item.toLowerCase() === normalizedValue);
+  }
+
+  private matchesDerivedTags(type: GearType, item: any, rawFilter?: string | string[]) {
+    const candidates = this.normalizeArray(rawFilter).map((item) => item.toLowerCase());
+    if (!candidates.length) {
+      return true;
+    }
+
+    const traits = this.buildGscTraits(type, item, null);
+    const tags = Array.isArray(traits.fitStyleTags)
+      ? traits.fitStyleTags.map((item) => this.normalizeText(item).toLowerCase()).filter(Boolean)
+      : [];
+
+    if (!tags.length) {
+      return false;
+    }
+
+    return candidates.some((candidate) => tags.includes(candidate));
   }
 
   private normalizeArray(value?: string | string[]) {
@@ -1042,11 +1065,11 @@ export class GearService {
     };
 
     if (type === 'reels') {
+      this.buildReelDecisionTags(master, variant).forEach(pushText);
       pushList(master.fit_style_tags);
       pushList(master.fitStyleTags);
       pushList(variant && variant.fit_style_tags);
       pushList(variant && variant.fitStyleTags);
-      pushText(master.type);
       pushText(master.type_tips);
     } else if (type === 'rods') {
       pushText(master.type);
@@ -1080,14 +1103,11 @@ export class GearService {
   ) {
     const warnings: string[] = [];
     if (type === 'reels') {
-      const typeTips = this.normalizeText(master.type_tips);
-      if (typeTips.includes('BFS') || typeTips.includes('精细')) {
-        warnings.push('更偏精细');
-      }
-      const lineCupDepth = this.inferLineCupDepth(variant);
-      if (lineCupDepth === 'shallow') {
-        warnings.push('更偏浅线杯方向');
-      }
+      this.buildReelCompareWarnings(master, variant).forEach((warning) => {
+        if (warning && !warnings.includes(warning)) {
+          warnings.push(warning);
+        }
+      });
     }
 
     if (type === 'rods') {
@@ -1112,17 +1132,17 @@ export class GearService {
     if (!sku) {
       return '';
     }
-    if (sku.includes('SSS') || sku.includes('SS') || sku.includes('SHG') || sku.includes('SPOOL S')) {
-      return 'shallow';
+    if (sku.includes('SSS')) {
+      return '超浅杯';
     }
-    if (sku.includes('MD') || sku.includes('MGL')) {
-      return 'mid';
+    if (sku.includes('SS') || sku.includes('SPOOL S') || sku.includes('BFS') || sku.includes('AIR')) {
+      return '浅杯';
     }
-    if (sku.endsWith('HG') || sku.endsWith('XG')) {
-      return '';
+    if (sku.includes('MD')) {
+      return '中浅杯';
     }
-    if (sku.includes('D')) {
-      return 'deep';
+    if (sku.includes('D') && !sku.includes('DC') && !sku.includes('MD')) {
+      return '深杯';
     }
     return '';
   }
@@ -1154,14 +1174,14 @@ export class GearService {
       return 'BFS';
     }
 
-    const spinningMatch = source.match(/(?:^|[^0-9])(500|1000|2000|2500|3000|4000|5000|6000|8000)(?:[^0-9]|$)/);
+    const spinningMatch = source.match(/(?:^|[^0-9])(500|1000|2000|2500|3000|4000|5000|6000|8000|10000|14000|18000|20000|25000|30000)(?:[^0-9]|$)/);
     if (spinningMatch) {
-      return spinningMatch[1];
+      return `${spinningMatch[1]}级`;
     }
 
     const baitMatch = source.match(/(?:^|[^0-9])(70|80|90|100|150|200|300)(?:[^0-9]|$)/);
     if (baitMatch) {
-      return baitMatch[1];
+      return `${baitMatch[1]}级`;
     }
 
     return '';
@@ -1181,13 +1201,24 @@ export class GearService {
       return '';
     }
     if (source.includes('dc')) {
-      return 'digital';
+      return 'DC';
     }
     if (source.includes('mag') || source.includes('磁')) {
-      return 'magnetic';
+      return '磁力';
     }
-    if (source.includes('svs') || source.includes('离心')) {
-      return 'centrifugal';
+    if (
+      source.includes('sv ') ||
+      source.includes('sv-') ||
+      source.includes(' sv') ||
+      source.includes('air') ||
+      source.includes('ftb') ||
+      source.includes('magforce') ||
+      source.includes('bfs')
+    ) {
+      return '磁力';
+    }
+    if (source.includes('svs') || source.includes('centrif') || source.includes('离心')) {
+      return '离心';
     }
     return '';
   }
@@ -1202,6 +1233,202 @@ export class GearService {
     }
     const match = raw.match(/(\d+(\.\d+)?)/);
     return match ? `${match[1]}g+` : '';
+  }
+
+  private inferGearRatioValue(variant: Record<string, any> | null) {
+    if (!variant) {
+      return null;
+    }
+    const raw = this.normalizeText(variant['GEAR RATIO']);
+    if (!raw) {
+      return null;
+    }
+    const match = raw.match(/(\d+(?:\.\d+)?)/);
+    if (!match) {
+      return null;
+    }
+    const value = Number(match[1]);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  private buildReelDecisionTags(master: Record<string, any>, variant: Record<string, any> | null) {
+    const tags: string[] = [];
+    const pushTag = (value: string) => {
+      const text = this.normalizeText(value);
+      if (text && !tags.includes(text)) {
+        tags.push(text);
+      }
+    };
+
+    const context = this.buildReelDecisionContext(master, variant);
+    pushTag(context.typeTag);
+    if (context.isSwEdition) {
+      pushTag('SW');
+    }
+
+    if (context.isSaltwater) {
+      if (context.isBigGame) {
+        pushTag('海水大物');
+      } else {
+        pushTag('海水近岸');
+      }
+    } else if (context.typeTag === '纺车轮' && context.isFreshwaterGeneralist) {
+      pushTag('淡水泛用');
+    }
+
+    if (context.isLightFinesse) {
+      pushTag('轻饵精细');
+    } else if (context.isHeavyCover) {
+      pushTag('重饵方向');
+    } else if (context.spoolDepth === '浅杯' || context.spoolDepth === '超浅杯') {
+      pushTag('细线方向');
+    }
+
+    if (context.sizeFamily) {
+      pushTag(context.sizeFamily);
+    }
+
+    if (context.gearRatio !== null) {
+      if (context.gearRatio >= 7.8) {
+        pushTag('快收方向');
+      } else if (context.gearRatio <= 5.8) {
+        pushTag('慢卷方向');
+      }
+    }
+
+    return tags.slice(0, 4);
+  }
+
+  private buildReelCompareWarnings(master: Record<string, any>, variant: Record<string, any> | null) {
+    const warnings: string[] = [];
+    const pushWarning = (value: string) => {
+      const text = this.normalizeText(value);
+      if (text && !warnings.includes(text)) {
+        warnings.push(text);
+      }
+    };
+
+    const context = this.buildReelDecisionContext(master, variant);
+    if (context.isSwEdition) {
+      pushWarning('带 SW 标记，通常意味着更偏海水环境与防护取向，先别和普通淡水版混看');
+    }
+    if (context.isLightFinesse) {
+      pushWarning('更偏轻饵精细与细线方向，先别和深杯重饵轮硬比');
+    } else if (context.spoolDepth === '浅杯' || context.spoolDepth === '超浅杯') {
+      pushWarning('更偏浅线杯方向，先确认是不是同一条细线使用路线');
+    }
+
+    if (context.brakeType === 'DC') {
+      pushWarning('DC 刹车方向，先和常规机械制动轮分开看');
+    }
+
+    if (context.isBigGame) {
+      pushWarning('更偏海水大物与大号线杯方向，先和淡水泛用轮分开看');
+    } else if (context.isSaltwater) {
+      pushWarning('更偏海水近岸方向，先和纯淡水泛用轮分开看');
+    }
+
+    if (context.isHeavyCover) {
+      pushWarning('更偏深杯与重饵方向，先和轻饵精细轮分开看');
+    }
+
+    if (context.gearRatio !== null) {
+      if (context.gearRatio >= 7.8) {
+        pushWarning('更偏高回收节奏，先和低速卷收方向候选分开看');
+      } else if (context.gearRatio <= 5.8) {
+        pushWarning('更偏低速卷收方向，先和高速检索轮分开看');
+      }
+    }
+
+    return warnings.slice(0, 3);
+  }
+
+  private buildReelDecisionContext(master: Record<string, any>, variant: Record<string, any> | null) {
+    const source = [
+      this.normalizeText(master.type_tips),
+      this.normalizeText(master.alias),
+      this.normalizeText(master.model),
+      this.normalizeText(variant && (variant.SKU || variant.sku)),
+    ]
+      .join(' ')
+      .toUpperCase();
+    const typeTag = this.resolveReelTypeTag(master.type);
+    const spoolDepth = this.normalizeSpoolDepth(
+      this.pickFirstTextValue(
+        variant && variant.spool_depth_normalized,
+        variant && variant.spoolDepthNormalized,
+        master.spool_depth_normalized,
+        master.spoolDepthNormalized,
+      ) || this.inferLineCupDepth(variant),
+    );
+    const brakeType = this.normalizeBrakeType(
+      this.pickFirstTextValue(
+        variant && variant.brake_type_normalized,
+        variant && variant.brakeTypeNormalized,
+        master.brake_type_normalized,
+        master.brakeTypeNormalized,
+      ) || this.inferBrakeType(master, variant),
+    );
+    const sizeFamily = this.inferSizeFamily(master, variant);
+    const gearRatio = this.inferGearRatioValue(variant);
+    const isSwEdition = this.hasSwEditionMarker(source);
+    const isSaltwater =
+      isSwEdition ||
+      source.includes('SALTIGA') ||
+      source.includes('ソルティガ');
+    const isBigGame = !!(sizeFamily && /^(8000|10000|14000|18000|20000|25000|30000)级$/.test(sizeFamily));
+    const isLightFinesse =
+      source.includes('BFS') ||
+      source.includes('AIR') ||
+      (
+        typeTag === '水滴轮' &&
+        !!sizeFamily &&
+        /^(70|80|100)级$/.test(sizeFamily) &&
+        (spoolDepth === '浅杯' || spoolDepth === '超浅杯' || brakeType === '磁力')
+      );
+    const isHeavyCover =
+      typeTag === '水滴轮' &&
+      (
+        (sizeFamily && /^(200|300)级$/.test(sizeFamily)) ||
+        spoolDepth === '深杯'
+      );
+    const isFreshwaterGeneralist =
+      !!sizeFamily &&
+      /^(2000|2500|3000)级$/.test(sizeFamily) &&
+      !isSaltwater &&
+      (!spoolDepth || spoolDepth === '标准杯');
+
+    return {
+      source,
+      typeTag,
+      spoolDepth,
+      brakeType,
+      sizeFamily,
+      gearRatio,
+      isSwEdition,
+      isSaltwater,
+      isBigGame,
+      isLightFinesse,
+      isHeavyCover,
+      isFreshwaterGeneralist,
+    };
+  }
+
+  private hasSwEditionMarker(source: string) {
+    if (!source) {
+      return false;
+    }
+
+    return (
+      source.includes('STELLA SW') ||
+      source.includes('TWIN POWER SW') ||
+      source.includes(' STRADIC SW') ||
+      source.startsWith('SW ') ||
+      source.includes(' SW ') ||
+      source.includes(' SW-') ||
+      source.includes('-SW') ||
+      /(^|[^A-Z0-9])SW\d/.test(source)
+    );
   }
 
   private inferSolidTip(master: Record<string, any>, variant: Record<string, any> | null) {
@@ -1273,10 +1500,82 @@ export class GearService {
 
   private pickFirstTextValue(...values: any[]) {
     for (const value of values) {
-      const text = this.normalizeText(value);
+      const text = this.normalizeFieldSemanticValue(value);
       if (text) {
         return text;
       }
+    }
+    return '';
+  }
+
+  private normalizeFieldSemanticValue(value: any) {
+    const text = this.normalizeText(value);
+    if (!text) {
+      return '';
+    }
+
+    const depth = this.normalizeSpoolDepth(text);
+    if (depth) {
+      return depth;
+    }
+
+    const brake = this.normalizeBrakeType(text);
+    if (brake) {
+      return brake;
+    }
+
+    return text;
+  }
+
+  private normalizeSpoolDepth(value: any) {
+    const text = this.normalizeText(value);
+    if (!text) {
+      return '';
+    }
+    const normalized = text.toLowerCase();
+    if (normalized === 'deep' || text.includes('深杯')) {
+      return '深杯';
+    }
+    if (normalized === 'mid' || normalized === 'medium' || text.includes('中浅杯')) {
+      return '中浅杯';
+    }
+    if (normalized === 'shallow' || text.includes('浅杯')) {
+      if (text.includes('超浅')) {
+        return '超浅杯';
+      }
+      return '浅杯';
+    }
+    if (text.includes('标准杯') || normalized === 'standard') {
+      return '标准杯';
+    }
+    return '';
+  }
+
+  private normalizeBrakeType(value: any) {
+    const text = this.normalizeText(value);
+    if (!text) {
+      return '';
+    }
+    const normalized = text.toLowerCase();
+    if (normalized === 'digital' || text === 'DC') {
+      return 'DC';
+    }
+    if (normalized === 'magnetic' || text.includes('磁力')) {
+      return '磁力';
+    }
+    if (normalized === 'centrifugal' || text.includes('离心')) {
+      return '离心';
+    }
+    return '';
+  }
+
+  private resolveReelTypeTag(value: any) {
+    const text = this.normalizeText(value).toLowerCase();
+    if (text === 'spinning') {
+      return '纺车轮';
+    }
+    if (text === 'baitcasting') {
+      return '水滴轮';
     }
     return '';
   }

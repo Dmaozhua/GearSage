@@ -144,9 +144,12 @@ Page({
     traitTags.forEach(pushTag);
 
     if (this.data.currentType === 'reels') {
-      pushTag(item.type);
-      pushTag(item.type_tips);
-      pushTag(item.alias);
+      if (!traitTags.length) {
+        pushTag(item.type_tips);
+      }
+      if (tags.length < 3) {
+        pushTag(item.alias);
+      }
     } else if (this.data.currentType === 'rods') {
       pushTag(item.type);
       pushTag(item.action);

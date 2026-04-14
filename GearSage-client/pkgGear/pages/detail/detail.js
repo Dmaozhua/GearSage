@@ -324,9 +324,12 @@ Page({
     pushTag(this.buildTagText('', item.model_year));
 
     if (this.data.gearType === 'reels') {
-      pushTag(this.buildTagText('', item.type));
-      pushTag(this.buildTagText('', item.type_tips));
-      pushTag(this.buildTagText('别名 ', item.alias));
+      if (!traitTags.length) {
+        pushTag(this.buildTagText('', item.type_tips));
+      }
+      if (tags.length < 4) {
+        pushTag(this.buildTagText('别名 ', item.alias));
+      }
     } else if (this.data.gearType === 'rods') {
       pushTag(this.buildTagText('', item.type));
       pushTag(this.buildTagText('调性 ', item.action));
