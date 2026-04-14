@@ -146,6 +146,7 @@ Page({
       'Market Reference Price', 'brand_id', 'reel_id', 'rod_id',
       'lure_id', 'line_id', 'hookId', 'id', '_id', '_openid', 'images', 'model',
       'model_cn', 'model_year', 'type', 'description',
+      'official_specs', 'gsc_traits', 'compare_profile',
       '__key', '__displayName', '__secondaryLabel'
     ],
     relatedTabs: [
@@ -232,6 +233,9 @@ Page({
 
   getFieldValue(record, key) {
     if (!record || typeof record !== 'object') return '';
+    if (record[key] && typeof record[key] === 'object') {
+      return '';
+    }
     const directValue = this.normalizeText(record[key]);
     if (directValue) {
       return directValue;
