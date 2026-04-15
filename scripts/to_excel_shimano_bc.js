@@ -4,7 +4,10 @@ const XLSX = require('xlsx');
 
 const INPUT_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json');
 const OUTPUT_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
-const TEMPLATE_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx');
+const TEMPLATE_FILES = [
+  OUTPUT_FILE,
+  path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx'),
+];
 
 const BRAND_ID = 1;
 const MASTER_SHEET = 'reel';
@@ -50,6 +53,15 @@ function loadTemplateSheet(workbook, sheetName) {
   const headers = headerRows[0] || [];
   const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' });
   return { headers, rows };
+}
+
+function loadTemplateWorkbook() {
+  for (const file of TEMPLATE_FILES) {
+    if (fs.existsSync(file)) {
+      return XLSX.readFile(file);
+    }
+  }
+  return null;
 }
 
 function parseEnvironment(value) {
@@ -262,13 +274,13 @@ function main() {
   const normalized = JSON.parse(fs.readFileSync(INPUT_FILE, 'utf8'));
   const grouped = dedupeAndGroup(normalized);
 
-  const templateWorkbook = fs.existsSync(TEMPLATE_FILE) ? XLSX.readFile(TEMPLATE_FILE) : null;
+  const templateWorkbook = loadTemplateWorkbook();
   const templateMaster = loadTemplateSheet(templateWorkbook, MASTER_SHEET);
   const templateDetail = loadTemplateSheet(templateWorkbook, DETAIL_SHEET);
 
   const masterHeaders = templateMaster.headers.length
     ? templateMaster.headers
-    : ['id', 'brand_id', 'is_show', 'model', 'model_cn', 'model_year', 'alias', 'type_tips', 'type', 'images', 'created_at', 'updated_at', 'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status'];
+    : ['id', 'brand_id', 'is_show', 'model', 'model_cn', 'model_year', 'alias', 'type_tips', 'type', 'images', 'created_at', 'updated_at', 'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status', 'Description'];
   const detailHeaders = templateDetail.headers.length
     ? templateDetail.headers
     : ['id', 'reel_id', 'SKU', 'GEAR RATIO', 'MAX DRAG', 'WEIGHT', 'spool_diameter_per_turn_mm', 'Nylon_lb_m', 'fluorocarbon_lb_m', 'pe_no_m', 'cm_per_turn', 'handle_length_mm', 'bearing_count_roller', 'market_reference_price', 'product_code', 'created_at', 'updated_at', 'spool_diameter_mm', 'spool_width_mm', 'spool_weight_g', 'spool_axis_type', 'knob_size', 'knob_bearing_spec', 'custom_spool_compatibility', 'custom_knob_compatibility', 'official_environment', 'line_capacity_display', 'handle_knob_type', 'handle_knob_exchange_size', 'body_material', 'gear_material', 'battery_capacity', 'battery_charge_time', 'continuous_cast_count', 'usage_environment', 'DRAG', 'Nylon_no_m', 'fluorocarbon_no_m', 'drag_click', 'spool_depth_normalized', 'gear_ratio_normalized', 'brake_type_normalized', 'fit_style_tags', 'min_lure_weight_hint', 'is_compact_body', 'handle_style', 'MAX_DURABILITY', 'type', 'is_sw_edition'];
@@ -330,6 +342,7 @@ function main() {
     masterRow.main_selling_points = deriveMainSellingPoints(item.description, existingMaster.main_selling_points);
     masterRow.official_reference_price = formatPriceRange(prices);
     masterRow.market_status = normalizeText(existingMaster.market_status) || '在售';
+    masterRow.Description = normalizeText(item.description) || normalizeText(existingMaster.Description);
 
     masterRows.push(masterRow);
     masterIdByModel.set(modelKey, masterId);
