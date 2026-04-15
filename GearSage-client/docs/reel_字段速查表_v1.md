@@ -50,8 +50,8 @@
 | `brand_id` | 品牌 ID | 数字品牌 ID | 不能空 | 关联 `brand.xlsx` |
 | `is_show` | 是否展示 | `1` 显示，`0` 隐藏 | 默认填 `1` | `0` 后客户端不显示也不可查询 |
 | `model` | 型号名 | 官网主型号名 | 尽量别空 | 主识别字段 |
-| `model_cn` | 中文名 | 中文型号名或中文翻译 | 可空 | 没确认就留空 |
-| `model_year` | 年份 | 型号年份 | 可空 | 如 `2026` |
+| `model_cn` | 中文名 | 中文型号名或中文翻译 | 可空 | 没确认就留空 |如 `tatula会被翻译成蜘蛛` |
+| `model_year` | 年份 | 型号年份 | 可空，优先拿去官网数据，没有官网数据使用玩家数据填充 | 如 `2026` |
 | `type` | 渔轮类型 | `spinning` / `baitcasting` / `conventional` | 不能空 | 已有类型区分，靠它判断哪些字段更重要 |
 | `alias` | 别名/系列别称 | 系列俗称或辅助搜索别名 | 可空 | 不要乱填 marketing 文案 |
 | `type_tips` | 类型提示 | 简短补充提示 | 可空 | 当前口径不完全稳定 |
@@ -61,6 +61,8 @@
 | `market_reference_price` | 市场参考价 | 面向用户展示的参考价 | 可空 | 若只有 detail 有，可先不填主表 |
 | `series_positioning` | 系列定位 | 对系列的简短定位说明 | 可空 | 更偏补充层 |
 | `main_selling_points` | 主要卖点 | 系列主卖点 | 可空 | 不进主对比 |
+| `player_positioning` | 玩家数据系列定位 | 根据玩家描述提取对系列的简短定位说明 | 可空 | 更偏补充层 |
+| `player_selling_points` | 玩家数据主要卖点 | 根据玩家描述提取系列主卖点 | 可空 | 不进主对比 |
 | `market_status` | 市场状态 | `在售` / `停产` 等 | 可空 | 建议逐步维护 |
 
 ### 3.2 detail 通用字段（两张 detail 表都常见）
@@ -78,7 +80,7 @@
 | `handle_length_mm` | 摇臂长度(mm) | 如 `65` | 可空 | 通用高价值字段 |
 | `bearing_count_roller` | 轴承数/滚柱数 | 如 `11/1` | 可空 | 先保真，不做归一 |
 | `market_reference_price` | 子型号参考价 | 具体规格价格 | 可空 | detail 层更常见 |
-| `type` | 子型号轮型 | `spinning` / `baitcasting` | 可空 | 建议保持一致 |
+| `type` | 子型号轮型 | `spinning` / `baitcasting` / `conventional`| 可空 | 建议保持一致 |
 | `Description` | 子型号官网描述 | 规格级描述文字 | 可空 | 仅当官网对该具体规格有单独描述时填写 |
 | `variant_description` | 子型号官网描述 | 规格级描述文字 | 可空 | 如果表里已经独立建列，优先写这里，不和主表 `Description` 混用 |
 
@@ -91,14 +93,18 @@
 | `fluorocarbon_lb_m` | 氟碳 lb-m | 按官网写 | 可空 | 官方容线量 |
 | `fluorocarbon_no_m` | 氟碳 号-m | 按官网写 | 可空 | 官方容线量 |
 | `pe_no_m` | PE 号-m | 如 `1.5-320, 2-240` | 可空 | 纺车轮很关键 |
-| `is_sw_edition` | 是否 SW 版 | `1` 是，`0` 否 | 建议补 | 比单靠 `SW` 文本判断更稳 |
+| `is_sw_edition` | 是否 SW 版 | `1` 是，`0` 否 SKU中带有 `SW` 即判断为 `1` | 建议补 | 比单靠 `SW` 文本判断更稳 |
 | `official_environment` | 官方环境定位 | 如 `saltwater` / `freshwater` | 可空 | 有明确口径再填 |
+| `player_environment` | 玩家数据环境定位 | 根据玩家描述提取| 可空 | 优先保留官网明确口径 |
 | `line_capacity_display` | 主容线展示字段 | 适合面向用户显示的一条主容线表达 | 可空 | 后续可统一成展示友好版本 |
+| `is_handle_double` | 摇臂类型 |  `1` 是，`0` 否 | 可空 默认单摇臂 | 纺车轮专用 |官方明确或者采用玩家数据 |
+
 
 ### 3.4 水滴轮更常用字段（`baitcasting_reel_detail.xlsx`）
 
 | 字段 | 中文意思 | 该填什么 | 没资料时 | 备注 |
 |---|---|---|---|---|
+| `DRAG_click` | 是否有卸力报警 | `1` 是，`0` 否  | 可空 | 纺车轮不用展示此字段，因为纺车轮装备属性99%都带有卸力报警，水滴轮此字段需要从玩家数据中获得 |
 | `spool_diameter_mm` | 线杯直径 φ(mm) | 如 `34`、`38` | 值得优先补 | 高价值字段 |
 | `spool_width_mm` | 线杯宽度(mm) | 如 `22`、`24` | 值得优先补 | 高价值字段 |
 | `spool_weight_g` | 线杯重量(g) | 线杯裸重或常用口径重量 | 可空 | 深玩家高价值 |
@@ -106,18 +112,46 @@
 | `knob_size` | 握丸尺寸 | 尺寸或规格 | 可空 | 改装/手感相关 |
 | `knob_bearing_spec` | 握丸轴承规格 | 具体规格 | 可空 | 深玩家字段 |
 | `handle_knob_type` | 握丸类型 | 如圆头 / T 型 / EVA | 可空 | 有资料再填 |
+| `handle_knob_material` | 握丸材质 | 如塑料/橡胶/木质/某种金属 | 可空 | 官方明确或者采用玩家数据 |
 | `handle_knob_exchange_size` | 握丸可替换规格 | 兼容规格描述 | 可空 | 改装兼容字段 |
 | `handle_hole_spec` | 摇臂孔规格 | 具体规格 | 可空 | 改装兼容字段 |
 | `body_material` | 机身材质 | 如铝、CI4+、镁等 | 可空 | 有资料再填 |
-| `gear_material` | 主齿材质 | 官方明确写才填 | 可空 | 不猜 |
+| `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
+| `main_gear_size` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
+| `minor_gear_material` | 小齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
 | `official_environment` | 官方环境定位 | 如 `freshwater` / `saltwater` | 可空 | 优先保留官网明确口径 |
+| `player_environment` | 玩家数据环境定位 | 根据玩家描述提取| 可空 | 优先保留官网明确口径 |
 | `usage_environment` | 使用环境备注 | 如 `近岸` / `船钓` / `远海` | 可空 | 可以比官方环境更贴近使用场景 |
 | `line_capacity_display` | 主容线展示字段 | 一条可直接展示的容线描述 | 可空 | 建议整理成完整可读文本 |
-| `is_sw_edition` | 是否 SW 版 | `1` 是，`0` 否 | 建议补 | 统一用 `1/0`，不再写 `是/否` |
-| `battery_capacity` | 电池容量 | 具体容量值 | 可空 | 仅适用于特殊/电动轮型 |
-| `battery_charge_time` | 充电时间 | 如 `2h` | 可空 | 仅适用于特殊/电动轮型 |
-| `continuous_cast_count` | 连续抛投次数 | 官方给出的续航/次数 | 可空 | 仅适用于特殊/电动轮型 |
+| `battery_capacity` | 电池容量 | 具体容量值 | 可空 | 仅适用于特殊/电动轮型 | 仅用于daiwa IM Z系列水滴轮用的字段|
+| `battery_charge_time` | 充电时间 | 如 `2h` | 可空 | 仅适用于特殊/电动轮型 | 仅用于daiwa IM Z系列水滴轮用的字段|
+| `continuous_cast_count` | 连续抛投次数 | 官方给出的续航/次数 | 可空 | 仅适用于特殊/电动轮型 | 仅用于daiwa IM Z系列水滴轮用的字段|
 
+### 3.5 Reel玩家数据字段（`baitcasting_reel_detail.xlsx`）
+| 字段 | 中文意思 | 该填什么 | 没资料时 | 备注 |
+|---|---|---|---|---|
+| `model_cn` | 中文名 | 中文型号名或中文翻译 | 可空 | 没确认就留空 |如 `tatula会被翻译成蜘蛛` |
+| `model_year` | 年份 | 型号年份 | 可空，优先拿去官网数据，没有官网数据使用玩家数据填充 | 如 `2026` `26``26款`|
+| `DRAG_click` | 是否有卸力报警 | `1` 是，`0` 否  | 可空 | 纺车轮不用展示此字段，因为纺车轮装备属性99%都带有卸力报警，水滴轮此字段需要从玩家数据中获得 |
+|`spool_diameter_mm` | 线杯直径 φ(mm) | 如 `34`、`38` | 值得优先补 | 高价值字段 |
+| `spool_width_mm` | 线杯宽度(mm) | 如 `22`、`24` | 值得优先补 | 高价值字段 |
+| `spool_weight_g` | 线杯重量(g) | 线杯裸重或常用口径重量 | 可空 | 深玩家高价值 |
+| `spool_axis_type` | 线杯轴型 | `长轴` / `短轴` | 可空 | 深玩家高价值 |
+| `knob_size` | 握丸尺寸 | 尺寸或规格 | 可空 | 改装/手感相关 |
+| `knob_bearing_spec` | 握丸轴承规格 | 具体规格 | 可空 | 深玩家字段 |
+| `handle_knob_type` | 握丸类型 | 如圆头 / T 型 / EVA | 可空 | 官方明确或者采用玩家数据 |
+| `handle_knob_material` | 握丸材质 | 如塑料/橡胶/木质/某种金属 | 可空 | 官方明确或者采用玩家数据 |
+| `handle_knob_exchange_size` | 握丸可替换规格 | 兼容规格描述 | 可空 | 改装兼容字段 |
+| `handle_hole_spec` | 摇臂孔规格 | 具体规格 | 可空 | 改装兼容字段，官方明确或者采用玩家数据 |
+| `body_material` | 机身材质 | 如铝、CI4+、镁等 | 可空 | 官方明确或者采用玩家数据 |
+| `is_handle_double` | 摇臂类型 |  `1` 是，`0` 否 | 可空 默认单摇臂 | 纺车轮专用 |官方明确或者采用玩家数据 |
+| `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
+| `main_gear_size` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
+| `minor_gear_material` | 小齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
+| `market_reference_price` | 市场参考价 | 根据玩家描述提取| 可空 | 若只有 detail 有，可先不填主表 |
+| `player_environment` | 玩家数据环境定位 | 根据玩家描述提取| 可空 | 优先保留官网明确口径 |
+| `player_positioning` | 玩家数据系列定位 | 根据玩家描述提取对系列的简短定位说明 | 可空 | 更偏补充层 |
+| `player_selling_points` | 玩家数据主要卖点 | 根据玩家描述提取系列主卖点 | 可空 | 不进主对比 |
 ---
 
 ## 四、这些字段建议让服务器算
