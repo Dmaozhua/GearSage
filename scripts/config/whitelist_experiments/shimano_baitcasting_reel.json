@@ -6,6 +6,14 @@
   "category": "reel",
   "subtype": "baitcasting",
   "brand": "Shimano",
+  "source_evaluation": {
+    "enabled_source_ids": [
+      "japantackle",
+      "tackletour",
+      "jdmfishing"
+    ],
+    "notes": "Keep the three auxiliary sites open for source usefulness comparison. Do not expand write strategy until enough sample evidence is reviewed."
+  },
   "inputs": {
     "import_file": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx"
   },
@@ -91,5 +99,9 @@
     ],
     "forbid_model_only_match": true,
     "notes": "Same-series reels can change body_material and gear_material across years. Review and future apply must stay bound to reel_id plus year/version information whenever available."
+  },
+  "model_year_policy": {
+    "capture_from_scrape": true,
+    "notes": "model_year should be filled from source scraping whenever the page or source URL allows year confirmation. model_year + SKU is the preferred version discriminator."
   }
 }

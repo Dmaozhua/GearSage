@@ -107,6 +107,7 @@ function loadExperimentProposals() {
     const next = proposals.get(detailId) || {};
     if (normalizeText(patchRow.field_key) === 'body_material') {
       next.body_material = normalizeText(patchRow.approved_value);
+      next.body_material_tech = normalizeText(patchRow.body_material_tech);
     }
     if (normalizeText(patchRow.field_key) === 'gear_material') {
       next.gear_material = normalizeText(patchRow.approved_value);
@@ -340,7 +341,7 @@ function main() {
     : ['id', 'brand_id', 'is_show', 'model', 'model_cn', 'model_year', 'alias', 'type_tips', 'type', 'images', 'created_at', 'updated_at', 'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status', 'Description'];
   const detailHeaders = templateDetail.headers.length
     ? templateDetail.headers
-    : ['id', 'reel_id', 'SKU', 'GEAR RATIO', 'MAX DRAG', 'WEIGHT', 'spool_diameter_per_turn_mm', 'Nylon_lb_m', 'fluorocarbon_lb_m', 'pe_no_m', 'cm_per_turn', 'handle_length_mm', 'bearing_count_roller', 'market_reference_price', 'product_code', 'created_at', 'updated_at', 'spool_diameter_mm', 'spool_width_mm', 'spool_weight_g', 'spool_axis_type', 'knob_size', 'knob_bearing_spec', 'custom_spool_compatibility', 'custom_knob_compatibility', 'official_environment', 'line_capacity_display', 'handle_knob_type', 'handle_knob_exchange_size', 'body_material', 'gear_material', 'battery_capacity', 'battery_charge_time', 'continuous_cast_count', 'usage_environment', 'DRAG', 'Nylon_no_m', 'fluorocarbon_no_m', 'drag_click', 'spool_depth_normalized', 'gear_ratio_normalized', 'brake_type_normalized', 'fit_style_tags', 'min_lure_weight_hint', 'is_compact_body', 'handle_style', 'MAX_DURABILITY', 'type', 'is_sw_edition'];
+    : ['id', 'reel_id', 'SKU', 'GEAR RATIO', 'MAX DRAG', 'WEIGHT', 'spool_diameter_per_turn_mm', 'Nylon_lb_m', 'fluorocarbon_lb_m', 'pe_no_m', 'cm_per_turn', 'handle_length_mm', 'bearing_count_roller', 'market_reference_price', 'product_code', 'created_at', 'updated_at', 'spool_diameter_mm', 'spool_width_mm', 'spool_weight_g', 'spool_axis_type', 'knob_size', 'knob_bearing_spec', 'custom_spool_compatibility', 'custom_knob_compatibility', 'official_environment', 'line_capacity_display', 'handle_knob_type', 'handle_knob_exchange_size', 'body_material', 'body_material_tech', 'gear_material', 'battery_capacity', 'battery_charge_time', 'continuous_cast_count', 'usage_environment', 'DRAG', 'Nylon_no_m', 'fluorocarbon_no_m', 'drag_click', 'spool_depth_normalized', 'gear_ratio_normalized', 'brake_type_normalized', 'fit_style_tags', 'min_lure_weight_hint', 'is_compact_body', 'handle_style', 'MAX_DURABILITY', 'type', 'is_sw_edition'];
 
   const existingMastersByModel = new Map(
     templateMaster.rows.map((row) => [normalizeModelKey(row.model), row])
@@ -454,6 +455,7 @@ function main() {
       detailRow.handle_knob_type = normalizeText(existingDetail.handle_knob_type);
       detailRow.handle_knob_exchange_size = normalizeText(existingDetail.handle_knob_exchange_size);
       detailRow.body_material = normalizeText(existingDetail.body_material) || normalizeText(experimentDetail.body_material);
+      detailRow.body_material_tech = normalizeText(existingDetail.body_material_tech) || normalizeText(experimentDetail.body_material_tech);
       detailRow.gear_material = normalizeText(existingDetail.gear_material) || normalizeText(experimentDetail.gear_material);
       detailRow.battery_capacity = normalizeText(existingDetail.battery_capacity);
       detailRow.battery_charge_time = normalizeText(existingDetail.battery_charge_time);

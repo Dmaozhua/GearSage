@@ -95,16 +95,25 @@
       "allowed_categories": [
         "reel"
       ],
-      "allowed_fields": [],
+      "allowed_fields": [
+        "spool_diameter_mm",
+        "spool_width_mm",
+        "line_capacity_display",
+        "body_material",
+        "body_material_tech",
+        "gear_material",
+        "handle_knob_type",
+        "is_sw_edition"
+      ],
       "single_source_allowed_fields": [],
-      "notes": "High-trust review media. Use as clue/evidence support, not as direct structured field writer in v1."
+      "notes": "High-trust review media. Keep enabled for multi-source exploration and evidence support, but do not auto-write alone in v1."
     },
     {
       "id": "jdmfishing",
       "name": "JDM Fishing",
       "role": "reference_catalog",
       "priority": 4,
-      "enabled": false,
+      "enabled": true,
       "domains": [
         "jdmfishing.com"
       ],
@@ -112,10 +121,18 @@
         "reel"
       ],
       "allowed_fields": [
-        "TODO_USER: confirm which reel fields JDM Fishing can reliably provide"
+        "spool_diameter_mm",
+        "spool_width_mm",
+        "line_capacity_display",
+        "body_material",
+        "body_material_tech",
+        "gear_material",
+        "handle_knob_type",
+        "is_sw_edition",
+        "handle_knob_exchange_size"
       ],
       "single_source_allowed_fields": [],
-      "notes": "You added this source in the doc, but field strengths are still blank. Enable after confirming its reliable fields."
+      "notes": "Enabled for side-by-side source usefulness evaluation. Keep conservative write rules until enough sample coverage is reviewed."
     }
   ]
 }

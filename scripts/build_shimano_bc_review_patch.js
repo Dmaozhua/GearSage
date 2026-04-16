@@ -39,7 +39,6 @@ function loadExperimentConfig() {
   return {
     config,
     reviewWorkbook: resolveRepoPath(config.outputs.review_workbook),
-    reviewDecisions: resolveRepoPath(config.outputs.review_decisions),
     reviewedWorkbook: resolveRepoPath(config.outputs.reviewed_workbook),
     approvedPatchJson: resolveRepoPath(config.outputs.approved_patch_json),
     dryRunDiffWorkbook: resolveRepoPath(config.outputs.dry_run_diff_workbook),
@@ -55,31 +54,57 @@ function loadWorkbookRows(filePath, sheetName) {
   };
 }
 
-function buildDecisionMap(decisions) {
-  const map = new Map();
-  for (const item of decisions.decisions || []) {
-    map.set(`${normalizeText(item.reel_id)}::${normalizeText(item.field_key)}`, item);
+function deriveBodyMaterialParts(value, existingTech) {
+  const raw = normalizeText(value);
+  const providedTech = normalizeText(existingTech);
+
+  let material = raw;
+  if (/magnesium|镁合金/i.test(raw)) {
+    material = 'Magnesium';
+  } else if (/aluminum alloy|铝合金/i.test(raw)) {
+    material = 'Aluminum alloy';
+  } else if (/aluminum|铝/i.test(raw)) {
+    material = 'Aluminum';
   }
-  return map;
+
+  if (providedTech) {
+    return { material, tech: providedTech };
+  }
+
+  const techParts = [];
+  const push = (text) => {
+    if (text && !techParts.includes(text)) techParts.push(text);
+  };
+
+  if (/hagane/i.test(raw)) push('HAGANE 机身');
+  if (/coresolid body/i.test(raw)) push('CORESOLID BODY');
+  if (/一体成型/.test(raw)) push('一体成型');
+  if (/fully machined|全加工/i.test(raw)) push('全加工');
+
+  return {
+    material,
+    tech: techParts.join(' / '),
+  };
 }
 
-function applyReviewDecisions(reviewRows, decisionMap) {
+function enrichReviewedRows(reviewRows) {
   return reviewRows.map((row) => {
-    const key = `${normalizeText(row.reel_id)}::${normalizeText(row.field_key)}`;
-    const decision = decisionMap.get(key);
-    if (!decision) return { ...row };
-
-    return {
+    const rawApproved = normalizeText(row.approved_value) || normalizeText(row.candidate_value);
+    const next = {
       ...row,
-      model_year: normalizeText(row.model_year) || normalizeText(decision.model_year),
-      year_scope_note: normalizeText(decision.year_scope_note) || normalizeText(row.year_scope_note),
-      fitment_note: normalizeText(decision.fitment_note) || normalizeText(row.fitment_note),
-      review_status: normalizeText(decision.review_status),
-      approved_value: normalizeText(decision.approved_value) || normalizeText(row.candidate_value),
-      reviewer: normalizeText(decision.reviewer),
-      review_note: normalizeText(decision.review_note),
-      rejected_candidate_reason: normalizeText(decision.rejected_candidate_reason),
+      approved_value_raw: normalizeText(row.approved_value_raw) || rawApproved,
+      body_material_tech: normalizeText(row.body_material_tech),
     };
+
+    if (normalizeText(row.field_key) === 'body_material') {
+      const derived = deriveBodyMaterialParts(rawApproved, next.body_material_tech);
+      next.approved_value = derived.material;
+      next.body_material_tech = derived.tech;
+    } else {
+      next.approved_value = rawApproved;
+    }
+
+    return next;
   });
 }
 
@@ -107,7 +132,9 @@ function buildPatchRows(reviewRows, experimentId) {
       model_year: normalizeText(row.model_year),
       sku: normalizeText(row.sku),
       candidate_value: normalizeText(row.candidate_value),
+      approved_value_raw: normalizeText(row.approved_value_raw) || normalizeText(row.approved_value) || normalizeText(row.candidate_value),
       approved_value: normalizeText(row.approved_value) || normalizeText(row.candidate_value),
+      body_material_tech: normalizeText(row.body_material_tech),
       source_site: normalizeText(row.source_site),
       source_url: normalizeText(row.source_url),
       evidence_text: normalizeText(row.evidence_text),
@@ -146,6 +173,7 @@ function buildDryRunDiffRows(patchRows, reviewRows) {
       field_key: patch.field_key,
       old_value: normalizeText(review.current_value_before_enrichment),
       new_value: patch.approved_value,
+      new_body_material_tech: patch.body_material_tech,
       change_type: normalizeText(review.current_value_before_enrichment) ? 'update' : 'fill_empty',
       source_type: patch.source_type,
       candidate_value: patch.candidate_value,
@@ -161,7 +189,29 @@ function writeReviewedWorkbook(sourceWorkbook, reviewedRows, reviewedWorkbookPat
   ensureDirForFile(reviewedWorkbookPath);
   const workbook = XLSX.utils.book_new();
   const reasonRows = XLSX.utils.sheet_to_json(sourceWorkbook.Sheets[REASON_SHEET], { defval: '' });
-  XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(reviewedRows), REVIEW_SHEET);
+  const headers = [
+    'field_key',
+    'reel_id',
+    'detail_id',
+    'model',
+    'model_year',
+    'sku',
+    'candidate_value',
+    'source_site',
+    'source_url',
+    'evidence_text',
+    'current_value_before_enrichment',
+    'year_scope_note',
+    'fitment_note',
+    'review_status',
+    'approved_value_raw',
+    'approved_value',
+    'body_material_tech',
+    'reviewer',
+    'review_note',
+    'rejected_candidate_reason',
+  ];
+  XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(reviewedRows, { header: headers }), REVIEW_SHEET);
   XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(reasonRows), REASON_SHEET);
   XLSX.writeFile(workbook, reviewedWorkbookPath);
 }
@@ -192,9 +242,9 @@ function writePatchOutputs(patchRows, diffRows, paths, experimentId) {
     '',
     '## Dry Run Diff',
     '',
-    '| reel_id | detail_id | field_key | old_value | new_value | source_type |',
-    '| --- | --- | --- | --- | --- | --- |',
-    ...diffRows.map((row) => `| ${row.reel_id} | ${row.detail_id} | ${row.field_key} | ${row.old_value || '(empty)'} | ${row.new_value} | ${row.source_type} |`),
+    '| reel_id | detail_id | field_key | old_value | new_value | body_material_tech | source_type |',
+    '| --- | --- | --- | --- | --- | --- | --- |',
+    ...diffRows.map((row) => `| ${row.reel_id} | ${row.detail_id} | ${row.field_key} | ${row.old_value || '(empty)'} | ${row.new_value} | ${row.new_body_material_tech || ''} | ${row.source_type} |`),
     '',
   ].join('\n');
   fs.writeFileSync(paths.dryRunDiffMarkdown, `${markdown}\n`, 'utf8');
@@ -202,15 +252,14 @@ function writePatchOutputs(patchRows, diffRows, paths, experimentId) {
 
 function run() {
   const paths = loadExperimentConfig();
-  const decisions = loadJson(paths.reviewDecisions);
-  const decisionMap = buildDecisionMap(decisions);
-  const { workbook, rows } = loadWorkbookRows(paths.reviewWorkbook, REVIEW_SHEET);
-  const reviewedRows = applyReviewDecisions(rows, decisionMap);
-  const patchRows = buildPatchRows(reviewedRows, decisions.experiment_id);
+  const reviewSourceFile = fs.existsSync(paths.reviewedWorkbook) ? paths.reviewedWorkbook : paths.reviewWorkbook;
+  const { workbook, rows } = loadWorkbookRows(reviewSourceFile, REVIEW_SHEET);
+  const reviewedRows = enrichReviewedRows(rows);
+  const patchRows = buildPatchRows(reviewedRows, paths.config.experiment_id);
   const diffRows = buildDryRunDiffRows(patchRows, reviewedRows);
 
   writeReviewedWorkbook(workbook, reviewedRows, paths.reviewedWorkbook);
-  writePatchOutputs(patchRows, diffRows, paths, decisions.experiment_id);
+  writePatchOutputs(patchRows, diffRows, paths, paths.config.experiment_id);
 
   console.log(`Saved reviewed workbook to ${paths.reviewedWorkbook}`);
   console.log(`Saved approved patch to ${paths.approvedPatchJson}`);

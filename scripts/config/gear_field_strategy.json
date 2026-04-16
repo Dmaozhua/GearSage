@@ -83,7 +83,19 @@
           "min_sources": 1,
           "required_evidence": "exact_text",
           "write_to_import": true,
-          "notes": "Only write when explicit material wording exists."
+          "notes": "Store core material only, such as Magnesium or Aluminum alloy. Do not mix technology naming into this field."
+        },
+        "body_material_tech": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Store technology or structural wording separately, such as HAGANE body, CORESOLID BODY, one-piece, or fully machined."
         },
         "gear_material": {
           "strategy": "official_or_whitelist",
