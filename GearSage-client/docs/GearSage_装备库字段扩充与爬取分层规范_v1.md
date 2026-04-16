@@ -398,13 +398,13 @@
 | `gear_ratio_normalized` | 已有 | gsc_traits | derived | detail_core / compare | 是 | derived_runtime | 低速/中速/高速 |
 | `brake_type_normalized` | 已有（部分） | gsc_traits | derived | detail_core / compare | 是 | derived_runtime | 水滴轮关键归一 |
 | `fit_style_tags` | 已有（部分） | gsc_traits | derived | detail_core / compare | 是 | derived_runtime | BFS / 泛用 / 远投 |
-| `spool_weight_g` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 后续玩家层 |
-| `spool_axis_type` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 长轴 / 短轴 |
-| `knob_size` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 改装价值大 |
-| `knob_bearing_spec` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 改装价值大 |
-| `handle_hole_spec` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 改装价值大 |
-| `custom_spool_compatibility` | 缺失 | deep_fields | player/manual | deep_read | 否 | side_table | 适合兼容表 |
-| `custom_knob_compatibility` | 缺失 | deep_fields | player/manual | deep_read | 否 | side_table | 适合兼容表 |
+| `spool_weight_g` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / manual_pool | 后续玩家层 |
+| `spool_axis_type` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / manual_pool | 长轴 / 短轴 |
+| `knob_size` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / manual_pool | 改装价值大 |
+| `knob_bearing_spec` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / manual_pool | 改装价值大 |
+| `handle_hole_spec` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / manual_pool | 改装价值大 |
+| `custom_spool_compatibility` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / side_table | 适合兼容表 |
+| `custom_knob_compatibility` | 已有（列已建立，覆盖待补） | deep_fields | player/manual | deep_read | 否 | excel_structured / side_table | 适合兼容表 |
 
 ## 9.5 渔轮当前判断
 
