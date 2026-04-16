@@ -1,5 +1,5 @@
 {
-  "_comment": "Gear field source whitelist. TODO_USER fields need manual completion before the experiment runs.",
+  "_comment": "Gear field source whitelist. Some TODO_USER fields still need manual completion before the experiment runs end to end.",
   "version": "v1-draft",
   "updated_at": "2026-04-16",
   "default_rules": {
@@ -15,7 +15,7 @@
       "priority": 1,
       "enabled": true,
       "domains": [
-        "TODO_USER: fill official domains here"
+        "fish.shimano.com"
       ],
       "allowed_categories": [
         "reel"
@@ -50,45 +50,72 @@
         "gear_material",
         "handle_knob_type"
       ],
-      "notes": "Official source baseline."
+      "notes": "Official source baseline for the Shimano baitcasting reel experiment."
     },
     {
-      "id": "todo_whitelist_source_1",
-      "name": "TODO_USER: fill source name",
+      "id": "japantackle",
+      "name": "JapanTackle",
       "role": "dealer_structured",
       "priority": 2,
-      "enabled": false,
+      "enabled": true,
       "domains": [
-        "TODO_USER: fill domain"
+        "japantackle.com"
       ],
       "allowed_categories": [
         "reel"
       ],
       "allowed_fields": [
-        "TODO_USER: fill allowed fields"
+        "spool_diameter_mm",
+        "spool_width_mm",
+        "line_capacity_display",
+        "body_material",
+        "gear_material",
+        "handle_knob_type",
+        "is_sw_edition",
+        "handle_knob_exchange_size"
       ],
       "single_source_allowed_fields": [
-        "TODO_USER: fill fields that can be accepted from this source alone"
+        "line_capacity_display",
+        "body_material",
+        "gear_material",
+        "handle_knob_type",
+        "is_sw_edition"
       ],
-      "notes": "TODO_USER: explain why this source is trustworthy."
+      "notes": "Medium-trust dealer/archive source. Useful for structured reel pages and reel archives. Keep handle_knob_exchange_size as non-single-source."
     },
     {
-      "id": "todo_whitelist_source_2",
-      "name": "TODO_USER: fill source name",
-      "role": "reference_catalog",
+      "id": "tackletour",
+      "name": "TackleTour",
+      "role": "community_reference",
       "priority": 3,
+      "enabled": true,
+      "domains": [
+        "tackletour.com"
+      ],
+      "allowed_categories": [
+        "reel"
+      ],
+      "allowed_fields": [],
+      "single_source_allowed_fields": [],
+      "notes": "High-trust review media. Use as clue/evidence support, not as direct structured field writer in v1."
+    },
+    {
+      "id": "jdmfishing",
+      "name": "JDM Fishing",
+      "role": "reference_catalog",
+      "priority": 4,
       "enabled": false,
       "domains": [
-        "TODO_USER: fill domain"
+        "jdmfishing.com"
       ],
       "allowed_categories": [
         "reel"
       ],
       "allowed_fields": [
-        "TODO_USER: fill allowed fields"
+        "TODO_USER: confirm which reel fields JDM Fishing can reliably provide"
       ],
       "single_source_allowed_fields": [],
-      "notes": "TODO_USER: explain which fields this source is good at."
+      "notes": "You added this source in the doc, but field strengths are still blank. Enable after confirming its reliable fields."
     }
   ]
 }

@@ -1,0 +1,698 @@
+{
+  "generated_at": "2026-04-16T06:24:57.956Z",
+  "experiment": "shimano_baitcasting_reel_whitelist",
+  "scope": {
+    "brand": "Shimano",
+    "category": "reel",
+    "subtype": "baitcasting",
+    "target_fields": [
+      "body_material",
+      "gear_material"
+    ],
+    "baseline_import_file": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx",
+    "whitelist_sources": [
+      {
+        "id": "official_brand_site",
+        "role": "official",
+        "domains": [
+          "fish.shimano.com"
+        ]
+      },
+      {
+        "id": "japantackle",
+        "role": "dealer_structured",
+        "domains": [
+          "japantackle.com"
+        ]
+      },
+      {
+        "id": "tackletour",
+        "role": "community_reference",
+        "domains": [
+          "tackletour.com"
+        ]
+      }
+    ]
+  },
+  "samples": [
+    {
+      "model": "ANTARES DC",
+      "model_key": "ANTARES DC",
+      "master_id": "SRE5003",
+      "source_id": "japantackle",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "current_import_snapshot": {
+        "detail_count": 6,
+        "existing_body_material_count": 0,
+        "existing_gear_material_count": 0,
+        "official_reference_price": "¥4,284",
+        "description": ""
+      },
+      "proposals": {
+        "body_material": {
+          "value": "Hagane aluminum alloy body",
+          "evidence_text": "Hagane aluminum alloy body",
+          "status": "candidate"
+        },
+        "gear_material": {
+          "value": "",
+          "evidence_text": "",
+          "status": "not_found"
+        }
+      }
+    },
+    {
+      "model": "ANTARES DC MD",
+      "model_key": "ANTARES DC MD",
+      "master_id": "SRE5004",
+      "source_id": "japantackle",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "current_import_snapshot": {
+        "detail_count": 4,
+        "existing_body_material_count": 0,
+        "existing_gear_material_count": 0,
+        "official_reference_price": "¥4,253",
+        "description": ""
+      },
+      "proposals": {
+        "body_material": {
+          "value": "metal frames",
+          "evidence_text": "To maximize the chance to catch them, Antares DC MD has sturdy metal frames, enlarged 38mm dia, 21mm width spools, 20lb(JP)-100m line capacity, and fast gear ratios. MD tuned DC brake system is more finely tuned to draw the best performance from Magnum Light 3 spools to cast bulky large baits in comforts. Another ball bearing is added to main shaft support to remove plays and to improve cranking power.",
+          "status": "candidate"
+        },
+        "gear_material": {
+          "value": "",
+          "evidence_text": "",
+          "status": "not_found"
+        }
+      }
+    },
+    {
+      "model": "ALDEBARAN BFS",
+      "model_key": "ALDEBARAN BFS",
+      "master_id": "SRE5025",
+      "source_id": "japantackle",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "current_import_snapshot": {
+        "detail_count": 4,
+        "existing_body_material_count": 0,
+        "existing_gear_material_count": 0,
+        "official_reference_price": "¥2,604",
+        "description": ""
+      },
+      "proposals": {
+        "body_material": {
+          "value": "Hagane body system",
+          "evidence_text": "Hagane body system",
+          "status": "candidate"
+        },
+        "gear_material": {
+          "value": "",
+          "evidence_text": "",
+          "status": "not_found"
+        }
+      }
+    },
+    {
+      "model": "CALCUTTA CONQUEST BFS",
+      "model_key": "CALCUTTA CONQUEST BFS",
+      "master_id": "SRE5019",
+      "source_id": "japantackle",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "current_import_snapshot": {
+        "detail_count": 4,
+        "existing_body_material_count": 0,
+        "existing_gear_material_count": 0,
+        "official_reference_price": "¥3,129",
+        "description": ""
+      },
+      "proposals": {
+        "body_material": {
+          "value": "Fully machined aluminum body and side plates",
+          "evidence_text": "Fully machined aluminum body and side plates",
+          "status": "candidate"
+        },
+        "gear_material": {
+          "value": "",
+          "evidence_text": "",
+          "status": "not_found"
+        }
+      }
+    },
+    {
+      "model": "Metanium DC",
+      "model_key": "METANIUM DC",
+      "master_id": "SRE5015",
+      "source_id": "japantackle",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "current_import_snapshot": {
+        "detail_count": 6,
+        "existing_body_material_count": 0,
+        "existing_gear_material_count": 0,
+        "official_reference_price": "¥3,255",
+        "description": ""
+      },
+      "proposals": {
+        "body_material": {
+          "value": "Core solid metal body",
+          "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+          "status": "candidate"
+        },
+        "gear_material": {
+          "value": "Duralumin drive gear",
+          "evidence_text": "Duralumin drive gear",
+          "status": "candidate"
+        }
+      }
+    }
+  ],
+  "review_rows": [
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50014",
+      "model": "ANTARES DC",
+      "sku": "ANTARES DC R",
+      "candidate_value": "Hagane aluminum alloy body",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "evidence_text": "Hagane aluminum alloy body",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50015",
+      "model": "ANTARES DC",
+      "sku": "ANTARES DC L",
+      "candidate_value": "Hagane aluminum alloy body",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "evidence_text": "Hagane aluminum alloy body",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50016",
+      "model": "ANTARES DC",
+      "sku": "ANTARES DC HG R",
+      "candidate_value": "Hagane aluminum alloy body",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "evidence_text": "Hagane aluminum alloy body",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50017",
+      "model": "ANTARES DC",
+      "sku": "ANTARES DC HG L",
+      "candidate_value": "Hagane aluminum alloy body",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "evidence_text": "Hagane aluminum alloy body",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50018",
+      "model": "ANTARES DC",
+      "sku": "ANTARES DC XG R",
+      "candidate_value": "Hagane aluminum alloy body",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "evidence_text": "Hagane aluminum alloy body",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50019",
+      "model": "ANTARES DC",
+      "sku": "ANTARES DC XG L",
+      "candidate_value": "Hagane aluminum alloy body",
+      "source_site": "JapanTackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "evidence_text": "Hagane aluminum alloy body",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50020",
+      "model": "ANTARES DC MD",
+      "sku": "ANTARES DC MD HG RIGHT",
+      "candidate_value": "metal frames",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "evidence_text": "To maximize the chance to catch them, Antares DC MD has sturdy metal frames, enlarged 38mm dia, 21mm width spools, 20lb(JP)-100m line capacity, and fast gear ratios. MD tuned DC brake system is more finely tuned to draw the best performance from Magnum Light 3 spools to cast bulky large baits in comforts. Another ball bearing is added to main shaft support to remove plays and to improve cranking power.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50021",
+      "model": "ANTARES DC MD",
+      "sku": "ANTARES DC MD HG LEFT",
+      "candidate_value": "metal frames",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "evidence_text": "To maximize the chance to catch them, Antares DC MD has sturdy metal frames, enlarged 38mm dia, 21mm width spools, 20lb(JP)-100m line capacity, and fast gear ratios. MD tuned DC brake system is more finely tuned to draw the best performance from Magnum Light 3 spools to cast bulky large baits in comforts. Another ball bearing is added to main shaft support to remove plays and to improve cranking power.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50022",
+      "model": "ANTARES DC MD",
+      "sku": "ANTARES DC MD XG RIGHT",
+      "candidate_value": "metal frames",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "evidence_text": "To maximize the chance to catch them, Antares DC MD has sturdy metal frames, enlarged 38mm dia, 21mm width spools, 20lb(JP)-100m line capacity, and fast gear ratios. MD tuned DC brake system is more finely tuned to draw the best performance from Magnum Light 3 spools to cast bulky large baits in comforts. Another ball bearing is added to main shaft support to remove plays and to improve cranking power.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50023",
+      "model": "ANTARES DC MD",
+      "sku": "ANTARES DC MD XG LEFT",
+      "candidate_value": "metal frames",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "evidence_text": "To maximize the chance to catch them, Antares DC MD has sturdy metal frames, enlarged 38mm dia, 21mm width spools, 20lb(JP)-100m line capacity, and fast gear ratios. MD tuned DC brake system is more finely tuned to draw the best performance from Magnum Light 3 spools to cast bulky large baits in comforts. Another ball bearing is added to main shaft support to remove plays and to improve cranking power.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50103",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 70",
+      "candidate_value": "Core solid metal body",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "gear_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50103",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 70",
+      "candidate_value": "Duralumin drive gear",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "Duralumin drive gear",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50104",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 71",
+      "candidate_value": "Core solid metal body",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "gear_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50104",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 71",
+      "candidate_value": "Duralumin drive gear",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "Duralumin drive gear",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50105",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 70HG",
+      "candidate_value": "Core solid metal body",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "gear_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50105",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 70HG",
+      "candidate_value": "Duralumin drive gear",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "Duralumin drive gear",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50106",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 71HG",
+      "candidate_value": "Core solid metal body",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "gear_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50106",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 71HG",
+      "candidate_value": "Duralumin drive gear",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "Duralumin drive gear",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50107",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 70XG",
+      "candidate_value": "Core solid metal body",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "gear_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50107",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 70XG",
+      "candidate_value": "Duralumin drive gear",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "Duralumin drive gear",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50108",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 71XG",
+      "candidate_value": "Core solid metal body",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "All New Shimano 2024 Metanium DC is the versatile bait caster for all around use. Core solid metal body holds every components solid. The state of arts i-DC5 brake system casts very smooth for long, and the new material dial is changeable without opening the side plate. MGL 3 spool offers fast spool acceleration.",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "gear_material",
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50108",
+      "model": "Metanium DC",
+      "sku": "Metanium DC 71XG",
+      "candidate_value": "Duralumin drive gear",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "evidence_text": "Duralumin drive gear",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50131",
+      "model": "CALCUTTA CONQUEST BFS",
+      "sku": "CALCUTTA CONQUEST BFS HG RIGHT",
+      "candidate_value": "Fully machined aluminum body and side plates",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "evidence_text": "Fully machined aluminum body and side plates",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50132",
+      "model": "CALCUTTA CONQUEST BFS",
+      "sku": "CALCUTTA CONQUEST BFS HG LEFT",
+      "candidate_value": "Fully machined aluminum body and side plates",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "evidence_text": "Fully machined aluminum body and side plates",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50133",
+      "model": "CALCUTTA CONQUEST BFS",
+      "sku": "CALCUTTA CONQUEST BFS XG RIGHT",
+      "candidate_value": "Fully machined aluminum body and side plates",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "evidence_text": "Fully machined aluminum body and side plates",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50134",
+      "model": "CALCUTTA CONQUEST BFS",
+      "sku": "CALCUTTA CONQUEST BFS XG LEFT",
+      "candidate_value": "Fully machined aluminum body and side plates",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "evidence_text": "Fully machined aluminum body and side plates",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50155",
+      "model": "ALDEBARAN BFS",
+      "sku": "ALDEBARAN BFS HG R",
+      "candidate_value": "Hagane body system",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "evidence_text": "Hagane body system",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50156",
+      "model": "ALDEBARAN BFS",
+      "sku": "ALDEBARAN BFS HG L",
+      "candidate_value": "Hagane body system",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "evidence_text": "Hagane body system",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50157",
+      "model": "ALDEBARAN BFS",
+      "sku": "ALDEBARAN BFS XG R",
+      "candidate_value": "Hagane body system",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "evidence_text": "Hagane body system",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    },
+    {
+      "field_key": "body_material",
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50158",
+      "model": "ALDEBARAN BFS",
+      "sku": "ALDEBARAN BFS XG L",
+      "candidate_value": "Hagane body system",
+      "source_site": "JapanTackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "evidence_text": "Hagane body system",
+      "current_value_before_enrichment": "",
+      "review_status": "",
+      "approved_value": "",
+      "reviewer": "",
+      "review_note": ""
+    }
+  ],
+  "reason_code_stats": [
+    {
+      "field_key": "body_material",
+      "reason_code": "candidate_ready",
+      "count": 24
+    },
+    {
+      "field_key": "body_material",
+      "reason_code": "model_not_in_experiment_scope",
+      "count": 364
+    },
+    {
+      "field_key": "gear_material",
+      "reason_code": "candidate_not_found_in_source",
+      "count": 18
+    },
+    {
+      "field_key": "gear_material",
+      "reason_code": "candidate_ready",
+      "count": 6
+    },
+    {
+      "field_key": "gear_material",
+      "reason_code": "model_not_in_experiment_scope",
+      "count": 364
+    }
+  ],
+  "summary": {
+    "candidate_rows_by_field": {
+      "body_material": 24,
+      "gear_material": 6
+    },
+    "reason_code_not_written": {
+      "body_material": {
+        "model_not_in_experiment_scope": 364
+      },
+      "gear_material": {
+        "candidate_not_found_in_source": 18,
+        "model_not_in_experiment_scope": 364
+      }
+    }
+  }
+}

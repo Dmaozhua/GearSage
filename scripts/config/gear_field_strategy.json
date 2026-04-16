@@ -22,7 +22,7 @@
       "experiment_scope": {
         "enabled": true,
         "brands": [
-          "TODO_USER: fill brand names for the first experiment, e.g. Shimano"
+          "Shimano"
         ],
         "subtypes": [
           "baitcasting"

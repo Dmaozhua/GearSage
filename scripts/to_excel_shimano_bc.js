@@ -2,8 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 
+const REPO_ROOT = path.resolve(__dirname, '..');
 const INPUT_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json');
 const OUTPUT_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
+const WHITELIST_EXPERIMENT_CONFIG = path.resolve(
+  __dirname,
+  './config/whitelist_experiments/shimano_baitcasting_reel.json'
+);
+const ENABLE_WHITELIST_ENRICHMENT = process.env.GS_ENABLE_SHIMANO_BC_WHITELIST_ENRICHMENT === '1';
 const TEMPLATE_FILES = [
   OUTPUT_FILE,
   path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx'),
@@ -62,6 +68,52 @@ function loadTemplateWorkbook() {
     }
   }
   return null;
+}
+
+function loadWhitelistExperimentReportPath() {
+  if (!fs.existsSync(WHITELIST_EXPERIMENT_CONFIG)) {
+    return '';
+  }
+
+  const config = JSON.parse(fs.readFileSync(WHITELIST_EXPERIMENT_CONFIG, 'utf8'));
+  const relativeReportPath = config && config.outputs && config.outputs.json_report;
+  if (!relativeReportPath) {
+    return '';
+  }
+
+  return path.resolve(REPO_ROOT, relativeReportPath);
+}
+
+function loadExperimentProposals() {
+  if (!ENABLE_WHITELIST_ENRICHMENT) {
+    return new Map();
+  }
+
+  const experimentFile = loadWhitelistExperimentReportPath();
+  if (!experimentFile || !fs.existsSync(experimentFile)) {
+    return new Map();
+  }
+
+  const report = JSON.parse(fs.readFileSync(experimentFile, 'utf8'));
+  const proposals = new Map();
+
+  for (const sample of report.samples || []) {
+    const modelKey = normalizeModelKey(sample.model);
+    if (!modelKey) continue;
+
+    const next = {};
+    if (sample.proposals && sample.proposals.body_material && sample.proposals.body_material.status === 'candidate') {
+      next.body_material = normalizeText(sample.proposals.body_material.value);
+    }
+    if (sample.proposals && sample.proposals.gear_material && sample.proposals.gear_material.status === 'candidate') {
+      next.gear_material = normalizeText(sample.proposals.gear_material.value);
+    }
+    if (Object.keys(next).length) {
+      proposals.set(modelKey, next);
+    }
+  }
+
+  return proposals;
 }
 
 function parseEnvironment(value) {
@@ -273,6 +325,8 @@ function main() {
 
   const normalized = JSON.parse(fs.readFileSync(INPUT_FILE, 'utf8'));
   const grouped = dedupeAndGroup(normalized);
+  const experimentProposals = loadExperimentProposals();
+  console.log(`[To Excel] whitelist enrichment ${ENABLE_WHITELIST_ENRICHMENT ? 'enabled' : 'disabled'} via GS_ENABLE_SHIMANO_BC_WHITELIST_ENRICHMENT`);
 
   const templateWorkbook = loadTemplateWorkbook();
   const templateMaster = loadTemplateSheet(templateWorkbook, MASTER_SHEET);
@@ -352,6 +406,7 @@ function main() {
       const detailKey = `${modelKey}::${normalizeSkuKey(sku)}`;
       const existingDetail = existingDetailsByKey.get(detailKey) || {};
       const specs = variant.specs || {};
+      const experimentDetail = experimentProposals.get(modelKey) || {};
       const spool = parseSpoolDimensions(specs.spool_diameter_stroke_mm);
       const officialEnvironment = parseEnvironment(item.official_environment);
       const gearRatioNormalized = normalizeGearRatio(specs.gear_ratio);
@@ -395,8 +450,8 @@ function main() {
       detailRow.line_capacity_display = lineCapacityDisplay || normalizeText(existingDetail.line_capacity_display);
       detailRow.handle_knob_type = normalizeText(existingDetail.handle_knob_type);
       detailRow.handle_knob_exchange_size = normalizeText(existingDetail.handle_knob_exchange_size);
-      detailRow.body_material = normalizeText(existingDetail.body_material);
-      detailRow.gear_material = normalizeText(existingDetail.gear_material);
+      detailRow.body_material = normalizeText(existingDetail.body_material) || normalizeText(experimentDetail.body_material);
+      detailRow.gear_material = normalizeText(existingDetail.gear_material) || normalizeText(experimentDetail.gear_material);
       detailRow.battery_capacity = normalizeText(existingDetail.battery_capacity);
       detailRow.battery_charge_time = normalizeText(existingDetail.battery_charge_time);
       detailRow.continuous_cast_count = normalizeText(existingDetail.continuous_cast_count);

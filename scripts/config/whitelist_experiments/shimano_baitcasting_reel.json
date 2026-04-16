@@ -1,0 +1,65 @@
+{
+  "_comment": "Scoped whitelist experiment config for Shimano baitcasting reel enrichment review.",
+  "version": "v1",
+  "updated_at": "2026-04-16",
+  "experiment_id": "shimano_baitcasting_reel_whitelist",
+  "category": "reel",
+  "subtype": "baitcasting",
+  "brand": "Shimano",
+  "inputs": {
+    "import_file": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx"
+  },
+  "outputs": {
+    "json_report": "GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.json",
+    "markdown_report": "GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.md",
+    "review_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review.xlsx"
+  },
+  "target_fields": [
+    {
+      "field_key": "body_material",
+      "vocabulary": [
+        "fully machined aluminum body and side plates",
+        "hagane aluminum alloy body",
+        "core solid metal body",
+        "hagane body system",
+        "metal frame(?:s)?"
+      ]
+    },
+    {
+      "field_key": "gear_material",
+      "vocabulary": [
+        "duralumin drive gear",
+        "brass drive gear",
+        "stainless drive gear",
+        "aluminum drive gear"
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "model": "ANTARES DC",
+      "source_id": "japantackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html"
+    },
+    {
+      "model": "ANTARES DC MD",
+      "source_id": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html"
+    },
+    {
+      "model": "ALDEBARAN BFS",
+      "source_id": "japantackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html"
+    },
+    {
+      "model": "CALCUTTA CONQUEST BFS",
+      "source_id": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html"
+    },
+    {
+      "model": "Metanium DC",
+      "source_id": "japantackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html"
+    }
+  ]
+}
