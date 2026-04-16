@@ -151,6 +151,20 @@
 
 我已经把 review 目录收缩成“最终入口文件 + 少量机器输入文件”。
 
+### 当前建议保留的文件
+
+1. 当前工作副本  
+   - [shimano_baitcasting_reels_import_副本.xlsx](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx)
+2. apply 前备份  
+   - [shimano_baitcasting_reels_import_副本_第一次真实apply前备份.xlsx](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本_第一次真实apply前备份.xlsx)
+3. 真实 apply 结果候选  
+   - [第一次真实apply_结果候选.xlsx](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_结果候选.xlsx)
+4. 当前入口文档  
+   - [渔轮字段统一口径_v1.md](/Users/tommy/GearSage/GearSage-client/docs/渔轮字段统一口径_v1.md)  
+   - [渔轮字段第一批接入最终总表清单_v1.md](/Users/tommy/GearSage/GearSage-client/docs/渔轮字段第一批接入最终总表清单_v1.md)  
+   - [渔轮最终总表字段变更执行方案_v1.md](/Users/tommy/GearSage/GearSage-client/docs/渔轮最终总表字段变更执行方案_v1.md)  
+   - [Shimano两轴轮_第一次真实apply_简洁流程.md](/Users/tommy/GearSage/GearSage-client/docs/Shimano两轴轮_第一次真实apply_简洁流程.md)
+
 ---
 
 ## 六、如果你点头，下一步是什么
