@@ -13,27 +13,27 @@ const BASELINE_XLSX = path.resolve(
 );
 const PLAN_JSON = path.resolve(
   REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_plan_v1.json'
+  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_执行计划.json'
 );
 const PREVIEW_XLSX = path.resolve(
   REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_preview_v1.xlsx'
+  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_预览.xlsx'
 );
 const PREVIEW_MD = path.resolve(
   REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_preview_v1.md'
+  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_预览.md'
 );
 const AUDIT_JSON = path.resolve(
   REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_audit_v1.json'
+  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_审计.json'
 );
 const RESULT_XLSX = path.resolve(
   REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_result_v1.xlsx'
+  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_结果候选.xlsx'
 );
 const CHECKLIST_MD = path.resolve(
   REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_final_pre_apply_checklist_v1.md'
+  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_执行前检查清单.md'
 );
 const SAMPLE_REELS = new Set(['SRE5003', 'SRE5004', 'SRE5015', 'SRE5019', 'SRE5025']);
 

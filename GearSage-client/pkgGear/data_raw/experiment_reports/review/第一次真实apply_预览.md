@@ -1,7 +1,7 @@
 # Shimano baitcasting reel first real apply preview v1
 
 - mode: preview
-- generated_at: 2026-04-16T13:02:19.201Z
+- generated_at: 2026-04-16T13:18:24.305Z
 - baseline_source: `GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx`
 
 ## Scope

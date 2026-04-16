@@ -1,6 +1,6 @@
 # Shimano baitcasting reel final pre-apply checklist v1
 
-- generated_at: 2026-04-16T13:02:19.201Z
+- generated_at: 2026-04-16T13:18:24.305Z
 
 ## Current sample scope
 
@@ -48,10 +48,10 @@
 
 ## Audit file locations
 
-- plan: `GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_plan_v1.json`
-- preview: `GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_preview_v1.xlsx`
-- preview markdown: `GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_preview_v1.md`
-- audit: `GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_first_real_apply_audit_v1.json`
+- plan: `GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_执行计划.json`
+- preview: `GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_预览.xlsx`
+- preview markdown: `GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_预览.md`
+- audit: `GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_审计.json`
 
 ## Sidecar-specific note
 
