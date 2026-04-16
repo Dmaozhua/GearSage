@@ -1,0 +1,94 @@
+{
+  "_comment": "Gear field source whitelist. TODO_USER fields need manual completion before the experiment runs.",
+  "version": "v1-draft",
+  "updated_at": "2026-04-16",
+  "default_rules": {
+    "allow_non_whitelist_write": false,
+    "community_reference_can_write_structured_fields": false,
+    "official_has_highest_priority": true
+  },
+  "sources": [
+    {
+      "id": "official_brand_site",
+      "name": "Official Brand Site",
+      "role": "official",
+      "priority": 1,
+      "enabled": true,
+      "domains": [
+        "TODO_USER: fill official domains here"
+      ],
+      "allowed_categories": [
+        "reel"
+      ],
+      "allowed_fields": [
+        "gear_ratio",
+        "max_drag",
+        "weight",
+        "cm_per_turn",
+        "handle_length_mm",
+        "spool_diameter_mm",
+        "spool_width_mm",
+        "line_capacity_display",
+        "official_environment",
+        "is_sw_edition",
+        "body_material",
+        "gear_material",
+        "handle_knob_type"
+      ],
+      "single_source_allowed_fields": [
+        "gear_ratio",
+        "max_drag",
+        "weight",
+        "cm_per_turn",
+        "handle_length_mm",
+        "spool_diameter_mm",
+        "spool_width_mm",
+        "line_capacity_display",
+        "official_environment",
+        "is_sw_edition",
+        "body_material",
+        "gear_material",
+        "handle_knob_type"
+      ],
+      "notes": "Official source baseline."
+    },
+    {
+      "id": "todo_whitelist_source_1",
+      "name": "TODO_USER: fill source name",
+      "role": "dealer_structured",
+      "priority": 2,
+      "enabled": false,
+      "domains": [
+        "TODO_USER: fill domain"
+      ],
+      "allowed_categories": [
+        "reel"
+      ],
+      "allowed_fields": [
+        "TODO_USER: fill allowed fields"
+      ],
+      "single_source_allowed_fields": [
+        "TODO_USER: fill fields that can be accepted from this source alone"
+      ],
+      "notes": "TODO_USER: explain why this source is trustworthy."
+    },
+    {
+      "id": "todo_whitelist_source_2",
+      "name": "TODO_USER: fill source name",
+      "role": "reference_catalog",
+      "priority": 3,
+      "enabled": false,
+      "domains": [
+        "TODO_USER: fill domain"
+      ],
+      "allowed_categories": [
+        "reel"
+      ],
+      "allowed_fields": [
+        "TODO_USER: fill allowed fields"
+      ],
+      "single_source_allowed_fields": [],
+      "notes": "TODO_USER: explain which fields this source is good at."
+    }
+  ]
+}

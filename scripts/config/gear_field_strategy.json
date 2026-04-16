@@ -1,0 +1,263 @@
+{
+  "_comment": "Field-level strategy config for GearSage scraping experiment. TODO_USER items need confirmation.",
+  "version": "v1-draft",
+  "updated_at": "2026-04-16",
+  "global": {
+    "strategy_enum": [
+      "official_only",
+      "official_or_whitelist",
+      "multi_source_required",
+      "derive_only",
+      "manual_only"
+    ],
+    "evidence_level_enum": [
+      "exact_text",
+      "structured_table",
+      "cross_source_match",
+      "manual_confirmed"
+    ]
+  },
+  "categories": {
+    "reel": {
+      "experiment_scope": {
+        "enabled": true,
+        "brands": [
+          "TODO_USER: fill brand names for the first experiment, e.g. Shimano"
+        ],
+        "subtypes": [
+          "baitcasting"
+        ]
+      },
+      "fields": {
+        "gear_ratio": {
+          "strategy": "official_only",
+          "allowed_source_roles": [
+            "official"
+          ],
+          "min_sources": 1,
+          "required_evidence": "structured_table",
+          "write_to_import": true,
+          "notes": "Direct official table field."
+        },
+        "max_drag": {
+          "strategy": "official_only",
+          "allowed_source_roles": [
+            "official"
+          ],
+          "min_sources": 1,
+          "required_evidence": "structured_table",
+          "write_to_import": true,
+          "notes": "Direct official table field."
+        },
+        "spool_diameter_mm": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Can be extracted from spool diameter/width combined field."
+        },
+        "spool_width_mm": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Can be extracted from spool diameter/width combined field."
+        },
+        "body_material": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Only write when explicit material wording exists."
+        },
+        "gear_material": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Only write when explicit gear material wording exists."
+        },
+        "handle_knob_type": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Examples: EVA, round knob, I-shape."
+        },
+        "is_sw_edition": {
+          "strategy": "official_or_whitelist",
+          "allowed_source_roles": [
+            "official",
+            "dealer_structured"
+          ],
+          "min_sources": 1,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Can use official category or explicit saltwater wording."
+        },
+        "spool_weight_g": {
+          "strategy": "multi_source_required",
+          "allowed_source_roles": [
+            "dealer_structured",
+            "reference_catalog"
+          ],
+          "min_sources": 2,
+          "required_evidence": "cross_source_match",
+          "write_to_import": false,
+          "notes": "High-risk field. Do not auto-write in the first experiment."
+        },
+        "spool_axis_type": {
+          "strategy": "manual_only",
+          "allowed_source_roles": [],
+          "min_sources": 0,
+          "required_evidence": "manual_confirmed",
+          "write_to_import": false,
+          "notes": "TODO_USER: confirm whether this should stay manual."
+        },
+        "knob_size": {
+          "strategy": "manual_only",
+          "allowed_source_roles": [],
+          "min_sources": 0,
+          "required_evidence": "manual_confirmed",
+          "write_to_import": false,
+          "notes": "TODO_USER: confirm whether this should stay manual."
+        },
+        "knob_bearing_spec": {
+          "strategy": "manual_only",
+          "allowed_source_roles": [],
+          "min_sources": 0,
+          "required_evidence": "manual_confirmed",
+          "write_to_import": false,
+          "notes": "TODO_USER: confirm whether this should stay manual."
+        },
+        "custom_spool_compatibility": {
+          "strategy": "manual_only",
+          "allowed_source_roles": [],
+          "min_sources": 0,
+          "required_evidence": "manual_confirmed",
+          "write_to_import": false,
+          "notes": "Do not auto-write."
+        },
+        "custom_knob_compatibility": {
+          "strategy": "manual_only",
+          "allowed_source_roles": [],
+          "min_sources": 0,
+          "required_evidence": "manual_confirmed",
+          "write_to_import": false,
+          "notes": "Do not auto-write."
+        },
+        "spool_depth_normalized": {
+          "strategy": "derive_only",
+          "allowed_source_roles": [
+            "derive"
+          ],
+          "min_sources": 0,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Derived field. Must not be treated as official text."
+        },
+        "gear_ratio_normalized": {
+          "strategy": "derive_only",
+          "allowed_source_roles": [
+            "derive"
+          ],
+          "min_sources": 0,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Derived field."
+        },
+        "brake_type_normalized": {
+          "strategy": "derive_only",
+          "allowed_source_roles": [
+            "derive"
+          ],
+          "min_sources": 0,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Derived field. Can use official wording, model naming, and category context."
+        },
+        "fit_style_tags": {
+          "strategy": "derive_only",
+          "allowed_source_roles": [
+            "derive"
+          ],
+          "min_sources": 0,
+          "required_evidence": "exact_text",
+          "write_to_import": true,
+          "notes": "Decision-oriented tags, not official raw facts."
+        },
+        "min_lure_weight_hint": {
+          "strategy": "manual_only",
+          "allowed_source_roles": [],
+          "min_sources": 0,
+          "required_evidence": "manual_confirmed",
+          "write_to_import": false,
+          "notes": "Player/experience field. Do not auto-write."
+        }
+      }
+    },
+    "rod": {
+      "experiment_scope": {
+        "enabled": false,
+        "brands": [],
+        "subtypes": []
+      },
+      "fields": {}
+    },
+    "lure": {
+      "experiment_scope": {
+        "enabled": false,
+        "brands": [],
+        "subtypes": []
+      },
+      "fields": {}
+    },
+    "line": {
+      "experiment_scope": {
+        "enabled": false,
+        "brands": [],
+        "subtypes": []
+      },
+      "fields": {}
+    },
+    "hook": {
+      "experiment_scope": {
+        "enabled": false,
+        "brands": [],
+        "subtypes": []
+      },
+      "fields": {}
+    }
+  },
+  "todo_user": {
+    "fill_whitelist_sources_first": true,
+    "confirm_first_experiment_brand": true,
+    "confirm_manual_only_fields": true,
+    "confirm_first_experiment_field_subset": true
+  }
+}
