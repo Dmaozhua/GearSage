@@ -98,6 +98,7 @@ function buildImportIndex(importFile) {
     masterRows,
     detailRows,
     mastersByModel,
+    mastersById,
     detailsByModel,
   };
 }
@@ -163,15 +164,21 @@ function buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocab
   const samples = [];
   for (const sample of experimentConfig.samples || []) {
     const modelKey = normalizeModelKey(sample.model);
-    const master = importIndex.mastersByModel.get(modelKey);
+    const master = sample.reel_id
+      ? importIndex.mastersById.get(normalizeText(sample.reel_id))
+      : importIndex.mastersByModel.get(modelKey);
     if (!master) {
       throw new Error(`Missing import master row for ${sample.model}`);
     }
+    const reelId = normalizeText(master.id);
     const details = importIndex.detailsByModel.get(modelKey) || [];
     samples.push({
       model: normalizeText(sample.model),
       model_key: modelKey,
-      master_id: normalizeText(master.id),
+      reel_id: reelId,
+      master_id: reelId,
+      model_year: normalizeText(sample.model_year) || normalizeText(master.model_year),
+      year_scope_note: normalizeText(sample.year_scope_note),
       source_id: sample.source_id,
       source_site: (getSourceInfo(whitelist, sample.source_id) || {}).name || sample.source_id,
       source_url: sample.source_url,
@@ -235,6 +242,7 @@ function buildFieldOutcomes(experimentConfig, strategy, importIndex, samplesByMo
         reel_id: normalizeText(detailRow.reel_id),
         detail_id: normalizeText(detailRow.id),
         model,
+        model_year: sample ? normalizeText(sample.model_year) : '',
         sku: normalizeText(detailRow.SKU),
         write_to_import: Boolean(fieldStrategy.write_to_import),
         current_value_before_enrichment: normalizeText(detailRow[fieldKey]),
@@ -254,16 +262,20 @@ function buildFieldOutcomes(experimentConfig, strategy, importIndex, samplesByMo
           reel_id: outcome.reel_id,
           detail_id: outcome.detail_id,
           model: outcome.model,
+          model_year: outcome.model_year,
           sku: outcome.sku,
           candidate_value: outcome.candidate_value,
           source_site: outcome.source_site,
           source_url: outcome.source_url,
           evidence_text: outcome.evidence_text,
           current_value_before_enrichment: outcome.current_value_before_enrichment,
+          year_scope_note: sample ? normalizeText(sample.year_scope_note) : '',
+          fitment_note: '',
           review_status: '',
           approved_value: '',
           reviewer: '',
           review_note: '',
+          rejected_candidate_reason: '',
         });
       }
     }
@@ -380,10 +392,6 @@ async function run() {
   const experimentConfig = experiment.config;
   const fieldVocabulary = compileVocabulary(experimentConfig);
   const importIndex = buildImportIndex(experiment.importFile);
-
-  importIndex.mastersById = new Map(
-    importIndex.masterRows.map((row) => [normalizeText(row.id), row])
-  );
 
   const samples = buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocabulary);
   await enrichSampleResults(samples, fieldVocabulary);

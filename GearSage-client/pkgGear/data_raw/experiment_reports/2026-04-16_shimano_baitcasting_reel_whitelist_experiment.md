@@ -1,6 +1,6 @@
 # shimano_baitcasting_reel_whitelist Review Summary
 
-- generated_at: 2026-04-16T06:24:57.956Z
+- generated_at: 2026-04-16T08:00:52.905Z
 - import_baseline: `GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx`
 - json_report: `GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.json`
 - review_workbook: `GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review.xlsx`

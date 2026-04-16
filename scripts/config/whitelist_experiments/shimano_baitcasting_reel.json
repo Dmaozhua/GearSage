@@ -12,7 +12,12 @@
   "outputs": {
     "json_report": "GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.json",
     "markdown_report": "GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.md",
-    "review_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review.xlsx"
+    "review_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review.xlsx",
+    "review_decisions": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review_decisions.json",
+    "reviewed_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review_filled.xlsx",
+    "approved_patch_json": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch.json",
+    "dry_run_diff_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch_dry_run_diff.xlsx",
+    "dry_run_diff_markdown": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch_dry_run_diff.md"
   },
   "target_fields": [
     {
@@ -37,29 +42,54 @@
   ],
   "samples": [
     {
+      "reel_id": "SRE5003",
       "model": "ANTARES DC",
+      "model_year": "2021",
+      "year_scope_note": "Current whitelist source appears to describe the 2021 ANTARES DC. Do not reuse across other ANTARES DC years without year confirmation.",
       "source_id": "japantackle",
       "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html"
     },
     {
+      "reel_id": "SRE5004",
       "model": "ANTARES DC MD",
+      "model_year": "2023",
+      "year_scope_note": "2023 ANTARES DC MD needs year-bound review. Same-series material wording may differ by generation.",
       "source_id": "japantackle",
       "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html"
     },
     {
+      "reel_id": "SRE5025",
       "model": "ALDEBARAN BFS",
+      "model_year": "",
+      "year_scope_note": "Aldebaran BFS material claims must stay bound to reel_id and SKU until year/version is confirmed.",
       "source_id": "japantackle",
       "source_url": "https://japantackle.com/special/reg0000317.html"
     },
     {
+      "reel_id": "SRE5019",
       "model": "CALCUTTA CONQUEST BFS",
+      "model_year": "",
+      "year_scope_note": "Calcutta Conquest BFS patch should keep reel_id and SKU binding. Do not spread by model-only match.",
       "source_id": "japantackle",
       "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html"
     },
     {
+      "reel_id": "SRE5015",
       "model": "Metanium DC",
+      "model_year": "2024",
+      "year_scope_note": "Current source is treated as 2024 Metanium DC. Body/gear material may differ across other Metanium DC years.",
       "source_id": "japantackle",
       "source_url": "https://japantackle.com/metaniumdc2024.html"
     }
-  ]
+  ],
+  "match_constraints": {
+    "review_and_patch_binding_order": [
+      "detail_id",
+      "reel_id",
+      "model_year",
+      "sku"
+    ],
+    "forbid_model_only_match": true,
+    "notes": "Same-series reels can change body_material and gear_material across years. Review and future apply must stay bound to reel_id plus year/version information whenever available."
+  }
 }

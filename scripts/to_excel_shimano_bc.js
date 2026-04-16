@@ -72,16 +72,18 @@ function loadTemplateWorkbook() {
 
 function loadWhitelistExperimentReportPath() {
   if (!fs.existsSync(WHITELIST_EXPERIMENT_CONFIG)) {
-    return '';
+    return {};
   }
 
   const config = JSON.parse(fs.readFileSync(WHITELIST_EXPERIMENT_CONFIG, 'utf8'));
-  const relativeReportPath = config && config.outputs && config.outputs.json_report;
-  if (!relativeReportPath) {
-    return '';
-  }
-
-  return path.resolve(REPO_ROOT, relativeReportPath);
+  return {
+    jsonReport: config && config.outputs && config.outputs.json_report
+      ? path.resolve(REPO_ROOT, config.outputs.json_report)
+      : '',
+    approvedPatchJson: config && config.outputs && config.outputs.approved_patch_json
+      ? path.resolve(REPO_ROOT, config.outputs.approved_patch_json)
+      : '',
+  };
 }
 
 function loadExperimentProposals() {
@@ -89,27 +91,28 @@ function loadExperimentProposals() {
     return new Map();
   }
 
-  const experimentFile = loadWhitelistExperimentReportPath();
-  if (!experimentFile || !fs.existsSync(experimentFile)) {
+  const experimentFiles = loadWhitelistExperimentReportPath();
+  const approvedPatchFile = experimentFiles.approvedPatchJson;
+  if (!approvedPatchFile || !fs.existsSync(approvedPatchFile)) {
     return new Map();
   }
 
-  const report = JSON.parse(fs.readFileSync(experimentFile, 'utf8'));
+  const report = JSON.parse(fs.readFileSync(approvedPatchFile, 'utf8'));
   const proposals = new Map();
 
-  for (const sample of report.samples || []) {
-    const modelKey = normalizeModelKey(sample.model);
-    if (!modelKey) continue;
+  for (const patchRow of report.patch_rows || []) {
+    const detailId = normalizeText(patchRow.detail_id);
+    if (!detailId) continue;
 
-    const next = {};
-    if (sample.proposals && sample.proposals.body_material && sample.proposals.body_material.status === 'candidate') {
-      next.body_material = normalizeText(sample.proposals.body_material.value);
+    const next = proposals.get(detailId) || {};
+    if (normalizeText(patchRow.field_key) === 'body_material') {
+      next.body_material = normalizeText(patchRow.approved_value);
     }
-    if (sample.proposals && sample.proposals.gear_material && sample.proposals.gear_material.status === 'candidate') {
-      next.gear_material = normalizeText(sample.proposals.gear_material.value);
+    if (normalizeText(patchRow.field_key) === 'gear_material') {
+      next.gear_material = normalizeText(patchRow.approved_value);
     }
     if (Object.keys(next).length) {
-      proposals.set(modelKey, next);
+      proposals.set(detailId, next);
     }
   }
 
@@ -406,7 +409,6 @@ function main() {
       const detailKey = `${modelKey}::${normalizeSkuKey(sku)}`;
       const existingDetail = existingDetailsByKey.get(detailKey) || {};
       const specs = variant.specs || {};
-      const experimentDetail = experimentProposals.get(modelKey) || {};
       const spool = parseSpoolDimensions(specs.spool_diameter_stroke_mm);
       const officialEnvironment = parseEnvironment(item.official_environment);
       const gearRatioNormalized = normalizeGearRatio(specs.gear_ratio);
@@ -422,6 +424,7 @@ function main() {
       for (const header of detailHeaders) detailRow[header] = '';
 
       detailRow.id = normalizeText(existingDetail.id) || `${DETAIL_PREFIX}${nextDetailId++}`;
+      const experimentDetail = experimentProposals.get(detailRow.id) || {};
       detailRow.reel_id = masterIdByModel.get(modelKey);
       detailRow.SKU = sku;
       detailRow['GEAR RATIO'] = normalizeText(specs.gear_ratio);
