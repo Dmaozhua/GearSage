@@ -1,0 +1,255 @@
+{
+  "version": "v1",
+  "brand": "Shimano",
+  "category": "baitcasting_reel",
+  "default_entry_script": "scripts/run_shimano_bc_simple_flow.js",
+  "inputs": {
+    "official_normalized_json": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json",
+    "template_workbook": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx"
+  },
+  "outputs": {
+    "working_copy": "GearSage-client/pkgGear/data_raw/Shimano两轴轮_工作副本_简单主流程.xlsx",
+    "sidecar_json": "GearSage-client/pkgGear/data_raw/Shimano两轴轮_简单主流程_sidecar.json",
+    "summary_markdown": "GearSage-client/pkgGear/data_raw/Shimano两轴轮_简单主流程_试运行摘要.md"
+  },
+  "master_fields": [
+    "model_year",
+    "alias"
+  ],
+  "detail_fields": [
+    "body_material",
+    "body_material_tech",
+    "gear_material"
+  ],
+  "sidecar_only_fields": [
+    "canonical_alias",
+    "version_signature",
+    "gear_material_state",
+    "gear_material_layer"
+  ],
+  "samples": [
+    {
+      "reel_id": "SRE5003",
+      "model": "ANTARES DC",
+      "official_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47feqab.html",
+      "normalized_alias": "21 Antares DC",
+      "canonical_alias": "21 Antares DC",
+      "model_year": "2021",
+      "version_signature": "2021|ANTARES DC|21 Antares DC",
+      "master_trace": {
+        "source_type": "whitelist_auto",
+        "source_site": "JapanTackle",
+        "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+        "evidence_type": "year_in_model_name",
+        "confidence": "high"
+      },
+      "detail_fields_map": {
+        "body_material": {
+          "value": "Aluminum alloy",
+          "source_type": "direct_write",
+          "source_site": "JapanTackle",
+          "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+          "evidence_type": "exact_text",
+          "confidence": "high"
+        },
+        "body_material_tech": {
+          "value": "HAGANE 机身",
+          "source_type": "direct_write",
+          "source_site": "JapanTackle",
+          "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+          "evidence_type": "exact_text",
+          "confidence": "high"
+        },
+        "gear_material": {
+          "value": "Brass",
+          "source_type": "cross_source_inferred",
+          "source_site": "JapanTackle + TackleTour",
+          "source_url": [
+            "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+            "https://www.tackletour.com/reviewshimano23antaresmddcxgpg2.html"
+          ],
+          "evidence_type": "cross_source_match",
+          "confidence": "medium",
+          "layer": "inferred",
+          "state": "cross_source_inferred"
+        }
+      }
+    },
+    {
+      "reel_id": "SRE5004",
+      "model": "ANTARES DC MD",
+      "official_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042png4qac.html",
+      "normalized_alias": "23 Antares DC MD Monster Drive",
+      "canonical_alias": "23 Antares DC MD Monster Drive",
+      "model_year": "2023",
+      "version_signature": "2023|ANTARES DC MD|23 Antares DC MD Monster Drive",
+      "master_trace": {
+        "source_type": "whitelist_auto",
+        "source_site": "JapanTackle",
+        "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+        "evidence_type": "year_in_model_name",
+        "confidence": "high"
+      },
+      "detail_fields_map": {
+        "body_material": {
+          "value": "Magnesium",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+          "evidence_type": "manual_confirmed",
+          "confidence": "high"
+        },
+        "body_material_tech": {
+          "value": "HAGANE 机身",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+          "evidence_type": "exact_text",
+          "confidence": "high"
+        },
+        "gear_material": {
+          "value": "Brass",
+          "source_type": "direct_write",
+          "source_site": "TackleTour",
+          "source_url": "https://www.tackletour.com/reviewshimano23antaresmddcxgpg2.html",
+          "evidence_type": "exact_text",
+          "confidence": "high",
+          "layer": "player",
+          "state": "direct_write"
+        }
+      }
+    },
+    {
+      "reel_id": "SRE5015",
+      "model": "Metanium DC",
+      "official_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000045zv32qag.html",
+      "normalized_alias": "24 Metanium DC",
+      "canonical_alias": "24 Metanium DC",
+      "model_year": "2024",
+      "version_signature": "2024|Metanium DC|24 Metanium DC",
+      "master_trace": {
+        "source_type": "whitelist_auto",
+        "source_site": "JapanTackle",
+        "source_url": "https://japantackle.com/metaniumdc2024.html",
+        "evidence_type": "year_in_model_name",
+        "confidence": "high"
+      },
+      "detail_fields_map": {
+        "body_material": {
+          "value": "Magnesium",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/metaniumdc2024.html",
+          "evidence_type": "manual_confirmed",
+          "confidence": "high"
+        },
+        "body_material_tech": {
+          "value": "CORESOLID BODY / 一体成型",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/metaniumdc2024.html",
+          "evidence_type": "manual_confirmed",
+          "confidence": "high"
+        },
+        "gear_material": {
+          "value": "Duralumin drive gear",
+          "source_type": "direct_write",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/metaniumdc2024.html",
+          "evidence_type": "exact_text",
+          "confidence": "high",
+          "layer": "player",
+          "state": "direct_write"
+        }
+      }
+    },
+    {
+      "reel_id": "SRE5019",
+      "model": "CALCUTTA CONQUEST BFS",
+      "official_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003rgosxqa0.html",
+      "normalized_alias": "23 Calcutta Conquest BFS",
+      "canonical_alias": "23 Calcutta Conquest BFS",
+      "model_year": "2023",
+      "version_signature": "2023|CALCUTTA CONQUEST BFS|23 Calcutta Conquest BFS",
+      "master_trace": {
+        "source_type": "whitelist_auto",
+        "source_site": "JapanTackle",
+        "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+        "evidence_type": "year_in_model_name",
+        "confidence": "high"
+      },
+      "detail_fields_map": {
+        "body_material": {
+          "value": "Aluminum",
+          "source_type": "direct_write",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+          "evidence_type": "exact_text",
+          "confidence": "high"
+        },
+        "body_material_tech": {
+          "value": "全加工",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+          "evidence_type": "manual_confirmed",
+          "confidence": "high"
+        },
+        "gear_material": {
+          "value": "",
+          "source_type": "manual_required",
+          "source_site": "",
+          "source_url": "",
+          "evidence_type": "confirmed_blank",
+          "confidence": "confirmed",
+          "layer": "blank",
+          "state": "manual_required"
+        }
+      }
+    },
+    {
+      "reel_id": "SRE5025",
+      "model": "ALDEBARAN BFS",
+      "official_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003t47foqab.html",
+      "normalized_alias": "22 Aldebaran BFS",
+      "canonical_alias": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "model_year": "2022",
+      "version_signature": "2022|ALDEBARAN BFS|22 Aldebaran BFS",
+      "master_trace": {
+        "source_type": "whitelist_auto",
+        "source_site": "JapanTackle",
+        "source_url": "https://japantackle.com/special/reg0000317.html",
+        "evidence_type": "normalized_alias",
+        "confidence": "high"
+      },
+      "detail_fields_map": {
+        "body_material": {
+          "value": "Magnesium",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/special/reg0000317.html",
+          "evidence_type": "manual_confirmed",
+          "confidence": "high"
+        },
+        "body_material_tech": {
+          "value": "HAGANE 机身",
+          "source_type": "review_confirmed_manual",
+          "source_site": "JapanTackle",
+          "source_url": "https://japantackle.com/special/reg0000317.html",
+          "evidence_type": "manual_confirmed",
+          "confidence": "high"
+        },
+        "gear_material": {
+          "value": "Aluminum main gear",
+          "source_type": "direct_write",
+          "source_site": "TackleTour",
+          "source_url": "https://www.tackletour.com/reviewshimano22aldebaranbfspg2.html",
+          "evidence_type": "exact_text",
+          "confidence": "high",
+          "layer": "player",
+          "state": "direct_write"
+        }
+      }
+    }
+  ]
+}

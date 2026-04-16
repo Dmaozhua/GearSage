@@ -1,5 +1,8 @@
 # Shimano 两轴轮第一次真实 apply 简洁流程
 
+> 当前状态：历史验证资料 / 复杂问题备用工具。  
+> 日常默认主流程请先看 [`Shimano两轴轮_简单主流程_v1.md`](/Users/tommy/GearSage/GearSage-client/docs/Shimano两轴轮_简单主流程_v1.md)。
+
 更新时间：2026-04-16
 
 这份文档只回答三件事：
