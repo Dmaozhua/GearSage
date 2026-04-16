@@ -8,6 +8,11 @@
 2. 你现在只需要看哪些文件
 3. 你现在只需要拍板什么
 
+如果后面再讨论 reel 字段到底按什么统一，请先看：
+
+- [`渔轮字段统一口径_v1.md`](/Users/tommy/GearSage/GearSage-client/docs/渔轮字段统一口径_v1.md)
+- [`渔轮字段第一批接入最终总表清单_v1.md`](/Users/tommy/GearSage/GearSage-client/docs/渔轮字段第一批接入最终总表清单_v1.md)
+
 ---
 
 ## 一、当前进度
@@ -157,3 +162,56 @@
 - 原始 baseline 副本保持不动
 
 也就是说，下一步依然是可回退的，不会直接改总表，更不会碰数据库。
+
+---
+
+## 七、这轮 reel 字段里，哪些地方还没对齐
+
+为了避免后面又绕回“文档说有、为什么最终表没有”，这轮先把不对齐点写死：
+
+### 已对齐到最终总表
+
+- 主表：
+  - `model_year`
+  - `alias`
+- detail：
+  - `body_material`
+  - `gear_material`
+
+### 只在当前工作副本里有，还没进入最终总表
+
+- 主表：
+  - `Description`
+- detail：
+  - `spool_weight_g`
+  - `spool_axis_type`
+  - `knob_size`
+  - `knob_bearing_spec`
+  - `custom_spool_compatibility`
+  - `custom_knob_compatibility`
+  - `official_environment`
+  - `line_capacity_display`
+  - `is_sw_edition`
+  - `variant_description`
+  - `body_material_tech`
+
+### 当前只保留在 sidecar / 审计层
+
+- `version_signature`
+- `canonical_alias`
+- `gear_material inferred`
+- `gear_material confirmed_blank`
+
+### 当前流程里最容易误解的一点
+
+当前 reel 这条链里：
+
+- “字段值得做”
+- “中间层已经建出来”
+- “最终总表已经接住”
+
+是三件不同的事。
+
+所以后面讨论时，默认先问的是：
+
+**这个字段现在是“文档想做”、”工作副本已有“，还是“最终总表已接入”？**

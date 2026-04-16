@@ -17,10 +17,69 @@
 
 建议配合使用：
 
+- 字段统一口径：
+  [渔轮字段统一口径_v1.md](/Users/tommy/GearSage/GearSage-client/docs/渔轮字段统一口径_v1.md)
 - 总体施工口径：
   [装备库字段主清单_v0.md](/Users/tommy/GearSage/GearSage-client/docs/装备库字段主清单_v0.md)
 - 完整字段解释：
   [装备库字段解释手册_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备库字段解释手册_v1.md)
+
+---
+
+## 一点五、当前实际落表对齐情况（2026-04-16）
+
+这部分只说当前现实，不说理想。
+
+### 1. 当前已经对齐到最终总表的 reel 字段
+
+下面这些字段，当前 `pkgGear/data_raw` 工作副本和 `rate/excel` 最终表都能接住：
+
+- 主表：
+  - `model_year`
+  - `alias`
+- detail：
+  - `body_material`
+  - `gear_material`
+
+### 2. 当前只在中间层工作副本里有，但最终总表还没接住的字段
+
+下面这些字段，当前已经能在：
+
+- [`shimano_baitcasting_reels_import_副本.xlsx`](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx)
+
+里承载，但 **`rate/excel` 还没有对应列**：
+
+- 主表：
+  - `Description`
+- detail：
+  - `spool_weight_g`
+  - `spool_axis_type`
+  - `knob_size`
+  - `knob_bearing_spec`
+  - `custom_spool_compatibility`
+  - `custom_knob_compatibility`
+  - `official_environment`
+  - `line_capacity_display`
+  - `is_sw_edition`
+  - `variant_description`
+  - `body_material_tech`
+
+### 3. 当前只在审计 / sidecar 层承载，不进 baseline 的字段
+
+- `version_signature`
+- `canonical_alias`
+- `gear_material` 的 `inferred` 语义
+- `gear_material` 的 `confirmed_blank` 语义
+
+### 4. 当前最需要记住的一句话
+
+**“字段值得做”不等于“最终总表已经接住”。**
+
+当前 reel 文档里有些字段写的是“已有（列已建立，覆盖待补）”，更准确的理解应该是：
+
+- 可能已经在中间层建立
+- 但不一定已经进入 `rate/excel` 最终表
+- 更不等于已经进入数据库导入链
 
 ---
 
@@ -51,9 +110,9 @@
 | `is_show` | 是否展示 | `1` 显示，`0` 隐藏 | 默认填 `1` | `0` 后客户端不显示也不可查询 |
 | `model` | 型号名 | 官网主型号名 | 尽量别空 | 主识别字段 |
 | `model_cn` | 中文名 | 中文型号名或中文翻译 | 可空 | 没确认就留空，如 `tatula` 不要直接机械翻成“蜘蛛” |
-| `model_year` | 年份 | 型号年份 | 可空，优先拿去官网数据，没有官网数据使用玩家数据填充 | 如 `2026` |
+| `model_year` | 年份 | 型号年份 | 可空，优先官网；官网没有时先走白名单辅助站做 identity enrichment，再不行才人工确认 | 如 `2026` |
 | `type` | 渔轮类型 | `spinning` / `baitcasting` / `conventional` | 不能空 | 已有类型区分，靠它判断哪些字段更重要 |
-| `alias` | 别名/系列别称 | 系列俗称或辅助搜索别名 | 可空 | 不要乱填 marketing 文案 |
+| `alias` | 别名/系列别称 | baseline 单列只落 `normalized_alias` | 可空 | `canonical_alias` 留审计/sidecar；不要把活动页标题、栏目尾巴、marketing 文案直接写进 alias |
 | `type_tips` | 类型提示 | 简短补充提示 | 可空 | 当前口径不完全稳定 |
 | `images` | 主图 | 图片 URL 或可映射路径 | 尽量别空 | 多张可逗号分隔 |
 | `Description` | 主商品官网描述 | 系列/主商品在官网的描述文字 | 可空 | 这是主商品描述，不是子型号描述 |
@@ -115,7 +174,9 @@
 | `handle_knob_material` | 握丸材质 | 如塑料 / 橡胶 / 木质 / 金属 | 可空 | 官方明确或有可靠玩家资料再填 |
 | `handle_knob_exchange_size` | 握丸可替换规格 | 兼容规格描述 | 可空 | 改装兼容字段 |
 | `handle_hole_spec` | 摇臂孔规格 | 具体规格 | 可空 | 改装兼容字段 |
-| `body_material` | 机身材质 | 如铝、CI4+、镁等 | 可空 | 有资料再填 |
+| `body_material` | 机身材质 | 如 `Magnesium`、`Aluminum alloy` 这类纯材质值 | 可空 | 主值只放纯材质，不混技术名 |
+| `body_material_tech` | 机身技术/结构 | 如 `HAGANE 机身`、`CORESOLID BODY`、`一体成型`、`全加工` | 可空 | 与 `body_material` 分列维护 |
+| `gear_material` | 主齿材质 | 明确材质词，如 `Brass`、`Duralumin`、`Aluminum` | 可空 | 当前按 `direct_write / cross_source_inferred / manual_required` 三档处理，不接受技术词冒充材质 |
 | `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
 | `main_gear_size` | 大齿尺寸 | 官方明确或者采用玩家数据 | 可空 | 不猜，优先保留原始口径 |
 | `minor_gear_material` | 小齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
@@ -135,7 +196,7 @@
 | 字段 | 中文意思 | 该填什么 | 没资料时 | 备注 |
 |---|---|---|---|---|
 | `model_cn` | 中文名 | 中文型号名或中文翻译 | 可空 | 没确认就留空，如 `tatula` 不要直接机械翻成“蜘蛛” |
-| `model_year` | 年份 | 型号年份 | 可空，优先拿去官网数据，没有官网数据使用玩家数据填充 | 如 `2026` `26``26款`|
+| `model_year` | 年份 | 型号年份 | 可空，优先官网；官网没有时先走白名单辅助站做 identity enrichment，再不行才人工确认 | 如 `2026` `26``26款`|
 | `drag_click` | 是否有卸力报警 | `1` 是，`0` 否 | 可空 | 水滴轮更有区分价值；纺车轮通常默认带有此能力，不必强行补满 |
 |`spool_diameter_mm` | 线杯直径 φ(mm) | 如 `34`、`38` | 值得优先补 | 高价值字段 |
 | `spool_width_mm` | 线杯宽度(mm) | 如 `22`、`24` | 值得优先补 | 高价值字段 |
@@ -147,7 +208,9 @@
 | `handle_knob_material` | 握丸材质 | 如塑料 / 橡胶 / 木质 / 金属 | 可空 | 官方明确或有可靠玩家资料再填 |
 | `handle_knob_exchange_size` | 握丸可替换规格 | 兼容规格描述 | 可空 | 改装兼容字段 |
 | `handle_hole_spec` | 摇臂孔规格 | 具体规格 | 可空 | 改装兼容字段，官方明确或者采用玩家数据 |
-| `body_material` | 机身材质 | 如铝、CI4+、镁等 | 可空 | 官方明确或者采用玩家数据 |
+| `body_material` | 机身材质 | 如 `Magnesium`、`Aluminum alloy` 这类纯材质值 | 可空 | 官方明确或者采用玩家数据；主值只放纯材质 |
+| `body_material_tech` | 机身技术/结构 | 如 `HAGANE 机身`、`CORESOLID BODY`、`一体成型`、`全加工` | 可空 | 和 `body_material` 分列维护 |
+| `gear_material` | 主齿材质 | 明确材质词，如 `Brass`、`Duralumin`、`Aluminum` | 可空 | 当前按 `direct_write / cross_source_inferred / manual_required` 三档处理 |
 | `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段，优先依据官方信息或可靠玩家资料 |
 | `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
 | `main_gear_size` | 大齿尺寸 | 官方明确或者采用玩家数据 | 可空 | 不猜，优先保留原始口径 |
@@ -234,6 +297,31 @@
 
 - 如果官网对某个具体规格有单独描述，优先写在 `variant_description`
 - 主表 `Description` 继续只表示系列 / 主商品层官网描述
+
+### 5.8 `alias`
+
+- 当前真实执行口径不是“只有一个 alias 值”
+- 现在实际分成：
+  - `canonical_alias`
+  - `normalized_alias`
+- baseline 单列只写 `normalized_alias`
+- `canonical_alias` 保留在审计 / sidecar，不直接丢
+
+### 5.9 `gear_material`
+
+- 当前它不是普通补值字段
+- 不能因为 JapanTackle 没写，就直接理解成“没有这个字段”
+- 当前正式口径是：
+  - `direct_write`
+  - `cross_source_inferred`
+  - `manual_required`
+- `inferred` 可以进入审计和中间层，但不能冒充 `official`
+
+### 5.10 `version_signature`
+
+- 当前已经参与 identity enrichment
+- 但本轮仍然是 `sidecar-only`
+- 还没有进入 baseline，也没有进入最终总表列
 
 ---
 

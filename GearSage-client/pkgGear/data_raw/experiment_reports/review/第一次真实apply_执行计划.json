@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-16T13:18:24.299Z",
-  "mode": "preview",
+  "generated_at": "2026-04-16T13:24:22.019Z",
+  "mode": "apply",
   "scope": "current 5 Shimano baitcasting reel samples / current 6 fields only",
   "baseline_source": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx",
   "baseline_write_fields": [

@@ -1,6 +1,6 @@
 # Shimano baitcasting reel final pre-apply checklist v1
 
-- generated_at: 2026-04-16T13:18:24.305Z
+- generated_at: 2026-04-16T13:24:22.026Z
 
 ## Current sample scope
 
