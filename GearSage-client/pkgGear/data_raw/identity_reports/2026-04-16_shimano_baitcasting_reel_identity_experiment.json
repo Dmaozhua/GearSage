@@ -1,0 +1,444 @@
+{
+  "generated_at": "2026-04-16T11:08:37.857Z",
+  "experiment_id": "shimano_baitcasting_reel_whitelist_identity",
+  "review_rows": [
+    {
+      "reel_id": "SRE5003",
+      "model": "ANTARES DC",
+      "source_site": "japantackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "model_year",
+      "candidate_value": "2021",
+      "evidence_text": "URL token matched year: https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5003",
+      "model": "ANTARES DC",
+      "source_site": "japantackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "alias",
+      "candidate_value": "21 Antares DC",
+      "canonical_alias": "21 Antares DC Japan model 2021",
+      "normalized_alias": "21 Antares DC",
+      "alias_noise_tags": "brand_prefix, site_section",
+      "alias_normalization_rule": "strip site and section labels, drop campaign suffixes, keep cleaned source phrase as canonical alias, then derive normalized alias for binding",
+      "evidence_text": "Shimano 21 Antares DC Japan model 2021- - Shimano - Casting Reels",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5003",
+      "model": "ANTARES DC",
+      "source_site": "japantackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "version_signature",
+      "candidate_value": "ANTARES DC | 2021 | 6 sku variants",
+      "evidence_text": "ANTARES DC R / ANTARES DC L / ANTARES DC HG R",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5004",
+      "model": "ANTARES DC MD",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "baseline_model_year": "2023",
+      "baseline_alias": "",
+      "field_key": "model_year",
+      "candidate_value": "2023",
+      "evidence_text": "URL token matched year: https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5004",
+      "model": "ANTARES DC MD",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "baseline_model_year": "2023",
+      "baseline_alias": "",
+      "field_key": "alias",
+      "candidate_value": "23 Antares DC MD Monster Drive",
+      "canonical_alias": "23 Antares DC MD Monster Drive 2023",
+      "normalized_alias": "23 Antares DC MD Monster Drive",
+      "alias_noise_tags": "brand_prefix, site_section",
+      "alias_normalization_rule": "strip site and section labels, drop campaign suffixes, keep cleaned source phrase as canonical alias, then derive normalized alias for binding",
+      "evidence_text": "Shimano 23 Antares DC MD Monster Drive 2023- - Casting Reels",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5004",
+      "model": "ANTARES DC MD",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "baseline_model_year": "2023",
+      "baseline_alias": "",
+      "field_key": "version_signature",
+      "candidate_value": "ANTARES DC MD | 2023 | 4 sku variants",
+      "evidence_text": "ANTARES DC MD HG RIGHT / ANTARES DC MD HG LEFT / ANTARES DC MD XG RIGHT",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5025",
+      "model": "ALDEBARAN BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "model_year",
+      "candidate_value": "2022",
+      "evidence_text": "Shimano 22 Aldebaran BFS, ultimate finesse 2.0g, 2022- - 2026 Spring Trout Special",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5025",
+      "model": "ALDEBARAN BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "alias",
+      "candidate_value": "22 Aldebaran BFS",
+      "canonical_alias": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "normalized_alias": "22 Aldebaran BFS",
+      "alias_noise_tags": "brand_prefix, campaign_label",
+      "alias_normalization_rule": "strip site and section labels, drop campaign suffixes, keep cleaned source phrase as canonical alias, then derive normalized alias for binding",
+      "evidence_text": "Shimano 22 Aldebaran BFS, ultimate finesse 2.0g, 2022- - 2026 Spring Trout Special",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5025",
+      "model": "ALDEBARAN BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "version_signature",
+      "candidate_value": "ALDEBARAN BFS | 2022 | 4 sku variants",
+      "evidence_text": "ALDEBARAN BFS HG R / ALDEBARAN BFS HG L / ALDEBARAN BFS XG R",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5019",
+      "model": "CALCUTTA CONQUEST BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "model_year",
+      "candidate_value": "2023",
+      "evidence_text": "Shimano 23 Calcutta Conquest BFS Japan model 2023- - Shimano - Casting Reels",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5019",
+      "model": "CALCUTTA CONQUEST BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "alias",
+      "candidate_value": "23 Calcutta Conquest BFS",
+      "canonical_alias": "23 Calcutta Conquest BFS Japan model 2023",
+      "normalized_alias": "23 Calcutta Conquest BFS",
+      "alias_noise_tags": "brand_prefix, site_section",
+      "alias_normalization_rule": "strip site and section labels, drop campaign suffixes, keep cleaned source phrase as canonical alias, then derive normalized alias for binding",
+      "evidence_text": "Shimano 23 Calcutta Conquest BFS Japan model 2023- - Shimano - Casting Reels",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5019",
+      "model": "CALCUTTA CONQUEST BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "version_signature",
+      "candidate_value": "CALCUTTA CONQUEST BFS | 2023 | 4 sku variants",
+      "evidence_text": "CALCUTTA CONQUEST BFS HG RIGHT / CALCUTTA CONQUEST BFS HG LEFT / CALCUTTA CONQUEST BFS XG RIGHT",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5015",
+      "model": "Metanium DC",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "model_year",
+      "candidate_value": "2024",
+      "evidence_text": "URL token matched year: https://japantackle.com/metaniumdc2024.html",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5015",
+      "model": "Metanium DC",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "alias",
+      "candidate_value": "24 Metanium DC",
+      "canonical_alias": "24 Metanium DC (digital control) Japan model 2024",
+      "normalized_alias": "24 Metanium DC",
+      "alias_noise_tags": "brand_prefix",
+      "alias_normalization_rule": "strip site and section labels, drop campaign suffixes, keep cleaned source phrase as canonical alias, then derive normalized alias for binding",
+      "evidence_text": "Shimano 24 Metanium DC (digital control) Japan model 2024-",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    },
+    {
+      "reel_id": "SRE5015",
+      "model": "Metanium DC",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "baseline_model_year": "",
+      "baseline_alias": "",
+      "field_key": "version_signature",
+      "candidate_value": "Metanium DC | 2024 | 6 sku variants",
+      "evidence_text": "Metanium DC 70 / Metanium DC 71 / Metanium DC 70HG",
+      "review_status": "",
+      "approved_value": "",
+      "review_note": "",
+      "reason_code": "candidate_ready"
+    }
+  ],
+  "identity_patch": [
+    {
+      "reel_id": "SRE5003",
+      "model": "ANTARES DC",
+      "source_site": "japantackle",
+      "source_url": "https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html",
+      "model_year": "2021",
+      "alias": "21 Antares DC",
+      "canonical_alias": "21 Antares DC Japan model 2021",
+      "normalized_alias": "21 Antares DC",
+      "alias_noise_tags": "brand_prefix, site_section",
+      "version_signature": "ANTARES DC | 2021 | 6 sku variants",
+      "evidence": [
+        {
+          "field_key": "model_year",
+          "evidence_text": "URL token matched year: https://www.japantackle.com/casting-reels/shimano/shimano-21antaresdc.html"
+        },
+        {
+          "field_key": "alias",
+          "evidence_text": "Shimano 21 Antares DC Japan model 2021- - Shimano - Casting Reels"
+        },
+        {
+          "field_key": "version_signature",
+          "evidence_text": "ANTARES DC R / ANTARES DC L / ANTARES DC HG R"
+        }
+      ],
+      "detail_ids": [
+        "SRED50014",
+        "SRED50015",
+        "SRED50016",
+        "SRED50017",
+        "SRED50018",
+        "SRED50019"
+      ],
+      "identity_binding_key": "SRE5003 | 2021",
+      "patch_status": "identity_ready"
+    },
+    {
+      "reel_id": "SRE5004",
+      "model": "ANTARES DC MD",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano-23antares-dcmd.html",
+      "model_year": "2023",
+      "alias": "23 Antares DC MD Monster Drive",
+      "canonical_alias": "23 Antares DC MD Monster Drive 2023",
+      "normalized_alias": "23 Antares DC MD Monster Drive",
+      "alias_noise_tags": "brand_prefix, site_section",
+      "version_signature": "ANTARES DC MD | 2023 | 4 sku variants",
+      "evidence": [
+        {
+          "field_key": "model_year",
+          "evidence_text": "URL token matched year: https://japantackle.com/casting-reels/shimano-23antares-dcmd.html"
+        },
+        {
+          "field_key": "alias",
+          "evidence_text": "Shimano 23 Antares DC MD Monster Drive 2023- - Casting Reels"
+        },
+        {
+          "field_key": "version_signature",
+          "evidence_text": "ANTARES DC MD HG RIGHT / ANTARES DC MD HG LEFT / ANTARES DC MD XG RIGHT"
+        }
+      ],
+      "detail_ids": [
+        "SRED50020",
+        "SRED50021",
+        "SRED50022",
+        "SRED50023"
+      ],
+      "identity_binding_key": "SRE5004 | 2023",
+      "patch_status": "identity_ready"
+    },
+    {
+      "reel_id": "SRE5025",
+      "model": "ALDEBARAN BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/special/reg0000317.html",
+      "model_year": "2022",
+      "alias": "22 Aldebaran BFS",
+      "canonical_alias": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "normalized_alias": "22 Aldebaran BFS",
+      "alias_noise_tags": "brand_prefix, campaign_label",
+      "version_signature": "ALDEBARAN BFS | 2022 | 4 sku variants",
+      "evidence": [
+        {
+          "field_key": "model_year",
+          "evidence_text": "Shimano 22 Aldebaran BFS, ultimate finesse 2.0g, 2022- - 2026 Spring Trout Special"
+        },
+        {
+          "field_key": "alias",
+          "evidence_text": "Shimano 22 Aldebaran BFS, ultimate finesse 2.0g, 2022- - 2026 Spring Trout Special"
+        },
+        {
+          "field_key": "version_signature",
+          "evidence_text": "ALDEBARAN BFS HG R / ALDEBARAN BFS HG L / ALDEBARAN BFS XG R"
+        }
+      ],
+      "detail_ids": [
+        "SRED50155",
+        "SRED50156",
+        "SRED50157",
+        "SRED50158"
+      ],
+      "identity_binding_key": "SRE5025 | 2022",
+      "patch_status": "identity_ready"
+    },
+    {
+      "reel_id": "SRE5019",
+      "model": "CALCUTTA CONQUEST BFS",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/casting-reels/shimano/reg0000334.html",
+      "model_year": "2023",
+      "alias": "23 Calcutta Conquest BFS",
+      "canonical_alias": "23 Calcutta Conquest BFS Japan model 2023",
+      "normalized_alias": "23 Calcutta Conquest BFS",
+      "alias_noise_tags": "brand_prefix, site_section",
+      "version_signature": "CALCUTTA CONQUEST BFS | 2023 | 4 sku variants",
+      "evidence": [
+        {
+          "field_key": "model_year",
+          "evidence_text": "Shimano 23 Calcutta Conquest BFS Japan model 2023- - Shimano - Casting Reels"
+        },
+        {
+          "field_key": "alias",
+          "evidence_text": "Shimano 23 Calcutta Conquest BFS Japan model 2023- - Shimano - Casting Reels"
+        },
+        {
+          "field_key": "version_signature",
+          "evidence_text": "CALCUTTA CONQUEST BFS HG RIGHT / CALCUTTA CONQUEST BFS HG LEFT / CALCUTTA CONQUEST BFS XG RIGHT"
+        }
+      ],
+      "detail_ids": [
+        "SRED50131",
+        "SRED50132",
+        "SRED50133",
+        "SRED50134"
+      ],
+      "identity_binding_key": "SRE5019 | 2023",
+      "patch_status": "identity_ready"
+    },
+    {
+      "reel_id": "SRE5015",
+      "model": "Metanium DC",
+      "source_site": "japantackle",
+      "source_url": "https://japantackle.com/metaniumdc2024.html",
+      "model_year": "2024",
+      "alias": "24 Metanium DC",
+      "canonical_alias": "24 Metanium DC (digital control) Japan model 2024",
+      "normalized_alias": "24 Metanium DC",
+      "alias_noise_tags": "brand_prefix",
+      "version_signature": "Metanium DC | 2024 | 6 sku variants",
+      "evidence": [
+        {
+          "field_key": "model_year",
+          "evidence_text": "URL token matched year: https://japantackle.com/metaniumdc2024.html"
+        },
+        {
+          "field_key": "alias",
+          "evidence_text": "Shimano 24 Metanium DC (digital control) Japan model 2024-"
+        },
+        {
+          "field_key": "version_signature",
+          "evidence_text": "Metanium DC 70 / Metanium DC 71 / Metanium DC 70HG"
+        }
+      ],
+      "detail_ids": [
+        "SRED50103",
+        "SRED50104",
+        "SRED50105",
+        "SRED50106",
+        "SRED50107",
+        "SRED50108"
+      ],
+      "identity_binding_key": "SRE5015 | 2024",
+      "patch_status": "identity_ready"
+    }
+  ],
+  "summary": [
+    {
+      "field_key": "model_year",
+      "reason_code": "candidate_ready",
+      "count": 5
+    },
+    {
+      "field_key": "alias",
+      "reason_code": "candidate_ready",
+      "count": 5
+    },
+    {
+      "field_key": "version_signature",
+      "reason_code": "candidate_ready",
+      "count": 5
+    }
+  ]
+}

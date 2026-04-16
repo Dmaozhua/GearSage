@@ -51,6 +51,7 @@ function loadExperimentConfig() {
     configPath,
     config,
     importFile: resolveRepoPath(config.inputs.import_file),
+    identityPatchFile: resolveRepoPath(config.outputs.identity_patch_json),
     jsonReport: resolveRepoPath(config.outputs.json_report),
     markdownReport: resolveRepoPath(config.outputs.markdown_report),
     reviewWorkbook: resolveRepoPath(config.outputs.review_workbook),
@@ -70,6 +71,25 @@ function compileVocabulary(config) {
 
 function loadImportWorkbook(importFile) {
   return XLSX.readFile(importFile);
+}
+
+function loadIdentityPatch(identityPatchFile) {
+  if (!identityPatchFile || !fs.existsSync(identityPatchFile)) {
+    return new Map();
+  }
+
+  const patch = loadJson(identityPatchFile);
+  return new Map(
+    (patch.patch_rows || []).map((row) => [
+      normalizeText(row.reel_id),
+      {
+        model_year: normalizeText(row.model_year),
+        alias: normalizeText(row.alias),
+        version_signature: normalizeText(row.version_signature),
+        identity_binding_key: normalizeText(row.identity_binding_key),
+      },
+    ])
+  );
 }
 
 function buildImportIndex(importFile) {
@@ -160,7 +180,7 @@ function buildProposals(lines, fieldVocabulary) {
   return proposals;
 }
 
-function buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocabulary) {
+function buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocabulary, identityPatchByReelId) {
   const samples = [];
   for (const sample of experimentConfig.samples || []) {
     const modelKey = normalizeModelKey(sample.model);
@@ -171,13 +191,17 @@ function buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocab
       throw new Error(`Missing import master row for ${sample.model}`);
     }
     const reelId = normalizeText(master.id);
+    const identity = identityPatchByReelId.get(reelId) || {};
     const details = importIndex.detailsByModel.get(modelKey) || [];
     samples.push({
       model: normalizeText(sample.model),
       model_key: modelKey,
       reel_id: reelId,
       master_id: reelId,
-      model_year: normalizeText(sample.model_year) || normalizeText(master.model_year),
+      model_year: normalizeText(identity.model_year) || normalizeText(sample.model_year) || normalizeText(master.model_year),
+      alias: normalizeText(identity.alias) || normalizeText(master.alias),
+      version_signature: normalizeText(identity.version_signature),
+      identity_binding_key: normalizeText(identity.identity_binding_key),
       year_scope_note: normalizeText(sample.year_scope_note),
       source_id: sample.source_id,
       source_site: (getSourceInfo(whitelist, sample.source_id) || {}).name || sample.source_id,
@@ -243,6 +267,8 @@ function buildFieldOutcomes(experimentConfig, strategy, importIndex, samplesByMo
         detail_id: normalizeText(detailRow.id),
         model,
         model_year: sample ? normalizeText(sample.model_year) : '',
+        alias: sample ? normalizeText(sample.alias) : '',
+        version_signature: sample ? normalizeText(sample.version_signature) : '',
         sku: normalizeText(detailRow.SKU),
         write_to_import: Boolean(fieldStrategy.write_to_import),
         current_value_before_enrichment: normalizeText(detailRow[fieldKey]),
@@ -263,6 +289,8 @@ function buildFieldOutcomes(experimentConfig, strategy, importIndex, samplesByMo
           detail_id: outcome.detail_id,
           model: outcome.model,
           model_year: outcome.model_year,
+          alias: outcome.alias,
+          version_signature: outcome.version_signature,
           sku: outcome.sku,
           candidate_value: outcome.candidate_value,
           source_site: outcome.source_site,
@@ -394,8 +422,9 @@ async function run() {
   const experimentConfig = experiment.config;
   const fieldVocabulary = compileVocabulary(experimentConfig);
   const importIndex = buildImportIndex(experiment.importFile);
+  const identityPatchByReelId = loadIdentityPatch(experiment.identityPatchFile);
 
-  const samples = buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocabulary);
+  const samples = buildSampleResults(experimentConfig, importIndex, whitelist, fieldVocabulary, identityPatchByReelId);
   await enrichSampleResults(samples, fieldVocabulary);
 
   const samplesByModel = new Map(samples.map((item) => [item.model_key, item]));

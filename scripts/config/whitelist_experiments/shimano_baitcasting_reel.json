@@ -18,6 +18,10 @@
     "import_file": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx"
   },
   "outputs": {
+    "identity_report_json": "GearSage-client/pkgGear/data_raw/identity_reports/2026-04-16_shimano_baitcasting_reel_identity_experiment.json",
+    "identity_report_markdown": "GearSage-client/pkgGear/data_raw/identity_reports/2026-04-16_shimano_baitcasting_reel_identity_experiment.md",
+    "identity_review_workbook": "GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_review.xlsx",
+    "identity_patch_json": "GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json",
     "json_report": "GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.json",
     "markdown_report": "GearSage-client/pkgGear/data_raw/experiment_reports/2026-04-16_shimano_baitcasting_reel_whitelist_experiment.md",
     "review_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review.xlsx",
@@ -25,7 +29,10 @@
     "reviewed_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review_filled.xlsx",
     "approved_patch_json": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch.json",
     "dry_run_diff_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch_dry_run_diff.xlsx",
-    "dry_run_diff_markdown": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch_dry_run_diff.md"
+    "dry_run_diff_markdown": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch_dry_run_diff.md",
+    "apply_result_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_apply_result.xlsx",
+    "apply_diff_workbook": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_apply_diff.xlsx",
+    "apply_diff_markdown": "GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_apply_diff.md"
   },
   "target_fields": [
     {
@@ -47,6 +54,11 @@
         "aluminum drive gear"
       ]
     }
+  ],
+  "identity_fields": [
+    "model_year",
+    "alias",
+    "version_signature"
   ],
   "samples": [
     {

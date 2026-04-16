@@ -43,6 +43,7 @@ function loadExperimentConfig() {
     approvedPatchJson: resolveRepoPath(config.outputs.approved_patch_json),
     dryRunDiffWorkbook: resolveRepoPath(config.outputs.dry_run_diff_workbook),
     dryRunDiffMarkdown: resolveRepoPath(config.outputs.dry_run_diff_markdown),
+    identityPatchJson: resolveRepoPath(config.outputs.identity_patch_json),
   };
 }
 
@@ -52,6 +53,24 @@ function loadWorkbookRows(filePath, sheetName) {
     workbook,
     rows: XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' }),
   };
+}
+
+function loadIdentityPatch(filePath) {
+  if (!filePath || !fs.existsSync(filePath)) {
+    return new Map();
+  }
+
+  const patch = loadJson(filePath);
+  return new Map(
+    (patch.patch_rows || []).map((row) => [
+      normalizeText(row.reel_id),
+      {
+        model_year: normalizeText(row.model_year),
+        alias: normalizeText(row.alias),
+        version_signature: normalizeText(row.version_signature),
+      },
+    ])
+  );
 }
 
 function deriveBodyMaterialParts(value, existingTech) {
@@ -87,11 +106,35 @@ function deriveBodyMaterialParts(value, existingTech) {
   };
 }
 
-function enrichReviewedRows(reviewRows) {
+function buildBodyMaterialSources(row, approvedValue, bodyMaterialTech) {
+  const sourceType = normalizeText(row.source_type) || (normalizeText(row.review_status) === 'approved_manual_override' ? 'manual' : 'whitelist');
+  const official_value = '';
+  const official_tech = '';
+  const player_value = normalizeText(approvedValue);
+  const player_tech = normalizeText(bodyMaterialTech);
+  const client_display_priority = 'official > player';
+  const client_display_source = official_value ? 'official' : (player_value ? 'player' : '');
+
+  return {
+    body_material_official: official_value,
+    body_material_tech_official: official_tech,
+    body_material_player: player_value,
+    body_material_tech_player: player_tech,
+    client_display_priority,
+    client_display_source,
+    body_material_source_route: sourceType,
+  };
+}
+
+function enrichReviewedRows(reviewRows, identityPatchByReelId) {
   return reviewRows.map((row) => {
+    const identity = identityPatchByReelId.get(normalizeText(row.reel_id)) || {};
     const rawApproved = normalizeText(row.approved_value) || normalizeText(row.candidate_value);
     const next = {
       ...row,
+      model_year: normalizeText(row.model_year) || normalizeText(identity.model_year),
+      alias: normalizeText(row.alias) || normalizeText(identity.alias),
+      version_signature: normalizeText(row.version_signature) || normalizeText(identity.version_signature),
       approved_value_raw: normalizeText(row.approved_value_raw) || rawApproved,
       body_material_tech: normalizeText(row.body_material_tech),
     };
@@ -130,11 +173,14 @@ function buildPatchRows(reviewRows, experimentId) {
       detail_id: normalizeText(row.detail_id),
       model: normalizeText(row.model),
       model_year: normalizeText(row.model_year),
+      alias: normalizeText(row.alias),
+      version_signature: normalizeText(row.version_signature),
       sku: normalizeText(row.sku),
       candidate_value: normalizeText(row.candidate_value),
       approved_value_raw: normalizeText(row.approved_value_raw) || normalizeText(row.approved_value) || normalizeText(row.candidate_value),
       approved_value: normalizeText(row.approved_value) || normalizeText(row.candidate_value),
       body_material_tech: normalizeText(row.body_material_tech),
+      ...buildBodyMaterialSources(row, normalizeText(row.approved_value) || normalizeText(row.candidate_value), normalizeText(row.body_material_tech)),
       source_site: normalizeText(row.source_site),
       source_url: normalizeText(row.source_url),
       evidence_text: normalizeText(row.evidence_text),
@@ -169,11 +215,15 @@ function buildDryRunDiffRows(patchRows, reviewRows) {
       detail_id: patch.detail_id,
       model: patch.model,
       model_year: patch.model_year,
+      alias: patch.alias,
+      version_signature: patch.version_signature,
       sku: patch.sku,
       field_key: patch.field_key,
       old_value: normalizeText(review.current_value_before_enrichment),
       new_value: patch.approved_value,
       new_body_material_tech: patch.body_material_tech,
+      client_display_source: patch.client_display_source,
+      client_display_priority: patch.client_display_priority,
       change_type: normalizeText(review.current_value_before_enrichment) ? 'update' : 'fill_empty',
       source_type: patch.source_type,
       candidate_value: patch.candidate_value,
@@ -195,6 +245,8 @@ function writeReviewedWorkbook(sourceWorkbook, reviewedRows, reviewedWorkbookPat
     'detail_id',
     'model',
     'model_year',
+    'alias',
+    'version_signature',
     'sku',
     'candidate_value',
     'source_site',
@@ -242,9 +294,9 @@ function writePatchOutputs(patchRows, diffRows, paths, experimentId) {
     '',
     '## Dry Run Diff',
     '',
-    '| reel_id | detail_id | field_key | old_value | new_value | body_material_tech | source_type |',
-    '| --- | --- | --- | --- | --- | --- | --- |',
-    ...diffRows.map((row) => `| ${row.reel_id} | ${row.detail_id} | ${row.field_key} | ${row.old_value || '(empty)'} | ${row.new_value} | ${row.new_body_material_tech || ''} | ${row.source_type} |`),
+    '| reel_id | detail_id | field_key | old_value | new_value | body_material_tech | client_display_source | source_type |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- |',
+    ...diffRows.map((row) => `| ${row.reel_id} | ${row.detail_id} | ${row.field_key} | ${row.old_value || '(empty)'} | ${row.new_value} | ${row.new_body_material_tech || ''} | ${row.client_display_source || ''} | ${row.source_type} |`),
     '',
   ].join('\n');
   fs.writeFileSync(paths.dryRunDiffMarkdown, `${markdown}\n`, 'utf8');
@@ -252,9 +304,10 @@ function writePatchOutputs(patchRows, diffRows, paths, experimentId) {
 
 function run() {
   const paths = loadExperimentConfig();
+  const identityPatchByReelId = loadIdentityPatch(paths.identityPatchJson);
   const reviewSourceFile = fs.existsSync(paths.reviewedWorkbook) ? paths.reviewedWorkbook : paths.reviewWorkbook;
   const { workbook, rows } = loadWorkbookRows(reviewSourceFile, REVIEW_SHEET);
-  const reviewedRows = enrichReviewedRows(rows);
+  const reviewedRows = enrichReviewedRows(rows, identityPatchByReelId);
   const patchRows = buildPatchRows(reviewedRows, paths.config.experiment_id);
   const diffRows = buildDryRunDiffRows(patchRows, reviewedRows);
 
