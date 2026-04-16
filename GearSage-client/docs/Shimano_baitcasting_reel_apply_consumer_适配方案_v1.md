@@ -257,3 +257,27 @@ consumer 处理：
 3. 只保留 `version_signature` 这类 baseline 结构缺口
 4. 再进入下一轮 dry-run
 5. 最后才讨论第一次真实 apply
+
+## 9. 当前执行准备状态
+
+当前 consumer 适配已经进入“第一次真实 apply 前准备”阶段：
+
+- 执行方案：  
+  [`Shimano_baitcasting_reel_first_real_apply_execution_plan_v1.md`](/Users/tommy/GearSage/GearSage-client/docs/Shimano_baitcasting_reel_first_real_apply_execution_plan_v1.md)
+- 执行入口：  
+  [`run_shimano_bc_first_real_apply_entry.js`](/Users/tommy/GearSage/scripts/run_shimano_bc_first_real_apply_entry.js)
+- final pre-apply checklist：  
+  [`2026-04-16_shimano_baitcasting_reel_final_pre_apply_checklist_v1.md`](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_final_pre_apply_checklist_v1.md)
+
+当前 preview 已明确：
+
+- baseline 本轮会写：
+  - `model_year`
+  - `alias`
+  - `body_material`
+  - `body_material_tech`
+  - `gear_material`
+- sidecar-only：
+  - `version_signature`
+
+当前阶段仍然没有真正执行 `--apply`。

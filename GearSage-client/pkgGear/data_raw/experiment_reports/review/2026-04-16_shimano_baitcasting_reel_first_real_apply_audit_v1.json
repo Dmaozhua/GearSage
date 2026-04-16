@@ -1,0 +1,587 @@
+{
+  "generated_at": "2026-04-16T13:02:19.201Z",
+  "mode": "preview",
+  "sidecar_entries": [
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50014",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "21 Antares DC Japan model 2021",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50014",
+      "field_key": "gear_material",
+      "sidecar_type": "inferred_semantics",
+      "value": "Brass",
+      "source_type": "confirmed_inferred",
+      "evidence_type": "cross_source_inferred",
+      "note": "keep inferred / non-official semantics"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50014",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC | 2021 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50015",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "21 Antares DC Japan model 2021",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50015",
+      "field_key": "gear_material",
+      "sidecar_type": "inferred_semantics",
+      "value": "Brass",
+      "source_type": "confirmed_inferred",
+      "evidence_type": "cross_source_inferred",
+      "note": "keep inferred / non-official semantics"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50015",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC | 2021 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50016",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "21 Antares DC Japan model 2021",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50016",
+      "field_key": "gear_material",
+      "sidecar_type": "inferred_semantics",
+      "value": "Brass",
+      "source_type": "confirmed_inferred",
+      "evidence_type": "cross_source_inferred",
+      "note": "keep inferred / non-official semantics"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50016",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC | 2021 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50017",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "21 Antares DC Japan model 2021",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50017",
+      "field_key": "gear_material",
+      "sidecar_type": "inferred_semantics",
+      "value": "Brass",
+      "source_type": "confirmed_inferred",
+      "evidence_type": "cross_source_inferred",
+      "note": "keep inferred / non-official semantics"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50017",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC | 2021 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50018",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "21 Antares DC Japan model 2021",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50018",
+      "field_key": "gear_material",
+      "sidecar_type": "inferred_semantics",
+      "value": "Brass",
+      "source_type": "confirmed_inferred",
+      "evidence_type": "cross_source_inferred",
+      "note": "keep inferred / non-official semantics"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50018",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC | 2021 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50019",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "21 Antares DC Japan model 2021",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50019",
+      "field_key": "gear_material",
+      "sidecar_type": "inferred_semantics",
+      "value": "Brass",
+      "source_type": "confirmed_inferred",
+      "evidence_type": "cross_source_inferred",
+      "note": "keep inferred / non-official semantics"
+    },
+    {
+      "reel_id": "SRE5003",
+      "detail_id": "SRED50019",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC | 2021 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50020",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Antares DC MD Monster Drive 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50020",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC MD | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50021",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Antares DC MD Monster Drive 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50021",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC MD | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50022",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Antares DC MD Monster Drive 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50022",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC MD | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50023",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Antares DC MD Monster Drive 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5004",
+      "detail_id": "SRED50023",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ANTARES DC MD | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50103",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "24 Metanium DC (digital control) Japan model 2024",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50103",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "Metanium DC | 2024 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50104",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "24 Metanium DC (digital control) Japan model 2024",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50104",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "Metanium DC | 2024 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50105",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "24 Metanium DC (digital control) Japan model 2024",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50105",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "Metanium DC | 2024 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50106",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "24 Metanium DC (digital control) Japan model 2024",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50106",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "Metanium DC | 2024 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50107",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "24 Metanium DC (digital control) Japan model 2024",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50107",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "Metanium DC | 2024 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50108",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "24 Metanium DC (digital control) Japan model 2024",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5015",
+      "detail_id": "SRED50108",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "Metanium DC | 2024 | 6 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50131",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Calcutta Conquest BFS Japan model 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50131",
+      "field_key": "gear_material",
+      "sidecar_type": "confirmed_blank_semantics",
+      "value": "",
+      "source_type": "manual_required",
+      "evidence_type": "confirmed_blank",
+      "note": "confirmed blank; do not backfill and do not classify as scrape miss"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50131",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "CALCUTTA CONQUEST BFS | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50132",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Calcutta Conquest BFS Japan model 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50132",
+      "field_key": "gear_material",
+      "sidecar_type": "confirmed_blank_semantics",
+      "value": "",
+      "source_type": "manual_required",
+      "evidence_type": "confirmed_blank",
+      "note": "confirmed blank; do not backfill and do not classify as scrape miss"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50132",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "CALCUTTA CONQUEST BFS | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50133",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Calcutta Conquest BFS Japan model 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50133",
+      "field_key": "gear_material",
+      "sidecar_type": "confirmed_blank_semantics",
+      "value": "",
+      "source_type": "manual_required",
+      "evidence_type": "confirmed_blank",
+      "note": "confirmed blank; do not backfill and do not classify as scrape miss"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50133",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "CALCUTTA CONQUEST BFS | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50134",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "23 Calcutta Conquest BFS Japan model 2023",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50134",
+      "field_key": "gear_material",
+      "sidecar_type": "confirmed_blank_semantics",
+      "value": "",
+      "source_type": "manual_required",
+      "evidence_type": "confirmed_blank",
+      "note": "confirmed blank; do not backfill and do not classify as scrape miss"
+    },
+    {
+      "reel_id": "SRE5019",
+      "detail_id": "SRED50134",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "CALCUTTA CONQUEST BFS | 2023 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50155",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50155",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ALDEBARAN BFS | 2022 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50156",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50156",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ALDEBARAN BFS | 2022 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50157",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50157",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ALDEBARAN BFS | 2022 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50158",
+      "field_key": "canonical_alias",
+      "sidecar_type": "alias_audit",
+      "value": "22 Aldebaran BFS, ultimate finesse 2.0g, 2022",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "canonical alias preserved for audit while normalized_alias writes to baseline alias column"
+    },
+    {
+      "reel_id": "SRE5025",
+      "detail_id": "SRED50158",
+      "field_key": "version_signature",
+      "sidecar_type": "version_signature",
+      "value": "ALDEBARAN BFS | 2022 | 4 sku variants",
+      "source_type": "identity:japantackle",
+      "evidence_type": "identity_resolved",
+      "note": "sidecar-only in first real apply; baseline write skipped by decision"
+    }
+  ],
+  "note": "version_signature is sidecar-only in first real apply; canonical_alias / inferred / confirmed_blank semantics are also preserved here."
+}
