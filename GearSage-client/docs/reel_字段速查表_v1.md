@@ -162,6 +162,8 @@
 | `type` | 子型号轮型 | `spinning` / `baitcasting` / `conventional`| 可空 | 建议保持一致 |
 | `Description` | 子型号官网描述 | 规格级描述文字 | 可空 | 仅当官网对该具体规格有单独描述时填写 |
 | `variant_description` | 子型号官网描述 | 规格级描述文字 | 可空 | 如果表里已经独立建列，优先写这里，不和主表 `Description` 混用 |
+| `EV_link` | 爆炸图链接 | 子型号对应的分解图/价格表链接 | 可空 | 优先用官方售后/维修站对应子型号页面 |
+| `Specs_link` | 说明书链接 | 子型号对应的说明书 PDF 链接 | 可空 | 能拿到就写，拿不到留空 |
 
 ### 3.3 纺车轮更常用字段（`spinning_reel_detail.xlsx`）
 
@@ -177,6 +179,7 @@
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `line_capacity_display` | 主容线展示字段 | 适合面向用户显示的一条主容线表达 | 可空 | 后续可统一成展示友好版本 |
 | `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段，优先依据官方信息或可靠玩家资料 |
+| `handle_style` | 手把样式 | 如 `单摇臂` / `双摇臂` / `折叠` | 可空 | GearSage 归纳层字段，先保留简单枚举 |
 | `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不等于官方值 |
 
 
@@ -205,6 +208,7 @@
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `usage_environment` | 使用环境备注 | 如 `近岸` / `船钓` / `远海` | 可空 | 可以比官方环境更贴近使用场景 |
 | `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不等于官方值 |
+| `handle_style` | 手把样式 | 如 `单摇臂` / `双摇臂` / `折叠` | 可空 | GearSage 归纳层字段，先保留简单枚举 |
 | `line_capacity_display` | 主容线展示字段 | 一条可直接展示的容线描述 | 可空 | 建议整理成完整可读文本 |
 | `battery_capacity` | 电池容量 | 具体容量值 | 可空 | 仅适用于特殊/电动轮型，如 Daiwa IM Z |
 | `battery_charge_time` | 充电时间 | 如 `2h` | 可空 | 仅适用于特殊/电动轮型，如 Daiwa IM Z |
@@ -238,6 +242,7 @@
 | `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
 | `main_gear_size` | 大齿尺寸 | 官方明确或者采用玩家数据 | 可空 | 不猜，优先保留原始口径 |
 | `minor_gear_material` | 小齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
+| `handle_style` | 手把样式 | 如 `单摇臂` / `双摇臂` / `折叠` | 可空 | GearSage 归纳层字段，优先按实际结构填写 |
 | `market_reference_price` | 市场参考价 | 根据玩家描述提取| 可空 | 若只有 detail 有，可先不填主表 |
 | `series_positioning` | 系列定位 | 根据白名单/玩家资料提取的系列简短定位说明 | 可空 | 主商品字段；官网几乎没有时允许由白名单补 |
 | `main_selling_points` | 主要卖点 | 根据白名单/玩家资料提取的系列主卖点 | 可空 | 主商品字段；官网几乎没有时允许由白名单补 |

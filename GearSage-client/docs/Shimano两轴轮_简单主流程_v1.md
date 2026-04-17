@@ -19,6 +19,20 @@
 - 查不到就留空。
 - 当前抓取阶段对所有已启用白名单站，默认开放当前 reel 白名单目标字段全量抓取；站点之间只保留优先级和侧重点，不再用字段白名单卡住抓取。
 
+### B-1. 官方售后资料链接补充
+
+- 对子型号级字段 `EV_link` / `Specs_link`，优先查品牌官方售后/维修站。
+- Shimano 当前入口：
+  - [https://www.shimanofishingservice.jp/index.php](https://www.shimanofishingservice.jp/index.php)
+- Daiwa 当前入口：
+  - [https://daiwa.us/pages/schematics](https://daiwa.us/pages/schematics)
+- 当前 Shimano 实现口径：
+  - 先用子型号 `product_code`
+  - 如果没有，再回退尝试 `SKU`
+  - 如果该商品已经按官网独立详情页拆分，且 `product_code / SKU` 都没命中，则允许按该页的补充检索词继续查一次
+  - 能拿到就写到子表
+  - 拿不到就留空
+
 ### C. 直接写入当前工作副本
 
 - 默认输出还是工作副本，不直接进最终总表。
@@ -88,6 +102,8 @@
 - `player_selling_points`
 - `custom_spool_compatibility`
 - `custom_knob_compatibility`
+- `EV_link`
+- `Specs_link`
 
 补充名词统一：
 
@@ -187,20 +203,26 @@
 7. 不能按 model 粗暴跨年款泛化  
    尽量按 `reel_id`、`model_year`、`SKU / detail_id` 绑定。
 
-8. 子商品敏感字段优先按子商品绑定  
+8. 官网有独立详情页的，必须拆成独立主商品  
+   即使根 model 名字相同，只要官网是独立详情页，就按独立一款处理，独立一个 `reel_id`。  
+   例如：
+   - `SLX`（70线杯页）和 `SLX（150线杯）` 不能继续共用一个 `reel_id`
+   - `CURADO（200线杯）` 和 `CURADO`（300线杯）不能继续共用一个 `reel_id`
+
+9. 子商品敏感字段优先按子商品绑定  
    对于 `spool_weight_g`、`spool_axis_type`、`spool_diameter_mm`、`spool_width_mm`、`handle_hole_spec`、`handle_knob_exchange_size`、`custom_spool_compatibility`、`custom_knob_compatibility`、`main_gear_size` 这类可能随线杯规格 / 容线量 / 子商品变化的字段：
    - 优先按 `reel_id + SKU` 绑定
    - 如果来源没有细到子商品，则允许回退使用主商品级值
    - 当前测试阶段，子商品没有单独数据时，可以直接用主商品级数据，不区分容线量
    - 只有在来源明确匹配到具体规格，且明确不能泛化时，才只写对应子商品
 
-9. `drag_click` 对水滴轮不允许默认写 `1`
+10. `drag_click` 对水滴轮不允许默认写 `1`
    - 纺车轮当前可按默认带点击提示理解
    - 水滴轮必须按型号查找再填写
    - 官网或白名单没有直观写出时，不自动补 `1`
    - 若有明确玩家确认，可写 `0` 或 `1`
 
-10. `official_environment` 不能只靠页面分类词
+11. `official_environment` 不能只靠页面分类词
    - 官网正文、规格和明确场景词优先于页面目录/分类标题
    - 如出现 `海鲈`、`海水鱼`、`saltwater` 这类强场景词，应优先判为 `海水路亚`
    - 如果官网只有大类挂载、正文没有明确环境信号，宁可留空，也不要把目录词机械映射成最终值
