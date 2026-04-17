@@ -221,6 +221,7 @@
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `player_positioning` | 玩家数据系列定位 | 根据玩家描述提取对系列的简短定位说明 | 可空 | 更偏补充层 |
 | `player_selling_points` | 玩家数据主要卖点 | 根据玩家描述提取系列主卖点 | 可空 | 不进主对比 |
+| `usage_environment` | 使用环境备注 | 如 `近岸` / `船钓` / `远海` | 可空 | 可以比官方环境更贴近使用场景 |
 ---
 
 ## 四、这些字段建议让服务器算
