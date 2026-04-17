@@ -202,10 +202,13 @@
 - 名词统一：`drag_click = 卸力报警 = Drag Clicker / Line Out Alarm`
 - 水滴轮当前不再默认写 `1`
 - 只有在官网/白名单明确写出 `Drag Clicker` / `Line Out Alarm` / 卸力报警相关表达时，才自动写值
+- `Clicking star drag` 只表示星形卸力旋钮有点击感，当前**不等于** `drag_click=1`
 - 若用户明确确认某型号不存在卸力报警，也可按人工确认写 `0`
 - 当前测试样本里：
+  - `22 Aldebaran BFS` 已按白名单明确 `Line alarm` 写 `1`
+  - `22 Exsence DC` 已按白名单明确 `Line alarm` 写 `1`
   - `20 Metanium` 已按人工确认写 `0`
-  - 其余水滴轮若无直观证据，先留空
+  - 只有 `Clicking star drag`、没有 `Line alarm / Line Out Alarm` 的型号，先留空
 
 ## 当前默认入口
 
