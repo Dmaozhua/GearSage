@@ -39,32 +39,56 @@
   - `alias`
 - detail：
   - `body_material`
+  - `body_material_tech`
   - `gear_material`
+  - `official_environment`
+  - `line_capacity_display`
+  - `is_sw_edition`
+  - `variant_description`
 
-### 2. 当前只在中间层工作副本里有，但最终总表还没接住的字段
+### 2. 当前已经进入最终总表的补充字段
 
-下面这些字段，当前已经能在：
-
-- [`shimano_baitcasting_reels_import_副本.xlsx`](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx)
-
-里承载，但 **`rate/excel` 还没有对应列**：
+下面这些字段现在已经进入 `rate/excel` 最终表，不再属于“只在中间层里有”：
 
 - 主表：
   - `Description`
-- detail：
+  - `market_reference_price`
+  - `player_positioning`
+  - `player_selling_points`
+- `spinning_reel_detail.xlsx`：
+  - `Description`
+  - `body_material`
+  - `body_material_tech`
+  - `gear_material`
+  - `official_environment`
+  - `line_capacity_display`
+  - `is_sw_edition`
+  - `variant_description`
+  - `player_environment`
+  - `is_handle_double`
+- `baitcasting_reel_detail.xlsx`：
+  - `Description`
+  - `body_material`
+  - `body_material_tech`
+  - `gear_material`
+  - `official_environment`
+  - `line_capacity_display`
+  - `is_sw_edition`
+  - `variant_description`
   - `spool_weight_g`
   - `spool_axis_type`
   - `knob_size`
   - `knob_bearing_spec`
   - `custom_spool_compatibility`
   - `custom_knob_compatibility`
-  - `official_environment`
-  - `line_capacity_display`
-  - `is_sw_edition`
-  - `variant_description`
-  - `body_material_tech`
+  - `handle_knob_material`
+  - `handle_hole_spec`
+  - `main_gear_material`
+  - `main_gear_size`
+  - `minor_gear_material`
+  - `player_environment`
 
-### 3. 当前只在审计 / sidecar 层承载，不进 baseline 的字段
+### 3. 当前只在审计 / sidecar 层承载，不进最终表的字段
 
 - `version_signature`
 - `canonical_alias`
@@ -73,13 +97,9 @@
 
 ### 4. 当前最需要记住的一句话
 
-**“字段值得做”不等于“最终总表已经接住”。**
+**字段是否已经在最终总表里，当前就按这份文档理解。**
 
-当前 reel 文档里有些字段写的是“已有（列已建立，覆盖待补）”，更准确的理解应该是：
-
-- 可能已经在中间层建立
-- 但不一定已经进入 `rate/excel` 最终表
-- 更不等于已经进入数据库导入链
+如果后面有旧文档还写着“`rate/excel` 还没有对应列”，要以这里和实际表结构为准。
 
 ---
 
