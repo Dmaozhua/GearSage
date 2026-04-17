@@ -177,6 +177,7 @@
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `line_capacity_display` | 主容线展示字段 | 适合面向用户显示的一条主容线表达 | 可空 | 后续可统一成展示友好版本 |
 | `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段，优先依据官方信息或可靠玩家资料 |
+| `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不等于官方值 |
 
 
 ### 3.4 水滴轮更常用字段（`baitcasting_reel_detail.xlsx`）
@@ -203,6 +204,7 @@
 | `official_environment` | 官方环境定位 | 如 `freshwater` / `saltwater` | 可空 | 优先保留官网明确口径 |
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `usage_environment` | 使用环境备注 | 如 `近岸` / `船钓` / `远海` | 可空 | 可以比官方环境更贴近使用场景 |
+| `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不等于官方值 |
 | `line_capacity_display` | 主容线展示字段 | 一条可直接展示的容线描述 | 可空 | 建议整理成完整可读文本 |
 | `battery_capacity` | 电池容量 | 具体容量值 | 可空 | 仅适用于特殊/电动轮型，如 Daiwa IM Z |
 | `battery_charge_time` | 充电时间 | 如 `2h` | 可空 | 仅适用于特殊/电动轮型，如 Daiwa IM Z |
@@ -222,6 +224,7 @@
 | `spool_width_mm` | 线杯宽度(mm) | 如 `22`、`24` | 值得优先补 | 高价值字段 |
 | `spool_weight_g` | 线杯重量(g) | 线杯裸重或常用口径重量 | 可空 | 深玩家高价值 |
 | `spool_axis_type` | 线杯轴型 | `长轴` / `短轴` | 可空 | 深玩家高价值 |
+| `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不冒充官方值 |
 | `knob_size` | 握丸尺寸 | 尺寸或规格 | 可空 | 改装/手感相关 |
 | `knob_bearing_spec` | 握丸轴承规格 | 具体规格 | 可空 | 深玩家字段 |
 | `handle_knob_type` | 握丸类型 | 如圆头 / T 型 / EVA | 可空 | 官方明确或者采用玩家数据 |
