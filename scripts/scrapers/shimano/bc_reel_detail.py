@@ -130,10 +130,58 @@ def normalize_header(header):
     )
 
 
-def extract_environment(page_title):
+def extract_environment(page_title, title="", description="", category_path=""):
+    text = normalize_space("\n".join([page_title or "", title or "", description or ""]))
+
+    saltwater_keywords = [
+        "海鲈",
+        "海水鱼",
+        "海水",
+        "岸投",
+        "近海",
+        "seabass",
+        "saltwater",
+    ]
+    boat_keywords = [
+        "船钓",
+        "jig",
+        "jigger",
+        "slow jig",
+        "深海",
+        "拖钓",
+    ]
+    freshwater_keywords = [
+        "淡水",
+        "黑鲈",
+        "溪流",
+        "鳟",
+        "trout",
+        "bass",
+    ]
+
+    if any(keyword.lower() in text.lower() for keyword in saltwater_keywords):
+        return "海水路亚"
+
+    if any(keyword.lower() in text.lower() for keyword in boat_keywords):
+        return "船钓"
+
+    if any(keyword.lower() in text.lower() for keyword in freshwater_keywords):
+        return "淡水路亚"
+
     parts = [normalize_space(part) for part in str(page_title or "").split("|")]
     if len(parts) >= 2:
-        return parts[1]
+        fallback = parts[1]
+        if "海水" in fallback:
+            return "海水路亚"
+        if "船钓" in fallback:
+            return "船钓"
+        if "淡水" in fallback:
+            return "淡水路亚"
+        return fallback
+
+    if category_path == "baitsalt":
+        return "海水路亚"
+
     return ""
 
 
@@ -239,7 +287,7 @@ def scrape_shimano_bc_reels():
                     "model_year": model_year,
                     "description": desc,
                     "page_title": page_title,
-                    "official_environment": extract_environment(page_title),
+                    "official_environment": extract_environment(page_title, title, desc, category_path),
                     "category_path": category_path,
                     "main_image_url": main_img,
                     "variants": variants,

@@ -123,6 +123,7 @@ function loadExperimentProposals() {
 function parseEnvironment(value) {
   const text = normalizeText(value);
   if (!text) return '';
+  if (text.includes('海鲈') || /SEABASS|SALTWATER/i.test(text)) return '海水路亚';
   if (text.includes('海水')) return '海水路亚';
   if (text.includes('船钓')) return '船钓';
   if (text.includes('淡水')) return '淡水路亚';

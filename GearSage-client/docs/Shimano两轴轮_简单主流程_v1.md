@@ -83,6 +83,7 @@
 - `series_positioning`
 - `main_selling_points`
 - `player_environment`
+- `usage_environment`
 - `player_positioning`
 - `player_selling_points`
 - `custom_spool_compatibility`
@@ -191,6 +192,11 @@
    - 官网或白名单没有直观写出时，不自动补 `1`
    - 若有明确玩家确认，可写 `0` 或 `1`
 
+10. `official_environment` 不能只靠页面分类词
+   - 官网正文、规格和明确场景词优先于页面目录/分类标题
+   - 如出现 `海鲈`、`海水鱼`、`saltwater` 这类强场景词，应优先判为 `海水路亚`
+   - 如果官网只有大类挂载、正文没有明确环境信号，宁可留空，也不要把目录词机械映射成最终值
+
 ## 子商品敏感字段当前执行规则
 
 - 当前测试链里，`spool_weight_g` 已按子商品敏感字段处理。
@@ -200,15 +206,32 @@
 ## `drag_click` 当前执行规则
 
 - 名词统一：`drag_click = 卸力报警 = Drag Clicker / Line Out Alarm`
+- 这条规则适用于**所有 Shimano 水滴轮商品**，不只当前测试样本
+- `drag_click` 当前在白名单辅助站里保持**高深度查找**
 - 水滴轮当前不再默认写 `1`
 - 只有在官网/白名单明确写出 `Drag Clicker` / `Line Out Alarm` / 卸力报警相关表达时，才自动写值
 - `Clicking star drag` 只表示星形卸力旋钮有点击感，当前**不等于** `drag_click=1`
 - 若用户明确确认某型号不存在卸力报警，也可按人工确认写 `0`
+- 当前执行上，`drag_click` 的查找会持续覆盖：
+  - 官网详情页
+  - `japantackle`
+  - `tackletour`
+  - `jdmfishing`
+  - 其他已启用白名单站中可能出现明确 `Line Out Alarm / Drag Clicker` 描述的页面
+- 也就是说：即使默认简单主流程里别的字段还在按“先抓回来、后定落表”推进，`drag_click` 这条会继续保持更深一层的白名单查找，不局限于当前 8 个商品
 - 当前测试样本里：
   - `22 Aldebaran BFS` 已按白名单明确 `Line alarm` 写 `1`
   - `22 Exsence DC` 已按白名单明确 `Line alarm` 写 `1`
   - `20 Metanium` 已按人工确认写 `0`
   - 只有 `Clicking star drag`、没有 `Line alarm / Line Out Alarm` 的型号，先留空
+
+## `official_environment` 当前执行规则
+
+- 优先读官网正文和规格里的明确环境信号，不只看页面分类
+- `海鲈`、`海水鱼`、`saltwater`、`seabass` 这类词，优先归到 `海水路亚`
+- `船钓`、`jig`、`jigger`、`slow jig` 这类词，优先归到 `船钓`
+- 只有明确出现 `淡水`、`溪流`、`鳟`、`trout` 这类词时，才归到 `淡水路亚`
+- 如果官网只是挂在某个分类下，但正文没有足够环境信号，先不要硬判
 
 ## 当前默认入口
 

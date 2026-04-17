@@ -21,6 +21,9 @@
     "body_material_tech",
     "gear_material"
   ],
+  "global_deep_search_fields": [
+    "drag_click"
+  ],
   "whitelist_capture_fields": {
     "master_or_semantic": [
       "model_cn",
@@ -54,9 +57,35 @@
       "main_gear_size",
       "minor_gear_material",
       "player_environment",
+      "usage_environment",
       "custom_spool_compatibility",
       "custom_knob_compatibility"
     ]
+  },
+  "field_resolution_rules": {
+    "drag_click": {
+      "scope": "all_shimano_baitcasting_reels",
+      "search_depth": "high",
+      "positive_evidence_keywords": [
+        "Drag Clicker",
+        "Line Out Alarm",
+        "Line alarm",
+        "line is pulled out"
+      ],
+      "not_equivalent_keywords": [
+        "Clicking star drag"
+      ],
+      "default_write_policy": "baitcasting_no_default_one",
+      "manual_zero_allowed": true,
+      "write_when": [
+        "explicit_positive_evidence",
+        "manual_confirmed_zero_or_one"
+      ],
+      "leave_blank_when": [
+        "only_clicking_star_drag",
+        "no_explicit_drag_click_evidence"
+      ]
+    }
   },
   "sidecar_only_fields": [
     "canonical_alias",
