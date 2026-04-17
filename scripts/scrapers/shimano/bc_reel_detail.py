@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import re
+import sys
 import time
 import urllib.parse
 
@@ -13,6 +14,7 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 DATA_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
 OUTPUT_FILE = os.path.join(DATA_DIR, "shimano_baitcasting_reel_normalized.json")
 
+DEFAULT_ENTRY_URL = "https://fish.shimano.com/zh-CN/product/reel.html"
 LIST_URL = "https://fish.shimano.com/zh-CN/product/list.html?pcat1=cg1SHIFCnReel&pcat2=cg2SHIFCnReelBaitcasting&pcat3=&pcat4=&fs=&series=&price_min=&price_max="
 SITE_ROOT = "https://fish.shimano.com"
 
@@ -35,8 +37,36 @@ def clean_description(raw_text):
     return "\n".join(lines).strip()
 
 
-def get_baitcasting_urls():
-    first = requests.get(LIST_URL, impersonate="chrome")
+def safe_get(url):
+    return requests.get(url, impersonate="chrome", verify=False)
+
+
+def resolve_baitcasting_list_url(entry_url):
+    normalized = normalize_space(entry_url)
+    if not normalized:
+        return LIST_URL
+    if "cg2SHIFCnReelBaitcasting" in normalized:
+        return normalized
+
+    try:
+        response = safe_get(normalized)
+        response.raise_for_status()
+        match = re.search(
+            r'(/zh-CN/product/list\.html\?[^"\']*cg2SHIFCnReelBaitcasting[^"\']*)',
+            response.text,
+            re.IGNORECASE,
+        )
+        if match:
+            return urllib.parse.urljoin(SITE_ROOT, match.group(1))
+    except Exception:
+        pass
+
+    return LIST_URL
+
+
+def get_baitcasting_urls(entry_url):
+    list_url = resolve_baitcasting_list_url(entry_url)
+    first = safe_get(list_url)
     first.raise_for_status()
     first_soup = BeautifulSoup(first.text, "html.parser")
 
@@ -51,8 +81,8 @@ def get_baitcasting_urls():
     seen = set()
 
     for page in sorted(pages):
-        page_url = LIST_URL if page == 1 else f"{LIST_URL}&page={page}"
-        response = requests.get(page_url, impersonate="chrome")
+        page_url = list_url if page == 1 else f"{list_url}&page={page}"
+        response = safe_get(page_url)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
 
@@ -110,7 +140,9 @@ def extract_environment(page_title):
 def scrape_shimano_bc_reels():
     os.makedirs(DATA_DIR, exist_ok=True)
 
-    detail_urls = get_baitcasting_urls()
+    entry_url = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("SHIMANO_REEL_ENTRY_URL", DEFAULT_ENTRY_URL)
+    detail_urls = get_baitcasting_urls(entry_url)
+    print(f"Using entry URL: {entry_url}")
     print(f"Fetched {len(detail_urls)} baitcasting URLs from list pages.")
 
     results = []
@@ -118,7 +150,7 @@ def scrape_shimano_bc_reels():
     for index, url in enumerate(detail_urls, start=1):
         print(f"[{index}/{len(detail_urls)}] Scraping {url}")
         try:
-            response = requests.get(url, impersonate="chrome")
+            response = safe_get(url)
             if response.status_code != 200:
                 print(f"  -> skip status={response.status_code}")
                 continue

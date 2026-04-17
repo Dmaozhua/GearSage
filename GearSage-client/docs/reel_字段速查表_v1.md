@@ -216,6 +216,8 @@
 | `main_gear_size` | 大齿尺寸 | 官方明确或者采用玩家数据 | 可空 | 不猜，优先保留原始口径 |
 | `minor_gear_material` | 小齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
 | `market_reference_price` | 市场参考价 | 根据玩家描述提取| 可空 | 若只有 detail 有，可先不填主表 |
+| `series_positioning` | 系列定位 | 根据白名单/玩家资料提取的系列简短定位说明 | 可空 | 主商品字段；官网几乎没有时允许由白名单补 |
+| `main_selling_points` | 主要卖点 | 根据白名单/玩家资料提取的系列主卖点 | 可空 | 主商品字段；官网几乎没有时允许由白名单补 |
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `player_positioning` | 玩家数据系列定位 | 根据玩家描述提取对系列的简短定位说明 | 可空 | 更偏补充层 |
 | `player_selling_points` | 玩家数据主要卖点 | 根据玩家描述提取系列主卖点 | 可空 | 不进主对比 |

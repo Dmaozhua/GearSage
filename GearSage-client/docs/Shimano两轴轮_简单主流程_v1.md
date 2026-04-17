@@ -17,6 +17,7 @@
 - 只查白名单辅助站。
 - 查到明确值就补进工作副本。
 - 查不到就留空。
+- 当前抓取阶段对所有已启用白名单站，默认开放当前 reel 白名单目标字段全量抓取；站点之间只保留优先级和侧重点，不再用字段白名单卡住抓取。
 
 ### C. 直接写入当前工作副本
 
@@ -44,13 +45,113 @@
 
 - `body_material`
 - `body_material_tech`
-- `gear_material`
+- `main_gear_material`
 
 ### sidecar-only
 
 - `canonical_alias`
 - `version_signature`
-- `gear_material` 的 `inferred / confirmed_blank` 语义
+- `main_gear_material` 的 `inferred / confirmed_blank` 语义
+
+## 当前白名单“目标抓取字段”范围
+
+这里说的是：**白名单阶段要主动去找的字段**。  
+先不区分最终落哪张表，也先不强行要求每个字段都一定能抓到。
+
+### 当前目标抓取字段
+
+- `model_cn`
+- `model_year`
+- `drag_click`
+- `spool_diameter_mm`
+- `spool_width_mm`
+- `spool_weight_g`
+- `spool_axis_type`
+- `knob_size`
+- `knob_bearing_spec`
+- `handle_knob_type`
+- `handle_knob_material`
+- `handle_knob_exchange_size`
+- `handle_hole_spec`
+- `body_material`
+- `body_material_tech`
+- `is_handle_double`
+- `main_gear_material`
+- `main_gear_size`
+- `minor_gear_material`
+- `market_reference_price`
+- `series_positioning`
+- `main_selling_points`
+- `player_environment`
+- `player_positioning`
+- `player_selling_points`
+- `custom_spool_compatibility`
+- `custom_knob_compatibility`
+
+补充名词统一：
+
+- `drag_click` = `Drag Clicker` / `Line Out Alarm` / `卸力报警`
+
+### 当前默认主流程已经直接写工作副本的字段
+
+- 主表：
+  - `model_year`
+  - `alias`
+- detail：
+  - `body_material`
+  - `body_material_tech`
+  - `main_gear_material`
+
+### 当前先只保留在 sidecar / metadata 的字段
+
+- `canonical_alias`
+- `version_signature`
+- `main_gear_material` 的 `inferred / confirmed_blank` 语义
+
+### 说明
+
+- 现在的口径是：**白名单先全量抓，查得到就记下来；怎么落表后面单独定。**
+- 也就是说：
+  - “抓没抓” 和 “落不落表” 先拆开
+  - 不再因为当前主流程只写少量字段，就误以为其它字段不该抓
+
+## 当前白名单站点侧重点
+
+### 描述层主站
+
+- `japantackle`
+- `tackletour`
+- `jdmfishing`
+
+当前主要负责：
+
+- 年款 / alias
+- 技术表达
+- 机身材质
+- 用途 / 环境
+- 系列定位
+- 主卖点
+
+### 深玩家数据主站
+
+- `avail`
+- `hedgehog_studio`
+
+当前主要负责：
+
+- 线杯重量
+- 线杯轴型
+- 线杯/摇臂/握丸兼容
+- 孔位规格
+- 零件规格
+- 改装/调校向信息
+
+### 深玩家数据当前信任口径
+
+- 对于改装热门型号，`avail / hedgehog_studio` 能抓到深玩家数据是正常预期。
+- 对于改装潜力较小、改装热度较低的型号，抓不到深玩家数据也是正常结果，不视为流程失败。
+- 当前阶段，`spool_weight_g` 允许保留**原厂线杯重量**，即使该值来自 `avail / hedgehog_studio` 的对比页，也可作为玩家数据使用。
+- 当前阶段，**改装线杯材质不写入表格**。例如 `Super duralumin` 这类 Avail 改装件材质，先不作为 reel 主数据落表。
 
 ## 不能回退的规则
 
@@ -60,7 +161,7 @@
 2. `body_material_tech` 只承接机身技术/结构表达  
    例如：`HAGANE 机身`、`CORESOLID BODY / 一体成型`、`全加工`
 
-3. `gear_material` 保留三档口径  
+3. `main_gear_material` 保留三档口径  
    - `direct_write`
    - `cross_source_inferred`
    - `manual_required`
@@ -76,6 +177,35 @@
 
 7. 不能按 model 粗暴跨年款泛化  
    尽量按 `reel_id`、`model_year`、`SKU / detail_id` 绑定。
+
+8. 子商品敏感字段优先按子商品绑定  
+   对于 `spool_weight_g`、`spool_axis_type`、`spool_diameter_mm`、`spool_width_mm`、`handle_hole_spec`、`handle_knob_exchange_size`、`custom_spool_compatibility`、`custom_knob_compatibility`、`main_gear_size` 这类可能随线杯规格 / 容线量 / 子商品变化的字段：
+   - 优先按 `reel_id + SKU` 绑定
+   - 如果来源没有细到子商品，则允许回退使用主商品级值
+   - 当前测试阶段，子商品没有单独数据时，可以直接用主商品级数据，不区分容线量
+   - 只有在来源明确匹配到具体规格，且明确不能泛化时，才只写对应子商品
+
+9. `drag_click` 对水滴轮不允许默认写 `1`
+   - 纺车轮当前可按默认带点击提示理解
+   - 水滴轮必须按型号查找再填写
+   - 官网或白名单没有直观写出时，不自动补 `1`
+   - 若有明确玩家确认，可写 `0` 或 `1`
+
+## 子商品敏感字段当前执行规则
+
+- 当前测试链里，`spool_weight_g` 已按子商品敏感字段处理。
+- 像 `Metanium 150 / 70 / 100` 这种同主商品下存在多套规格族的情况，如果当前没有子商品级重量，也允许回退使用主商品级重量。
+- 像 `Aldebaran BFS`、`Aldebaran MGL`、`Bantam` 这种当前样本下可视为共用同一套线杯规格族的情况，允许把同一重量写入同组子商品。
+
+## `drag_click` 当前执行规则
+
+- 名词统一：`drag_click = 卸力报警 = Drag Clicker / Line Out Alarm`
+- 水滴轮当前不再默认写 `1`
+- 只有在官网/白名单明确写出 `Drag Clicker` / `Line Out Alarm` / 卸力报警相关表达时，才自动写值
+- 若用户明确确认某型号不存在卸力报警，也可按人工确认写 `0`
+- 当前测试样本里：
+  - `20 Metanium` 已按人工确认写 `0`
+  - 其余水滴轮若无直观证据，先留空
 
 ## 当前默认入口
 

@@ -21,6 +21,43 @@
     "body_material_tech",
     "gear_material"
   ],
+  "whitelist_capture_fields": {
+    "master_or_semantic": [
+      "model_cn",
+      "model_year",
+      "alias",
+      "canonical_alias",
+      "version_signature",
+      "market_reference_price",
+      "series_positioning",
+      "main_selling_points",
+      "player_positioning",
+      "player_selling_points"
+    ],
+    "detail_or_variant": [
+      "drag_click",
+      "spool_diameter_mm",
+      "spool_width_mm",
+      "spool_weight_g",
+      "spool_axis_type",
+      "knob_size",
+      "knob_bearing_spec",
+      "handle_knob_type",
+      "handle_knob_material",
+      "handle_knob_exchange_size",
+      "handle_hole_spec",
+      "body_material",
+      "body_material_tech",
+      "gear_material",
+      "is_handle_double",
+      "main_gear_material",
+      "main_gear_size",
+      "minor_gear_material",
+      "player_environment",
+      "custom_spool_compatibility",
+      "custom_knob_compatibility"
+    ]
+  },
   "sidecar_only_fields": [
     "canonical_alias",
     "version_signature",

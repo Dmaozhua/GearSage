@@ -319,7 +319,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:00",
+    "scraped_at": "2026-04-16 22:56:45",
     "raw_data_hash": "0026ad19831ac99eec8e94fb02e1065ef4ef2388fa8f9f706ec00913c2dec63c"
   },
   {
@@ -438,8 +438,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:01",
-    "raw_data_hash": "8f40e07e71dea5438f83faa5730847ff4a5480fee1fc1cdfd36f87b9998bb0e5"
+    "scraped_at": "2026-04-16 22:56:47",
+    "raw_data_hash": "b6c6fdfd982632013d0152ca8819cc985fef27e342ff4c947b6ab87419510091"
   },
   {
     "brand": "shimano",
@@ -525,8 +525,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:02",
-    "raw_data_hash": "77034c9ca672751e157cbe29df781e4085623d1c431c906ad4f70b6ca87377c3"
+    "scraped_at": "2026-04-16 22:56:52",
+    "raw_data_hash": "86a4353fa62fea640ed3b21c3c3542580d1c7ae69c53825bb5ab75491e471455"
   },
   {
     "brand": "shimano",
@@ -746,161 +746,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:03",
+    "scraped_at": "2026-04-16 22:56:54",
     "raw_data_hash": "5b42c254a14a0a74b39d2e7bd16818b43b2b1af27371ebab8ebd5b659b9baac8"
-  },
-  {
-    "brand": "shimano",
-    "kind": "baitcasting",
-    "source_url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042png4qac.html",
-    "url": "https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f000042png4qac.html",
-    "model_name": "ANTARES DC MD",
-    "model_year": "",
-    "description": "SHIMANO FREESTYLE的巅峰，ANTARES DC MD，作为奋斗在世界舞台的旗舰产品，搭载了MGL SPOOL Ⅲ和新4X8DC MD TUNE刹车系统后，进化成了更具战斗力的规格。第三代MGL线杯带来了抛投时更轻量的手感和更优秀的抛投距离，新4X8DC MD TUNE则在刹车介入时有着更好的精度，和以往抛投时相比抛投得更远且更不易发生缠线问题。另外，搭载精密齿轮后也带来了顺滑的转动性能，在驱动齿轮轴增加支撑培林让构造更强大坚固，转动手把时也能有效降低卡顿问题，带来更顺滑的收线手感。流线美丽的机身传达出的跃动感和信赖感，不断积累厚重的历史步伐，带着更高目标并带着钓手向着高处进发，SHIMANO FREESTYLE的顶点。",
-    "page_title": "ANTARES DC MD | 淡水路亚 | 两轴轮 | 渔轮 | 产品 | SHIMANO",
-    "official_environment": "淡水路亚",
-    "category_path": "baitlurecasting",
-    "main_image_url": "https://dassets2.shimano.com/content/dam/Shimanofish/Common/Productsrelated/cg2SHIFGlobalREEL/cg3SHIFGlobalREELBaitReel/SICPlanningProducts/Product/PRD_a075F000042Png4QAC_main.jpg/jcr:content/renditions/cq5dam.web.481.481.jpeg",
-    "variants": [
-      {
-        "variant_name": "ANTARES DC MD HG RIGHT",
-        "sku_suffix": "HG RIGHT",
-        "specs": {
-          "gear_ratio": "7.4",
-          "max_drag_kg": "6",
-          "max_durability_kg": "",
-          "weight_g": "235",
-          "spool_diameter_stroke_mm": "38/21",
-          "nylon_no_m": "",
-          "nylon_lb_m": "14-145, 16-120, 20-100",
-          "fluoro_no_m": "",
-          "fluoro_lb_m": "",
-          "pe_no_m": "",
-          "cm_per_turn": "88",
-          "handle_length_mm": "45",
-          "bearings": "11/1",
-          "price": "4,253元",
-          "product_code": "046000"
-        },
-        "raw_specs": {
-          "型号": "HG RIGHT",
-          "齿轮比": "7.4",
-          "最大卸力（kg）": "6",
-          "重量（g）": "235",
-          "线杯径（mm）/幅（mm）": "38/21",
-          "尼龙线容线量（lb-m)": "14-145, 16-120, 20-100",
-          "最大收线长（cm/手把转一圈）": "88",
-          "手把长度（mm）": "45",
-          "培林数/罗拉": "11/1",
-          "市场参考价": "4,253元",
-          "商品编码": "046000"
-        }
-      },
-      {
-        "variant_name": "ANTARES DC MD HG LEFT",
-        "sku_suffix": "HG LEFT",
-        "specs": {
-          "gear_ratio": "7.4",
-          "max_drag_kg": "6",
-          "max_durability_kg": "",
-          "weight_g": "235",
-          "spool_diameter_stroke_mm": "38/21",
-          "nylon_no_m": "",
-          "nylon_lb_m": "14-145, 16-120, 20-100",
-          "fluoro_no_m": "",
-          "fluoro_lb_m": "",
-          "pe_no_m": "",
-          "cm_per_turn": "88",
-          "handle_length_mm": "45",
-          "bearings": "11/1",
-          "price": "4,253元",
-          "product_code": "046017"
-        },
-        "raw_specs": {
-          "型号": "HG LEFT",
-          "齿轮比": "7.4",
-          "最大卸力（kg）": "6",
-          "重量（g）": "235",
-          "线杯径（mm）/幅（mm）": "38/21",
-          "尼龙线容线量（lb-m)": "14-145, 16-120, 20-100",
-          "最大收线长（cm/手把转一圈）": "88",
-          "手把长度（mm）": "45",
-          "培林数/罗拉": "11/1",
-          "市场参考价": "4,253元",
-          "商品编码": "046017"
-        }
-      },
-      {
-        "variant_name": "ANTARES DC MD XG RIGHT",
-        "sku_suffix": "XG RIGHT",
-        "specs": {
-          "gear_ratio": "7.8",
-          "max_drag_kg": "6",
-          "max_durability_kg": "",
-          "weight_g": "235",
-          "spool_diameter_stroke_mm": "38/21",
-          "nylon_no_m": "",
-          "nylon_lb_m": "14-145, 16-120, 20-100",
-          "fluoro_no_m": "",
-          "fluoro_lb_m": "",
-          "pe_no_m": "",
-          "cm_per_turn": "93",
-          "handle_length_mm": "45",
-          "bearings": "11/1",
-          "price": "4,253元",
-          "product_code": "046024"
-        },
-        "raw_specs": {
-          "型号": "XG RIGHT",
-          "齿轮比": "7.8",
-          "最大卸力（kg）": "6",
-          "重量（g）": "235",
-          "线杯径（mm）/幅（mm）": "38/21",
-          "尼龙线容线量（lb-m)": "14-145, 16-120, 20-100",
-          "最大收线长（cm/手把转一圈）": "93",
-          "手把长度（mm）": "45",
-          "培林数/罗拉": "11/1",
-          "市场参考价": "4,253元",
-          "商品编码": "046024"
-        }
-      },
-      {
-        "variant_name": "ANTARES DC MD XG LEFT",
-        "sku_suffix": "XG LEFT",
-        "specs": {
-          "gear_ratio": "7.8",
-          "max_drag_kg": "6",
-          "max_durability_kg": "",
-          "weight_g": "235",
-          "spool_diameter_stroke_mm": "38/21",
-          "nylon_no_m": "",
-          "nylon_lb_m": "14-145, 16-120, 20-100",
-          "fluoro_no_m": "",
-          "fluoro_lb_m": "",
-          "pe_no_m": "",
-          "cm_per_turn": "93",
-          "handle_length_mm": "45",
-          "bearings": "11/1",
-          "price": "4,253元",
-          "product_code": "046031"
-        },
-        "raw_specs": {
-          "型号": "XG LEFT",
-          "齿轮比": "7.8",
-          "最大卸力（kg）": "6",
-          "重量（g）": "235",
-          "线杯径（mm）/幅（mm）": "38/21",
-          "尼龙线容线量（lb-m)": "14-145, 16-120, 20-100",
-          "最大收线长（cm/手把转一圈）": "93",
-          "手把长度（mm）": "45",
-          "培林数/罗拉": "11/1",
-          "市场参考价": "4,253元",
-          "商品编码": "046031"
-        }
-      }
-    ],
-    "scraped_at": "2026-04-15 02:13:04",
-    "raw_data_hash": "d5c5e418e4f6666b10a7afb3e5863d10ff7738986eb7f3514eed218f735e94c2"
   },
   {
     "brand": "shimano",
@@ -1114,8 +961,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:06",
-    "raw_data_hash": "2fadfca7c40dd6b88e52e0586a430a501e2476f069aa2aebbb90a98cd80c39ff"
+    "scraped_at": "2026-04-16 22:57:26",
+    "raw_data_hash": "aa8948435b1d9761f7a754571ecaf8d6271d147489814629f2b28d92893dd943"
   },
   {
     "brand": "shimano",
@@ -1199,7 +1046,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:07",
+    "scraped_at": "2026-04-16 22:57:30",
     "raw_data_hash": "130ff870e54b3794a4705412d28bd0358bc53f5dde818c5d5e470d88f0d6fbaa"
   },
   {
@@ -1488,8 +1335,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:08",
-    "raw_data_hash": "a978d3e437dae1f3d54e1629c862372d1b59a7a2b0ff160db62d0cc56b16ade8"
+    "scraped_at": "2026-04-16 22:57:32",
+    "raw_data_hash": "74297f39bb7fef57dde42620cebfa57047a2191f486b7f8859c270aec32d6a1e"
   },
   {
     "brand": "shimano",
@@ -1641,7 +1488,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:10",
+    "scraped_at": "2026-04-16 22:57:33",
     "raw_data_hash": "a6707106f355011f348b853d9c5332254e349e0e4a4888ec991b839d60929cfa"
   },
   {
@@ -1896,7 +1743,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:11",
+    "scraped_at": "2026-04-16 22:57:37",
     "raw_data_hash": "baf75de39548bc69b673f2df25c63f626a75ea28f687e511d95b1fc0f7f820b0"
   },
   {
@@ -2151,7 +1998,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:12",
+    "scraped_at": "2026-04-16 22:57:40",
     "raw_data_hash": "ec105a009e86638f54fdcbd2dfb85407ac97e819e633db4c5e05f48e17737833"
   },
   {
@@ -2610,7 +2457,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:13",
+    "scraped_at": "2026-04-16 22:57:43",
     "raw_data_hash": "a9cf60d526cc0edad9b26de578436d02379b3470e6ed5740baa1426d9bdcc05f"
   },
   {
@@ -2732,7 +2579,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:14",
+    "scraped_at": "2026-04-16 22:57:46",
     "raw_data_hash": "b8080bfb65bfa60ea5f8f27f81966c60a3518f94fb8781ea24923cb12465cf73"
   },
   {
@@ -2953,8 +2800,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:15",
-    "raw_data_hash": "9f97aa8d527981256f42c2f8da8386ce928dc2c83a68d409c595d7cd3d82bb35"
+    "scraped_at": "2026-04-16 22:57:48",
+    "raw_data_hash": "7f3553f83e62166eeb395e30352942c2add19f7d9349e3261dde68b0c2f9c7b0"
   },
   {
     "brand": "shimano",
@@ -3514,8 +3361,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:16",
-    "raw_data_hash": "2b2577e330a6db06b7dfd6ee4e03e4ad39dda58147fe87548f0be6e94bc57ef9"
+    "scraped_at": "2026-04-16 22:57:50",
+    "raw_data_hash": "63c08f83fe332f446c7c36a65e53f72844805c431707ad5fd9a6d499eda54766"
   },
   {
     "brand": "shimano",
@@ -3741,7 +3588,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:18",
+    "scraped_at": "2026-04-16 22:57:53",
     "raw_data_hash": "027778950ea97ab67ea7a102c3f2bc117b0f3a22cdb34bd1e344dd543a268fc6"
   },
   {
@@ -3898,7 +3745,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:19",
+    "scraped_at": "2026-04-16 22:57:57",
     "raw_data_hash": "9a858e89ea3670e910dcec525aaf4611847c6e713187c07ca38ed30c6c2dee7f"
   },
   {
@@ -4119,7 +3966,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:20",
+    "scraped_at": "2026-04-16 22:57:59",
     "raw_data_hash": "4572142d8bbece0baef7ef81c448ab60caf239c022065ac071c7e803a053db7a"
   },
   {
@@ -4476,7 +4323,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:21",
+    "scraped_at": "2026-04-16 22:58:02",
     "raw_data_hash": "d29c206f0b6dea21ba4d7edbc6eb4df5f848925c6d7add1c302ef1d3c6a53af7"
   },
   {
@@ -4833,8 +4680,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:22",
-    "raw_data_hash": "1c276a84be1fa737eb203a066769aeff275b48693f7ebb544d31f17dfcf9626c"
+    "scraped_at": "2026-04-16 22:58:05",
+    "raw_data_hash": "9196542c0fe8f9d94ee2e25d8cea56171779ebc6652cad9de312ad0fc19c867a"
   },
   {
     "brand": "shimano",
@@ -4918,8 +4765,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:23",
-    "raw_data_hash": "fc9b4073ba7b54d2513539acdf2c709dd49f2200a7f5299f44874b39218546be"
+    "scraped_at": "2026-04-16 22:58:10",
+    "raw_data_hash": "5ea0760d9c061c57883ce0464708b611aab5794db1217b91f3458f56bdcb6ced"
   },
   {
     "brand": "shimano",
@@ -5071,8 +4918,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:24",
-    "raw_data_hash": "bfe284e04ea17b989d1246f1249a00a2d5b0aac830e7c87aa8daddeab3486eba"
+    "scraped_at": "2026-04-16 22:58:11",
+    "raw_data_hash": "af1ae39c8e611d0067b11a54deb687c76539805a289c37f11a96ef1a9e82d960"
   },
   {
     "brand": "shimano",
@@ -5224,7 +5071,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:25",
+    "scraped_at": "2026-04-16 22:58:14",
     "raw_data_hash": "2cc341b1624ae2ed56c64ed057b05783a9148d13c97bc67b0398d763393aba73"
   },
   {
@@ -5381,7 +5228,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:26",
+    "scraped_at": "2026-04-16 22:58:16",
     "raw_data_hash": "273d3bcb740de86e67b4d4a92ad5ff72ac2e908a035e79f707e3e668e935d7c3"
   },
   {
@@ -5534,8 +5381,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:27",
-    "raw_data_hash": "a4a05e8e7acf8570c0b209eedc55cfa112450428bd4068af45a09fb474bb76ce"
+    "scraped_at": "2026-04-16 22:58:17",
+    "raw_data_hash": "9c05d2c4fb7e3dd8c5d374a48e84abcc6ff1ca18eb2413b68c2d47fca329bdb7"
   },
   {
     "brand": "shimano",
@@ -5761,8 +5608,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:29",
-    "raw_data_hash": "0057a5ab7e118d0effffb7ddedb36de0edc056fc75c45d69b9c480d3f2fd8fa9"
+    "scraped_at": "2026-04-16 22:58:21",
+    "raw_data_hash": "e2363700d8b0ddfc373ea11b6b03bf7d916cf9605a943dda48f161531736c774"
   },
   {
     "brand": "shimano",
@@ -5846,8 +5693,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:30",
-    "raw_data_hash": "72e2558daa83fe854a0e5a58262c8b8f082b1049b912c52850495bfb328777bb"
+    "scraped_at": "2026-04-16 22:58:23",
+    "raw_data_hash": "e02e66e3bc79b25e173ad9d8984a90c5ee3f7d5b798b27169370248f1b41e43f"
   },
   {
     "brand": "shimano",
@@ -5999,7 +5846,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:31",
+    "scraped_at": "2026-04-16 22:58:26",
     "raw_data_hash": "407043b324549c87cc29f7ca5928c52c31d8f7bc9432e1c823bab4350a113bf9"
   },
   {
@@ -6152,7 +5999,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:33",
+    "scraped_at": "2026-04-16 22:58:28",
     "raw_data_hash": "3fc3085d7995434184a25e9ba0a2e07cfa6648be50df40ac002904e5cea76438"
   },
   {
@@ -6373,8 +6220,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:34",
-    "raw_data_hash": "04bbd1eecc17482178df5194e3a8ee74dfea0b659438730e70048738d99c9012"
+    "scraped_at": "2026-04-16 22:58:31",
+    "raw_data_hash": "bb6f99752301fd5ee4171cc39bee36c87efbd2cb29089997a26e054347bffdf1"
   },
   {
     "brand": "shimano",
@@ -6934,7 +6781,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:35",
+    "scraped_at": "2026-04-16 22:58:33",
     "raw_data_hash": "998b11ef8a63072e577e96efa2e8e0c9e855e31dae2a59838b093c96dce05801"
   },
   {
@@ -7056,8 +6903,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:37",
-    "raw_data_hash": "fe774a8c9283486df7a6cb657f417893d08ed9bee03e36ed23cd68a75d110579"
+    "scraped_at": "2026-04-16 22:58:36",
+    "raw_data_hash": "2f57a86f57d12f0819937652453325f754437ef36a131621608bc7be8ed3c81a"
   },
   {
     "brand": "shimano",
@@ -7178,7 +7025,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:38",
+    "scraped_at": "2026-04-16 22:58:37",
     "raw_data_hash": "425353d4081e4d1d81a7751d32b029b9dbc09119cf2635aa14cb7fe7fa55b94e"
   },
   {
@@ -7335,7 +7182,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:39",
+    "scraped_at": "2026-04-16 22:58:39",
     "raw_data_hash": "e6d7138569f9921a63e518b352ef3d34c863fb19380677b45c9304c27fc852a1"
   },
   {
@@ -7488,8 +7335,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:41",
-    "raw_data_hash": "22c87a1c8a9bd691a523bc36a5cd1d67e4f0201d78670fcd4d840e8b6f549d4c"
+    "scraped_at": "2026-04-16 22:58:41",
+    "raw_data_hash": "59a41880f2ffbda50e1d03f16067c3fe1023bfd6cfccc4dd4e87d7628ec6fcb1"
   },
   {
     "brand": "shimano",
@@ -7709,8 +7556,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:42",
-    "raw_data_hash": "6b90dac6c1ddff75ba57d569b0eb9e1639a1effcf521b937e69bea1011c17208"
+    "scraped_at": "2026-04-16 22:58:43",
+    "raw_data_hash": "86b0136eda7e65513734b1baebe94fe150f7050609c099a07a6e844481131697"
   },
   {
     "brand": "shimano",
@@ -7862,7 +7709,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:43",
+    "scraped_at": "2026-04-16 22:58:44",
     "raw_data_hash": "0686b627ebd39f8a49274cd9455137c37e67073d571fa9c7db2754abb7fbd772"
   },
   {
@@ -8015,8 +7862,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:44",
-    "raw_data_hash": "bb1d60a7835848cda1c5eebb0c185f2c8bfd0d21377632e51e03004d0d40a5f7"
+    "scraped_at": "2026-04-16 22:58:49",
+    "raw_data_hash": "4c7c1ae7c7adcea042bd43a1234e8c9da7e38a1043cd3df88cd000dd6ad68147"
   },
   {
     "brand": "shimano",
@@ -8242,7 +8089,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:45",
+    "scraped_at": "2026-04-16 22:58:54",
     "raw_data_hash": "716eda986f7d8c09b3de097d7820ca1951e0b0e9da3100b66572ab8f20ed22eb"
   },
   {
@@ -8395,7 +8242,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:46",
+    "scraped_at": "2026-04-16 22:58:55",
     "raw_data_hash": "2c5bc88b8466d39321cc95584c8952f99e7578b9fdc19c9bb12c86e27ba3493e"
   },
   {
@@ -8622,7 +8469,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:47",
+    "scraped_at": "2026-04-16 22:59:03",
     "raw_data_hash": "b8dde5032878d2324c0d4b7b41aa9d6ab8be3dacc7739690346a3b5a9811870c"
   },
   {
@@ -8707,7 +8554,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:48",
+    "scraped_at": "2026-04-16 22:59:05",
     "raw_data_hash": "a908c9b78190fdad82e846d1fdaf57598856c43ed2734c1ad472041d1a98d76f"
   },
   {
@@ -8792,7 +8639,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:49",
+    "scraped_at": "2026-04-16 22:59:10",
     "raw_data_hash": "abe36fe424ebff79b8a0f179f00efea5a1c2e7885f78ac7f8b8b61c1668dd19d"
   },
   {
@@ -9013,7 +8860,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:50",
+    "scraped_at": "2026-04-16 22:59:12",
     "raw_data_hash": "649c7852c3f1ebd1a8f2791082e19b123d30eaf9001e8d734a5b3c4c2731bbec"
   },
   {
@@ -9234,8 +9081,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:51",
-    "raw_data_hash": "df23115ff22054a8dfea9b73d468c2cb620eff1294544b3c96e606dcb50a9848"
+    "scraped_at": "2026-04-16 22:59:15",
+    "raw_data_hash": "59d1ddf254a8db40f352b678162a0c350188f919328bfa21b8f30a47f12b233b"
   },
   {
     "brand": "shimano",
@@ -9391,7 +9238,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:52",
+    "scraped_at": "2026-04-16 22:59:17",
     "raw_data_hash": "e06ffd1bf71be3f2918e899fb15f7b03e4115a91e1972ea99fbea269b28fc732"
   },
   {
@@ -9476,8 +9323,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:53",
-    "raw_data_hash": "84da0c1453146452a82ba7b5fe41ffee162b74ca99686d1a3fe37d77a7cc76f3"
+    "scraped_at": "2026-04-16 22:59:19",
+    "raw_data_hash": "d36a03db50a8e6813aeb57cbb03e1acc9add9d945141ec5db9ff55fbfcfebd4c"
   },
   {
     "brand": "shimano",
@@ -9561,7 +9408,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:54",
+    "scraped_at": "2026-04-16 22:59:20",
     "raw_data_hash": "4c231e9e5098629927777673dadf58d3f47737c0e4ce5d307c08085b9ee308af"
   },
   {
@@ -9710,8 +9557,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:55",
-    "raw_data_hash": "decbe64aeed67fdea52bc1bc61399f08ac95b1788c27c98b92cd019f5fdcbe3d"
+    "scraped_at": "2026-04-16 22:59:23",
+    "raw_data_hash": "a01504c5ad228106a71ecc270c2fd7b6a35ae7258e1d10fc2e2a66d7339fd5b8"
   },
   {
     "brand": "shimano",
@@ -9931,8 +9778,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:56",
-    "raw_data_hash": "f318d0a7e76240d15c5b33d0a69d415fec2810090719c3937a850ea8314f6079"
+    "scraped_at": "2026-04-16 22:59:30",
+    "raw_data_hash": "c2fd0d699331532e6a7345ab0e9267457fee2f0e8e6a1c93e9f988268e19ce4c"
   },
   {
     "brand": "shimano",
@@ -10146,8 +9993,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:57",
-    "raw_data_hash": "18183b3e4e3e49f071d9e266f988de1f957f4b38929e9d9dc01156e5eaafc582"
+    "scraped_at": "2026-04-16 22:59:32",
+    "raw_data_hash": "b9a00cee51baffd5d2cdac684e97127b9c4300046773ffa75e0555393e8a80e2"
   },
   {
     "brand": "shimano",
@@ -10233,8 +10080,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:58",
-    "raw_data_hash": "97676527b7f5d91b6d8c5f78a36a1f8aa8590a167a14a054d8fbe2728651a792"
+    "scraped_at": "2026-04-16 22:59:38",
+    "raw_data_hash": "2db729869e9e0b0b6a767a66f170e379ac9b4c7fcde3e21aa7d7a8394dcf3916"
   },
   {
     "brand": "shimano",
@@ -10390,8 +10237,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:13:59",
-    "raw_data_hash": "07bc88cd079c8c17c7f42cf94a5bc7d5b254f5048c27cd2ded876210a2930146"
+    "scraped_at": "2026-04-16 22:59:40",
+    "raw_data_hash": "e2608c5bc414f63c1b33a29f0195733e41c7537b732835159f186e579b52164e"
   },
   {
     "brand": "shimano",
@@ -10543,8 +10390,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:00",
-    "raw_data_hash": "deb902eb345ff85d53519e01da4cf8f278c90d12e0b8843bb3ee50bd2efd8625"
+    "scraped_at": "2026-04-16 22:59:47",
+    "raw_data_hash": "f43adc77a8ada54f442056a734ea88e143273b0f47341d69574d256aab5c4386"
   },
   {
     "brand": "shimano",
@@ -10662,8 +10509,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:01",
-    "raw_data_hash": "4c33bc727a5a1ec0bcd03258234abad9a2162d772f389849c666d2cd4daf704d"
+    "scraped_at": "2026-04-16 22:59:50",
+    "raw_data_hash": "b2ae4322b3ee96671b6ad250f2f7d52c5fe8e5cdc53c2edb554ffff988c8353b"
   },
   {
     "brand": "shimano",
@@ -10811,8 +10658,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:02",
-    "raw_data_hash": "6018e5428015b7362d10c015cf449ec6a1df642a9041861c8a2270de31c3974b"
+    "scraped_at": "2026-04-16 22:59:53",
+    "raw_data_hash": "ef7520bf3792e3a9cd2790ff462a80185bfbeb1a5d13508efa9414ff50cb2f27"
   },
   {
     "brand": "shimano",
@@ -10956,8 +10803,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:03",
-    "raw_data_hash": "b5bc987929ab9b1a45c1d59b7baf9e42c3bc26dc770080b6eca1d61ae737d37f"
+    "scraped_at": "2026-04-16 22:59:55",
+    "raw_data_hash": "2d7a4c81d62cac26f0cbb4d1c3d76b8ddb73fc889a440d7c2fb3b9a348d372fb"
   },
   {
     "brand": "shimano",
@@ -11323,7 +11170,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:04",
+    "scraped_at": "2026-04-16 22:59:59",
     "raw_data_hash": "bfb3a17ea3570b2f4cc5101f9c6313f88822736b594f4467df865cc4d8acff95"
   },
   {
@@ -11480,8 +11327,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:06",
-    "raw_data_hash": "f3d07c2a6f6a3e7773f135a243c5a21121ec1bd469b6f31055703455d2b000a4"
+    "scraped_at": "2026-04-16 23:00:01",
+    "raw_data_hash": "35aa2d1ebcf46844b52e951f6438fbec6e497b8f21b9469d93b1de5081172714"
   },
   {
     "brand": "shimano",
@@ -11701,7 +11548,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:07",
+    "scraped_at": "2026-04-16 23:00:02",
     "raw_data_hash": "76e1e1816bb8369a96a88f467d4f50786c2fcabbc657914c28cf33dcf9de7bc7"
   },
   {
@@ -11916,8 +11763,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:08",
-    "raw_data_hash": "f23bfda99e5a2cbfbbcc4e58c08dd7026b7bd40a58bf9821cdd39cab15372a27"
+    "scraped_at": "2026-04-16 23:00:03",
+    "raw_data_hash": "ccc38bb05e124a089f8b0a33e52ef7380a2443f85d6f7924764fde27f6a68885"
   },
   {
     "brand": "shimano",
@@ -12131,7 +11978,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:09",
+    "scraped_at": "2026-04-16 23:00:10",
     "raw_data_hash": "5551d97dbb0cdd4e00087623cf6c2e3da7f6ef6be589d0fdfd93248cee58b2cf"
   },
   {
@@ -12288,7 +12135,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:10",
+    "scraped_at": "2026-04-16 23:00:11",
     "raw_data_hash": "4c518ced8b97b6297c62a1f2db2f78202258721009a610c312dc78602323fc6c"
   },
   {
@@ -12437,7 +12284,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:11",
+    "scraped_at": "2026-04-16 23:00:12",
     "raw_data_hash": "b90f3b43372004d0caf16ca5dfa3c222ab48ac33e9c7eaee8542988a7becb2e3"
   },
   {
@@ -12652,7 +12499,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:12",
+    "scraped_at": "2026-04-16 23:00:16",
     "raw_data_hash": "fe2aaa6edc6391f65118f9c01b16e9bb8f5ff5028bddc620f858cb550ea9992e"
   },
   {
@@ -12735,8 +12582,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:13",
-    "raw_data_hash": "2cff157fb2f59c7329b7f40a1717d4a9bb67fc27828a06d1098facd17e453785"
+    "scraped_at": "2026-04-16 23:00:19",
+    "raw_data_hash": "30957329b2223bc605dc025e3fb5bbbb208492e9c3eb7be6627f81ec8dfbfeda"
   },
   {
     "brand": "shimano",
@@ -12956,8 +12803,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:15",
-    "raw_data_hash": "2344cfedd049dfa23275a828964329d69291a91e3694a67c39de10a8daad135d"
+    "scraped_at": "2026-04-16 23:00:20",
+    "raw_data_hash": "a9499cbe8fd18f491b8b93e090785fca555953fc9f77ccfabb19b95c3c115431"
   },
   {
     "brand": "shimano",
@@ -13253,7 +13100,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:16",
+    "scraped_at": "2026-04-16 23:00:22",
     "raw_data_hash": "537350e70cf2951a841b0ef09152845279de4335a939ce66b7839761342b854e"
   },
   {
@@ -13340,8 +13187,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:17",
-    "raw_data_hash": "cfba1705d23cf713e212479efaccc7daeaef166bf0fced9237ee767f537f571d"
+    "scraped_at": "2026-04-16 23:00:25",
+    "raw_data_hash": "f5033285b272b294666a1ed1d85963632249fccb9faa82df2a2b5c857026be00"
   },
   {
     "brand": "shimano",
@@ -13425,8 +13272,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:18",
-    "raw_data_hash": "0d0659750924e43753afc52fe539250ea48efc83452cd28f784d368da1854b58"
+    "scraped_at": "2026-04-16 23:00:26",
+    "raw_data_hash": "d75a624452f6e1524cfe2640c18ee66281789477aa6dffecdd92c365da15386e"
   },
   {
     "brand": "shimano",
@@ -13640,7 +13487,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:19",
+    "scraped_at": "2026-04-16 23:00:28",
     "raw_data_hash": "c15c35b80a92e33223536d74fe72827f7c63b1b679f14226373c763b709df998"
   },
   {
@@ -13797,8 +13644,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:20",
-    "raw_data_hash": "23b0627a534f52f51560872593e19c6b8a5c9bbe91871c8cd849498a86523937"
+    "scraped_at": "2026-04-16 23:00:30",
+    "raw_data_hash": "d0e5b81adad1c111fccb372e233ba7df4bea6b03cd545a84eeac89a898e8cb51"
   },
   {
     "brand": "shimano",
@@ -14000,8 +13847,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:22",
-    "raw_data_hash": "0f3a6f38ded0767bcdb9f4b020838939e041b2827964fa0f6e462027f99f2ccb"
+    "scraped_at": "2026-04-16 23:00:32",
+    "raw_data_hash": "37841cb184d92f8444d7202fbf012f8b6d8ccfa752535fd08fd36044cbbee69f"
   },
   {
     "brand": "shimano",
@@ -14157,8 +14004,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:23",
-    "raw_data_hash": "53a693e72fcd4b2419e7540989704451e3bfc9ff959b2a319765cbb3552034d2"
+    "scraped_at": "2026-04-16 23:00:34",
+    "raw_data_hash": "004d17a8cb9536d6b3b6cb46d37b91e36101f0b68459495d83bcd8db8d4a33fa"
   },
   {
     "brand": "shimano",
@@ -14372,7 +14219,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:24",
+    "scraped_at": "2026-04-16 23:00:36",
     "raw_data_hash": "4921525e031c0bd91f9c0caa13886010667df58d3b100077d711fee730fc9229"
   },
   {
@@ -14457,8 +14304,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:25",
-    "raw_data_hash": "2a51bcf38f6d8bbb445e812992936def38f559d2675adeb7a45173ce4d8a8f70"
+    "scraped_at": "2026-04-16 23:00:39",
+    "raw_data_hash": "bfc06176b3e5639b25231c1d40597846e19adce00993f181bd014fe5094dced6"
   },
   {
     "brand": "shimano",
@@ -14542,8 +14389,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:26",
-    "raw_data_hash": "1bac6f356f4857e36c0367203bb9cfcb643f392be5b44963cf901c3a200db1e8"
+    "scraped_at": "2026-04-16 23:00:41",
+    "raw_data_hash": "95e048e1975d1beb9d46177b6444ef8fed7dbb4ecaa8a1ee6792729b7a9b24be"
   },
   {
     "brand": "shimano",
@@ -14625,8 +14472,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:27",
-    "raw_data_hash": "7bd70c9c1befbb33f60f7001dfa598890b88ed46c265877dfacb04d07f5eacf2"
+    "scraped_at": "2026-04-16 23:00:42",
+    "raw_data_hash": "818dd421d3c99847da3b291ad408ec089e2e160a944665cef32b483bda59abb5"
   },
   {
     "brand": "shimano",
@@ -14710,8 +14557,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:28",
-    "raw_data_hash": "fd041af1da0444d06ef77bdbc54d85841fa318fdb3d72c246e3d7bd8bd886b0a"
+    "scraped_at": "2026-04-16 23:00:44",
+    "raw_data_hash": "a49c1433485c9e102e17eec29c78aa3657104188bbb9a740dd1ce7019bb5eaf8"
   },
   {
     "brand": "shimano",
@@ -14797,8 +14644,8 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:29",
-    "raw_data_hash": "3d4b64c11854620306d2f309d2554e85619c353f42d4978912e15f9965316628"
+    "scraped_at": "2026-04-16 23:00:56",
+    "raw_data_hash": "6f36fb907837dc08855df44b201a7470bf992a72c16057236ad15524eff03208"
   },
   {
     "brand": "shimano",
@@ -14880,7 +14727,7 @@
         }
       }
     ],
-    "scraped_at": "2026-04-15 02:14:30",
+    "scraped_at": "2026-04-16 23:01:00",
     "raw_data_hash": "c51091b1289ee814672cbcff41c2da38761cd683d83f31871e2984912f6fd5cb"
   }
 ]
