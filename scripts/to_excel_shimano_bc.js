@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 const XLSX = require('xlsx');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -20,13 +21,126 @@ const MASTER_SHEET = 'reel';
 const DETAIL_SHEET = 'baitcasting_reel_detail';
 const MASTER_PREFIX = 'SRE';
 const DETAIL_PREFIX = 'SRED';
+const SHIMANO_REEL_STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/';
+const HIGHLIGHT_HELPER = path.resolve(__dirname, 'patch_xlsx_highlights.py');
+const HIGHLIGHT_PAYLOAD = path.resolve(
+  __dirname,
+  '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_highlights.json'
+);
+const YELLOW_FIELDS_MASTER = new Set([
+  'model_cn',
+  'model_year',
+  'alias',
+  'market_reference_price',
+  'series_positioning',
+  'main_selling_points',
+  'player_positioning',
+  'player_selling_points',
+]);
+const YELLOW_FIELDS_DETAIL = new Set([
+  'Description',
+  'EV_link',
+  'Specs_link',
+  'drag_click',
+  'spool_weight_g',
+  'spool_axis_type',
+  'knob_size',
+  'knob_bearing_spec',
+  'custom_spool_compatibility',
+  'custom_knob_compatibility',
+  'handle_knob_type',
+  'handle_knob_material',
+  'handle_knob_exchange_size',
+  'handle_hole_spec',
+  'body_material',
+  'body_material_tech',
+  'main_gear_material',
+  'main_gear_size',
+  'minor_gear_material',
+  'player_environment',
+  'usage_environment',
+  'player_positioning',
+  'player_selling_points',
+  'series_positioning',
+  'main_selling_points',
+]);
+const MODEL_NAME_OVERRIDES_BY_URL = {
+  'https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003c623mqaa.html': 'SLX XT',
+};
 
 function normalizeText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function sanitizeFilename(name) {
+  return String(name || '').replace(/[\\/*?:"<>|]/g, '_').trim();
+}
+
+function detectImageExtension(url) {
+  const lower = normalizeText(url).toLowerCase();
+  if (lower.includes('.png')) return '.png';
+  if (lower.includes('.webp')) return '.webp';
+  if (lower.includes('.jpeg')) return '.jpeg';
+  return '.jpg';
+}
+
+function buildShimanoReelImageFilename(baseName, imageUrl) {
+  const safeName = sanitizeFilename(baseName || 'unknown');
+  const ext = detectImageExtension(imageUrl);
+  return `${safeName}_main${ext}`;
+}
+
+function buildShimanoReelStaticImageUrl(item, existingRow) {
+  const localPath = normalizeText(item.local_image_path || item.downloaded_image_path);
+  if (localPath) {
+    const basename = path.basename(localPath);
+    if (basename) return `${SHIMANO_REEL_STATIC_PREFIX}${encodeURIComponent(basename)}`;
+  }
+
+  const imageUrl = normalizeText(item.main_image_url);
+  if (!imageUrl) return '';
+  const preferredName = normalizeText(existingRow && existingRow.alias) || normalizeText(item.model_name);
+  const filename = buildShimanoReelImageFilename(preferredName, imageUrl);
+  return `${SHIMANO_REEL_STATIC_PREFIX}${encodeURIComponent(filename)}`;
+}
+
 function normalizeModelKey(value) {
   return normalizeText(value).toUpperCase();
+}
+
+function stripNewPrefix(value) {
+  return normalizeText(value).replace(/^NEW\s+/i, '').trim();
+}
+
+function derivePageLabel(item) {
+  const pageTitle = normalizeText(item.page_title);
+  if (!pageTitle) return '';
+  const head = normalizeText(pageTitle.split('|')[0]);
+  return stripNewPrefix(head);
+}
+
+function deriveGroupModelName(item) {
+  const url = normalizeText(item.url || item.source_url);
+  if (url && MODEL_NAME_OVERRIDES_BY_URL[url]) return MODEL_NAME_OVERRIDES_BY_URL[url];
+
+  const pageLabel = derivePageLabel(item);
+  if (/（.*?线杯）/.test(pageLabel)) return pageLabel;
+  if (pageLabel) return pageLabel;
+  return normalizeText(item.model_name);
+}
+
+function encodeColumn(index) {
+  let s = '';
+  let n = index;
+  while (n >= 0) {
+    s = String.fromCharCode((n % 26) + 65) + s;
+    n = Math.floor(n / 26) - 1;
+  }
+  return s;
+}
+
+function toRefs(highlightedCells) {
+  return highlightedCells.map(({ rowIndex, colIndex }) => `${encodeColumn(colIndex)}${rowIndex}`);
 }
 
 function normalizeSkuKey(value) {
@@ -275,6 +389,8 @@ function deriveSeriesPositioning(item, existingValue, prices) {
 }
 
 function buildMasterImages(existingRow, item) {
+  const staticImageUrl = buildShimanoReelStaticImageUrl(item, existingRow);
+  if (staticImageUrl) return staticImageUrl;
   if (normalizeText(existingRow && existingRow.images)) return normalizeText(existingRow.images);
   return normalizeText(item.main_image_url);
 }
@@ -283,19 +399,23 @@ function dedupeAndGroup(data) {
   const groups = new Map();
 
   for (const item of data) {
-    const modelKey = normalizeModelKey(item.model_name);
+    const groupModelName = deriveGroupModelName(item);
+    const modelKey = normalizeModelKey(groupModelName);
     if (!modelKey) continue;
 
     const current = groups.get(modelKey) || {
-      model_name: item.model_name,
+      model_name: groupModelName,
       model_year: '',
       description: '',
       official_environment: '',
       category_path: '',
       main_image_url: '',
+      local_image_path: '',
+      downloaded_image_path: '',
       source_urls: [],
       variants: [],
       scraped_at: '',
+      page_labels: [],
     };
 
     if (!normalizeText(current.description) || normalizeText(item.description).length > normalizeText(current.description).length) {
@@ -305,8 +425,11 @@ function dedupeAndGroup(data) {
     if (!normalizeText(current.official_environment) && normalizeText(item.official_environment)) current.official_environment = normalizeText(item.official_environment);
     if (!normalizeText(current.category_path) && normalizeText(item.category_path)) current.category_path = normalizeText(item.category_path);
     if (!normalizeText(current.main_image_url) && normalizeText(item.main_image_url)) current.main_image_url = normalizeText(item.main_image_url);
+    if (!normalizeText(current.local_image_path) && normalizeText(item.local_image_path)) current.local_image_path = normalizeText(item.local_image_path);
+    if (!normalizeText(current.downloaded_image_path) && normalizeText(item.downloaded_image_path)) current.downloaded_image_path = normalizeText(item.downloaded_image_path);
     if (!normalizeText(current.scraped_at) && normalizeText(item.scraped_at)) current.scraped_at = normalizeText(item.scraped_at);
     current.source_urls.push(item.source_url || item.url || '');
+    current.page_labels.push(derivePageLabel(item));
 
     const seenSku = new Set(current.variants.map((variant) => normalizeSkuKey(variant.variant_name)));
     for (const variant of item.variants || []) {
@@ -351,12 +474,14 @@ function main() {
     templateMaster.rows.map((row) => [normalizeText(row.id), row])
   );
   const existingDetailsByKey = new Map();
+  const existingDetailsBySku = new Map();
   for (const row of templateDetail.rows) {
     const master = existingMastersById.get(normalizeText(row.reel_id));
     const modelKey = normalizeModelKey(master && master.model);
     const skuKey = normalizeSkuKey(row.SKU);
     if (!modelKey || !skuKey) continue;
     existingDetailsByKey.set(`${modelKey}::${skuKey}`, row);
+    if (!existingDetailsBySku.has(skuKey)) existingDetailsBySku.set(skuKey, row);
   }
 
   const existingMasterIds = templateMaster.rows
@@ -372,6 +497,8 @@ function main() {
   const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
   const masterRows = [];
   const detailRows = [];
+  const masterHighlightedCells = [];
+  const detailHighlightedCells = [];
   const masterIdByModel = new Map();
 
   for (const item of grouped) {
@@ -399,6 +526,9 @@ function main() {
     masterRow.updated_at = normalizeText(item.scraped_at) || now;
     masterRow.series_positioning = deriveSeriesPositioning(item, existingMaster.series_positioning, prices);
     masterRow.main_selling_points = deriveMainSellingPoints(item.description, existingMaster.main_selling_points);
+    masterRow.market_reference_price = normalizeText(existingMaster.market_reference_price);
+    masterRow.player_positioning = normalizeText(existingMaster.player_positioning);
+    masterRow.player_selling_points = normalizeText(existingMaster.player_selling_points);
     masterRow.official_reference_price = formatPriceRange(prices);
     masterRow.market_status = normalizeText(existingMaster.market_status) || '在售';
     masterRow.Description = normalizeText(item.description) || normalizeText(existingMaster.Description);
@@ -409,7 +539,7 @@ function main() {
     for (const variant of item.variants || []) {
       const sku = normalizeText(variant.variant_name);
       const detailKey = `${modelKey}::${normalizeSkuKey(sku)}`;
-      const existingDetail = existingDetailsByKey.get(detailKey) || {};
+      const existingDetail = existingDetailsByKey.get(detailKey) || existingDetailsBySku.get(normalizeSkuKey(sku)) || {};
       const specs = variant.specs || {};
       const spool = parseSpoolDimensions(specs.spool_diameter_stroke_mm);
       const officialEnvironment = parseEnvironment(item.official_environment);
@@ -419,7 +549,7 @@ function main() {
       const spoolDepth = normalizeSpoolDepth(item, variant);
       const lineCapacityDisplay = buildLineCapacityDisplay(specs);
       const usageEnvironment = normalizeText(existingDetail.usage_environment) || officialEnvironment;
-      const isSwEdition = officialEnvironment && officialEnvironment !== '淡水路亚' ? '是' : normalizeText(existingDetail.is_sw_edition);
+      const isSwEdition = '';
       const isCompactBody = '';
 
       const detailRow = {};
@@ -429,6 +559,9 @@ function main() {
       const experimentDetail = experimentProposals.get(detailRow.id) || {};
       detailRow.reel_id = masterIdByModel.get(modelKey);
       detailRow.SKU = sku;
+      detailRow.Description = normalizeText(existingDetail.Description);
+      detailRow.EV_link = normalizeText(existingDetail.EV_link);
+      detailRow.Specs_link = normalizeText(existingDetail.Specs_link);
       detailRow['GEAR RATIO'] = normalizeText(specs.gear_ratio);
       detailRow['MAX DRAG'] = normalizeText(specs.max_drag_kg);
       detailRow.WEIGHT = normalizeText(specs.weight_g);
@@ -454,14 +587,19 @@ function main() {
       detailRow.official_environment = officialEnvironment || normalizeText(existingDetail.official_environment);
       detailRow.line_capacity_display = lineCapacityDisplay || normalizeText(existingDetail.line_capacity_display);
       detailRow.handle_knob_type = normalizeText(existingDetail.handle_knob_type);
+      detailRow.handle_knob_material = normalizeText(existingDetail.handle_knob_material);
       detailRow.handle_knob_exchange_size = normalizeText(existingDetail.handle_knob_exchange_size);
       detailRow.body_material = normalizeText(existingDetail.body_material) || normalizeText(experimentDetail.body_material);
       detailRow.body_material_tech = normalizeText(existingDetail.body_material_tech) || normalizeText(experimentDetail.body_material_tech);
-      detailRow.gear_material = normalizeText(existingDetail.gear_material) || normalizeText(experimentDetail.gear_material);
+      detailRow.gear_material = '';
+      detailRow.main_gear_material = normalizeText(existingDetail.main_gear_material) || normalizeText(existingDetail.gear_material) || normalizeText(experimentDetail.gear_material);
+      detailRow.main_gear_size = normalizeText(existingDetail.main_gear_size);
+      detailRow.minor_gear_material = normalizeText(existingDetail.minor_gear_material);
       detailRow.battery_capacity = normalizeText(existingDetail.battery_capacity);
       detailRow.battery_charge_time = normalizeText(existingDetail.battery_charge_time);
       detailRow.continuous_cast_count = normalizeText(existingDetail.continuous_cast_count);
       detailRow.usage_environment = usageEnvironment;
+      detailRow.player_environment = normalizeText(existingDetail.player_environment);
       detailRow.DRAG = normalizeText(existingDetail.DRAG);
       detailRow.Nylon_no_m = normalizeText(specs.nylon_no_m);
       detailRow.fluorocarbon_no_m = normalizeText(specs.fluoro_no_m);
@@ -473,11 +611,35 @@ function main() {
       detailRow.min_lure_weight_hint = normalizeText(existingDetail.min_lure_weight_hint);
       detailRow.is_compact_body = isCompactBody;
       detailRow.handle_style = normalizeText(existingDetail.handle_style);
+      detailRow.is_handle_double = normalizeText(existingDetail.is_handle_double);
       detailRow.MAX_DURABILITY = normalizeText(specs.max_durability_kg);
       detailRow.type = 'baitcasting';
       detailRow.is_sw_edition = isSwEdition;
 
       detailRows.push(detailRow);
+    }
+  }
+
+  const masterRowsById = new Map(masterRows.map((row) => [normalizeText(row.id), row]));
+  const detailRowsById = new Map(detailRows.map((row) => [normalizeText(row.id), row]));
+
+  for (let i = 0; i < masterRows.length; i += 1) {
+    const row = masterRows[i];
+    for (const header of masterHeaders) {
+      if (!YELLOW_FIELDS_MASTER.has(header)) continue;
+      if (normalizeText(row[header])) {
+        masterHighlightedCells.push({ rowIndex: i + 2, colIndex: masterHeaders.indexOf(header) });
+      }
+    }
+  }
+
+  for (let i = 0; i < detailRows.length; i += 1) {
+    const row = detailRows[i];
+    for (const header of detailHeaders) {
+      if (!YELLOW_FIELDS_DETAIL.has(header)) continue;
+      if (normalizeText(row[header])) {
+        detailHighlightedCells.push({ rowIndex: i + 2, colIndex: detailHeaders.indexOf(header) });
+      }
     }
   }
 
@@ -494,6 +656,19 @@ function main() {
   );
 
   XLSX.writeFile(workbook, OUTPUT_FILE);
+  const highlightPayload = {
+    sheets: [
+      { sheet_xml: 'xl/worksheets/sheet1.xml', refs: toRefs(masterHighlightedCells) },
+      { sheet_xml: 'xl/worksheets/sheet2.xml', refs: toRefs(detailHighlightedCells) },
+    ],
+  };
+  fs.writeFileSync(HIGHLIGHT_PAYLOAD, JSON.stringify(highlightPayload, null, 2), 'utf8');
+  const patchResult = spawnSync('python3', [HIGHLIGHT_HELPER, OUTPUT_FILE, HIGHLIGHT_PAYLOAD], {
+    encoding: 'utf8',
+  });
+  if (patchResult.status !== 0) {
+    throw new Error(`highlight patch failed: ${patchResult.stderr || patchResult.stdout}`);
+  }
   console.log(`[To Excel] Saved ${masterRows.length} master rows and ${detailRows.length} detail rows to ${OUTPUT_FILE}`);
 }
 

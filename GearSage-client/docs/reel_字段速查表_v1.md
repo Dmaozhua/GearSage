@@ -134,7 +134,7 @@
 | `type` | 渔轮类型 | `spinning` / `baitcasting` / `conventional` | 不能空 | 已有类型区分，靠它判断哪些字段更重要 |
 | `alias` | 别名/系列别称 | baseline 单列只落 `normalized_alias` | 可空 | `canonical_alias` 留审计/sidecar；不要把活动页标题、栏目尾巴、marketing 文案直接写进 alias |
 | `type_tips` | 类型提示 | 简短补充提示 | 可空 | 当前口径不完全稳定 |
-| `images` | 主图 | 图片 URL 或可映射路径 | 尽量别空 | 多张可逗号分隔 |
+| `images` | 主图 | 最终资源链接 | 尽量别空 | 当前 reel 主图统一写静态资源链接，不写本地路径；Shimano 水滴轮当前口径为 `https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/文件名` |
 | `Description` | 主商品官网描述 | 系列/主商品在官网的描述文字 | 可空 | 这是主商品描述，不是子型号描述 |
 | `official_reference_price` | 系列参考价 | 主商品官网价格区间 | 可空 | 如 `¥5,966 - ¥9,307` |
 | `market_reference_price` | 市场参考价 | 面向用户展示的参考价 | 可空 | 若只有 detail 有，可先不填主表 |
@@ -174,7 +174,7 @@
 | `fluorocarbon_lb_m` | 氟碳 lb-m | 按官网写 | 可空 | 官方容线量 |
 | `fluorocarbon_no_m` | 氟碳 号-m | 按官网写 | 可空 | 官方容线量 |
 | `pe_no_m` | PE 号-m | 如 `1.5-320, 2-240` | 可空 | 纺车轮很关键 |
-| `is_sw_edition` | 是否 SW 版 | `1` 是，`0` 否 | 建议补 | 当前可先用 `SKU / model` 中的 `SW` 做初判，但最终以确认后的结构字段为准 |
+| `is_sw_edition` | 是否 SW 版 | `1` 是，`0` 否 | 建议补 | 当前只对纺车轮起效；水滴轮保持空值 |
 | `official_environment` | 官方环境定位 | 如 `saltwater` / `freshwater` | 可空 | 有明确口径再填 |
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `line_capacity_display` | 主容线展示字段 | 适合面向用户显示的一条主容线表达 | 可空 | 后续可统一成展示友好版本 |
@@ -235,6 +235,8 @@
 | `handle_knob_material` | 握丸材质 | 如塑料 / 橡胶 / 木质 / 金属 | 可空 | 官方明确或有可靠玩家资料再填 |
 | `handle_knob_exchange_size` | 握丸可替换规格 | 兼容规格描述 | 可空 | 改装兼容字段 |
 | `handle_hole_spec` | 摇臂孔规格 | 具体规格 | 可空 | 改装兼容字段，官方明确或者采用玩家数据 |
+| `custom_spool_compatibility` | 改装线杯兼容 | 兼容规格描述 | 可空 | 字段保留，当前暂停持续自动抓取；已有值可暂存 |
+| `custom_knob_compatibility` | 改装握丸兼容 | 兼容规格描述 | 可空 | 字段保留，当前暂停持续自动抓取；已有值可暂存 |
 | `body_material` | 机身材质 | 如 `Magnesium`、`Aluminum alloy` 这类纯材质值 | 可空 | 官方明确或者采用玩家数据；主值只放纯材质 |
 | `body_material_tech` | 机身技术/结构 | 如 `HAGANE 机身`、`CORESOLID BODY`、`一体成型`、`全加工` | 可空 | 和 `body_material` 分列维护 |
 | `gear_material` | 主齿材质 | 明确材质词，如 `Brass`、`Duralumin`、`Aluminum` | 可空 | 当前按 `direct_write / cross_source_inferred / manual_required` 三档处理 |

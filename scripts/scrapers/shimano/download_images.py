@@ -3,6 +3,7 @@ import os
 import re
 import time
 import urllib.parse
+from pathlib import Path
 from curl_cffi import requests
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
@@ -28,6 +29,23 @@ def sanitize_filename(name):
     # Replace invalid filename characters with underscore
     return re.sub(r'[\\/*?:"<>|]', "_", name).strip()
 
+
+def detect_extension(url):
+    lower = str(url or "").lower()
+    if ".png" in lower:
+        return ".png"
+    if ".webp" in lower:
+        return ".webp"
+    if ".jpeg" in lower:
+        return ".jpeg"
+    return ".jpg"
+
+
+def build_reel_main_filename(model_name, main_image_url):
+    safe_name = sanitize_filename(model_name or "unknown")
+    ext = detect_extension(main_image_url)
+    return f"{safe_name}_main{ext}"
+
 def download_image(url, save_path, final_path):
     if os.path.exists(final_path) or os.path.exists(save_path):
         print(f"Exists, skipping: {final_path}")
@@ -41,7 +59,7 @@ def download_image(url, save_path, final_path):
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
     }
     try:
-        response = requests.get(url, impersonate="chrome", headers=headers, timeout=15)
+        response = requests.get(url, impersonate="chrome", headers=headers, timeout=15, verify=False)
         if response.status_code == 200:
             with open(save_path, "wb") as f:
                 f.write(response.content)
@@ -72,14 +90,11 @@ def process_file(json_filename, kind="rod"):
             continue
             
         model_name = item.get("model_name", "unknown")
-        safe_name = sanitize_filename(model_name)
-        ext = ".jpg"
-        if "png" in main_img_url.lower():
-            ext = ".png"
-        elif "webp" in main_img_url.lower():
-            ext = ".webp"
-            
-        filename = f"{safe_name}_main{ext}"
+        filename = build_reel_main_filename(model_name, main_img_url) if kind == "reel" else None
+        if not filename:
+            safe_name = sanitize_filename(model_name)
+            ext = detect_extension(main_img_url)
+            filename = f"{safe_name}_main{ext}"
         
         if kind == "rod":
             abs_save_path = os.path.join(ROD_IMAGE_DIR, filename)
@@ -103,6 +118,7 @@ def process_file(json_filename, kind="rod"):
         success = download_image(main_img_url, abs_save_path, final_path)
         if success:
             item["local_image_path"] = rel_save_path
+            item["downloaded_image_path"] = final_path
             updated = True
                 
     if updated:

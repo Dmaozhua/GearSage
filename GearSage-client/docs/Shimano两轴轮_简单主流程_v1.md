@@ -10,6 +10,10 @@
 
 - 先跑官网抓取，拿到 Shimano 两轴轮主数据。
 - 官网有值就直接用官网。
+- 主图当前按“一个主商品一张 main 图”处理：
+  - 图片下载到 `/Users/tommy/Pictures/images/shimano_reels`
+  - `images` 字段最终不写本地路径，统一写 CDN 目标链接
+  - 当前口径：`https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/文件名`
 
 ### B. 白名单辅助站自动补值
 
@@ -177,6 +181,8 @@
 - 当前阶段，`knob_size` 只接受白名单站里明确写出的 `S size`、`lightweight slim knob` 这类规格或尺寸表达；没有明确规格时保持空值。
 - 当前阶段，`spool_axis_type` 仍保持保守：只有白名单站明确给出可对应 `长轴 / 短轴` 的表达时才写，否则留空。
 - `is_compact_body` 当前按品类区分处理：纺车轮若 `SKU` 以 `C` 开头（如 `C2000`、`C3000`）则写 `是`；水滴轮当前保持空值，不做机械推断。
+- `is_sw_edition` 当前按品类区分处理：纺车轮才参与取值；水滴轮当前保持空值，不做机械推断。
+- `custom_spool_compatibility` / `custom_knob_compatibility` 当前全局暂停自动抓取与自动补值。字段保留、既有方法保留，但后续优先级下调，不再作为 Shimano 水滴轮当前阶段的持续投入项。当前主线优先转向 `spool_weight_g` 与 `drag_click`。
 
 ## 不能回退的规则
 
