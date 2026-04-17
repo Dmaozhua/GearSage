@@ -420,7 +420,7 @@ function main() {
       const lineCapacityDisplay = buildLineCapacityDisplay(specs);
       const usageEnvironment = normalizeText(existingDetail.usage_environment) || officialEnvironment;
       const isSwEdition = officialEnvironment && officialEnvironment !== '淡水路亚' ? '是' : normalizeText(existingDetail.is_sw_edition);
-      const isCompactBody = /紧凑/.test([item.description, item.model_name, variant.variant_name].join(' ')) ? '是' : normalizeText(existingDetail.is_compact_body);
+      const isCompactBody = '';
 
       const detailRow = {};
       for (const header of detailHeaders) detailRow[header] = '';

@@ -6,6 +6,11 @@ const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx');
 
+function isCompactSpinningBody(variantName) {
+    const text = String(variantName || '').trim().toUpperCase();
+    return /^C\d/.test(text) ? '是' : '';
+}
+
 function main() {
     console.log('[To Excel] Starting conversion for', inputFile);
     
@@ -97,7 +102,7 @@ function main() {
                         "brake_type_normalized": '',
                         "fit_style_tags": '',
                         "min_lure_weight_hint": '',
-                        "is_compact_body": '',
+                        "is_compact_body": isCompactSpinningBody(v.variant_name),
                         "handle_style": ''
                     });
                 }

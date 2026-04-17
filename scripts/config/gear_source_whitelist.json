@@ -137,6 +137,24 @@
       ],
       "single_source_allowed_fields": [],
       "notes": "Deep-player data source. Capture all open fields. Focus on spool specs, parts specs, compatibility, maintenance and tuning-related evidence."
+    },
+    {
+      "id": "tackletour_forum",
+      "name": "TackleTour Forum",
+      "role": "community_reference",
+      "priority": 7,
+      "enabled": true,
+      "domains": [
+        "tackletour.net"
+      ],
+      "allowed_categories": [
+        "reel"
+      ],
+      "allowed_fields": [
+        "*"
+      ],
+      "single_source_allowed_fields": [],
+      "notes": "Forum-style deep-player source. Capture all open fields for reel research, especially spool/gear/compatibility/long-term usage clues. Default use is as player/deep-field evidence or lead, not official-equivalent structured truth."
     }
   ]
 }
