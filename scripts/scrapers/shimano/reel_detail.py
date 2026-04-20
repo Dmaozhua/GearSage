@@ -9,6 +9,34 @@ from curl_cffi import requests
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 DATA_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
 OUTPUT_FILE = os.path.join(DATA_DIR, "shimano_spinning_reel_normalized.json")
+ALLOWED_URL_SEGMENTS = ("/spinning/multiplier/", "/spinning/salterwater/")
+
+
+def normalize_space(value):
+    return re.sub(r"\s+", " ", str(value or "")).strip()
+
+
+def clean_description(raw_text):
+    text = str(raw_text or "")
+    text = text.replace("阅读更多", "").replace("减少显示", "")
+    lines = []
+    for line in text.splitlines():
+        normalized = normalize_space(line)
+        if not normalized:
+            continue
+        if normalized == "※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。":
+            continue
+        lines.append(normalized)
+    return "\n".join(lines).strip()
+
+
+def safe_get(url):
+    return requests.get(url, impersonate="chrome", verify=False)
+
+
+def is_allowed_spinning_url(url):
+    text = str(url or "")
+    return any(segment in text for segment in ALLOWED_URL_SEGMENTS)
 
 def scrape_shimano_spinning_reels():
     # 1. First get the list of URLs
@@ -18,11 +46,11 @@ def scrape_shimano_spinning_reels():
     urls_file = os.path.join(os.path.dirname(__file__), "shimano_spinning_urls.json")
     if os.path.exists(urls_file):
         with open(urls_file, "r", encoding="utf-8") as f:
-            detail_urls = json.load(f)
+            detail_urls = [url for url in json.load(f) if is_allowed_spinning_url(url)]
         print(f"Loaded {len(detail_urls)} URLs from {urls_file}")
     else:
         print(f"Fetching list page: {list_url}")
-        r = requests.get(list_url, impersonate="chrome")
+        r = safe_get(list_url)
         soup = BeautifulSoup(r.text, 'html.parser')
         
         links = soup.select('a[href*="/product/reel/spinning/"]')
@@ -33,6 +61,7 @@ def scrape_shimano_spinning_reels():
                 full_url = urllib.parse.urljoin("https://fish.shimano.com", href)
                 if full_url not in detail_urls:
                     detail_urls.append(full_url)
+        detail_urls = [url for url in detail_urls if is_allowed_spinning_url(url)]
                     
         print(f"Found {len(detail_urls)} unique reel detail URLs")
         with open(urls_file, "w", encoding="utf-8") as f:
@@ -46,7 +75,7 @@ def scrape_shimano_spinning_reels():
     for url in test_urls:
         print(f"\nScraping detail: {url}")
         try:
-            r = requests.get(url, impersonate="chrome")
+            r = safe_get(url)
             if r.status_code != 200:
                 print(f"Failed to fetch {url}, status: {r.status_code}")
                 continue
@@ -55,12 +84,14 @@ def scrape_shimano_spinning_reels():
             
             # Extract basic info
             title_el = page_soup.find('h1')
-            title = title_el.get_text(strip=True) if title_el else "Unknown Model"
+            title = normalize_space(title_el.get_text()) if title_el else "Unknown Model"
             
-            desc_el = page_soup.select_one('.product__description_section')
+            desc_el = (
+                page_soup.select_one('.product__description_section__content')
+                or page_soup.select_one('.product__description_section')
+            )
             if desc_el:
-                desc = desc_el.get_text(separator='\n', strip=True)
-                desc = desc.replace('阅读更多', '').replace('减少显示', '').strip()
+                desc = clean_description(desc_el.get_text(separator='\n', strip=True))
             else:
                 desc = ""
             

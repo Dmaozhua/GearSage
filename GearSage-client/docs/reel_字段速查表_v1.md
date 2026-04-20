@@ -24,6 +24,12 @@
 - 完整字段解释：
   [装备库字段解释手册_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备库字段解释手册_v1.md)
 
+补充一句当前执行口径：
+
+**在当前不继续扩字段的前提下，**
+[`shimano_baitcasting_reels_import.xlsx`](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx)
+**就是以后其他品牌水滴轮的中间层标准模板。**
+
 ---
 
 ## 一点五、当前实际落表对齐情况（2026-04-16）
@@ -131,7 +137,7 @@
 | `model` | 型号名 | 官网主型号名 | 尽量别空 | 主识别字段 |
 | `model_cn` | 中文名 | 中文型号名或中文翻译 | 可空 | 没确认就留空，如 `tatula` 不要直接机械翻成“蜘蛛” |
 | `model_year` | 年份 | 型号年份 | 可空，优先官网；官网没有时先走白名单辅助站做 identity enrichment，再不行才人工确认 | 如 `2026` |
-| `type` | 渔轮类型 | `spinning` / `baitcasting` / `conventional` | 不能空 | 已有类型区分，靠它判断哪些字段更重要 |
+| `type` | 渔轮类型 | `spinning` / `baitcasting` / `drum` | 不能空 | 当前 Shimano 水滴轮中间层已把鼓轮从 `baitcasting` 里拆成 `drum` 分支 |
 | `alias` | 别名/系列别称 | baseline 单列只落 `normalized_alias` | 可空 | `canonical_alias` 留审计/sidecar；不要把活动页标题、栏目尾巴、marketing 文案直接写进 alias |
 | `type_tips` | 类型提示 | 简短补充提示 | 可空 | 当前口径不完全稳定 |
 | `images` | 主图 | 最终资源链接 | 尽量别空 | 当前 reel 主图统一写静态资源链接，不写本地路径；Shimano 水滴轮当前口径为 `https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/文件名` |
@@ -159,7 +165,7 @@
 | `handle_length_mm` | 摇臂长度(mm) | 如 `65` | 可空 | 通用高价值字段 |
 | `bearing_count_roller` | 轴承数/滚柱数 | 如 `11/1` | 可空 | 先保真，不做归一 |
 | `market_reference_price` | 子型号参考价 | 具体规格价格 | 可空 | detail 层更常见 |
-| `type` | 子型号轮型 | `spinning` / `baitcasting` / `conventional`| 可空 | 建议保持一致 |
+| `type` | 子型号轮型 | `spinning` / `baitcasting` / `drum`| 可空 | 当前 Shimano 水滴轮中间层已把鼓轮从 `baitcasting` 里拆成 `drum` 分支 |
 | `Description` | 子型号官网描述 | 规格级描述文字 | 可空 | 仅当官网对该具体规格有单独描述时填写 |
 | `variant_description` | 子型号官网描述 | 规格级描述文字 | 可空 | 如果表里已经独立建列，优先写这里，不和主表 `Description` 混用 |
 | `EV_link` | 爆炸图链接 | 子型号对应的分解图/价格表链接 | 可空 | 优先用官方售后/维修站对应子型号页面 |
@@ -178,6 +184,7 @@
 | `official_environment` | 官方环境定位 | 如 `saltwater` / `freshwater` | 可空 | 有明确口径再填 |
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `line_capacity_display` | 主容线展示字段 | 适合面向用户显示的一条主容线表达 | 可空 | 后续可统一成展示友好版本 |
+| `spool_depth_normalized` | 线杯深度归一 | 如 `特超浅线杯` / `超浅线杯` / `浅线杯` / `中浅线杯` / `中线杯` / `标准` | 可空 | 当前 Shimano 纺车轮可直接按 SKU 规则解析；无标注写 `标准` |
 | `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段，优先依据官方信息或可靠玩家资料 |
 | `handle_style` | 手把样式 | 如 `单摇臂` / `双摇臂` / `折叠` | 可空 | GearSage 归纳层字段，先保留简单枚举 |
 | `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不等于官方值 |

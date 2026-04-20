@@ -4,6 +4,29 @@
 
 这条链以后默认就按这个走，不再把日常流程拆成一串 review / patch / apply 文档。
 
+## 当前定位
+
+在当前不继续扩字段的前提下：
+
+- [`shimano_baitcasting_reels_import.xlsx`](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx)
+
+现在就作为以后**其他所有品牌水滴轮的中间层标准模板**。
+
+这个标准模板同时约束：
+
+- 表结构
+- 抓取流程
+- 白名单补值流程
+- 字段口径
+
+补充一条当前执行口径：
+
+- 当前水滴轮中间层里的 `type` 不再只用一个 `baitcasting`
+- 现在拆成：
+  - `baitcasting` = 水滴轮（低矮水滴轮）
+  - `drum` = 鼓轮
+- 也就是说，鼓轮被当作水滴轮体系下的一个分支来维护
+
 ## 默认主流程
 
 ### A. 官网抓取主数据
@@ -70,6 +93,27 @@
 - `canonical_alias`
 - `version_signature`
 - `main_gear_material` 的 `inferred / confirmed_blank` 语义
+
+## 当前全量补厚锁定范围（2026-04）
+
+当前 Shimano 水滴轮的全量补厚，先锁定这 14 个字段，不再扩展：
+
+- 主表：
+  - `model_year`
+  - `alias`
+  - `series_positioning`
+  - `main_selling_points`
+  - `player_positioning`
+  - `player_selling_points`
+- detail：
+  - `body_material`
+  - `body_material_tech`
+  - `main_gear_material`
+  - `spool_weight_g`
+  - `handle_hole_spec`
+  - `knob_bearing_spec`
+  - `EV_link`
+  - `Specs_link`
 
 ## 当前白名单“目标抓取字段”范围
 

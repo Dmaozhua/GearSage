@@ -53,6 +53,7 @@ function extractMainGearMaterial(html) {
   const text = html.replace(/<br\s*\/?>/gi, '\n').replace(/&nbsp;/gi, ' ');
   const clean = normalizeText(text.replace(/<[^>]+>/g, ' '));
   if (/Duralumin drive gear/i.test(clean)) return 'Duralumin';
+  if (/high tensile brass drive gear|brass drive gear/i.test(clean)) return 'Brass';
   if (/brass gears?/i.test(clean) || /main gear is brass/i.test(clean)) return 'Brass';
   if (/aluminum gears?/i.test(clean) || /main gear is aluminum/i.test(clean)) return 'Aluminum';
   return '';

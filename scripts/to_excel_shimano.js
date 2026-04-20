@@ -5,10 +5,75 @@ const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx');
+const SHIMANO_REEL_CDN_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/';
+
+function sanitizeFilename(name) {
+    return String(name || '').replace(/[\\/*?:"<>|]/g, '_').trim();
+}
+
+function detectExtension(url) {
+    const lower = String(url || '').toLowerCase();
+    if (lower.includes('.png')) return '.png';
+    if (lower.includes('.webp')) return '.webp';
+    if (lower.includes('.jpeg')) return '.jpeg';
+    return '.jpg';
+}
 
 function isCompactSpinningBody(variantName) {
     const text = String(variantName || '').trim().toUpperCase();
-    return /^C\d/.test(text) ? '是' : '';
+    return /(?:^|\s)C\d/.test(text) ? '是' : '';
+}
+
+function isDoubleHandleSpinning(variantName) {
+    const text = String(variantName || '').trim().toUpperCase();
+    return /DH(?:PG|HG|XG)?$/.test(text) ? '1' : '0';
+}
+
+function getSpinningHandleStyle(variantName) {
+    return isDoubleHandleSpinning(variantName) === '1' ? '双摇臂' : '单摇臂';
+}
+
+function getSpoolDepthNormalized(variantName) {
+    const text = String(variantName || '').trim().toUpperCase();
+    const lastToken = text.split(/\s+/).pop() || '';
+    const match = lastToken.match(/^(?:C)?\d{3,4}(SSS|SS|MS|S|M)?/);
+    const depthCode = match?.[1] || '';
+
+    switch (depthCode) {
+        case 'SSS':
+            return '特超浅线杯';
+        case 'SS':
+            return '超浅线杯';
+        case 'S':
+            return '浅线杯';
+        case 'MS':
+            return '中浅线杯';
+        case 'M':
+            return '中线杯';
+        default:
+            return '标准';
+    }
+}
+
+function toShimanoReelImageUrl(item) {
+    const localPath = String(item.local_image_path || '').trim();
+    if (localPath) {
+        return `${SHIMANO_REEL_CDN_PREFIX}${localPath}`;
+    }
+    const filename = `${sanitizeFilename(item.model_name || 'unknown')}_main${detectExtension(item.main_image_url)}`;
+    return `${SHIMANO_REEL_CDN_PREFIX}images/shimano_reels/${encodeURIComponent(filename)}`;
+}
+
+function buildMasterKey(item) {
+    const rawUrl = String(item.url || '').trim();
+    if (!rawUrl) return `R-SH-${String(item.model_name || '').trim().toUpperCase()}`;
+    try {
+        const pathname = new URL(rawUrl).pathname;
+        const pageToken = path.basename(pathname, '.html').toUpperCase();
+        return `R-SH-${pageToken}`;
+    } catch (error) {
+        return `R-SH-${String(item.model_name || '').trim().toUpperCase()}`;
+    }
 }
 
 function main() {
@@ -36,16 +101,7 @@ function main() {
         String(now.getSeconds()).padStart(2, '0');
 
     data.forEach((item, i) => {
-        const brandPrefix = 'SH';
-        
-        let cleanModel = item.model_name.replace(/(?:\s|-)*\d+(?:\s*[/,]\s*\d+)+\s*/g, '')
-                                   .replace(/\s*\(\d+(?:\s*,\s*\d+)+\)\s*/g, '')
-                                   .replace(/[\/\(\)\[\]]/g, '')
-                                   .replace(/\s+/g, '-')
-                                   .replace(/-+$/g, '')
-                                   .toUpperCase();
-        
-        const masterKey = `R-${brandPrefix}-${cleanModel}`;
+        const masterKey = buildMasterKey(item);
         
         if (!reelsMap.has(masterKey)) {
             reelsMap.set(masterKey, {
@@ -57,13 +113,17 @@ function main() {
                 alias: '',
                 type_tips: '',
                 type: item.kind,
-                images: item.local_image_path || item.main_image_url || '', 
+                images: toShimanoReelImageUrl(item),
                 created_at: currentTime,
                 updated_at: currentTime,
                 series_positioning: '',
                 main_selling_points: '',
                 official_reference_price: '', // calculate below
-                market_status: '在售'
+                market_status: '在售',
+                Description: item.description || '',
+                market_reference_price: '',
+                player_positioning: '',
+                player_selling_points: '',
             });
         }
         
@@ -92,18 +152,30 @@ function main() {
                         "cm_per_turn": specs.cm_per_turn || '',
                         "handle_length_mm": specs.handle_length_mm || '',
                         "bearing_count_roller": specs.bearings || '',
+                        "body_material": '',
+                        "body_material_tech": '',
+                        "gear_material": '',
+                        "official_environment": '',
+                        "line_capacity_display": '',
                         "market_reference_price": specs.price || '',
                         "product_code": specs.product_code || '',
                         "created_at": currentTime,
                         "updated_at": currentTime,
                         "drag_click": '',
-                        "spool_depth_normalized": '',
+                        "spool_depth_normalized": getSpoolDepthNormalized(v.variant_name),
                         "gear_ratio_normalized": '',
                         "brake_type_normalized": '',
                         "fit_style_tags": '',
                         "min_lure_weight_hint": '',
                         "is_compact_body": isCompactSpinningBody(v.variant_name),
-                        "handle_style": ''
+                        "handle_style": getSpinningHandleStyle(v.variant_name),
+                        "is_sw_edition": '',
+                        "variant_description": '',
+                        "Description": '',
+                        "player_environment": '',
+                        "is_handle_double": isDoubleHandleSpinning(v.variant_name),
+                        "EV_link": '',
+                        "Specs_link": '',
                     });
                 }
             });
