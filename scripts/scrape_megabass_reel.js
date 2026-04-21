@@ -17,6 +17,43 @@ async function fetchHtml(url) {
     }
 }
 
+function normalizeText(text) {
+    return String(text || '').replace(/\s+/g, ' ').trim();
+}
+
+function collectDescriptionBlocks($) {
+    const selectors = [
+        '.page_products__lead',
+        '.page_products__text',
+        '.page_products__body p',
+        '.page_products__body .text',
+        '.entry-content p',
+        '.product__description p',
+        '.post-content p'
+    ];
+
+    const blocks = [];
+    const seen = new Set();
+
+    for (const selector of selectors) {
+        $(selector).each((_, el) => {
+            const text = normalizeText($(el).text());
+            if (!text) return;
+            if (text.length < 25) return;
+            if (/メガバスプロスタッフ|Megabass Factory Store|ブログで紹介|フィッシング情報満載/i.test(text)) return;
+            if (seen.has(text)) return;
+            seen.add(text);
+            blocks.push(text);
+        });
+    }
+
+    return blocks;
+}
+
+function buildMainSellingPoints(blocks) {
+    return blocks.slice(0, 4);
+}
+
 async function scrapeMegabassReel() {
     console.log("Fetching main page...");
     const html = await fetchHtml('https://www.megabass.co.jp/site/freshwaterlist/');
@@ -67,6 +104,15 @@ async function scrapeMegabassReel() {
         if (mainImage && !mainImage.startsWith('http')) mainImage = BASE_URL + mainImage;
         
         const specs = {};
+        const descriptionBlocks = collectDescriptionBlocks($p);
+        const catchlineJa = normalizeText($p('.page_products__header__title__catch .__ja').first().text());
+        const catchlineEn = normalizeText($p('.page_products__header__title__catch .__en').first().text());
+        if (descriptionBlocks.length === 0) {
+            const fallbackBlocks = [catchlineJa, catchlineEn].filter(Boolean);
+            descriptionBlocks.push(...fallbackBlocks);
+        }
+        const introText = descriptionBlocks.join('\n\n');
+        const mainSellingPoints = buildMainSellingPoints(descriptionBlocks);
         
         // Handle new dl format
         $p('.page_products__spec__table__row').each((j, el) => {
@@ -90,6 +136,8 @@ async function scrapeMegabassReel() {
             model: modelName,
             source_url: url,
             main_image_url: mainImage || '',
+            intro_text: introText,
+            main_selling_points: mainSellingPoints,
             variants: [
                 {
                     name: modelName,

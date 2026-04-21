@@ -5,144 +5,241 @@ const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const RAW_DATA_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_reel_normalized.json');
 const OUTPUT_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_reel_import.xlsx');
+const STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/megabass_reels/';
 
 function normalizeText(text) {
-    if (!text) return '';
-    return text.toString().replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+  return String(text || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function resolveLocalImagePath(item) {
-    const localImagePath = normalizeText(item.local_image_path);
-    if (localImagePath) {
-        if (path.isAbsolute(localImagePath)) {
-            return localImagePath;
-        }
-        return path.join('/Users/tommy/Pictures', localImagePath);
-    }
+function inferType(item) {
+  const model = normalizeText(item.model).toUpperCase();
+  const url = normalizeText(item.source_url).toLowerCase();
+  if (/^GAUS\b/.test(model)) return 'spinning';
+  if (url.includes('/gaus')) return 'spinning';
+  return 'baitcasting';
+}
 
-    const mainImageUrl = normalizeText(item.main_image_url);
-    if (!mainImageUrl) {
-        return '';
-    }
+function buildImageUrl(item) {
+  const localImagePath = normalizeText(item.local_image_path);
+  if (localImagePath) {
+    const filename = localImagePath.split('/').pop();
+    if (filename) return `${STATIC_PREFIX}${encodeURIComponent(filename)}`;
+  }
+  const mainImageUrl = normalizeText(item.main_image_url);
+  if (!mainImageUrl) return '';
+  const filename = mainImageUrl.split('/').pop();
+  return filename ? `${STATIC_PREFIX}${encodeURIComponent(filename)}` : '';
+}
 
-    const imageFilename = mainImageUrl.split('/').pop();
-    return imageFilename ? `/Users/tommy/Pictures/images/megabass_reels/${imageFilename}` : '';
+function extractPriceYen(text) {
+  const normalized = normalizeText(text);
+  const digits = normalized.replace(/[^\d]/g, '');
+  if (!digits) return '';
+  return `¥${Number(digits).toLocaleString('en-US')}`;
+}
+
+function extractWeightG(text) {
+  const normalized = normalizeText(text);
+  const match = normalized.match(/(\d+(?:\.\d+)?)\s*g\b/i) || normalized.match(/\((\d+(?:\.\d+)?)g\)/i);
+  return match ? match[1] : '';
+}
+
+function extractMaxDragKg(text) {
+  const normalized = normalizeText(text);
+  const kg = normalized.match(/(\d+(?:\.\d+)?)\s*kg/i);
+  if (kg) return kg[1];
+  const lb = normalized.match(/(\d+(?:\.\d+)?)\s*lb/i);
+  if (lb) return (Math.round((Number(lb[1]) * 0.45359237) * 10) / 10).toFixed(1).replace(/\.0$/, '');
+  return '';
+}
+
+function extractRetrieveCm(text) {
+  const normalized = normalizeText(text);
+  const cm = normalized.match(/(\d+(?:\.\d+)?)\s*cm\b/i);
+  if (cm) return cm[1];
+  const inches = normalized.match(/(\d+(?:\.\d+)?)\s*in\b/i);
+  if (inches) return String(Math.round(Number(inches[1]) * 2.54));
+  return '';
+}
+
+function looksLikeLineCapacity(text) {
+  const normalized = normalizeText(text);
+  return /(lb\.?|lb\b).*(yd|yards|m\b)/i.test(normalized);
+}
+
+function extractBearings(text) {
+  const normalized = normalizeText(text).replace(/\s+/g, '');
+  const both = normalized.match(/(\d+)\s*BB[:/, ]*(\d+)\s*RB/i);
+  if (both) return `${both[1]}/${both[2]}`;
+  const bbOnly = normalized.match(/(\d+)\s*BB\b/i);
+  if (bbOnly) return `${bbOnly[1]}/0`;
+  const rbOnly = normalized.match(/(\d+)\s*RB\b/i);
+  if (rbOnly) return `0/${rbOnly[1]}`;
+  return '';
+}
+
+function normalizeLineCapacity(text) {
+  return normalizeText(text)
+    .replace(/\s*,\s*/g, ' / ')
+    .replace(/\s+/g, ' ');
+}
+
+function buildMasterPrice(item) {
+  const prices = (item.variants || [])
+    .map((variant) => extractPriceYen(variant?.specs?.price))
+    .map((value) => value.replace(/[^\d]/g, ''))
+    .filter(Boolean)
+    .map((value) => Number(value))
+    .filter((value) => Number.isFinite(value));
+
+  if (!prices.length) return '';
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  return min === max
+    ? `¥${min.toLocaleString('en-US')}`
+    : `¥${min.toLocaleString('en-US')} - ¥${max.toLocaleString('en-US')}`;
 }
 
 function processReel() {
-    if (!fs.existsSync(RAW_DATA_PATH)) {
-        console.error(`Raw data not found: ${RAW_DATA_PATH}`);
-        return;
-    }
+  if (!fs.existsSync(RAW_DATA_PATH)) {
+    console.error(`Raw data not found: ${RAW_DATA_PATH}`);
+    process.exit(1);
+  }
 
-    const rawData = JSON.parse(fs.readFileSync(RAW_DATA_PATH, 'utf-8'));
-    
-    const reelMaster = [];
-    const reelDetail = [];
-    
-    // Using counter to ensure unique IDs, Megabass reel starts with MRE and 5000-8999
-    let currentId = 5000;
-    let detailIdCounter = 50000;
-    
-    for (const item of rawData) {
-        // Skip items without variants
-        if (!item.variants || item.variants.length === 0) continue;
-        
-        const masterId = `MRE${currentId++}`;
-        const isSpinning = item.source_url.includes('spinning') || item.source_url.includes('gaus');
-        const localImagePath = resolveLocalImagePath(item);
-        
-        // Push to Master
-        reelMaster.push({
-            id: masterId,
-            brand_id: BRAND_IDS.MEGABASS,
-            model: item.model,
-            model_cn: item.model,
-            model_year: '',
-            alias: '',
-            type_tips: '',
-            type: isSpinning ? 'spinning' : 'baitcasting',
-            images: localImagePath,
-            created_at: item.scraped_at,
-            updated_at: item.scraped_at,
-            series_positioning: '',
-            main_selling_points: '',
-            official_reference_price: '',
-            market_status: ''
+  const rawData = JSON.parse(fs.readFileSync(RAW_DATA_PATH, 'utf-8'));
+  const reelMaster = [];
+  const spinningDetails = [];
+  const baitcastingDetails = [];
+
+  let masterCounter = 5000;
+  let detailCounter = 50000;
+
+  for (const item of rawData) {
+    if (!Array.isArray(item.variants) || item.variants.length === 0) continue;
+
+    const type = inferType(item);
+    const masterId = `MRE${masterCounter++}`;
+    const createdAt = normalizeText(item.scraped_at);
+
+    reelMaster.push({
+      id: masterId,
+      brand_id: BRAND_IDS.MEGABASS,
+      model: normalizeText(item.model),
+      model_cn: '',
+      model_year: '',
+      alias: '',
+      type_tips: '',
+      type,
+      images: buildImageUrl(item),
+      created_at: createdAt,
+      updated_at: createdAt,
+      series_positioning: '',
+      main_selling_points: Array.isArray(item.main_selling_points) ? item.main_selling_points.join(' / ') : '',
+      official_reference_price: buildMasterPrice(item),
+      market_status: '在售',
+      Description: normalizeText(item.intro_text),
+      market_reference_price: '',
+      player_positioning: '',
+      player_selling_points: '',
+    });
+
+    for (const variant of item.variants) {
+      const specs = variant.specs || {};
+      const rawLine = normalizeText(specs.line || specs['line capacity'] || specs['line capa']);
+      const rawLineOrHandleTurn = normalizeText(specs['line /handle turn'] || specs['line/handle turn'] || specs.retrieve);
+      const resolvedLine = rawLine || (looksLikeLineCapacity(rawLineOrHandleTurn) ? rawLineOrHandleTurn : '');
+      const resolvedRetrieve = rawLine ? extractRetrieveCm(rawLineOrHandleTurn) : (looksLikeLineCapacity(rawLineOrHandleTurn) ? '' : extractRetrieveCm(rawLineOrHandleTurn));
+      const common = {
+        id: `MRED${detailCounter++}`,
+        reel_id: masterId,
+        SKU: normalizeText(variant.name) || normalizeText(item.model),
+        'GEAR RATIO': normalizeText(specs['gear ratio'] || specs['gear ratio:']).replace(/:1$/, ''),
+        'MAX DRAG': extractMaxDragKg(specs['drag max'] || specs['max drag']),
+        WEIGHT: extractWeightG(specs.weight),
+        spool_diameter_per_turn_mm: '',
+        cm_per_turn: resolvedRetrieve,
+        handle_length_mm: normalizeText(specs.handle),
+        bearing_count_roller: extractBearings(specs.bearings || specs.bearing),
+        market_reference_price: extractPriceYen(specs.price),
+        product_code: '',
+        created_at: createdAt,
+        updated_at: createdAt,
+        drag_click: '',
+        spool_depth_normalized: '',
+        gear_ratio_normalized: '',
+        brake_type_normalized: '',
+        fit_style_tags: '',
+        min_lure_weight_hint: '',
+        is_compact_body: '',
+        handle_style: '',
+        MAX_DURABILITY: '',
+        type,
+      };
+
+      if (type === 'spinning') {
+        spinningDetails.push({
+          ...common,
+          DRAG: '',
+          spool_diameter_mm: '',
+          Nylon_no_m: '',
+          Nylon_lb_m: normalizeLineCapacity(resolvedLine),
+          fluorocarbon_no_m: '',
+          fluorocarbon_lb_m: '',
+          pe_no_m: normalizeLineCapacity(specs.pe || specs['pe line']),
+          body_material: '',
+          body_material_tech: '',
+          gear_material: '',
+          handle_knob_type: '',
+          official_environment: '',
+          line_capacity_display: '',
+          variant_description: '',
+          Description: normalizeText(item.intro_text),
+          player_environment: '',
+          is_handle_double: '',
+          EV_link: '',
+          Specs_link: '',
+          spool_weight_g: '',
+          is_sw_edition: '',
         });
-
-        // Push to Detail
-        for (const v of item.variants) {
-            const specs = v.specs || {};
-            const gearRatio = specs['gear ratio'] || specs['gear ratio:'] || '';
-            const weight = specs['weight'] || specs['weight:'] || '';
-            const maxDrag = specs['drag max'] || specs['max drag'] || '';
-            const bearings = specs['bearings'] || specs['bearing'] || '';
-            const price = specs['price'] || '';
-            
-            // Clean up price
-            let priceClean = price.replace(/[^\d,]/g, '').replace(/,/g, '');
-            
-            // Try to extract nylon line capacity
-            let lineNylon = specs['line'] || specs['line capacity'] || specs['line capa'] || '';
-            let linePe = specs['pe'] || specs['pe line'] || '';
-            
-            const detailId = `MRED${detailIdCounter++}`;
-            
-            const detailObj = {
-                id: detailId,
-                reel_id: masterId,
-                type: isSpinning ? 'spinning' : 'baitcasting',
-                SKU: v.name,
-                'GEAR RATIO': normalizeText(gearRatio),
-                'MAX DRAG': normalizeText(maxDrag).replace(/kg/i, '').trim(),
-                WEIGHT: normalizeText(weight).replace(/g/i, '').trim(),
-                Nylon_lb_m: normalizeText(lineNylon),
-                pe_no_m: normalizeText(linePe),
-                cm_per_turn: normalizeText(specs['line /handle turn'] || specs['line/handle turn'] || specs['retrieve'] || ''),
-                handle_length_mm: normalizeText(specs['handle'] || ''),
-                bearing_count_roller: normalizeText(bearings),
-                market_reference_price: priceClean,
-                created_at: item.scraped_at,
-                updated_at: item.scraped_at,
-            };
-            
-            if (isSpinning) {
-                detailObj.DRAG = '';
-                detailObj.Nylon_no_m = '';
-                detailObj.fluorocarbon_no_m = '';
-                detailObj.fluorocarbon_lb_m = '';
-                detailObj.spool_diameter_per_turn_mm = '';
-                detailObj.product_code = '';
-                reelDetail.push({ ...detailObj, type: 'spinning' });
-            } else {
-                detailObj.fluorocarbon_lb_m = '';
-                detailObj.spool_diameter_mm = '';
-                detailObj.spool_width_mm = '';
-                detailObj.spool_diameter_per_turn_mm = '';
-                detailObj.product_code = '';
-                reelDetail.push({ ...detailObj, type: 'baitcasting' });
-            }
-        }
+      } else {
+        baitcastingDetails.push({
+          ...common,
+          Nylon_lb_m: normalizeLineCapacity(resolvedLine),
+          fluorocarbon_lb_m: '',
+          pe_no_m: normalizeLineCapacity(specs.pe || specs['pe line']),
+          spool_diameter_mm: '',
+          spool_width_mm: '',
+          spool_weight_g: '',
+          handle_knob_type: '',
+          handle_knob_exchange_size: normalizeText(specs.type).includes('LEFT HANDLE / RIGHT HANDLE') ? 'L/R' : '',
+          body_material: '',
+          body_material_tech: '',
+          gear_material: '',
+          battery_capacity: '',
+          battery_charge_time: '',
+          continuous_cast_count: '',
+          usage_environment: '',
+          DRAG: '',
+          Nylon_no_m: '',
+          fluorocarbon_no_m: '',
+          official_environment: '',
+          player_environment: '',
+          is_handle_double: '',
+          is_sw_edition: '',
+          line_capacity_display: '',
+        });
+      }
     }
+  }
 
-    const wb = xlsx.utils.book_new();
-    
-    // Master Sheet
-    const masterSheet = xlsx.utils.json_to_sheet(reelMaster, { header: HEADERS.reelMaster });
-    xlsx.utils.book_append_sheet(wb, masterSheet, SHEET_NAMES.reel);
-    
-    const spinningDetails = reelDetail.filter(d => d.type === 'spinning');
-    const baitcastingDetails = reelDetail.filter(d => d.type === 'baitcasting');
-    
-    const spinningSheet = xlsx.utils.json_to_sheet(spinningDetails, { header: HEADERS.spinningReelDetail });
-    xlsx.utils.book_append_sheet(wb, spinningSheet, SHEET_NAMES.spinningReelDetail);
-    
-    const baitcastingSheet = xlsx.utils.json_to_sheet(baitcastingDetails, { header: HEADERS.baitcastingReelDetail });
-    xlsx.utils.book_append_sheet(wb, baitcastingSheet, SHEET_NAMES.baitcastingReelDetail);
+  const wb = xlsx.utils.book_new();
+  xlsx.utils.book_append_sheet(wb, xlsx.utils.json_to_sheet(reelMaster, { header: HEADERS.reelMaster }), SHEET_NAMES.reel);
+  xlsx.utils.book_append_sheet(wb, xlsx.utils.json_to_sheet(spinningDetails, { header: HEADERS.spinningReelDetail }), SHEET_NAMES.spinningReelDetail);
+  xlsx.utils.book_append_sheet(wb, xlsx.utils.json_to_sheet(baitcastingDetails, { header: HEADERS.baitcastingReelDetail }), SHEET_NAMES.baitcastingReelDetail);
 
-    xlsx.writeFile(wb, OUTPUT_PATH);
-    console.log(`Generated Excel file at: ${OUTPUT_PATH}`);
+  xlsx.writeFile(wb, OUTPUT_PATH);
+  console.log(`Generated Excel file at: ${OUTPUT_PATH}`);
+  console.log(`Master: ${reelMaster.length}, spinning detail: ${spinningDetails.length}, baitcasting detail: ${baitcastingDetails.length}`);
 }
 
 processReel();
