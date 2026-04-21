@@ -188,8 +188,9 @@
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
 | `line_capacity_display` | 主容线展示字段 | 适合面向用户显示的一条主容线表达 | 可空 | 后续可统一成展示友好版本 |
 | `spool_depth_normalized` | 线杯深度归一 | 如 `特超浅线杯` / `超浅线杯` / `浅线杯` / `中浅线杯` / `中线杯` / `标准` | 可空 | 当前 Shimano 纺车轮可直接按 SKU 规则解析；无标注写 `标准` |
-| `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段，优先依据官方信息或可靠玩家资料 |
-| `handle_style` | 手把样式 | 如 `单摇臂` / `双摇臂` / `折叠` | 可空 | GearSage 归纳层字段，先保留简单枚举 |
+| `is_compact_body` | 是否紧凑机身 | `是` / 空 | 可空 | Daiwa 纺车轮型号里尺寸/线杯后出现 `-C`（如 `LT2500-C`、`LT2500S-CXH`、`LT3000-CH`）视为紧凑机身 |
+| `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段；Daiwa 纺车轮 SKU 末尾带 `DH` 视为双摇臂 |
+| `handle_style` | 手把样式 | 如 `单摇臂` / `双摇臂` / `折叠` | 可空 | GearSage 归纳层字段；Daiwa 纺车轮 SKU 末尾带 `DH` 填 `双摇臂` |
 | `min_lure_weight_hint` | 建议最低舒适饵重 | 如 `约 3g+`、`约 5g+` | 可空 | GearSage 经验提示字段，不等于官方值 |
 
 
