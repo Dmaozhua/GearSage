@@ -31,6 +31,10 @@ GearSage-client/pkgGear/data_raw/*_partial.json
 GearSage-client/pkgGear/data_raw/*_copy_stage*.json
 GearSage-client/pkgGear/data_raw/*_download_stage*.json
 GearSage-client/pkgGear/data_raw/*_source_index*.json
+GearSage-client/pkgGear/data_raw/*_review.xlsx
+GearSage-client/pkgGear/data_raw/*_increment_review.xlsx
+GearSage-client/pkgGear/data_raw/*_increment_review.csv
+GearSage-client/pkgGear/data_raw/*_副本.xlsx
 
 # Local scratch files
 tmp_style_test*.xlsx
