@@ -180,6 +180,9 @@
 | `fluorocarbon_lb_m` | 氟碳 lb-m | 按官网写 | 可空 | 官方容线量 |
 | `fluorocarbon_no_m` | 氟碳 号-m | 按官网写 | 可空 | 官方容线量 |
 | `pe_no_m` | PE 号-m | 如 `1.5-320, 2-240` | 可空 | 纺车轮很关键 |
+| `spool_diameter_mm` | 线杯直径 φ(mm) | 如 `63`、`67` | 可空 | 详情图里有明确线杯径时应补，和 `spool_diameter_per_turn_mm` 不是一回事 |
+| `body_material` | 机体组成/机身材质 | 如 `鋁製`、`Magnesium`、`Aluminum alloy` | 可空 | 主值只放材质或机体组成核心值，不混技术名 |
+| `handle_knob_type` | 握丸形状 | 如 `圓形`、`高抓握蛋形`、`EVA 圓形` | 可空 | 优先保留官网详情图里的原始表达 |
 | `is_sw_edition` | 是否 SW 版 | `1` 是，`0` 否 | 建议补 | 当前只对纺车轮起效；水滴轮保持空值 |
 | `official_environment` | 官方环境定位 | 如 `saltwater` / `freshwater` | 可空 | 有明确口径再填 |
 | `player_environment` | 玩家数据环境定位 | 根据玩家描述提取 | 可空 | 这是玩家补充口径，不覆盖 `official_environment` |
