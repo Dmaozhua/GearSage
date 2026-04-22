@@ -1394,6 +1394,8 @@ function writeOutputs(normalized, now) {
         handle_style: '',
         MAX_DURABILITY: normalizeText(specs.max_durability_kg),
         type,
+        EV_link: '',
+        Specs_link: '',
       });
     });
   });

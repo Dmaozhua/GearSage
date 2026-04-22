@@ -161,6 +161,7 @@ const HEADERS = {
         'drag_click', 'spool_depth_normalized', 'gear_ratio_normalized',
         'brake_type_normalized', 'fit_style_tags', 'min_lure_weight_hint',
         'is_compact_body', 'handle_style', 'MAX_DURABILITY', 'type',
+        'EV_link', 'Specs_link',
     ],
     rodMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
@@ -173,7 +174,9 @@ const HEADERS = {
         'Market Reference Price', 'AdminCode', 'Service Card', ' Jig Weight',
         'Squid Jig Size', 'Sinker Rating', 'created_at', 'updated_at', 'POWER',
         'LURE WEIGHT (oz)', 'Sale Price', 'Joint Type', 'Code Name', 'Fly Line',
-        'Grip Type', 'Reel Size', 'Description', 'Extra Spec 1', 'Extra Spec 2',
+        'Grip Type', 'Reel Size',
+        'guide_layout_type', 'guide_use_hint', 'hook_keeper_included', 'sweet_spot_lure_weight_real',
+        'Description', 'Extra Spec 1', 'Extra Spec 2',
     ],
     lureMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',

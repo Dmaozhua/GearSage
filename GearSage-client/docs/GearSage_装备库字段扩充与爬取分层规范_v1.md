@@ -484,6 +484,9 @@
 - `action_normalized`
 - `tip_type`
 - `fit_style_tags`
+- `guide_layout_type`
+- `guide_use_hint`
+- `hook_keeper_included`
 - `small_lure_friendly`
 - `long_cast_bias`
 - `obstacle_bias`
@@ -567,6 +570,9 @@
 | `action_normalized` | 缺失 | gsc_traits | derived | detail_core / compare | 是 | derived_runtime | 第一优先级补 |
 | `tip_type` | 缺失 | gsc_traits | derived | detail_core / compare | 是 | derived_runtime | 实心 / 空心 / 待确认 |
 | `fit_style_tags` | 缺失 | gsc_traits | derived | detail_core / compare | 是 | derived_runtime | 泛用 / 精细 / 障碍 |
+| `guide_layout_type` | 缺失 | gsc_traits | official/manual | detail_full / deep_read | 否 | excel_structured | 客观导环布局类型 |
+| `guide_use_hint` | 缺失 | gsc_traits | derived/manual | detail_full / deep_read | 否 | excel_structured / derived_runtime | 导环结构翻译成使用倾向 |
+| `hook_keeper_included` | 缺失 | supplement | official/manual | detail_full / deep_read | 否 | excel_structured | 低成本高价值补充字段 |
 | `small_lure_friendly` | 缺失 | gsc_traits | derived | compare / deep_read | 否（可后加） | derived_runtime | 先深读后比较 |
 | `balance_point_real` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 深玩家价值高 |
 | `rear_grip_length_real` | 缺失 | deep_fields | player/manual | deep_read | 否 | manual_pool | 深玩家价值高 |
@@ -582,6 +588,11 @@
 
 - 鱼竿第一刀不是继续加更多规格列，而是把 `POWER / Action / Description / Extra Spec 1/2` 这些已存在但表达混乱的字段先整理清楚。
 - 其次再补 `power_normalized / action_normalized / tip_type / fit_style_tags` 这一组关键归一字段。
+- 当前新增 rod 玩家字段第一版，优先补：
+  - `guide_layout_type`
+  - `guide_use_hint`
+  - `hook_keeper_included`
+  - `sweet_spot_lure_weight_real`
 - 真正的手感与实测字段，应明确进入 `deep_fields`，后续再通过人工或玩家层慢慢补。
 
 ---
