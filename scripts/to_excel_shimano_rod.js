@@ -103,6 +103,10 @@ for (const item of data) {
             'Sinker Rating': '',
             'created_at': '',
             'updated_at': '',
+            'guide_layout_type': '',
+            'guide_use_hint': '',
+            'hook_keeper_included': '',
+            'sweet_spot_lure_weight_real': '',
             'Extra Spec 1': '',
             'Extra Spec 2': ''
         });
