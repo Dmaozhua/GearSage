@@ -445,6 +445,12 @@
 - `alias`
 - `type_tips`
 - `images`
+- `series_positioning`
+- `main_selling_points`
+- `official_reference_price`
+- `market_status`
+- `player_positioning`
+- `player_selling_points`
 - `Description`（主型号简介）
 
 #### SKU 级官方参数层
@@ -487,6 +493,10 @@
 - `guide_layout_type`
 - `guide_use_hint`
 - `hook_keeper_included`
+- `official_environment`
+- `player_environment`
+- `player_positioning`
+- `player_selling_points`
 - `small_lure_friendly`
 - `long_cast_bias`
 - `obstacle_bias`

@@ -165,7 +165,9 @@ const HEADERS = {
     ],
     rodMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'images', 'created_at', 'updated_at', 'Description',
+        'type_tips', 'images', 'created_at', 'updated_at',
+        'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
+        'Description',
     ],
     rodDetail: [
         'id', 'rod_id', 'TYPE', 'SKU', 'TOTAL LENGTH', 'Action', 'PIECES',
@@ -176,6 +178,7 @@ const HEADERS = {
         'LURE WEIGHT (oz)', 'Sale Price', 'Joint Type', 'Code Name', 'Fly Line',
         'Grip Type', 'Reel Size',
         'guide_layout_type', 'guide_use_hint', 'hook_keeper_included', 'sweet_spot_lure_weight_real',
+        'official_environment', 'player_environment', 'player_positioning', 'player_selling_points',
         'Description', 'Extra Spec 1', 'Extra Spec 2',
     ],
     lureMaster: [

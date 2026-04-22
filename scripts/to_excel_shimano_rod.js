@@ -47,10 +47,14 @@ for (const item of data) {
         'model_year': modelYear,
         'alias': '',
         'type_tips': '',
-        'Description': item.description || '',
         'images': item.local_image_path || item.main_image_url || '',
         'created_at': '',
-        'updated_at': ''
+        'updated_at': '',
+        'series_positioning': '',
+        'main_selling_points': '',
+        'official_reference_price': '',
+        'market_status': '',
+        'Description': item.description || '',
     });
     
     for (const v of item.variants) {
@@ -107,6 +111,11 @@ for (const item of data) {
             'guide_use_hint': '',
             'hook_keeper_included': '',
             'sweet_spot_lure_weight_real': '',
+            'official_environment': '',
+            'player_environment': '',
+            'player_positioning': '',
+            'player_selling_points': '',
+            'Description': item.description || '',
             'Extra Spec 1': '',
             'Extra Spec 2': ''
         });
