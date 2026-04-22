@@ -23,6 +23,11 @@ const detailRows = [];
 let rodIdCounter = 1000;
 let detailIdCounter = 10000;
 
+function isPlaceholderDescription(text) {
+    const value = String(text || '').replace(/\s+/g, ' ').trim();
+    return !value || /^※本页面相关产品数据为禧玛诺自身产品对比/.test(value) || /^※关于导环规格变更/.test(value);
+}
+
 for (const item of data) {
     const currentRodId = `SR${rodIdCounter++}`;
     
@@ -54,7 +59,7 @@ for (const item of data) {
         'main_selling_points': '',
         'official_reference_price': '',
         'market_status': '',
-        'Description': item.description || '',
+        'Description': isPlaceholderDescription(item.description) ? '' : (item.description || ''),
     });
     
     for (const v of item.variants) {
@@ -115,7 +120,7 @@ for (const item of data) {
             'player_environment': '',
             'player_positioning': '',
             'player_selling_points': '',
-            'Description': item.description || '',
+            'Description': v.variant_description || '',
             'Extra Spec 1': '',
             'Extra Spec 2': ''
         });

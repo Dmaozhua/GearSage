@@ -10,6 +10,14 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 DATA_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
 OUTPUT_FILE = os.path.join(DATA_DIR, "shimano_rod_normalized.json")
 
+def clean_description(raw_text):
+    text = raw_text or ""
+    text = text.replace('阅读更多', '').replace('减少显示', '')
+    text = re.sub(r'※本页面相关产品数据为禧玛诺自身产品对比，内部测试所得。?', '', text)
+    text = re.sub(r'※关于导环规格变更的通知', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
 def scrape_shimano_rods():
     urls_file = os.path.join(os.path.dirname(__file__), "shimano_bass_rod_urls.json")
     with open(urls_file, "r", encoding="utf-8") as f:
@@ -48,12 +56,11 @@ def scrape_shimano_rods():
             title_el = page_soup.find('h1')
             title = title_el.get_text(strip=True) if title_el else "Unknown Model"
             
-            desc_el = page_soup.select_one('.product__description_section')
-            if desc_el:
-                desc = desc_el.get_text(separator='\n', strip=True)
-                desc = desc.replace('阅读更多', '').replace('减少显示', '').strip()
-            else:
-                desc = ""
+            desc_el = (
+                page_soup.select_one('.product__description_section')
+                or page_soup.select_one('.product__description_section__content')
+            )
+            desc = clean_description(desc_el.get_text(separator=' ', strip=True) if desc_el else "")
             
             main_img = None
             for img in page_soup.find_all('img'):
@@ -64,6 +71,16 @@ def scrape_shimano_rods():
             if main_img and not main_img.startswith('http'):
                 main_img = urllib.parse.urljoin("https://fish.shimano.com", main_img)
             
+            # Variant description blocks often exist as thumbnail items on high-end/newer pages.
+            variant_desc_map = {}
+            for item_block in page_soup.select('.thumbnail__item'):
+                sku_el = item_block.select_one('.thumbnail__title')
+                desc_el = item_block.select_one('.thumbnail__txt')
+                sku_key = sku_el.get_text(strip=True) if sku_el else ''
+                desc_text = desc_el.get_text(separator=' ', strip=True) if desc_el else ''
+                if sku_key and desc_text:
+                    variant_desc_map[sku_key.upper()] = desc_text
+
             # Find the spec table
             table = page_soup.find('table')
             variants = []
@@ -84,9 +101,11 @@ def scrape_shimano_rods():
                             
                         # Extract standard fields
                         variant_name = raw_specs.get('型号', '')
+                        variant_desc = variant_desc_map.get(variant_name.upper(), '')
                         
                         variant_data = {
                             "variant_name": f"{title} {variant_name}" if variant_name else title,
+                            "variant_description": variant_desc,
                             "specs": {
                                 "total_length_m": raw_specs.get('全长(m)', ''),
                                 "action": raw_specs.get('调性', ''),
