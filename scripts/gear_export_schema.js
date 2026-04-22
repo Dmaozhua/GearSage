@@ -167,7 +167,7 @@ const HEADERS = {
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'images', 'created_at', 'updated_at',
         'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
-        'Description',
+        'Description', 'player_positioning', 'player_selling_points',
     ],
     rodDetail: [
         'id', 'rod_id', 'TYPE', 'SKU', 'TOTAL LENGTH', 'Action', 'PIECES',

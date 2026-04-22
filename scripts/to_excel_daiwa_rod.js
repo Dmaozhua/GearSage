@@ -13,6 +13,17 @@ if (!fs.existsSync(inputFile)) {
 
 const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 
+let existingRodByModel = new Map();
+if (fs.existsSync(outputFile)) {
+    try {
+        const existingWb = xlsx.readFile(outputFile);
+        const existingRodRows = xlsx.utils.sheet_to_json(existingWb.Sheets.rod || {}, { defval: '' });
+        existingRodByModel = new Map(existingRodRows.map((row) => [row.model, row]));
+    } catch (err) {
+        console.warn(`[Warn] Failed to load existing rod sheet from ${outputFile}: ${err.message}`);
+    }
+}
+
 const rodRows = [];
 const detailRows = [];
 
@@ -21,6 +32,7 @@ let detailIdCounter = 10000;
 
 for (const item of data) {
     const currentRodId = `DR${rodIdCounter++}`;
+    const existingRod = existingRodByModel.get(item.model_name) || {};
     
     let modelYear = '';
     const yearMatch = item.model_name.match(/(?:19|20)\d{2}/);
@@ -37,14 +49,20 @@ for (const item of data) {
         'id': currentRodId,
         'brand_id': BRAND_IDS.DAIWA,
         'model': item.model_name,
-        'model_cn': '',
-        'model_year': modelYear,
-        'alias': '',
-        'type_tips': '',
-        'images': item.local_image_path || item.main_image_url || '',
-        'Description': item.series_description || item.description || '',
         'created_at': '',
-        'updated_at': ''
+        'updated_at': '',
+        'series_positioning': '',
+        'main_selling_points': '',
+        'official_reference_price': '',
+        'market_status': '',
+        'Description': item.series_description || item.description || '',
+        'player_positioning': '',
+        'player_selling_points': '',
+        'model_cn': existingRod.model_cn || '',
+        'model_year': existingRod.model_year || modelYear,
+        'alias': existingRod.alias || '',
+        'type_tips': existingRod.type_tips || '',
+        'images': existingRod.images || item.local_image_path || item.main_image_url || ''
     });
     
     for (const v of item.variants) {
@@ -119,11 +137,19 @@ for (const item of data) {
             'Fly Line': raw['フライライン(No#=#)'] || '',
             'Grip Type': raw['グリップタイプ'] || '',
             'Reel Size': raw['リールサイズ'] || '',
-            'Description': v.variant_description || raw['説明'] || '',
             'created_at': '',
             'updated_at': '',
             'Extra Spec 1': '',
-            'Extra Spec 2': ''
+            'Extra Spec 2': '',
+            'guide_layout_type': '',
+            'guide_use_hint': '',
+            'hook_keeper_included': '',
+            'sweet_spot_lure_weight_real': '',
+            'official_environment': '',
+            'player_environment': '',
+            'player_positioning': '',
+            'player_selling_points': '',
+            'Description': v.variant_description || ''
         };
 
         // Keep export schema stable: fold the first two unmapped notes into generic extra fields.
