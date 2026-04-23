@@ -170,11 +170,11 @@ const HEADERS = {
         'Description', 'player_positioning', 'player_selling_points',
     ],
     rodDetail: [
-        'id', 'rod_id', 'TYPE', 'SKU', 'TOTAL LENGTH', 'Action', 'PIECES',
+        'id', 'rod_id', 'TYPE', 'SKU', 'POWER', 'TOTAL LENGTH', 'Action', 'PIECES',
         'CLOSELENGTH', 'WEIGHT', 'Tip Diameter', 'LURE WEIGHT', 'Line Wt N F',
         'PE Line Size', 'Handle Length', 'Reel Seat Position', 'CONTENT CARBON',
         'Market Reference Price', 'AdminCode', 'Service Card', ' Jig Weight',
-        'Squid Jig Size', 'Sinker Rating', 'created_at', 'updated_at', 'POWER',
+        'Squid Jig Size', 'Sinker Rating', 'created_at', 'updated_at',
         'LURE WEIGHT (oz)', 'Sale Price', 'Joint Type', 'Code Name', 'Fly Line',
         'Grip Type', 'Reel Size',
         'guide_layout_type', 'guide_use_hint', 'hook_keeper_included', 'sweet_spot_lure_weight_real',

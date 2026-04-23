@@ -5,6 +5,8 @@ const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_rod_normalized.json');
 const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx');
+const urlsFileArgIndex = process.argv.indexOf('--urls-file');
+const urlsFile = urlsFileArgIndex >= 0 ? process.argv[urlsFileArgIndex + 1] : '';
 
 if (!fs.existsSync(inputFile)) {
     console.error(`[Error] Input file not found: ${inputFile}`);
@@ -12,6 +14,11 @@ if (!fs.existsSync(inputFile)) {
 }
 
 const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
+let filteredData = data;
+if (urlsFile && fs.existsSync(urlsFile)) {
+    const allowUrls = new Set(JSON.parse(fs.readFileSync(urlsFile, 'utf-8')));
+    filteredData = data.filter((item) => allowUrls.has(item.url));
+}
 
 let existingRodByModel = new Map();
 if (fs.existsSync(outputFile)) {
@@ -30,7 +37,7 @@ const detailRows = [];
 let rodIdCounter = 1000;
 let detailIdCounter = 10000;
 
-for (const item of data) {
+for (const item of filteredData) {
     const currentRodId = `DR${rodIdCounter++}`;
     const existingRod = existingRodByModel.get(item.model_name) || {};
     
@@ -185,3 +192,4 @@ xlsx.utils.book_append_sheet(wb, detailSheet, SHEET_NAMES.rodDetail);
 
 xlsx.writeFile(wb, outputFile);
 console.log(`[To Excel] Done! Saved to: ${outputFile}`);
+console.log({ items: filteredData.length });

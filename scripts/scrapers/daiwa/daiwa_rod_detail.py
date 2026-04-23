@@ -11,10 +11,27 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 def sanitize_filename(name):
     return re.sub(r'[\\/*?:"<>|]', "", name).strip()
 
+def clean_text(text):
+    return re.sub(r'\s+', ' ', (text or '')).strip()
+
+def looks_like_update_list(text):
+    t = clean_text(text)
+    return bool(re.match(r'^\d{4}\.\d{2}＝', t))
+
+def looks_like_useless_heading(text):
+    t = clean_text(text)
+    if len(t) < 8:
+        return True
+    if 'アイテム紹介' in t:
+        return True
+    if t.startswith('型號：'):
+        return True
+    return False
+
 def process_url(i, url, total):
     print(f"[{i+1}/{total}] Fetching: {url}")
     try:
-        r = requests.get(url, impersonate="chrome", timeout=15)
+        r = requests.get(url, impersonate="chrome", timeout=15, verify=False)
         soup = BeautifulSoup(r.text, 'html.parser')
         
         # Model Name
@@ -47,19 +64,33 @@ def process_url(i, url, total):
                 filename = main_image_url.split('/')[-1].split('?')[0]
             local_image_path = f"images/daiwa_rods/{sanitize_filename(model_name)}_{filename}"
             
-        # Series Description (Priority: ZH > EN > JA, but Daiwa JP usually only has JA)
+        # Series Description / master description
         series_description = ""
         desc_parts = []
-        for text_div in soup.select(".categoryBrand .containerText .text, .mainParts_text .text, .product-detail-info__description"):
-            text = text_div.get_text(separator=" ", strip=True)
-            if text:
-                desc_parts.append(text)
-        
-        series_description = "\n\n".join(desc_parts)
+        for text_div in soup.select(".containerText .text, .mainParts_text .text, .mainParts_text .d1, .product-detail-info__description"):
+            text = clean_text(text_div.get_text(separator=" ", strip=True))
+            if not text or looks_like_update_list(text):
+                continue
+            desc_parts.append(text)
+
+        heading_candidates = []
+        for heading in soup.select(".mainParts_heading .font_Midashi"):
+            text = clean_text(heading.get_text(separator=" ", strip=True))
+            if not text or looks_like_useless_heading(text):
+                continue
+            heading_candidates.append(text)
+
+        if heading_candidates:
+            if desc_parts:
+                series_description = "\n\n".join([heading_candidates[0], desc_parts[0]])
+            else:
+                series_description = heading_candidates[0]
+        else:
+            series_description = "\n\n".join(desc_parts)
         if not series_description:
             meta_desc = soup.select_one("meta[name='description']") or soup.select_one("meta[property='og:description']")
             if meta_desc:
-                series_description = meta_desc.get("content", "").strip()
+                series_description = clean_text(meta_desc.get("content", ""))
         
         variants = []
         

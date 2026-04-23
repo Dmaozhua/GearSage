@@ -27,7 +27,7 @@ const DETAIL_HEADERS = {
     wire: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1'],
     jig: ['id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice', 'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1'],
 };
-const ROD_DETAIL_HEADERS = ['id', 'rod_id', 'TYPE', 'SKU', 'TOTAL LENGTH', 'Action', 'PIECES', 'CLOSELENGTH', 'WEIGHT', 'Tip Diameter', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'Handle Length', 'Reel Seat Position', 'CONTENT CARBON', 'Market Reference Price', 'AdminCode', 'Service Card', ' Jig Weight', 'Squid Jig Size', 'Sinker Rating', 'created_at', 'updated_at', 'POWER', 'LURE WEIGHT (oz)', 'Sale Price', 'Joint Type', 'Code Name', 'Fly Line', 'Grip Type', 'Reel Size', 'Description', 'Extra Spec 1', 'Extra Spec 2'];
+const ROD_DETAIL_HEADERS = ['id', 'rod_id', 'TYPE', 'SKU', 'POWER', 'TOTAL LENGTH', 'Action', 'PIECES', 'CLOSELENGTH', 'WEIGHT', 'Tip Diameter', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'Handle Length', 'Reel Seat Position', 'CONTENT CARBON', 'Market Reference Price', 'AdminCode', 'Service Card', ' Jig Weight', 'Squid Jig Size', 'Sinker Rating', 'created_at', 'updated_at', 'LURE WEIGHT (oz)', 'Sale Price', 'Joint Type', 'Code Name', 'Fly Line', 'Grip Type', 'Reel Size', 'Description', 'Extra Spec 1', 'Extra Spec 2'];
 
 function readRows(fileName, sheetName) {
     const filePath = path.join(EXCEL_DIR, fileName);
