@@ -39,3 +39,36 @@ GearSage-client/pkgGear/data_raw/*_副本.xlsx
 # Local scratch files
 tmp_style_test*.xlsx
 temp_*.html
+
+# Local/generated rod expansion artifacts
+GearSage-client/pkgGear/data_raw/daiwa_rod_bass_urls.json
+GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_ocr*/
+GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_ocr_lines.json
+GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_rows.json
+GearSage-client/pkgGear/data_raw/daiwa_tw_rod_structured.json
+GearSage-client/pkgGear/data_raw/shimano_rod_rodsjp_*.json
+GearSage-client/pkgGear/data_raw/shimano_rod_whitelist_series_seed_*.json
+GearSage-client/pkgGear/data_raw/tw_*.html
+
+# Local gear expansion helper scripts kept outside product commits
+scripts/apply_daiwa_rod_*stage*.js
+scripts/apply_daiwa_rod_*stage*.py
+scripts/apply_daiwa_support_links_stage*.js
+scripts/apply_daiwa_tw_rod_player_fields_stage*.py
+scripts/apply_shimano_rod_*stage*.js
+scripts/build_daiwa_tw_rod_import.js
+scripts/build_daiwa_tw_rod_normalized.py
+scripts/download_daiwa_tw_rod_main_images_stage*.py
+scripts/export_abu_*_review.js
+scripts/fetch_daiwa_rod_bass_urls_stage*.py
+scripts/merge_daiwa_rod_variant_descriptions_stage*.js
+scripts/ocr_daiwa_tw_rod_price_images_stage*.py
+scripts/parse_daiwa_tw_rod_*.py
+scripts/refresh_daiwa_rod_*stage*.py
+scripts/refresh_daiwa_tw_*stage*.py
+scripts/refresh_shimano_rod_*stage*.py
+scripts/repair_daiwa_tw_rod_admincode_stage*.js
+scripts/reset_shimano_rod_player_fields_stage*.js
+scripts/run_daiwa_rod_detail_group_shading.js
+scripts/scrape_rodsjp_shimano_*stage*.js
+scripts/shade_daiwa_rod_detail_groups_stage*.py

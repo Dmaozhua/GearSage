@@ -1,0 +1,681 @@
+# Daiwa 台湾鱼竿 爬取补充修复导出流程收口 v1
+
+版本：v1  
+状态：本次 Daiwa Taiwan rods 阶段性收口  
+更新时间：2026-04-24  
+
+---
+
+## 1. 当前范围
+
+来源站点：
+
+- Daiwa 台湾官网 lure rod 列表  
+  `https://www.daiwaseiko.com.tw/product-list/rod/lure-rod//`
+
+当前正式导入表：
+
+- [daiwa_rod_import.xlsx](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx)
+
+当前主要中间层：
+
+- [daiwa_tw_rod_normalized.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_rod_normalized.json)
+- [daiwa_tw_rod_structured.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_rod_structured.json)
+- [daiwa_tw_rod_price_rows.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_rows.json)
+
+当前结果：
+
+- 主商品：`46`
+- 子型号：`338`
+- `rod.images`：`46 / 46`
+- `rod.Description`：`46 / 46`
+- `rod_detail.Description`：`195 / 338`
+- `rod_detail.Market Reference Price`：`337 / 338`
+- `rod_detail.AdminCode`：`338 / 338`
+- `rod_detail.player_environment`：`338 / 338`
+- `rod_detail.player_positioning`：`338 / 338`
+- `rod_detail.player_selling_points`：`338 / 338`
+- `rod_detail.guide_use_hint`：`338 / 338`
+- `rod_detail.guide_layout_type`：`30 / 338`
+
+当前合理空值：
+
+- `official_environment = 0 / 338`  
+  Daiwa 台湾官网没有稳定官方场景字段，不用白名单站污染 official 语义。
+- `hook_keeper_included = 0 / 338`  
+  白名单站和官网都没有稳定覆盖，不硬填。
+- `sweet_spot_lure_weight_real = 0 / 338`  
+  白名单站能给规格范围，但不能给真实玩家甜区；不把算法推断写成事实。
+
+---
+
+## 2. 本次流程结论
+
+这次 Daiwa Taiwan rods 不是一次单纯爬取，而是完整走过：
+
+1. 台湾官网列表和详情页抓取
+2. 主商品 Description 修复
+3. 子型号 Description 补全
+4. 规格图 OCR
+5. OCR 规格解析和串列修复
+6. 导入表生成
+7. 针对性补缺、修串列、修特殊型号
+8. 主图本地下载和 `images` CDN URL 标准化
+9. 玩家字段补充
+10. 白名单辅助站抽样验证
+11. 表格底色恢复和最终验证
+
+这条流程对后续其他品牌 rod 可复用，但必须保留两个原则：
+
+- **不要重新全量覆盖已经人工检查过的数据。**
+- **任何改表步骤结束后都要恢复 `rod_detail` 分组底色。**
+
+---
+
+## 3. 核心脚本链路
+
+### 3.1 官网抓取到 normalized
+
+脚本：
+
+- [build_daiwa_tw_rod_normalized.py](/Users/tommy/GearSage/scripts/build_daiwa_tw_rod_normalized.py)
+
+作用：
+
+- 抓台湾官网 lure rod 列表。
+- 进入详情页解析：
+  - `model_name`
+  - `model_cn`
+  - `title_tw`
+  - `description`
+  - `main_selling_points`
+  - `main_image_url`
+  - `price_images`
+  - `variant_descriptions`
+
+关键经验：
+
+- `Description` 不能只抓标题，要抓 `#intro` 正文。
+- 遇到 `DAIWA 技術 / 產品詳情 / 產品介紹 / 寫真照片 / 發售日期 / 詳細規格` 要截断，避免正文混入规格区。
+- 子型号描述通常藏在 `#intro` table 里，不在价格规格图里。
+- `main_selling_points` 是标题层，不等于完整 Description。
+
+运行：
+
+```bash
+python3 scripts/build_daiwa_tw_rod_normalized.py
+```
+
+注意：
+
+- 这是会访问官网的脚本。后续不是必要时不要反复跑。
+- 对已经进入人工检查阶段的数据，优先用定点修复脚本，不要用全量抓取结果覆盖导入表。
+
+### 3.2 价格规格图 OCR
+
+脚本：
+
+- [ocr_daiwa_tw_rod_price_images_stage1.py](/Users/tommy/GearSage/scripts/ocr_daiwa_tw_rod_price_images_stage1.py)
+- [parse_daiwa_tw_rod_price_ocr_stage2.py](/Users/tommy/GearSage/scripts/parse_daiwa_tw_rod_price_ocr_stage2.py)
+- [parse_daiwa_tw_rod_price_rows_stage3.py](/Users/tommy/GearSage/scripts/parse_daiwa_tw_rod_price_rows_stage3.py)
+- [parse_daiwa_tw_rod_variants_stage4.py](/Users/tommy/GearSage/scripts/parse_daiwa_tw_rod_variants_stage4.py)
+
+产物：
+
+- `daiwa_tw_rod_price_ocr/`
+- `daiwa_tw_rod_price_ocr_lines.json`
+- `daiwa_tw_rod_price_rows.json`
+- `daiwa_tw_rod_structured.json`
+
+关键经验：
+
+- 台湾官网很多 rod 的规格不是 HTML table，而是图片，需要 OCR。
+- OCR 解析必须按家族做定点规则，不能完全依赖通用列位。
+- 串列问题主要来自 OCR 表格列错位，例如：
+  - `Tip Diameter`
+  - `LURE WEIGHT`
+  - `LURE WEIGHT (oz)`
+  - `PE Line Size`
+  - `Action`
+  - `PIECES`
+- 修串列时只改对应字段，不重写整表。
+
+### 3.3 structured 到导入表
+
+脚本：
+
+- [build_daiwa_tw_rod_import.js](/Users/tommy/GearSage/scripts/build_daiwa_tw_rod_import.js)
+
+作用：
+
+- 把 `daiwa_tw_rod_structured.json` 写成 `daiwa_rod_import.xlsx`。
+- 生成 `rod` / `rod_detail` 两个 sheet。
+- 推断：
+  - `TYPE`
+  - `POWER`
+  - `model_year`
+  - 主表 Description
+  - 子型号 Description
+- 写完后调用底色脚本。
+
+运行：
+
+```bash
+node scripts/build_daiwa_tw_rod_import.js
+```
+
+重要限制：
+
+- 这个脚本会重建导入表。进入人工检查和局部修复阶段后，不应随便再跑。
+- 如果必须重跑，要先确认哪些人工修复需要重新 apply。
+
+---
+
+## 4. 针对性修复脚本
+
+本次后半段进入人工检查后，修复策略从“重新生成”切换成“定点回写”。
+
+用到的代表脚本：
+
+- [refresh_daiwa_rod_master_descriptions_stage6.py](/Users/tommy/GearSage/scripts/refresh_daiwa_rod_master_descriptions_stage6.py)
+- [refresh_daiwa_rod_variant_descriptions_stage4.py](/Users/tommy/GearSage/scripts/refresh_daiwa_rod_variant_descriptions_stage4.py)
+- [merge_daiwa_rod_variant_descriptions_stage7.js](/Users/tommy/GearSage/scripts/merge_daiwa_rod_variant_descriptions_stage7.js)
+- [refresh_daiwa_tw_variant_desc_tables_stage10.py](/Users/tommy/GearSage/scripts/refresh_daiwa_tw_variant_desc_tables_stage10.py)
+- [refresh_daiwa_tw_selected_stage11.py](/Users/tommy/GearSage/scripts/refresh_daiwa_tw_selected_stage11.py)
+- [repair_daiwa_tw_rod_admincode_stage8.js](/Users/tommy/GearSage/scripts/repair_daiwa_tw_rod_admincode_stage8.js)
+
+经验：
+
+- 主表 `Description` 曾经只抓到标题，必须抓标题 + 正文。
+- 子型号 `Description` 从 `DR1013` 开始有大量缺失，需要从详情页 table 补。
+- `DR1017` 子型号数量最终是 `21`，之前只有 `14`。
+- `DR1036` 子型号规格用户手动维护过，不能覆盖规格字段；后续只允许按用户确认补玩家字段。
+- `DRD10029` 的 SKU 是 `644LFS`，但官网主页 Description 写了 `664LFS`，这是官网文本错误，不要反向改 SKU。
+- `DRD10264`、`DRD10265` 节数应为 `7`，不是 `6`。
+- `DRD10285` 的 PE 容线量应为空，不应写 `1`。
+
+---
+
+## 5. 主图下载和 images 字段标准
+
+脚本：
+
+- [download_daiwa_tw_rod_main_images_stage13.py](/Users/tommy/GearSage/scripts/download_daiwa_tw_rod_main_images_stage13.py)
+
+本地图片目录：
+
+- `/Users/tommy/Pictures/images/daiwa_rods`
+
+旧图可复用目录：
+
+- `/Users/tommy/Pictures/images_old_copy/daiwa_rods`
+
+导入表 `images` 最终格式：
+
+```text
+https://static.gearsage.club/gearsage/Gearimg/images/daiwa_rods/<filename>
+```
+
+命名规则：
+
+```text
+<rod_id>_<model_slug>.<ext>
+```
+
+例如：
+
+```text
+DR1000_morethan_BRANZINO_CGS.jpg
+```
+
+运行：
+
+```bash
+python3 scripts/download_daiwa_tw_rod_main_images_stage13.py
+```
+
+经验：
+
+- 一个主商品只保留一张主图。
+- 脚本会优先复用本地已有图片，再低频下载。
+- `images` 不写本地路径，只写未来资源存储 URL。
+
+---
+
+## 6. 玩家字段补充
+
+脚本：
+
+- [apply_daiwa_tw_rod_player_fields_stage14.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_rod_player_fields_stage14.py)
+
+当前写入字段：
+
+主表：
+
+- `player_positioning`
+- `player_selling_points`
+
+子表：
+
+- `player_environment`
+- `player_positioning`
+- `player_selling_points`
+- `guide_layout_type`
+- `guide_use_hint`
+
+当前不写字段：
+
+- `official_environment`
+- `hook_keeper_included`
+- `sweet_spot_lure_weight_real`
+
+运行：
+
+```bash
+python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
+```
+
+当前玩家字段结果：
+
+- `rod.player_positioning = 46 / 46`
+- `rod.player_selling_points = 46 / 46`
+- `rod_detail.player_environment = 338 / 338`
+- `rod_detail.player_positioning = 338 / 338`
+- `rod_detail.player_selling_points = 338 / 338`
+- `rod_detail.guide_use_hint = 338 / 338`
+- `rod_detail.guide_layout_type = 30 / 338`
+
+重要规则：
+
+- `morethan / lateo` 优先归海鲈岸投，不被描述里的 `EMERALDAS` 技术说明误导。
+- `emeraldas / eging` 只在型号或正文明确木虾/乌贼时归木虾。
+- `overthere / dragger / SLSJ` 属于岸投/岸拋铁板，不应因为“铁板”二字归船钓。
+- `hardrock` 属于岩鱼/rockfish，不应因为“铁板头”归船钓铁板。
+- `月下美人` 优先轻型海水，不能被“铁板路亚”字样带到船钓。
+- bass 类：
+  - `-SB / Swimbait / Big Bait / 大型餌 / 大餌` 才归 `大餌 / 強力`
+  - `FR / Frog` 才归 `Frog / 強障礙`
+  - `HFB / HRB / MH / H / XH / XXH` 只是强度信号，不自动等于大饵
+  - 没有明确大饵描述的 `CxxMH / CxxH` 归 `強力泛用`
+
+---
+
+## 7. 白名单辅助站的真实用途
+
+白名单站：
+
+- `https://tackledb.uosoku.com/`
+- `https://rodsearch.com/`
+- `https://rods.jp/`
+
+本次结论：
+
+### 7.1 tackledb.uosoku.com
+
+最适合校验玩家字段。
+
+可用信息：
+
+- `カテゴリー`
+- `対象魚`
+- `釣り場`
+- `ロッド`
+- `ルアー`
+- 部分真实或 AI 整理的使用场景
+
+适合支撑：
+
+- `player_environment`
+- `player_positioning`
+- `player_selling_points`
+- `guide_use_hint`
+
+例子：
+
+- `OVER THERE 106M・K` 在 tackledb 显示为 `サーフゲーム`，目标鱼有 `ヒラメ / マゴチ / 青物`，支持岸投远投，不支持船钓铁板。
+- `HARDROCK X 86M・K` 出现在 `ロックフィッシュゲーム`，支持岩鱼/rockfish。
+- `DRAGGER X SLSJ 94M` 显示为 `ショアジギング`，支持岸投 SLSJ。
+- `AIREDGE MOBILE 694HB-SB` 明确 big bait / swimbait 场景，支持 `大餌 / 強力`。
+
+### 7.2 rods.jp
+
+适合规格和类别辅助校验，不适合直接写玩家文案。
+
+可用信息：
+
+- category，例如 `バスルアー`、`ソルトルアー（ショア）`
+- type，例如 `ベイト`、`スピニング`
+- action
+- lure weight
+- PE / line range
+- price
+
+适合支撑：
+
+- 强弱判断
+- 便携/节数确认
+- bass / shore / offshore 大类确认
+- `guide_layout_type` 的少量校验，但覆盖不稳定
+
+不适合：
+
+- 直接填 `official_environment`
+- 直接填 `sweet_spot_lure_weight_real`
+- 直接填 `hook_keeper_included`
+
+### 7.3 rodsearch.com
+
+辅助价值较弱。
+
+它能提供部分规格对比，但对玩家场景帮助不如 tackledb，对规格完整性不如官网或 rods.jp。适合作为第三参考，不作为主来源。
+
+### 7.4 不应新增到导入表的白名单字段
+
+当前导入表没有来源追踪列，不建议把白名单证据硬塞进导入表。
+
+如果后续需要保留证据链，建议另建 sidecar JSON：
+
+```json
+{
+  "detail_id": "DRD10287",
+  "rod_id": "DR1045",
+  "source_site": "tackledb.uosoku.com",
+  "source_url": "https://...",
+  "matched_category": "バス釣り",
+  "target_fish": ["ブラックバス"],
+  "confidence": "high",
+  "supported_fields": ["player_environment", "player_positioning"]
+}
+```
+
+---
+
+## 8. 底色要求
+
+脚本：
+
+- [shade_daiwa_rod_detail_groups_stage12.py](/Users/tommy/GearSage/scripts/shade_daiwa_rod_detail_groups_stage12.py)
+- [run_daiwa_rod_detail_group_shading.js](/Users/tommy/GearSage/scripts/run_daiwa_rod_detail_group_shading.js)
+
+运行：
+
+```bash
+python3 scripts/shade_daiwa_rod_detail_groups_stage12.py
+```
+
+当前底色：
+
+- `FFF8F3C8`
+- `FFE8F1FB`
+
+硬规则：
+
+- 任何脚本只要保存了 `daiwa_rod_import.xlsx`，最后都要重新跑底色脚本。
+- 底色是检查流程的一部分，不是装饰。
+- 不允许因为新增流程导致底色丢失。
+
+验证示例：
+
+```bash
+python3 - <<'PY'
+from openpyxl import load_workbook
+p = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx'
+wb = load_workbook(p)
+ws = wb['rod_detail']
+for cell in ['A2','A20','A120','A200','A339']:
+    c = ws[cell]
+    print(cell, c.fill.fill_type, c.fill.fgColor.rgb)
+PY
+```
+
+期望输出应包含：
+
+```text
+solid FFF8F3C8
+solid FFE8F1FB
+```
+
+---
+
+## 9. 最终验证清单
+
+每次收尾至少检查：
+
+```bash
+python3 - <<'PY'
+from openpyxl import load_workbook
+p = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx'
+wb = load_workbook(p, data_only=True)
+for s in ['rod', 'rod_detail']:
+    ws = wb[s]
+    h = [c.value for c in ws[1]]
+    c = {x:i for i,x in enumerate(h)}
+    print(s, ws.max_row - 1)
+    fields = ['id','images','Description','player_positioning','player_selling_points'] if s == 'rod' else [
+        'id','rod_id','SKU','Description','Market Reference Price','AdminCode',
+        'guide_layout_type','guide_use_hint','hook_keeper_included',
+        'sweet_spot_lure_weight_real','official_environment',
+        'player_environment','player_positioning','player_selling_points'
+    ]
+    for f in fields:
+        if f in c:
+            filled = sum(1 for row in ws.iter_rows(min_row=2, values_only=True) if str(row[c[f]] or '').strip())
+            print(f, filled, '/', ws.max_row - 1)
+PY
+```
+
+还要做异常组合扫描：
+
+- bass 不应落到船钓、木虾、岩鱼、海鲈岸投。
+- morethan / lateo 不应落到木虾或船钓。
+- 月下美人不应落到船钓。
+- eging / emeraldas 不应落到海鲈、淡水、船钓铁板。
+- hardrock 不应落到船钓。
+- overthere / dragger / SLSJ 不应落到船钓铁板。
+
+---
+
+## 10. 下次做其他品牌 rod 的 SOP
+
+### Step 1：先确认来源结构
+
+先判断官网规格是：
+
+- HTML table
+- 图片规格表
+- PDF
+- 混合结构
+
+不要一开始就写通用 parser。rod 的规格表跨品牌差异很大。
+
+### Step 2：先产 normalized，不直接写导入表
+
+normalized 至少包含：
+
+- source URL
+- model name
+- title / alias
+- main image URL
+- master Description
+- variant descriptions
+- raw spec blocks
+
+### Step 3：规格解析必须保留 raw
+
+OCR 或 HTML table 解析后，要保留：
+
+- raw OCR lines
+- raw row blocks
+- normalized specs
+
+这样后续发现串列时能定位来源，不用重新抓官网。
+
+### Step 4：导入表生成只做一次基线
+
+生成正式导入表后，如果用户开始检查，就进入定点修复模式。
+
+不要再用生成脚本全量覆盖：
+
+- 已人工修正的规格
+- 已人工检查的 Description
+- 已人工维护的子型号
+- 已下载和规范化的 images
+- 已补玩家字段
+
+### Step 5：修复脚本只改目标字段
+
+例如：
+
+- 修 Description 只改 `Description`
+- 修图片只改 `images`
+- 修玩家字段只改玩家字段
+- 修价格只改 `Market Reference Price`
+
+不要为了一个字段重新写整行。
+
+### Step 6：玩家字段最后做
+
+玩家字段依赖：
+
+- 官方 Description
+- 子型号 Description
+- SKU / power / type
+- 白名单站辅助判断
+
+因此应该在规格和描述基本稳定后再做。
+
+### Step 7：白名单站只做辅助证据
+
+使用顺序：
+
+1. 官网：官方规格和官方描述
+2. tackledb：玩家场景、对象鱼、钓场、实际搭配
+3. rods.jp：类别、type、lure weight、action、价格
+4. rodsearch：第三参考
+
+不要把白名单站内容写成官方字段。
+
+### Step 8：每次保存 xlsx 后恢复底色
+
+这是检查刚需，不是可选项。
+
+---
+
+## 11. 本次特别踩坑记录
+
+### 11.1 Description 只抓标题
+
+问题：
+
+- 主表 `Description` 曾经只有标题，没有正文。
+
+修复：
+
+- `#intro` 正文要完整提取。
+- 标题和正文用空行拼接。
+- 遇到技术/规格区 marker 截断。
+
+### 11.2 子型号 Description 缺失
+
+问题：
+
+- 多个主 ID 的子型号介绍在官网 table 里，首次没有抓全。
+
+修复：
+
+- 从 `#intro table` 解析 `型號 / 說明`。
+- 用 SKU normalize alias 匹配，兼容 `・ / ･ / •`、空格、前缀。
+
+### 11.3 OCR 串列
+
+问题：
+
+- 多个主 ID 出现列串列，尤其是 `Tip Diameter / LURE WEIGHT / PE Line Size / Action / PIECES`。
+
+修复：
+
+- 按家族做 parser dispatch。
+- 对已检查表只做目标字段修复。
+- 修完抽样看明显不合理组合。
+
+### 11.4 power 特殊写法
+
+问题：
+
+- 一些 Emeraldas 型号存在 `MLM / MMH / LML`。
+- 子 ID `DRD10103`、`DRD10099` 的 power 应为 `MMH`。
+
+经验：
+
+- power 不能只靠 `ML / MH / M / H / L` 简单正则。
+- 复合 power 要保留原始表达。
+
+### 11.5 bass 大饵误判
+
+问题：
+
+- `HFB / HRB / MH / H` 曾被误当成 `大餌 / 強力`。
+
+最终口径：
+
+- `-SB / Swimbait / Big Bait / 大型餌 / 大餌` 才是大饵强信号。
+- `HFB / HRB / MH / H` 只是强度信号，默认不等于大饵。
+
+### 11.6 岸投铁板误判为船钓铁板
+
+问题：
+
+- `OVERTHERE / DRAGGER SLSJ / HARDROCK` 描述里有“铁板”，曾被归为船钓铁板。
+
+最终口径：
+
+- 岸投/SLSJ/rockfish 优先级高于通用“铁板”规则。
+
+### 11.7 官网自身文本错误
+
+问题：
+
+- `DRD10029` SKU 是 `644LFS`，但主页 Description 写 `664LFS`。
+
+处理：
+
+- 保留 SKU 和规格，不用错误 Description 覆盖 SKU。
+
+---
+
+## 12. 当前不应继续做的事
+
+- 不应为了补满 `official_environment` 使用白名单站 category。
+- 不应为了补满 `hook_keeper_included` 使用不稳定页面或 AI 文案。
+- 不应为了补满 `sweet_spot_lure_weight_real` 从 lure weight 范围推一个甜区。
+- 不应重新全量运行导入表生成脚本覆盖人工修复。
+- 不应频繁访问官网或白名单站做批量抓取。
+
+---
+
+## 13. 推荐后续改进
+
+如果后续还要做更多 rod 品牌，建议补一个通用的 evidence sidecar 机制，而不是往导入表加来源列。
+
+建议文件形态：
+
+```text
+<brand>_rod_whitelist_evidence.json
+```
+
+每条记录包括：
+
+- `brand`
+- `rod_id`
+- `detail_id`
+- `model`
+- `sku`
+- `source_site`
+- `source_url`
+- `matched_text`
+- `supported_fields`
+- `confidence`
+- `notes`
+
+这样既能保留白名单证据，又不污染正式导入表。
+

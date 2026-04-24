@@ -100,7 +100,7 @@ for (const item of filteredData) {
         let parsedPower = '';
         const powerBase = "(?:X{1,3}UL|S{1,2}UL|X{1,3}H|ML|MH|UL|M|H|L)";
         // Match power after digits, optionally preceded by 'T' (e.g., TMHB, TMLRB)
-        const powerRegexAfter = new RegExp(`\\d{2,4}T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
+        const powerRegexAfter = new RegExp(`\\d{1,4}T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
         // Match power before digits
         const powerRegexBefore = new RegExp(`(?:^|\\s|\\b)T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)\\s*-?\\s*\\d{2,4}`);
         
