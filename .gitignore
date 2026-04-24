@@ -72,3 +72,4 @@ scripts/reset_shimano_rod_player_fields_stage*.js
 scripts/run_daiwa_rod_detail_group_shading.js
 scripts/scrape_rodsjp_shimano_*stage*.js
 scripts/shade_daiwa_rod_detail_groups_stage*.py
+scripts/shade_shimano_rod_detail_groups_stage*.py
