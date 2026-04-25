@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：本次 Daiwa Taiwan rods 阶段性收口  
-更新时间：2026-04-24  
+更新时间：2026-04-25  
 
 ---
 
@@ -36,7 +36,7 @@
 - `rod_detail.player_positioning`：`338 / 338`
 - `rod_detail.player_selling_points`：`338 / 338`
 - `rod_detail.guide_use_hint`：`338 / 338`
-- `rod_detail.guide_layout_type`：`30 / 338`
+- `rod_detail.guide_layout_type`：`119 / 338`
 
 当前合理空值：
 
@@ -283,7 +283,7 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 - `rod_detail.player_positioning = 338 / 338`
 - `rod_detail.player_selling_points = 338 / 338`
 - `rod_detail.guide_use_hint = 338 / 338`
-- `rod_detail.guide_layout_type = 30 / 338`
+- `rod_detail.guide_layout_type = 119 / 338`
 
 重要规则：
 
@@ -297,6 +297,54 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
   - `FR / Frog` 才归 `Frog / 強障礙`
   - `HFB / HRB / MH / H / XH / XXH` 只是强度信号，不自动等于大饵
   - 没有明确大饵描述的 `CxxMH / CxxH` 归 `強力泛用`
+
+### 6.1 `guide_layout_type` 口径
+
+这个字段不是内部枚举，不再写 `special / standard`。
+
+只在有明确导环配置证据时填写；没有证据时宁可留空。
+
+当前可写口径：
+
+- `AGS 碳纖導環：減輕前端重量，竿尖回彈與震動傳遞更直接`
+- `Fuji/K 系防纏導環：出線穩定，PE 線拋投與控線更不易亂`
+
+判断规则：
+
+- `AGS` 是导环证据，可以来自子型号 SKU、子型号 Description、主商品 model 或主商品 Description。
+- `Fuji / SiC / K型 / 導環 / 導珠` 是导环配置证据，但要确认不是无关上下文。
+- `CGS` 是握把/感度系统，不等于导环布局，不能因为出现 `CGS` 就写导环特殊。
+- `CWS` 是导环固定系统，可作为技术背景，但不单独等同于导环布局类型。
+- `guide_layout_type` 只回答“导环布局/配置特殊在哪里”，不要写使用场景。
+
+### 6.2 `guide_use_hint` 口径
+
+这个字段给用户看的，不写内部标签。
+
+禁止写：
+
+- `versatile`
+- `casting_distance`
+- `specific_technique`
+- `finesse`
+- `special`
+- `standard`
+
+也不要大量使用模板口头禅，例如每句都写“重點是”。整列重复出现同一连接句，会显得像批量生成文案，用户读起来不自然。
+
+当前写法应直接说明作用：
+
+- `岸投遠投：PE 線出線更順、線弧更穩，長竿反覆拋投和迎風控線更穩定。`
+- `Bass 泛用：出線順暢、兼容多種線徑，軟餌、硬餌、移動餌切換更自然。`
+- `木蝦用：PE 線出線與抽竿後回線控制更穩，連續跳蝦、看線和補刺更清楚。`
+- `鐵板/船釣：垂直控線與負荷更穩，抽停、下沉咬口感知和長時間搏魚更直接。`
+
+判断规则：
+
+- 使用场景判断优先看 `player_environment / player_positioning / SKU / 子型号 Description`。
+- 主商品 Description 可以参与导环配置识别，但不要直接参与使用场景判断；主描述里可能有跨系列技术举例，例如海鲈竿介绍中提到 `EMERALDAS STOIST RT CGS`，不能因此把海鲈竿误判成木虾。
+- `guide_use_hint` 应回答“这个导环/控线倾向对实际使用有什么帮助”，不是复述竿子的定位字段。
+- 修改后要检查是否残留内部标签和模板口头禅。
 
 ---
 
@@ -641,6 +689,45 @@ OCR 或 HTML table 解析后，要保留：
 
 - 保留 SKU 和规格，不用错误 Description 覆盖 SKU。
 
+### 11.8 导环字段写成内部标签
+
+问题：
+
+- `guide_layout_type` 曾写成 `special / standard`。
+- `guide_use_hint` 曾写成 `versatile / casting_distance / specific_technique / finesse`。
+- 这些值对用户不可读，无法解释“特殊在哪里、有什么作用”。
+
+最终口径：
+
+- `guide_layout_type` 写具体配置说明，例如 `AGS 碳纖導環：減輕前端重量，竿尖回彈與震動傳遞更直接`。
+- `guide_use_hint` 写实际使用帮助，例如出线、线弧、控线、读底、抽竿回线、细线咬口判断。
+- 没有明确导环证据时，`guide_layout_type` 可以留空，不为补满而硬写。
+
+### 11.9 `guide_use_hint` 模板口头禅
+
+问题：
+
+- 早期修正后每条 `guide_use_hint` 都出现“重點是”，整列读起来像模板批量生成。
+
+最终口径：
+
+- 去掉固定口头禅，直接写结果和作用。
+- 示例：`岸投遠投：PE 線出線更順、線弧更穩，長竿反覆拋投和迎風控線更穩定。`
+- 示例：`Bass 泛用：出線順暢、兼容多種線徑，軟餌、硬餌、移動餌切換更自然。`
+
+### 11.10 主描述跨系列技术文本误导
+
+问题：
+
+- 主商品 Description 可以包含跨系列技术说明。
+- 例如海鲈竿描述中提到 `EMERALDAS STOIST RT CGS`，如果把主描述直接用于使用场景判断，会把海鲈竿误判为木虾。
+
+最终口径：
+
+- 主商品 Description 可以用于识别导环配置证据，例如 `AGS / Fuji / SiC`。
+- 使用场景判断优先看子型号 Description、SKU、`player_environment`、`player_positioning`。
+- `CGS` 是握把系统，不是导环布局；不能因为 `CGS` 写 `guide_layout_type = special`。
+
 ---
 
 ## 12. 当前不应继续做的事
@@ -678,4 +765,3 @@ OCR 或 HTML table 解析后，要保留：
 - `notes`
 
 这样既能保留白名单证据，又不污染正式导入表。
-

@@ -46,6 +46,7 @@ GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_ocr*/
 GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_ocr_lines.json
 GearSage-client/pkgGear/data_raw/daiwa_tw_rod_price_rows.json
 GearSage-client/pkgGear/data_raw/daiwa_tw_rod_structured.json
+GearSage-client/pkgGear/data_raw/abu_rods_cache/
 GearSage-client/pkgGear/data_raw/shimano_rod_rodsjp_*.json
 GearSage-client/pkgGear/data_raw/shimano_rod_whitelist_series_seed_*.json
 GearSage-client/pkgGear/data_raw/tw_*.html
