@@ -15,6 +15,7 @@
         "sku": "IRSC-63MHR-TG40X",
         "type": "C",
         "power": "MH",
+        "code_name": "War Gazelle RS",
         "specs": {
           "全長(m)": "1.9",
           "標準自重(g)": "111",
@@ -35,7 +36,7 @@
       }
     ],
     "raw_data_hash": "7bd77c029ee57ac55b18ba94d0d380631f004ab757b33fabfb6ad49c4c1c6e48",
-    "scraped_at": "2026-04-25T11:02:00.711Z"
+    "scraped_at": "2026-04-25T13:23:04.905Z"
   },
   {
     "brand": "Evergreen",
@@ -53,6 +54,7 @@
         "sku": "GTR-C66LLR",
         "type": "C",
         "power": "L+",
+        "code_name": "Super Steed GT-R",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "128",
@@ -73,7 +75,7 @@
       }
     ],
     "raw_data_hash": "43b006ae648674b9c80777c8f0590db5c9f05cb9d4808d45424100d029e80785",
-    "scraped_at": "2026-04-25T11:02:01.209Z"
+    "scraped_at": "2026-04-25T13:23:04.762Z"
   },
   {
     "brand": "Evergreen",
@@ -91,6 +93,7 @@
         "sku": "IRSC-66M",
         "type": "C",
         "power": "M",
+        "code_name": "Cobra RS",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "122",
@@ -111,7 +114,7 @@
       }
     ],
     "raw_data_hash": "63d939e2068ea2c4608c07c396f5cf3055dda5432d4093066f60a5992cccf717",
-    "scraped_at": "2026-04-25T11:02:01.213Z"
+    "scraped_at": "2026-04-25T13:23:04.600Z"
   },
   {
     "brand": "Evergreen",
@@ -129,6 +132,7 @@
         "sku": "IGTC-66M",
         "type": "C",
         "power": "M",
+        "code_name": "Cobra GT",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "129",
@@ -149,7 +153,7 @@
       }
     ],
     "raw_data_hash": "f74593ee6abd5b06d43b88d63db41ef0fa5c3fcfbaeba6f9eaada78c588a19fc",
-    "scraped_at": "2026-04-25T11:02:01.205Z"
+    "scraped_at": "2026-04-25T13:23:04.618Z"
   },
   {
     "brand": "Evergreen",
@@ -167,6 +171,7 @@
         "sku": "IRSC-66MHF-TG40X",
         "type": "C",
         "power": "MH",
+        "code_name": "Black Raven Extreme RS",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "116",
@@ -187,7 +192,7 @@
       }
     ],
     "raw_data_hash": "7d1f25a7a80eaa6297895c5a789e6b81d2e41abb235979f513271a9eeef004d9",
-    "scraped_at": "2026-04-25T11:02:03.566Z"
+    "scraped_at": "2026-04-25T13:23:07.493Z"
   },
   {
     "brand": "Evergreen",
@@ -205,6 +210,7 @@
         "sku": "IRSC-69MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Stallion RS",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "125",
@@ -225,7 +231,7 @@
       }
     ],
     "raw_data_hash": "ed6d3088dddbd6de8257b885d7305b057a8418bb9052a5505bc51008a2077015",
-    "scraped_at": "2026-04-25T11:02:03.561Z"
+    "scraped_at": "2026-04-25T13:23:07.185Z"
   },
   {
     "brand": "Evergreen",
@@ -243,6 +249,7 @@
         "sku": "IGTC-69MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Stallion GT",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "133",
@@ -263,7 +270,7 @@
       }
     ],
     "raw_data_hash": "199531e8ebb51211972e28654971e5143c64617006734249cf5f87f9188c67b8",
-    "scraped_at": "2026-04-25T11:02:03.677Z"
+    "scraped_at": "2026-04-25T13:23:06.975Z"
   },
   {
     "brand": "Evergreen",
@@ -281,6 +288,7 @@
         "sku": "IRSC-610MHRF",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Raven RS",
         "specs": {
           "全長(m)": "2.09",
           "標準自重(g)": "106",
@@ -301,7 +309,7 @@
       }
     ],
     "raw_data_hash": "96f0ea118691c99752f56ef5c6c984b522d06d086da78c81207d968386d05a0d",
-    "scraped_at": "2026-04-25T11:02:03.741Z"
+    "scraped_at": "2026-04-25T13:23:07.830Z"
   },
   {
     "brand": "Evergreen",
@@ -319,6 +327,7 @@
         "sku": "IRSC-611XMH",
         "type": "C",
         "power": "XMH",
+        "code_name": "Grand Cobra RS",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "143",
@@ -339,7 +348,7 @@
       }
     ],
     "raw_data_hash": "ab69721eacfdf8a5f808c652f1382623e02db224d785dac4daec738e4789e643",
-    "scraped_at": "2026-04-25T11:02:05.614Z"
+    "scraped_at": "2026-04-25T13:23:10.685Z"
   },
   {
     "brand": "Evergreen",
@@ -357,6 +366,7 @@
         "sku": "IGTC-611XMH",
         "type": "C",
         "power": "XMH",
+        "code_name": "Grand Cobra GT",
         "specs": {
           "全長(m)": "2.12",
           "標準自重(g)": "150",
@@ -377,7 +387,7 @@
       }
     ],
     "raw_data_hash": "e708fd14fe7e2c054987289d831fef2791ee493e6ee62034c823de29ee4f9e1e",
-    "scraped_at": "2026-04-25T11:02:05.624Z"
+    "scraped_at": "2026-04-25T13:23:10.311Z"
   },
   {
     "brand": "Evergreen",
@@ -395,6 +405,7 @@
         "sku": "IRSC-611XXXHR-SXF<SG>",
         "type": "C",
         "power": "XXXH",
+        "code_name": "Giant Dire Wolf RS",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "178",
@@ -415,7 +426,7 @@
       }
     ],
     "raw_data_hash": "3f42e227356d5aa69ca82af0122ee3c85952d58d6d6cb86f5d7848f3cdfccf3e",
-    "scraped_at": "2026-04-25T11:02:05.618Z"
+    "scraped_at": "2026-04-25T13:23:11.184Z"
   },
   {
     "brand": "Evergreen",
@@ -433,6 +444,7 @@
         "sku": "IRSC-70MF-SXF",
         "type": "C",
         "power": "M",
+        "code_name": "Cougar Elite 7 RS",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "136",
@@ -453,7 +465,7 @@
       }
     ],
     "raw_data_hash": "977903e95062d05de7d172ab72f0813e9e01ff76a572c8d26dcec39b27ef64ea",
-    "scraped_at": "2026-04-25T11:02:05.621Z"
+    "scraped_at": "2026-04-25T13:23:10.406Z"
   },
   {
     "brand": "Evergreen",
@@ -471,6 +483,7 @@
         "sku": "IGTC-71MF-SXF",
         "type": "C",
         "power": "M",
+        "code_name": "Cougar Elite 7 GT",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "140",
@@ -491,7 +504,7 @@
       }
     ],
     "raw_data_hash": "3a208d9843eab2dbda98afe3074bae42bf27edaffc7829a6d97cdeafc4319e7e",
-    "scraped_at": "2026-04-25T11:02:07.816Z"
+    "scraped_at": "2026-04-25T13:23:13.815Z"
   },
   {
     "brand": "Evergreen",
@@ -509,6 +522,7 @@
         "sku": "IRSC-70MHR-SXF",
         "type": "C",
         "power": "MH",
+        "code_name": "Dire Wolf Wild 7 RS",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "161",
@@ -529,7 +543,7 @@
       }
     ],
     "raw_data_hash": "d324479f13a0343538fc45f2e51ac531e4fe693e89f8213b1eb3ff24254d7a3e",
-    "scraped_at": "2026-04-25T11:02:07.657Z"
+    "scraped_at": "2026-04-25T13:23:13.825Z"
   },
   {
     "brand": "Evergreen",
@@ -547,6 +561,7 @@
         "sku": "GTR-C70MHR-SXF<SG>",
         "type": "C",
         "power": "MH",
+        "code_name": "Dire Wolf Wild 7 GT-R",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "161",
@@ -567,7 +582,7 @@
       }
     ],
     "raw_data_hash": "fb92dc9037dcd9860f8014a908e2a6d3ee617bcd28fbc9acce9e679782ccb278",
-    "scraped_at": "2026-04-25T11:02:07.665Z"
+    "scraped_at": "2026-04-25T13:23:13.683Z"
   },
   {
     "brand": "Evergreen",
@@ -585,6 +600,7 @@
         "sku": "RSR-C70XHX",
         "type": "C",
         "power": "XH",
+        "code_name": "Rapid Gunner RSR",
         "specs": {
           "全長(m)": "2.14",
           "標準自重(g)": "145",
@@ -605,7 +621,7 @@
       }
     ],
     "raw_data_hash": "251c51eadd1a797732e443e3dd701a8c7637d401d46e21cac64164b6ee9c8e7c",
-    "scraped_at": "2026-04-25T11:02:07.662Z"
+    "scraped_at": "2026-04-25T13:23:13.381Z"
   },
   {
     "brand": "Evergreen",
@@ -623,6 +639,7 @@
         "sku": "HD-C70XHX",
         "type": "C",
         "power": "XH",
+        "code_name": "Rapid Gunner HD",
         "specs": {
           "全長(m)": "2.14",
           "標準自重(g)": "145",
@@ -643,7 +660,7 @@
       }
     ],
     "raw_data_hash": "ff2c6ee9716fd6362328329c4864d99f7b0739abccc525047a542257c7c8375e",
-    "scraped_at": "2026-04-25T11:02:09.905Z"
+    "scraped_at": "2026-04-25T13:23:16.505Z"
   },
   {
     "brand": "Evergreen",
@@ -661,6 +678,7 @@
         "sku": "IGTC-71MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Stallion GT",
         "specs": {
           "全長(m)": "2.17",
           "標準自重(g)": "132",
@@ -681,7 +699,7 @@
       }
     ],
     "raw_data_hash": "ca019b3f99fc632fc3931740ae6b969fd5448b7fd4c17fd7a09f5dc8ab47236e",
-    "scraped_at": "2026-04-25T11:02:09.795Z"
+    "scraped_at": "2026-04-25T13:23:15.692Z"
   },
   {
     "brand": "Evergreen",
@@ -699,6 +717,7 @@
         "sku": "GT2RS-C71MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Stallion GT2RS",
         "specs": {
           "全長(m)": "2.17",
           "標準自重(g)": "132",
@@ -719,7 +738,7 @@
       }
     ],
     "raw_data_hash": "ba7445cb895ccdd60d1b88741fdf723aea3f7ef1fcfbf1cc7d0b38903d8e939f",
-    "scraped_at": "2026-04-25T11:02:09.760Z"
+    "scraped_at": "2026-04-25T13:23:16.488Z"
   },
   {
     "brand": "Evergreen",
@@ -737,6 +756,7 @@
         "sku": "GT3RS-C71MH-TG40X",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Stallion GT3RS",
         "specs": {
           "全長(m)": "2.17",
           "標準自重(g)": "130",
@@ -757,7 +777,7 @@
       }
     ],
     "raw_data_hash": "1e3d733751dbb1c97fbf249080e9aa4058cfa04c855f1890ac49b6e5457ad844",
-    "scraped_at": "2026-04-25T11:02:09.757Z"
+    "scraped_at": "2026-04-25T13:23:15.688Z"
   },
   {
     "brand": "Evergreen",
@@ -775,6 +795,7 @@
         "sku": "GTX-C710XHX",
         "type": "C",
         "power": "XH",
+        "code_name": "Grand Stallion GT-X",
         "specs": {
           "全長(m)": "2.39",
           "標準自重(g)": "185",
@@ -795,7 +816,7 @@
       }
     ],
     "raw_data_hash": "7c5521c08eb9f68c9b764f25f30038cf6c031fd70422e164b64b4ea62fb0dcc0",
-    "scraped_at": "2026-04-25T11:02:12.018Z"
+    "scraped_at": "2026-04-25T13:23:18.790Z"
   },
   {
     "brand": "Evergreen",
@@ -813,6 +834,7 @@
         "sku": "IRSC-66MR-ST<SPG>",
         "type": "C",
         "power": "M",
+        "code_name": "Velociraptor RS",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "95",
@@ -833,7 +855,7 @@
       }
     ],
     "raw_data_hash": "ffa1278477dce79fe3ef6df0a82dcba4d49df044859ea36ab59cbd968acf570f",
-    "scraped_at": "2026-04-25T11:02:12.178Z"
+    "scraped_at": "2026-04-25T13:23:19.106Z"
   },
   {
     "brand": "Evergreen",
@@ -851,6 +873,7 @@
         "sku": "IRSC-67MHF-ST/SS",
         "type": "C",
         "power": "MH",
+        "code_name": "Strider RS",
         "specs": {
           "全長(m)": "2",
           "標準自重(g)": "95",
@@ -871,7 +894,7 @@
       }
     ],
     "raw_data_hash": "a8f790f850397f2c74d9f817e7c18633c11f17f7a0de36a26ae90001e35572db",
-    "scraped_at": "2026-04-25T11:02:12.034Z"
+    "scraped_at": "2026-04-25T13:23:18.880Z"
   },
   {
     "brand": "Evergreen",
@@ -889,6 +912,7 @@
         "sku": "TKIC-63ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Stingray Super Shake",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "109",
@@ -909,7 +933,7 @@
       }
     ],
     "raw_data_hash": "62601c327dd85492ec530bdfc54df6f02534abf1b8a21e5942a278594bc23009",
-    "scraped_at": "2026-04-25T11:02:12.105Z"
+    "scraped_at": "2026-04-25T13:23:18.583Z"
   },
   {
     "brand": "Evergreen",
@@ -927,6 +951,7 @@
         "sku": "TKIC-63ML-BK",
         "type": "C",
         "power": "ML",
+        "code_name": "Stingray Super Shake B",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "109",
@@ -947,7 +972,7 @@
       }
     ],
     "raw_data_hash": "3fcac0fb1945f79822bb576da8412fb6127ea5253d26d187a0528156dce6c913",
-    "scraped_at": "2026-04-25T11:02:14.395Z"
+    "scraped_at": "2026-04-25T13:23:21.517Z"
   },
   {
     "brand": "Evergreen",
@@ -965,6 +990,7 @@
         "sku": "TKIC-66M",
         "type": "C",
         "power": "M",
+        "code_name": "Cobra DG66M",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "132",
@@ -985,7 +1011,7 @@
       }
     ],
     "raw_data_hash": "06156d779bd88c81ec2c13658855331a77680c428e80bff508923911d0dd027f",
-    "scraped_at": "2026-04-25T11:02:14.361Z"
+    "scraped_at": "2026-04-25T13:23:21.453Z"
   },
   {
     "brand": "Evergreen",
@@ -1003,6 +1029,7 @@
         "sku": "TKIC-66M-BK",
         "type": "C",
         "power": "M",
+        "code_name": "Cobra DG66M B",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "132",
@@ -1023,7 +1050,7 @@
       }
     ],
     "raw_data_hash": "16fa2a6abcd54fdd7dfbc2f7433b638d969047cd24054d057738dc5d04588325",
-    "scraped_at": "2026-04-25T11:02:14.370Z"
+    "scraped_at": "2026-04-25T13:23:21.587Z"
   },
   {
     "brand": "Evergreen",
@@ -1041,6 +1068,7 @@
         "sku": "TKIC-66MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Black Raven",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "115",
@@ -1061,7 +1089,7 @@
       }
     ],
     "raw_data_hash": "bdc83ee75ba9edd4ae986153c0681454c309404bd12543b900a3fa44991f782d",
-    "scraped_at": "2026-04-25T11:02:14.404Z"
+    "scraped_at": "2026-04-25T13:23:21.483Z"
   },
   {
     "brand": "Evergreen",
@@ -1079,6 +1107,7 @@
         "sku": "TKIC-66MH-BK",
         "type": "C",
         "power": "MH",
+        "code_name": "Black Raven B",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "115",
@@ -1099,7 +1128,7 @@
       }
     ],
     "raw_data_hash": "e8f597f91a05e8b63feeb024f9582913c5d5bfc30d544774eff22ca75b54f165",
-    "scraped_at": "2026-04-25T11:02:16.726Z"
+    "scraped_at": "2026-04-25T13:23:24.783Z"
   },
   {
     "brand": "Evergreen",
@@ -1117,6 +1146,7 @@
         "sku": "TKIC-69MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Stallion DG69MH",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "131",
@@ -1137,7 +1167,7 @@
       }
     ],
     "raw_data_hash": "e8e826d6dc003ef069efff6595a0b7df03f4bed4d88a894d075e3faf3bc3e6d2",
-    "scraped_at": "2026-04-25T11:02:16.733Z"
+    "scraped_at": "2026-04-25T13:23:23.673Z"
   },
   {
     "brand": "Evergreen",
@@ -1155,6 +1185,7 @@
         "sku": "TKIC-69MH-BK",
         "type": "C",
         "power": "MH",
+        "code_name": "Stallion DG69MH B",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "131",
@@ -1175,7 +1206,7 @@
       }
     ],
     "raw_data_hash": "c164352e89c5df70f778f4ca4e726c7874ea1f87176ef8a2de450172a1a844e6",
-    "scraped_at": "2026-04-25T11:02:16.730Z"
+    "scraped_at": "2026-04-25T13:23:24.963Z"
   },
   {
     "brand": "Evergreen",
@@ -1193,6 +1224,7 @@
         "sku": "TKIC-610MR",
         "type": "C",
         "power": "M",
+        "code_name": "Super Cougar",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "119",
@@ -1213,7 +1245,7 @@
       }
     ],
     "raw_data_hash": "8fd8257c273604437d83a499ba807900cec0cc60b718a3f2020e15f27a9cd92a",
-    "scraped_at": "2026-04-25T11:02:16.722Z"
+    "scraped_at": "2026-04-25T13:23:24.348Z"
   },
   {
     "brand": "Evergreen",
@@ -1231,6 +1263,7 @@
         "sku": "TKIC-610MR-BK",
         "type": "C",
         "power": "M",
+        "code_name": "Super Cougar B",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "119",
@@ -1251,7 +1284,7 @@
       }
     ],
     "raw_data_hash": "8260b10286428a2a84c5d7697b3b4f90c32dbf13aec0208126cb4a83655dc9cd",
-    "scraped_at": "2026-04-25T11:02:18.998Z"
+    "scraped_at": "2026-04-25T13:23:28.153Z"
   },
   {
     "brand": "Evergreen",
@@ -1269,6 +1302,7 @@
         "sku": "TKIC-610H",
         "type": "C",
         "power": "H",
+        "code_name": "Gunslinger",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "124",
@@ -1289,7 +1323,7 @@
       }
     ],
     "raw_data_hash": "ee169b104d5d7945d23e4e46ae699f77545a2d2f8eb29bb1edfb99229e696ce8",
-    "scraped_at": "2026-04-25T11:02:19.002Z"
+    "scraped_at": "2026-04-25T13:23:27.554Z"
   },
   {
     "brand": "Evergreen",
@@ -1307,6 +1341,7 @@
         "sku": "TKIC-610H-BK",
         "type": "C",
         "power": "H",
+        "code_name": "Gunslinger B",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "124",
@@ -1327,7 +1362,7 @@
       }
     ],
     "raw_data_hash": "0b89f8dd801980a5adf5a4468bd19781b1632d777627bec008c4d1c99b1c0960",
-    "scraped_at": "2026-04-25T11:02:19.046Z"
+    "scraped_at": "2026-04-25T13:23:27.144Z"
   },
   {
     "brand": "Evergreen",
@@ -1345,6 +1380,7 @@
         "sku": "TKIC-611XMH-BK",
         "type": "C",
         "power": "XMH",
+        "code_name": "Grand Cobra Limited",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "158",
@@ -1365,7 +1401,7 @@
       }
     ],
     "raw_data_hash": "b3672b12cad6f947b9f6217b2585d41311b6a28a3413f1e75677e8aea4daf4bf",
-    "scraped_at": "2026-04-25T11:02:18.984Z"
+    "scraped_at": "2026-04-25T13:23:27.107Z"
   },
   {
     "brand": "Evergreen",
@@ -1383,6 +1419,7 @@
         "sku": "TKIC-70H",
         "type": "C",
         "power": "H",
+        "code_name": "Egoist",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "129",
@@ -1403,7 +1440,7 @@
       }
     ],
     "raw_data_hash": "fbb948b6ce3ccb24413c9358e8293f0a51a7f2bbbad3757f6067f062edce00f0",
-    "scraped_at": "2026-04-25T11:02:21.120Z"
+    "scraped_at": "2026-04-25T13:23:31.416Z"
   },
   {
     "brand": "Evergreen",
@@ -1421,6 +1458,7 @@
         "sku": "TKIC-70H-BK",
         "type": "C",
         "power": "H",
+        "code_name": "Egoist B",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "129",
@@ -1441,7 +1479,7 @@
       }
     ],
     "raw_data_hash": "dd9ef171d5b4737a187a9f9747ecd3aed23bca696c734e03cafb4a310eddc0d7",
-    "scraped_at": "2026-04-25T11:02:21.123Z"
+    "scraped_at": "2026-04-25T13:23:31.182Z"
   },
   {
     "brand": "Evergreen",
@@ -1459,6 +1497,7 @@
         "sku": "TKIC-71MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Stallion",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "127",
@@ -1479,7 +1518,7 @@
       }
     ],
     "raw_data_hash": "ce550b2f997e3a32202d3acfd98ccf5c9efcd50e7e2bfa016ea49fdac6e8019b",
-    "scraped_at": "2026-04-25T11:02:20.965Z"
+    "scraped_at": "2026-04-25T13:23:30.710Z"
   },
   {
     "brand": "Evergreen",
@@ -1497,6 +1536,7 @@
         "sku": "TKIC-71MH-BK",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Stallion B",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "127",
@@ -1517,7 +1557,7 @@
       }
     ],
     "raw_data_hash": "60135a1667e0f20f0c3476b1e405b0859034ab7718a1bf9e8a25b36b88042b48",
-    "scraped_at": "2026-04-25T11:02:21.003Z"
+    "scraped_at": "2026-04-25T13:23:30.864Z"
   },
   {
     "brand": "Evergreen",
@@ -1535,6 +1575,7 @@
         "sku": "TKIC-65MLST",
         "type": "C",
         "power": "ML",
+        "code_name": "Black Briar",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "115",
@@ -1555,7 +1596,7 @@
       }
     ],
     "raw_data_hash": "1119bb9b31d9c17ae6a305cd724cd1a211a3fc300ae790c29d0b2d133335b346",
-    "scraped_at": "2026-04-25T11:02:23.531Z"
+    "scraped_at": "2026-04-25T13:23:34.464Z"
   },
   {
     "brand": "Evergreen",
@@ -1573,6 +1614,7 @@
         "sku": "TKIC-65MLST-BK",
         "type": "C",
         "power": "ML",
+        "code_name": "Black Briar B",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "115",
@@ -1593,7 +1635,7 @@
       }
     ],
     "raw_data_hash": "7a35ff2f3780029753f0236194f22570bc1c2d0e0ef2246644161ff6292606cf",
-    "scraped_at": "2026-04-25T11:02:23.461Z"
+    "scraped_at": "2026-04-25T13:23:33.489Z"
   },
   {
     "brand": "Evergreen",
@@ -1611,6 +1653,7 @@
         "sku": "TKIC-67MHST-R",
         "type": "C",
         "power": "MH",
+        "code_name": "Stingray Wild Finesse",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "111",
@@ -1631,7 +1674,7 @@
       }
     ],
     "raw_data_hash": "028896e3d9b4454054d08da68210b71078ee15bb7ec7e743cae5f2009227b260",
-    "scraped_at": "2026-04-25T11:02:23.562Z"
+    "scraped_at": "2026-04-25T13:23:34.416Z"
   },
   {
     "brand": "Evergreen",
@@ -1649,6 +1692,7 @@
         "sku": "TKIC-67MHST-R-BK",
         "type": "C",
         "power": "MH",
+        "code_name": "Stingray Wild Finesse B",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "111",
@@ -1669,7 +1713,7 @@
       }
     ],
     "raw_data_hash": "d0eec53b7e4b5e61419fd8f1b667c1b684ad74a7965f6dddeb19b8d0c717e0a1",
-    "scraped_at": "2026-04-25T11:02:23.522Z"
+    "scraped_at": "2026-04-25T13:23:33.875Z"
   },
   {
     "brand": "Evergreen",
@@ -1687,6 +1731,7 @@
         "sku": "TKIC-67MHST-F",
         "type": "C",
         "power": "MH",
+        "code_name": "Black Raven SS",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "109",
@@ -1707,7 +1752,7 @@
       }
     ],
     "raw_data_hash": "3c3f33d44c4c64ce409c11619648e832590b5c1e825777ebd3f6cfc1e100b261",
-    "scraped_at": "2026-04-25T11:02:25.905Z"
+    "scraped_at": "2026-04-25T13:23:36.826Z"
   },
   {
     "brand": "Evergreen",
@@ -1725,6 +1770,7 @@
         "sku": "TKIC-67MHST-F-BK",
         "type": "C",
         "power": "MH",
+        "code_name": "Black Raven SS B",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "109",
@@ -1745,7 +1791,7 @@
       }
     ],
     "raw_data_hash": "6fd10c62629243df9d304ab67b49b72b5f83d164c0e72ee38c3695a2f046e3e1",
-    "scraped_at": "2026-04-25T11:02:25.833Z"
+    "scraped_at": "2026-04-25T13:23:36.880Z"
   },
   {
     "brand": "Evergreen",
@@ -1763,6 +1809,7 @@
         "sku": "TKSS-63UL-ZZ",
         "type": "S",
         "power": "UL",
+        "code_name": "Incredible Sensor Delges UL",
         "specs": {
           "全長(m)": "1.9",
           "標準自重(g)": "90",
@@ -1783,7 +1830,7 @@
       }
     ],
     "raw_data_hash": "c2636896f4dcfe54bd3db5173affab7d68f28c33719691102459d3757da626d9",
-    "scraped_at": "2026-04-25T11:02:25.740Z"
+    "scraped_at": "2026-04-25T13:23:36.514Z"
   },
   {
     "brand": "Evergreen",
@@ -1801,6 +1848,7 @@
         "sku": "TKSS-63L-ZZ",
         "type": "S",
         "power": "L",
+        "code_name": "Incredible Sensor Delges",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "87",
@@ -1821,7 +1869,7 @@
       }
     ],
     "raw_data_hash": "c813257a88ab864814b664515f4eeadaac10b9956a0fda0e9a6df0049175ec79",
-    "scraped_at": "2026-04-25T11:02:25.706Z"
+    "scraped_at": "2026-04-25T13:23:36.887Z"
   },
   {
     "brand": "Evergreen",
@@ -1839,6 +1887,7 @@
         "sku": "TKSS-64L",
         "type": "S",
         "power": "L",
+        "code_name": "Beastinger",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "89",
@@ -1859,7 +1908,7 @@
       }
     ],
     "raw_data_hash": "403f04d050a0f591eae5d57cfcf826dc632b8f2c50a3ace3d85bede3583af280",
-    "scraped_at": "2026-04-25T11:02:28.042Z"
+    "scraped_at": "2026-04-25T13:23:39.334Z"
   },
   {
     "brand": "Evergreen",
@@ -1877,6 +1926,7 @@
         "sku": "TKSS-64ML",
         "type": "S",
         "power": "ML",
+        "code_name": "Beastinger Extreme",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "97",
@@ -1897,7 +1947,7 @@
       }
     ],
     "raw_data_hash": "dc1454e9bc63ba0be98838348d64e7a2a893059c5e1975e68bdb787d04069939",
-    "scraped_at": "2026-04-25T11:02:28.309Z"
+    "scraped_at": "2026-04-25T13:23:38.844Z"
   },
   {
     "brand": "Evergreen",
@@ -1915,6 +1965,7 @@
         "sku": "TKSS-67XM",
         "type": "S",
         "power": "M",
+        "code_name": "Incredible Sensor Galnerius",
         "specs": {
           "全長(m)": "2",
           "標準自重(g)": "107",
@@ -1935,7 +1986,7 @@
       }
     ],
     "raw_data_hash": "f222368d33e79738cf3357702848280530b39b7cc4d796daa1aeda9bc4c88475",
-    "scraped_at": "2026-04-25T11:02:27.835Z"
+    "scraped_at": "2026-04-25T13:23:39.310Z"
   },
   {
     "brand": "Evergreen",
@@ -1953,6 +2004,7 @@
         "sku": "TKSS-611MH-TG40X",
         "type": "S",
         "power": "MH",
+        "code_name": "Spider Spin",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "105",
@@ -1973,7 +2025,7 @@
       }
     ],
     "raw_data_hash": "9e553b7bf373d915e40fc03501d6a6b1ca89e559e7e904281565f44eb72fe193",
-    "scraped_at": "2026-04-25T11:02:28.398Z"
+    "scraped_at": "2026-04-25T13:23:39.461Z"
   },
   {
     "brand": "Evergreen",
@@ -1991,6 +2043,7 @@
         "sku": "TKSS-76UL/XM-LTD",
         "type": "S",
         "power": "UL",
+        "code_name": "LL Carolina Special",
         "specs": {
           "全長(m)": "2.29",
           "標準自重(g)": "110",
@@ -2011,7 +2064,7 @@
       }
     ],
     "raw_data_hash": "cd24746aa5cadce38f7a8103b659e7fc85a4cd44704132116e9ab4edf27bc5de",
-    "scraped_at": "2026-04-25T11:02:30.388Z"
+    "scraped_at": "2026-04-25T13:23:42.505Z"
   },
   {
     "brand": "Evergreen",
@@ -2029,6 +2082,7 @@
         "sku": "TKSS-61ULST",
         "type": "S",
         "power": "UL",
+        "code_name": "Super Finesse",
         "specs": {
           "全長(m)": "1.86",
           "標準自重(g)": "86",
@@ -2049,7 +2103,7 @@
       }
     ],
     "raw_data_hash": "9ac6b4d06766fdf0a67665fc8680114b321df77931e7395fc8ecb04a328faedb",
-    "scraped_at": "2026-04-25T11:02:30.571Z"
+    "scraped_at": "2026-04-25T13:23:42.229Z"
   },
   {
     "brand": "Evergreen",
@@ -2067,6 +2121,7 @@
         "sku": "TKSS-61MLST",
         "type": "S",
         "power": "ML",
+        "code_name": "Sight Eagle",
         "specs": {
           "全長(m)": "1.85",
           "標準自重(g)": "92",
@@ -2087,7 +2142,7 @@
       }
     ],
     "raw_data_hash": "0478838e3df53bd1d88981d7fbbb65937bdfb20aaf6ec8f9319c979ab78b56d6",
-    "scraped_at": "2026-04-25T11:02:30.604Z"
+    "scraped_at": "2026-04-25T13:23:41.800Z"
   },
   {
     "brand": "Evergreen",
@@ -2105,6 +2160,7 @@
         "sku": "TKSS-63LST",
         "type": "S",
         "power": "L",
+        "code_name": "Mighty Finesse",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "92",
@@ -2125,7 +2181,7 @@
       }
     ],
     "raw_data_hash": "410758543da8235851bc29f983829d12b4ebc7ac181b8fa83359bc25b9dc8ec4",
-    "scraped_at": "2026-04-25T11:02:30.544Z"
+    "scraped_at": "2026-04-25T13:23:42.274Z"
   },
   {
     "brand": "Evergreen",
@@ -2143,6 +2199,7 @@
         "sku": "TKSS-63LXST<S-1>",
         "type": "S",
         "power": "L",
+        "code_name": "Marshall Eagle",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "",
@@ -2163,7 +2220,7 @@
       }
     ],
     "raw_data_hash": "61aaea97b1cbf95d02d59e13be1ba4fcf634cb974da7e97100c1e7a3665bc04d",
-    "scraped_at": "2026-04-25T11:02:32.570Z"
+    "scraped_at": "2026-04-25T13:23:44.705Z"
   },
   {
     "brand": "Evergreen",
@@ -2181,6 +2238,7 @@
         "sku": "TKSS-63MLST",
         "type": "S",
         "power": "ML",
+        "code_name": "Sight Hawk",
         "specs": {
           "全長(m)": "1.9",
           "標準自重(g)": "92",
@@ -2201,7 +2259,7 @@
       }
     ],
     "raw_data_hash": "e5d12aedbe0d054481ef7f2b86ee38bf85352f1898e50edc232ecfe430fb21a5",
-    "scraped_at": "2026-04-25T11:02:32.696Z"
+    "scraped_at": "2026-04-25T13:23:44.932Z"
   },
   {
     "brand": "Evergreen",
@@ -2219,6 +2277,7 @@
         "sku": "TKSS-64MST",
         "type": "S",
         "power": "M",
+        "code_name": "Spin Serpent",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "111",
@@ -2239,7 +2298,7 @@
       }
     ],
     "raw_data_hash": "1029bfe03a3538958af58a7c008b09f040d1708cc12ae29ba2df98b44f343612",
-    "scraped_at": "2026-04-25T11:02:32.698Z"
+    "scraped_at": "2026-04-25T13:23:44.842Z"
   },
   {
     "brand": "Evergreen",
@@ -2257,6 +2316,7 @@
         "sku": "TKSS-66MHST",
         "type": "S",
         "power": "MH",
+        "code_name": "Bush Serpent",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "111",
@@ -2277,7 +2337,7 @@
       }
     ],
     "raw_data_hash": "74e1a38d20c430cf4596d572b82a502cc43302643e9e57e1443194b34c879088",
-    "scraped_at": "2026-04-25T11:02:32.692Z"
+    "scraped_at": "2026-04-25T13:23:44.790Z"
   },
   {
     "brand": "Evergreen",
@@ -2295,6 +2355,7 @@
         "sku": "TKSS-711MHST",
         "type": "S",
         "power": "MH",
+        "code_name": "King Serpent",
         "specs": {
           "全長(m)": "2.41",
           "標準自重(g)": "127",
@@ -2315,7 +2376,7 @@
       }
     ],
     "raw_data_hash": "d455cb7a20b1a472b9976182a8e5e4223ca46bbd7647e0da0a6414e918aa3689",
-    "scraped_at": "2026-04-25T11:02:34.601Z"
+    "scraped_at": "2026-04-25T13:23:47.800Z"
   },
   {
     "brand": "Evergreen",
@@ -2333,6 +2394,7 @@
         "sku": "OCSC-64L",
         "type": "C",
         "power": "L",
+        "code_name": "Alouette",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "105",
@@ -2353,7 +2415,7 @@
       }
     ],
     "raw_data_hash": "15f5b7154bcb35b1f3c53317f22a8e816466134300e087215929214e68588680",
-    "scraped_at": "2026-04-25T11:02:35.596Z"
+    "scraped_at": "2026-04-25T13:23:47.332Z"
   },
   {
     "brand": "Evergreen",
@@ -2371,6 +2433,7 @@
         "sku": "OCSC-67ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Degel",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "106",
@@ -2391,7 +2454,7 @@
       }
     ],
     "raw_data_hash": "42a5cb3b13f7b72d2dd2460767d9dcbf34ecc72676749a4134ff0fa9c3f0da22",
-    "scraped_at": "2026-04-25T11:02:36.307Z"
+    "scraped_at": "2026-04-25T13:23:47.166Z"
   },
   {
     "brand": "Evergreen",
@@ -2409,6 +2472,7 @@
         "sku": "OCSC-67ML+",
         "type": "C",
         "power": "ML",
+        "code_name": "Lightning Strike",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "109",
@@ -2429,7 +2493,7 @@
       }
     ],
     "raw_data_hash": "e4d3ae4f05f47e5ce901bd7f80caa67c5351e3d68c0282953090aa20244296b9",
-    "scraped_at": "2026-04-25T11:02:34.931Z"
+    "scraped_at": "2026-04-25T13:23:47.533Z"
   },
   {
     "brand": "Evergreen",
@@ -2447,6 +2511,7 @@
         "sku": "OCSC-67M",
         "type": "C",
         "power": "M",
+        "code_name": "Cantata",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "116",
@@ -2467,7 +2532,7 @@
       }
     ],
     "raw_data_hash": "090c6570cd5dd709d08cbd0f73bc86aca599a8c341501188280b7071b497b868",
-    "scraped_at": "2026-04-25T11:02:39.082Z"
+    "scraped_at": "2026-04-25T13:23:50.767Z"
   },
   {
     "brand": "Evergreen",
@@ -2485,6 +2550,7 @@
         "sku": "OCSC-67MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Yumihari",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "109",
@@ -2505,7 +2571,7 @@
       }
     ],
     "raw_data_hash": "88e8ddce32073445bebcbb3d9c818af6d416205501ff3a2f8bfdb6a061c34ab6",
-    "scraped_at": "2026-04-25T11:02:39.166Z"
+    "scraped_at": "2026-04-25T13:23:50.560Z"
   },
   {
     "brand": "Evergreen",
@@ -2523,6 +2589,7 @@
         "sku": "OCSC-68ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Fire Sword",
         "specs": {
           "全長(m)": "2.03",
           "標準自重(g)": "117",
@@ -2543,7 +2610,7 @@
       }
     ],
     "raw_data_hash": "fe51f443c897409faa3ac8f30d53e5ffd4a74732936448b8a3ecc6e736bd0f4b",
-    "scraped_at": "2026-04-25T11:02:39.282Z"
+    "scraped_at": "2026-04-25T13:23:50.728Z"
   },
   {
     "brand": "Evergreen",
@@ -2561,6 +2628,7 @@
         "sku": "OCSC-68M",
         "type": "C",
         "power": "M",
+        "code_name": "Sky Sword",
         "specs": {
           "全長(m)": "2.03",
           "標準自重(g)": "116",
@@ -2581,7 +2649,7 @@
       }
     ],
     "raw_data_hash": "aefd25bd775aec32a587dfe6f23faf2fbe6543e0b6b37cd9ae6fbb681da88b7e",
-    "scraped_at": "2026-04-25T11:02:39.137Z"
+    "scraped_at": "2026-04-25T13:23:50.551Z"
   },
   {
     "brand": "Evergreen",
@@ -2599,6 +2667,7 @@
         "sku": "OCSC-69MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Moongazer",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "110",
@@ -2619,7 +2688,7 @@
       }
     ],
     "raw_data_hash": "4f5ad07ac22e81920c2d84cf360d263f549fadc8faf9d6c0ae4a2ce37cfe7524",
-    "scraped_at": "2026-04-25T11:02:42.955Z"
+    "scraped_at": "2026-04-25T13:23:53.482Z"
   },
   {
     "brand": "Evergreen",
@@ -2637,6 +2706,7 @@
         "sku": "OCSC-69H",
         "type": "C",
         "power": "H",
+        "code_name": "Stargazer",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "118",
@@ -2657,7 +2727,7 @@
       }
     ],
     "raw_data_hash": "02b7793daee0fdbefbe13f15947fd8faaa094d2241f667e1e26f5f3c27db47f0",
-    "scraped_at": "2026-04-25T11:02:43.287Z"
+    "scraped_at": "2026-04-25T13:23:54.392Z"
   },
   {
     "brand": "Evergreen",
@@ -2675,6 +2745,7 @@
         "sku": "OCSC-71H+",
         "type": "C",
         "power": "H",
+        "code_name": "Black Rose",
         "specs": {
           "全長(m)": "2.15",
           "標準自重(g)": "126",
@@ -2695,7 +2766,7 @@
       }
     ],
     "raw_data_hash": "2cd865d1aaa2e9249b95cbd2db698c5a63a6a12217fadf43d282c4d5fe54028a",
-    "scraped_at": "2026-04-25T11:02:43.103Z"
+    "scraped_at": "2026-04-25T13:23:54.136Z"
   },
   {
     "brand": "Evergreen",
@@ -2713,6 +2784,7 @@
         "sku": "OCSC-79MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Silva",
         "specs": {
           "全長(m)": "2.36",
           "標準自重(g)": "133",
@@ -2733,7 +2805,7 @@
       }
     ],
     "raw_data_hash": "232a26378492ef6c2c9470e528859ed9ed6b36e18d2c4930d7c8818052775b0f",
-    "scraped_at": "2026-04-25T11:02:43.823Z"
+    "scraped_at": "2026-04-25T13:23:53.222Z"
   },
   {
     "brand": "Evergreen",
@@ -2751,6 +2823,7 @@
         "sku": "OCSC-711XX",
         "type": "C",
         "power": "XXH",
+        "code_name": "Throne",
         "specs": {
           "全長(m)": "2.4",
           "標準自重(g)": "177",
@@ -2771,7 +2844,7 @@
       }
     ],
     "raw_data_hash": "55a52b0f271e6767ea93c766db77139f9d73a91d5402075e3ba049212f3c2da0",
-    "scraped_at": "2026-04-25T11:02:47.096Z"
+    "scraped_at": "2026-04-25T13:23:57.460Z"
   },
   {
     "brand": "Evergreen",
@@ -2789,6 +2862,7 @@
         "sku": "OCSS-65L",
         "type": "S",
         "power": "L",
+        "code_name": "Willow",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "96",
@@ -2809,7 +2883,7 @@
       }
     ],
     "raw_data_hash": "1daa43dae539a11866859506f68a0fe11934d7d1c9d7b23bedc4894aebca43b0",
-    "scraped_at": "2026-04-25T11:02:46.722Z"
+    "scraped_at": "2026-04-25T13:23:57.367Z"
   },
   {
     "brand": "Evergreen",
@@ -2827,6 +2901,7 @@
         "sku": "OCSS-65ML",
         "type": "S",
         "power": "ML",
+        "code_name": "Black Guardian",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "100",
@@ -2847,7 +2922,7 @@
       }
     ],
     "raw_data_hash": "b758acf8c1da972d61d590e40d12ea1adb20da5ca6e1410fd23627788ccc8d26",
-    "scraped_at": "2026-04-25T11:02:46.159Z"
+    "scraped_at": "2026-04-25T13:23:57.134Z"
   },
   {
     "brand": "Evergreen",
@@ -2865,6 +2940,7 @@
         "sku": "OCSS-69H",
         "type": "S",
         "power": "H",
+        "code_name": "Hide and Seek",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "101",
@@ -2885,7 +2961,7 @@
       }
     ],
     "raw_data_hash": "629b4cda0e41ff8eb3cfd0d96ecb160d08c6f5e08b18f3f5518e656dabba3aa8",
-    "scraped_at": "2026-04-25T11:02:46.155Z"
+    "scraped_at": "2026-04-25T13:23:57.552Z"
   },
   {
     "brand": "Evergreen",
@@ -2903,6 +2979,7 @@
         "sku": "OCSS-60XUL-ST",
         "type": "S",
         "power": "UL",
+        "code_name": "Quick Senses",
         "specs": {
           "全長(m)": "1.82",
           "標準自重(g)": "62",
@@ -2923,7 +3000,7 @@
       }
     ],
     "raw_data_hash": "cae2c5be0d4845f4c03da3b3c29e160e24e7fa37c58a59ae38be7aaff51a643d",
-    "scraped_at": "2026-04-25T11:02:49.333Z"
+    "scraped_at": "2026-04-25T13:24:00.703Z"
   },
   {
     "brand": "Evergreen",
@@ -2941,6 +3018,7 @@
         "sku": "OCSS-60UL-ST",
         "type": "S",
         "power": "UL",
+        "code_name": "Garza",
         "specs": {
           "全長(m)": "1.83",
           "標準自重(g)": "88",
@@ -2961,7 +3039,7 @@
       }
     ],
     "raw_data_hash": "061180f108247e3fd5ca5a8c93585ae087d2992020494bb6e257d7ed02904d95",
-    "scraped_at": "2026-04-25T11:02:49.694Z"
+    "scraped_at": "2026-04-25T13:24:01.027Z"
   },
   {
     "brand": "Evergreen",
@@ -2979,6 +3057,7 @@
         "sku": "OCSS-63UL-ST",
         "type": "S",
         "power": "UL",
+        "code_name": "Free Will",
         "specs": {
           "全長(m)": "1.9",
           "標準自重(g)": "94",
@@ -2999,7 +3078,7 @@
       }
     ],
     "raw_data_hash": "8bf743fa752be92fcee357b835f8def8b1223303a42dccf33a79ac6e54b72a25",
-    "scraped_at": "2026-04-25T11:02:49.439Z"
+    "scraped_at": "2026-04-25T13:24:01.141Z"
   },
   {
     "brand": "Evergreen",
@@ -3017,6 +3096,7 @@
         "sku": "HCSC-62M",
         "type": "C",
         "power": "M",
+        "code_name": "EG Action",
         "specs": {
           "全長(m)": "1.88",
           "標準自重(g)": "121",
@@ -3037,7 +3117,7 @@
       }
     ],
     "raw_data_hash": "e7904c6116c6b627362932c0b4ef6ec2ad03bf64d9c28cd1a74482b397e885bf",
-    "scraped_at": "2026-04-25T11:02:49.810Z"
+    "scraped_at": "2026-04-25T13:24:01.234Z"
   },
   {
     "brand": "Evergreen",
@@ -3055,6 +3135,7 @@
         "sku": "HCSC-63MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Technical Action",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "132",
@@ -3075,7 +3156,7 @@
       }
     ],
     "raw_data_hash": "fcdf1803c732b294a61d230d77dc011d51e800d9ccaec282fe8f43d4ab98fc1b",
-    "scraped_at": "2026-04-25T11:02:52.853Z"
+    "scraped_at": "2026-04-25T13:24:05.091Z"
   },
   {
     "brand": "Evergreen",
@@ -3093,6 +3174,7 @@
         "sku": "HCSC-64ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Wallacea",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "94",
@@ -3113,7 +3195,7 @@
       }
     ],
     "raw_data_hash": "2c086776f36da556933ccce1c63155f537bd2512a0320ff3283fcf4567fa54f2",
-    "scraped_at": "2026-04-25T11:02:52.997Z"
+    "scraped_at": "2026-04-25T13:24:05.099Z"
   },
   {
     "brand": "Evergreen",
@@ -3131,6 +3213,7 @@
         "sku": "HCSC-64M",
         "type": "C",
         "power": "M",
+        "code_name": "Manipulator",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "120",
@@ -3151,7 +3234,7 @@
       }
     ],
     "raw_data_hash": "2108799b052a44ef307c9728291cc8b7d6ddb44dc9db40a14838863f98d0c787",
-    "scraped_at": "2026-04-25T11:02:52.895Z"
+    "scraped_at": "2026-04-25T13:24:05.238Z"
   },
   {
     "brand": "Evergreen",
@@ -3169,6 +3252,7 @@
         "sku": "HCSC-65ML+PLUS",
         "type": "C",
         "power": "ML",
+        "code_name": "Metal Whip",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "107",
@@ -3189,7 +3273,7 @@
       }
     ],
     "raw_data_hash": "7c67c64862e27e2ba001ceafff21581b06e27c568b56ed14a756720c36434446",
-    "scraped_at": "2026-04-25T11:02:53.010Z"
+    "scraped_at": "2026-04-25T13:24:05.033Z"
   },
   {
     "brand": "Evergreen",
@@ -3207,6 +3291,7 @@
         "sku": "HCSC-66ML-LTS",
         "type": "C",
         "power": "ML",
+        "code_name": "Air Regius LTS",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "105",
@@ -3227,7 +3312,7 @@
       }
     ],
     "raw_data_hash": "2232b180be781796821b539219566db260970c527dc447e91384f51e5674e63a",
-    "scraped_at": "2026-04-25T11:02:57.720Z"
+    "scraped_at": "2026-04-25T13:24:08.457Z"
   },
   {
     "brand": "Evergreen",
@@ -3245,6 +3330,7 @@
         "sku": "HCSC-66ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Air Regius",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "121",
@@ -3265,7 +3351,7 @@
       }
     ],
     "raw_data_hash": "e6ef62f3dad392e7c5c33fb47c2ee68b75de707b1fc2a6d78a6e0a4f781e65c7",
-    "scraped_at": "2026-04-25T11:02:57.123Z"
+    "scraped_at": "2026-04-25T13:24:08.442Z"
   },
   {
     "brand": "Evergreen",
@@ -3283,6 +3369,7 @@
         "sku": "HCSC-66M-LTS",
         "type": "C",
         "power": "M",
+        "code_name": "Force Grandis LTS",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "113",
@@ -3303,7 +3390,7 @@
       }
     ],
     "raw_data_hash": "584e3e3b588166e970428c4f24d45d085f486d74eb072bdbda44114dcc255c03",
-    "scraped_at": "2026-04-25T11:02:56.590Z"
+    "scraped_at": "2026-04-25T13:24:08.362Z"
   },
   {
     "brand": "Evergreen",
@@ -3321,6 +3408,7 @@
         "sku": "HCSC-66M",
         "type": "C",
         "power": "M",
+        "code_name": "Force Grandis",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "134",
@@ -3341,7 +3429,7 @@
       }
     ],
     "raw_data_hash": "3bf3ca0c295bb15a0fdd253128c34d8c752e277d2bfca8646bf896b36c3f6cf8",
-    "scraped_at": "2026-04-25T11:02:56.397Z"
+    "scraped_at": "2026-04-25T13:24:08.500Z"
   },
   {
     "brand": "Evergreen",
@@ -3359,6 +3447,7 @@
         "sku": "HCSC-67M",
         "type": "C",
         "power": "M",
+        "code_name": "EG Moving",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "140",
@@ -3379,7 +3468,7 @@
       }
     ],
     "raw_data_hash": "84c7af65192bcd86dab3384bb08fab9b46b8454318ac9881fc581082122b1019",
-    "scraped_at": "2026-04-25T11:03:02.253Z"
+    "scraped_at": "2026-04-25T13:24:11.713Z"
   },
   {
     "brand": "Evergreen",
@@ -3397,6 +3486,7 @@
         "sku": "HCSC-67MHR",
         "type": "C",
         "power": "MH",
+        "code_name": "Red Meister",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "123",
@@ -3417,7 +3507,7 @@
       }
     ],
     "raw_data_hash": "28effcc5e83177d6d63ad6fdb12a51bde4c2846f309bf0619e35809a8ec9f305",
-    "scraped_at": "2026-04-25T11:03:02.271Z"
+    "scraped_at": "2026-04-25T13:24:11.449Z"
   },
   {
     "brand": "Evergreen",
@@ -3435,6 +3525,7 @@
         "sku": "HCSC-67MH-LTS",
         "type": "C",
         "power": "MH",
+        "code_name": "Bluemeister LTS",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "114",
@@ -3455,7 +3546,7 @@
       }
     ],
     "raw_data_hash": "5f406ed28120954a26415cf0c4edcb55066a7c9e4f9029bd0ba8adf39f3ea36f",
-    "scraped_at": "2026-04-25T11:03:01.574Z"
+    "scraped_at": "2026-04-25T13:24:11.813Z"
   },
   {
     "brand": "Evergreen",
@@ -3473,6 +3564,7 @@
         "sku": "HCSC-67MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Bluemeister",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "136",
@@ -3493,7 +3585,7 @@
       }
     ],
     "raw_data_hash": "7545bf0d2ebe9a699f756ba0393802e07d182bc2e92dfd39f1e1e688c9fa7c5d",
-    "scraped_at": "2026-04-25T11:03:00.923Z"
+    "scraped_at": "2026-04-25T13:24:11.506Z"
   },
   {
     "brand": "Evergreen",
@@ -3511,6 +3603,7 @@
         "sku": "HCSC-68L/MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Pro Guidance C68",
         "specs": {
           "全長(m)": "2.03",
           "標準自重(g)": "146",
@@ -3531,7 +3624,7 @@
       }
     ],
     "raw_data_hash": "204958e54c3575d59c0872a977bb08d2aab0180de417212290d3b7d629c7949f",
-    "scraped_at": "2026-04-25T11:03:05.704Z"
+    "scraped_at": "2026-04-25T13:24:15.684Z"
   },
   {
     "brand": "Evergreen",
@@ -3549,6 +3642,7 @@
         "sku": "HCSC-69H-LTS",
         "type": "C",
         "power": "H",
+        "code_name": "Heracles LTS",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "120",
@@ -3569,7 +3663,7 @@
       }
     ],
     "raw_data_hash": "2f709bc18c03329a9d67762208b60b6a80b4590d4a3d6de048c6e12e83c8fe93",
-    "scraped_at": "2026-04-25T11:03:05.922Z"
+    "scraped_at": "2026-04-25T13:24:15.110Z"
   },
   {
     "brand": "Evergreen",
@@ -3587,6 +3681,7 @@
         "sku": "HCSC-69H",
         "type": "C",
         "power": "H",
+        "code_name": "Heracles",
         "specs": {
           "全長(m)": "2.06",
           "標準自重(g)": "142",
@@ -3607,7 +3702,7 @@
       }
     ],
     "raw_data_hash": "214aaed1f428b2084a5471a4ad5248ffe96d0a9cd7f8b8fb95ab39397a9be235",
-    "scraped_at": "2026-04-25T11:03:05.768Z"
+    "scraped_at": "2026-04-25T13:24:14.936Z"
   },
   {
     "brand": "Evergreen",
@@ -3625,6 +3720,7 @@
         "sku": "HCSC-70ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Air Regius 7",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "132",
@@ -3645,7 +3741,7 @@
       }
     ],
     "raw_data_hash": "ac2892356f0cb2d9dca273c0fcc8c07004bd269384302b36a155ab83997719df",
-    "scraped_at": "2026-04-25T11:03:05.871Z"
+    "scraped_at": "2026-04-25T13:24:14.975Z"
   },
   {
     "brand": "Evergreen",
@@ -3663,6 +3759,7 @@
         "sku": "HCSC-70M",
         "type": "C",
         "power": "M",
+        "code_name": "Force Grandis 7",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "144",
@@ -3683,7 +3780,7 @@
       }
     ],
     "raw_data_hash": "56d3ce6a59a214f9585946b7dd1d8e1c3bd1af44693525f85fded6c5e1902855",
-    "scraped_at": "2026-04-25T11:03:10.030Z"
+    "scraped_at": "2026-04-25T13:24:18.651Z"
   },
   {
     "brand": "Evergreen",
@@ -3701,6 +3798,7 @@
         "sku": "HCSC-70M-LTS",
         "type": "C",
         "power": "M",
+        "code_name": "Force Grandis 7 LTS",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "117",
@@ -3721,7 +3819,7 @@
       }
     ],
     "raw_data_hash": "2f6fd3613fa34ac0eb66d565d0a0a289c00a27d2d8f411b29931e85779d33d6f",
-    "scraped_at": "2026-04-25T11:03:09.043Z"
+    "scraped_at": "2026-04-25T13:24:18.915Z"
   },
   {
     "brand": "Evergreen",
@@ -3739,6 +3837,7 @@
         "sku": "HCSC-70MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Bluemeister 7",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "151",
@@ -3759,7 +3858,7 @@
       }
     ],
     "raw_data_hash": "acc853da582ffb8dbbeda86457e56daebcead54eff11f33bdc59b5ffc35df985",
-    "scraped_at": "2026-04-25T11:03:09.407Z"
+    "scraped_at": "2026-04-25T13:24:19.263Z"
   },
   {
     "brand": "Evergreen",
@@ -3777,6 +3876,7 @@
         "sku": "HCSC-70MH-LTS",
         "type": "C",
         "power": "MH",
+        "code_name": "Bluemeister 7 LTS",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "120",
@@ -3797,7 +3897,7 @@
       }
     ],
     "raw_data_hash": "743f18e546637d25f7eca51a2d34aa6b946f84c40bee482623bcf50808a8716b",
-    "scraped_at": "2026-04-25T11:03:10.178Z"
+    "scraped_at": "2026-04-25T13:24:20.165Z"
   },
   {
     "brand": "Evergreen",
@@ -3815,6 +3915,7 @@
         "sku": "HCSC-70H",
         "type": "C",
         "power": "H",
+        "code_name": "Heracles 7",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "156",
@@ -3835,7 +3936,7 @@
       }
     ],
     "raw_data_hash": "03ed72babb4d0c49dbb282f4b70f02f9d61172bae1ac2de9914c9deebbe10fc5",
-    "scraped_at": "2026-04-25T11:03:13.914Z"
+    "scraped_at": "2026-04-25T13:24:23.203Z"
   },
   {
     "brand": "Evergreen",
@@ -3853,6 +3954,7 @@
         "sku": "HCSC-70H-LTS",
         "type": "C",
         "power": "H",
+        "code_name": "Heracles 7 LTS",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "120",
@@ -3873,7 +3975,7 @@
       }
     ],
     "raw_data_hash": "b84a77c686163db2939bc047986117d4e4f1ab3c64c3f60e5fcb5edef7ebea41",
-    "scraped_at": "2026-04-25T11:03:14.382Z"
+    "scraped_at": "2026-04-25T13:24:23.705Z"
   },
   {
     "brand": "Evergreen",
@@ -3891,6 +3993,7 @@
         "sku": "HCSC-72MH",
         "type": "C",
         "power": "MH",
+        "code_name": "EG Swimming",
         "specs": {
           "全長(m)": "2.18",
           "標準自重(g)": "148",
@@ -3911,7 +4014,7 @@
       }
     ],
     "raw_data_hash": "31adfcadbb850921f86080203b62218dec94bfdc8b10801970f76f39c242d39f",
-    "scraped_at": "2026-04-25T11:03:13.397Z"
+    "scraped_at": "2026-04-25T13:24:23.413Z"
   },
   {
     "brand": "Evergreen",
@@ -3929,6 +4032,7 @@
         "sku": "HCSC-72X",
         "type": "C",
         "power": "XH",
+        "code_name": "Super Explosion",
         "specs": {
           "全長(m)": "2.18",
           "標準自重(g)": "156",
@@ -3949,7 +4053,7 @@
       }
     ],
     "raw_data_hash": "f1672da9dfc4537e080f9b14f126bc112944c264ab76c5136cee231de2ebc092",
-    "scraped_at": "2026-04-25T11:03:13.394Z"
+    "scraped_at": "2026-04-25T13:24:24.464Z"
   },
   {
     "brand": "Evergreen",
@@ -3967,6 +4071,7 @@
         "sku": "HCSC-74X",
         "type": "C",
         "power": "XH",
+        "code_name": "Actaeon",
         "specs": {
           "全長(m)": "2.23",
           "標準自重(g)": "163",
@@ -3986,8 +4091,8 @@
         "description": "※ 当製品の生産は終了いたしました。 強靱。本当のトルク。菊元俊文のパワーゲーム専用機。 菊元俊文のビッグベイト専用機として数限りないデカバスを仕留め続ける重戦車「アクテオン」。ティンバーフラッシュ、ロイヤルフラッシュ等のビッグベイトは言うに及ばず、4oz.超のヘビースイムベイトを乗せて楽々振り切れる粘り腰を持たせました。 また、4軸ヘラクレスクロス製法による、ねじれが極めて少ないブランクスは、ビッグベイトをピンスポットへ自在にコントロールすることを可能にします。 アクテオンのパワフル＆トルクフルな性能は、超デカバスを獲るためのヘビージグ、ヘビーテキサス、ヘビーキャロライナ、ヘビードロップショットにもパーフェクトに対応。また、超ヘビーカバーでのフロッグやヘビースピナーベイトのスローロールなど、幅広い対応能力を見せつけてくれます。 この強靭さでこの軽さ。デカバスを獲るために生まれてきたロッド。それが、ヘラクレス“アクテオン”です。"
       }
     ],
-    "raw_data_hash": "e9da122782d8e3766590a3a97cc578ad310a91b58cc9318ffe7e659df12752b2",
-    "scraped_at": "2026-04-25T11:03:17.743Z"
+    "raw_data_hash": "04d09216f78d384c28faefbfa9af9a7018ce8627ace7113ddee1dfe96a6cf973",
+    "scraped_at": "2026-04-25T13:24:28.055Z"
   },
   {
     "brand": "Evergreen",
@@ -4005,6 +4110,7 @@
         "sku": "HCSC-75H",
         "type": "C",
         "power": "H",
+        "code_name": "Airy Flip",
         "specs": {
           "全長(m)": "2.26",
           "標準自重(g)": "154",
@@ -4024,8 +4130,8 @@
         "description": "※ 当製品の生産は終了いたしました。 ライトフリップを極める。ガッチリと掛けバラさない正確無比のシャローウェポン。 日本のフィールドにおいてウルトラヘビーカバーの連続したストレッチや分厚いマットカバーは意外な程、少ない。勿論、1oz.以上のヘビーシンカーで分厚いマットカバーを突き破り、ロクマルを瞬時に引きずり出す釣りは琵琶湖にはあるが。 エアリーフリップの開発コンセプトはそのような状況で使うモリゾーフリップのようなウルトラヘビーカバー対応のフリッピングロッドではない。タフな超シャローに軽いリグをスローフォールして確実に喰わせ、確実に獲るために生まれたのが、このエアリーフリップだ。 リップラップ、アシなどのライトカバーをいかに快適に連続した動作を繰り返せるか？いかに数少ない貴重なバイトを「吸い込ませ」「確実に掛け」「ミス無く獲れる」か？ エアリーフリップは1日千回を優に超えるフリップを快適に行える驚異的な軽さとハイバランス設計。リアグリップのショート化で軽いリグの操作性もより高みを見せた。より深いストライクで掛け、トルクフル＆パワフルなテーパーでバラすことなく、貴重な1本を獲らせてくれるニッポンのタフ＆シャローフィールドの為のライトフリッピングロッド。それがエアリーフリップ。 勿論、その軽さに相反するトルク＆パワーはヘラクレス製法ならではの強靭さを備える。霞ヶ浦で生まれたライト＆フィネスフリップ。その威力はタフになればなる程、実感出来るはずである。"
       }
     ],
-    "raw_data_hash": "1cf637e9a6e4539a868d813e8d7a2639647b2d3708855263b417860756b8c26e",
-    "scraped_at": "2026-04-25T11:03:17.734Z"
+    "raw_data_hash": "da171da303fa02904339b0212ae198c17711e425b300bed6e69952161d22a8f7",
+    "scraped_at": "2026-04-25T13:24:28.306Z"
   },
   {
     "brand": "Evergreen",
@@ -4043,6 +4149,7 @@
         "sku": "HCSC-77MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Strike Master 77",
         "specs": {
           "全長(m)": "2.31",
           "標準自重(g)": "151",
@@ -4063,7 +4170,7 @@
       }
     ],
     "raw_data_hash": "a4b2bd5fba993cef81ede45fef5bcf76a93ad6e9b054a5ab07e2e437845d8c55",
-    "scraped_at": "2026-04-25T11:03:17.730Z"
+    "scraped_at": "2026-04-25T13:24:28.347Z"
   },
   {
     "brand": "Evergreen",
@@ -4081,6 +4188,7 @@
         "sku": "HCSC-79XX",
         "type": "C",
         "power": "XXH",
+        "code_name": "Actaeon Magnum EX",
         "specs": {
           "全長(m)": "2.35",
           "標準自重(g)": "187",
@@ -4101,7 +4209,7 @@
       }
     ],
     "raw_data_hash": "f891e594359d8302379377c132f5c7efc887f3b3a2e7ff32ae6386677bdad565",
-    "scraped_at": "2026-04-25T11:03:17.689Z"
+    "scraped_at": "2026-04-25T13:24:28.405Z"
   },
   {
     "brand": "Evergreen",
@@ -4119,6 +4227,7 @@
         "sku": "HCSC-82XX",
         "type": "C",
         "power": "XXH",
+        "code_name": "Actaeon Magnum",
         "specs": {
           "全長(m)": "2.49",
           "標準自重(g)": "215",
@@ -4139,7 +4248,7 @@
       }
     ],
     "raw_data_hash": "1faa87ce4ff62a224b388e8172474410eb46ddb607ca46bf1611e920fb98d703",
-    "scraped_at": "2026-04-25T11:03:21.546Z"
+    "scraped_at": "2026-04-25T13:24:31.965Z"
   },
   {
     "brand": "Evergreen",
@@ -4157,6 +4266,7 @@
         "sku": "HCSC-60UL/MST",
         "type": "C",
         "power": "UL",
+        "code_name": "Sparkshot",
         "specs": {
           "全長(m)": "1.83",
           "標準自重(g)": "95",
@@ -4177,7 +4287,7 @@
       }
     ],
     "raw_data_hash": "9878c5222e746bd4afd61aeaf71046e342dbbae0a224d7657a1047e6d5734657",
-    "scraped_at": "2026-04-25T11:03:22.203Z"
+    "scraped_at": "2026-04-25T13:24:32.016Z"
   },
   {
     "brand": "Evergreen",
@@ -4195,6 +4305,7 @@
         "sku": "HCSC-66MG",
         "type": "C",
         "power": "M",
+        "code_name": "Torquata 66",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "148",
@@ -4215,7 +4326,7 @@
       }
     ],
     "raw_data_hash": "7621b80c7cbfd110f7940804024c518f7f9a5e874f5f02621d55c7a66c720c10",
-    "scraped_at": "2026-04-25T11:03:21.657Z"
+    "scraped_at": "2026-04-25T13:24:31.987Z"
   },
   {
     "brand": "Evergreen",
@@ -4233,6 +4344,7 @@
         "sku": "HCSC-68MG",
         "type": "C",
         "power": "M",
+        "code_name": "Ocelot",
         "specs": {
           "全長(m)": "2.04",
           "標準自重(g)": "175",
@@ -4253,7 +4365,7 @@
       }
     ],
     "raw_data_hash": "551bb21ba567483f2375382deb8bb65764c11fa3e6ad7fb1776e83c58b50a76c",
-    "scraped_at": "2026-04-25T11:03:21.560Z"
+    "scraped_at": "2026-04-25T13:24:31.991Z"
   },
   {
     "brand": "Evergreen",
@@ -4271,6 +4383,7 @@
         "sku": "HCSC-611MHG",
         "type": "C",
         "power": "MH",
+        "code_name": "Serval",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "187",
@@ -4291,7 +4404,7 @@
       }
     ],
     "raw_data_hash": "30af18e29073a11ce8aab9b9d928e6cea6a5f9f3a33b5b5d98a9cac0da7ec5e5",
-    "scraped_at": "2026-04-25T11:03:26.633Z"
+    "scraped_at": "2026-04-25T13:24:35.126Z"
   },
   {
     "brand": "Evergreen",
@@ -4309,6 +4422,7 @@
         "sku": "HCSC-70MG",
         "type": "C",
         "power": "M",
+        "code_name": "Torquata 7",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "157",
@@ -4329,7 +4443,7 @@
       }
     ],
     "raw_data_hash": "f0cb044a23912c74e86445c7e8a5ef19da5ddfac494a19c231d5b4537cfd2f18",
-    "scraped_at": "2026-04-25T11:03:27.045Z"
+    "scraped_at": "2026-04-25T13:24:34.912Z"
   },
   {
     "brand": "Evergreen",
@@ -4347,6 +4461,7 @@
         "sku": "HCSC-73HG",
         "type": "C",
         "power": "H",
+        "code_name": "Leopard",
         "specs": {
           "全長(m)": "2.21",
           "標準自重(g)": "234",
@@ -4366,8 +4481,8 @@
         "description": "キャスト＆リトリーブから吸い込ませてフッキングし、バラさずランディングするまで・・・グラスロッドに求められる真の基本性能を形にした盛三理想のムービングロッドは、長さと硬さの異なる「68MGオセロット」「611MHGサーバル」「73HGレパード」の3種類をラインナップ。3本であらゆるムービング系ルアーをカバーできる設定ですが、各々の機種においても幅広い対応能力を持つ、まさに「ムービングバーサタイル」と表現するにふさわしい性能を発揮します。 73HGレパードは、ミドル～ディープレンジのクランクベイト、バイブレーション、スイムベイト、5/8ozクラスのチャターベイト等の使用にマッチ。オカッパリのバイブレーション大遠投、ディープクランク高速リトリーブ等、ロングキャストやパワーが必要とされる状況で威力を発揮します。 ■ツアープロシリーズ・パワーグラス コンセプト 「クオリティフィッシュをバラさず確実に仕留める」「一日中快適に投げ続け巻き続ける」ムービング系の釣りを極めた盛三がムービングロッドに求めた性能は思いのほかシンプルなものでした。 しかし、シンプルなことを確実に実践するためにロッドには究極の設定が求められることに・・・その盛三の理想を形にするために選ばれた素材はもちろんグラス。ただし、現代バスロッド製法の主流である薄巻き・軽量化という方向性ではなく、比較的張りを出しやすいグラス素材、ユニディレクショングラスを用い、しかも太く厚くしっかり巻き込むというものでした。"
       }
     ],
-    "raw_data_hash": "b3287302eb864bcd6ab07984b31261dd860f0b2edab17f2cff823a26035c7b34",
-    "scraped_at": "2026-04-25T11:03:26.538Z"
+    "raw_data_hash": "a9bf090eafba5c9abe27723c9a0c649b4eea5323493b72cbeb82dd588957387a",
+    "scraped_at": "2026-04-25T13:24:35.264Z"
   },
   {
     "brand": "Evergreen",
@@ -4385,6 +4500,7 @@
         "sku": "HCSS-64ML",
         "type": "S",
         "power": "ML",
+        "code_name": "Black Regius",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "94",
@@ -4405,7 +4521,7 @@
       }
     ],
     "raw_data_hash": "580ac68e8847adf71f203297fccd2e09b1dfa407e986b2d36d34d0e8c8cddbff",
-    "scraped_at": "2026-04-25T11:03:27.066Z"
+    "scraped_at": "2026-04-25T13:24:34.771Z"
   },
   {
     "brand": "Evergreen",
@@ -4423,6 +4539,7 @@
         "sku": "HCSS-65L",
         "type": "S",
         "power": "L",
+        "code_name": "UT Spin",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "98",
@@ -4443,7 +4560,7 @@
       }
     ],
     "raw_data_hash": "f8e9bff2b37edd266d359708ae35ec52a8a3fd60d4b3cb2753db30a9eb802a42",
-    "scraped_at": "2026-04-25T11:03:31.245Z"
+    "scraped_at": "2026-04-25T13:24:38.675Z"
   },
   {
     "brand": "Evergreen",
@@ -4461,6 +4578,7 @@
         "sku": "HCSS-68ML",
         "type": "S",
         "power": "ML",
+        "code_name": "Power Shaker 68ML",
         "specs": {
           "全長(m)": "2.04",
           "標準自重(g)": "126",
@@ -4481,7 +4599,7 @@
       }
     ],
     "raw_data_hash": "e7ca2e54ad74ad332b5efdf8d6da263e1642c958b52ea3cd37007ba310f03269",
-    "scraped_at": "2026-04-25T11:03:30.714Z"
+    "scraped_at": "2026-04-25T13:24:38.397Z"
   },
   {
     "brand": "Evergreen",
@@ -4499,6 +4617,7 @@
         "sku": "HCSS-611M",
         "type": "S",
         "power": "M",
+        "code_name": "Power Shaker 611M",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "127",
@@ -4518,8 +4637,8 @@
         "description": "接近戦から超遠投まで、シャローから超ディープまで、スピニングロッドの常識を覆す「パワースピン」があらゆるタフコンディションに対応します。 パワーシェイカー611Mは、ジグヘッド、シェイキーヘッド、ドロップショットなどすべてのフィネスベイトを主として遠距離で扱うためのロッド。カバー周りはもちろん、レングスを活かしたロングキャストからのフッキングやディープでのフッキング等、よりパワーを必要とする場面に適したモデルです。 ■ツアープロシリーズ・パワースピン コンセプト 競技の世界、しかも世界最高峰バスマスター・エリートシリーズの舞台で戦うプロフェッショナルとして、清水盛三にとって欠かすことのできない領域、それがスピニングタックルを用いたモリゾー流フィネスフィッシング。 「様々なタイプのフィールドで開催され、極限のプレッシャーが掛かるバスマスター・エリートシリーズにおいて、スピニングタックルでなければ攻略できない状況に遭遇することは少なくない」と語る盛三。"
       }
     ],
-    "raw_data_hash": "277df8ad609727fcb30a4704b5cd5c9022ebbf01d08034e65b28dfebb0b5d614",
-    "scraped_at": "2026-04-25T11:03:31.022Z"
+    "raw_data_hash": "84276e4f0c0adb2d81688ec3772c8a88b363fe198bcdf484bd789c4b85e09ce9",
+    "scraped_at": "2026-04-25T13:24:38.425Z"
   },
   {
     "brand": "Evergreen",
@@ -4537,6 +4656,7 @@
         "sku": "HCSS-70UL",
         "type": "S",
         "power": "UL",
+        "code_name": "Phalanx",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "104",
@@ -4557,7 +4677,7 @@
       }
     ],
     "raw_data_hash": "55899735e2f82adcdaf4a0fd285a316e16c6d7afef197e934d61a1d0fd075620",
-    "scraped_at": "2026-04-25T11:03:30.639Z"
+    "scraped_at": "2026-04-25T13:24:38.208Z"
   },
   {
     "brand": "Evergreen",
@@ -4575,6 +4695,7 @@
         "sku": "HCSS-61ULST",
         "type": "S",
         "power": "UL",
+        "code_name": "Solid Sensor 61",
         "specs": {
           "全長(m)": "1.86",
           "標準自重(g)": "91",
@@ -4594,8 +4715,8 @@
         "description": "HCSS-61ULST ソリッドセンサー61 ※ 当製品の生産は終了いたしました。 探る、感じる、掛ける。緩急自在の次世代フィネスソリッドスピン。 トップトーナメンター福島健がソリッドティップにこだわる訳は、その喰い込み性能にある。かすかな一瞬の違和感をロッドを少し立てて聞いてみる。ソリッドティップならバスが違和感を感じないので、離さず喰い込んでくれる。そこを強いベリーで掛けていく。 しなやかなティップと相反する張りのあるしっかりとしたベリー～バットは対応リグの幅を広げ、取り回しの良い61というレングスと相まってテンポの速い攻めの釣りを可能にした。4軸武装のバットパワーはデカバスの突進を自在にコントロール出来る。 ガイドセッティングフェチ・福島がこだわった独自のガイドセッティングは、軽量ルアーの飛距離を向上させ、ライントラブルを軽減し、さらに感度を向上させた。ソリッドセンサー。緩急自在の次世代フィネスソリッドティップスピン。"
       }
     ],
-    "raw_data_hash": "61949114dd1b9505a75672b6e355af18dd8cee3f42dd2e89805661b875cbaeea",
-    "scraped_at": "2026-04-25T11:03:34.494Z"
+    "raw_data_hash": "df4541d66b8a553e584d51da3a392faaae77e39fcd98e8fd8a95942d5b5bbf75",
+    "scraped_at": "2026-04-25T13:24:41.939Z"
   },
   {
     "brand": "Evergreen",
@@ -4613,6 +4734,7 @@
         "sku": "HFAC-65M",
         "type": "C",
         "power": "M",
+        "code_name": "HFAC-65M",
         "specs": {
           "全長(m)": "1.97",
           "標準自重(g)": "118",
@@ -4633,7 +4755,7 @@
       }
     ],
     "raw_data_hash": "99c9dca815e1cc5068469e1a65269517c15bc621d439a5e8a3ffc0c4a974aeed",
-    "scraped_at": "2026-04-25T11:03:35.070Z"
+    "scraped_at": "2026-04-25T13:24:42.623Z"
   },
   {
     "brand": "Evergreen",
@@ -4651,6 +4773,7 @@
         "sku": "HFAC-66ML",
         "type": "C",
         "power": "ML",
+        "code_name": "HFAC-66ML",
         "specs": {
           "全長(m)": "1.99",
           "標準自重(g)": "111",
@@ -4671,7 +4794,7 @@
       }
     ],
     "raw_data_hash": "6490483ed15e5ad46f0ed53b068f4c77743601db9f1ba40c558f56ebf34b3014",
-    "scraped_at": "2026-04-25T11:03:35.201Z"
+    "scraped_at": "2026-04-25T13:24:42.511Z"
   },
   {
     "brand": "Evergreen",
@@ -4689,6 +4812,7 @@
         "sku": "HFAC-511MHST",
         "type": "C",
         "power": "MH",
+        "code_name": "HFAC-511MHST",
         "specs": {
           "全長(m)": "1.8",
           "標準自重(g)": "105",
@@ -4709,7 +4833,7 @@
       }
     ],
     "raw_data_hash": "2fa2914ef6f26918accb24f3348fa21063ec2cce2c2578d37cef4353ed5bda3b",
-    "scraped_at": "2026-04-25T11:03:34.976Z"
+    "scraped_at": "2026-04-25T13:24:42.454Z"
   },
   {
     "brand": "Evergreen",
@@ -4727,6 +4851,7 @@
         "sku": "HFAC-66MST",
         "type": "C",
         "power": "M",
+        "code_name": "HFAC-66MST",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "109",
@@ -4747,7 +4872,7 @@
       }
     ],
     "raw_data_hash": "2bec055b1b3ded8f94aa15bf27c1cac8fbecc4ba0736ed7273bca44c1e9e0be7",
-    "scraped_at": "2026-04-25T11:03:39.449Z"
+    "scraped_at": "2026-04-25T13:24:47.221Z"
   },
   {
     "brand": "Evergreen",
@@ -4765,6 +4890,7 @@
         "sku": "HFAC-67MHST",
         "type": "C",
         "power": "MH",
+        "code_name": "HFAC-67MHST",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "112",
@@ -4784,8 +4910,8 @@
         "description": "ジグ、ワームを自在に操る常識外の操作性。 ラバージグやワーム等の操作系ルアーを駆使して数々のトーナメントを制してきた福島健がつくりあげた、究極の操作性と喰わせの能力を持つファクト・ソリッドティップシリーズ。そのラインナップのなかでも、特に操作することに重きを置いて開発されたモデル、ファクト67MHST。ソリッドティップロッドが得意とするスローな操作はもちろん、リアクションバイトを誘う素早いアクションまで意のままに。 一般的に素早いキビキビとした動きを出しにくいと言われるソリッドティップですが、このロッドは違います。ソリッド部の太さ、長さ、テーパー、そしてチューブラーベリーとの継目にこだわり抜き、異次元の操作性を手に入れました。ルアーの動きが大きく速くなりがちなチューブラーティップに比べ、ロッドの振り幅やスピードを調整することで遅く、速く、小さく、大きく……ルアーの動きを自在にコントロールすることができます。 例えば、福島が得意とするリアクションバイト誘発テクニック、フットボールジグを「速く」かつ「短く」動かすという微妙なロッドワークが要求される操作も、こだわりのソリッドティップ搭載のこのロッドなら思いのまま。もちろん、テキサスリグをスローにズル引く、ヘビーダウンショットリグを一か所でシェイキングする等、ありとあらゆる操作系の釣りにベストマッチします。 MHアクションならではの高い汎用性とこだわりのソリッドティップによるフィネスの要素で様々な状況をカバー。思いのままにルアーの動きをコントロールし、ソリッドティップで喰わせてチューブラーベリーで掛ける今までにない攻撃的なスタイルのソリッドティップモデル。常識外の操作性、操作系スペシャル・ファクト67MHST。 ■ファクト ソリッドティップモデル ロッドコンセプト 「ジグ、ワーム等の操作系ルアーを扱うロッドにソリッドティップは絶対」詳しくはコチラ"
       }
     ],
-    "raw_data_hash": "b7bacafa7bb6098974b1b1dbd2c3820b1858612cdcd8f7dd29ff818154c9bde8",
-    "scraped_at": "2026-04-25T11:03:39.394Z"
+    "raw_data_hash": "c75479977d8755d03848bb4e8136f685f97f231a4ab762975d68e1223c2fefbe",
+    "scraped_at": "2026-04-25T13:24:47.021Z"
   },
   {
     "brand": "Evergreen",
@@ -4803,6 +4929,7 @@
         "sku": "HFAC-70HST",
         "type": "C",
         "power": "H",
+        "code_name": "HFAC-70HST",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "134",
@@ -4823,7 +4950,7 @@
       }
     ],
     "raw_data_hash": "3179029c13d71f47922f3f8fedeaa26f5c735340a29bb2e4154eb123b3af9762",
-    "scraped_at": "2026-04-25T11:03:39.174Z"
+    "scraped_at": "2026-04-25T13:24:46.756Z"
   },
   {
     "brand": "Evergreen",
@@ -4841,6 +4968,7 @@
         "sku": "HFAS-511MHST",
         "type": "S",
         "power": "MH",
+        "code_name": "HFAS-511MHST",
         "specs": {
           "全長(m)": "1.8",
           "標準自重(g)": "109",
@@ -4861,7 +4989,7 @@
       }
     ],
     "raw_data_hash": "706fa85e71c90517e794da06e317417b6d4340bdb97dfc76e2d4abcff87af84c",
-    "scraped_at": "2026-04-25T11:03:39.386Z"
+    "scraped_at": "2026-04-25T13:24:47.100Z"
   },
   {
     "brand": "Evergreen",
@@ -4879,6 +5007,7 @@
         "sku": "HFAS-61ULST",
         "type": "S",
         "power": "UL",
+        "code_name": "HFAS-61ULST",
         "specs": {
           "全長(m)": "1.86",
           "標準自重(g)": "91",
@@ -4899,7 +5028,7 @@
       }
     ],
     "raw_data_hash": "01d08c992037187cbd7f45899b52e1ae9401a5f092654a372912951052947203",
-    "scraped_at": "2026-04-25T11:03:43.257Z"
+    "scraped_at": "2026-04-25T13:24:51.474Z"
   },
   {
     "brand": "Evergreen",
@@ -4917,6 +5046,7 @@
         "sku": "HFAS-64XULST",
         "type": "S",
         "power": "UL",
+        "code_name": "HFAS-64XULST",
         "specs": {
           "全長(m)": "1.94",
           "標準自重(g)": "97",
@@ -4937,7 +5067,7 @@
       }
     ],
     "raw_data_hash": "ee17a48da8f760f1e369b551a9a01199a59b62b8cb6cf84478505eea7e9ccc2e",
-    "scraped_at": "2026-04-25T11:03:42.975Z"
+    "scraped_at": "2026-04-25T13:24:50.848Z"
   },
   {
     "brand": "Evergreen",
@@ -4955,6 +5085,7 @@
         "sku": "HFAS-65ULST",
         "type": "S",
         "power": "UL",
+        "code_name": "HFAS-65ULST",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "96",
@@ -4975,7 +5106,7 @@
       }
     ],
     "raw_data_hash": "406e0ad806449a605dd4e16d607cd21d8649f5713c50abc48a33901297ce1e07",
-    "scraped_at": "2026-04-25T11:03:43.178Z"
+    "scraped_at": "2026-04-25T13:24:51.308Z"
   },
   {
     "brand": "Evergreen",
@@ -4993,6 +5124,7 @@
         "sku": "CSYC-610ML",
         "type": "C",
         "power": "ML",
+        "code_name": "Rippin Feat",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "133",
@@ -5013,7 +5145,7 @@
       }
     ],
     "raw_data_hash": "6f2e65b3c3e0b1e60c5afab7f4cf98153ce0ce88d58b08e53693d9bf9bf9ed39",
-    "scraped_at": "2026-04-25T11:03:41.052Z"
+    "scraped_at": "2026-04-25T13:24:49.224Z"
   },
   {
     "brand": "Evergreen",
@@ -5031,6 +5163,7 @@
         "sku": "CSYC-70M+",
         "type": "C",
         "power": "M",
+        "code_name": "Multi Roller",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "172",
@@ -5051,7 +5184,7 @@
       }
     ],
     "raw_data_hash": "eb6cd37bb39dda0a7e9f2e91107abc7f00b9d00d8c9dfd3b46b212f61356e789",
-    "scraped_at": "2026-04-25T11:03:44.742Z"
+    "scraped_at": "2026-04-25T13:24:53.518Z"
   },
   {
     "brand": "Evergreen",
@@ -5069,6 +5202,7 @@
         "sku": "CSYC-71H",
         "type": "C",
         "power": "H",
+        "code_name": "Super Detonator",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "140",
@@ -5089,7 +5223,7 @@
       }
     ],
     "raw_data_hash": "0c03ec6a468f132071685276663489dd002fb4bcd5f53c72f09529b9c66ae540",
-    "scraped_at": "2026-04-25T11:03:44.894Z"
+    "scraped_at": "2026-04-25T13:24:53.567Z"
   },
   {
     "brand": "Evergreen",
@@ -5107,6 +5241,7 @@
         "sku": "CSYC-73MH+",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Triumph",
         "specs": {
           "全長(m)": "2.21",
           "標準自重(g)": "145",
@@ -5127,7 +5262,7 @@
       }
     ],
     "raw_data_hash": "fd904f65aaf1fc827cb347c184ad82a4ec7bf4c63b119df7c7f64bf7e46c52a4",
-    "scraped_at": "2026-04-25T11:03:44.746Z"
+    "scraped_at": "2026-04-25T13:24:53.533Z"
   },
   {
     "brand": "Evergreen",
@@ -5145,6 +5280,7 @@
         "sku": "CSYC-77H",
         "type": "C",
         "power": "H",
+        "code_name": "Super Magnum",
         "specs": {
           "全長(m)": "2.31",
           "標準自重(g)": "226",
@@ -5165,7 +5301,7 @@
       }
     ],
     "raw_data_hash": "5ac58d9e0b753f8b49978979bd9424cc4a5af41e14a4d36836139effc2c84033",
-    "scraped_at": "2026-04-25T11:03:44.739Z"
+    "scraped_at": "2026-04-25T13:24:54.447Z"
   },
   {
     "brand": "Evergreen",
@@ -5183,6 +5319,7 @@
         "sku": "PCSC-63ML+",
         "type": "C",
         "power": "ML",
+        "code_name": "Razor Shot",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "121",
@@ -5203,7 +5340,7 @@
       }
     ],
     "raw_data_hash": "539510323dd67ac3c68816d4c74821908b522e7babb92e714f8591d7d28c0aa3",
-    "scraped_at": "2026-04-25T11:03:46.842Z"
+    "scraped_at": "2026-04-25T13:24:56.561Z"
   },
   {
     "brand": "Evergreen",
@@ -5221,6 +5358,7 @@
         "sku": "PCSC-66L+BF",
         "type": "C",
         "power": "L+",
+        "code_name": "Fieldin Star Bait Finesse",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "98",
@@ -5241,7 +5379,7 @@
       }
     ],
     "raw_data_hash": "e686940152226197fc033e76c493955a6d8cd5d8229f9ffb89421137a31d3fe5",
-    "scraped_at": "2026-04-25T11:03:46.693Z"
+    "scraped_at": "2026-04-25T13:24:56.412Z"
   },
   {
     "brand": "Evergreen",
@@ -5259,6 +5397,7 @@
         "sku": "PCSC-66ML+",
         "type": "C",
         "power": "ML",
+        "code_name": "Shooting Star",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "111",
@@ -5279,7 +5418,7 @@
       }
     ],
     "raw_data_hash": "23cf970a5e41cce70b71300047e6e1e2ce68f3cc82dedb2e56eaf1831b77447e",
-    "scraped_at": "2026-04-25T11:03:46.689Z"
+    "scraped_at": "2026-04-25T13:24:56.819Z"
   },
   {
     "brand": "Evergreen",
@@ -5297,6 +5436,7 @@
         "sku": "PCSC-66M",
         "type": "C",
         "power": "M",
+        "code_name": "Warrior",
         "specs": {
           "全長(m)": "1.99",
           "標準自重(g)": "135",
@@ -5317,7 +5457,7 @@
       }
     ],
     "raw_data_hash": "df143826714f1faf90b2d96432c824e6198d5c1f967be5a16d78e7038c2b0997",
-    "scraped_at": "2026-04-25T11:03:46.839Z"
+    "scraped_at": "2026-04-25T13:24:58.785Z"
   },
   {
     "brand": "Evergreen",
@@ -5335,6 +5475,7 @@
         "sku": "PCSC-67MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Tempest",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "142",
@@ -5355,7 +5496,7 @@
       }
     ],
     "raw_data_hash": "8c52ceb2d86a5a7eeaf7cb603d54798d5fff1c208e10cfe58a9e37fa646653df",
-    "scraped_at": "2026-04-25T11:03:49.018Z"
+    "scraped_at": "2026-04-25T13:25:01.449Z"
   },
   {
     "brand": "Evergreen",
@@ -5373,6 +5514,7 @@
         "sku": "PCSC-68H",
         "type": "C",
         "power": "H",
+        "code_name": "Tyrant",
         "specs": {
           "全長(m)": "2.03",
           "標準自重(g)": "149",
@@ -5393,7 +5535,7 @@
       }
     ],
     "raw_data_hash": "8bffaad07a12a961c70e398a9e24fd66b1aab73a0db87466cbc107f481d40ad8",
-    "scraped_at": "2026-04-25T11:03:49.014Z"
+    "scraped_at": "2026-04-25T13:25:00.879Z"
   },
   {
     "brand": "Evergreen",
@@ -5411,6 +5553,7 @@
         "sku": "PCSC-70MHR",
         "type": "C",
         "power": "MH",
+        "code_name": "Wild Shooter",
         "specs": {
           "全長(m)": "2.14",
           "標準自重(g)": "158",
@@ -5431,7 +5574,7 @@
       }
     ],
     "raw_data_hash": "c449264133476ff6cc33fad9126cbaa7241a2bd684ad465fc4e0c0287ae29fd8",
-    "scraped_at": "2026-04-25T11:03:48.885Z"
+    "scraped_at": "2026-04-25T13:25:02.583Z"
   },
   {
     "brand": "Evergreen",
@@ -5449,6 +5592,7 @@
         "sku": "PCSC-71M+",
         "type": "C",
         "power": "M",
+        "code_name": "Sharp Shooter",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "142",
@@ -5469,7 +5613,7 @@
       }
     ],
     "raw_data_hash": "82774f22d3a9e91520b4169e2f00b96799dd579193d8f686804b9246949c6da5",
-    "scraped_at": "2026-04-25T11:03:48.862Z"
+    "scraped_at": "2026-04-25T13:25:01.678Z"
   },
   {
     "brand": "Evergreen",
@@ -5487,6 +5631,7 @@
         "sku": "PCSC-71MH",
         "type": "C",
         "power": "MH",
+        "code_name": "Explorer",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "145",
@@ -5507,7 +5652,7 @@
       }
     ],
     "raw_data_hash": "944fb182d31e0e9f4c45487dbfb11dbe4146bd5baeb9f35cb92f17d4aafc38f5",
-    "scraped_at": "2026-04-25T11:03:51.240Z"
+    "scraped_at": "2026-04-25T13:25:05.674Z"
   },
   {
     "brand": "Evergreen",
@@ -5525,6 +5670,7 @@
         "sku": "PCSC-71XX",
         "type": "C",
         "power": "XXH",
+        "code_name": "Power Plant",
         "specs": {
           "全長(m)": "2.15",
           "標準自重(g)": "180",
@@ -5545,7 +5691,7 @@
       }
     ],
     "raw_data_hash": "d878f33c54db2d4f17e4e43cdd6e5632e9ee8eeaff36946b9d60995fb75340b0",
-    "scraped_at": "2026-04-25T11:03:51.106Z"
+    "scraped_at": "2026-04-25T13:25:05.247Z"
   },
   {
     "brand": "Evergreen",
@@ -5563,6 +5709,7 @@
         "sku": "PCSC-72H",
         "type": "C",
         "power": "H",
+        "code_name": "Digger",
         "specs": {
           "全長(m)": "2.18",
           "標準自重(g)": "165",
@@ -5583,7 +5730,7 @@
       }
     ],
     "raw_data_hash": "db01c75557d1630fa48e600bb1c146e9fae739891aafd81cc89b172903decbbd",
-    "scraped_at": "2026-04-25T11:03:51.296Z"
+    "scraped_at": "2026-04-25T13:25:05.657Z"
   },
   {
     "brand": "Evergreen",
@@ -5601,6 +5748,7 @@
         "sku": "PCSC-74X",
         "type": "C",
         "power": "XH",
+        "code_name": "Black Actaeon",
         "specs": {
           "全長(m)": "2.23",
           "標準自重(g)": "168",
@@ -5621,7 +5769,7 @@
       }
     ],
     "raw_data_hash": "2e0725c7313d63e541082939673a09400b8d3570e97fc8cdaa536c96b3f28c1c",
-    "scraped_at": "2026-04-25T11:03:51.302Z"
+    "scraped_at": "2026-04-25T13:25:05.350Z"
   },
   {
     "brand": "Evergreen",
@@ -5639,6 +5787,7 @@
         "sku": "PCSS-56L",
         "type": "S",
         "power": "L",
+        "code_name": "Master Archer 56",
         "specs": {
           "全長(m)": "1.68",
           "標準自重(g)": "78",
@@ -5659,7 +5808,7 @@
       }
     ],
     "raw_data_hash": "37df625cbb9aec7c08f4109bf0728a3cff2f4480c928aad10ddfa1bd0cf43f86",
-    "scraped_at": "2026-04-25T11:03:53.601Z"
+    "scraped_at": "2026-04-25T13:25:08.399Z"
   },
   {
     "brand": "Evergreen",
@@ -5677,6 +5826,7 @@
         "sku": "PCSS-64UL",
         "type": "S",
         "power": "UL",
+        "code_name": "Drift Master",
         "specs": {
           "全長(m)": "1.92",
           "標準自重(g)": "86",
@@ -5697,7 +5847,7 @@
       }
     ],
     "raw_data_hash": "8a0aac011e701609cecff10caac76f9efcb96b06654eb3d90cdd645f8c59fa74",
-    "scraped_at": "2026-04-25T11:03:53.409Z"
+    "scraped_at": "2026-04-25T13:25:08.215Z"
   },
   {
     "brand": "Evergreen",
@@ -5715,6 +5865,7 @@
         "sku": "PCSS-65L+",
         "type": "S",
         "power": "L+",
+        "code_name": "Spitfire",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "95",
@@ -5735,7 +5886,7 @@
       }
     ],
     "raw_data_hash": "73001103b736531d0375833c45b0b07eef9f50dbefbb9d3f4d27baa5de31b7ed",
-    "scraped_at": "2026-04-25T11:03:53.629Z"
+    "scraped_at": "2026-04-25T13:25:08.112Z"
   },
   {
     "brand": "Evergreen",
@@ -5753,6 +5904,7 @@
         "sku": "PCSS-65M",
         "type": "S",
         "power": "M",
+        "code_name": "Smooth Torque",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "110",
@@ -5773,7 +5925,7 @@
       }
     ],
     "raw_data_hash": "e81745320291393a7999f7e4860b2cf30f5774ae95588643967bcd5a7022247d",
-    "scraped_at": "2026-04-25T11:03:53.423Z"
+    "scraped_at": "2026-04-25T13:25:08.349Z"
   },
   {
     "brand": "Evergreen",
@@ -5791,6 +5943,7 @@
         "sku": "PCSS-68L",
         "type": "S",
         "power": "L",
+        "code_name": "Fortune Blue",
         "specs": {
           "全長(m)": "2.04",
           "標準自重(g)": "114",
@@ -5811,7 +5964,7 @@
       }
     ],
     "raw_data_hash": "7ba35f671c907aa5175760b448149f79dd49dc5d6c61c9178d0a2d313b0ce1a9",
-    "scraped_at": "2026-04-25T11:03:55.843Z"
+    "scraped_at": "2026-04-25T13:25:10.895Z"
   },
   {
     "brand": "Evergreen",
@@ -5829,6 +5982,7 @@
         "sku": "CLCC-68ML",
         "type": "C",
         "power": "ML",
+        "code_name": "CLCC-68ML",
         "specs": {
           "全長(m)": "2.04",
           "標準自重(g)": "110",
@@ -5849,7 +6003,7 @@
       }
     ],
     "raw_data_hash": "faee86f049aa9c2ad9ff7bccb6b34701e853e359ceafc806d53f07b93682485f",
-    "scraped_at": "2026-04-25T11:03:55.750Z"
+    "scraped_at": "2026-04-25T13:25:11.123Z"
   },
   {
     "brand": "Evergreen",
@@ -5867,6 +6021,7 @@
         "sku": "CLCC-610M",
         "type": "C",
         "power": "M",
+        "code_name": "CLCC-610M",
         "specs": {
           "全長(m)": "2.09",
           "標準自重(g)": "115",
@@ -5887,7 +6042,7 @@
       }
     ],
     "raw_data_hash": "56529f5f6abe7f166f446680afe7761d0b702fdc56311c7cb51fa1d00d00aded",
-    "scraped_at": "2026-04-25T11:03:55.745Z"
+    "scraped_at": "2026-04-25T13:25:11.013Z"
   },
   {
     "brand": "Evergreen",
@@ -5905,6 +6060,7 @@
         "sku": "CLCC-611MH",
         "type": "C",
         "power": "MH",
+        "code_name": "CLCC-611MH",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "121",
@@ -5925,7 +6081,7 @@
       }
     ],
     "raw_data_hash": "94d00cd0b02dd5106406b0f433c9bfafef820bc063b859feff5271e99a931997",
-    "scraped_at": "2026-04-25T11:03:55.747Z"
+    "scraped_at": "2026-04-25T13:25:11.163Z"
   },
   {
     "brand": "Evergreen",
@@ -5943,6 +6099,7 @@
         "sku": "CLCC-71MH",
         "type": "C",
         "power": "MH",
+        "code_name": "CLCC-71MH",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "130",
@@ -5963,7 +6120,7 @@
       }
     ],
     "raw_data_hash": "be3fda6393cdf50cf2b0b0bff7b88e7bb2dc40ebb88afb93166f30ed701a8963",
-    "scraped_at": "2026-04-25T11:03:58.091Z"
+    "scraped_at": "2026-04-25T13:25:13.548Z"
   },
   {
     "brand": "Evergreen",
@@ -5981,6 +6138,7 @@
         "sku": "CLCC-71H",
         "type": "C",
         "power": "H",
+        "code_name": "CLCC-71H",
         "specs": {
           "全長(m)": "2.16",
           "標準自重(g)": "127",
@@ -6001,7 +6159,7 @@
       }
     ],
     "raw_data_hash": "5988db5aa96aa63afd0d1751d4c1258c0bb205dfe05e2922f01bd2c61cca9b3b",
-    "scraped_at": "2026-04-25T11:03:58.096Z"
+    "scraped_at": "2026-04-25T13:25:13.193Z"
   },
   {
     "brand": "Evergreen",
@@ -6019,6 +6177,7 @@
         "sku": "CLCS-611L",
         "type": "S",
         "power": "L",
+        "code_name": "CLCS-611L",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "96",
@@ -6039,7 +6198,7 @@
       }
     ],
     "raw_data_hash": "f25d11fad3a9e13d782309e6bbdeea9a7801b7d58fbaf6cc099fc8175fe33e75",
-    "scraped_at": "2026-04-25T11:03:58.094Z"
+    "scraped_at": "2026-04-25T13:25:13.536Z"
   },
   {
     "brand": "Evergreen",
@@ -6057,6 +6216,7 @@
         "sku": "CLCS-70ML",
         "type": "S",
         "power": "ML",
+        "code_name": "CLCS-70ML",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "102",
@@ -6077,7 +6237,7 @@
       }
     ],
     "raw_data_hash": "c74237687f3e73661ca8b348d25a879394aff3dd2b2652ef202d6e1d98146e10",
-    "scraped_at": "2026-04-25T11:03:58.088Z"
+    "scraped_at": "2026-04-25T13:25:13.788Z"
   },
   {
     "brand": "Evergreen",
@@ -6095,6 +6255,7 @@
         "sku": "CLCS-75M",
         "type": "S",
         "power": "M",
+        "code_name": "CLCS-75M",
         "specs": {
           "全長(m)": "2.26",
           "標準自重(g)": "115",
@@ -6115,7 +6276,7 @@
       }
     ],
     "raw_data_hash": "610e7853043b7276107eeabcbd8e43c84564aee86adc6e46d42d6f7fcfe63455",
-    "scraped_at": "2026-04-25T11:04:00.254Z"
+    "scraped_at": "2026-04-25T13:25:15.643Z"
   },
   {
     "brand": "Evergreen",
@@ -6133,6 +6294,7 @@
         "sku": "CLCS-77MH",
         "type": "S",
         "power": "MH",
+        "code_name": "CLCS-77MH",
         "specs": {
           "全長(m)": "2.31",
           "標準自重(g)": "125",
@@ -6153,7 +6315,7 @@
       }
     ],
     "raw_data_hash": "7fe34685ec2d8c73d05dae16578037ef69e2db29228c9c96080a8ea8d9fd70ec",
-    "scraped_at": "2026-04-25T11:04:00.250Z"
+    "scraped_at": "2026-04-25T13:25:15.537Z"
   },
   {
     "brand": "Evergreen",
@@ -6171,6 +6333,7 @@
         "sku": "ICSS-60UL",
         "type": "S",
         "power": "UL",
+        "code_name": "Aerial",
         "specs": {
           "全長(m)": "1.83",
           "標準自重(g)": "101",
@@ -6191,7 +6354,7 @@
       }
     ],
     "raw_data_hash": "fd1148f95571956ac8666381015998ab387428050662e94d1c9d2ae30e276f8f",
-    "scraped_at": "2026-04-25T11:03:59.689Z"
+    "scraped_at": "2026-04-25T13:25:16.044Z"
   },
   {
     "brand": "Evergreen",
@@ -6209,6 +6372,7 @@
         "sku": "ICSS-63UL",
         "type": "S",
         "power": "UL",
+        "code_name": "Super Aerial",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "100",
@@ -6229,7 +6393,7 @@
       }
     ],
     "raw_data_hash": "6e4f7993cac2b2f241e8f5bcf5718bebe2f3c6fbad506a9e77bae9e1ac077853",
-    "scraped_at": "2026-04-25T11:03:59.708Z"
+    "scraped_at": "2026-04-25T13:25:16.376Z"
   },
   {
     "brand": "Evergreen",
@@ -6247,6 +6411,7 @@
         "sku": "PREJ508-2",
         "type": "",
         "power": "",
+        "code_name": "Real Jerker 508-2",
         "specs": {
           "全長(m)": "1.75",
           "標準自重(g)": "",
@@ -6265,7 +6430,7 @@
       }
     ],
     "raw_data_hash": "cf1aafef11583db3821fc296e3c8590a99ce2dfeb3718831bad4a5758f6bcdbe",
-    "scraped_at": "2026-04-25T11:04:02.019Z"
+    "scraped_at": "2026-04-25T13:25:18.308Z"
   },
   {
     "brand": "Evergreen",
@@ -6283,6 +6448,7 @@
         "sku": "PREJ508-3",
         "type": "",
         "power": "",
+        "code_name": "Real Jerker 508-3",
         "specs": {
           "全長(m)": "1.75",
           "標準自重(g)": "",
@@ -6301,7 +6467,7 @@
       }
     ],
     "raw_data_hash": "eb64921f6fbb258fa1085dc2e97477e7ec8e8440210f667a2b9a786c6ed5ad8c",
-    "scraped_at": "2026-04-25T11:04:01.999Z"
+    "scraped_at": "2026-04-25T13:25:18.734Z"
   },
   {
     "brand": "Evergreen",
@@ -6319,6 +6485,7 @@
         "sku": "PREJ508-4",
         "type": "",
         "power": "",
+        "code_name": "Real Jerker 508-4",
         "specs": {
           "全長(m)": "1.75",
           "標準自重(g)": "",
@@ -6337,7 +6504,7 @@
       }
     ],
     "raw_data_hash": "c35cc070d322511651357a9676ddc6039c4edfd3dbcc27330955c9422e164e6b",
-    "scraped_at": "2026-04-25T11:04:01.996Z"
+    "scraped_at": "2026-04-25T13:25:18.417Z"
   },
   {
     "brand": "Evergreen",
@@ -6355,6 +6522,7 @@
         "sku": "PSLJ603-1",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-1",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "118",
@@ -6374,7 +6542,7 @@
       }
     ],
     "raw_data_hash": "85052ca25a766716b7452123e0377e7ad86d793ab92eab0b8ccc6c66ebc8c90f",
-    "scraped_at": "2026-04-25T11:04:02.128Z"
+    "scraped_at": "2026-04-25T13:25:18.869Z"
   },
   {
     "brand": "Evergreen",
@@ -6392,6 +6560,7 @@
         "sku": "PSLJ603-1.5",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-1.5",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "117",
@@ -6411,7 +6580,7 @@
       }
     ],
     "raw_data_hash": "e42f6ed0105306cff5832ab9774bdfaa54cbb4e6e206fabefb957730a63f3f0b",
-    "scraped_at": "2026-04-25T11:04:03.846Z"
+    "scraped_at": "2026-04-25T13:25:21.024Z"
   },
   {
     "brand": "Evergreen",
@@ -6429,6 +6598,7 @@
         "sku": "PSLJ603-2",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-2",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "115",
@@ -6448,7 +6618,7 @@
       }
     ],
     "raw_data_hash": "44580b65db0d45b4c5bf951dbcf38f3921c62bea29eee329b0b57d6ed36b6d40",
-    "scraped_at": "2026-04-25T11:04:03.854Z"
+    "scraped_at": "2026-04-25T13:25:21.110Z"
   },
   {
     "brand": "Evergreen",
@@ -6466,6 +6636,7 @@
         "sku": "PSLJ603-3",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-3",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "115",
@@ -6485,7 +6656,7 @@
       }
     ],
     "raw_data_hash": "355982fc68c732b4ddbf8bcee8f19de7dddb7fbdbc38a2e2b76a3bde14f682dc",
-    "scraped_at": "2026-04-25T11:04:03.852Z"
+    "scraped_at": "2026-04-25T13:25:21.316Z"
   },
   {
     "brand": "Evergreen",
@@ -6503,6 +6674,7 @@
         "sku": "PSLJ603-4",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-4",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "128",
@@ -6522,7 +6694,7 @@
       }
     ],
     "raw_data_hash": "cc160270ee8270ff553c66e4d6f119d528658e2934afade087eed0ee85d2dc6a",
-    "scraped_at": "2026-04-25T11:04:03.849Z"
+    "scraped_at": "2026-04-25T13:25:21.700Z"
   },
   {
     "brand": "Evergreen",
@@ -6540,6 +6712,7 @@
         "sku": "PSLJ603-5",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-5",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "133",
@@ -6559,7 +6732,7 @@
       }
     ],
     "raw_data_hash": "c09767e7a39895d94daed26ab727c267b65170f250efeb90206d0759fb2239d8",
-    "scraped_at": "2026-04-25T11:04:05.526Z"
+    "scraped_at": "2026-04-25T13:25:23.346Z"
   },
   {
     "brand": "Evergreen",
@@ -6577,6 +6750,7 @@
         "sku": "PSLJ603-6",
         "type": "",
         "power": "",
+        "code_name": "Slow Jerker 603-6",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "135",
@@ -6596,7 +6770,7 @@
       }
     ],
     "raw_data_hash": "3e745d00d4646b2b9da87e6eaf050dd3a9e36813477999868841c9e0559f0315",
-    "scraped_at": "2026-04-25T11:04:05.496Z"
+    "scraped_at": "2026-04-25T13:25:23.496Z"
   },
   {
     "brand": "Evergreen",
@@ -6614,6 +6788,7 @@
         "sku": "PLFJ77XH",
         "type": "",
         "power": "XH",
+        "code_name": "Long Fall Jerker 77XH",
         "specs": {
           "全長(m)": "2.3",
           "標準自重(g)": "184",
@@ -6634,7 +6809,7 @@
       }
     ],
     "raw_data_hash": "2ed70010a2c89f0fcbd1c2e308f0a0e072eddc1e7a87acc07bebf0556ea05ced",
-    "scraped_at": "2026-04-25T11:04:05.556Z"
+    "scraped_at": "2026-04-25T13:25:23.594Z"
   },
   {
     "brand": "Evergreen",
@@ -6652,6 +6827,7 @@
         "sku": "PLFJ710L-1.5",
         "type": "",
         "power": "L",
+        "code_name": "Long Fall Jerker 710L-1.5",
         "specs": {
           "全長(m)": "2.38",
           "標準自重(g)": "150",
@@ -6672,7 +6848,7 @@
       }
     ],
     "raw_data_hash": "ad8a2c5fdd5213e9d9fd6c28282f94678faab474a79ea891d208c993251bdfd1",
-    "scraped_at": "2026-04-25T11:04:05.469Z"
+    "scraped_at": "2026-04-25T13:25:23.900Z"
   },
   {
     "brand": "Evergreen",
@@ -6690,6 +6866,7 @@
         "sku": "PLFJ710ML-2",
         "type": "",
         "power": "ML",
+        "code_name": "Long Fall Jerker 710ML-2",
         "specs": {
           "全長(m)": "2.38",
           "標準自重(g)": "146",
@@ -6710,7 +6887,7 @@
       }
     ],
     "raw_data_hash": "f34df635a5a4857f575fec4a42e4ca86683c68ffb3f08e3121b1a73624e6c84d",
-    "scraped_at": "2026-04-25T11:04:07.106Z"
+    "scraped_at": "2026-04-25T13:25:25.898Z"
   },
   {
     "brand": "Evergreen",
@@ -6728,6 +6905,7 @@
         "sku": "PLFJ710M-3",
         "type": "",
         "power": "M",
+        "code_name": "Long Fall Jerker 710M-3",
         "specs": {
           "全長(m)": "2.38",
           "標準自重(g)": "148",
@@ -6748,7 +6926,7 @@
       }
     ],
     "raw_data_hash": "b6e237db00ea970aa0aa76e05cec3399213bac38850f6c69c8cb15030cd94d3b",
-    "scraped_at": "2026-04-25T11:04:07.123Z"
+    "scraped_at": "2026-04-25T13:25:26.098Z"
   },
   {
     "brand": "Evergreen",
@@ -6766,6 +6944,7 @@
         "sku": "PLFJ710MH-4",
         "type": "",
         "power": "MH",
+        "code_name": "Long Fall Jerker 710MH-4",
         "specs": {
           "全長(m)": "2.38",
           "標準自重(g)": "158",
@@ -6786,7 +6965,7 @@
       }
     ],
     "raw_data_hash": "ea4b35d210f1326bcb134a130a7639f9e7ee3b391e7c6da67e0b9529a2038196",
-    "scraped_at": "2026-04-25T11:04:07.221Z"
+    "scraped_at": "2026-04-25T13:25:26.111Z"
   },
   {
     "brand": "Evergreen",
@@ -6804,6 +6983,7 @@
         "sku": "PLFJ710H-5",
         "type": "",
         "power": "H",
+        "code_name": "Long Fall Jerker 710H-5",
         "specs": {
           "全長(m)": "2.38",
           "標準自重(g)": "162",
@@ -6824,7 +7004,7 @@
       }
     ],
     "raw_data_hash": "1adbef17a17a94a92035425abe03d66575449803794524f9ab73f095be730389",
-    "scraped_at": "2026-04-25T11:04:07.336Z"
+    "scraped_at": "2026-04-25T13:25:25.611Z"
   },
   {
     "brand": "Evergreen",
@@ -6842,6 +7022,7 @@
         "sku": "PLFJ710H-6",
         "type": "",
         "power": "H",
+        "code_name": "Long Fall Jerker 710H-6",
         "specs": {
           "全長(m)": "2.38",
           "標準自重(g)": "166",
@@ -6862,7 +7043,7 @@
       }
     ],
     "raw_data_hash": "ab294db7dce0f10048f196dafb0dd2a408698f5cedf1087319d58d3d66ee0fa2",
-    "scraped_at": "2026-04-25T11:04:08.756Z"
+    "scraped_at": "2026-04-25T13:25:27.934Z"
   },
   {
     "brand": "Evergreen",
@@ -6880,6 +7061,7 @@
         "sku": "PHPJ410",
         "type": "",
         "power": "",
+        "code_name": "High Pitch Jerker 410",
         "specs": {
           "全長(m)": "1.48",
           "標準自重(g)": "149",
@@ -6899,7 +7081,7 @@
       }
     ],
     "raw_data_hash": "a770268fdf018da77c8ca7fed85935ea00fca4beefe801a287645d91d9640524",
-    "scraped_at": "2026-04-25T11:04:08.758Z"
+    "scraped_at": "2026-04-25T13:25:27.851Z"
   },
   {
     "brand": "Evergreen",
@@ -6917,6 +7099,7 @@
         "sku": "PHPJ501",
         "type": "",
         "power": "",
+        "code_name": "High Pitch Jerker 501",
         "specs": {
           "全長(m)": "1.55",
           "標準自重(g)": "150",
@@ -6936,7 +7119,7 @@
       }
     ],
     "raw_data_hash": "00fe876770de89c7aa9907a340ac93fb2a51a29bc1b5a75c3c06d68565e4d140",
-    "scraped_at": "2026-04-25T11:04:08.790Z"
+    "scraped_at": "2026-04-25T13:25:27.885Z"
   },
   {
     "brand": "Evergreen",
@@ -6954,6 +7137,7 @@
         "sku": "PHPJ504",
         "type": "",
         "power": "",
+        "code_name": "High Pitch Jerker 504",
         "specs": {
           "全長(m)": "1.63",
           "標準自重(g)": "150",
@@ -6973,7 +7157,7 @@
       }
     ],
     "raw_data_hash": "17e4976abab58a1a76a448282bdf8999d7cd66da2adc7fc063dd2c2d492e0476",
-    "scraped_at": "2026-04-25T11:04:08.753Z"
+    "scraped_at": "2026-04-25T13:25:28.267Z"
   },
   {
     "brand": "Evergreen",
@@ -6991,6 +7175,7 @@
         "sku": "PHPJ600",
         "type": "",
         "power": "",
+        "code_name": "High Pitch Jerker 600",
         "specs": {
           "全長(m)": "1.83",
           "標準自重(g)": "154",
@@ -7010,7 +7195,7 @@
       }
     ],
     "raw_data_hash": "203eddd31614070f2820a6049703a77881d345ea35774f45dfa42b8ff392fce8",
-    "scraped_at": "2026-04-25T11:04:10.489Z"
+    "scraped_at": "2026-04-25T13:25:30.006Z"
   },
   {
     "brand": "Evergreen",
@@ -7028,6 +7213,7 @@
         "sku": "PHPJ606L-4",
         "type": "",
         "power": "L",
+        "code_name": "High Pitch Jerker Light 606L-4",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "119",
@@ -7047,7 +7233,7 @@
       }
     ],
     "raw_data_hash": "616c514b7dab6839407808ed18a7e85f553de4f4043d48cbd4bd748fe7b69859",
-    "scraped_at": "2026-04-25T11:04:10.491Z"
+    "scraped_at": "2026-04-25T13:25:30.671Z"
   },
   {
     "brand": "Evergreen",
@@ -7065,6 +7251,7 @@
         "sku": "PHPJ607L-3",
         "type": "",
         "power": "L",
+        "code_name": "High Pitch Jerker Light 607L-3",
         "specs": {
           "全長(m)": "2.07",
           "標準自重(g)": "111",
@@ -7084,7 +7271,7 @@
       }
     ],
     "raw_data_hash": "6212374b04d193153d83d38059a515eb0502d4287ea73145d6925da351d7f04c",
-    "scraped_at": "2026-04-25T11:04:10.487Z"
+    "scraped_at": "2026-04-25T13:25:30.342Z"
   },
   {
     "brand": "Evergreen",
@@ -7102,6 +7289,7 @@
         "sku": "PSPJ500",
         "type": "",
         "power": "",
+        "code_name": "Spin Jerker 500",
         "specs": {
           "全長(m)": "1.53",
           "標準自重(g)": "204",
@@ -7121,7 +7309,7 @@
       }
     ],
     "raw_data_hash": "b399d4cf9ddcadaecfffdd272bfaaac7ccd334ad20149918ff7033922a4c04bf",
-    "scraped_at": "2026-04-25T11:04:10.484Z"
+    "scraped_at": "2026-04-25T13:25:30.876Z"
   },
   {
     "brand": "Evergreen",
@@ -7139,6 +7327,7 @@
         "sku": "PSPJ502",
         "type": "",
         "power": "",
+        "code_name": "Spin Jerker 502",
         "specs": {
           "全長(m)": "1.58",
           "標準自重(g)": "201",
@@ -7158,7 +7347,7 @@
       }
     ],
     "raw_data_hash": "b3fde1aaba4759a4390cdb59eeca9796abf150c1b6a54651e1ae5ea69f161e92",
-    "scraped_at": "2026-04-25T11:04:12.171Z"
+    "scraped_at": "2026-04-25T13:25:32.841Z"
   },
   {
     "brand": "Evergreen",
@@ -7176,6 +7365,7 @@
         "sku": "PSPJ602",
         "type": "",
         "power": "",
+        "code_name": "Spin Jerker 602",
         "specs": {
           "全長(m)": "1.88",
           "標準自重(g)": "207",
@@ -7195,7 +7385,7 @@
       }
     ],
     "raw_data_hash": "ed0a64bbe561a36405932574f9372abf9c209909ac3ce98f321f3c82a1b3f198",
-    "scraped_at": "2026-04-25T11:04:12.166Z"
+    "scraped_at": "2026-04-25T13:25:33.193Z"
   },
   {
     "brand": "Evergreen",
@@ -7213,6 +7403,7 @@
         "sku": "PSPJ603L-1.5",
         "type": "",
         "power": "L",
+        "code_name": "Spin Jerker Light 603L-1.5",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "131",
@@ -7232,7 +7423,7 @@
       }
     ],
     "raw_data_hash": "8a8c479eb3dd97893ed712ecda83821b7c3b71398c21e3ed5853e299a4b0f345",
-    "scraped_at": "2026-04-25T11:04:12.118Z"
+    "scraped_at": "2026-04-25T13:25:33.122Z"
   },
   {
     "brand": "Evergreen",
@@ -7250,6 +7441,7 @@
         "sku": "PSPJ603L",
         "type": "",
         "power": "L",
+        "code_name": "Spin Jerker Light 603L",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "138",
@@ -7269,7 +7461,7 @@
       }
     ],
     "raw_data_hash": "70a399fe97fcacbe8a2c575d0d784603201b2f4f1b48839c1a62803e5e2662a4",
-    "scraped_at": "2026-04-25T11:04:12.233Z"
+    "scraped_at": "2026-04-25T13:25:33.626Z"
   },
   {
     "brand": "Evergreen",
@@ -7287,6 +7479,7 @@
         "sku": "PSPJ603L-5",
         "type": "",
         "power": "L",
+        "code_name": "Spin Jerker Light 603L-5",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "144",
@@ -7306,7 +7499,7 @@
       }
     ],
     "raw_data_hash": "40ff017f84ddb520ff93f12c3a83c2d14686156f723d27752930ebdb1651dd69",
-    "scraped_at": "2026-04-25T11:04:13.747Z"
+    "scraped_at": "2026-04-25T13:25:35.513Z"
   },
   {
     "brand": "Evergreen",
@@ -7324,6 +7517,7 @@
         "sku": "PSMC-66L/MLST",
         "type": "C",
         "power": "ML",
+        "code_name": "PSMC-66L/MLST",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "117",
@@ -7344,7 +7538,7 @@
       }
     ],
     "raw_data_hash": "e60ccd2025eb03af12291bd09a8ca679d3dbbe77edf0944061ebcc1dad803534",
-    "scraped_at": "2026-04-25T11:04:14.793Z"
+    "scraped_at": "2026-04-25T13:25:35.958Z"
   },
   {
     "brand": "Evergreen",
@@ -7362,6 +7556,7 @@
         "sku": "PSMC-68UL/MLST",
         "type": "C",
         "power": "ML",
+        "code_name": "PSMC-68UL/MLST",
         "specs": {
           "全長(m)": "2.03",
           "標準自重(g)": "105",
@@ -7382,7 +7577,7 @@
       }
     ],
     "raw_data_hash": "e68c4ca351703426f8a6250059ac9826a52390eb91d7a983b231c5f256c01047",
-    "scraped_at": "2026-04-25T11:04:14.795Z"
+    "scraped_at": "2026-04-25T13:25:35.925Z"
   },
   {
     "brand": "Evergreen",
@@ -7400,6 +7595,7 @@
         "sku": "PSMS-70L/M",
         "type": "S",
         "power": "L",
+        "code_name": "PSMS-70L/M",
         "specs": {
           "全長(m)": "2.14",
           "標準自重(g)": "110",
@@ -7420,7 +7616,7 @@
       }
     ],
     "raw_data_hash": "f0b6f68b3f3da8d943de51798ed94864d12d20d2673e3f131bafe6debd5d50fd",
-    "scraped_at": "2026-04-25T11:04:14.790Z"
+    "scraped_at": "2026-04-25T13:25:35.944Z"
   },
   {
     "brand": "Evergreen",
@@ -7438,6 +7634,7 @@
         "sku": "PSMS-68UL/MLST",
         "type": "S",
         "power": "ML",
+        "code_name": "PSMS-68UL/MLST",
         "specs": {
           "全長(m)": "2.03",
           "標準自重(g)": "98",
@@ -7458,7 +7655,7 @@
       }
     ],
     "raw_data_hash": "1dc3ab2ecf6dac5e85c43e02fdb6c208c91721c7b0e80bc3ed825501c72b37a3",
-    "scraped_at": "2026-04-25T11:04:17.255Z"
+    "scraped_at": "2026-04-25T13:25:38.656Z"
   },
   {
     "brand": "Evergreen",
@@ -7476,6 +7673,7 @@
         "sku": "NIMC-61ULST",
         "type": "C",
         "power": "UL",
+        "code_name": "MS Dancer 61",
         "specs": {
           "全長(m)": "1.85",
           "標準自重(g)": "103",
@@ -7496,7 +7694,7 @@
       }
     ],
     "raw_data_hash": "e31342ea1e98bdcda4cc4abf9c872954ad951a72eb9144eae7548dd8e1840af1",
-    "scraped_at": "2026-04-25T11:04:17.332Z"
+    "scraped_at": "2026-04-25T13:25:38.800Z"
   },
   {
     "brand": "Evergreen",
@@ -7514,6 +7712,7 @@
         "sku": "NIMC-63XUL/LST",
         "type": "C",
         "power": "UL",
+        "code_name": "Draggin Master C63",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "104",
@@ -7534,7 +7733,7 @@
       }
     ],
     "raw_data_hash": "c2918f452f286c2ced5acb379e4609eb6752285cca9c5f44b4db5a5d7ec2fcd6",
-    "scraped_at": "2026-04-25T11:04:17.145Z"
+    "scraped_at": "2026-04-25T13:25:38.916Z"
   },
   {
     "brand": "Evergreen",
@@ -7552,6 +7751,7 @@
         "sku": "NIMC-611M-ST",
         "type": "C",
         "power": "M",
+        "code_name": "Sword Tip Master C611",
         "specs": {
           "全長(m)": "2.11",
           "標準自重(g)": "109",
@@ -7572,7 +7772,7 @@
       }
     ],
     "raw_data_hash": "0495e50833e1aeedee0982452b260dc3750d55e9977557483c936a85f49cc6a8",
-    "scraped_at": "2026-04-25T11:04:17.177Z"
+    "scraped_at": "2026-04-25T13:25:38.667Z"
   },
   {
     "brand": "Evergreen",
@@ -7590,6 +7790,7 @@
         "sku": "NIMC-70MST",
         "type": "C",
         "power": "M",
+        "code_name": "Deep Emotion 70",
         "specs": {
           "全長(m)": "2.12",
           "標準自重(g)": "115",
@@ -7610,7 +7811,7 @@
       }
     ],
     "raw_data_hash": "daad48b414a3e282f5ea56d98a87100a670bf62e1395eac858132f183a97dd53",
-    "scraped_at": "2026-04-25T11:04:19.870Z"
+    "scraped_at": "2026-04-25T13:25:41.140Z"
   },
   {
     "brand": "Evergreen",
@@ -7628,6 +7829,7 @@
         "sku": "NIMS-73M",
         "type": "S",
         "power": "M",
+        "code_name": "Whip Jerk 73",
         "specs": {
           "全長(m)": "2.2",
           "標準自重(g)": "112",
@@ -7648,7 +7850,7 @@
       }
     ],
     "raw_data_hash": "fda462e95f27644c37e0607118cc7dbf33f0aea3e609b913800a592698c916ef",
-    "scraped_at": "2026-04-25T11:04:20.163Z"
+    "scraped_at": "2026-04-25T13:25:42.377Z"
   },
   {
     "brand": "Evergreen",
@@ -7666,6 +7868,7 @@
         "sku": "NIMS-75MH",
         "type": "S",
         "power": "MH",
+        "code_name": "Lash Jerk 75",
         "specs": {
           "全長(m)": "2.25",
           "標準自重(g)": "121",
@@ -7686,7 +7889,7 @@
       }
     ],
     "raw_data_hash": "65830a82894300319ca4e013a74674684645aa5bec86f9c5af9e75b876d8165a",
-    "scraped_at": "2026-04-25T11:04:20.249Z"
+    "scraped_at": "2026-04-25T13:25:41.352Z"
   },
   {
     "brand": "Evergreen",
@@ -7704,6 +7907,7 @@
         "sku": "NIMS-77SL",
         "type": "S",
         "power": "L",
+        "code_name": "Feather Jerk 77",
         "specs": {
           "全長(m)": "2.31",
           "標準自重(g)": "75",
@@ -7724,7 +7928,7 @@
       }
     ],
     "raw_data_hash": "8be4d597cec7e556a1b2f8f4d9f017febd78a93c7f45570ecfce9a465fc7bbc7",
-    "scraped_at": "2026-04-25T11:04:20.118Z"
+    "scraped_at": "2026-04-25T13:25:41.523Z"
   },
   {
     "brand": "Evergreen",
@@ -7742,6 +7946,7 @@
         "sku": "NIMS-82L",
         "type": "S",
         "power": "L",
+        "code_name": "Technimaster 82",
         "specs": {
           "全長(m)": "2.48",
           "標準自重(g)": "109",
@@ -7762,7 +7967,7 @@
       }
     ],
     "raw_data_hash": "3af82932cd38eb68ea12dff3068f8c998ffc3ec5e4255c857090d2b3df7e6f7f",
-    "scraped_at": "2026-04-25T11:04:23.395Z"
+    "scraped_at": "2026-04-25T13:25:45.202Z"
   },
   {
     "brand": "Evergreen",
@@ -7780,6 +7985,7 @@
         "sku": "NIMS-86SL",
         "type": "S",
         "power": "L",
+        "code_name": "Feather Jerk 86",
         "specs": {
           "全長(m)": "2.59",
           "標準自重(g)": "82",
@@ -7800,7 +8006,7 @@
       }
     ],
     "raw_data_hash": "671b0ce8e877740a374ef1549c08f463fa462b27cd4f120bb5951ccb930b8921",
-    "scraped_at": "2026-04-25T11:04:23.389Z"
+    "scraped_at": "2026-04-25T13:25:45.258Z"
   },
   {
     "brand": "Evergreen",
@@ -7818,6 +8024,7 @@
         "sku": "NIMS-86L",
         "type": "S",
         "power": "L",
+        "code_name": "Slackmaster 86",
         "specs": {
           "全長(m)": "2.59",
           "標準自重(g)": "111",
@@ -7838,7 +8045,7 @@
       }
     ],
     "raw_data_hash": "95656a55781ee68467727eaaa947964bcce8409be851284dafb087597dc81b2e",
-    "scraped_at": "2026-04-25T11:04:23.514Z"
+    "scraped_at": "2026-04-25T13:25:45.368Z"
   },
   {
     "brand": "Evergreen",
@@ -7856,6 +8063,7 @@
         "sku": "NIMS-86L-EX",
         "type": "S",
         "power": "L",
+        "code_name": "Slack Master 86EX",
         "specs": {
           "全長(m)": "2.59",
           "標準自重(g)": "93",
@@ -7876,7 +8084,7 @@
       }
     ],
     "raw_data_hash": "8b1fd8d24da446f7e90ace16001eb049301bb980b47c6ca2d75734288904049b",
-    "scraped_at": "2026-04-25T11:04:23.398Z"
+    "scraped_at": "2026-04-25T13:25:46.692Z"
   },
   {
     "brand": "Evergreen",
@@ -7894,6 +8102,7 @@
         "sku": "NIMS-86M",
         "type": "S",
         "power": "M",
+        "code_name": "Razor King 86",
         "specs": {
           "全長(m)": "2.59",
           "標準自重(g)": "120",
@@ -7914,7 +8123,7 @@
       }
     ],
     "raw_data_hash": "5b4b6d49b9b1deab49c59a7dc83e7b739b0a7cbec35d0d8ba268bf3be4cd4fcb",
-    "scraped_at": "2026-04-25T11:04:26.173Z"
+    "scraped_at": "2026-04-25T13:25:49.628Z"
   },
   {
     "brand": "Evergreen",
@@ -7932,6 +8141,7 @@
         "sku": "NIMS-90L",
         "type": "S",
         "power": "L",
+        "code_name": "Slackmaster 90",
         "specs": {
           "全長(m)": "2.74",
           "標準自重(g)": "117",
@@ -7952,7 +8162,7 @@
       }
     ],
     "raw_data_hash": "4e1ec9d2fc80301f03c8ce26792ab0ba9c25808b4c793e03938ee59d2253ac09",
-    "scraped_at": "2026-04-25T11:04:26.086Z"
+    "scraped_at": "2026-04-25T13:25:49.552Z"
   },
   {
     "brand": "Evergreen",
@@ -7970,6 +8180,7 @@
         "sku": "NIMS-110ML",
         "type": "S",
         "power": "ML",
+        "code_name": "Slack King 110",
         "specs": {
           "全長(m)": "3.35",
           "標準自重(g)": "158",
@@ -7990,7 +8201,7 @@
       }
     ],
     "raw_data_hash": "1b535833dc2e81280b24f6b22784689ecebc597828c65afe90c33177ff8ed552",
-    "scraped_at": "2026-04-25T11:04:26.082Z"
+    "scraped_at": "2026-04-25T13:25:49.356Z"
   },
   {
     "brand": "Evergreen",
@@ -8008,6 +8219,7 @@
         "sku": "NIMS-63XUL/LST",
         "type": "S",
         "power": "UL",
+        "code_name": "Draggin Master S63",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "96",
@@ -8028,7 +8240,7 @@
       }
     ],
     "raw_data_hash": "1f05bf7cfea88fb14c4dce21b8c967fe6ea34159d4515f2e2fb5129f2810436f",
-    "scraped_at": "2026-04-25T11:04:25.951Z"
+    "scraped_at": "2026-04-25T13:25:49.594Z"
   },
   {
     "brand": "Evergreen",
@@ -8046,6 +8258,7 @@
         "sku": "NIMS-70ML-ST",
         "type": "S",
         "power": "ML",
+        "code_name": "Sword Tip Master S70",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "99",
@@ -8066,7 +8279,7 @@
       }
     ],
     "raw_data_hash": "29b95af8d4d6a01d2f23e2508342f3066da644fd854b06d7b4c9e4fe5b4cd0f3",
-    "scraped_at": "2026-04-25T11:04:28.455Z"
+    "scraped_at": "2026-04-25T13:25:51.992Z"
   },
   {
     "brand": "Evergreen",
@@ -8084,6 +8297,7 @@
         "sku": "NIMS-80ULST",
         "type": "S",
         "power": "UL",
+        "code_name": "Response Master 80",
         "specs": {
           "全長(m)": "2.43",
           "標準自重(g)": "107",
@@ -8104,7 +8318,7 @@
       }
     ],
     "raw_data_hash": "dab6c06135785fb910e1588cb626b84960e48e22737b1005ff915be33562e394",
-    "scraped_at": "2026-04-25T11:04:28.609Z"
+    "scraped_at": "2026-04-25T13:25:52.083Z"
   },
   {
     "brand": "Evergreen",
@@ -8122,6 +8336,7 @@
         "sku": "SSSS-88L",
         "type": "S",
         "power": "L",
+        "code_name": "Slack Jerk 88",
         "specs": {
           "全長(m)": "2.64",
           "標準自重(g)": "106",
@@ -8142,7 +8357,7 @@
       }
     ],
     "raw_data_hash": "0f98d59d84fa96accfcc32bb5fd7e0072959395bade588d99010b0cbd7b9f8ba",
-    "scraped_at": "2026-04-25T11:04:27.756Z"
+    "scraped_at": "2026-04-25T13:25:51.284Z"
   },
   {
     "brand": "Evergreen",
@@ -8160,6 +8375,7 @@
         "sku": "SSSS-92L",
         "type": "S",
         "power": "L",
+        "code_name": "Slack Jerk 92",
         "specs": {
           "全長(m)": "2.79",
           "標準自重(g)": "114",
@@ -8180,7 +8396,7 @@
       }
     ],
     "raw_data_hash": "c65e54b22ebfe8a6ec787d47638818c65698b1d7c7a1193694b0241f6532aea7",
-    "scraped_at": "2026-04-25T11:04:27.893Z"
+    "scraped_at": "2026-04-25T13:25:51.245Z"
   },
   {
     "brand": "Evergreen",
@@ -8198,6 +8414,7 @@
         "sku": "SSSS-86M",
         "type": "S",
         "power": "M",
+        "code_name": "Razor Jerk 86",
         "specs": {
           "全長(m)": "2.59",
           "標準自重(g)": "110",
@@ -8218,7 +8435,7 @@
       }
     ],
     "raw_data_hash": "cc0ea731b0ade4bd851b42e804d9bd82f7d029cf12a142aa672590e41827efed",
-    "scraped_at": "2026-04-25T11:04:30.204Z"
+    "scraped_at": "2026-04-25T13:25:54.142Z"
   },
   {
     "brand": "Evergreen",
@@ -8236,6 +8453,7 @@
         "sku": "SSSS-90M",
         "type": "S",
         "power": "M",
+        "code_name": "Razor Jerk 90",
         "specs": {
           "全長(m)": "2.74",
           "標準自重(g)": "117",
@@ -8256,7 +8474,7 @@
       }
     ],
     "raw_data_hash": "275ba8688a789df62d4e03439e3635598143045812c78b7103f453f0e843a639",
-    "scraped_at": "2026-04-25T11:04:30.195Z"
+    "scraped_at": "2026-04-25T13:25:53.955Z"
   },
   {
     "brand": "Evergreen",
@@ -8274,6 +8492,7 @@
         "sku": "SSSS-710MH",
         "type": "S",
         "power": "MH",
+        "code_name": "Magnum Jerk 710",
         "specs": {
           "全長(m)": "2.39",
           "標準自重(g)": "112",
@@ -8294,7 +8513,7 @@
       }
     ],
     "raw_data_hash": "7b38da9b603d690476a40852e74812dd9879a63adfcacbdab8c720d9193c1309",
-    "scraped_at": "2026-04-25T11:04:30.197Z"
+    "scraped_at": "2026-04-25T13:25:54.985Z"
   },
   {
     "brand": "Evergreen",
@@ -8312,6 +8531,7 @@
         "sku": "SSSS-84MH",
         "type": "S",
         "power": "MH",
+        "code_name": "Magnum Jerk 84",
         "specs": {
           "全長(m)": "2.54",
           "標準自重(g)": "122",
@@ -8332,7 +8552,7 @@
       }
     ],
     "raw_data_hash": "04d6f54c59333dc3f8b77477e1ff63354e6684f8cead4bc9b0fb9a39f9683716",
-    "scraped_at": "2026-04-25T11:04:30.220Z"
+    "scraped_at": "2026-04-25T13:25:53.717Z"
   },
   {
     "brand": "Evergreen",
@@ -8350,6 +8570,7 @@
         "sku": "ZAGC-73",
         "type": "C",
         "power": "",
+        "code_name": "Gran Fury",
         "specs": {
           "全長(m)": "2.22",
           "標準自重(g)": "154",
@@ -8368,8 +8589,8 @@
         "description": "「ハチマル以外、必要無し」。中野イズムのベイトキャスティングロッド「グランフューリー」。ビッグミノーやビッグベイトなど空気抵抗が大きいルアーを振り切ることで初速を殺さず飛行姿勢を安定させ、狙いのポイントに正確にルアーを運ぶことが可能な7フィート3インチというレングスとトルクフルなパワー。 しかし、ただ先まで硬い棒では繊細な感覚に欠け、キャッチ率が下がる。ルアーが流れになじむよう張らず弛めずのテンションを感じるために、またバイトの瞬間に口の中までルアーを送り込むために、ティップにシャープさを損なわない絶妙な柔軟性を持たせている。 また俗にいう「バットパワーで魚を寄せる」という概念ではハチマル、特に90を超えるようなシーバスには通用しない。魚の引きはあくまでベリーで受け止め、バットに余裕を持たせておく。流れの中での、ハチマルの死力を尽くした一撃に残しておかなくてはならない。そしてどの部分も決して極端な曲りになってはならない。力の流れがきれいに伝わることでロッド全体を使って勝負することができるからだ。 10年以上ベイトスタイルにこだわり続ける中野だけが知る世界。ハチマル最大の脅威、グランフューリー。 【推奨フィールド】 河川における反転流やヨレなど流れの変化のピンスポット撃ち。"
       }
     ],
-    "raw_data_hash": "385da8366fbb90029a0ba565de8adc6f141848ad1a26fa412f90a2a4488cf8da",
-    "scraped_at": "2026-04-25T11:04:32.640Z"
+    "raw_data_hash": "747882330f9be90573f472cc14894af4663309fce08f7be3311d80bac6830ca0",
+    "scraped_at": "2026-04-25T13:25:58.037Z"
   },
   {
     "brand": "Evergreen",
@@ -8387,6 +8608,7 @@
         "sku": "ZAGC-710",
         "type": "C",
         "power": "",
+        "code_name": "Gran Sword",
         "specs": {
           "全長(m)": "2.39",
           "標準自重(g)": "178",
@@ -8406,7 +8628,7 @@
       }
     ],
     "raw_data_hash": "e287d134650708191a379251319adc23086550dd62ac832b596c6c7c1b5fa2d3",
-    "scraped_at": "2026-04-25T11:04:32.672Z"
+    "scraped_at": "2026-04-25T13:25:59.163Z"
   },
   {
     "brand": "Evergreen",
@@ -8424,6 +8646,7 @@
         "sku": "ZAGS-78",
         "type": "S",
         "power": "",
+        "code_name": "Close Combat 78",
         "specs": {
           "全長(m)": "2.33",
           "標準自重(g)": "158",
@@ -8443,7 +8666,7 @@
       }
     ],
     "raw_data_hash": "8a5ae078ae54a2baf48e8630fcf19b785d7bedf20f44996efe4fdbf760123b18",
-    "scraped_at": "2026-04-25T11:04:32.674Z"
+    "scraped_at": "2026-04-25T13:25:57.958Z"
   },
   {
     "brand": "Evergreen",
@@ -8461,6 +8684,7 @@
         "sku": "ZAGS-85",
         "type": "S",
         "power": "",
+        "code_name": "Fast Break 85",
         "specs": {
           "全長(m)": "2.56",
           "標準自重(g)": "136",
@@ -8480,7 +8704,7 @@
       }
     ],
     "raw_data_hash": "0d99a771b86d4d6772113a9a6e4bc40829a34a495e3e07749917e2139a1c681c",
-    "scraped_at": "2026-04-25T11:04:32.669Z"
+    "scraped_at": "2026-04-25T13:25:57.831Z"
   },
   {
     "brand": "Evergreen",
@@ -8498,6 +8722,7 @@
         "sku": "ZAGS-87L/MLR",
         "type": "S",
         "power": "ML",
+        "code_name": "Stream Whip 87",
         "specs": {
           "全長(m)": "2.62",
           "標準自重(g)": "99",
@@ -8518,7 +8743,7 @@
       }
     ],
     "raw_data_hash": "6b0b5273efbe50842d0c6d36405c7af64fd9f9c5dccef77c86984531edcf6196",
-    "scraped_at": "2026-04-25T11:04:35.173Z"
+    "scraped_at": "2026-04-25T13:26:02.585Z"
   },
   {
     "brand": "Evergreen",
@@ -8536,6 +8761,7 @@
         "sku": "ZAGS-87M/MH",
         "type": "S",
         "power": "MH",
+        "code_name": "Mighty Slugger 87",
         "specs": {
           "全長(m)": "2.62",
           "標準自重(g)": "109",
@@ -8556,7 +8782,7 @@
       }
     ],
     "raw_data_hash": "6673fe2b7b55865d7e8c547b6fad244e1c6aece592255b08d7edab6a67f8add3",
-    "scraped_at": "2026-04-25T11:04:35.236Z"
+    "scraped_at": "2026-04-25T13:26:02.454Z"
   },
   {
     "brand": "Evergreen",
@@ -8574,6 +8800,7 @@
         "sku": "ZAGS-91UL/L",
         "type": "S",
         "power": "UL",
+        "code_name": "Sweep Master 91",
         "specs": {
           "全長(m)": "2.77",
           "標準自重(g)": "91",
@@ -8594,7 +8821,7 @@
       }
     ],
     "raw_data_hash": "a4f73be52ee46fcabaf0abe667d18ff19765ef27bab5d389a3f6cc8c68b8b7b3",
-    "scraped_at": "2026-04-25T11:04:35.017Z"
+    "scraped_at": "2026-04-25T13:26:01.949Z"
   },
   {
     "brand": "Evergreen",
@@ -8612,6 +8839,7 @@
         "sku": "ZAGS-92",
         "type": "S",
         "power": "",
+        "code_name": "Wide Attacker 92",
         "specs": {
           "全長(m)": "2.78",
           "標準自重(g)": "151",
@@ -8631,7 +8859,7 @@
       }
     ],
     "raw_data_hash": "bbe0af8422e7b380211a89320c1657ff6d654209e74c3ff50af3350cf6e82b39",
-    "scraped_at": "2026-04-25T11:04:35.167Z"
+    "scraped_at": "2026-04-25T13:26:02.568Z"
   },
   {
     "brand": "Evergreen",
@@ -8649,6 +8877,7 @@
         "sku": "ZAGS-93",
         "type": "S",
         "power": "",
+        "code_name": "Pathbreaker 93",
         "specs": {
           "全長(m)": "2.82",
           "標準自重(g)": "188",
@@ -8668,7 +8897,7 @@
       }
     ],
     "raw_data_hash": "419f051b537078e36a679def5d5515b0944487626ffe763b4b86895c3d180cb9",
-    "scraped_at": "2026-04-25T11:04:37.585Z"
+    "scraped_at": "2026-04-25T13:26:05.819Z"
   },
   {
     "brand": "Evergreen",
@@ -8686,6 +8915,7 @@
         "sku": "ZAGS-96L+R",
         "type": "S",
         "power": "L+",
+        "code_name": "Final Whip 96",
         "specs": {
           "全長(m)": "2.89",
           "標準自重(g)": "110",
@@ -8706,7 +8936,7 @@
       }
     ],
     "raw_data_hash": "cdf3c3f0eef852aba06291f37a9f970bea21f2ab27ff5174182b8df197cc4bea",
-    "scraped_at": "2026-04-25T11:04:37.560Z"
+    "scraped_at": "2026-04-25T13:26:05.598Z"
   },
   {
     "brand": "Evergreen",
@@ -8724,6 +8954,7 @@
         "sku": "ZAGS-96R",
         "type": "S",
         "power": "",
+        "code_name": "Stream Whip 96",
         "specs": {
           "全長(m)": "2.89",
           "標準自重(g)": "148",
@@ -8743,7 +8974,7 @@
       }
     ],
     "raw_data_hash": "48adcce0c434de56aedf2e1fd1735e46e96d3005aa416abe2ece69d56c87b155",
-    "scraped_at": "2026-04-25T11:04:37.606Z"
+    "scraped_at": "2026-04-25T13:26:05.385Z"
   },
   {
     "brand": "Evergreen",
@@ -8761,6 +8992,7 @@
         "sku": "ZAGS-96",
         "type": "S",
         "power": "",
+        "code_name": "Stream King 96",
         "specs": {
           "全長(m)": "2.89",
           "標準自重(g)": "154",
@@ -8780,7 +9012,7 @@
       }
     ],
     "raw_data_hash": "965c6da6b3ff658646c43fe5634a5a07f66a4823ddc3eb82e48885f0834f8b1f",
-    "scraped_at": "2026-04-25T11:04:37.608Z"
+    "scraped_at": "2026-04-25T13:26:05.309Z"
   },
   {
     "brand": "Evergreen",
@@ -8798,6 +9030,7 @@
         "sku": "ZAGS-96ML/M+",
         "type": "S",
         "power": "ML",
+        "code_name": "Ace Attacker 96",
         "specs": {
           "全長(m)": "2.89",
           "標準自重(g)": "119",
@@ -8818,7 +9051,7 @@
       }
     ],
     "raw_data_hash": "b4f44ed3acbab75c0933780a223779b7028ecf4d0379f7e4e765d0ecf1967550",
-    "scraped_at": "2026-04-25T11:04:39.948Z"
+    "scraped_at": "2026-04-25T13:26:08.039Z"
   },
   {
     "brand": "Evergreen",
@@ -8836,6 +9069,7 @@
         "sku": "ZAGS-98",
         "type": "S",
         "power": "",
+        "code_name": "Mighty Slugger 98",
         "specs": {
           "全長(m)": "2.95",
           "標準自重(g)": "158",
@@ -8855,7 +9089,7 @@
       }
     ],
     "raw_data_hash": "cffc62e98174d8d3ada46c423f04f48a74566586685bd865e3f8d1e88d82aa33",
-    "scraped_at": "2026-04-25T11:04:40.197Z"
+    "scraped_at": "2026-04-25T13:26:08.703Z"
   },
   {
     "brand": "Evergreen",
@@ -8873,6 +9107,7 @@
         "sku": "ZAGS-98M/MH-EX",
         "type": "S",
         "power": "MH",
+        "code_name": "Mighty Slugger 98EX",
         "specs": {
           "全長(m)": "2.95",
           "標準自重(g)": "151",
@@ -8893,7 +9128,7 @@
       }
     ],
     "raw_data_hash": "e7ef6b42c806a9fe9080715c620fa58e3f0b73b2a23f65f54d70017c7bbadb8b",
-    "scraped_at": "2026-04-25T11:04:39.981Z"
+    "scraped_at": "2026-04-25T13:26:08.131Z"
   },
   {
     "brand": "Evergreen",
@@ -8911,6 +9146,7 @@
         "sku": "ZAGS-102",
         "type": "S",
         "power": "",
+        "code_name": "Supremacy 102AGS",
         "specs": {
           "全長(m)": "3.1",
           "標準自重(g)": "157",
@@ -8930,7 +9166,7 @@
       }
     ],
     "raw_data_hash": "ff0c3339a038e1b1a6202fada7ab65640060d62d8eab6fc2cd5e1fed7c79e90d",
-    "scraped_at": "2026-04-25T11:04:40.168Z"
+    "scraped_at": "2026-04-25T13:26:07.956Z"
   },
   {
     "brand": "Evergreen",
@@ -8948,6 +9184,7 @@
         "sku": "ZAGS-103M/H",
         "type": "S",
         "power": "M",
+        "code_name": "Harpoon 103",
         "specs": {
           "全長(m)": "3.12",
           "標準自重(g)": "153",
@@ -8968,7 +9205,7 @@
       }
     ],
     "raw_data_hash": "19953f63c2820babadaaaa1aaf945b0fc6f36477a333587fca2a5830ca2382c6",
-    "scraped_at": "2026-04-25T11:04:42.524Z"
+    "scraped_at": "2026-04-25T13:26:11.008Z"
   },
   {
     "brand": "Evergreen",
@@ -8986,6 +9223,7 @@
         "sku": "ZAGS-108",
         "type": "S",
         "power": "",
+        "code_name": "Shore Patrol 108",
         "specs": {
           "全長(m)": "3.25",
           "標準自重(g)": "188",
@@ -9005,7 +9243,7 @@
       }
     ],
     "raw_data_hash": "16e4321c9667f3f7678c860a2ae89b76b4fda584cb4c1d4a910df1a82c92b3a3",
-    "scraped_at": "2026-04-25T11:04:43.780Z"
+    "scraped_at": "2026-04-25T13:26:12.011Z"
   },
   {
     "brand": "Evergreen",
@@ -9023,6 +9261,7 @@
         "sku": "ZAGS-118",
         "type": "S",
         "power": "",
+        "code_name": "Flex Master 118",
         "specs": {
           "全長(m)": "3.56",
           "標準自重(g)": "208",
@@ -9042,7 +9281,7 @@
       }
     ],
     "raw_data_hash": "f549ddfd5e08f6c68b5941569225a6e98aed388bb7c727f7a1ac0af8c6c7af96",
-    "scraped_at": "2026-04-25T11:04:43.690Z"
+    "scraped_at": "2026-04-25T13:26:11.346Z"
   },
   {
     "brand": "Evergreen",
@@ -9060,6 +9299,7 @@
         "sku": "ZAGS-86ST",
         "type": "S",
         "power": "",
+        "code_name": "Solid Solution UFT 86",
         "specs": {
           "全長(m)": "2.6",
           "標準自重(g)": "140",
@@ -9079,7 +9319,7 @@
       }
     ],
     "raw_data_hash": "2b4e9fca9bc910cc8bf63e41b84537f17bda4a31f456e66cbf3dfbdd80d38bfc",
-    "scraped_at": "2026-04-25T11:04:43.213Z"
+    "scraped_at": "2026-04-25T13:26:11.116Z"
   },
   {
     "brand": "Evergreen",
@@ -9097,6 +9337,7 @@
         "sku": "ZAGS-88ST",
         "type": "S",
         "power": "",
+        "code_name": "Solid Solution GRT 88",
         "specs": {
           "全長(m)": "2.64",
           "標準自重(g)": "137",
@@ -9116,7 +9357,7 @@
       }
     ],
     "raw_data_hash": "769ff47df8209c6214ff3ccfa8312e19b5d368994ffb9029186c890254117c74",
-    "scraped_at": "2026-04-25T11:04:46.547Z"
+    "scraped_at": "2026-04-25T13:26:14.861Z"
   },
   {
     "brand": "Evergreen",
@@ -9134,6 +9375,7 @@
         "sku": "SPRC-66L/M-S<BOAT>",
         "type": "C",
         "power": "L",
+        "code_name": "Deep Sense C",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "61",
@@ -9154,7 +9396,7 @@
       }
     ],
     "raw_data_hash": "f7fe191c5e9a909df44dd4c3a2f96a30bc4f36df08dc35edb2f7bd620e86c17d",
-    "scraped_at": "2026-04-25T11:04:46.283Z"
+    "scraped_at": "2026-04-25T13:26:14.443Z"
   },
   {
     "brand": "Evergreen",
@@ -9172,6 +9414,7 @@
         "sku": "SPRS-56XUL-S",
         "type": "S",
         "power": "UL",
+        "code_name": "Twiggy",
         "specs": {
           "全長(m)": "1.68",
           "標準自重(g)": "38",
@@ -9192,7 +9435,7 @@
       }
     ],
     "raw_data_hash": "99426dd3e8c41740a456de0831115192ec8ceb1961f11db1ab8a15190a3fbeec",
-    "scraped_at": "2026-04-25T11:04:46.252Z"
+    "scraped_at": "2026-04-25T13:26:15.184Z"
   },
   {
     "brand": "Evergreen",
@@ -9210,6 +9453,7 @@
         "sku": "SPRS-60XUL-S",
         "type": "S",
         "power": "UL",
+        "code_name": "Fine Sensor",
         "specs": {
           "全長(m)": "1.82",
           "標準自重(g)": "49",
@@ -9230,7 +9474,7 @@
       }
     ],
     "raw_data_hash": "27cd25dd08aad3ce74f41bb1122e9ad50bbb5ee1a965415b3603eef72187fe41",
-    "scraped_at": "2026-04-25T11:04:46.262Z"
+    "scraped_at": "2026-04-25T13:26:14.506Z"
   },
   {
     "brand": "Evergreen",
@@ -9248,6 +9492,7 @@
         "sku": "SPRS-63SL-S",
         "type": "S",
         "power": "L",
+        "code_name": "Superior",
         "specs": {
           "全長(m)": "1.9",
           "標準自重(g)": "50",
@@ -9268,7 +9513,7 @@
       }
     ],
     "raw_data_hash": "30a34c3817399c90ac49c63bb1b5a57a180b5a7bdd5daa8fd3f0ac82bc1e7e75",
-    "scraped_at": "2026-04-25T11:04:49.674Z"
+    "scraped_at": "2026-04-25T13:26:17.746Z"
   },
   {
     "brand": "Evergreen",
@@ -9286,6 +9531,7 @@
         "sku": "SPRS-66L/M-S<BOAT>",
         "type": "S",
         "power": "L",
+        "code_name": "Deep Sense S",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "60",
@@ -9306,7 +9552,7 @@
       }
     ],
     "raw_data_hash": "1e102f7d4238ce119247aa019aeffb9363dac37c92ffe07158bde16de2829a0d",
-    "scraped_at": "2026-04-25T11:04:49.961Z"
+    "scraped_at": "2026-04-25T13:26:17.509Z"
   },
   {
     "brand": "Evergreen",
@@ -9324,6 +9570,7 @@
         "sku": "SPRS-66SUL-S",
         "type": "S",
         "power": "UL",
+        "code_name": "Super Twiggy",
         "specs": {
           "全長(m)": "1.98",
           "標準自重(g)": "43",
@@ -9344,7 +9591,7 @@
       }
     ],
     "raw_data_hash": "c3ae0a864c495e3fb5e2efb2c8c34e963e7f2e2c86bfc3c0fec83ca1e35e69f2",
-    "scraped_at": "2026-04-25T11:04:49.364Z"
+    "scraped_at": "2026-04-25T13:26:17.398Z"
   },
   {
     "brand": "Evergreen",
@@ -9362,6 +9609,7 @@
         "sku": "SPRS-610UL-S",
         "type": "S",
         "power": "UL",
+        "code_name": "Limber Tip SS",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "54",
@@ -9382,7 +9630,7 @@
       }
     ],
     "raw_data_hash": "5c60fc376183aacdd7cb5241a00a4379b5c29859345c308723b610359e48ab62",
-    "scraped_at": "2026-04-25T11:04:50.069Z"
+    "scraped_at": "2026-04-25T13:26:17.799Z"
   },
   {
     "brand": "Evergreen",
@@ -9400,6 +9648,7 @@
         "sku": "SPRS-76MH-S",
         "type": "S",
         "power": "MH",
+        "code_name": "Super D Attacker",
         "specs": {
           "全長(m)": "2.28",
           "標準自重(g)": "73",
@@ -9420,7 +9669,7 @@
       }
     ],
     "raw_data_hash": "3ebf55a8c2e91752a89c0f45cb3aabad675d64daeb9a0b55b57dceac59ad8cf0",
-    "scraped_at": "2026-04-25T11:04:52.257Z"
+    "scraped_at": "2026-04-25T13:26:20.992Z"
   },
   {
     "brand": "Evergreen",
@@ -9438,6 +9687,7 @@
         "sku": "SPRS-64UL-T",
         "type": "S",
         "power": "UL",
+        "code_name": "Sharp Cut",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "49",
@@ -9458,7 +9708,7 @@
       }
     ],
     "raw_data_hash": "eb231e3954f738110771548c3b89e9b30a91261ec590fd7c40a417a8407da976",
-    "scraped_at": "2026-04-25T11:04:52.234Z"
+    "scraped_at": "2026-04-25T13:26:20.553Z"
   },
   {
     "brand": "Evergreen",
@@ -9476,6 +9726,7 @@
         "sku": "SPRS-65L-T",
         "type": "S",
         "power": "L",
+        "code_name": "Thunder Shot",
         "specs": {
           "全長(m)": "1.96",
           "標準自重(g)": "60",
@@ -9496,7 +9747,7 @@
       }
     ],
     "raw_data_hash": "b23890346b8a24bf966984085f67fa7a238ee1e194c1fea147487d7cd90ba32f",
-    "scraped_at": "2026-04-25T11:04:52.382Z"
+    "scraped_at": "2026-04-25T13:26:20.067Z"
   },
   {
     "brand": "Evergreen",
@@ -9514,6 +9765,7 @@
         "sku": "SPRS-70L-T",
         "type": "S",
         "power": "L",
+        "code_name": "Scout Master",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "55",
@@ -9534,7 +9786,7 @@
       }
     ],
     "raw_data_hash": "9c480cab687881459808ca6f49f210e460ff2322c6521742bab43f69945d0441",
-    "scraped_at": "2026-04-25T11:04:52.239Z"
+    "scraped_at": "2026-04-25T13:26:19.709Z"
   },
   {
     "brand": "Evergreen",
@@ -9552,6 +9804,7 @@
         "sku": "SPRS-77M-T",
         "type": "S",
         "power": "M",
+        "code_name": "Reliance",
         "specs": {
           "全長(m)": "2.32",
           "標準自重(g)": "67",
@@ -9572,7 +9825,7 @@
       }
     ],
     "raw_data_hash": "80e1d984e1184242e41965622cdbec8849e79812a571879b259c525543ede8a0",
-    "scraped_at": "2026-04-25T11:04:54.687Z"
+    "scraped_at": "2026-04-25T13:26:23.987Z"
   },
   {
     "brand": "Evergreen",
@@ -9590,6 +9843,7 @@
         "sku": "SPRS-83H-T",
         "type": "S",
         "power": "H",
+        "code_name": "Mighty Huntsman",
         "specs": {
           "全長(m)": "2.51",
           "標準自重(g)": "83",
@@ -9610,7 +9864,7 @@
       }
     ],
     "raw_data_hash": "e0b8ea35a42c74262b449d58bd00c87c195b655762397aa87a46fbd78ebe2c37",
-    "scraped_at": "2026-04-25T11:04:54.685Z"
+    "scraped_at": "2026-04-25T13:26:23.534Z"
   },
   {
     "brand": "Evergreen",
@@ -9628,6 +9882,7 @@
         "sku": "SPRS-84M-T",
         "type": "S",
         "power": "M",
+        "code_name": "Maneuver",
         "specs": {
           "全長(m)": "2.54",
           "標準自重(g)": "75",
@@ -9648,7 +9903,7 @@
       }
     ],
     "raw_data_hash": "3eb4065ebdf98d790cddadeb2f702abd873ab332408a74c629c1d9c122829e02",
-    "scraped_at": "2026-04-25T11:04:54.816Z"
+    "scraped_at": "2026-04-25T13:26:24.212Z"
   },
   {
     "brand": "Evergreen",
@@ -9666,6 +9921,7 @@
         "sku": "SPRS-93MH-T",
         "type": "S",
         "power": "MH",
+        "code_name": "Prospector",
         "specs": {
           "全長(m)": "2.82",
           "標準自重(g)": "88",
@@ -9686,7 +9942,7 @@
       }
     ],
     "raw_data_hash": "1d3798eaed5325a31d988cdfbbaf60eb4fb20d23702c8a4eee7dc1d451e0ed06",
-    "scraped_at": "2026-04-25T11:04:54.681Z"
+    "scraped_at": "2026-04-25T13:26:24.209Z"
   },
   {
     "brand": "Evergreen",
@@ -9704,6 +9960,7 @@
         "sku": "PSSC-70S",
         "type": "C",
         "power": "",
+        "code_name": "Multi Potential",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "95",
@@ -9723,7 +9980,7 @@
       }
     ],
     "raw_data_hash": "86f9b1e9e1946128fba510faba6196f66c6d13549b80ca6316968cdae823a69f",
-    "scraped_at": "2026-04-25T11:04:57.725Z"
+    "scraped_at": "2026-04-25T13:26:27.148Z"
   },
   {
     "brand": "Evergreen",
@@ -9741,6 +9998,7 @@
         "sku": "PSSC-82T",
         "type": "C",
         "power": "",
+        "code_name": "Game Finder",
         "specs": {
           "全長(m)": "2.48",
           "標準自重(g)": "108",
@@ -9760,7 +10018,7 @@
       }
     ],
     "raw_data_hash": "c532c5b2a8e8f33db53e8f8f790bb24ff54c1bb81d9b8fd45236750948832ccc",
-    "scraped_at": "2026-04-25T11:04:57.689Z"
+    "scraped_at": "2026-04-25T13:26:27.230Z"
   },
   {
     "brand": "Evergreen",
@@ -9778,6 +10036,7 @@
         "sku": "PSSS-53S",
         "type": "S",
         "power": "",
+        "code_name": "Petit Pricker",
         "specs": {
           "全長(m)": "1.59",
           "標準自重(g)": "58",
@@ -9797,7 +10056,7 @@
       }
     ],
     "raw_data_hash": "79b60f92dac155832a544d4520f59455f78a634e33ecb8b7266165c3f5918074",
-    "scraped_at": "2026-04-25T11:04:57.593Z"
+    "scraped_at": "2026-04-25T13:26:26.934Z"
   },
   {
     "brand": "Evergreen",
@@ -9815,6 +10074,7 @@
         "sku": "PSSS-67S",
         "type": "S",
         "power": "",
+        "code_name": "Super Sensor",
         "specs": {
           "全長(m)": "2.01",
           "標準自重(g)": "60",
@@ -9834,7 +10094,7 @@
       }
     ],
     "raw_data_hash": "0e9e030b694d4c7038f38bfe1b2467fc0ae163c8f6a1d38e48a0797d93c6b737",
-    "scraped_at": "2026-04-25T11:04:57.684Z"
+    "scraped_at": "2026-04-25T13:26:27.038Z"
   },
   {
     "brand": "Evergreen",
@@ -9852,6 +10112,7 @@
         "sku": "PSSS-610S",
         "type": "S",
         "power": "",
+        "code_name": "Limber Tip",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "60",
@@ -9870,8 +10131,8 @@
         "description": "※ 当製品の生産は終了いたしました。 シャープさの中に存在するマイルドな操作感。 極めてシャープなソリッドティップを搭載しつつも、美しいベンドカーブがもたらすマイルドで巧みな操作感が“リンバーティップ”の持ち味です。 ライトリグのメインとなりつつあるジグヘッド+シンカーといったリグをはじめ、小型プラグやメタルバイブレーションを使用する場合でも、このロッドが持つハンドリングポテンシャルを実感できます。 「感じて、掛けて、獲る。」すべての動作に高次元対応。これからのライトゲームの主流をになう一本です。"
       }
     ],
-    "raw_data_hash": "97ae80831276c6d3488c57d6d39858335ba6fb53b9a36a7974ea43b8551630bd",
-    "scraped_at": "2026-04-25T11:05:00.325Z"
+    "raw_data_hash": "d75b9bb23ce30e85f28c3ab4b40364030085da5d9fb9d1baf23b7ce53c5de4fb",
+    "scraped_at": "2026-04-25T13:26:30.351Z"
   },
   {
     "brand": "Evergreen",
@@ -9889,6 +10150,7 @@
         "sku": "PSSS-70S",
         "type": "S",
         "power": "",
+        "code_name": "D Attacker",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "67",
@@ -9907,8 +10169,8 @@
         "description": "※ 当製品の生産は終了いたしました。 ソリッドティップで未知なる領域を攻略。 水深20mを超えるディープレンジや、沖の潮目などのロングディスタンスゾーンにひそむ良型を、スプリットショットリグやキャロライナリグで果敢に攻めて「感じて、掛けて、獲る。」これが“Dアタッカー”のコンセプトです。 違和感程度の繊細なアタリを感じとる攻撃型ソリッドティップセクションを搭載し、ターゲットに主導権を渡さないバットパワーを併せ持つ、未知の領域を攻略するためのモデルです。"
       }
     ],
-    "raw_data_hash": "8400d8e7f180a843cff5e2096c2e66b15810b567014b838225e5ea647b2cc61c",
-    "scraped_at": "2026-04-25T11:05:00.314Z"
+    "raw_data_hash": "95af1d137b3e7cbaef95ed7da5fd1e20ec0801c34ea1122b216c5ae63c8bbf1f",
+    "scraped_at": "2026-04-25T13:26:29.614Z"
   },
   {
     "brand": "Evergreen",
@@ -9926,6 +10188,7 @@
         "sku": "PSSS-74S",
         "type": "S",
         "power": "",
+        "code_name": "BB Hitman",
         "specs": {
           "全長(m)": "2.23",
           "標準自重(g)": "78",
@@ -9945,7 +10208,7 @@
       }
     ],
     "raw_data_hash": "f8e082bb74a13249f3a4a097762248b9ad36d9976fb202b71b15db0f085a13e5",
-    "scraped_at": "2026-04-25T11:05:00.482Z"
+    "scraped_at": "2026-04-25T13:26:29.704Z"
   },
   {
     "brand": "Evergreen",
@@ -9963,6 +10226,7 @@
         "sku": "PSSS-77S",
         "type": "S",
         "power": "",
+        "code_name": "Limit Breaker",
         "specs": {
           "全長(m)": "2.3",
           "標準自重(g)": "72",
@@ -9982,7 +10246,7 @@
       }
     ],
     "raw_data_hash": "3f85d698f2c0977650b8de9697241465ae8eb36939e70bf5cbc1221e440b2ffd",
-    "scraped_at": "2026-04-25T11:05:00.517Z"
+    "scraped_at": "2026-04-25T13:26:29.823Z"
   },
   {
     "brand": "Evergreen",
@@ -10000,6 +10264,7 @@
         "sku": "PSSS-57T",
         "type": "S",
         "power": "",
+        "code_name": "Rocky Dagger",
         "specs": {
           "全長(m)": "1.7",
           "標準自重(g)": "71",
@@ -10019,7 +10284,7 @@
       }
     ],
     "raw_data_hash": "5dc03ac69be5e46cb02e03a9b513adb4f1a43562016a1ff745c0ce83046a0161",
-    "scraped_at": "2026-04-25T11:05:04.561Z"
+    "scraped_at": "2026-04-25T13:26:33.431Z"
   },
   {
     "brand": "Evergreen",
@@ -10037,6 +10302,7 @@
         "sku": "PSSS-73T",
         "type": "S",
         "power": "",
+        "code_name": "Wide Receiver",
         "specs": {
           "全長(m)": "2.21",
           "標準自重(g)": "67",
@@ -10055,8 +10321,8 @@
         "description": "※ 当製品の生産は終了いたしました。 広範囲のレスポンスを分析して攻略。 トータル10gクラスのリグをポイントまで運び、遠距離のステージでも繊細なアタリを確実に察知する感度を持たせた新時代バーサタイルチューブラー“ワイドレシーバー”。 ハードプラグやメタルジグで広範囲にサーチする場合、特にこのロッドの持つポテンシャルを体感できることでしょう。初めての場所、まず一本持つなら…そんな悩みを解決する、まさに繊細なライトゲームを大胆に攻略するためのロッドです。"
       }
     ],
-    "raw_data_hash": "8ca1df026aeec19811a2340e416416a530eb2299b1cf75e387094bb777633c95",
-    "scraped_at": "2026-04-25T11:05:04.566Z"
+    "raw_data_hash": "9610d48efd021c80d8d6f82d1a14dae1154446626341dc7303b328642330bec3",
+    "scraped_at": "2026-04-25T13:26:33.052Z"
   },
   {
     "brand": "Evergreen",
@@ -10074,6 +10340,7 @@
         "sku": "PSSS-76T",
         "type": "S",
         "power": "",
+        "code_name": "Wild Card",
         "specs": {
           "全長(m)": "2.29",
           "標準自重(g)": "68",
@@ -10092,8 +10359,8 @@
         "description": "※ 当製品の生産は終了いたしました。 あらゆるシチュエーションに高度順応、稀代のオールラウンダー。 機動性を考えて1本のロッドであらゆるシチュエーションに対応できるように、キャスティングウエイトに大きく幅を持たせた“ワイルドカード”。 港内からサーフまで、また、ジグヘッド単体からフロートや中間シンカーを使用したリグまでも幅広くカバーする高度順応能力が持ち味です。また、ティップからベリーのしなやかなベンドパワーによって、掛けた魚をスムーズにランディングへと持ち込めます。"
       }
     ],
-    "raw_data_hash": "562829b93cf917a42064c4517f44eafea669bd86283ea781cc6af537bfa6136b",
-    "scraped_at": "2026-04-25T11:05:04.585Z"
+    "raw_data_hash": "5e8bda307ed756f046f673df63d0c95b49cbc5fe429b191093bb911fc546638b",
+    "scraped_at": "2026-04-25T13:26:33.280Z"
   },
   {
     "brand": "Evergreen",
@@ -10111,6 +10378,7 @@
         "sku": "PSSS-78T",
         "type": "S",
         "power": "",
+        "code_name": "Light Tough",
         "specs": {
           "全長(m)": "2.34",
           "標準自重(g)": "75",
@@ -10130,7 +10398,7 @@
       }
     ],
     "raw_data_hash": "d6d9535b514b4c4407bf0895eb8f47257671e8c962efe6c78a9cf9ccb1afa148",
-    "scraped_at": "2026-04-25T11:05:04.627Z"
+    "scraped_at": "2026-04-25T13:26:33.387Z"
   },
   {
     "brand": "Evergreen",
@@ -10148,6 +10416,7 @@
         "sku": "PSSS-82T",
         "type": "S",
         "power": "",
+        "code_name": "Rocky Huntsman",
         "specs": {
           "全長(m)": "2.48",
           "標準自重(g)": "87",
@@ -10167,7 +10436,7 @@
       }
     ],
     "raw_data_hash": "345381d527fd89c7ef0fef116b87b68c621e2ceca3d3083ee6da10a0dc01acc4",
-    "scraped_at": "2026-04-25T11:05:07.177Z"
+    "scraped_at": "2026-04-25T13:26:36.437Z"
   },
   {
     "brand": "Evergreen",
@@ -10185,6 +10454,7 @@
         "sku": "PSSS-84T",
         "type": "S",
         "power": "",
+        "code_name": "Marksman",
         "specs": {
           "全長(m)": "2.54",
           "標準自重(g)": "85",
@@ -10203,8 +10473,8 @@
         "description": "※ 当製品の生産は終了いたしました。 遠距離狙撃の名手、その名はマークスマン。 警戒する大物に気配を悟られないよう遠距離より正確に狙撃、これが“マークスマン”のコンセプトです。 しっかりしなってビタッと止まる振り抜けの良いブランクスにKガイドをオリジナルセッティング。ずば抜けた遠投性能と一投一投の正確性を高め、ライントラブルを極力排除することに成功しました。またパンチの効いたバットセクションは、磯場やゴロタでもライトゲームのモンスター級をグイグイ寄せることが可能です。"
       }
     ],
-    "raw_data_hash": "3440557a26dc16776d179e515ccbdd6e8ccee7af72f7776b69c18875921f21be",
-    "scraped_at": "2026-04-25T11:05:07.022Z"
+    "raw_data_hash": "b838c890e70149bd1f92b2c99cd791214e1e94ab5ee1ec67f8dd1947bc74b154",
+    "scraped_at": "2026-04-25T13:26:36.688Z"
   },
   {
     "brand": "Evergreen",
@@ -10222,6 +10492,7 @@
         "sku": "NEOS-60XUL-S",
         "type": "S",
         "power": "UL",
+        "code_name": "NEOS-60XUL-S",
         "specs": {
           "全長(m)": "1.83",
           "標準自重(g)": "57",
@@ -10242,7 +10513,7 @@
       }
     ],
     "raw_data_hash": "b4bdf3a49918dcafd4003ff5a6ecb331dafbbbf860660733621b9ebf7cd32526",
-    "scraped_at": "2026-04-25T11:05:06.872Z"
+    "scraped_at": "2026-04-25T13:26:35.984Z"
   },
   {
     "brand": "Evergreen",
@@ -10260,6 +10531,7 @@
         "sku": "NEOS-63SL-S",
         "type": "S",
         "power": "L",
+        "code_name": "NEOS-63SL-S",
         "specs": {
           "全長(m)": "1.91",
           "標準自重(g)": "61",
@@ -10280,7 +10552,7 @@
       }
     ],
     "raw_data_hash": "58db4236f2143c6103a7146d6d94f7fbd7546e34f69b38428954390b6771d014",
-    "scraped_at": "2026-04-25T11:05:06.823Z"
+    "scraped_at": "2026-04-25T13:26:36.138Z"
   },
   {
     "brand": "Evergreen",
@@ -10298,6 +10570,7 @@
         "sku": "NEOS-610UL-S",
         "type": "S",
         "power": "UL",
+        "code_name": "NEOS-610UL-S",
         "specs": {
           "全長(m)": "2.08",
           "標準自重(g)": "63",
@@ -10318,7 +10591,7 @@
       }
     ],
     "raw_data_hash": "4e0ece1c823e1113ab61f49470a0f901181955d0f18e389f2c4bc649b9167774",
-    "scraped_at": "2026-04-25T11:05:09.276Z"
+    "scraped_at": "2026-04-25T13:26:39.937Z"
   },
   {
     "brand": "Evergreen",
@@ -10336,6 +10609,7 @@
         "sku": "NEOS-70L-S",
         "type": "S",
         "power": "L",
+        "code_name": "NEOS-70L-S",
         "specs": {
           "全長(m)": "2.13",
           "標準自重(g)": "69",
@@ -10356,7 +10630,7 @@
       }
     ],
     "raw_data_hash": "6753ff98b88959964a9216a62434eb3a4c588136242b3ac70f2fac38b06e1b47",
-    "scraped_at": "2026-04-25T11:05:09.272Z"
+    "scraped_at": "2026-04-25T13:26:39.771Z"
   },
   {
     "brand": "Evergreen",
@@ -10374,6 +10648,7 @@
         "sku": "NEOS-77ML-S",
         "type": "S",
         "power": "ML",
+        "code_name": "NEOS-77ML-S",
         "specs": {
           "全長(m)": "2.31",
           "標準自重(g)": "78",
@@ -10394,7 +10669,7 @@
       }
     ],
     "raw_data_hash": "1ffb43ddc25bad795c683f8e30ac6501fa50dcc5af11323d95d332b3e913956b",
-    "scraped_at": "2026-04-25T11:05:09.197Z"
+    "scraped_at": "2026-04-25T13:26:40.118Z"
   },
   {
     "brand": "Evergreen",
@@ -10412,6 +10687,7 @@
         "sku": "NEOS-64L+R-T",
         "type": "S",
         "power": "L+",
+        "code_name": "NEOS-64L+R-T",
         "specs": {
           "全長(m)": "1.93",
           "標準自重(g)": "62",
@@ -10432,7 +10708,7 @@
       }
     ],
     "raw_data_hash": "a5b89d25c332ae3139b04abaf396f8840470823158c7c7459183714a2b14e24a",
-    "scraped_at": "2026-04-25T11:05:09.219Z"
+    "scraped_at": "2026-04-25T13:26:41.831Z"
   },
   {
     "brand": "Evergreen",
@@ -10450,6 +10726,7 @@
         "sku": "NEOS-73M+R-T",
         "type": "S",
         "power": "M",
+        "code_name": "NEOS-73M+R-T",
         "specs": {
           "全長(m)": "2.21",
           "標準自重(g)": "75",
@@ -10470,7 +10747,7 @@
       }
     ],
     "raw_data_hash": "c9aee7960a888f283ce5b9c56a90ea36ae81e4c8b7a951905f1c8c4339ffcfa3",
-    "scraped_at": "2026-04-25T11:05:11.327Z"
+    "scraped_at": "2026-04-25T13:26:46.685Z"
   },
   {
     "brand": "Evergreen",
@@ -10488,6 +10765,7 @@
         "sku": "NEOS-76M-T",
         "type": "S",
         "power": "M",
+        "code_name": "NEOS-76M-T",
         "specs": {
           "全長(m)": "2.29",
           "標準自重(g)": "76",
@@ -10508,7 +10786,7 @@
       }
     ],
     "raw_data_hash": "0640137264397f43ffc81d7316356ed1e4b13be0173df9ec6973326c47f28bea",
-    "scraped_at": "2026-04-25T11:05:11.330Z"
+    "scraped_at": "2026-04-25T13:26:43.887Z"
   },
   {
     "brand": "Evergreen",
@@ -10526,6 +10804,7 @@
         "sku": "NEOS-78MH-T",
         "type": "S",
         "power": "MH",
+        "code_name": "NEOS-78MH-T",
         "specs": {
           "全長(m)": "2.34",
           "標準自重(g)": "82",
@@ -10546,7 +10825,7 @@
       }
     ],
     "raw_data_hash": "53b89fe0f1f7586b2f4f1dfd5db5c4960d0893626f63b3f68033825361098cd7",
-    "scraped_at": "2026-04-25T11:05:11.321Z"
+    "scraped_at": "2026-04-25T13:26:43.737Z"
   },
   {
     "brand": "Evergreen",
@@ -10564,6 +10843,7 @@
         "sku": "NEOS-79MH+R-T",
         "type": "S",
         "power": "MH",
+        "code_name": "NEOS-79MH+R-T",
         "specs": {
           "全長(m)": "2.36",
           "標準自重(g)": "93",
@@ -10584,7 +10864,7 @@
       }
     ],
     "raw_data_hash": "15ac227f205910cf7fa176d5006506f62e35d70bc338861f62d158facb5e180f",
-    "scraped_at": "2026-04-25T11:05:11.324Z"
+    "scraped_at": "2026-04-25T13:26:46.017Z"
   },
   {
     "brand": "Evergreen",
@@ -10602,6 +10882,7 @@
         "sku": "NEOS-82H-T",
         "type": "S",
         "power": "H",
+        "code_name": "NEOS-82H-T",
         "specs": {
           "全長(m)": "2.49",
           "標準自重(g)": "95",
@@ -10622,7 +10903,7 @@
       }
     ],
     "raw_data_hash": "e0f6c362f7453a0d26fef4779d9c6f367836bac6eb97df2c53dc559ed2dd0b5c",
-    "scraped_at": "2026-04-25T11:05:13.569Z"
+    "scraped_at": "2026-04-25T13:26:49.239Z"
   },
   {
     "brand": "Evergreen",
@@ -10640,6 +10921,7 @@
         "sku": "NEOS-84MH-T",
         "type": "S",
         "power": "MH",
+        "code_name": "NEOS-84MH-T",
         "specs": {
           "全長(m)": "2.55",
           "標準自重(g)": "92",
@@ -10660,7 +10942,7 @@
       }
     ],
     "raw_data_hash": "4658fdfd9a0548d1677b3617e8a41669c61301c11ff1d65c55c7ad6c7f3445bb",
-    "scraped_at": "2026-04-25T11:05:13.575Z"
+    "scraped_at": "2026-04-25T13:26:48.998Z"
   },
   {
     "brand": "Evergreen",
@@ -10678,6 +10960,7 @@
         "sku": "AATS-61UL/R",
         "type": "S",
         "power": "UL",
+        "code_name": "AATS-61UL/R",
         "specs": {
           "全長(m)": "1.85",
           "標準自重(g)": "72",
@@ -10698,7 +10981,7 @@
       }
     ],
     "raw_data_hash": "e0b7aa41209c273f7ad15a7fa7bcbc9d82b30f9280202eb6ad5c4dded4137f41",
-    "scraped_at": "2026-04-25T11:05:13.573Z"
+    "scraped_at": "2026-04-25T13:26:49.392Z"
   },
   {
     "brand": "Evergreen",
@@ -10716,6 +10999,7 @@
         "sku": "AATS-61L/RF",
         "type": "S",
         "power": "L",
+        "code_name": "AATS-61L/RF",
         "specs": {
           "全長(m)": "1.85",
           "標準自重(g)": "73",
@@ -10736,7 +11020,7 @@
       }
     ],
     "raw_data_hash": "52f5bf30c80454d0b7bbf6a09a94e4bad84a46d7d6fe36861d8fd1bd3bbea04d",
-    "scraped_at": "2026-04-25T11:05:13.410Z"
+    "scraped_at": "2026-04-25T13:26:49.162Z"
   },
   {
     "brand": "Evergreen",
@@ -10754,6 +11038,7 @@
         "sku": "AATS-61ML/S",
         "type": "S",
         "power": "ML",
+        "code_name": "AATS-61ML/S",
         "specs": {
           "全長(m)": "1.85",
           "標準自重(g)": "78",
@@ -10774,7 +11059,7 @@
       }
     ],
     "raw_data_hash": "2d5b575f58e8cf3233834774605c72ac2d6d306063ba854deae9ca79fbae63d1",
-    "scraped_at": "2026-04-25T11:05:15.543Z"
+    "scraped_at": "2026-04-25T13:26:51.825Z"
   },
   {
     "brand": "Evergreen",
@@ -10792,6 +11077,7 @@
         "sku": "AATS-62MH/R",
         "type": "S",
         "power": "MH",
+        "code_name": "AATS-62MH/R",
         "specs": {
           "全長(m)": "1.88",
           "標準自重(g)": "80",
@@ -10812,7 +11098,7 @@
       }
     ],
     "raw_data_hash": "2764dfe37a3dce99abf3bf260c35be7aedca74ad86471c7c134560470b49fb2d",
-    "scraped_at": "2026-04-25T11:05:15.538Z"
+    "scraped_at": "2026-04-25T13:26:52.046Z"
   },
   {
     "brand": "Evergreen",
@@ -10830,6 +11116,7 @@
         "sku": "AATS-60MLST/F",
         "type": "S",
         "power": "ML",
+        "code_name": "AATS-60MLST/F",
         "specs": {
           "全長(m)": "1.82",
           "標準自重(g)": "75",
@@ -10850,7 +11137,7 @@
       }
     ],
     "raw_data_hash": "226a8c703ee4db5e0ae320032174ccaec23fe8ac9f5c05047eac80e17fedfbcd",
-    "scraped_at": "2026-04-25T11:05:15.417Z"
+    "scraped_at": "2026-04-25T13:26:51.992Z"
   },
   {
     "brand": "Evergreen",
@@ -10868,6 +11155,7 @@
         "sku": "AMSC-410",
         "type": "C",
         "power": "M",
+        "code_name": "AMSC-410",
         "specs": {
           "全長(m)": "1.47",
           "標準自重(g)": "85",
@@ -10888,7 +11176,7 @@
       }
     ],
     "raw_data_hash": "6370bf50d0d90af31ed97a4d75781f87d50125b55b96ff378e34b6cb159cf0ae",
-    "scraped_at": "2026-04-25T11:05:15.408Z"
+    "scraped_at": "2026-04-25T13:26:51.831Z"
   },
   {
     "brand": "Evergreen",
@@ -10906,6 +11194,7 @@
         "sku": "AMSS-52",
         "type": "S",
         "power": "M",
+        "code_name": "AMSS-52",
         "specs": {
           "全長(m)": "1.58",
           "標準自重(g)": "83",
@@ -10926,7 +11215,7 @@
       }
     ],
     "raw_data_hash": "2a966080fc1a3b9154cacfd0f1470d4eae7d32ae1a0b6ec2dc55b160590b8e2a",
-    "scraped_at": "2026-04-25T11:05:17.304Z"
+    "scraped_at": "2026-04-25T13:26:54.645Z"
   },
   {
     "brand": "Evergreen",
@@ -10944,6 +11233,7 @@
         "sku": "AMSS-510",
         "type": "S",
         "power": "M",
+        "code_name": "AMSS-510",
         "specs": {
           "全長(m)": "1.78",
           "標準自重(g)": "87",
@@ -10964,7 +11254,7 @@
       }
     ],
     "raw_data_hash": "d6ad2b3d25633805eec56a4f91c708fe2f6f1fbdb4848ae4a2ea1a1e93cbb1fb",
-    "scraped_at": "2026-04-25T11:05:17.300Z"
+    "scraped_at": "2026-04-25T13:26:54.376Z"
   },
   {
     "brand": "Evergreen",
@@ -10982,6 +11272,7 @@
         "sku": "IRSC-66M-Aurora",
         "type": "C",
         "power": "M",
+        "code_name": "Cobra RS Aurora Edition",
         "specs": {
           "全長": "1.98m（6ft6in）",
           "標準自重": "136g",
@@ -10996,7 +11287,7 @@
       }
     ],
     "raw_data_hash": "1322f3892ac0a2d3a906e5b40d02e49fe06ea4368e9ff9e2411383f7d5d36785",
-    "scraped_at": "2026-04-25T11:05:15.932Z"
+    "scraped_at": "2026-04-25T13:26:52.896Z"
   },
   {
     "brand": "Evergreen",
@@ -11014,6 +11305,7 @@
         "sku": "IRSC-71MH-Aurora",
         "type": "C",
         "power": "MH",
+        "code_name": "Super Stallion RS Aurora Edition",
         "specs": {
           "全長": "2.16m（7ft1in）",
           "標準自重": "140g",
@@ -11028,6 +11320,6 @@
       }
     ],
     "raw_data_hash": "96a3526dc999651b1a72e6aaeef37035d79d919edd13e5f6c0d6f2000ba185ec",
-    "scraped_at": "2026-04-25T11:05:15.929Z"
+    "scraped_at": "2026-04-25T13:26:53.106Z"
   }
 ]

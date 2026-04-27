@@ -40,6 +40,7 @@
 - `rod_detail.PIECES`：`292 / 292`
 - `rod_detail.CLOSELENGTH`：`292 / 292`
 - `rod_detail.LURE WEIGHT`：`292 / 292`
+- `rod_detail.Code Name`：`292 / 292`
 - `rod_detail.CONTENT CARBON`：`290 / 292`
 - `rod_detail.Market Reference Price`：`292 / 292`
 - `rod_detail.player_environment`：`292 / 292`
@@ -55,9 +56,9 @@
 - 本轮本地图片：`292`
 - `images` URL 前缀：`https://static.gearsage.club/gearsage/Gearimg/images/evergreen_rods/`
 - 图片处理报告：
-  - 本地已存在：`0`
+  - 本地已存在：`292`
   - 从旧图目录复用：`0`
-  - 重新下载：`292`
+  - 重新下载：`0`
   - 未解决：`0`
 - 清理未引用旧图：`32` 个，已移到 `/Users/tommy/Pictures/images/evergreen_rods_unreferenced_backup_20260425`
 
@@ -71,6 +72,8 @@
   官网规格范围不等于玩家真实甜区，不把推断写成实测。
 - `CONTENT CARBON = 290 / 292`  
   两支 Aurora 特设页只给碳布比例说明，没有普通规格表里的 `使用材料` 字段，不把描述里的碳布比例硬写成 JIS 含碳率。
+- `Code Name = 292 / 292`  
+  Evergreen 型号昵称写完整英文名，保留 `RS / GT / GT-R / GT2RS / GT3RS / GT-X / RSR / HD / LTS` 等能区分子商品的版本后缀。官网型号名本身只有 SKU 编号的行，用 SKU 兜底写入，避免空值和不可区分。
 
 ---
 
@@ -86,8 +89,9 @@
 6. 原旧表 289 条，本轮官网 discovery 为 292 条，补齐 `TKSS-63LXST<S-1>`，并额外纳入 `IRSC-66M-Aurora`、`IRSC-71MH-Aurora` 两个特设页型号。
 7. 按当前 `gear_export_schema.js` 升级 `rod` / `rod_detail` 表头。
 8. 补玩家字段和导环使用提示。
-9. 主图统一落到本地 `evergreen_rods` 目录，并把 `images` 写成未来资源存储 URL。
-10. 保存 xlsx 后恢复 `rod_detail` 分组底色。
+9. 补 `Code Name` 英文完整昵称，保留 `RS / GT / GT-R / GT2RS / GT3RS / GT-X / RSR / HD / LTS` 等能区分子商品的版本后缀。
+10. 主图统一落到本地 `evergreen_rods` 目录，并把 `images` 写成未来资源存储 URL。
+11. 保存 xlsx 后恢复 `rod_detail` 分组底色。
 
 关键原则：
 
@@ -238,6 +242,26 @@ python3 scripts/shade_evergreen_rod_detail_groups_stage2.py
 - saltwater 按 jigging / light game / squid / rockfish / seabass 等词分层。
 - `guide_layout_type` 只在 Description 明确出现 `Kガイド / Fuji / SiC / チタンフレーム` 等导环证据时填写。
 
+### 4.5 Code Name
+
+`Code Name` 写英文完整型号昵称，不写日文名。能区分子商品的版本/规格后缀需要保留；官网没有独立昵称、只有 SKU 编号的型号，用 SKU 兜底，保证导入后可区分。
+
+示例：
+
+- `IRSC-63MHR-TG40X ウォーガゼルRS` -> `War Gazelle RS`
+- `IRSC-66M コブラRS` -> `Cobra RS`
+- `IGTC-66M コブラGT` -> `Cobra GT`
+- `GTR-C66LLR スーパースティードGT-R` -> `Super Steed GT-R`
+- `GT3RS-C71MH-TG40X スーパースタリオンGT3RS` -> `Super Stallion GT3RS`
+- `IRSC-66M-Aurora コブラRS オーロラ エディション` -> `Cobra RS Aurora Edition`
+- `IRSC-71MH-Aurora スーパースタリオンRS オーロラ エディション` -> `Super Stallion RS Aurora Edition`
+
+官网只有 SKU 编号、没有独立昵称的兜底示例：
+
+- `HFAC-65M` -> `HFAC-65M`
+- `CLCC-68ML` -> `CLCC-68ML`
+- `NEOS-60XUL-S` -> `NEOS-60XUL-S`
+
 ---
 
 ## 5. 最终验证清单
@@ -263,6 +287,8 @@ JS
 - `rod_detail.rod_id` 唯一
 - `rod_detail.SKU` 唯一
 - 全角 SKU 为 0
+- `Code Name` 覆盖应为 `292 / 292`。
+- `Code Name` 值不应重复；`Cobra RS` 与 `Cobra GT` 等相近型号必须能区分。
 - `freshwater / Bass` 不应落到船钓、木蝦、岩鱼、海鱸。
 - `ZAGS` 不应落到船钓或木蝦。
 - `NIM* / スキッドロウ` 不应落到非木蝦。
