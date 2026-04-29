@@ -111,6 +111,8 @@ const BRAND_IDS = {
     '高森 Gosen': 110,
     'BKK': 111,
     OLYMPIC: 113,
+    DSTYLE: 114,
+    ARK: 115,
     'Gary Yamamoto': 21,
 };
 
@@ -178,7 +180,7 @@ const HEADERS = {
         'Squid Jig Size', 'Sinker Rating', 'created_at', 'updated_at',
         'LURE WEIGHT (oz)', 'Sale Price', 'Joint Type', 'Code Name', 'Fly Line',
         'Grip Type', 'Reel Size',
-        'guide_layout_type', 'guide_use_hint', 'hook_keeper_included', 'sweet_spot_lure_weight_real',
+        'guide_layout_type', 'guide_use_hint', 'recommended_rig_pairing', 'hook_keeper_included', 'sweet_spot_lure_weight_real',
         'official_environment', 'player_environment', 'player_positioning', 'player_selling_points',
         'Description', 'Extra Spec 1', 'Extra Spec 2',
     ],

@@ -3,7 +3,7 @@
 版本：v1.0  
 状态：可作为当前装备库主文档继续维护  
 适用范围：GearSage-client / GearSage-api / 装备采集链 / Excel 维护源 / PostgreSQL 导入链 / 装备详情页 / 装备对比页 / 求推荐承接  
-更新时间：2026-04-14
+更新时间：2026-04-29
 
 ---
 
@@ -497,6 +497,7 @@ GearSage 装备库后续统一分四层：
 #### B. GearSage 解释层
 
 - `fit_style_tags`：泛用 / 精细 / 障碍 / 远投 / 溪流 / 岸投
+- `recommended_rig_pairing`：子型号适合搭配的钓组/饵型，按最擅长到合适排序
 - `solid_tip`：实心 / 空心 / 待确认
 - `small_lure_friendly`
 - `long_cast_bias`

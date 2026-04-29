@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：本次 Daiwa Taiwan rods 阶段性收口  
-更新时间：2026-04-25  
+更新时间：2026-04-29
 
 ---
 
@@ -29,7 +29,7 @@
 - 子型号：`338`
 - `rod.images`：`46 / 46`
 - `rod.Description`：`46 / 46`
-- `rod_detail.Description`：`195 / 338`
+- `rod_detail.Description`：`223 / 338`
 - `rod_detail.Market Reference Price`：`337 / 338`
 - `rod_detail.AdminCode`：`338 / 338`
 - `rod_detail.player_environment`：`338 / 338`
@@ -37,6 +37,7 @@
 - `rod_detail.player_selling_points`：`338 / 338`
 - `rod_detail.guide_use_hint`：`338 / 338`
 - `rod_detail.guide_layout_type`：`119 / 338`
+- `rod_detail.recommended_rig_pairing`：`338 / 338`
 
 当前合理空值：
 
@@ -69,6 +70,21 @@
 
 - **不要重新全量覆盖已经人工检查过的数据。**
 - **任何改表步骤结束后都要恢复 `rod_detail` 分组底色。**
+
+### 2.1 本次最终收尾重点
+
+本次最后收尾主要处理两件事：
+
+1. 新增并落地 `recommended_rig_pairing` 字段，同时建立 `Description / recommended_rig_pairing / guide_use_hint` 三个字段的冲突检查和修复流程。
+2. 精修 `player_environment / player_positioning / player_selling_points` 三个玩家字段，使它们从“能填满”推进到“玩家视角可读、差异更清楚、不过度依赖官网文案”。
+
+这两个方向都不能靠后期人工逐行纠错完成。当前稳定做法是：
+
+- 先补官方子型号 `Description`，因为这是子型号细分钓组和使用路线的事实基础。
+- 再生成 `variant_usage_facts`，把官网描述、规格、已确认白名单证据抽成结构化事实。
+- `recommended_rig_pairing` 和 `guide_use_hint` 必须共用同一份事实，不能各自独立生成。
+- 最后跑 `run_rod_usage_quality_gate.py`，有 `error` 时不能导出；`warning` 必须人工判断是词典误报还是字段遗漏。
+- 玩家字段必须保持玩家/白名单/经验归纳口径。官网只作为不越界的背景约束，不能把官网卖点改写成 `player_*`。
 
 ---
 
@@ -247,6 +263,7 @@ python3 scripts/download_daiwa_tw_rod_main_images_stage13.py
 脚本：
 
 - [apply_daiwa_tw_rod_player_fields_stage14.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_rod_player_fields_stage14.py)
+- [apply_daiwa_tw_player_fields_refine_stage25.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_player_fields_refine_stage25.py)
 
 当前写入字段：
 
@@ -262,6 +279,7 @@ python3 scripts/download_daiwa_tw_rod_main_images_stage13.py
 - `player_selling_points`
 - `guide_layout_type`
 - `guide_use_hint`
+- `recommended_rig_pairing`
 
 当前不写字段：
 
@@ -284,6 +302,24 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 - `rod_detail.player_selling_points = 338 / 338`
 - `rod_detail.guide_use_hint = 338 / 338`
 - `rod_detail.guide_layout_type = 119 / 338`
+- `rod_detail.recommended_rig_pairing = 338 / 338`
+
+stage25 精修结果：
+
+- `player_environment`：`338 / 338`，`unique = 40`
+- `player_positioning`：`338 / 338`，`unique = 34`
+- `player_selling_points`：`338 / 338`，`unique = 91`
+- stage25 只允许修改这三个玩家字段，不改 `Description`、规格、导环、推荐钓组、主表字段。
+- stage25 写入后重新恢复 `rod_detail` 底色，并重新跑 usage quality gate。
+
+玩家字段来源口径：
+
+- `player_*` 不是官网字段，不能把官网标题或官方卖点直接搬进去。
+- 官网 `Description` 只用于避免玩家字段越界，例如不要把海鲈岸投写成船钓铁板，不要把 eging 写成 bass 泛用。
+- 白名单辅助站和玩家语境用于决定玩家视角：适用环境、定位、真实使用中的优点。
+- 没有白名单或玩家证据时，允许基于 SKU、规格、已确认钓组和系列语义做保守归纳，但不能写成“官网确认”。
+- 字段里不写来源说明，例如 `白名单确认 / tackledb 显示 / 官网写到`。
+- `player_selling_points` 不再使用 `XXX 优先 / 重点在 XXX` 这种机械模板。表达应改成“以 XXX 做主轴时...”“搭配起来较自然...”“可以作为主要搭配方向...”等较柔和的玩家说明，避免给用户“绝对适配”的感觉。
 
 重要规则：
 
@@ -341,10 +377,166 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 
 判断规则：
 
-- 使用场景判断优先看 `player_environment / player_positioning / SKU / 子型号 Description`。
+- 使用场景判断优先看 `variant_usage_facts`，再看 `recommended_rig_pairing / 子型号 Description / SKU / player_environment / player_positioning`。
 - 主商品 Description 可以参与导环配置识别，但不要直接参与使用场景判断；主描述里可能有跨系列技术举例，例如海鲈竿介绍中提到 `EMERALDAS STOIST RT CGS`，不能因此把海鲈竿误判成木虾。
 - `guide_use_hint` 应回答“这个导环/控线倾向对实际使用有什么帮助”，不是复述竿子的定位字段。
+- `guide_use_hint` 不能独立关键词命中后直接落表；它必须和 `recommended_rig_pairing` 同源，或通过一致性校验。
+- 如果 `recommended_rig_pairing` 同时包含软饵钓组和硬饵/移动饵，`guide_use_hint` 要写“泛用 / 多用途 / 软硬饵切换”，不能写单一 `硬餌搜索` 或 `軟餌底操`。
 - 修改后要检查是否残留内部标签和模板口头禅。
+
+### 6.2.1 `variant_usage_facts` 与一致性闸门
+
+从本阶段开始，`recommended_rig_pairing` 和 `guide_use_hint` 不再允许各自独立生成。
+
+稳定流程：
+
+1. 从官网子型号 Description、官方表格、已确认白名单证据和现有规格生成 `variant_usage_facts`。
+2. `recommended_rig_pairing` 只从 `primary_rigs / secondary_rigs` 派生。
+3. `guide_use_hint` 必须读取同一份 `variant_usage_facts` 和最终 `recommended_rig_pairing`。
+4. 导出或提交前必须跑一致性 validator；有 `error` 时不能继续导出。
+
+脚本：
+
+- [extract_rod_variant_usage_facts.py](/Users/tommy/GearSage/scripts/extract_rod_variant_usage_facts.py)
+- [validate_rod_usage_consistency.py](/Users/tommy/GearSage/scripts/validate_rod_usage_consistency.py)
+- [run_rod_usage_quality_gate.py](/Users/tommy/GearSage/scripts/run_rod_usage_quality_gate.py)
+
+运行：
+
+```bash
+python3 scripts/run_rod_usage_quality_gate.py \
+  --xlsx GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx \
+  --facts GearSage-client/pkgGear/data_raw/daiwa_rod_variant_usage_facts.json \
+  --report GearSage-client/pkgGear/data_raw/daiwa_rod_usage_consistency_report.json \
+  --source-label daiwa_tw_rod_import
+```
+
+输出：
+
+- `daiwa_rod_variant_usage_facts.json`：每个子型号的结构化事实，包括 `primary_rigs`、`secondary_rigs`、`guide_hint_family`、`line_control_need`、`confidence`。
+- `daiwa_rod_usage_consistency_report.json`：一致性报告。`error` 是阻断项，`warning` 是人工 review 项。
+
+复用到其他品牌时：
+
+- `recommended_rig_pairing` 是增强字段，不是脚本运行前置条件。
+- 如果其他品牌还没有该列，脚本会按空值生成 facts，并在 report 里写 `missing_recommended_rig_pairing_column` warning。
+- 这时 quality gate 是诊断模式，只用于判断哪些系列需要先补官网子型号描述和推荐钓组。
+- 当该品牌正式新增 `recommended_rig_pairing` 后，quality gate 才作为导出前阻断闸门使用。
+- 三个通用脚本只读 `.xlsx`，只写 sidecar JSON/report，不保存或改写 Excel。
+
+当前 Daiwa 运行结果：
+
+- usage facts：`338`
+- confidence：`high = 123`，`medium = 215`
+- consistency report：`issue_count = 0`
+
+validator 当前阻断规则：
+
+- Description 写 `泛用 / 多用途 / 兼具 / 广泛 / 全能`，且 `recommended_rig_pairing` 同时含软硬饵，但 `guide_use_hint` 写成单一路线。
+- `recommended_rig_pairing` 首位是软饵/钓组，`guide_use_hint` 却写成硬饵搜索。
+- `recommended_rig_pairing` 首位是硬饵/移动饵，`guide_use_hint` 却写成软饵底操。
+- 海水专项搭配写成 bass 软硬饵 hint。
+
+validator 当前提醒规则：
+
+- Description 明确列出某些技法，但 `recommended_rig_pairing` 因排序/上限未完全收录。
+- `recommended_rig_pairing` 软硬饵混合，但 `guide_use_hint` 还没有把“混合/泛用”说清楚。
+- 子型号 Description 缺失且没有推荐钓组时，只能低置信度处理。
+
+本次修正过的词典边界：
+
+- `刀片铅头钩 / 刀片式铅头钩` 应归 `Chatterbait`，不能泛化为 `Jighead`。
+- `泳饵铅头钩 / 泳铅钩` 应归 `Swim Jig`。
+- `橡胶铅头钩 / 软胶铅头钩 / 小型软胶铅头钩` 应归 `Rubber Jig / Small Rubber Jig`。
+- `无铅头钩组` 应归 `No Sinker`，不能误判为 `Jighead`。
+- `铁板釣法` 在 bass 语境中常指 jig 类底操，不应自动归海水 `Metal Jig`。
+
+### 6.3 `recommended_rig_pairing` 新增字段口径
+
+字段目的：
+
+- 承接 rod 子型号细分时“适合使用什么钓组/饵型搭配”。
+- 它补的是 `player_positioning` 和 `player_selling_points` 之间的结构化空缺。
+- 它不是 `LURE WEIGHT`，也不是 `guide_use_hint`。
+
+写法：
+
+- 按“最擅长 -> 合适”的顺序排列，重点搭配放最前面。
+- 使用 `/` 分隔多个钓组或饵型。
+- 尽量写具体钓组/饵型，不写过泛的分类。
+
+示例：
+
+- `Neko Rig / Down Shot / No Sinker / Small Rubber Jig`
+- `Crankbait / Shad / Minnow / Spinnerbait`
+- `Frog / Punching / Heavy Texas`
+- `Eging / Tip-run Eging / Sinker Rig`
+
+来源优先级：
+
+1. 官网子型号 Description、官方表格、官方技术页。
+2. 官网查找并写入后，再用白名单辅助站做一次补充和校验：
+   - `https://tackledb.uosoku.com/`
+   - `https://rodsearch.com/`
+   - `https://rods.jp/`
+3. 白名单站只能补充或校验，不覆盖明确官网说明。
+
+边界：
+
+- 硬饵竿也要细分，例如胖子、米诺、鲥型饵、复合亮片、震动、铅笔等，不只写 `硬餌`。
+- bass 强力竿要区分 `Frog / Punching / Heavy Texas / Swim Jig / Big Bait`，不要一律写 `重餌`。
+- 木虾、铁板、岸投、船拋等专项竿也写具体搭配，例如 `Eging / Sinker Rig`、`SLJ / Metal Jig`、`Plug / Metal Jig`。
+- 字段值里不写“官网确认”“白名单来源”等来源说明；证据链放 sidecar JSON 或流程记录。
+
+本次 Daiwa 落表结果：
+
+- 新增列位置：`rod_detail.guide_use_hint` 后、`hook_keeper_included` 前。
+- 覆盖：`338 / 338`。
+- 本次只写 `recommended_rig_pairing`，旧列值校验为未变化。
+- stage15 先使用本地官网子型号描述、系列/型号语义和已检查玩家定位做保守补全。
+- stage16 再做白名单补充：针对过泛值和缺少子型号描述的系列，低频查询 `tackledb.uosoku.com`、`rods.jp`、`rodsearch.com`，只把可支撑的具体钓组/饵型补回 `recommended_rig_pairing`。
+- 没有对 338 个子型号做三站全量爬取，避免对白名单站造成压力。
+- 脚本：[apply_daiwa_tw_rod_recommended_rig_pairing_stage15.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_rod_recommended_rig_pairing_stage15.py)
+- 白名单补充脚本：[apply_daiwa_tw_rod_recommended_rig_pairing_stage16.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_rod_recommended_rig_pairing_stage16.py)
+- Description 驱动修复脚本：[apply_daiwa_tw_description_driven_rig_pairing_stage23.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_description_driven_rig_pairing_stage23.py)
+- guide/pairing 冲突修复脚本：
+  - [apply_daiwa_tw_guide_hint_conflict_stage20.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_guide_hint_conflict_stage20.py)
+  - [apply_daiwa_tw_usage_quality_gate_fixes_stage21.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_usage_quality_gate_fixes_stage21.py)
+  - [apply_daiwa_tw_mixed_pairing_guide_hints_stage22.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_mixed_pairing_guide_hints_stage22.py)
+- 官方子型号页定点补描述：
+  - [apply_daiwa_tw_dr1019_official_desc_stage26.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_dr1019_official_desc_stage26.py)
+  - [apply_daiwa_tw_dr1019_stage27_fix_hint.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_dr1019_stage27_fix_hint.py)
+  - [apply_daiwa_tw_dr1017_official_desc_stage28.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_dr1017_official_desc_stage28.py)
+  - [apply_daiwa_tw_dr1017_stage29_fix_c69m_jighead.py](/Users/tommy/GearSage/scripts/apply_daiwa_tw_dr1017_stage29_fix_c69m_jighead.py)
+
+官方子型号页补全经验：
+
+- 如果日本 Daiwa 台湾语言页和本地主 ID 是包含关系，不能把整页套给全部子型号。
+- 只匹配本地 SKU 能明确对应的子型号；页面有但本地不存在的子型号不新增。
+- 页面能对应的子型号只更新 `Description / recommended_rig_pairing / guide_use_hint`。
+- 例如 `DR1017` 的 STEEZ 页面只匹配 6 个本地子型号；`SC C68H-ST-SB` 和本地 `STEEZ SC C68H-SB` 规格对应，允许补描述，但不改 SKU。
+- 例如 `DR1019` 的 BLACK LABEL 页面补全 22 个子型号 Description，并据此重写 guide/pairing。
+
+stage15 来源分布：
+
+- `official_text`：`124`
+- `family_fallback`：`127`
+- `player_fallback`：`87`
+
+stage16 白名单补充重点：
+
+- 将 `Light Rig`、`Light Rig / Small Hardbait` 细化为 `Jighead Rig / Down Shot / Neko Rig / No Sinker / Small Rubber Jig / I-shaped Plug / Small Hardbait` 等更可读的组合。
+- 将 bass 默认模板 `Texas Rig / Crankbait / Spinnerbait / Down Shot` 按直柄/枪柄、power、action、lure weight 拆成精细轻饵、卷阻硬饵、底操软饵、强力泛用等更具体搭配。
+- 将单独 `Metal Jig` 细化为 `Light Jigging / Slow Jigging / Offshore Jigging / Tachiuo Jigging / SLSJ` 等。
+- 将单独 `Plug` 细化为 `Diving Pencil / Popper / Stickbait / Offshore Plug` 或岸投 `Heavy Plug / Sinking Pencil / Metal Jig / Surf Plug`。
+
+质量检查：
+
+- `General Lure` 残留：`0`
+- `Light Rig` 残留：`0`
+- `Texas Rig / Crankbait / Spinnerbait / Down Shot` 默认模板残留：`0`
+- 单独 `Metal Jig / Plug / Eging / Big Bait` 残留：`0`
+- `rod_detail` 分组底色：`338 / 338` 行保留。
 
 ---
 
@@ -377,6 +569,7 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 - `player_positioning`
 - `player_selling_points`
 - `guide_use_hint`
+- `recommended_rig_pairing`
 
 例子：
 
@@ -384,6 +577,9 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 - `HARDROCK X 86M・K` 出现在 `ロックフィッシュゲーム`，支持岩鱼/rockfish。
 - `DRAGGER X SLSJ 94M` 显示为 `ショアジギング`，支持岸投 SLSJ。
 - `AIREDGE MOBILE 694HB-SB` 明确 big bait / swimbait 场景，支持 `大餌 / 強力`。
+- `タトゥーラXT 641LFS` 出现 `ジグヘッド / ダウンショット / ネコリグ` 和小～中型硬饵信息，支持把 `Light Rig` 拆成更具体搭配。
+- `スティーズ S66UL` 出现 `ジグヘッド / ワーム / I字系プラグ / トップウォーター`，支持轻量直柄竿的细分。
+- `スティーズ SC C66ML-G`、`ブラックレーベル C66ML-LM` 出现 `クランクベイト / ワーム / チャター / ミノー / プロップベイト` 等信息，支持卷阻饵与软饵混合搭配判断。
 
 ### 7.2 rods.jp
 
@@ -403,6 +599,7 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 - 强弱判断
 - 便携/节数确认
 - bass / shore / offshore 大类确认
+- `recommended_rig_pairing` 的规格边界校验，例如 lure weight、line range 是否支持某类饵型
 - `guide_layout_type` 的少量校验，但覆盖不稳定
 
 不适合：
@@ -415,7 +612,7 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 
 辅助价值较弱。
 
-它能提供部分规格对比，但对玩家场景帮助不如 tackledb，对规格完整性不如官网或 rods.jp。适合作为第三参考，不作为主来源。
+它能提供部分规格对比，但对玩家场景和具体钓组帮助不如 tackledb，对规格完整性不如官网或 rods.jp。适合作为第三参考，不作为主来源。
 
 ### 7.4 不应新增到导入表的白名单字段
 
@@ -501,7 +698,7 @@ for s in ['rod', 'rod_detail']:
     print(s, ws.max_row - 1)
     fields = ['id','images','Description','player_positioning','player_selling_points'] if s == 'rod' else [
         'id','rod_id','SKU','Description','Market Reference Price','AdminCode',
-        'guide_layout_type','guide_use_hint','hook_keeper_included',
+        'guide_layout_type','guide_use_hint','recommended_rig_pairing','hook_keeper_included',
         'sweet_spot_lure_weight_real','official_environment',
         'player_environment','player_positioning','player_selling_points'
     ]
@@ -520,6 +717,22 @@ PY
 - eging / emeraldas 不应落到海鲈、淡水、船钓铁板。
 - hardrock 不应落到船钓。
 - overthere / dragger / SLSJ 不应落到船钓铁板。
+
+最终导出前还必须跑 usage quality gate：
+
+```bash
+python3 scripts/run_rod_usage_quality_gate.py \
+  --xlsx GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx \
+  --facts GearSage-client/pkgGear/data_raw/daiwa_rod_variant_usage_facts.json \
+  --report GearSage-client/pkgGear/data_raw/daiwa_rod_usage_consistency_report.json \
+  --source-label daiwa_tw_rod_import
+```
+
+要求：
+
+- `severity_counts.error` 必须为 `0`。
+- `warning` 可以进入人工 review，但不能静默忽略；如果 warning 指向高价值系列，应优先细化。
+- 任何新的导出脚本在写 `guide_use_hint` 或 `recommended_rig_pairing` 后，都要重新跑该 gate。
 
 ---
 
@@ -581,18 +794,46 @@ OCR 或 HTML table 解析后，要保留：
 
 不要为了一个字段重新写整行。
 
-### Step 6：玩家字段最后做
+### Step 6：先生成 usage facts，再写玩家细分字段
 
-玩家字段依赖：
+rod 玩家字段不能再按字段各自独立生成。
 
-- 官方 Description
-- 子型号 Description
+标准顺序：
+
+1. 官网/白名单/规格 -> `variant_usage_facts`
+2. `variant_usage_facts.primary_rigs / secondary_rigs` -> `recommended_rig_pairing`
+3. `variant_usage_facts.guide_hint_family / line_control_need` + `recommended_rig_pairing` -> `guide_use_hint`
+4. `validate_rod_usage_consistency.py` 通过后才能导出
+
+这样可以避免：
+
+- Description 写细分技法，但 `recommended_rig_pairing` 没收进去。
+- Description 和推荐钓组是泛用混合，`guide_use_hint` 却写成单一软饵或硬饵。
+- 海水专项竿被写成 bass 软硬饵。
+- 后续依赖人工逐行检查才发现冲突。
+
+### Step 7：玩家字段最后做
+
+玩家字段不是官网字段，最后做。
+
+它的输入边界是：
+
+- 官方 Description 和子型号 Description：只作为事实边界，防止玩家判断越界
 - SKU / power / type
-- 白名单站辅助判断
+- `recommended_rig_pairing`
+- 白名单站、玩家资料和长期使用语境
 
-因此应该在规格和描述基本稳定后再做。
+因此应该在规格、描述、推荐钓组基本稳定后再精修。
 
-### Step 7：白名单站只做辅助证据
+写入时要注意：
+
+- `player_environment` 回答玩家实际会把这支子型号用在哪些场景。
+- `player_positioning` 回答玩家视角的一句话定位。
+- `player_selling_points` 回答真实使用中最有价值的特点。
+- 不把官网卖点改写成玩家字段。
+- 不在字段里写来源说明。
+
+### Step 8：白名单站只做辅助证据
 
 使用顺序：
 
@@ -603,7 +844,7 @@ OCR 或 HTML table 解析后，要保留：
 
 不要把白名单站内容写成官方字段。
 
-### Step 8：每次保存 xlsx 后恢复底色
+### Step 9：每次保存 xlsx 后恢复底色
 
 这是检查刚需，不是可选项。
 

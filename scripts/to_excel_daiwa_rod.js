@@ -150,6 +150,7 @@ for (const item of filteredData) {
             'Extra Spec 2': '',
             'guide_layout_type': '',
             'guide_use_hint': '',
+            'recommended_rig_pairing': '',
             'hook_keeper_included': '',
             'sweet_spot_lure_weight_real': '',
             'official_environment': '',

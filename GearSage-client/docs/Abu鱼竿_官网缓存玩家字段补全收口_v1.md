@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：Abu Garcia rods 阶段性收口  
-更新时间：2026-04-25  
+更新时间：2026-04-29  
 
 ---
 
@@ -44,6 +44,7 @@
 - `rod_detail.player_selling_points`：`205 / 205`
 - `rod_detail.guide_layout_type`：`205 / 205`
 - `rod_detail.guide_use_hint`：`205 / 205`
+- `rod_detail.recommended_rig_pairing`：`205 / 205`
 - `rod_detail.Grip Type`：`174 / 205`
 - `rod_detail.Reel Seat Position`：`195 / 205`
 - `rod_detail.hook_keeper_included`：`33 / 205`
@@ -76,9 +77,13 @@ Abu rods 已经完成：
 5. 导入表基线生成
 6. 玩家字段回写
 7. 官网特征字段补充
-8. evidence sidecar JSON 输出
-9. `rod_detail` 分组底色恢复
-10. 最终字段覆盖验证
+8. 子型号推荐钓组 / 饵型补充
+9. `guide_use_hint` / `recommended_rig_pairing` 专业化复核
+10. 子型号玩家字段专业化复核
+11. `guide_use_hint` 表达去模板化收口
+12. evidence / report sidecar JSON 输出
+13. `rod_detail` 分组底色恢复
+14. 最终字段覆盖验证
 
 后续原则：
 
@@ -167,7 +172,204 @@ node scripts/apply_abu_rod_player_whitelist_stage1.js
 - `Ike Signature Power Casting Rod` 按 `Power fishing / 强力泛用` 处理。
 - `Zenon™ BFS Casting Winch Rod` 按 `BFS Winch / 精细卷阻饵` 处理。
 
-### 3.3 分组底色恢复
+### 3.3 子型号推荐钓组 / 饵型补充
+
+脚本：
+
+- [apply_abu_rod_recommended_rig_pairing_stage2.js](/Users/tommy/GearSage/scripts/apply_abu_rod_recommended_rig_pairing_stage2.js)
+
+作用：
+
+- 读取 `abu_rod_import.xlsx` 和 `abu_rods_normalized.json`。
+- 只回写 `rod_detail.recommended_rig_pairing`。
+- 按“最擅长 -> 合适”的顺序写入当前子型号更适合搭配的钓组 / 饵型。
+- 优先使用官网系列 / 子型号描述和 SKU 中的明确用途线索。
+- 官网没有明确饵型时，才基于 `type`、`POWER`、`ACTION`、线号、SKU 做保守规格推断。
+- 写出逐行报告：
+  - [abu_rod_recommended_rig_pairing_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_rod_recommended_rig_pairing_report.json)
+- 写完后调用底色脚本。
+
+运行方式：
+
+```bash
+node scripts/apply_abu_rod_recommended_rig_pairing_stage2.js
+```
+
+当前结果：
+
+- 覆盖率：`205 / 205`
+- 只修改字段：`rod_detail.recommended_rig_pairing`
+- 来源分布：
+  - `official_model = 43`
+  - `official_sku_cue = 10`
+  - `official_spec_inference = 152`
+- 置信度分布：
+  - `medium = 51`
+  - `low = 154`
+- 一致性检查：`issue_count = 0`
+
+关键规则：
+
+- 不使用 `General Lure`、`Light Rig`、`Hardbait`、`Soft Bait` 等过泛值。
+- 不把官网 / 白名单 / 推断过程说明写进用户展示字段。
+- Description 明确出现的用途必须被 `recommended_rig_pairing` 承接。
+- `MH/H` 不自动等于 Big Bait；只有 Beast、Swimbait、Big Bait、muskie 等明确线索才写大饵。
+- `guide_use_hint` 不能与首位钓组 / 饵型冲突；软硬饵混合时写成泛用或切换逻辑。
+
+### 3.4 用途字段专业化复核
+
+脚本：
+
+- [refine_abu_rod_usage_fields_stage3.js](/Users/tommy/GearSage/scripts/refine_abu_rod_usage_fields_stage3.js)
+
+作用：
+
+- 读取 `abu_rod_import.xlsx` 和 `abu_rods_normalized.json`。
+- 只允许回写：
+  - `rod_detail.guide_use_hint`
+  - `rod_detail.recommended_rig_pairing`
+- 把 `guide_use_hint` 从导环 / 硬件提示修正为子型号使用提示。
+- 优先承接官网 Description 中明确出现的 technique / bait / rig：
+  - Winch / crankbait
+  - Delay / reaction bait / moving bait / parabolic action
+  - BFS / lightweight bait
+  - Finesse bait
+  - Frog
+  - Flipping / pitching / dense cover
+  - Beast / swimbait / big baits / muskie
+  - Ice
+- 对 Beast spinning 等包含关系页面，不把整页 muskie / big bait 语义套给轻线子型号；按 `TYPE`、`POWER`、`ACTION`、`Line Wt N F` 收敛到小型软泳饵、Underspin、Swim Jig 等更稳妥搭配。
+- 对普通 H / XH Fast casting，不因为 power 强就自动写 Big Bait；没有 Beast / Swimbait / Big Bait 等证据时，按 Heavy Texas、Rubber Jig、Football Jig、Swim Jig、Carolina Rig 处理。
+- 写出逐行复核报告：
+  - [abu_rod_usage_fields_refine_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_rod_usage_fields_refine_report.json)
+- 写完后调用底色脚本。
+
+运行方式：
+
+```bash
+node scripts/refine_abu_rod_usage_fields_stage3.js
+```
+
+当前结果：
+
+- 覆盖率：
+  - `guide_use_hint = 205 / 205`
+  - `recommended_rig_pairing = 205 / 205`
+- 只修改字段：
+  - `rod_detail.guide_use_hint`
+  - `rod_detail.recommended_rig_pairing`
+- 来源分布：
+  - `official_description = 43`
+  - `official_sku_cue = 10`
+  - `official_spec_inference = 152`
+- 置信度分布：
+  - `high = 42`
+  - `medium = 11`
+  - `low = 152`
+- 一致性检查：`issue_count = 0`
+- 过泛残留：`0`
+- 硬件式 `guide_use_hint` 残留：`0`
+- 软硬饵首位冲突：`0`
+
+后续如果重跑推荐钓组，必须以 stage3 作为最终收口脚本。
+
+### 3.5 guide_use_hint 表达去模板化收口
+
+脚本：
+
+- [refine_abu_rod_guide_use_hint_stage5.js](/Users/tommy/GearSage/scripts/refine_abu_rod_guide_use_hint_stage5.js)
+
+作用：
+
+- 读取 `abu_rod_import.xlsx` 和 `abu_rod_usage_fields_refine_report.json`。
+- 只允许回写：
+  - `rod_detail.guide_use_hint`
+- 不修改 `recommended_rig_pairing`、Description、规格字段、玩家字段或官网字段。
+- 将 stage3 的规则式表达改成更自然的专业用竿提示，按长度、power、action、线号和推荐钓组说明实际操作重点。
+- 去除“官网 / SKU / 规格取向 / 优先兼顾”这类过程感和机械结构。
+- 写出逐行复核报告：
+  - [abu_rod_guide_use_hint_refine_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_rod_guide_use_hint_refine_report.json)
+- 写完后调用底色脚本。
+
+运行方式：
+
+```bash
+node scripts/refine_abu_rod_guide_use_hint_stage5.js
+```
+
+当前结果：
+
+- 覆盖率：`205 / 205`
+- unique：`169`
+- 最大重复：`3`
+- 来源说明残留：`0`
+- 导环 / 硬件提示残留：`0`
+- 机械句式残留：`0`
+- 与 `recommended_rig_pairing` 明显冲突：`0`
+- 一致性检查：`issue_count = 0`
+
+后续如果重跑 stage3，必须再运行 stage5 作为最终 `guide_use_hint` 表达收口。
+
+### 3.6 子型号玩家字段专业化复核
+
+脚本：
+
+- [refine_abu_rod_player_fields_stage4.js](/Users/tommy/GearSage/scripts/refine_abu_rod_player_fields_stage4.js)
+
+作用：
+
+- 读取 `abu_rod_import.xlsx`、`abu_rod_usage_fields_refine_report.json` 和 `abu_rod_whitelist_player_evidence.json`。
+- 只允许回写：
+  - `rod_detail.player_environment`
+  - `rod_detail.player_positioning`
+  - `rod_detail.player_selling_points`
+- 不修改官网字段、规格字段、`Description`、`recommended_rig_pairing`、`guide_use_hint`。
+- 以白名单 bass 使用语境作为玩家字段边界，结合 stage3 已确认的 `recommended_rig_pairing`、子型号规格和 Description 边界做玩家视角表达。
+- 保护人工维护行：如果当前值既不是旧模板、也不是本脚本历史输出，会跳过并写入 report warning。
+- 写出逐行复核报告：
+  - [abu_rod_player_fields_refine_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_rod_player_fields_refine_report.json)
+- 写完后调用底色脚本。
+
+运行方式：
+
+```bash
+node scripts/refine_abu_rod_player_fields_stage4.js
+```
+
+当前结果：
+
+- 覆盖率：
+  - `player_environment = 205 / 205`
+  - `player_positioning = 205 / 205`
+  - `player_selling_points = 205 / 205`
+- unique：
+  - `player_environment = 69`
+  - `player_positioning = 140`
+  - `player_selling_points = 158`
+- 最大重复：
+  - `player_environment = 15`
+  - `player_positioning = 4`
+  - `player_selling_points = 4`
+- 来源分布：
+  - `whitelist_context_plus_resolved_usage = 152`
+  - `whitelist_context_plus_description_boundary = 43`
+  - `whitelist_context_plus_sku_usage = 10`
+- 保护行：`0`
+- 一致性检查：`issue_count = 0`
+- 来源说明残留：`0`
+- 空泛词残留：`0`
+- 海水 / 船钓异常组合：`0`
+- 玩家字段与 `recommended_rig_pairing` 明显冲突：`0`
+
+关键规则：
+
+- 玩家字段不写“官网确认 / 白名单显示 / tackledb / 证据”等来源说明。
+- `player_environment` 写真实作钓环境，例如草垫 cover、开阔水域卷阻搜索、清水细线轻压场、冰洞垂直控饵。
+- `player_positioning` 写玩家视角定位，并按层级和子型号规格区分，不再只写“枪柄泛用 / 直柄泛用”。
+- `player_selling_points` 写具体使用价值，例如低弹道入障、控松线、短咬缓冲、贴障控鱼、软硬饵切换。
+- Beast spinning 不写成重型大饵；普通 H / XH Fast 不因为 power 强自动写 Big Bait。
+
+### 3.7 分组底色恢复
 
 脚本：
 

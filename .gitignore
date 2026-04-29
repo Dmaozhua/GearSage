@@ -51,6 +51,20 @@ GearSage-client/pkgGear/data_raw/shimano_rod_rodsjp_*.json
 GearSage-client/pkgGear/data_raw/shimano_rod_whitelist_series_seed_*.json
 GearSage-client/pkgGear/data_raw/tw_*.html
 
+# Local/generated gear data collection artifacts.
+# Keep final *_import.xlsx and reusable scripts visible for commits; keep raw caches,
+# evidence sidecars, QA reports, and discovery/order files local.
+GearSage-client/pkgGear/data_raw/*_cache/
+GearSage-client/pkgGear/data_raw/*_caches/
+GearSage-client/pkgGear/data_raw/*_rods_cache/
+GearSage-client/pkgGear/data_raw/*_report.json
+GearSage-client/pkgGear/data_raw/*_reports/
+GearSage-client/pkgGear/data_raw/*_evidence.json
+GearSage-client/pkgGear/data_raw/*_facts.json
+GearSage-client/pkgGear/data_raw/*_discovery.json
+GearSage-client/pkgGear/data_raw/*_official_order.json
+GearSage-client/pkgGear/data_raw/*_check.json
+
 # Local gear expansion helper scripts kept outside product commits
 scripts/apply_daiwa_rod_*stage*.js
 scripts/apply_daiwa_rod_*stage*.py

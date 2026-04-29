@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：Megabass rod 字段补充阶段性收口  
-更新时间：2026-04-25  
+更新时间：2026-04-29  
 
 ---
 
@@ -38,6 +38,7 @@
 - `rod_detail.POWER`：`178 / 186`；`DESTROYER T.S / MR1001` 的 8 个子型号按人工复核决定保留为空，不再从 `TS...X / TS...XS / TS...X+` 后缀推断 POWER
 - `rod_detail.LURE WEIGHT`：`186 / 186`；其中官网只有 oz 的型号已换算为 g，原始 oz 保留在 `LURE WEIGHT (oz)`；Tracking Buddy 的线材/拖钓标注保留官网文本
 - `rod_detail.Description`：`186 / 186`
+- `rod_detail.recommended_rig_pairing`：`186 / 186`，字段位于 `guide_use_hint` 后、`hook_keeper_included` 前；用于承接当前子型号最适合的钓组/饵型，并按“最擅长 -> 合适”排序
 - `rod_detail.player_environment`：`186 / 186`
 - `rod_detail.player_positioning`：`186 / 186`
 - `rod_detail.player_selling_points`：`186 / 186`
@@ -80,6 +81,7 @@
 - 排序修复只重排行，不改已有 ID，不改字段内容。
 - 玩家字段来自官网描述、SKU、规格和稳定规则推断，不污染官方字段。
 - `guide_layout_type / guide_use_hint` 不再使用 `special / finesse / versatile` 这类内部标签，正式表里写“结构是什么 + 对使用有什么帮助”。
+- `recommended_rig_pairing` 先读子型号 `Description`，再用白名单辅助站做补充/校验；没有可靠来源时只做保守推断，不把 MH/H 或 X 后缀直接等同于 Big Bait。
 - 保存 xlsx 后必须恢复 `rod_detail` 分组底色。
 
 ---
@@ -353,6 +355,140 @@ node scripts/reorder_megabass_rod_import_by_official_order_stage3.js
 - 缺失：`0`
 - `images` 单元格文本变更：`0`，因为当前表格已经是目标静态 URL 规范
 
+### 3.10 子型号 recommended_rig_pairing 回填
+
+脚本：
+
+- [apply_megabass_rod_recommended_rig_pairing_stage9.py](/Users/tommy/GearSage/scripts/apply_megabass_rod_recommended_rig_pairing_stage9.py)
+
+输出报告：
+
+- [megabass_rod_recommended_rig_pairing_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_recommended_rig_pairing_report.json)
+- [megabass_rod_variant_usage_facts.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_variant_usage_facts.json)
+- [megabass_rod_usage_consistency_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_usage_consistency_report.json)
+
+字段规则：
+
+- `recommended_rig_pairing` 插入在 `guide_use_hint` 后、`hook_keeper_included` 前。
+- 内容按“最擅长 -> 合适”排序，不使用固定枚举；官网出现的新饵型/钓组可扩充。
+- 优先读取本地 Megabass 官网 `Description` 里的明确钓组/饵型词，例如 Frog、Punching、Texas、Free Rig、Down Shot、Crankbait、Shad、Minnow、Spinnerbait、Chatterbait、Swimbait、Big Bait、Trout Minnow 等。
+- 官网没有明确词时，才使用白名单辅助站 exact SKU 证据；白名单只补充/校验，不覆盖明确官网信息。
+- 无可靠来源时，基于 SKU、power、action、lure weight、type、玩家字段做保守推断；不因 `MH/H`、`X` 后缀自动写 Big Bait。
+- 术语归类沿用 Daiwa Taiwan rod 的收口口径：`刀片铅头钩` 归 Chatterbait，`泳饵铅头钩` 归 Swim Jig，`橡胶铅头钩` 归 Rubber Jig，`无铅头钩组` 归 No Sinker。
+
+本次结果：
+
+- 覆盖率：`186 / 186`
+- 来源分布：
+- `official_description = 161`
+- `whitelist_specs = 6`
+- `conservative_specs = 19`
+- 首次写入新增字段并回填 `186` 个 `recommended_rig_pairing` 单元格。
+- 首次一致性修正中，因 `recommended_rig_pairing` 与原 `guide_use_hint` 方向冲突，定点修正 `59` 个 `guide_use_hint`；没有改动 `Description`。
+- 后续复核将 `Minnow` 复数表达纳入识别，并去掉包含关系冗余，例如已有 `Small Rubber Jig` 时不再重复 `Rubber Jig`、已有 `Deep Crankbait` 时不再重复 `Crankbait`；最终复核改动 `43` 个 `recommended_rig_pairing` 单元格。
+- `megabass_rod_recommended_rig_pairing_report.json` 已写入 `source_audit` 和 `source_rows`，可按 Excel 行号复核每个子型号的来源等级。
+- 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
+
+### 3.11 guide_use_hint / recommended_rig_pairing 描述承接复核
+
+脚本：
+
+- [apply_megabass_rod_usage_hint_enrichment_stage10.py](/Users/tommy/GearSage/scripts/apply_megabass_rod_usage_hint_enrichment_stage10.py)
+
+输出报告：
+
+- [megabass_rod_usage_hint_enrichment_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_usage_hint_enrichment_report.json)
+
+复核规则：
+
+- 对 `rod_detail` 全量 `186` 个子型号复核 `guide_use_hint` 与 `recommended_rig_pairing`。
+- 当 SKU / Code Name / Description 明确出现饵型或钓组时，优先按该子型号描述承接，不套系列页或整页内容。
+- 将日文/英文描述中的 `ライトリグ / 軽量リグ / bait finesse / small rubber jig / light plug / topwater / jerkbait / deep crank / bladed jig / MAGDRAFT / magnum-size lure / metal type lure` 等表达拆成用户可读的具体钓组/饵型。
+- 非 GreatHunting 系列中出现的 `trout` 仅按对象鱼处理，不再误写成 `Trout Minnow` 饵型。
+- `guide_use_hint` 不再使用 14 个粗模板复用，改为按主饵、辅饵、精准落点、远投控线、障碍区控鱼、咬口/线张力反馈、玻纤/低弹性追随、实心竿梢等描述信号组合生成。
+
+本次结果：
+
+- 最终来源分布：
+  - `description_explicit = 178`
+  - `conservative_specs = 5`
+  - `whitelist_specs = 2`
+  - `official_description = 1`
+- `guide_use_hint` 全量重写为描述承接版：`186 / 186`
+- `guide_use_hint` 唯一文本数从 `14` 扩展到 `139`
+- `recommended_rig_pairing` 首轮描述复核调整 `77` 个单元格；后续修正 Valkyrie 多鱼种目标鱼误判等问题，再调整 `4` 个单元格
+- 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色
+
+### 3.12 rod_detail 三个玩家字段精修
+
+脚本：
+
+- [apply_megabass_rod_detail_player_fields_stage11.py](/Users/tommy/GearSage/scripts/apply_megabass_rod_detail_player_fields_stage11.py)
+
+输出报告：
+
+- [megabass_rod_detail_player_fields_stage11_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_detail_player_fields_stage11_report.json)
+
+精修字段：
+
+- `player_environment`
+- `player_positioning`
+- `player_selling_points`
+
+字段口径：
+
+- 只写玩家视角，不写“官网确认 / 白名单显示 / 来源是...”等内部来源说明。
+- `recommended_rig_pairing` 作为主线，Description 和规格只作为边界，防止场景越界。
+- 混合路线按首位饵型优先，再写辅线逻辑；例如 `Spinnerbait / Vibration / Deep Crankbait / No Sinker` 写移动饵搜索与软饵补充，不误写成单纯 finesse。
+- Valkyrie World Expedition 按多鱼种远征处理，区分小型 Plug、港湾岸投/Metal Jig、大型饵强力；不把目标鱼 `trout` 误写成 GreatHunting 鳟鱼竿语境。
+- GreatHunting 按山溪、本流湖泊、X-GLASS 小型硬饵、Tracking Buddy 拖钓拆分。
+
+本次结果：
+
+- 初次全量精修：`186` 行、`558` 个单元格。
+- 二次主线路由修正：`37` 行、`96` 个单元格，修正硬饵主线被软饵标签抢占的问题。
+- 小型 Plug + Bait Finesse 辅线修正：`2` 行、`4` 个单元格。
+- 最终覆盖率：
+  - `player_environment = 186 / 186`
+  - `player_positioning = 186 / 186`
+  - `player_selling_points = 186 / 186`
+- 最终 unique 数：
+  - `player_environment = 30`
+  - `player_positioning = 33`
+  - `player_selling_points = 103`
+- 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
+
+### 3.13 player_selling_points 专业表达复修
+
+脚本：
+
+- [refine_megabass_rod_player_selling_points_stage12.py](/Users/tommy/GearSage/scripts/refine_megabass_rod_player_selling_points_stage12.py)
+
+输出报告：
+
+- [megabass_rod_player_selling_points_stage12_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_player_selling_points_stage12_report.json)
+
+复修范围：
+
+- 只写 `rod_detail.player_selling_points`。
+- 不改 `player_environment / player_positioning`，不改官网字段、规格字段、`Description`、`recommended_rig_pairing`、`guide_use_hint`。
+
+复修口径：
+
+- 去除 `不发散 / 不发虚 / 不拖泥带水 / 有底气 / 余量高` 等口语化表达。
+- 去除 `官网 / 白名单 / 来源 / 证据 / 参考规格` 等内部来源链表达。
+- 将原来的短语堆叠改为较完整的专业句式，围绕主推荐饵型、辅饵路线、控线/落点/泳层/负荷承接/咬口反馈等真实使用价值展开。
+- Description 中的远投、精准落点、线张力、低弹性、实心竿梢、强力负荷等信号只作为边界和补充，不直接搬官方卖点。
+
+本次结果：
+
+- `player_selling_points` 覆盖率：`186 / 186`
+- `player_selling_points` unique 数：`132`
+- 完整文本最高重复：`3`
+- 口语词和来源词残留：`0`
+- `更容易 / 更适合 / 适合 / 兼顾` 高频机械连接词残留：`0`
+- 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
+
 ---
 
 ## 4. 本轮验证
@@ -371,6 +507,22 @@ node scripts/reorder_megabass_rod_import_by_official_order_stage3.js
 - 白名单证据已定点回填并清理不透明握把模板码：最终 `175` 个单元格以黄色底色标记
 - 主表 `type_tips / player_positioning / player_selling_points` 已优化：`45` 个单元格以黄色底色标记
 - 主表主图已归档到 `/Users/tommy/Pictures/images/megabass_rods`：`15` 张；`images` URL 格式校验异常 `0`
+- `recommended_rig_pairing` 覆盖率：`186 / 186`
+- `recommended_rig_pairing` 来源分布：官网 `Description` 明确词 `161`，白名单 exact SKU 补充 `6`，保守推断 `19`
+- `General Lure / Light Rig / Hardbait / Soft Bait` 等过泛残留：`0`
+- `Description / recommended_rig_pairing / guide_use_hint` 一致性检查：异常 `0`
+- Stage 10 复核后 `recommended_rig_pairing / guide_use_hint` 覆盖率：`186 / 186`
+- Stage 10 复核后 `guide_use_hint` 唯一文本数：`139`
+- Stage 10 复核后非 GreatHunting 系列误写鳟鱼语境：`0`
+- Stage 10 复核后“重点是 / 重点在 / 使用重点”等口头禅残留：`0`
+- Stage 11 三个玩家字段覆盖率：`186 / 186`
+- Stage 11 三个玩家字段 unique 数：`player_environment = 30`，`player_positioning = 33`，`player_selling_points = 103`
+- Stage 11 玩家字段与 `recommended_rig_pairing` 主线冲突：`0`
+- Stage 11 bass / Valkyrie / GreatHunting 场景误写：`0`
+- Stage 11 来源说明、空泛词、旧模板残留：`0`
+- Stage 12 `player_selling_points` 覆盖率：`186 / 186`
+- Stage 12 `player_selling_points` unique 数：`132`，完整文本最高重复 `3`
+- Stage 12 口语词、来源词、机械连接词残留：`0`
 - bass 记录未误落到鳟鱼、船钓、木虾、海水场景
 - trout 记录保留鳟鱼场景
 - `rod_detail` 分组底色已恢复并交替
