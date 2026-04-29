@@ -82,6 +82,7 @@
     *   `model`, `model_cn`, `model_year`: 型号、中文名、年份。
     *   `system`, `water_column`, `action`: **核心筛选维度**，定义了装备的基础分类属性（如：硬饵、水面、走狗）。这是实现路亚饵智能筛选的基础。
     *   `alias`, `type_tips`: 用于增强搜索和展示的辅助信息。
+    *   对 `reel` 而言，主表 `type` 当前有效值为 `spinning` / `baitcasting` / `drum`。其中 `drum` 表示鼓轮，客户端应在渔轮内部作为第三类单独显示；当前详情字段仍复用 `baitcasting_reel_detail.xlsx` 承载。
     *   `images`: 图片。
 
 *   **`*_detail.xlsx` (变体/规格数据):**

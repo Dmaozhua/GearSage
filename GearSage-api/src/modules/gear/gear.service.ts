@@ -1600,6 +1600,9 @@ export class GearService {
     if (text === 'baitcasting') {
       return '水滴轮';
     }
+    if (text === 'drum' || text === 'conventional') {
+      return '鼓轮';
+    }
     return '';
   }
 

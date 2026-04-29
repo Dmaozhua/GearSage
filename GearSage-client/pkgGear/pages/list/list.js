@@ -123,6 +123,14 @@ Page({
     return String(value || '').trim();
   },
 
+  resolveReelTypeLabel(value) {
+    const text = this.normalizeText(value).toLowerCase();
+    if (text === 'spinning') return '纺车轮';
+    if (text === 'baitcasting') return '水滴轮';
+    if (text === 'drum' || text === 'conventional') return '鼓轮';
+    return this.normalizeText(value);
+  },
+
   buildSummaryTags(item) {
     const tags = [];
     const pushTag = (value) => {
@@ -194,7 +202,9 @@ Page({
       return '当前以规格查看和内容关联为主，正式对比后置处理';
     }
 
-    const subtype = this.normalizeText(item.type);
+    const subtype = this.data.currentType === 'reels'
+      ? this.resolveReelTypeLabel(item.type)
+      : this.normalizeText(item.type);
     if (subtype) {
       return `${subtype}子型号后续可直接进入同类对比`;
     }

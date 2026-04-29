@@ -10,7 +10,7 @@ module.exports = [
     "types": [
       {"type": "spinning", "name": "纺车"},
       {"type": "baitcasting", "name": "水滴"},
-      {"type": "conventional", "name": "鼓轮"}
+      {"type": "drum", "name": "鼓轮"}
     ],
     "usageTags": [
       {"type": "SW", "name": "SW"},
