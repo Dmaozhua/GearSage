@@ -326,7 +326,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 1: MCP服务与采集配置 | ✅ 完成 | 修复了入口URL，编写了 `reel.py` 和 Node 编排器，成功提取 51 个详情页URL。 |
 | 2026-04-02 | Daiwa 纺车轮 | 阶段 2: 详情页抓取与标准化 | ✅ 完成 | 编写了 `reel_detail.py`，成功抓取商品标题、高清图片和规格参数表格，输出 `normalized.json` 范式数据。 |
-| 2026-04-02 | Daiwa 纺车轮 | 阶段 3: 预检查与数据转换 | ✅ 完成 | 编写了 `pre_check.js` 进行数据校验，并用 `to_excel.js` 将标准化JSON转换为便于人工复核的 Excel 文件 `daiwa_reels_import.xlsx`。 |
+| 2026-04-02 | Daiwa 纺车轮 | 阶段 3: 预检查与数据转换 | ✅ 完成 | 编写了 `pre_check.js` 进行数据校验，并用 `to_excel.js` 将标准化JSON转换为便于人工复核的 Excel 文件 `daiwa_spinning_reels_import.xlsx`。 |
 | 2026-04-06 | Daiwa & Shimano 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 为 Daiwa 增加自动分页与并发下载（多线程），大幅提升爬取速度；在 Node.js 中实现 `classifyLure` 逻辑自动判断水层、类型及动作并多表导出。Shimano 假饵同步应用此分类分表导出逻辑。 |
 | 2026-04-08 | Megabass 假饵 (Lure) | 阶段 1-3 全链路优化 | ✅ 完成 | 修复了 description 多级语言抓取逻辑（排查空标签并清除干扰元素），优化了 `classifyLure` 中的水层深度判断与官网大分类强制映射，确保所有系统枚举值准确对应。 |
 | 2026-04-09 | 装备扩充流程标准化 | 规则收口与基线对齐 | ✅ 完成 | 固化了 `rate/excel` 为最终基准、`data_raw` 为中间层的工作方式；统一主键、品牌 ID、sheet/header 规则；新增 `report_rate_excel_diffs.js` 并将差异报告收敛到全绿。 |

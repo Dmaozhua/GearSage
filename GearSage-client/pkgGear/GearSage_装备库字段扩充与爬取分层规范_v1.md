@@ -847,7 +847,7 @@ n
 
 ### 2026-04-03：恢复全量采集并生成完整数据
 - **全量执行**：取消 `reel_detail.py` 中的 3 条测试限制，针对全量 48 个 Daiwa 纺车轮系列执行采集。
-- **数据验证**：成功生成完整的 JSON 和包含所有 SKU（近百条规格记录）的 `daiwa_reels_import.xlsx`。
+- **数据验证**：成功生成完整的 JSON 和包含所有 SKU（近百条规格记录）的 `daiwa_spinning_reels_import.xlsx`。
 - **特征**：在完整数据集中，新增加的 `main_selling_points`、`size_family`、`SPOOL DEPTH (GSC)`、`GEAR RATIO (GSC)` 均正常输出。
 
 ### 2026-04-03：修复 `model_year` 错误提取（2040）问题

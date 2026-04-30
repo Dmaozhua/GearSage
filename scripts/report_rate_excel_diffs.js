@@ -215,7 +215,7 @@ const TASKS = [
     },
     {
         name: 'daiwa_spinning_reel',
-        importFile: 'daiwa_reels_import.xlsx',
+        importFile: 'daiwa_spinning_reels_import.xlsx',
         master: {
             importSheet: 'reel',
             targetFile: 'reel.xlsx',

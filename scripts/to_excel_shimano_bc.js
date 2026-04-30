@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { spawnSync } = require('child_process');
 const XLSX = require('xlsx');
 
@@ -66,6 +67,15 @@ const YELLOW_FIELDS_DETAIL = new Set([
 ]);
 const MODEL_NAME_OVERRIDES_BY_URL = {
   'https://fish.shimano.com/zh-CN/product/reel/baitcasting/baitlurecasting/a075f00003c623mqaa.html': 'SLX XT',
+};
+
+const PAGE_SPLIT_RULES = {
+  SRE5036: [
+    {
+      new_id: 'SRE5073',
+      sku_prefixes: ['GRAPPLER 300HG', 'GRAPPLER 301HG', 'GRAPPLER 300XG', 'GRAPPLER 301XG'],
+    },
+  ],
 };
 
 function normalizeText(value) {
@@ -145,6 +155,93 @@ function toRefs(highlightedCells) {
 
 function normalizeSkuKey(value) {
   return normalizeText(value).toUpperCase();
+}
+
+function buildStableShimanoBcDetailId(masterId, sku) {
+  const normalizedMasterId = normalizeText(masterId);
+  const normalizedSku = normalizeText(sku).toUpperCase();
+  const hash = crypto
+    .createHash('sha1')
+    .update(`${normalizedMasterId}::${normalizedSku}`)
+    .digest('hex')
+    .slice(0, 10)
+    .toUpperCase();
+  return `SRED${normalizedMasterId.replace(/^SRE/, '')}_${hash}`;
+}
+
+function matchPageSplitRule(reelId, sku) {
+  const rules = PAGE_SPLIT_RULES[normalizeText(reelId)] || [];
+  const text = normalizeText(sku);
+  if (!text) {
+    return null;
+  }
+  return (
+    rules.find((rule) =>
+      (rule.sku_prefixes || []).some((prefix) => text.startsWith(prefix))
+    ) || null
+  );
+}
+
+function applyPageSplitRules(masterRows, detailRows) {
+  const masterById = new Map(masterRows.map((row) => [normalizeText(row.id), row]));
+  const remappedDetailRows = [];
+
+  for (const row of detailRows) {
+    const rule = matchPageSplitRule(row.reel_id, row.SKU);
+    if (!rule) {
+      remappedDetailRows.push({ ...row });
+      continue;
+    }
+
+    const nextRow = { ...row, reel_id: rule.new_id };
+    nextRow.id = buildStableShimanoBcDetailId(rule.new_id, nextRow.SKU);
+
+    if (!masterById.has(rule.new_id)) {
+      const baseMaster = masterById.get(normalizeText(row.reel_id));
+      if (baseMaster) {
+        masterById.set(rule.new_id, { ...baseMaster, id: rule.new_id });
+      }
+    }
+
+    remappedDetailRows.push(nextRow);
+  }
+
+  const cleanedDetailRows = remappedDetailRows.filter((row) => {
+    const sourceRules = PAGE_SPLIT_RULES[normalizeText(row.reel_id)] || [];
+    if (!sourceRules.length) {
+      return true;
+    }
+    const text = normalizeText(row.SKU);
+    return !sourceRules.some((rule) =>
+      (rule.sku_prefixes || []).some((prefix) => text.startsWith(prefix))
+    );
+  });
+
+  const dedupedDetailRows = [];
+  const dedupeMap = new Map();
+  for (const row of cleanedDetailRows) {
+    const key = `${normalizeText(row.reel_id)}::${normalizeSkuKey(row.SKU)}`;
+    dedupeMap.set(key, row);
+  }
+  dedupeMap.forEach((row) => {
+    dedupedDetailRows.push(row);
+  });
+
+  const detailCountsByMaster = new Map();
+  dedupedDetailRows.forEach((row) => {
+    const gearId = normalizeText(row.reel_id);
+    detailCountsByMaster.set(gearId, (detailCountsByMaster.get(gearId) || 0) + 1);
+  });
+
+  const finalMasterRows = [...masterById.values()].filter((row) => {
+    const id = normalizeText(row.id);
+    if (!PAGE_SPLIT_RULES[id]) {
+      return true;
+    }
+    return detailCountsByMaster.has(id);
+  });
+
+  return { masterRows: finalMasterRows, detailRows: dedupedDetailRows };
 }
 
 function parsePriceNumber(value) {
@@ -380,6 +477,23 @@ function deriveFitStyleTags(item, variant) {
   return tags.join(' / ');
 }
 
+function resolveShimanoBcReelType(item) {
+  const categoryPath = normalizeText(item.category_path).toLowerCase();
+  const text = [item.model_name, item.description].map(normalizeText).join(' ').toUpperCase();
+
+  if (categoryPath === 'baitfune' || categoryPath === 'baitsalt') {
+    return 'drum';
+  }
+
+  if (
+    /TIAGRA|TALICA|CALCUTTA CONQUEST|OCEA JIGGER|OCEA CONQUEST|BARCHETTA|CHINUMATIC|TORIUM|CARDIFF|STEPHANO|KAIKON|小船|幻风|石鲷|GRAPPLER/.test(text)
+  ) {
+    return 'drum';
+  }
+
+  return 'baitcasting';
+}
+
 function deriveMainSellingPoints(description, existingValue) {
   return normalizeText(existingValue);
 }
@@ -487,12 +601,7 @@ function main() {
   const existingMasterIds = templateMaster.rows
     .map((row) => parseIdNumber(row.id, MASTER_PREFIX))
     .filter((value) => Number.isFinite(value));
-  const existingDetailIds = templateDetail.rows
-    .map((row) => parseIdNumber(row.id, DETAIL_PREFIX))
-    .filter((value) => Number.isFinite(value));
-
   let nextMasterId = existingMasterIds.length ? Math.max(...existingMasterIds) + 1 : 5000;
-  let nextDetailId = existingDetailIds.length ? Math.max(...existingDetailIds) + 1 : 50000;
 
   const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
   const masterRows = [];
@@ -520,7 +629,7 @@ function main() {
     masterRow.model_year = normalizeText(item.model_year) || normalizeText(existingMaster.model_year);
     masterRow.alias = normalizeText(existingMaster.alias);
     masterRow.type_tips = normalizeText(existingMaster.type_tips);
-    masterRow.type = 'baitcasting';
+    masterRow.type = resolveShimanoBcReelType(item);
     masterRow.images = buildMasterImages(existingMaster, item);
     masterRow.created_at = normalizeText(existingMaster.created_at) || normalizeText(item.scraped_at) || now;
     masterRow.updated_at = normalizeText(item.scraped_at) || now;
@@ -555,7 +664,11 @@ function main() {
       const detailRow = {};
       for (const header of detailHeaders) detailRow[header] = '';
 
-      detailRow.id = normalizeText(existingDetail.id) || `${DETAIL_PREFIX}${nextDetailId++}`;
+      const existingDetailId = normalizeText(existingDetail.id);
+      const existingDetailReelId = normalizeText(existingDetail.reel_id);
+      detailRow.id = existingDetailId && existingDetailReelId === masterId
+        ? existingDetailId
+        : buildStableShimanoBcDetailId(masterId, sku);
       const experimentDetail = experimentProposals.get(detailRow.id) || {};
       detailRow.reel_id = masterIdByModel.get(modelKey);
       detailRow.SKU = sku;
@@ -613,7 +726,7 @@ function main() {
       detailRow.handle_style = normalizeText(existingDetail.handle_style);
       detailRow.is_handle_double = normalizeText(existingDetail.is_handle_double);
       detailRow.MAX_DURABILITY = normalizeText(specs.max_durability_kg);
-      detailRow.type = 'baitcasting';
+      detailRow.type = masterRow.type;
       detailRow.is_sw_edition = isSwEdition;
 
       detailRows.push(detailRow);
@@ -643,15 +756,19 @@ function main() {
     }
   }
 
+  const splitAdjusted = applyPageSplitRules(masterRows, detailRows);
+  const finalMasterRows = splitAdjusted.masterRows;
+  const finalDetailRows = splitAdjusted.detailRows;
+
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(
     workbook,
-    XLSX.utils.json_to_sheet(masterRows, { header: masterHeaders }),
+    XLSX.utils.json_to_sheet(finalMasterRows, { header: masterHeaders }),
     MASTER_SHEET
   );
   XLSX.utils.book_append_sheet(
     workbook,
-    XLSX.utils.json_to_sheet(detailRows, { header: detailHeaders }),
+    XLSX.utils.json_to_sheet(finalDetailRows, { header: detailHeaders }),
     DETAIL_SHEET
   );
 
@@ -669,7 +786,7 @@ function main() {
   if (patchResult.status !== 0) {
     throw new Error(`highlight patch failed: ${patchResult.stderr || patchResult.stdout}`);
   }
-  console.log(`[To Excel] Saved ${masterRows.length} master rows and ${detailRows.length} detail rows to ${OUTPUT_FILE}`);
+  console.log(`[To Excel] Saved ${finalMasterRows.length} master rows and ${finalDetailRows.length} detail rows to ${OUTPUT_FILE}`);
 }
 
 main();

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
+const crypto = require('crypto');
 const puppeteer = require('puppeteer-core');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
@@ -34,6 +35,18 @@ function cleanModelText(text) {
 
 function sanitizeFilename(name) {
   return String(name || '').replace(/[\\/*?:"<>|]/g, '_').trim();
+}
+
+function buildStableDaiwaSpinningDetailId(masterId, sku, index = 0) {
+  const normalizedMasterId = normalizeText(masterId);
+  const normalizedSku = normalizeText(sku).toUpperCase();
+  const hash = crypto
+    .createHash('sha1')
+    .update(`${normalizedMasterId}::${normalizedSku || index}`)
+    .digest('hex')
+    .slice(0, 10)
+    .toUpperCase();
+  return `DRED${normalizedMasterId.replace(/^DRE/, '')}_${hash}`;
 }
 
 function extractYear(text) {
@@ -769,7 +782,7 @@ function writeOutputs(normalized, now) {
     variants.forEach((variant, detailIndex) => {
       const specs = variant.specs || {};
       detailRows.push({
-        id: `DRED${10000 + detailRows.length}`,
+        id: buildStableDaiwaSpinningDetailId(masterId, variant.sku, detailIndex),
         reel_id: masterId,
         SKU: normalizeText(variant.sku),
         'GEAR RATIO': normalizeText(specs.gear_ratio),

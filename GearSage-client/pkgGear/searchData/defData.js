@@ -45,7 +45,17 @@ module.exports = [
     "id": 2,
     "brands": [
       {"id": 1, "name": "禧玛诺"},
-      {"id": 2, "name": "达亿瓦"}
+      {"id": 2, "name": "达亿瓦"},
+      {"id": 3, "name": "Abu Garcia"},
+      {"id": 7, "name": "Megabass"},
+      {"id": 15, "name": "Evergreen"},
+      {"id": 31, "name": "Jackall"},
+      {"id": 35, "name": "Keitech"},
+      {"id": 44, "name": "Nories"},
+      {"id": 54, "name": "Raid Japan"},
+      {"id": 113, "name": "Olympic"},
+      {"id": 114, "name": "Dstyle"},
+      {"id": 115, "name": "Ark"}
     ]
     ,"types": [
   {"type": "multi_section", "name": "多节"},

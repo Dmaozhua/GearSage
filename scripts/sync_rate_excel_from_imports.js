@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { HEADERS } = require('./gear_export_schema');
@@ -5,6 +6,7 @@ const { HEADERS } = require('./gear_export_schema');
 const ROOT = path.resolve(__dirname, '..');
 const RATE_EXCEL_DIR = path.join(ROOT, 'GearSage-client/rate/excel');
 const DATA_RAW_DIR = path.join(ROOT, 'GearSage-client/pkgGear/data_raw');
+
 const REQUIRED_FIELDS_BY_HEADER = {
     reelMaster: ['id', 'brand_id', 'model', 'type'],
     spinningReelDetail: ['id', 'reel_id', 'SKU', 'type'],
@@ -23,11 +25,50 @@ const REQUIRED_FIELDS_BY_HEADER = {
     hookDetail: ['id', 'hookId', 'sku'],
 };
 
+const MASTER_MERGE_POLICIES = {
+    reel: {
+        strict: ['id', 'brand_id', 'type'],
+        importPriority: [
+            'model',
+            'model_year',
+            'alias',
+            'images',
+            'type_tips',
+            'series_positioning',
+            'main_selling_points',
+            'official_reference_price',
+            'market_status',
+            'Description',
+        ],
+        finalPriority: ['is_show'],
+        fillOnly: ['model_cn', 'player_positioning', 'player_selling_points'],
+    },
+    rod: {
+        strict: ['id', 'brand_id'],
+        importPriority: [
+            'model',
+            'model_year',
+            'alias',
+            'type_tips',
+            'images',
+            'series_positioning',
+            'main_selling_points',
+            'official_reference_price',
+            'market_status',
+            'Description',
+        ],
+        importPriorityIfNonBlank: ['player_positioning', 'player_selling_points'],
+        finalPriority: ['is_show'],
+        fillOnly: ['model_cn'],
+    },
+};
+
 const TASKS = [
     {
         targetFile: 'lure.xlsx',
         targetSheet: 'lure',
         headerKey: 'lureMaster',
+        mode: 'slice',
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'lure', matchField: 'id', prefix: 'DL' },
@@ -40,6 +81,7 @@ const TASKS = [
         targetFile: 'hardbait_lure_detail.xlsx',
         targetSheet: 'hard_lure_detail',
         headerKey: 'hardbaitLureDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'hardbait_lure_detail', matchField: 'lure_id', prefix: 'DL' },
@@ -51,6 +93,7 @@ const TASKS = [
         targetFile: 'metal_lure_detail.xlsx',
         targetSheet: 'metal_lure_detail',
         headerKey: 'metalLureDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'SL' },
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'metal_lure_detail', matchField: 'lure_id', prefix: 'DL' },
@@ -61,6 +104,7 @@ const TASKS = [
         targetFile: 'soft_lure_detail.xlsx',
         targetSheet: 'soft_lure_detail',
         headerKey: 'softLureDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'soft_lure_detail', matchField: 'lure_id', prefix: 'ML' },
@@ -73,6 +117,7 @@ const TASKS = [
         targetFile: 'wire_lure_detail.xlsx',
         targetSheet: 'wire_lure_detail',
         headerKey: 'wireLureDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'keitech_lure_import.xlsx', sourceSheet: 'wire_lure_detail', matchField: 'lure_id', prefix: 'KL' },
@@ -83,6 +128,7 @@ const TASKS = [
         targetFile: 'jig_lure_detail.xlsx',
         targetSheet: 'jig_lure_detail',
         headerKey: 'jigLureDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'daiwa_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'DL' },
             { sourceFile: 'megabass_lure_import.xlsx', sourceSheet: 'jig_lure_detail', matchField: 'lure_id', prefix: 'ML' },
@@ -94,6 +140,7 @@ const TASKS = [
         targetFile: 'line.xlsx',
         targetSheet: 'line',
         headerKey: 'lineMaster',
+        mode: 'slice',
         replacements: [
             { sourceFile: 'shimano_line_import.xlsx', sourceSheet: 'line', matchField: 'id', prefix: 'SLN' },
             { sourceFile: 'daiwa_line_import.xlsx', sourceSheet: 'line', matchField: 'id', prefix: 'DLN' },
@@ -103,6 +150,7 @@ const TASKS = [
         targetFile: 'line_detail.xlsx',
         targetSheet: 'line_detail',
         headerKey: 'lineDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_line_import.xlsx', sourceSheet: 'line_detail', matchField: 'line_id', prefix: 'SLN' },
             { sourceFile: 'daiwa_line_import.xlsx', sourceSheet: 'line_detail', matchField: 'line_id', prefix: 'DLN' },
@@ -112,6 +160,7 @@ const TASKS = [
         targetFile: 'hook.xlsx',
         targetSheet: 'hook',
         headerKey: 'hookMaster',
+        mode: 'slice',
         replacements: [
             { sourceFile: 'gamakatsu_hook_import.xlsx', sourceSheet: 'hook', matchField: 'id', prefix: 'GHK' },
             { sourceFile: 'owner_hook_import.xlsx', sourceSheet: 'hook', matchField: 'id', prefix: 'OHK' },
@@ -122,6 +171,7 @@ const TASKS = [
         targetFile: 'hook_detail.xlsx',
         targetSheet: 'hook_detail',
         headerKey: 'hookDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'gamakatsu_hook_import.xlsx', sourceSheet: 'hook_detail', matchField: 'hookId', prefix: 'GHK' },
             { sourceFile: 'owner_hook_import.xlsx', sourceSheet: 'hook_detail', matchField: 'hookId', prefix: 'OHK' },
@@ -132,9 +182,12 @@ const TASKS = [
         targetFile: 'reel.xlsx',
         targetSheet: 'reel',
         headerKey: 'reelMaster',
+        mode: 'master_merge',
+        policyKey: 'reel',
         replacements: [
-            { sourceFiles: ['daiwa_reels_import.xlsx', 'daiwa_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'DRE' },
+            { sourceFiles: ['daiwa_spinning_reels_import.xlsx', 'daiwa_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'DRE' },
             { sourceFiles: ['shimano_spinning_reels_import.xlsx', 'shimano_baitcasting_reels_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'SRE' },
+            { sourceFiles: ['abu_spinning_reels_import.xlsx', 'abu_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'ARE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'reel', matchField: 'id', prefix: 'MRE' },
         ],
     },
@@ -142,9 +195,11 @@ const TASKS = [
         targetFile: 'spinning_reel_detail.xlsx',
         targetSheet: 'spinning_reel_detail',
         headerKey: 'spinningReelDetail',
+        mode: 'detail_slice',
         replacements: [
-            { sourceFile: 'daiwa_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+            { sourceFile: 'daiwa_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
             { sourceFile: 'shimano_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
+            { sourceFile: 'abu_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'ARE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
         ],
     },
@@ -152,9 +207,11 @@ const TASKS = [
         targetFile: 'baitcasting_reel_detail.xlsx',
         targetSheet: 'baitcasting_reel_detail',
         headerKey: 'baitcastingReelDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_baitcasting_reels_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
             { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+            { sourceFile: 'abu_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'ARE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
         ],
     },
@@ -162,24 +219,41 @@ const TASKS = [
         targetFile: 'rod.xlsx',
         targetSheet: 'rod',
         headerKey: 'rodMaster',
+        mode: 'master_merge',
+        policyKey: 'rod',
         replacements: [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'SR' },
             { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR' },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'KR' },
             { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'ER' },
+            { sourceFile: 'abu_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'ABR' },
+            { sourceFile: 'ark_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'ARKR' },
+            { sourceFile: 'dstyle_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DSR' },
+            { sourceFile: 'jackall_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'JR' },
+            { sourceFile: 'nories_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'NR' },
+            { sourceFile: 'olympic_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'OR' },
+            { sourceFile: 'raid_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'RR' },
         ],
     },
     {
         targetFile: 'rod_detail.xlsx',
         targetSheet: 'rod_detail',
         headerKey: 'rodDetail',
+        mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'SR' },
             { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR' },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'KR' },
             { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'ER' },
+            { sourceFile: 'abu_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'ABR' },
+            { sourceFile: 'ark_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'ARKR' },
+            { sourceFile: 'dstyle_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DSR' },
+            { sourceFile: 'jackall_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'JR' },
+            { sourceFile: 'nories_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'NR' },
+            { sourceFile: 'olympic_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'OR' },
+            { sourceFile: 'raid_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'RR' },
         ],
     },
 ];
@@ -190,10 +264,10 @@ function normalizeText(value) {
 
 function readRows(filePath, sheetName, options = {}) {
     const { strict = false } = options;
-    if (!xlsx || !filePath) {
+    if (!filePath) {
         return [];
     }
-    if (!require('fs').existsSync(filePath)) {
+    if (!fs.existsSync(filePath)) {
         if (strict) {
             throw new Error(`source workbook missing: ${filePath}`);
         }
@@ -210,84 +284,31 @@ function readRows(filePath, sheetName, options = {}) {
     return xlsx.utils.sheet_to_json(ws, { defval: '' });
 }
 
-function replaceSlice(rows, incomingRows, matchField, prefix) {
-    let replacedCount = 0;
-    const output = [];
-    
-    // Map existing rows by ID
-    const existingById = new Map();
-    for (const row of rows) {
-        if (row.id) {
-            existingById.set(row.id, row);
-        }
-    }
-    
-    const processedIncomingIds = new Set();
-    const mergedIncomingRows = [];
+function ensureHeaders(row, header) {
+    const output = {};
+    header.forEach((key) => {
+        output[key] = row[key] === undefined ? '' : row[key];
+    });
+    return output;
+}
 
-    // Process incoming rows
-    for (const incoming of incomingRows) {
-        // Ensure the incoming row actually belongs to this slice
-        const matchValue = String(incoming[matchField] || '');
-        if (!matchValue.startsWith(prefix)) {
-            continue;
+function buildRowMap(rows) {
+    const map = new Map();
+    rows.forEach((row) => {
+        const id = normalizeText(row.id);
+        if (id) {
+            map.set(id, row);
         }
-        
-        const id = incoming.id;
-        if (!id) {
-            mergedIncomingRows.push(incoming);
-            continue;
-        }
-
-        if (processedIncomingIds.has(id)) {
-            continue; // Skip duplicates in incoming
-        }
-        processedIncomingIds.add(id);
-
-        if (existingById.has(id)) {
-            replacedCount += 1;
-            const existing = existingById.get(id);
-            const merged = { ...existing };
-            
-            // Merge logic: only overwrite if incoming value is not empty
-            for (const key of Object.keys(incoming)) {
-                const incValue = incoming[key];
-                const incStr = String(incValue === 0 ? '0' : (incValue || '')).trim();
-                if (incStr !== '') {
-                    merged[key] = incValue;
-                }
-            }
-            mergedIncomingRows.push(merged);
-        } else {
-            mergedIncomingRows.push(incoming);
-        }
-    }
-
-    // Construct output
-    // 1. Keep existing rows, replace the ones we merged in-place to preserve order
-    for (const row of rows) {
-        const id = row.id;
-        if (id && processedIncomingIds.has(id)) {
-            const merged = mergedIncomingRows.find(m => m.id === id);
-            if (merged) output.push(merged);
-        } else {
-            // Keep old row exactly as is (prevents deleting untouched data)
-            output.push(row);
-        }
-    }
-
-    // 2. Append brand new rows
-    for (const merged of mergedIncomingRows) {
-        if (!merged.id || !existingById.has(merged.id)) {
-            output.push(merged);
-        }
-    }
-
-    return { rows: output, replacedCount };
+    });
+    return map;
 }
 
 function countPrefix(rows, matchField, prefix) {
-    return rows.filter((row) => String(row[matchField] || '').startsWith(prefix)).length;
+    return rows.filter((row) => normalizeText(row[matchField]).startsWith(prefix)).length;
+}
+
+function filterIncomingSlice(rows, matchField, prefix) {
+    return rows.filter((row) => normalizeText(row[matchField]).startsWith(prefix));
 }
 
 function countEmptyRequiredFields(rows, requiredFields) {
@@ -317,16 +338,282 @@ function findDuplicateIds(rows) {
         .map(([id]) => id);
 }
 
+function findConflictingIncomingIds(rows, matchField) {
+    const seen = new Map();
+    const conflicts = [];
+    rows.forEach((row) => {
+        const id = normalizeText(row.id);
+        const gearId = normalizeText(row[matchField]);
+        if (!id || !gearId) {
+            return;
+        }
+        if (!seen.has(id)) {
+            seen.set(id, gearId);
+            return;
+        }
+        const previousGearId = seen.get(id);
+        if (previousGearId !== gearId) {
+            conflicts.push(`${id}:${previousGearId}->${gearId}`);
+        }
+    });
+    return conflicts;
+}
+
+function mergeSliceRows(rows, incomingRows, matchField, prefix) {
+    const output = [];
+    const existingById = buildRowMap(rows);
+    const processedIds = new Set();
+    const mergedRows = [];
+
+    for (const incoming of incomingRows) {
+        const matchValue = normalizeText(incoming[matchField]);
+        if (!matchValue.startsWith(prefix)) {
+            continue;
+        }
+        const id = normalizeText(incoming.id);
+        if (!id) {
+            mergedRows.push(incoming);
+            continue;
+        }
+        if (processedIds.has(id)) {
+            continue;
+        }
+        processedIds.add(id);
+
+        if (existingById.has(id)) {
+            const existing = existingById.get(id);
+            const merged = { ...existing };
+            Object.keys(incoming).forEach((key) => {
+                const value = normalizeText(incoming[key]);
+                if (value !== '') {
+                    merged[key] = incoming[key];
+                }
+            });
+            mergedRows.push(merged);
+        } else {
+            mergedRows.push(incoming);
+        }
+    }
+
+    for (const row of rows) {
+        const id = normalizeText(row.id);
+        if (id && processedIds.has(id)) {
+            const merged = mergedRows.find((item) => normalizeText(item.id) === id);
+            if (merged) {
+                output.push(merged);
+            }
+        } else {
+            output.push(row);
+        }
+    }
+
+    for (const row of mergedRows) {
+        const id = normalizeText(row.id);
+        if (!id || !existingById.has(id)) {
+            output.push(row);
+        }
+    }
+
+    return {
+        rows: output,
+        replacedCount: mergedRows.filter((row) => existingById.has(normalizeText(row.id))).length,
+    };
+}
+
+function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy) {
+    const sliceIncomingRows = filterIncomingSlice(incomingRows, matchField, prefix);
+    const incomingById = buildRowMap(sliceIncomingRows);
+    const touchedIds = new Set(incomingById.keys());
+    const output = [];
+    let replacedCount = 0;
+
+    for (const row of rows) {
+        const id = normalizeText(row.id);
+        if (!normalizeText(row[matchField]).startsWith(prefix) || !id || !incomingById.has(id)) {
+            output.push(row);
+            continue;
+        }
+
+        const incoming = incomingById.get(id);
+        const merged = { ...row };
+
+        policy.strict.forEach((field) => {
+            const currentValue = normalizeText(row[field]);
+            const incomingValue = normalizeText(incoming[field]);
+            if (incomingValue && currentValue && incomingValue !== currentValue) {
+                throw new Error(
+                    `[sync_rate_excel_from_imports] strict mismatch on ${prefix} ${id} field=${field} final=${currentValue} import=${incomingValue}`,
+                );
+            }
+        });
+
+        policy.importPriority.forEach((field) => {
+            const incomingValue = normalizeText(incoming[field]);
+            if (incomingValue !== '') {
+                merged[field] = incoming[field];
+            }
+        });
+
+        (policy.importPriorityIfNonBlank || []).forEach((field) => {
+            const incomingValue = normalizeText(incoming[field]);
+            if (incomingValue !== '') {
+                merged[field] = incoming[field];
+            }
+        });
+
+        policy.fillOnly.forEach((field) => {
+            const currentValue = normalizeText(row[field]);
+            const incomingValue = normalizeText(incoming[field]);
+            if (currentValue === '' && incomingValue !== '') {
+                merged[field] = incoming[field];
+            }
+        });
+
+        policy.finalPriority.forEach((field) => {
+            merged[field] = row[field];
+        });
+
+        output.push(merged);
+        replacedCount += 1;
+    }
+
+    for (const [id, incoming] of incomingById.entries()) {
+        if (rows.some((row) => normalizeText(row.id) === id)) {
+            continue;
+        }
+        output.push({ ...incoming });
+    }
+
+    return {
+        rows: output,
+        replacedCount,
+        incomingSliceCount: sliceIncomingRows.length,
+        touchedCount: touchedIds.size,
+    };
+}
+
+function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
+    const sliceIncomingRows = filterIncomingSlice(incomingRows, matchField, prefix);
+    const existingById = buildRowMap(rows);
+    const existingIds = new Set(rows.map((row) => normalizeText(row.id)).filter(Boolean));
+    const existingGearIds = new Set(
+        rows
+            .filter((row) => normalizeText(row[matchField]).startsWith(prefix))
+            .map((row) => normalizeText(row[matchField]))
+            .filter(Boolean),
+    );
+
+    const updatedById = new Map();
+    const rowsToAppend = [];
+    let replacedCount = 0;
+
+    for (const row of sliceIncomingRows) {
+        const rowId = normalizeText(row.id);
+        const gearId = normalizeText(row[matchField]);
+        if (!rowId || !gearId) {
+            continue;
+        }
+        if (existingIds.has(rowId)) {
+            const existing = existingById.get(rowId);
+            const merged = { ...existing };
+            Object.keys(row).forEach((key) => {
+                const incomingValue = normalizeText(row[key]);
+                if (incomingValue !== '') {
+                    merged[key] = row[key];
+                }
+            });
+            updatedById.set(rowId, merged);
+            replacedCount += 1;
+            continue;
+        }
+        if (!existingGearIds.has(gearId)) {
+            rowsToAppend.push(row);
+            existingGearIds.add(gearId);
+            existingIds.add(rowId);
+            continue;
+        }
+        rowsToAppend.push(row);
+        existingIds.add(rowId);
+    }
+
+    const mergedRows = rows.map((row) => {
+        const rowId = normalizeText(row.id);
+        if (rowId && updatedById.has(rowId)) {
+            return updatedById.get(rowId);
+        }
+        return row;
+    });
+
+    return {
+        rows: mergedRows.concat(rowsToAppend),
+        replacedCount,
+        incomingSliceCount: sliceIncomingRows.length,
+        touchedCount: new Set(sliceIncomingRows.map((row) => normalizeText(row[matchField]))).size,
+        appendedCount: rowsToAppend.length,
+    };
+}
+
+function pruneOrphanMasters(masterFile, sheetName, headerKey, touchedPrefixes, importedIds, detailFiles) {
+    const masterPath = path.join(RATE_EXCEL_DIR, masterFile);
+    const masterRows = readRows(masterPath, sheetName, { strict: true });
+    const detailGearIds = new Set();
+
+    detailFiles.forEach(({ file, sheet, matchField }) => {
+        const detailPath = path.join(RATE_EXCEL_DIR, file);
+        const detailRows = readRows(detailPath, sheet, { strict: true });
+        detailRows.forEach((row) => {
+            const gearId = normalizeText(row[matchField]);
+            if (gearId) {
+                detailGearIds.add(gearId);
+            }
+        });
+    });
+
+    const nextRows = [];
+    let removed = 0;
+
+    masterRows.forEach((row) => {
+        const id = normalizeText(row.id);
+        if (!id) {
+            nextRows.push(row);
+            return;
+        }
+        const touched = touchedPrefixes.some((prefix) => id.startsWith(prefix));
+        if (!touched) {
+            nextRows.push(row);
+            return;
+        }
+        const existsInImport = importedIds.has(id);
+        const hasDetail = detailGearIds.has(id);
+        if (!existsInImport && !hasDetail) {
+            removed += 1;
+            return;
+        }
+        nextRows.push(row);
+    });
+
+    if (removed > 0) {
+        writeSheet(masterPath, sheetName, HEADERS[headerKey], nextRows);
+    }
+
+    return removed;
+}
+
 function validateReplacementResult(task, replacement, beforeRows, incomingRows, afterRows) {
     const beforeCount = countPrefix(beforeRows, replacement.matchField, replacement.prefix);
     const afterCount = countPrefix(afterRows, replacement.matchField, replacement.prefix);
-    const filteredIncomingRows = incomingRows.filter((row) =>
-        normalizeText(row[replacement.matchField]).startsWith(replacement.prefix),
-    );
+    const filteredIncomingRows = filterIncomingSlice(incomingRows, replacement.matchField, replacement.prefix);
 
     if (filteredIncomingRows.length === 0) {
         throw new Error(
             `[sync_rate_excel_from_imports] empty incoming slice: ${task.targetFile} ${replacement.prefix} ${replacement.sourceSheet}`,
+        );
+    }
+
+    const conflictingIncomingIds = findConflictingIncomingIds(filteredIncomingRows, replacement.matchField);
+    if (conflictingIncomingIds.length > 0) {
+        throw new Error(
+            `[sync_rate_excel_from_imports] conflicting incoming ids: ${task.targetFile} ${replacement.prefix} ${conflictingIncomingIds.slice(0, 10).join(', ')}`,
         );
     }
 
@@ -356,46 +643,146 @@ function validateReplacementResult(task, replacement, beforeRows, incomingRows, 
 }
 
 function writeSheet(filePath, sheetName, header, rows) {
+    const normalizedRows = rows.map((row) => ensureHeaders(row, header));
     const wb = xlsx.utils.book_new();
-    const ws = xlsx.utils.json_to_sheet(rows, { header });
+    const ws = xlsx.utils.json_to_sheet(normalizedRows, { header });
     xlsx.utils.book_append_sheet(wb, ws, sheetName);
     xlsx.writeFile(wb, filePath);
 }
 
 function main() {
     const report = [];
+    const masterStates = [];
 
     for (const task of TASKS) {
         const targetPath = path.join(RATE_EXCEL_DIR, task.targetFile);
         let rows = readRows(targetPath, task.targetSheet, { strict: true });
+        const importedIdsForTask = new Set();
+        const touchedPrefixesForTask = new Set();
 
         for (const replacement of task.replacements) {
-            let incomingRows = [];
             const sourceFiles = replacement.sourceFiles || [replacement.sourceFile];
+            let incomingRows = [];
             const beforeRows = rows;
+
             for (const file of sourceFiles) {
                 const sourcePath = path.join(DATA_RAW_DIR, file);
                 incomingRows = incomingRows.concat(readRows(sourcePath, replacement.sourceSheet, { strict: true }));
             }
-            const result = replaceSlice(rows, incomingRows, replacement.matchField, replacement.prefix);
+            filterIncomingSlice(incomingRows, replacement.matchField, replacement.prefix).forEach((row) => {
+                const id = normalizeText(row.id);
+                if (id) {
+                    importedIdsForTask.add(id);
+                }
+            });
+            touchedPrefixesForTask.add(replacement.prefix);
+
+            let result;
+            if (task.mode === 'master_merge') {
+                result = mergeMasterSlice(
+                    rows,
+                    incomingRows,
+                    replacement.matchField,
+                    replacement.prefix,
+                    MASTER_MERGE_POLICIES[task.policyKey],
+                );
+            } else if (task.mode === 'detail_slice') {
+                result = mergeDetailSlice(rows, incomingRows, replacement.matchField, replacement.prefix);
+            } else {
+                result = mergeSliceRows(rows, incomingRows, replacement.matchField, replacement.prefix);
+            }
+
             rows = result.rows;
             validateReplacementResult(task, replacement, beforeRows, incomingRows, rows);
-            
+
             report.push({
                 targetFile: task.targetFile,
                 targetSheet: task.targetSheet,
+                mode: task.mode,
                 prefix: replacement.prefix,
                 sourceFile: sourceFiles.join(', '),
                 sourceSheet: replacement.sourceSheet,
                 before: countPrefix(beforeRows, replacement.matchField, replacement.prefix),
-                incoming: incomingRows.length,
-                replaced: result.replacedCount,
+                incoming: filterIncomingSlice(incomingRows, replacement.matchField, replacement.prefix).length,
+                replaced: result.replacedCount || 0,
                 after: countPrefix(rows, replacement.matchField, replacement.prefix),
+                touched: result.touchedCount || 0,
+                appended: result.appendedCount || 0,
             });
         }
 
         writeSheet(targetPath, task.targetSheet, HEADERS[task.headerKey], rows);
+
+        if (task.mode === 'master_merge') {
+            masterStates.push({
+                targetFile: task.targetFile,
+                targetSheet: task.targetSheet,
+                headerKey: task.headerKey,
+                importedIds: importedIdsForTask,
+                touchedPrefixes: [...touchedPrefixesForTask],
+            });
+        }
     }
+
+    masterStates.forEach((state) => {
+        if (state.targetFile === 'reel.xlsx') {
+            const removed = pruneOrphanMasters(
+                state.targetFile,
+                state.targetSheet,
+                state.headerKey,
+                state.touchedPrefixes,
+                state.importedIds,
+                [
+                    { file: 'spinning_reel_detail.xlsx', sheet: 'spinning_reel_detail', matchField: 'reel_id' },
+                    { file: 'baitcasting_reel_detail.xlsx', sheet: 'baitcasting_reel_detail', matchField: 'reel_id' },
+                ],
+            );
+            if (removed > 0) {
+                report.push({
+                    targetFile: state.targetFile,
+                    targetSheet: state.targetSheet,
+                    mode: 'master_prune',
+                    prefix: state.touchedPrefixes.join(','),
+                    sourceFile: '(post-sync)',
+                    sourceSheet: '(master cleanup)',
+                    before: 0,
+                    incoming: 0,
+                    replaced: 0,
+                    after: 0,
+                    touched: state.importedIds.size,
+                    appended: 0,
+                    removed,
+                });
+            }
+        }
+        if (state.targetFile === 'rod.xlsx') {
+            const removed = pruneOrphanMasters(
+                state.targetFile,
+                state.targetSheet,
+                state.headerKey,
+                state.touchedPrefixes,
+                state.importedIds,
+                [{ file: 'rod_detail.xlsx', sheet: 'rod_detail', matchField: 'rod_id' }],
+            );
+            if (removed > 0) {
+                report.push({
+                    targetFile: state.targetFile,
+                    targetSheet: state.targetSheet,
+                    mode: 'master_prune',
+                    prefix: state.touchedPrefixes.join(','),
+                    sourceFile: '(post-sync)',
+                    sourceSheet: '(master cleanup)',
+                    before: 0,
+                    incoming: 0,
+                    replaced: 0,
+                    after: 0,
+                    touched: state.importedIds.size,
+                    appended: 0,
+                    removed,
+                });
+            }
+        }
+    });
 
     console.table(report);
 }

@@ -57,6 +57,37 @@ const VARIANT_SOURCES = [
   { kind: 'hook', sourceKey: 'hook', file: 'hook_detail.xlsx', foreignKey: 'hookId' },
 ];
 
+const MASTER_TEXT_LIMITS = {
+  id: 64,
+  model: 128,
+  modelCn: 128,
+  modelYear: 32,
+  type: 64,
+  system: 64,
+  waterColumn: 64,
+  action: 64,
+  alias: 255,
+  typeTips: 255,
+};
+
+const VARIANT_TEXT_LIMITS = {
+  sourceKey: 64,
+  gearId: 64,
+  variantId: 64,
+  sku: 255,
+};
+
+const BRAND_TEXT_LIMITS = {
+  name: 255,
+  name_en: 255,
+  name_jp: 255,
+  name_zh: 255,
+  site_url: 255,
+};
+
+const VALID_REEL_TYPES = new Set(['spinning', 'baitcasting', 'drum', 'conventional']);
+const KINDS_REQUIRING_VARIANTS = new Set(['reel', 'rod', 'lure', 'line', 'hook']);
+
 const cliOptions = parseArgs(process.argv.slice(2));
 
 main(cliOptions).catch((error) => {
@@ -397,6 +428,15 @@ function validateDataset(brands, masters, variants) {
   const errors = [];
   const warnings = [];
 
+  function checkTextLimits(scope, key, source, limits) {
+    Object.entries(limits).forEach(([field, maxLength]) => {
+      const value = normalizeText(source[field]);
+      if (value && value.length > maxLength) {
+        errors.push(`${scope} field ${field} exceeds ${maxLength} chars (actual=${value.length})`);
+      }
+    });
+  }
+
   const brandIds = new Set();
   for (const brand of brands) {
     if (brand.id === null) {
@@ -410,9 +450,11 @@ function validateDataset(brands, masters, variants) {
     }
 
     brandIds.add(brand.id);
+    checkTextLimits(`brand ${brand.id}`, brand.id, brand, BRAND_TEXT_LIMITS);
   }
 
   const masterKeys = new Set();
+  const masterIdsByKind = new Map();
   for (const item of masters) {
     const key = `${item.kind}:${item.id}`;
 
@@ -435,15 +477,25 @@ function validateDataset(brands, masters, variants) {
       errors.push(`master ${key} has invalid is_show=${item.isShow}`);
     }
 
+    if (item.kind === 'reel' && item.type && !VALID_REEL_TYPES.has(item.type)) {
+      errors.push(`master ${key} has invalid reel type=${item.type}`);
+    }
+
     if (masterKeys.has(key)) {
       errors.push(`duplicate master key: ${key}`);
       continue;
     }
 
     masterKeys.add(key);
+    if (!masterIdsByKind.has(item.kind)) {
+      masterIdsByKind.set(item.kind, new Set());
+    }
+    masterIdsByKind.get(item.kind).add(item.id);
+    checkTextLimits(`master ${key}`, key, item, MASTER_TEXT_LIMITS);
   }
 
   const variantKeys = new Set();
+  const variantGearIdsByKind = new Map();
   for (const variant of variants) {
     const masterKey = `${variant.kind}:${variant.gearId}`;
     const variantKey = `${variant.kind}:${variant.variantId}`;
@@ -472,6 +524,23 @@ function validateDataset(brands, masters, variants) {
     }
 
     variantKeys.add(variantKey);
+    if (!variantGearIdsByKind.has(variant.kind)) {
+      variantGearIdsByKind.set(variant.kind, new Set());
+    }
+    variantGearIdsByKind.get(variant.kind).add(variant.gearId);
+    checkTextLimits(`variant ${variantKey}`, variantKey, variant, VARIANT_TEXT_LIMITS);
+  }
+
+  for (const [kind, ids] of masterIdsByKind.entries()) {
+    if (!KINDS_REQUIRING_VARIANTS.has(kind)) {
+      continue;
+    }
+    const coveredGearIds = variantGearIdsByKind.get(kind) || new Set();
+    for (const id of ids) {
+      if (!coveredGearIds.has(id)) {
+        errors.push(`master ${kind}:${id} has no variant rows`);
+      }
+    }
   }
 
   return { errors, warnings };

@@ -1,13 +1,26 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
 
 const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_reel_normalized.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_reels_import.xlsx');
+const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_import.xlsx');
 
 function normalizeText(value) {
     return String(value || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function buildStableDaiwaSpinningDetailId(masterId, sku, index = 0) {
+    const normalizedMasterId = normalizeText(masterId);
+    const normalizedSku = normalizeText(sku).toUpperCase();
+    const hash = crypto
+        .createHash('sha1')
+        .update(`${normalizedMasterId}::${normalizedSku || index}`)
+        .digest('hex')
+        .slice(0, 10)
+        .toUpperCase();
+    return `DRED${normalizedMasterId.replace(/^DRE/, '')}_${hash}`;
 }
 
 function main() {
@@ -23,7 +36,6 @@ function main() {
     const variantsRows = [];
 
     let reelIdCounter = 1000;
-    let detailIdCounter = 10000;
     const currentTime = new Date().toISOString();
 
     data.forEach((item) => {
@@ -111,7 +123,7 @@ function main() {
                 else if (suffixText.includes('QD')) handleStyle = '快速卸力 (QD)';
 
                 variantsRows.push({
-                    id: `DRED${detailIdCounter++}`,
+                    id: buildStableDaiwaSpinningDetailId(masterId, actualSku, variantsRows.length),
                     reel_id: masterId,
                     type: 'spinning',
                     SKU: actualSku,
