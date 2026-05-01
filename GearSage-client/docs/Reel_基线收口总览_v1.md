@@ -1,8 +1,8 @@
 # Reel 基线收口总览 v1
 
-版本：v1  
+版本：v1.1  
 状态：阶段性收口  
-更新时间：2026-04-21
+更新时间：2026-04-30
 
 ---
 
@@ -54,6 +54,7 @@
 ### Shimano
 
 - [Shimano_reel_基线收口_v1.md](/Users/tommy/GearSage/GearSage-client/docs/Shimano_reel_基线收口_v1.md)
+- [Spinning_Reel_抓取导入复用流程_v1.md](/Users/tommy/GearSage/GearSage-client/docs/Spinning_Reel_抓取导入复用流程_v1.md)
 
 ### Daiwa
 
@@ -82,7 +83,7 @@
 
 - 台湾纺车轮：
   - 主商品 `33`
-  - detail `219`
+  - detail `261`
 - 台湾水滴轮：
   - 主商品 `25`
   - detail `98`
@@ -107,11 +108,9 @@
 
 ### Daiwa 台湾官网
 
-- 详情页已明确拆成：
-  - `#intro`
-  - `#price`
-- 规格图 OCR 已跑通
-- family parser 已落地
+- 台湾纺车轮已切到当前 `daiwa.com/tw` 结构化规格表链路
+- 旧站规格图 OCR / family parser 作为历史测试链路保留
+- 纺车轮正式中间层已按当前官网 33 个商品覆盖
 - 主图链已闭环
 - 白名单主层已补一轮
 

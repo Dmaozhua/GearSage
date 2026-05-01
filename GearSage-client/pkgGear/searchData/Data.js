@@ -2146,17 +2146,6 @@ module.exports = [
   },
   {
     "type": "reel",
-    "id": "DRE5029",
-    "name": "PR100",
-    "alias": "",
-    "type_tips": "",
-    "system": "",
-    "water_column": "",
-    "action": "",
-    "family": ""
-  },
-  {
-    "type": "reel",
     "id": "MRE5000",
     "name": "GAUS 20X GAUS 20X",
     "alias": "",

@@ -25,6 +25,7 @@ normalized.json
 GearSage-client/pkgGear/data_raw/*_normalized.json
 GearSage-client/pkgGear/data_raw/*_locks.json
 GearSage-client/pkgGear/data_raw/*_audit.json
+GearSage-client/pkgGear/data_raw/*_audit.md
 GearSage-client/pkgGear/data_raw/*_highlights.json
 GearSage-client/pkgGear/data_raw/*_summary.json
 GearSage-client/pkgGear/data_raw/*_partial.json
@@ -32,6 +33,7 @@ GearSage-client/pkgGear/data_raw/*_copy_stage*.json
 GearSage-client/pkgGear/data_raw/*_download_stage*.json
 GearSage-client/pkgGear/data_raw/*_source_index*.json
 GearSage-client/pkgGear/data_raw/*_review.xlsx
+GearSage-client/pkgGear/data_raw/*_dry_run.xlsx
 GearSage-client/pkgGear/data_raw/*_increment_review.xlsx
 GearSage-client/pkgGear/data_raw/*_increment_review.csv
 GearSage-client/pkgGear/data_raw/*_副本.xlsx
@@ -58,6 +60,7 @@ GearSage-client/pkgGear/data_raw/*_cache/
 GearSage-client/pkgGear/data_raw/*_caches/
 GearSage-client/pkgGear/data_raw/*_rods_cache/
 GearSage-client/pkgGear/data_raw/*_report.json
+GearSage-client/pkgGear/data_raw/*_report.md
 GearSage-client/pkgGear/data_raw/*_reports/
 GearSage-client/pkgGear/data_raw/*_evidence.json
 GearSage-client/pkgGear/data_raw/*_facts.json
