@@ -83,6 +83,7 @@ scripts/apply_raid_rod_fit_style_tags_stage*.py
 scripts/apply_rod_master_fit_style_tags.py
 scripts/apply_shimano_rod_fit_style_tags_stage*.py
 scripts/sync_shimano_rod_fit_style_tags_from_xlsx_stage*.py
+scripts/strip_shimano_rod_detail_sku_model_prefix_stage*.py
 scripts/apply_shimano_rod_*stage*.js
 scripts/build_daiwa_tw_line_current_import.js
 scripts/build_daiwa_tw_rod_import.js
