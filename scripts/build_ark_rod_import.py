@@ -48,6 +48,7 @@ ROD_HEADERS = [
     "model_year",
     "alias",
     "type_tips",
+    "fit_style_tags",
     "images",
     "created_at",
     "updated_at",
@@ -476,6 +477,21 @@ def series_positioning(title, tags, body_text):
     return "Freshwater / Bass"
 
 
+def fit_style_tags(title, series, description):
+    text = f"{title} {series} {description}".lower()
+    if re.search(r"\bice\b|ice fishing|hardwater", text):
+        return ""
+    tags = []
+    if "bass" in text:
+        tags.append("bass")
+    has_three_plus_piece = re.search(r"\b(?:3|4|5|6|7|8|9)[- ]?(?:piece|pc)\b", text)
+    has_multi_or_travel = re.search(r"\bmulti[- ]?piece\b|\btravel\b", text)
+    has_two_piece = re.search(r"\b2[- ]?(?:piece|pc)\b|\btwo[- ]piece\b", text)
+    if (has_three_plus_piece or has_multi_or_travel) and not (has_two_piece and not has_three_plus_piece):
+        tags.append("旅行")
+    return ",".join(tags)
+
+
 def master_player_positioning(series, title):
     title_text = title.lower()
     if "Ice" in series:
@@ -739,6 +755,7 @@ def build_rows(normalized, refresh_images=False):
         )
         item["images"] = image_cdn
         item["series_positioning"] = series
+        item["fit_style_tags"] = fit_style_tags(item["title"], series, item["description"])
         item["player_positioning"] = master_player_positioning(series, item["title"])
         item["player_selling_points"] = master_player_points(item["features"], series, item["specs"])
 
@@ -751,6 +768,7 @@ def build_rows(normalized, refresh_images=False):
                 "model_year": item["model_year"],
                 "alias": item["title"],
                 "type_tips": " / ".join(item["tags"]),
+                "fit_style_tags": item["fit_style_tags"],
                 "images": image_cdn,
                 "created_at": now,
                 "updated_at": now,

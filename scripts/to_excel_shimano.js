@@ -11,6 +11,13 @@ function sanitizeFilename(name) {
     return String(name || '').replace(/[\\/*?:"<>|]/g, '_').trim();
 }
 
+function encodePathSegments(relativePath) {
+    return String(relativePath || '')
+        .split('/')
+        .map((segment) => encodeURIComponent(segment))
+        .join('/');
+}
+
 function detectExtension(url) {
     const lower = String(url || '').toLowerCase();
     if (lower.includes('.png')) return '.png';
@@ -58,7 +65,7 @@ function getSpoolDepthNormalized(variantName) {
 function toShimanoReelImageUrl(item) {
     const localPath = String(item.local_image_path || '').trim();
     if (localPath) {
-        return `${SHIMANO_REEL_CDN_PREFIX}${localPath}`;
+        return `${SHIMANO_REEL_CDN_PREFIX}${encodePathSegments(localPath)}`;
     }
     const filename = `${sanitizeFilename(item.model_name || 'unknown')}_main${detectExtension(item.main_image_url)}`;
     return `${SHIMANO_REEL_CDN_PREFIX}images/shimano_reels/${encodeURIComponent(filename)}`;

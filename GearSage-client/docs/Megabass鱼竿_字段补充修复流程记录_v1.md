@@ -33,6 +33,7 @@
 - `rod.main_selling_points`：`15 / 15`
 - `rod.images`：`15 / 15`，已统一为未来资源存储 URL
 - `rod.type_tips`：`15 / 15`，本轮优化并以黄色底色标记
+- `rod.fit_style_tags`：`15 / 15`，主表字段，位置在 `type_tips` 后、`images` 前；`rod_detail` 不落该字段
 - `rod.player_positioning`：`15 / 15`
 - `rod.player_selling_points`：`15 / 15`
 - `rod_detail.POWER`：`178 / 186`；`DESTROYER T.S / MR1001` 的 8 个子型号按人工复核决定保留为空，不再从 `TS...X / TS...XS / TS...X+` 后缀推断 POWER
@@ -489,6 +490,48 @@ node scripts/reorder_megabass_rod_import_by_official_order_stage3.js
 - `更容易 / 更适合 / 适合 / 兼顾` 高频机械连接词残留：`0`
 - 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
 
+### 3.14 fit_style_tags 主表字段补充
+
+参考流程：
+
+- [Daiwa台湾鱼竿_爬取补充修复导出流程收口_v1.md](/Users/tommy/GearSage/GearSage-client/docs/Daiwa台湾鱼竿_爬取补充修复导出流程收口_v1.md)
+- [装备库_fit_style_tags_枚举与填表规范_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备库_fit_style_tags_枚举与填表规范_v1.md)
+
+脚本：
+
+- [apply_megabass_rod_fit_style_tags_stage13.py](/Users/tommy/GearSage/scripts/apply_megabass_rod_fit_style_tags_stage13.py)
+
+输出报告：
+
+- [megabass_rod_fit_style_tags_stage13_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_fit_style_tags_stage13_report.json)
+
+字段口径：
+
+- `fit_style_tags` 是 GearSage 归纳字段，不是官网字段、规格字段或玩家实测字段。
+- 字段只落在主商品层：
+  - 中间层：`megabass_rod_raw.json` 每个 item 写 `fit_style_tags`
+  - 导入表：`rod.fit_style_tags`
+- `rod_detail` 不新增 `fit_style_tags`，子型号差异只作为主表标签推断依据。
+- 允许值沿用统一枚举 v1.2：`bass / 溪流 / 海鲈 / 根钓 / 岸投 / 船钓 / 旅行`。
+- `旅行` 按规范只标记 2 节以上（不含 2 节）的多节便携竿；优先读取官网规格 `継数`，避免用描述里的泛化 `travel / travelers` 文案误判。
+- 因字段只在主表，采用系列聚合：同一主商品内只要存在明确 `継数 > 2` 的可售 SKU，主表保留 `旅行` 标签，方便筛选到该系列下的多节型号。
+
+本次结果：
+
+- `megabass_rod_raw.json`：
+  - items：`192`
+  - item 级 `fit_style_tags` 非空：`192`
+  - variant 级 `fit_style_tags`：`0`
+- `megabass_rod_import.xlsx / rod`：
+  - `fit_style_tags` 列位置：`type_tips` 后、`images` 前
+  - 覆盖率：`15 / 15`
+  - 分布：`bass = 6`，`bass,旅行 = 3`，`bass,岸投,旅行 = 1`，`溪流,旅行 = 3`，`溪流 = 1`，`船钓 = 1`
+  - `旅行` 命中主商品：`Brand New DESTROYER`、`LEVANTE`、`VALKYRIE World Expedition`、`TRIZA`、`GREATHUNTING HUNTSMAN`、`GreatHunting X-GLASS COMPOSITE`、`GREATHUNTING MOUNTAIN STREAM EDITION`
+- `megabass_rod_import.xlsx / rod_detail`：
+  - `fit_style_tags` 不存在
+- `scripts/to_excel_megabass_rod.js` 已接入该字段，后续重建导入表会优先读取 raw item 级 `fit_style_tags`，缺失时才按系列语境保守推断。
+- 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
+
 ---
 
 ## 4. 本轮验证
@@ -523,6 +566,11 @@ node scripts/reorder_megabass_rod_import_by_official_order_stage3.js
 - Stage 12 `player_selling_points` 覆盖率：`186 / 186`
 - Stage 12 `player_selling_points` unique 数：`132`，完整文本最高重复 `3`
 - Stage 12 口语词、来源词、机械连接词残留：`0`
+- Stage 13 `rod.fit_style_tags` 覆盖率：`15 / 15`
+- Stage 13 `rod_detail.fit_style_tags`：不存在
+- Stage 13 `fit_style_tags` 非法枚举：`0`
+- Stage 13 `旅行` 标签已按 v1.2 校验，`GREATHUNTING RIVER&LAKE EDITION` 因 `継数 = 2本` 保持 `溪流`
+- Stage 13 `to_excel_megabass_rod.js` 语法检查：通过
 - bass 记录未误落到鳟鱼、船钓、木虾、海水场景
 - trout 记录保留鳟鱼场景
 - `rod_detail` 分组底色已恢复并交替

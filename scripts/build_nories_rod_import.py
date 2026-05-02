@@ -36,10 +36,11 @@ REFRESH_IMAGES = "--refresh-images" in sys.argv
 BRAND_ID = 44
 ROD_PREFIX = "NR"
 ROD_DETAIL_PREFIX = "NRD"
+FIT_STYLE_TAG_ORDER = ["bass", "溪流", "海鲈", "根钓", "岸投", "船钓", "旅行"]
 
 ROD_HEADERS = [
     "id", "brand_id", "model", "model_cn", "model_year", "alias",
-    "type_tips", "images", "created_at", "updated_at",
+    "type_tips", "fit_style_tags", "images", "created_at", "updated_at",
     "series_positioning", "main_selling_points", "official_reference_price", "market_status",
     "Description", "player_positioning", "player_selling_points",
 ]
@@ -583,7 +584,7 @@ def parse_product(url, html):
         price = variant["fields"].get("Market Reference Price", "")
         if price and price not in price_values:
             price_values.append(price)
-    return {
+    item = {
         "brand": "NORIES",
         "kind": "rod",
         "model": model,
@@ -599,10 +600,42 @@ def parse_product(url, html):
         "raw_data_hash": hashlib.sha256(html.encode("utf-8")).hexdigest(),
         "scraped_at": datetime.now(timezone.utc).isoformat(),
     }
+    item["fit_style_tags"] = infer_master_fit_style_tags(item)
+    return item
 
 
 def row_from_headers(headers, values):
     return [values.get(header, "") for header in headers]
+
+
+def parse_piece_count(value):
+    match = re.search(r"\d+", str(value or ""))
+    if not match:
+        return None
+    count = int(match.group(0))
+    if 1 <= count <= 10:
+        return count
+    return None
+
+
+def infer_master_fit_style_tags(item):
+    tags = ["bass"]
+    text = " ".join(
+        [
+            item.get("model", ""),
+            item.get("model_cn", ""),
+            item.get("alias", ""),
+            item.get("description", ""),
+        ]
+    ).lower()
+    has_travel_term = any(term in text for term in ["travel", "mobile", "多节", "多節", "振出"])
+    has_three_plus = any(
+        (parse_piece_count(variant.get("fields", {}).get("PIECES")) or 0) >= 3
+        for variant in item.get("variants", [])
+    )
+    if has_travel_term or has_three_plus:
+        tags.append("旅行")
+    return ",".join(tag for tag in FIT_STYLE_TAG_ORDER if tag in tags)
 
 
 def master_positioning(model):
@@ -649,6 +682,7 @@ def build_workbook(normalized):
                     "model_year": item["model_year"],
                     "alias": item["alias"],
                     "type_tips": "BASS ROD",
+                    "fit_style_tags": item.get("fit_style_tags", "bass"),
                     "images": image_url,
                     "series_positioning": "Fresh Water / Bass",
                     "main_selling_points": item["description"].replace("\n", " ")[:220],

@@ -73,7 +73,71 @@ const PAGE_SPLIT_RULES = {
   SRE5036: [
     {
       new_id: 'SRE5073',
+      model: 'GRAPPLER（300线杯）',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/GRAPPLER%EF%BC%88300%E7%BA%BF%E6%9D%AF%EF%BC%89_main.jpg',
       sku_prefixes: ['GRAPPLER 300HG', 'GRAPPLER 301HG', 'GRAPPLER 300XG', 'GRAPPLER 301XG'],
+    },
+    {
+      new_id: 'SRE5074',
+      model: 'GRAPPLER（150线杯）',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/GRAPPLER%EF%BC%88150%E7%BA%BF%E6%9D%AF%EF%BC%89_main.jpg',
+      sku_prefixes: ['GRAPPLER 150HG', 'GRAPPLER 151HG'],
+    },
+  ],
+  SRE5043: [
+    {
+      new_id: 'SRE5075',
+      model: 'CURADO DC（200线杯）',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/22%20CURADO%20DC%20200_main.jpg',
+      sku_prefixes: ['CURADO DC 200', 'CURADO DC 201'],
+    },
+    {
+      new_id: 'SRE5076',
+      model: 'CURADO DC（150线杯）',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/CURADO%20DC%EF%BC%88150%E7%BA%BF%E6%9D%AF%EF%BC%89_main.jpg',
+      sku_prefixes: ['CURADO DC 150', 'CURADO DC 151'],
+    },
+  ],
+  SRE5054: [
+    {
+      new_id: 'SRE5081',
+      model: 'CURADO',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/22%20CURADO%20200_main.jpg',
+      sku_prefixes: ['CURADO 200', 'CURADO 201'],
+    },
+    {
+      new_id: 'SRE5054_300',
+      model: 'CURADO',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/22%20CURADO%20300_main.jpg',
+      sku_prefixes: ['CURADO 300', 'CURADO 301'],
+    },
+  ],
+  SRE5056: [
+    {
+      new_id: 'SRE5078',
+      model: 'CURADO MGL（70线杯）',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/CURADO%20MGL_main.jpeg',
+      sku_prefixes: ['CURADO MGL 70', 'CURADO MGL 71'],
+    },
+    {
+      new_id: 'SRE5079',
+      model: 'CURADO MGL（150线杯）',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/CURADO%20MGL_main.jpeg',
+      sku_prefixes: ['CURADO MGL 150', 'CURADO MGL 151'],
+    },
+  ],
+  SRE5058: [
+    {
+      new_id: 'SRE5058_70',
+      model: 'SLX',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/24%20SLX%2070_main.jpeg',
+      sku_prefixes: ['SLX 70', 'SLX 71'],
+    },
+    {
+      new_id: 'SRE5058_150',
+      model: 'SLX XT',
+      image: 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/24%20SLX%20XT%20150_main.jpeg',
+      sku_prefixes: ['SLX 150', 'SLX 151'],
     },
   ],
 };
@@ -182,6 +246,15 @@ function matchPageSplitRule(reelId, sku) {
   );
 }
 
+function findSplitRuleByNewId(reelId) {
+  const target = normalizeText(reelId);
+  for (const rules of Object.values(PAGE_SPLIT_RULES)) {
+    const found = rules.find((rule) => normalizeText(rule.new_id) === target);
+    if (found) return found;
+  }
+  return null;
+}
+
 function applyPageSplitRules(masterRows, detailRows) {
   const masterById = new Map(masterRows.map((row) => [normalizeText(row.id), row]));
   const remappedDetailRows = [];
@@ -199,7 +272,12 @@ function applyPageSplitRules(masterRows, detailRows) {
     if (!masterById.has(rule.new_id)) {
       const baseMaster = masterById.get(normalizeText(row.reel_id));
       if (baseMaster) {
-        masterById.set(rule.new_id, { ...baseMaster, id: rule.new_id });
+        const nextMaster = { ...baseMaster, id: rule.new_id };
+        if (rule.model) nextMaster.model = rule.model;
+        if (rule.alias) nextMaster.alias = rule.alias;
+        if (rule.image) nextMaster.images = rule.image;
+        if (rule.description) nextMaster.Description = rule.description;
+        masterById.set(rule.new_id, nextMaster);
       }
     }
 
@@ -642,6 +720,14 @@ function main() {
     masterRow.market_status = normalizeText(existingMaster.market_status) || '在售';
     masterRow.Description = normalizeText(item.description) || normalizeText(existingMaster.Description);
 
+    const selfSplitRule = findSplitRuleByNewId(masterId);
+    if (selfSplitRule) {
+      if (selfSplitRule.model) masterRow.model = selfSplitRule.model;
+      if (selfSplitRule.alias) masterRow.alias = selfSplitRule.alias;
+      if (selfSplitRule.image) masterRow.images = selfSplitRule.image;
+      if (selfSplitRule.description) masterRow.Description = selfSplitRule.description;
+    }
+
     masterRows.push(masterRow);
     masterIdByModel.set(modelKey, masterId);
 
@@ -757,7 +843,18 @@ function main() {
   }
 
   const splitAdjusted = applyPageSplitRules(masterRows, detailRows);
-  const finalMasterRows = splitAdjusted.masterRows;
+  const finalMasterRows = splitAdjusted.masterRows.map((row) => {
+    const selfSplitRule = findSplitRuleByNewId(row.id);
+    if (!selfSplitRule) {
+      return row;
+    }
+    const nextRow = { ...row };
+    if (selfSplitRule.model) nextRow.model = selfSplitRule.model;
+    if (selfSplitRule.alias) nextRow.alias = selfSplitRule.alias;
+    if (selfSplitRule.image) nextRow.images = selfSplitRule.image;
+    if (selfSplitRule.description) nextRow.Description = selfSplitRule.description;
+    return nextRow;
+  });
   const finalDetailRows = splitAdjusted.detailRows;
 
   const workbook = XLSX.utils.book_new();

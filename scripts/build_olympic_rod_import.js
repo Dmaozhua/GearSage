@@ -33,6 +33,7 @@ const OUTPUT_FILE = path.join(OUTPUT_DIR, 'olympic_rod_import.xlsx');
 const SHADE_SCRIPT = path.join(__dirname, 'shade_olympic_rod_detail_groups.py');
 const APPLY_RIG_PAIRING_SCRIPT = path.join(__dirname, 'apply_olympic_rod_recommended_rig_pairing_stage2.js');
 const APPLY_PLAYER_FIELDS_SCRIPT = path.join(__dirname, 'apply_olympic_rod_player_fields_stage3.py');
+const APPLY_FIT_STYLE_TAGS_SCRIPT = path.join(__dirname, 'apply_olympic_rod_fit_style_tags_stage4.py');
 const IMAGE_DIR = '/Users/tommy/Pictures/images/olympic_rods';
 const OLD_IMAGE_DIR = '/Users/tommy/Pictures/images_old_copy/olympic_rods';
 const STATIC_IMAGE_BASE = 'https://static.gearsage.club/gearsage/Gearimg/images/olympic_rods';
@@ -374,6 +375,31 @@ function inferPlayerSellingPoints(category, positioning) {
   return 'Bass 日常泛用覆蓋較廣 / 船釣與岸釣常見場景都容易搭配';
 }
 
+function inferFitStyleTags(item) {
+  const text = normalizeText([
+    item.lineup_key,
+    item.official_environment,
+    item.type_tips,
+    item.model,
+    item.lineup_label,
+    ...(item.variants || []).map((variant) => `${variant.sku} ${variant.description}`),
+  ].join(' ')).toLowerCase();
+  const tags = [];
+  if (/blackbass|black bass|bass|vigore|veloce/.test(text)) tags.push('bass');
+  if (/areatrout|area trout|trout|bellezza/.test(text)) tags.push('溪流');
+  if (itemHasTravelFit(item)) tags.push('旅行');
+  return ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'].filter((tag) => tags.includes(tag)).join(',');
+}
+
+function itemHasTravelFit(item) {
+  const text = normalizeText([item.model, item.lineup_label, item.description, item.feature_text].join(' ')).toLowerCase();
+  if (/\b(travel|mobile|liberalist|crossbeat|wilderness)\b|多节|多節|振出/i.test(text)) return true;
+  return (item.variants || []).some((variant) => {
+    const pieces = normalizeText(variant.fields?.PIECES || variant.raw_spec?.['Section(pcs.)'] || variant.raw_spec?.['Section (pcs.)']);
+    return /^\d+$/.test(pieces) && Number(pieces) >= 3 && Number(pieces) <= 10;
+  });
+}
+
 function inferGuideUseHint(category, positioning) {
   if (category === 'areatrout') {
     return '管釣鱒魚：細線小餌出線更順，低負荷拋投與短咬口判斷更清楚。';
@@ -537,6 +563,7 @@ async function buildWorkbook(normalized) {
         model_year: item.model_year,
         alias: item.alias,
         type_tips: item.type_tips,
+        fit_style_tags: item.fit_style_tags || inferFitStyleTags(item),
         images: imageUrl,
         series_positioning: item.official_environment,
         main_selling_points: item.catchcopy || item.bodycopy,
@@ -595,6 +622,7 @@ async function main() {
 
   fs.writeFileSync(NORMALIZED_PATH, `${JSON.stringify(normalized, null, 2)}\n`);
   await buildWorkbook(normalized);
+  execFileSync('python3', [APPLY_FIT_STYLE_TAGS_SCRIPT], { stdio: 'inherit' });
   execFileSync('node', [APPLY_RIG_PAIRING_SCRIPT], { stdio: 'inherit' });
   execFileSync('python3', [APPLY_PLAYER_FIELDS_SCRIPT], { stdio: 'inherit' });
 

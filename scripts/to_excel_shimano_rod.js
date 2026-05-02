@@ -17,11 +17,143 @@ if (!fs.existsSync(inputFile)) {
 
 const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 
+let existingRodByModel = new Map();
+if (fs.existsSync(outputFile)) {
+    try {
+        const existingWb = xlsx.readFile(outputFile);
+        const existingRodRows = xlsx.utils.sheet_to_json(existingWb.Sheets.rod || {}, { defval: '' });
+        existingRodByModel = new Map(existingRodRows.map((row) => [row.model, row]));
+    } catch (err) {
+        console.warn(`[Warn] Failed to load existing rod sheet from ${outputFile}: ${err.message}`);
+    }
+}
+
 const rodRows = [];
 const detailRows = [];
 
 let rodIdCounter = 1000;
 let detailIdCounter = 10000;
+const ROD_FIT_STYLE_TAGS = ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'];
+
+function normalizeText(value) {
+    return String(value || '')
+        .replace(/[\uff01-\uff5e]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+        .replace(/\u3000/g, ' ')
+        .toLowerCase();
+}
+
+function hasAny(text, patterns) {
+    return patterns.some((pattern) => new RegExp(pattern, 'i').test(text));
+}
+
+function addTag(tags, tag) {
+    if (tag && !tags.includes(tag)) tags.push(tag);
+}
+
+function isAccessoryModel(text) {
+    return hasAny(text, ['握把', 'landing\\s*shaft', 'landingshaft', '衍生握把', 'x\\s*seat']);
+}
+
+function validPieceCount(value) {
+    const match = String(value || '').match(/\d+/);
+    if (!match) return 0;
+    const pieces = Number.parseInt(match[0], 10);
+    return pieces >= 3 && pieces <= 10 ? pieces : 0;
+}
+
+function inferTravelTag(item, variant) {
+    const model = normalizeText(item.model_name);
+    if (isAccessoryModel(model)) return '';
+    if (hasAny(model, ['\\bpack\\b', 'dream\\s*tour', '\\bmb\\b', 'freegame', 'trastick', 'zoom', '振出', '多节', '旅行', 'travel', 'tour', '3节', '4节', '5节'])) {
+        return '旅行';
+    }
+    const specs = variant.specs || {};
+    const raw = variant.raw_specs || {};
+    const keys = ['pieces', 'PIECES', '継数', '継数(本)', '节数', '節數'];
+    return keys.some((key) => validPieceCount(specs[key]) || validPieceCount(raw[key])) ? '旅行' : '';
+}
+
+function tagsByModelName(model) {
+    const text = normalizeText(model);
+    if (isAccessoryModel(text)) return '';
+    if (hasAny(text, ['world\\s*shaula\\s*bg'])) return '海鲈,岸投,船钓';
+    if (hasAny(text, ['world\\s*shaula'])) return 'bass,溪流,海鲈,岸投,船钓';
+    if (hasAny(text, ['scorpion'])) return 'bass,岸投';
+    if (hasAny(text, ['poison', 'zodias', 'expride', 'bantam', 'bass\\s*one', 'lurematic（?bass', 'majestic', 'lesath', 'capture', 'pegas', 'unfix', 'argus\\s*hunter', 'leonis', 'conquest'])) return 'bass';
+    if (hasAny(text, ['cardiff', 'trout', 'asquith', 'brookstone', 'lurematic（?trout'])) return '溪流';
+    if (hasAny(text, ['soare.*boat'])) return '船钓';
+    if (hasAny(text, ['soare'])) return '岸投';
+    if (hasAny(text, ['salty\\s*advance.*船钓'])) return '船钓';
+    if (hasAny(text, ['salty\\s*advance.*岸钓'])) return '岸投';
+    if (hasAny(text, ['salty\\s*advance'])) return '岸投,船钓';
+    if (hasAny(text, ['sephia.*(metal\\s*sutte|tip\\s*eging|tip-?run)'])) return '船钓';
+    if (hasAny(text, ['sephia'])) return '岸投';
+    if (hasAny(text, ['ocea', 'grappler', 'game\\s*type', 'crossmission'])) return '船钓';
+    if (hasAny(text, ['coltsniper'])) return '岸投';
+    if (hasAny(text, ['(dialuna|moonshot).*bs'])) return '海鲈,船钓';
+    if (hasAny(text, ['exsence', 'lunamis', 'dialuna', 'moonshot', 'encounter', 'nessa'])) return '海鲈,岸投';
+    if (hasAny(text, ['hard\\s*rocker', 'hardrocker'])) return '根钓,岸投';
+    if (hasAny(text, ['brenious', 'dyna\\s*dart'])) return '岸投';
+    if (hasAny(text, ['lurematic\\s*mb', 'freegame', 'trastick'])) return 'bass,溪流,岸投';
+    if (hasAny(text, ['lurematic.*salt', 'instage'])) return '岸投';
+    return '';
+}
+
+function mergeFitStyleTags(values) {
+    const tags = [];
+    for (const value of values) {
+        for (const tag of String(value || '').split(',')) {
+            const clean = tag.trim();
+            if (ROD_FIT_STYLE_TAGS.includes(clean) && !tags.includes(clean)) {
+                tags.push(clean);
+            }
+        }
+    }
+    return ROD_FIT_STYLE_TAGS.filter((tag) => tags.includes(tag)).join(',');
+}
+
+function inferFitStyleTags(item, variant) {
+    const model = normalizeText(item.model_name);
+    const modelTags = tagsByModelName(model);
+    if (modelTags || isAccessoryModel(model)) return mergeFitStyleTags([modelTags, inferTravelTag(item, variant)]);
+    const sku = normalizeText(variant.variant_name);
+    const desc = normalizeText(`${item.description || ''} ${variant.variant_description || ''}`);
+    const text = `${model} ${sku} ${desc}`;
+    const tags = [];
+
+    if (hasAny(text, ['poison', 'zodias', 'expride', 'bantam', 'bass one', 'majestic', 'levante', 'bass'])) {
+        addTag(tags, 'bass');
+    }
+
+    if (hasAny(text, ['world shaula', 'scorpion', 'freegame', 'lurematic'])) {
+        addTag(tags, 'bass');
+        addTag(tags, '岸投');
+    }
+
+    if (hasAny(text, ['cardiff', 'trout', 'native', 'area', 'stream', 'asquith', 'fly', '鳟', '鱒', '溪流', '渓流', '管钓', '管理场', '管理釣'])) {
+        addTag(tags, '溪流');
+    }
+
+    if (hasAny(text, ['exsence', 'lunamis', 'dialuna', 'moonshot', 'encounter', 'nessa', 'seabass', '海鲈', '海鱸', 'シーバス'])) {
+        addTag(tags, '海鲈');
+        addTag(tags, '岸投');
+    }
+
+    if (hasAny(text, ['hard rocker', 'hardrocker', 'rockfish', 'rock fish', '根鱼', '根魚', '岩鱼', '岩魚'])) {
+        addTag(tags, '根钓');
+        addTag(tags, '岸投');
+    }
+
+    if (hasAny(text, ['sephia', 'eging', 'エギ', '木虾', '木蝦', '乌贼', '烏賊', 'soare', 'ajing', 'mebaru', 'brenious', 'chining', '黑鲷', '黒鯛', 'coltsniper', 'shore', 'surf', '岸投', '岸抛', '岸拋', '港湾', '堤防', 'slsj'])) {
+        addTag(tags, '岸投');
+    }
+
+    if (hasAny(text, ['ocea', 'grappler', 'game type', 'crossmission', 'light jigging', 'slow j', 'jigger', 'tairaba', '炎月', '船钓', '船釣', 'offshore', 'tip eging', 'tip-run', 'tip run', 'metal sutte', 'ika metal', 'blade jigging'])) {
+        addTag(tags, '船钓');
+    }
+
+    return mergeFitStyleTags([tags.join(','), inferTravelTag(item, variant)]);
+}
 
 function isPlaceholderDescription(text) {
     const value = String(text || '').replace(/\s+/g, ' ').trim();
@@ -30,6 +162,12 @@ function isPlaceholderDescription(text) {
 
 for (const item of data) {
     const currentRodId = `SR${rodIdCounter++}`;
+    const existingRod = existingRodByModel.get(item.model_name) || {};
+    const inferredItemTags = inferFitStyleTags(item, { variant_name: '', variant_description: '' });
+    const itemFitTags = item.fit_style_tags || mergeFitStyleTags([inferredItemTags].concat((item.variants || []).map((v) => {
+        return v.fit_style_tags || inferFitStyleTags(item, v);
+    })));
+    const existingFitTags = mergeFitStyleTags([existingRod.fit_style_tags]);
     
     // Model year extraction (just try to find a 2 digit year in title)
     // Shimano titles usually don't have year in the name directly but we'll try
@@ -52,6 +190,7 @@ for (const item of data) {
         'model_year': modelYear,
         'alias': '',
         'type_tips': '',
+        'fit_style_tags': itemFitTags || existingFitTags,
         'images': item.local_image_path || item.main_image_url || '',
         'created_at': '',
         'updated_at': '',

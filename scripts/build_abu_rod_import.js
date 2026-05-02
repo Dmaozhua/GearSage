@@ -226,6 +226,78 @@ function inferFeatureSellingPoints(features) {
   return points.join(' / ');
 }
 
+function formatFitStyleTags(tags) {
+  const order = ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'];
+  return order.filter((tag) => tags.includes(tag)).join(',');
+}
+
+function hasTravelContext(text, variants = []) {
+  const hasThreePlusVariant = variants.some((variant) => {
+    const pieces = normalizeText(variant.specs?.['Number of Pieces'] || variant.specs?.Pieces);
+    const match = pieces.match(/\b([3-9]|10)\b/);
+    return match && Number(match[1]) >= 3;
+  });
+  if (hasThreePlusVariant) return true;
+  const hasTwoPieceOnly = /\b2[- ]?(?:pc|pcs|piece)\b|\btwo[- ]piece\b/.test(text);
+  return /\btravel\b|\bmobile\b|\bpack\s*rod\b|\bmulti[- ]?piece\b|telescopic|多节|多節|振出|旅行|便携/i.test(text) && !hasTwoPieceOnly;
+}
+
+function inferFitStyleTags(item) {
+  const modelText = normalizeText(item.model).toLowerCase();
+  const text = [
+    normalizeText(item.model),
+    normalizeText(item.alias),
+    normalizeText(item.type_tips),
+    normalizeText(item.description),
+    normalizeFeatureText(item.features),
+    ...(item.variants || []).flatMap((variant) => [
+      normalizeText(variant.sku),
+      normalizeText(variant.title),
+    ]),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  if (text.includes('ice')) return '';
+  if (text.includes('muskie') && !text.includes('bass')) return '';
+  const tags = [];
+  if (
+    [
+      'max',
+      'vendetta',
+      'veritas',
+      'vengeance',
+      'fantasista',
+      'zenon',
+      'winch',
+      'ike signature',
+      'hunter shryock',
+    ].some((cue) => modelText.includes(cue))
+  ) {
+    tags.push('bass');
+  } else if (
+    [
+      'bass',
+      'bfs',
+      'bait finesse',
+      'finesse',
+      'frog',
+      'flipping',
+      'pitching',
+      'crankbait',
+      'reaction bait',
+      'power fishing',
+      'swimbaits for bass',
+      'texas',
+      'down shot',
+    ].some((cue) => text.includes(cue))
+  ) {
+    tags.push('bass');
+  }
+  if (hasTravelContext(text, item.variants || [])) tags.push('旅行');
+  return formatFitStyleTags(tags);
+}
+
 function inferExtraSpecFromFeatures(features) {
   const feature = (features || []).find((item) =>
     /\b\d+\s*-?\s*Ton graphite|Powerlux|solid carbon|Composite blend|IntraCarbon|carbon cross wrapped/i.test(item),
@@ -467,6 +539,8 @@ function buildRows(normalized) {
     const imageCdn = imageUrl ? downloadImage(imageUrl, imageFilename(item.model, imageUrl)) : '';
     const prices = item.variants.map((v) => v.price).filter(Boolean);
     const priceRange = prices.length ? [...new Set(prices)].join(' / ') : '';
+    const fitStyleTags = item.fit_style_tags || inferFitStyleTags(item);
+    item.fit_style_tags = fitStyleTags;
 
     rodRows.push({
       id: rodId,
@@ -476,6 +550,7 @@ function buildRows(normalized) {
       model_year: item.model_year,
       alias: item.alias,
       type_tips: '',
+      fit_style_tags: fitStyleTags,
       images: imageCdn,
       created_at: now,
       updated_at: now,
@@ -489,6 +564,7 @@ function buildRows(normalized) {
     });
 
     item.images = imageCdn;
+    item.fit_style_tags = fitStyleTags;
 
     item.variants.forEach((variant) => {
       const specs = variant.specs || {};

@@ -3,6 +3,30 @@ const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, HEADERS, SHEET_NAMES } = require('./gear_export_schema');
 
+function fitStyleTags(item) {
+    if (item.fit_style_tags) return item.fit_style_tags;
+    const text = [
+        item.model,
+        item.model_cn,
+        item.description,
+        ...(item.variants || []).flatMap((variant) => [
+            variant.sku,
+            variant.pieces,
+            variant.total_length,
+        ]),
+    ].filter(Boolean).join(' ').toLowerCase();
+    const tags = ['bass'];
+    const hasThreePlus = (item.variants || []).some((variant) => {
+        const match = String(variant.pieces || '').match(/\b([3-9]|10)\b/);
+        return match && Number(match[1]) >= 3;
+    });
+    const hasTwoPieceOnly = /\b2[- ]?(?:pc|pcs|piece)\b|\btwo[- ]piece\b|2\s*(?:ピース|本|節|节)/.test(text);
+    if (hasThreePlus || (/\btravel\b|\bmobile\b|\bpack\s*rod\b|\bmulti[- ]?piece\b|パック|モバイル|テレスコ|telescopic|多节|多節|振出|旅行|便携|携帯/i.test(text) && !hasTwoPieceOnly)) {
+        tags.push('旅行');
+    }
+    return ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'].filter((tag) => tags.includes(tag)).join(',');
+}
+
 function convertToExcel() {
     const dataPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_rod_normalized.json');
     if (!fs.existsSync(dataPath)) {
@@ -32,6 +56,7 @@ function convertToExcel() {
             model_year: '',
             alias: '',
             type_tips: 'casting', // Most Keitech rods are casting (ベイトモデル)
+            fit_style_tags: fitStyleTags(item),
             images: item.local_image_path || item.main_image_url || '',
             created_at: item.scraped_at || '',
             updated_at: item.scraped_at || '',

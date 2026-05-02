@@ -28,9 +28,28 @@ BRAND_ID = 114
 ROD_PREFIX = "DSR"
 DETAIL_PREFIX = "DSRD"
 
+
+def fit_style_tags_for_item(model, title="", description="", variants=None):
+    variants = variants or []
+    tags = ["bass"]
+    text = n(" ".join([model, title, description])).lower()
+    travel_words = ["travel", "pack rod", "パック", "振出", "多節", "多节"]
+    has_travel_word = any(word in text for word in travel_words)
+    has_gt_two_piece_text = bool(re.search(r"[3-9]\s*(?:piece|pc|ピース|節|节)", text, re.I))
+    has_explicit_two_piece_text = bool(re.search(r"2\s*(?:piece|pc|ピース|節|节)", text, re.I))
+    has_gt_two_pieces = False
+    for variant in variants:
+        match = re.search(r"\d+", n(variant.get("pieces")))
+        if match and int(match.group(0)) > 2:
+            has_gt_two_pieces = True
+            break
+    if has_gt_two_pieces or has_gt_two_piece_text or (has_travel_word and not has_explicit_two_piece_text):
+        tags.append("旅行")
+    return ",".join(tags)
+
 ROD_HEADERS = [
     "id", "brand_id", "model", "model_cn", "model_year", "alias",
-    "type_tips", "images", "created_at", "updated_at",
+    "type_tips", "fit_style_tags", "images", "created_at", "updated_at",
     "series_positioning", "main_selling_points", "official_reference_price", "market_status",
     "Description", "player_positioning", "player_selling_points",
 ]
@@ -535,6 +554,7 @@ def variant_from_table_row(row, page_url):
         extra_2 = ""
         admin_code = ""
 
+    master_description = extract_master_description(soup)
     return {
         "source_url": page_url,
         "sku": sku,
@@ -812,7 +832,8 @@ def parse_detail(page, rod_id):
         "main_image_url": image_url,
         "images": download_main_image(image_url, rod_id, model),
         "main_selling_points": "",
-        "description": extract_master_description(soup),
+        "description": master_description,
+        "fit_style_tags": fit_style_tags_for_item(model, page["title"], master_description, variant_list),
         "guide_layout_type": guide_layout_text(soup.get_text(" ", strip=True)),
         "variants": variant_list,
     }
@@ -870,6 +891,7 @@ def build_xlsx(products):
             "model_year": item["model_year"],
             "alias": item["title"],
             "type_tips": "",
+            "fit_style_tags": item.get("fit_style_tags", "bass"),
             "images": item["images"],
             "created_at": "",
             "updated_at": "",

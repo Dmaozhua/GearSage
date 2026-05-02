@@ -538,6 +538,134 @@ stage16 白名单补充重点：
 - 单独 `Metal Jig / Plug / Eging / Big Bait` 残留：`0`
 - `rod_detail` 分组底色：`338 / 338` 行保留。
 
+### 6.4 `fit_style_tags` 导入中间层补充
+
+规范来源：
+
+- [装备库_fit_style_tags_枚举与填表规范_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备库_fit_style_tags_枚举与填表规范_v1.md)
+
+字段目的：
+
+- `fit_style_tags` 用于承接鱼竿的“使用方向 / 适用风格”筛选。
+- 它是 GearSage 归纳字段，不是官方参数，也不是玩家实测字段。
+- 本字段落在 `rod` 主表，用于主商品列表筛选和卡片轻量标签。
+- 子型号差异只作为主表标签的推断依据，不在 `rod_detail` 中落字段。
+
+允许值：
+
+```text
+bass
+溪流
+海鲈
+根钓
+岸投
+船钓
+旅行
+```
+
+填写格式：
+
+```text
+海鲈,岸投
+```
+
+导入链改动：
+
+- `scripts/gear_export_schema.js`
+  - 在 `HEADERS.rodMaster` 中新增 `fit_style_tags`。
+  - 位置：`type_tips` 后、`images` 前。
+  - `HEADERS.rodDetail` 不包含该字段。
+- `scripts/to_excel_daiwa_rod.js`
+  - 导出时优先读取中间层 `item.fit_style_tags`。
+  - 如果中间层没有该字段，则根据子型号集合的 `model / SKU / variant_description / raw_specs` 推断后合并为主表标签。
+- `scripts/apply_daiwa_rod_fit_style_tags_stage30.py`
+  - 给中间 JSON 写入 item 级 `fit_style_tags`。
+  - 清理中间 JSON 中误写的 variant 级 `fit_style_tags`。
+  - 给当前 `daiwa_rod_import.xlsx` 的 `rod` 主表增加并填写 `fit_style_tags`。
+  - 删除当前 `rod_detail` 中误加的 `fit_style_tags` 列。
+  - 只允许新增/修改主表 `fit_style_tags` 和删除子表同名列，不改其他导入字段。
+
+本次写入的中间层：
+
+- `daiwa_rod_normalized.json`
+  - `items = 58`
+  - `variants = 534`
+  - `item.fit_style_tags` 非空：`54`
+  - `item.fit_style_tags` 含 `旅行`：`18`
+  - `variant.fit_style_tags`：`0`
+- `daiwa_tw_rod_structured.json`
+  - `items = 46`
+  - `variants = 324`
+  - `item.fit_style_tags` 非空：`45`
+  - `item.fit_style_tags` 含 `旅行`：`8`
+  - `variant.fit_style_tags`：`0`
+
+本次导入表写入结果：
+
+- 当前工作区 `daiwa_rod_import.xlsx / rod`：`45` 行。
+- `rod.fit_style_tags` 非空：`44 / 45`。
+- `rod.fit_style_tags` 含 `旅行`：`9 / 45`。
+- `rod_detail.fit_style_tags` 不存在。
+- 非空值全部在规范枚举内。
+- 旧 rod 枚举 `精细 / 泛用 / 障碍 / 远投` 已全部清空。
+- `rod_detail` 底色已重新恢复。
+
+空值处理：
+
+- v1.1 已新增 `船钓`，`SALTIGA SLJ / LOWRESPONSE / OUTRAGE SJ/LJ/J / OUTRAGE BR / KYOHGA` 等船上垂直搜索、近海船抛或船钓铁板系列应写 `船钓`。
+- v1.2 已新增 `旅行`，只作为多节/振出/旅行竿的附加标签，不改变原本玩法标签。
+- 当前只保留 `DR1041 WIND X` 为空。原因是现有主表描述只有竿身结构、远投和操作性，没有明确目标鱼、岸投/船钓/溪流/海鲈/根钓/bass 证据；不为了填满而猜。
+
+推断口径：
+
+- Bass：
+  - `STEEZ / TATULA / BLACK LABEL / HEARTLAND / AIREDGE / VERTICE / WILDERNESS / bass` -> `bass`
+  - 不再用 `精细 / 泛用 / 障碍 / 远投` 描述 rod 主筛选；细分强弱、软硬饵和障碍信息留给 `guide_use_hint`、`recommended_rig_pairing`、玩家字段。
+- 海鲈：
+  - `morethan / LATEO / LABRAX / seabass / シーバス` -> `海鲈,岸投`
+  - 不用裸 `stream` 判断溪流，避免 `main stream / mainstream` 把海鲈竿误标为 `溪流`。
+- 根鱼：
+  - `HARDROCK / rockfish / 根鱼 / 岩鱼` -> `根钓,岸投`
+- 木虾：
+  - `EMERALDAS / eging / 木蝦 / 乌贼 / 软丝` -> `岸投`
+- 轻海水：
+  - `月下美人 / ajing / mebaru / 小型 plug` -> `岸投`
+  - `月下美人` 优先级高于描述中偶发的 `海鱸`，不能因为可兼顾海鲈就把系列主定位写成 `海鲈`。
+- 岸投大范围搜索：
+  - `OVERTHERE / DRAGGER / SLSJ / shore jig / surf / 港口 / 堤防 / 沙滩` -> `岸投`
+- 船钓：
+  - `SALTIGA / OUTRAGE / LOWRESPONSE / SLJ / slow jig / light jig / jigging / KYOHGA / boat casting / casting model / GT / 鮪 / 白带鱼` -> `船钓`
+- 旅行：
+  - 子型号 `PIECES / 継数` 在 `3-10` 节之间 -> 加 `旅行`。
+  - `旅行` 是附加标签，不替代玩法标签，例如 `TATULA TRAVEL` -> `bass,旅行`，`CROSSBEAT SW` -> `岸投,旅行`。
+  - 只用明确多节证据或 `TRAVEL / MOBILE / LIBERALIST / CROSSBEAT / WILDERNESS / 多节 / 振出` 兜底。
+  - 不用泛泛的 `便携 / 携带` 触发，因为 2 节竿也可能这样描述。
+  - OCR 串列导致的 `PIECES=68 / 96 / 97 / 99 / 205` 这类异常值必须过滤，不能误判为 `旅行`。
+- 鳟鱼：
+  - `IPRIMI / trout / 鳟 / 管理场 / 溪流 / 渓流` -> `溪流`
+  - 如果同一主商品描述同时明确出现 `港口 / 沙滩 / 岸投` 等岸边场景，可以合并为 `溪流,岸投`，例如 `CROSSFIRE`。
+  - 不用裸 `stream` 作为溪流判断；`main stream / mainstream` 这类英文会在海鲈描述中出现，容易把 `morethan / LATEO` 误标为 `溪流`。
+
+复用到其他品牌时：
+
+- 先读品牌中间层，不要直接在最终 xlsx 里手填。
+- 优先在 item / 主商品级别写 `fit_style_tags`。
+- 如需利用子型号差异，先在脚本内根据 variant 推断，再合并为 item 标签；不要把该字段落到 `rod_detail`。
+- 导出脚本应优先读取中间层字段；缺失时才保守推断。
+- 只使用规范枚举，不能为某品牌临时发明新值。
+- 没有合适枚举时留空，不要为了填满而贴不相关标签。
+- 每次保存 xlsx 后恢复 `rod_detail` 底色。
+- 验证项：
+  - 非空值是否全部在枚举内。
+  - 是否还有旧值 `精细 / 泛用 / 障碍 / 远投` 残留。
+  - `rod.fit_style_tags` 列位置是否稳定。
+  - `rod_detail` 是否没有 `fit_style_tags`。
+  - 是否只改了主表 `fit_style_tags` 和必要的表头位置。
+  - `morethan / LATEO / LABRAX` 是否被误贴 `溪流`。
+  - `月下美人` 是否被描述里的兼顾目标鱼误贴 `海鲈`。
+  - 船钓铁板和 offshore casting 是否已使用 `船钓`，没有再留空或误贴岸投。
+  - `旅行` 是否只来自 3 节以上的有效节数或明确旅行/振出语义，没有被 OCR 串列节数误触发。
+
 ---
 
 ## 7. 白名单辅助站的真实用途

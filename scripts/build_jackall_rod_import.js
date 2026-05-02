@@ -458,6 +458,30 @@ function inferGuideUseHint(categoryKey, positioning) {
   return 'Bass 泛用：出線順暢、兼容多種線徑，軟餌、硬餌和搜索場景切換更自然。';
 }
 
+function inferFitStyleTags(item) {
+  const text = normalizeText([
+    item.category_key,
+    item.category_title,
+    item.model,
+    item.model_cn,
+    item.alias,
+    item.description,
+    item.feature_text,
+    ...(item.variants || []).flatMap((variant) => Object.values(variant.fields || {})),
+  ].join(' ')).toLowerCase();
+  const tags = /nazzy|ナジー|鯰|catfish/.test(text) ? ['岸投'] : ['bass'];
+  const hasThreePlus = (item.variants || []).some((variant) => {
+    const pieces = normalizeText(variant.fields?.PIECES);
+    const match = pieces.match(/\b([3-9]|10)\b/);
+    return match && Number(match[1]) >= 3;
+  });
+  const hasTwoPieceOnly = /\b2[- ]?(?:pc|pcs|piece)\b|\btwo[- ]piece\b|2\s*(?:ピース|本|節|节)/.test(text);
+  if (hasThreePlus || (/\btravel\b|\bmobile\b|\bpack\s*rod\b|\bmulti[- ]?piece\b|パック|モバイル|テレスコ|telescopic|多节|多節|振出|旅行|便携|携帯/i.test(text) && !hasTwoPieceOnly)) {
+    tags.push('旅行');
+  }
+  return ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'].filter((tag) => tags.includes(tag)).join(',');
+}
+
 function parseProductDetail($, source) {
   const rawModel = normalizeText($('h1 .title-main').first().text()) || source.listing_model || source.category_title;
   const model = cleanModelTitle(rawModel);
@@ -529,6 +553,8 @@ async function buildWorkbook(normalized) {
       .filter((value, index, arr) => arr.indexOf(value) === index)
       .join(' / ');
     const isNamazu = item.category_key === 'nazzy-choice';
+    const fitStyleTags = item.fit_style_tags || inferFitStyleTags(item);
+    item.fit_style_tags = fitStyleTags;
 
     rodRows.push(
       rowFromHeaders(HEADERS.rodMaster, {
@@ -539,6 +565,7 @@ async function buildWorkbook(normalized) {
         model_year: item.model_year,
         alias: item.alias,
         type_tips: item.category_title || 'ROD',
+        fit_style_tags: fitStyleTags,
         images: imageUrl,
         series_positioning: officialEnvironment(item.category_key),
         main_selling_points: item.description.split('。').slice(0, 2).join('。').slice(0, 220),

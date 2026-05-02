@@ -42,6 +42,114 @@ const detailRows = [];
 
 let rodIdCounter = 1000;
 let detailIdCounter = 10000;
+const ROD_FIT_STYLE_TAGS = ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'];
+
+function normalizeText(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+function addTag(tags, tag) {
+    if (ROD_FIT_STYLE_TAGS.includes(tag) && !tags.includes(tag)) tags.push(tag);
+}
+
+function mergeFitStyleTags(values) {
+    const tags = [];
+    for (const value of values) {
+        for (const raw of String(value || '').split(',')) {
+            addTag(tags, raw.trim());
+        }
+    }
+    return ROD_FIT_STYLE_TAGS.filter((tag) => tags.includes(tag)).join(',');
+}
+
+function parsePieces(value) {
+    const match = String(value || '').match(/\d+(?:\.\d+)?/);
+    return match ? Number(match[0]) : null;
+}
+
+function hasTravelContext(item) {
+    const specs = item.specs || {};
+    const pieceValues = [
+        specs['継数'],
+        specs.PIECES,
+        specs.pieces,
+        specs.Piece,
+        specs.piece,
+    ];
+    if (pieceValues.some((value) => {
+        const pieces = parsePieces(value);
+        return pieces && pieces > 2;
+    })) {
+        return true;
+    }
+
+    const seriesModelText = normalizeText([
+        item.series_name,
+        item.model_name,
+    ].join(' '));
+    if (/triza|world expedition|huntsman|mountain stream/.test(seriesModelText)) {
+        return true;
+    }
+
+    const contextText = normalizeText([
+        item.series_name,
+        item.series_description,
+        item.model_name,
+        item.description_en,
+    ].join(' '));
+    return /multi[- ]?piece|pack rod|パック|モバイル/.test(contextText);
+}
+
+function finishFitStyleTags(tags, item) {
+    if (hasTravelContext(item)) addTag(tags, '旅行');
+    return mergeFitStyleTags(tags);
+}
+
+function inferFitStyleTags(item) {
+    const text = normalizeText([
+        item.series_name,
+        item.category,
+        item.series_description,
+        item.model_name,
+        item.description_en,
+    ].join(' '));
+    const category = normalizeText(item.category);
+    const seriesName = normalizeText(item.series_name);
+    const tags = [];
+
+    if (/tracking buddy|downrigger|lead core|lake trolling|レイクトローリング/.test(text)) {
+        addTag(tags, '船钓');
+        return finishFitStyleTags(tags, item);
+    }
+
+    if (/valkyrie world expedition/.test(seriesName)) {
+        addTag(tags, 'bass');
+        addTag(tags, '岸投');
+        return finishFitStyleTags(tags, item);
+    }
+
+    if (category === 'bass rod') {
+        addTag(tags, 'bass');
+        return finishFitStyleTags(tags, item);
+    }
+
+    if (category === 'trout rod' || /greathunting|great hunting/.test(seriesName)) {
+        addTag(tags, '溪流');
+        return finishFitStyleTags(tags, item);
+    }
+
+    if (/trout rod|trout|渓流|鱒/.test(text)) {
+        addTag(tags, '溪流');
+        return finishFitStyleTags(tags, item);
+    }
+
+    if (/bass rod|bass/.test(text)) {
+        addTag(tags, 'bass');
+        return finishFitStyleTags(tags, item);
+    }
+
+    return '';
+}
 
 // Group by series_name
 const seriesMap = new Map();
@@ -59,9 +167,12 @@ for (const item of data) {
             category: item.category,
             series_description: item.series_description || '',
             image: item.local_image_path || (item.images && item.images.length > 0 ? item.images[0] : ''),
+            fit_style_tags: [],
             models: []
         });
     }
+    const inferredFitTags = item.fit_style_tags || inferFitStyleTags(item);
+    seriesMap.get(item.series_name).fit_style_tags.push(inferredFitTags);
     seriesMap.get(item.series_name).models.push(item);
 }
 
@@ -75,6 +186,7 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
         'alias': '',
         'Description': seriesInfo.series_description,
         'type_tips': '',
+        'fit_style_tags': mergeFitStyleTags(seriesInfo.fit_style_tags),
         'images': seriesInfo.image,
         'created_at': '',
         'updated_at': ''

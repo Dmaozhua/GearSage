@@ -36,10 +36,147 @@ const detailRows = [];
 
 let rodIdCounter = 1000;
 let detailIdCounter = 10000;
+const ROD_FIT_STYLE_TAGS = ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'];
+
+function normalizeText(value) {
+    return String(value || '')
+        .replace(/[\uff01-\uff5e]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+        .replace(/\u3000/g, ' ')
+        .toLowerCase();
+}
+
+function hasAny(text, patterns) {
+    return patterns.some((pattern) => new RegExp(pattern, 'i').test(text));
+}
+
+function addTag(tags, tag) {
+    if (tag && !tags.includes(tag)) tags.push(tag);
+}
+
+function piecesFromRaw(raw) {
+    const value = raw['継数'] || raw['継数（本）'] || raw['継数(本)'] || raw.PIECES || '';
+    const pieces = Number.parseFloat(String(value).replace(/[^\d.]/g, ''));
+    return Number.isFinite(pieces) ? pieces : 0;
+}
+
+function isTravelRod(text, raw) {
+    const pieces = piecesFromRaw(raw || {});
+    if (pieces >= 3 && pieces <= 10) return true;
+    if (pieces) return false;
+    return hasAny(text, ['travel', 'mobile', 'liberalist', 'crossbeat', 'wilderness', '多節', '多节', '振出']);
+}
+
+function inferFitStyleTags(item, variant, rodType, power, raw) {
+    const model = normalizeText(item.model_name);
+    const sku = normalizeText(variant.variant_name);
+    const desc = normalizeText(`${item.series_description || ''} ${variant.variant_description || ''}`);
+    const text = `${model} ${sku} ${desc}`;
+    const lengthM = Number.parseFloat(String(raw['全長（m）'] || raw['全長(m)'] || '').replace(/[^\d.]/g, ''));
+    const lureText = normalizeText(`${raw['ルアー重量（ｇ）'] || ''} ${raw['ルアー重量（g）'] || ''} ${raw['ルアー重量(g)'] || ''}`);
+    const tags = [];
+    const travel = isTravelRod(text, raw);
+
+    function done() {
+        if (travel) addTag(tags, '旅行');
+        return ROD_FIT_STYLE_TAGS.filter((tag) => tags.includes(tag)).join(',');
+    }
+
+    const bass = hasAny(text, ['steez', 'tatula', 'black label', 'heartland', 'airedge', 'vertice', 'wilderness']);
+    if (bass) {
+        addTag(tags, 'bass');
+        return done();
+    }
+
+    if (hasAny(text, ['trout', 'iprimi', 'silver creek', 'purelist', 'wise stream', 'lochmor', '鱒', '渓流', '溪流', '管理場', '管理场'])) {
+        addTag(tags, '溪流');
+        if (hasAny(text, ['岸投', '岸拋', '岸抛', '堤防', '港口', '沙灘', '沙滩', 'surf'])) {
+            addTag(tags, '岸投');
+        }
+        return done();
+    }
+
+    if (hasAny(text, ['月下美人', 'ajing', 'mebaru', 'アジング', 'メバル', '竹莢', '竹荚'])) {
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['morethan', 'lateo', 'labrax', 'seabass', 'シーバス', '海鱸', '海鲈'])) {
+        addTag(tags, '海鲈');
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['hardrock', 'rockfish', '根魚', '根鱼', '岩魚', '岩鱼'])) {
+        addTag(tags, '根钓');
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['emeraldas', 'eging', 'エギ', '木蝦', '木虾', '烏賊', '乌贼'])) {
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['silver wolf', 'chining', '黒鯛', '黑鯛', '黑鲷'])) {
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['overthere', 'dragger', 'slsj', 'shore jig', 'shorejig', 'サーフ', 'surf'])) {
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['shore', '岸投', '岸拋', '岸抛', '堤防', '港口'])) {
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    if (hasAny(text, ['saltiga', 'outrage', 'lowresponse', 'slj', 'slow jig', 'light jig', 'jigging', '鏡牙', 'kyohga', '船釣', '船钓', '船拋', '船抛', 'boat casting', 'casting model', 'diving pencil', 'popper', 'stickbait', 'gt', '鮪', '吞拿', '白帶魚', '白带鱼'])) {
+        addTag(tags, '船钓');
+        return done();
+    }
+
+    if (hasAny(text, ['crossfire', 'crossbeat', 'mobile', 'travel', 'liberalist'])) {
+        addTag(tags, '岸投');
+        return done();
+    }
+
+    return done();
+}
+
+function mergeFitStyleTags(values) {
+    const tags = [];
+    for (const value of values) {
+        for (const tag of String(value || '').split(',')) {
+            const clean = tag.trim();
+            if (ROD_FIT_STYLE_TAGS.includes(clean) && !tags.includes(clean)) {
+                tags.push(clean);
+            }
+        }
+    }
+    return ROD_FIT_STYLE_TAGS.filter((tag) => tags.includes(tag)).join(',');
+}
 
 for (const item of filteredData) {
     const currentRodId = `DR${rodIdCounter++}`;
     const existingRod = existingRodByModel.get(item.model_name) || {};
+    const inferredItemTags = inferFitStyleTags(item, { variant_name: '', variant_description: '' }, '', '', {});
+    const itemFitTags = item.fit_style_tags || mergeFitStyleTags([inferredItemTags].concat((item.variants || []).map((v) => {
+        const raw = v.raw_specs || {};
+        let code = v.variant_name.toUpperCase();
+        code = code.replace(/[\uff01-\uff5e]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0)).replace(/\u3000/g, ' ');
+        const typeMatch = code.match(/(?:^|[^A-Z])([CS])\d{2,4}/);
+        const rodType = typeMatch ? typeMatch[1] : code.endsWith('B') || code.includes('B-') || code.includes('B・') || code.includes('BAIT') ? 'C' : 'S';
+        const powerBase = "(?:X{1,3}UL|S{1,2}UL|X{1,3}H|ML|MH|UL|M|H|L)";
+        const powerRegexAfter = new RegExp(`\\d{1,4}T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)`);
+        const powerRegexBefore = new RegExp(`(?:^|\\s|\\b)T?((${powerBase})(?:\\+)?(?:\\/(?:${powerBase})(?:\\+)?)?)\\s*-?\\s*\\d{2,4}`);
+        const pMatchAfter = code.match(powerRegexAfter);
+        const pMatchBefore = code.match(powerRegexBefore);
+        const parsedPower = pMatchAfter ? pMatchAfter[1] : pMatchBefore ? pMatchBefore[1] : '';
+        return v.fit_style_tags || inferFitStyleTags(item, v, rodType, parsedPower, raw);
+    })));
+    const existingFitTags = mergeFitStyleTags([existingRod.fit_style_tags]);
     
     let modelYear = '';
     const yearMatch = item.model_name.match(/(?:19|20)\d{2}/);
@@ -69,6 +206,7 @@ for (const item of filteredData) {
         'model_year': existingRod.model_year || modelYear,
         'alias': existingRod.alias || '',
         'type_tips': existingRod.type_tips || '',
+        'fit_style_tags': existingFitTags || itemFitTags,
         'images': existingRod.images || item.local_image_path || item.main_image_url || ''
     });
     

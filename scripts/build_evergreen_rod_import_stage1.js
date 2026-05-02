@@ -413,6 +413,50 @@ function typeTipsFromType(type) {
   return '';
 }
 
+function formatFitStyleTags(tags) {
+  const order = ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'];
+  return order.filter((tag) => tags.includes(tag)).join(',');
+}
+
+function hasTravelContext(text, specs = {}) {
+  const pieces = normalizeText(specs['継数'] || specs['継数（本）'] || specs.PIECES || specs.pieces);
+  const match = pieces.match(/\b([3-9]|10)\b/);
+  if (match && Number(match[1]) >= 3) return true;
+  const hasTwoPieceOnly = /\b2[- ]?(?:pc|pcs|piece)\b|\btwo[- ]piece\b|2\s*(?:ピース|本|節|节)/.test(text);
+  return /\btravel\b|\bmobile\b|\bpack\s*rod\b|\bmulti[- ]?piece\b|パック|モバイル|テレスコ|telescopic|多节|多節|振出|旅行|便携|携帯/i.test(text) && !hasTwoPieceOnly;
+}
+
+function inferFitStyleTags(product, item) {
+  const text = normalizeText([
+    product.model,
+    product.category_title,
+    product.entry_kind,
+    product.source_url,
+    item.description,
+    item.player?.environment,
+    item.player?.positioning,
+    item.player?.selling,
+    item.player?.guideUse,
+    ...Object.values(item.specs || {}),
+  ].join(' ')).toLowerCase();
+  const tags = [];
+
+  if (/slow pitch|offshore jigging|light jigging|micro jigging|tairaba|casting tairaba|deep eging|tip-run|船钓|船釣|オフショア/.test(text)) {
+    tags.push('船钓');
+    if (hasTravelContext(text, item.specs)) tags.push('旅行');
+    return formatFitStyleTags(tags);
+  }
+  if (/trout|鱒|鳟|エリア|渓流|溪流|stream/.test(text)) tags.push('溪流');
+  else if (/seabass|シーバス|海鱸|海鲈|zephyr|zags/.test(text)) tags.push('海鲈', '岸投');
+  else if (/rockfish|根魚|根鱼/.test(text)) tags.push('根钓', '岸投');
+  if (/mebaring|ajing|light game|ライトゲーム|salt|ソルティ|eging|エギ|木蝦|木虾|スキッドロウ/.test(text)) {
+    if (!tags.includes('根钓')) tags.push('岸投');
+  }
+  if (!tags.length) tags.push('bass');
+  if (hasTravelContext(text, item.specs)) tags.push('旅行');
+  return formatFitStyleTags(tags);
+}
+
 function pickMainImage($, pageUrl) {
   const officialProduct = [];
   $('img[src]').each((_, img) => {
@@ -881,6 +925,7 @@ async function buildImportRows(products) {
       oldMainSellingPoints && !isModelOnlyText(oldMainSellingPoints, product.model)
         ? oldMainSellingPoints
         : summarizeOfficialDescription(modelDescription, product.model);
+    const fitStyleTags = normalizeText(oldRod.fit_style_tags) || inferFitStyleTags(product, item);
     rodRows.push({
       id: rodId,
       brand_id: BRAND_ID,
@@ -889,6 +934,7 @@ async function buildImportRows(products) {
       model_year: oldRod.model_year || '',
       alias: oldRod.alias || '',
       type_tips: item.type_tips,
+      fit_style_tags: fitStyleTags,
       images: image,
       created_at: oldRod.created_at || '',
       updated_at: oldRod.updated_at || '',
@@ -955,6 +1001,7 @@ async function buildImportRows(products) {
       source_url: product.source_url,
       category_url: product.category_url,
       entry_kind: product.entry_kind,
+      fit_style_tags: fitStyleTags,
       main_image_url: product.main_image_url,
       images: image,
       description: item.description,

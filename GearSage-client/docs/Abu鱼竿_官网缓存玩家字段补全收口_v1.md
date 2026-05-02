@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：Abu Garcia rods 阶段性收口  
-更新时间：2026-04-29  
+更新时间：2026-05-01  
 
 ---
 
@@ -33,6 +33,7 @@
 - `rod.images`：`41 / 41`
 - `rod.Description`：`41 / 41`
 - `rod.official_reference_price`：`41 / 41`
+- `rod.fit_style_tags`：`40 / 41`
 - `rod.player_positioning`：`41 / 41`
 - `rod.player_selling_points`：`41 / 41`
 - `rod_detail.Description`：`205 / 205`
@@ -83,7 +84,8 @@ Abu rods 已经完成：
 11. `guide_use_hint` 表达去模板化收口
 12. evidence / report sidecar JSON 输出
 13. `rod_detail` 分组底色恢复
-14. 最终字段覆盖验证
+14. `rod.fit_style_tags` 主表筛选标签补充
+15. 最终字段覆盖验证
 
 后续原则：
 
@@ -131,6 +133,7 @@ node scripts/build_abu_rod_import.js --stage=export
 - 默认 `all` 会重新抓取并重建导入表。
 - 进入人工检查和玩家字段补全阶段后，不应随便重跑 `export`。
 - 如果必须重跑，要先确认后续定点补充脚本都能重新 apply。
+- 当前 `--stage=export` 已会从中间层 `item.fit_style_tags` 写入 `rod.fit_style_tags`。
 
 ### 3.2 玩家字段和官网特征补全
 
@@ -369,7 +372,54 @@ node scripts/refine_abu_rod_player_fields_stage4.js
 - `player_selling_points` 写具体使用价值，例如低弹道入障、控松线、短咬缓冲、贴障控鱼、软硬饵切换。
 - Beast spinning 不写成重型大饵；普通 H / XH Fast 不因为 power 强自动写 Big Bait。
 
-### 3.7 分组底色恢复
+### 3.7 fit_style_tags 主表筛选标签补充
+
+规范来源：
+
+- [装备库_fit_style_tags_枚举与填表规范_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备库_fit_style_tags_枚举与填表规范_v1.md)
+- 当前按 v1.2 枚举执行，rod 允许值包含 `旅行`。
+
+脚本：
+
+- [apply_abu_rod_fit_style_tags_stage6.py](/Users/tommy/GearSage/scripts/apply_abu_rod_fit_style_tags_stage6.py)
+
+作用：
+
+- 给 `abu_rods_normalized.json` 写入 item 级 `fit_style_tags`。
+- 清理 variant 级误写的 `fit_style_tags`。
+- 给当前 `abu_rod_import.xlsx / rod` 主表增加并填写 `fit_style_tags`。
+- 确认 `rod_detail` 不包含 `fit_style_tags`。
+- 保存 xlsx 后恢复 `rod_detail` 分组底色。
+
+运行方式：
+
+```bash
+python3 scripts/apply_abu_rod_fit_style_tags_stage6.py
+```
+
+当前结果：
+
+- `abu_rods_normalized.json item.fit_style_tags`：`40 / 41`
+- `abu_rods_normalized.json variant.fit_style_tags`：`0`
+- `abu_rod_import.xlsx / rod.fit_style_tags`：`40 / 41`
+- `abu_rod_import.xlsx / rod_detail.fit_style_tags`：不存在
+- 值分布：
+  - `bass`：`38`
+  - `bass,旅行`：`2`
+  - 空值：`1`
+- 非空值全部在规范枚举内。
+- 报告：
+  - [abu_rod_fit_style_tags_stage6_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_rod_fit_style_tags_stage6_report.json)
+
+填写口径：
+
+- Abu 当前导入主型号大多是淡水 bass 体系，主表写 `bass`。
+- Beast 系列官网 Description 明确包含 “swimbaits for bass”，因此主表写 `bass`；其中 muskie / pounder 大饵细分留在 `recommended_rig_pairing`、`guide_use_hint` 和玩家字段，不新增枚举。
+- v1.2 中 `旅行` 只用于 2 节以上且不包含 2 节的多节鱼竿；当前只给带 3-piece SKU 的 `Ike Signature Finesse Spinning Rod` 和 `Ike Signature Power Casting Rod` 写 `bass,旅行`。
+- `Vendetta® Ice Spinning Rod` 是冰钓短竿，当前 rod 枚举没有 ice / 冰钓，不为了覆盖率硬贴 `bass`，保留空值。
+- `fit_style_tags` 只落 item / rod 主表，不落 `rod_detail`。
+
+### 3.8 分组底色恢复
 
 脚本：
 
@@ -561,7 +611,7 @@ for (const sheet of ['rod','rod_detail']) {
   const rows=XLSX.utils.sheet_to_json(wb.Sheets[sheet],{defval:''});
   console.log(sheet, rows.length);
   const fields=sheet==='rod'
-    ? ['id','images','Description','official_reference_price','player_positioning','player_selling_points']
+    ? ['id','images','Description','official_reference_price','fit_style_tags','player_positioning','player_selling_points']
     : ['id','rod_id','SKU','TYPE','POWER','TOTAL LENGTH','Action','PIECES','Line Wt N F','Market Reference Price','AdminCode','guide_layout_type','guide_use_hint','Grip Type','Reel Seat Position','player_environment','player_positioning','player_selling_points','Description'];
   for (const f of fields) {
     console.log(f, rows.filter(r=>String(r[f]??'').trim()).length+'/'+rows.length);

@@ -34,6 +34,7 @@
 - [apply_dstyle_rod_recommended_rig_pairing_stage1.py](/Users/tommy/GearSage/scripts/apply_dstyle_rod_recommended_rig_pairing_stage1.py)
 - [refine_dstyle_rod_usage_fields_stage2.py](/Users/tommy/GearSage/scripts/refine_dstyle_rod_usage_fields_stage2.py)
 - [refine_dstyle_rod_player_fields_stage3.py](/Users/tommy/GearSage/scripts/refine_dstyle_rod_player_fields_stage3.py)
+- [apply_dstyle_rod_fit_style_tags_stage4.py](/Users/tommy/GearSage/scripts/apply_dstyle_rod_fit_style_tags_stage4.py)
 - [shade_dstyle_rod_detail_groups.py](/Users/tommy/GearSage/scripts/shade_dstyle_rod_detail_groups.py)
 
 当前结果：
@@ -41,6 +42,7 @@
 - 主商品：`6`
 - 子型号：`53`
 - `rod.images`：`6 / 6`
+- `rod.fit_style_tags`：`6 / 6`
 - `rod.Description`：`6 / 6`
 - `rod_detail.SKU`：`53 / 53`
 - `rod_detail.TYPE`：`53 / 53`
@@ -97,7 +99,8 @@ Dstyle 官网 rod 数据分三类结构：
 10. 分阶段写入 `recommended_rig_pairing`。
 11. 按子型号描述复核并精修 `guide_use_hint` 和 `recommended_rig_pairing`。
 12. 按玩家视角精修 `player_environment / player_positioning / player_selling_points`。
-13. 做字段覆盖、重复 SKU、串行/串列、图片、底色和用法一致性验证。
+13. 在中间层主表和导入主表新增 `fit_style_tags`。
+14. 做字段覆盖、重复 SKU、串行/串列、图片、底色和用法一致性验证。
 
 ---
 
@@ -150,6 +153,22 @@ python3 scripts/shade_dstyle_rod_detail_groups.py
 - 写入后生成：
   - [dstyle_rod_recommended_rig_pairing_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/dstyle_rod_recommended_rig_pairing_report.json)
   - [dstyle_rod_usage_fields_stage2_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/dstyle_rod_usage_fields_stage2_report.json)
+
+fit style tags 阶段脚本：
+
+```bash
+python3 scripts/apply_dstyle_rod_fit_style_tags_stage4.py
+```
+
+作用：
+
+- 给 `dstyle_rod_normalized.json` 写入 item 级 `fit_style_tags`。
+- 清理 variant 级误写的 `fit_style_tags`。
+- 给当前 `dstyle_rod_import.xlsx / rod` 主表增加并填写 `fit_style_tags`。
+- 确认 `rod_detail` 不包含 `fit_style_tags`。
+- 写入后恢复 `rod_detail` 底色。
+- 写入后生成：
+  - [dstyle_rod_fit_style_tags_stage4_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/dstyle_rod_fit_style_tags_stage4_report.json)
 
 ---
 
@@ -377,7 +396,50 @@ python3 scripts/shade_dstyle_rod_detail_groups.py
 
 ---
 
-## 9. 当前最终验证命令
+## 9. fit_style_tags stage4 收口
+
+规范来源：
+
+- [装备库_fit_style_tags_枚举与填表规范_v1.md](/Users/tommy/GearSage/GearSage-client/docs/装备库_fit_style_tags_枚举与填表规范_v1.md)
+
+脚本：
+
+```bash
+python3 scripts/apply_dstyle_rod_fit_style_tags_stage4.py
+```
+
+报告：
+
+- [dstyle_rod_fit_style_tags_stage4_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/dstyle_rod_fit_style_tags_stage4_report.json)
+
+字段位置：
+
+- `rod.type_tips`
+- `rod.fit_style_tags`
+- `rod.images`
+
+当前结果：
+
+- `dstyle_rod_normalized.json item.fit_style_tags`：`6 / 6`
+- `dstyle_rod_normalized.json variant.fit_style_tags`：`0`
+- `dstyle_rod_import.xlsx / rod.fit_style_tags`：`6 / 6`
+- `dstyle_rod_import.xlsx / rod_detail.fit_style_tags`：不存在
+- 非空值：全部为 `bass`
+- 非空值全部在规范枚举内。
+- v1.2 新增枚举 `旅行` 已纳入脚本允许值。
+- 旧值 `精细 / 泛用 / 障碍 / 远投` 残留：`0`
+- `rod_detail` 底色已恢复。
+
+判断口径：
+
+- Dstyle 当前 6 个主商品均为淡水 Bass rod，因此主表基础标签统一写 `bass`。
+- `旅行` 仅用于 2 节以上且不包含 2 节的多节鱼竿；`BLUE TREK 2 Piece` 是 2 节便携，不写 `旅行`。
+- 细分精细、泛用、障碍、远投、中层游动、大饵等信息留在 `recommended_rig_pairing`、`guide_use_hint` 和玩家字段中，不写入 `fit_style_tags`。
+- `fit_style_tags` 只落 item / rod 主表，不落 `rod_detail`。
+
+---
+
+## 10. 当前最终验证命令
 
 字段覆盖：
 
@@ -391,7 +453,7 @@ for s in ['rod', 'rod_detail']:
     h = [c.value for c in ws[1]]
     idx = {x:i for i,x in enumerate(h)}
     print(s, ws.max_row - 1)
-    fields = ['id','brand_id','model','images','Description','player_positioning','player_selling_points'] if s == 'rod' else [
+    fields = ['id','brand_id','model','fit_style_tags','images','Description','player_positioning','player_selling_points'] if s == 'rod' else [
         'id','rod_id','SKU','TYPE','POWER','TOTAL LENGTH','Action','WEIGHT',
         'LURE WEIGHT (oz)','Line Wt N F','PE Line Size','Market Reference Price',
         'AdminCode','guide_layout_type','guide_use_hint','recommended_rig_pairing','player_environment',
@@ -420,12 +482,12 @@ PY
 脚本检查：
 
 ```bash
-python3 -m py_compile scripts/build_dstyle_rod_import.py scripts/apply_dstyle_rod_recommended_rig_pairing_stage1.py scripts/refine_dstyle_rod_usage_fields_stage2.py scripts/refine_dstyle_rod_player_fields_stage3.py scripts/shade_dstyle_rod_detail_groups.py scripts/validate_rod_usage_consistency.py
+python3 -m py_compile scripts/build_dstyle_rod_import.py scripts/apply_dstyle_rod_recommended_rig_pairing_stage1.py scripts/refine_dstyle_rod_usage_fields_stage2.py scripts/refine_dstyle_rod_player_fields_stage3.py scripts/apply_dstyle_rod_fit_style_tags_stage4.py scripts/shade_dstyle_rod_detail_groups.py scripts/validate_rod_usage_consistency.py
 ```
 
 ---
 
-## 10. 当前不应继续做的事
+## 11. 当前不应继续做的事
 
 - 不应把 tackledb / rods.jp / rodsearch 信息写成 official 字段。
 - 不应为补满 `AdminCode` 给 `DEHIGHRO GRANDEE Spec` 猜 JAN。
@@ -434,10 +496,12 @@ python3 -m py_compile scripts/build_dstyle_rod_import.py scripts/apply_dstyle_ro
 - 不应再把图片规格表当作“官网无规格”处理。
 - 不应把一个型号页的 `recommended_rig_pairing` 套给同页所有子型号。
 - 不应因为 `MH / H` power 自动写 `Big Bait`。
+- 不应把 `fit_style_tags` 写到 `rod_detail`。
+- 不应为 rod `fit_style_tags` 临时发明 `精细 / 泛用 / 障碍 / 远投` 等旧值。
 
 ---
 
-## 11. 后续如需继续增强
+## 12. 后续如需继续增强
 
 可以考虑：
 
