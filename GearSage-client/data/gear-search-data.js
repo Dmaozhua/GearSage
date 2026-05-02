@@ -5337,7 +5337,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1013",
-    "name": "2025 【2025.01追加型號】HEARTLAND LIBERALIST 25 STEEZ TRAVEL",
+    "name": "2025 【2025.01追加】HEARTLAND LIBERALIST 25 STEEZ TRAVEL",
     "alias": "【2025.01追加型號】HEARTLAND LIBERALIST",
     "type_tips": "",
     "system": "",
@@ -5348,7 +5348,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1014",
-    "name": "2025 【2025.01追加型號】EMERALDAS STOIST ST (外導環款) HEARTLAND LIBERALIST",
+    "name": "2025 【2025.01追加】EMERALDAS STOIST ST (外導環款) HEARTLAND LIBERALIST",
     "alias": "【2025.01追加型號】EMERALDAS STOIST ST (外導環款)",
     "type_tips": "",
     "system": "",
@@ -5359,7 +5359,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1015",
-    "name": "2024 【2024.12追加型號】STEEZ (直柄款) EMERALDAS STOIST ST（OUT GUIDE MODEL）",
+    "name": "2024 【2024.12追加】STEEZ (直柄款) EMERALDAS STOIST ST（OUT GUIDE MODEL）",
     "alias": "【2024.12追加型號】STEEZ (直柄款)",
     "type_tips": "",
     "system": "",
@@ -5370,7 +5370,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1016",
-    "name": "2024 【2024.12追加型號】STEEZ (槍柄款) STEEZ（SPINNING MODEL）",
+    "name": "2024 【2024.12追加】STEEZ (槍柄款) STEEZ（SPINNING MODEL）",
     "alias": "【2024.12追加型號】STEEZ (槍柄款)",
     "type_tips": "",
     "system": "",
@@ -5436,7 +5436,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1022",
-    "name": "2024 【2024.07追加型號】EMERALDAS STOIST RT EMERALDAS AIR",
+    "name": "2024 【2024.07追加】EMERALDAS STOIST RT EMERALDAS AIR",
     "alias": "【2024.07追加型號】EMERALDAS STOIST RT",
     "type_tips": "",
     "system": "",
@@ -5480,7 +5480,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1026",
-    "name": "2024 【2024追加型號】 OUTRAGE BR 24 鏡牙 AIR (KYOHGA AIR)",
+    "name": "2024 【2024追加】OUTRAGE BR 24 鏡牙 AIR (KYOHGA AIR)",
     "alias": "【2024追加型號】 OUTRAGE BR",
     "type_tips": "",
     "system": "",
@@ -5491,7 +5491,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1027",
-    "name": "2024 【2024追加型號】SALTIGA C (CASTING MODEL) OUTRAGE BR",
+    "name": "2024 【2024追加】SALTIGA C (CASTING MODEL) OUTRAGE BR",
     "alias": "【2024追加型號】SALTIGA C (CASTING MODEL)",
     "type_tips": "",
     "system": "",

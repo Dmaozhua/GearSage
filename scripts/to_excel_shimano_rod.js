@@ -160,6 +160,19 @@ function isPlaceholderDescription(text) {
     return !value || /^※本页面相关产品数据为禧玛诺自身产品对比/.test(value) || /^※关于导环规格变更/.test(value);
 }
 
+function stripModelPrefixFromSku(sku, model) {
+    const value = String(sku || '').trim();
+    const prefix = String(model || '').trim();
+    if (!value || !prefix || !value.startsWith(prefix)) {
+        return value;
+    }
+    const rest = value.slice(prefix.length);
+    if (!rest || (!/^\s/.test(rest) && !'-_/（(［['.includes(rest[0]))) {
+        return value;
+    }
+    return rest.replace(/^[-_/（(［[\s]+/, '').trim() || value;
+}
+
 for (const item of data) {
     const currentRodId = `SR${rodIdCounter++}`;
     const existingRod = existingRodByModel.get(item.model_name) || {};
@@ -229,7 +242,7 @@ for (const item of data) {
             'id': `SRD${detailIdCounter++}`,
             'rod_id': currentRodId,
             'TYPE': rodType, // S for Spinning, C for Casting
-            'SKU': v.variant_name,
+            'SKU': stripModelPrefixFromSku(v.variant_name, item.model_name),
             'TOTAL LENGTH': specs.total_length_m || '',
             'POWER': parsedPower,
             'Action': specs.action || '',
