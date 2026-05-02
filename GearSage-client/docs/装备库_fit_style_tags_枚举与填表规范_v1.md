@@ -1,9 +1,9 @@
-# 装备库 fit_style_tags 枚举与填表规范 v1.2
+# 装备库 fit_style_tags 枚举与填表规范 v1.3
 
-版本：v1.2  
+版本：v1.3  
 状态：新字段添加前施工口径  
 适用范围：`rate/excel` 装备主表、`GearSage-api` gear 筛选、`pkgGear` 筛选项  
-更新时间：2026-05-01
+更新时间：2026-05-02
 
 ---
 
@@ -57,7 +57,7 @@ fit_style_tags
 Excel 中使用逗号分隔多个标签：
 
 ```text
-精细,细线,海水
+精细,轻量,海鲈
 ```
 
 填写规则：
@@ -71,7 +71,7 @@ Excel 中使用逗号分隔多个标签：
 示例：
 
 ```text
-reel.fit_style_tags = 精细,细线
+reel.fit_style_tags = 精细,海水
 rod.fit_style_tags = bass,岸投
 line.fit_style_tags = 耐磨,高强度
 hook.fit_style_tags = 软饵,防挂
@@ -85,35 +85,113 @@ hook.fit_style_tags = 软饵,防挂
 
 适用于渔轮主型号。
 
+reel 不再使用一套统一枚举，按轮型拆分为水滴轮和纺车轮两套。
+
+字段仍统一填写在：
+
+```text
+fit_style_tags
+```
+
+前端和后端按 reel 的基础类型选择对应枚举：
+
+| reel type | 使用枚举 |
+|---|---|
+| `baitcasting` | `baitcasting_reel` |
+| `spinning` | `spinning_reel` |
+
+`drum` 鼓轮暂不纳入本轮筛选枚举；如后续数据量足够，再单独定义 `drum_reel`，不要直接混进水滴或纺车。
+
+枚举配置：
+
+```js
+const FIT_STYLE_TAG_ENUMS = {
+  baitcasting_reel: [
+    '精细',
+    '泛用',
+    '远投',
+    '强力',
+    '海水ok',
+    'bass'
+  ],
+
+  spinning_reel: [
+    '精细',
+    '泛用',
+    '远投',
+    '轻量',
+    '海鲈',
+    '岸投',
+    '近海'
+  ]
+}
+```
+
+#### 4.1.1 baitcasting_reel
+
+适用于水滴轮。
+
 允许值：
 
 ```text
 精细
 泛用
 远投
-重饵
-细线
 强力
 海水
+bass
 ```
 
 含义：
 
 | 枚举值 | 含义 |
 |---|---|
-| 精细 | 偏轻饵、细线、精细操作方向 |
-| 泛用 | 覆盖面较宽，适合作为常规主力轮理解 |
-| 远投 | 更偏长距离抛投、线杯容量或回收效率取向 |
-| 重饵 | 更偏大饵、重饵、重障碍或更高负载场景 |
-| 细线 | 更适合细线、浅杯或轻量线组方向 |
-| 强力 | 更偏高强度、耐用、较大负载方向 |
-| 海水 | 明确偏海水、SW、近岸或大物场景 |
+| 精细 | 偏 BFS、轻饵、细线、浅杯或精细操作方向 |
+| 泛用 | 覆盖面较宽，适合作为常规主力水滴轮理解 |
+| 远投 | 偏长距离抛投、远投调校、线杯启动和抛投稳定性 |
+| 强力 | 偏重饵、障碍、强控鱼、高刚性或较高负载方向 |
+| 海水 | 可以用于海水或具备明确海水适用性的水滴轮 |
+| bass | 偏 bass 路亚体系，覆盖常规 bass 水滴轮使用方向 |
 
 说明：
 
-- `海水` 统一替代旧的 `SW / 海水近岸 / 海水大物` 作为第一版筛选枚举。
-- `精细` 可覆盖旧的 `BFS / 轻饵精细` 方向。
-- `重饵` 和 `强力` 可以同时存在，但不要无依据地同时填写；前者偏饵重/用途，后者偏强度/负载。
+- `海水` 是正式枚举值，不使用 `海水ok`、`SW`、`海水近岸` 等非标准写法。
+- 水滴轮不再保留旧的 `重饵 / 细线` 作为独立筛选枚举；这两类判断并入 `强力 / 精细`。
+- `bass` 使用英文小写，和 rod 保持一致。
+
+#### 4.1.2 spinning_reel
+
+适用于纺车轮。
+
+允许值：
+
+```text
+精细
+泛用
+远投
+轻量
+海鲈
+岸投
+近海
+```
+
+含义：
+
+| 枚举值 | 含义 |
+|---|---|
+| 精细 | 偏小饵、细线、轻量钓组、细腻操作方向 |
+| 泛用 | 覆盖面较宽，适合作为常规主力纺车轮理解 |
+| 远投 | 偏远距离抛投、顺滑出线、长距离搜索 |
+| 轻量 | 偏轻量化机身、轻量竿轮搭配或长时间操作 |
+| 海鲈 | 偏海鲈、近岸硬饵、远投搜索等玩法 |
+| 岸投 | 偏岸边、堤岸、防波堤、滩涂等岸上作钓场景 |
+| 近海 | 偏近海、船钓、轻型海水或更高防护/负载场景 |
+
+说明：
+
+- 纺车轮不使用 `bass` 作为第一版筛选枚举；如果是淡水 bass 泛用纺车轮，优先填写 `泛用` 或 `精细`。
+- `海鲈 / 岸投 / 近海` 可以同时存在，但必须有明确定位依据，不用海水场景词凑标签。
+- `轻量` 只表示轻量化和搭配体验，不等同于 `精细`。
 
 ### 4.2 rod
 
@@ -209,7 +287,13 @@ bass
 
 前端筛选项应从对应类别的固定枚举生成。
 
-当前 `defData.js` 中 reel 的 `usageTags` 后续应调整为与 `reel.fit_style_tags` 枚举一致。
+当前 `defData.js` 中 reel 的 `usageTags` 后续不能再使用一套静态列表，而应按当前 reel 子类型切换：
+
+- 当前类型为 `baitcasting` 时，展示 `baitcasting_reel` 枚举。
+- 当前类型为 `spinning` 时，展示 `spinning_reel` 枚举。
+- 当前类型为 `drum` 时，暂不展示 `fit_style_tags` 筛选，或等 `drum_reel` 枚举明确后再开放。
+
+如果前端当前没有选中具体 reel 子类型，可以先不展示 `usageTags`，避免把水滴和纺车的筛选词混在一起。
 
 ### 5.2 后端
 
@@ -218,6 +302,12 @@ bass
 ```text
 fit_style_tags
 ```
+
+reel 筛选需要先根据 `gear_master.type` 判断使用哪套枚举：
+
+- `type = baitcasting` 使用 `baitcasting_reel`
+- `type = spinning` 使用 `spinning_reel`
+- `type = drum` 暂不参与本轮 `fit_style_tags` 筛选
 
 旧的运行时推导逻辑只作为兜底：
 
@@ -286,10 +376,10 @@ family / derived family
 
 | model | fit_style_tags |
 |---|---|
-| AIRITY ST | 精细,细线 |
-| SALTIGA | 海水,强力 |
-| TATULA SV TW | 泛用 |
-| ZILLION TW HD | 重饵,强力 |
+| AIRITY ST spinning | 精细,轻量 |
+| SALTIGA spinning | 近海 |
+| TATULA SV TW baitcasting | bass,泛用 |
+| ZILLION TW HD baitcasting | bass,强力 |
 
 ### rod
 
@@ -328,7 +418,8 @@ family / derived family
 3. `GearService` 是否优先读取显式 `fit_style_tags`。
 4. 导入脚本是否保留该字段到 `raw_json`。
 5. smoke test 是否覆盖：
-   - reel 按 `精细 / 海水` 筛选
+   - baitcasting reel 按 `bass / 海水 / 强力` 筛选
+   - spinning reel 按 `轻量 / 海鲈 / 近海` 筛选
    - rod 按 `bass / 根钓 / 船钓 / 旅行` 筛选
    - line 按 `耐磨 / 隐蔽` 筛选
    - hook 按 `软饵 / 防挂` 筛选
