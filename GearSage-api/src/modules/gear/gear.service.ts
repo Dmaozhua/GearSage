@@ -22,6 +22,7 @@ interface GearListQuery {
   options?: string | string[];
   brakeSys?: string | string[];
   usageTags?: string | string[];
+  type_tips?: string | string[];
 }
 
 interface GearDetailQuery {
@@ -575,7 +576,11 @@ export class GearService {
       return false;
     }
 
-    if (type === 'reels' && !this.matchesDerivedTags(type, item, query.usageTags)) {
+    if ((type === 'lines' || type === 'hooks') && fieldSupport.type_tips && !this.matchesField(item.type_tips, query.type_tips)) {
+      return false;
+    }
+
+    if ((type === 'reels' || type === 'rods') && !this.matchesDerivedTags(type, item, query.usageTags)) {
       return false;
     }
 
@@ -1087,17 +1092,26 @@ export class GearService {
       this.normalizeTextList(value).forEach(pushText);
     };
 
+    const explicitTagStart = values.length;
+    pushList(master.fit_style_tags);
+    pushList(master.fitStyleTags);
+    pushList(variant && variant.fit_style_tags);
+    pushList(variant && variant.fitStyleTags);
+    const hasExplicitTags = values.length > explicitTagStart;
+
     if (type === 'reels') {
-      this.buildReelDecisionTags(master, variant).forEach(pushText);
-      pushList(master.fit_style_tags);
-      pushList(master.fitStyleTags);
-      pushList(variant && variant.fit_style_tags);
-      pushList(variant && variant.fitStyleTags);
-      pushText(master.type_tips);
+      if (!hasExplicitTags) {
+        this.buildReelDecisionTags(master, variant).forEach(pushText);
+      }
+      if (!hasExplicitTags) {
+        pushText(master.type_tips);
+      }
     } else if (type === 'rods') {
-      pushText(master.type);
-      pushText(master.action);
-      pushText(master.type_tips);
+      if (!hasExplicitTags) {
+        pushText(master.type);
+        pushText(master.action);
+        pushText(master.type_tips);
+      }
     } else if (type === 'lines') {
       pushText(master.type_tips);
       pushText(master.alias);
@@ -1116,7 +1130,7 @@ export class GearService {
       pushText(variant.Action);
     }
 
-    return values.slice(0, 4);
+    return values;
   }
 
   private collectCompareWarnings(

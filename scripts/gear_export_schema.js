@@ -137,7 +137,7 @@ const SHEET_NAMES = {
 const HEADERS = {
     reelMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'type', 'images', 'created_at', 'updated_at',
+        'type_tips', 'fit_style_tags', 'type', 'images', 'created_at', 'updated_at',
         'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
         'Description', 'market_reference_price', 'player_positioning', 'player_selling_points',
     ],

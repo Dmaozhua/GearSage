@@ -12,17 +12,25 @@ module.exports = [
       {"type": "baitcasting", "name": "水滴"},
       {"type": "drum", "name": "鼓轮"}
     ],
-    "usageTags": [
-      {"type": "SW", "name": "SW"},
-      {"type": "海水近岸", "name": "海水近岸"},
-      {"type": "海水大物", "name": "海水大物"},
-      {"type": "淡水泛用", "name": "淡水泛用"},
-      {"type": "轻饵精细", "name": "轻饵精细"},
-      {"type": "重饵方向", "name": "重饵方向"},
-      {"type": "细线方向", "name": "细线方向"},
-      {"type": "快收方向", "name": "快收方向"},
-      {"type": "慢卷方向", "name": "慢卷方向"}
-    ],
+    "usageTagsByType": {
+      "baitcasting": [
+        {"type": "精细", "name": "精细"},
+        {"type": "泛用", "name": "泛用"},
+        {"type": "远投", "name": "远投"},
+        {"type": "强力", "name": "强力"},
+        {"type": "海水", "name": "海水"},
+        {"type": "bass", "name": "bass"}
+      ],
+      "spinning": [
+        {"type": "精细", "name": "精细"},
+        {"type": "泛用", "name": "泛用"},
+        {"type": "远投", "name": "远投"},
+        {"type": "轻量", "name": "轻量"},
+        {"type": "海鲈", "name": "海鲈"},
+        {"type": "岸投", "name": "岸投"},
+        {"type": "近海", "name": "近海"}
+      ]
+    },
     "options": [
       {"type": "stream", "name": "溪流"},
       {"type": "general", "name": "泛用"},
@@ -65,6 +73,15 @@ module.exports = [
   {"type": "long_cast", "name": "远投"},
   {"type": "versatile", "name": "泛用"},
   {"type": "finesse", "name": "精细"}
+]
+    ,"usageTags": [
+  {"type": "bass", "name": "bass"},
+  {"type": "溪流", "name": "溪流"},
+  {"type": "海鲈", "name": "海鲈"},
+  {"type": "根钓", "name": "根钓"},
+  {"type": "岸投", "name": "岸投"},
+  {"type": "船钓", "name": "船钓"},
+  {"type": "旅行", "name": "旅行"}
 ]
         ,"family": [],
     "derive_family_rods": []
@@ -178,6 +195,13 @@ module.exports = [
       {"id": 1, "name": "禧玛诺"},
       {"id": 2, "name": "达亿瓦"}
     ],
+    "type_tips": [
+      {"type": "PE", "name": "PE"},
+      {"type": "Nylon", "name": "Nylon"},
+      {"type": "Fluorocarbon", "name": "Fluorocarbon"},
+      {"type": "Ester", "name": "Ester"},
+      {"type": "Composite", "name": "Composite"}
+    ],
     "family": []
   },
   {
@@ -185,6 +209,19 @@ module.exports = [
     "id": 5,
     "brands": [
       {"id": 19, "name": "Gamakatsu"}
+    ],
+    "type_tips": [
+      {"type": "曲柄钩", "name": "曲柄钩"},
+      {"type": "直柄钩", "name": "直柄钩"},
+      {"type": "倒钓钩", "name": "倒钓钩"},
+      {"type": "Wacky/Neko钩", "name": "Wacky/Neko钩"},
+      {"type": "Swimbait钩", "name": "Swimbait钩"},
+      {"type": "铅头钩", "name": "铅头钩"},
+      {"type": "辅助挂钩", "name": "辅助挂钩"},
+      {"type": "圆钩", "name": "圆钩"},
+      {"type": "鲤鱼钩", "name": "鲤鱼钩"},
+      {"type": "组合装", "name": "组合装"},
+      {"type": "特种钩", "name": "特种钩"}
     ],
     "family": []
   }

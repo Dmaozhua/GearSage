@@ -28,7 +28,8 @@ const ACTIVE_FILTER_SUPPORT = {
   },
   rod: {
     brands: true,
-    types: false
+    types: false,
+    usageTags: true
   },
   lure: {
     brands: true,
@@ -37,15 +38,16 @@ const ACTIVE_FILTER_SUPPORT = {
     action: true
   },
   line: {
-    brands: true
+    brands: true,
+    type_tips: true
   },
   hook: {
-    brands: true
+    brands: true,
+    type_tips: true
   }
 };
 
 const MAX_KEYWORD_LENGTH = 30;
-const MULTI_SELECT_FILTER_KEYS = ['brands', 'water_column', 'action', 'brakeSys', 'options', 'usageTags'];
 
 Component({
   properties: {
@@ -188,11 +190,10 @@ Component({
       });
     },
 
-    loadFilters(type) {
+    buildFilters(type, selectedFilters = this.data.selectedFilters) {
       const typeConfig = defData.find((item) => item.type === type);
       if (!typeConfig) {
-        this.setData({ filters: [], selectedFilters: {} });
-        return;
+        return [];
       }
 
       const support = ACTIVE_FILTER_SUPPORT[type] || {};
@@ -217,10 +218,22 @@ Component({
         filters.push({ key: 'types', label: '类别', options: mapOptions(typeConfig.types, 'type', 'name') });
       }
 
-      if (type === 'reel') {
-        if (support.usageTags && typeConfig.usageTags) {
-          filters.push({ key: 'usageTags', label: '使用方向', options: mapOptions(typeConfig.usageTags, 'type', 'name') });
+      if (support.usageTags) {
+        let usageTagOptions = [];
+        if (type === 'reel') {
+          const reelType = this.resolveSelectedReelType(selectedFilters);
+          if (reelType && typeConfig.usageTagsByType && typeConfig.usageTagsByType[reelType]) {
+            usageTagOptions = mapOptions(typeConfig.usageTagsByType[reelType], 'type', 'name');
+          }
+        } else if (typeConfig.usageTags) {
+          usageTagOptions = mapOptions(typeConfig.usageTags, 'type', 'name');
         }
+        if (usageTagOptions.length > 0) {
+          filters.push({ key: 'usageTags', label: '使用方向', options: usageTagOptions });
+        }
+      }
+
+      if (type === 'reel') {
         if (support.options && typeConfig.options) {
           filters.push({ key: 'options', label: '功能特点', options: mapOptions(typeConfig.options, 'type', 'name') });
         }
@@ -241,11 +254,39 @@ Component({
         }
       }
 
+      if (type === 'line') {
+        if (support.type_tips && typeConfig.type_tips) {
+          filters.push({ key: 'type_tips', label: '线种', options: mapOptions(typeConfig.type_tips, 'type', 'name') });
+        }
+      }
+
+      if (type === 'hook') {
+        if (support.type_tips && typeConfig.type_tips) {
+          filters.push({ key: 'type_tips', label: '钩型', options: mapOptions(typeConfig.type_tips, 'type', 'name') });
+        }
+      }
+
       if (support.brands && resolvedBrandOptions.length > 0) {
         filters.push({ key: 'brands', label: '品牌', options: resolvedBrandOptions });
       }
 
-      this.setData({ filters, selectedFilters: {} });
+      return filters;
+    },
+
+    loadFilters(type) {
+      const typeConfig = defData.find((item) => item.type === type);
+      if (!typeConfig) {
+        this.setData({ filters: [], selectedFilters: {} });
+        return;
+      }
+
+      this.setData({ filters: this.buildFilters(type, {}), selectedFilters: {} });
+    },
+
+    resolveSelectedReelType(selectedFilters = this.data.selectedFilters) {
+      const value = selectedFilters && selectedFilters.types;
+      const reelType = Array.isArray(value) ? value[0] : value;
+      return reelType === 'baitcasting' || reelType === 'spinning' ? reelType : '';
     },
 
     toggleFilter() {
@@ -371,40 +412,21 @@ Component({
       const filterVal = val;
       const selectedFilters = { ...this.data.selectedFilters };
 
-      if (MULTI_SELECT_FILTER_KEYS.includes(key)) {
-        let currentVal = selectedFilters[key];
-        
-        if (filterVal === '') {
-          delete selectedFilters[key];
-        } else {
-          if (!Array.isArray(currentVal)) {
-            currentVal = [];
-          } else {
-            currentVal = [...currentVal];
-          }
-
-          const index = currentVal.indexOf(filterVal);
-          if (index > -1) {
-            currentVal.splice(index, 1);
-          } else {
-            currentVal.push(filterVal);
-          }
-
-          if (currentVal.length === 0) {
-            delete selectedFilters[key];
-          } else {
-            selectedFilters[key] = currentVal;
-          }
-        }
+      if (filterVal === '') {
+        delete selectedFilters[key];
+      } else if (selectedFilters[key] === filterVal) {
+        delete selectedFilters[key];
       } else {
-        if (filterVal === '') {
-          delete selectedFilters[key];
-        } else {
-          selectedFilters[key] = filterVal;
-        }
+        selectedFilters[key] = filterVal;
       }
 
-      this.setData({ selectedFilters });
+      const nextData = { selectedFilters };
+      if (this.data.mappedType === 'reel' && key === 'types') {
+        delete selectedFilters.usageTags;
+        nextData.filters = this.buildFilters(this.data.mappedType, selectedFilters);
+      }
+
+      this.setData(nextData);
       this.checkRecommendations();
     },
 
@@ -435,7 +457,11 @@ Component({
     },
 
     resetFilter() {
-      this.setData({ selectedFilters: {}, recommendations: [] });
+      this.setData({
+        selectedFilters: {},
+        filters: this.buildFilters(this.data.mappedType, {}),
+        recommendations: []
+      });
     },
 
     applyFilter() {

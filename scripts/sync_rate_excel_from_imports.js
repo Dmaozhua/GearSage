@@ -34,6 +34,7 @@ const MASTER_MERGE_POLICIES = {
             'alias',
             'images',
             'type_tips',
+            'fit_style_tags',
             'series_positioning',
             'main_selling_points',
             'official_reference_price',
@@ -50,6 +51,7 @@ const MASTER_MERGE_POLICIES = {
             'model_year',
             'alias',
             'type_tips',
+            'fit_style_tags',
             'images',
             'series_positioning',
             'main_selling_points',
@@ -713,7 +715,7 @@ function main() {
 
         writeSheet(targetPath, task.targetSheet, HEADERS[task.headerKey], rows);
 
-        if (task.mode === 'master_merge') {
+        if (task.mode === 'master_merge' || task.targetFile === 'line.xlsx') {
             masterStates.push({
                 targetFile: task.targetFile,
                 targetSheet: task.targetSheet,
@@ -763,6 +765,33 @@ function main() {
                 state.touchedPrefixes,
                 state.importedIds,
                 [{ file: 'rod_detail.xlsx', sheet: 'rod_detail', matchField: 'rod_id' }],
+            );
+            if (removed > 0) {
+                report.push({
+                    targetFile: state.targetFile,
+                    targetSheet: state.targetSheet,
+                    mode: 'master_prune',
+                    prefix: state.touchedPrefixes.join(','),
+                    sourceFile: '(post-sync)',
+                    sourceSheet: '(master cleanup)',
+                    before: 0,
+                    incoming: 0,
+                    replaced: 0,
+                    after: 0,
+                    touched: state.importedIds.size,
+                    appended: 0,
+                    removed,
+                });
+            }
+        }
+        if (state.targetFile === 'line.xlsx') {
+            const removed = pruneOrphanMasters(
+                state.targetFile,
+                state.targetSheet,
+                state.headerKey,
+                state.touchedPrefixes,
+                state.importedIds,
+                [{ file: 'line_detail.xlsx', sheet: 'line_detail', matchField: 'line_id' }],
             );
             if (removed > 0) {
                 report.push({

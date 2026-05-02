@@ -1644,7 +1644,7 @@ class ApiService {
 
   getGearList(params = {}) {
     const normalizedParams = { ...params };
-    ['brands', 'types', 'system', 'water_column', 'action', 'options', 'brakeSys'].forEach((key) => {
+    ['brands', 'types', 'system', 'water_column', 'action', 'options', 'brakeSys', 'usageTags', 'type_tips'].forEach((key) => {
       if (Array.isArray(normalizedParams[key])) {
         normalizedParams[key] = normalizedParams[key]
           .map((item) => String(item).trim())
