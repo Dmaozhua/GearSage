@@ -20,7 +20,7 @@ const CORE_FIELDS_BY_TYPE = {
   rods: ['SKU', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES', 'CLOSELENGTH'],
   lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook'],
   line: ['SKU', 'SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'COLOR', 'Market Reference Price'],
-  hook: ['sku', 'type', 'subType', 'size', 'quantityPerPack', 'coating']
+  hook: ['size', 'type', 'subType', 'quantityPerPack', 'coating']
 };
 
 const SPEC_GROUPS_BY_TYPE = {
@@ -71,8 +71,8 @@ const SPEC_GROUPS_BY_TYPE = {
     }
   ],
   hook: [
-    { title: '基础识别', fields: ['sku', 'type', 'subType'] },
-    { title: '核心规格', fields: ['size', 'quantityPerPack', 'coating', 'gapWidth'] },
+    { title: '基础识别', fields: ['size', 'type', 'subType'] },
+    { title: '核心规格', fields: ['quantityPerPack', 'coating', 'gapWidth'] },
     { title: '补充信息', fields: ['price', 'status', 'brand'] }
   ]
 };
@@ -350,6 +350,9 @@ Page({
   },
 
   resolveVariantName(variant, index) {
+    if (this.data.gearType === 'hook') {
+      return this.getFieldValue(variant, 'size') || this.getFieldValue(variant, 'sku') || `尺寸 ${index + 1}`;
+    }
     return this.getFieldValue(variant, 'SKU') || this.getFieldValue(variant, 'sku') || `子型号 ${index + 1}`;
   },
 
@@ -371,7 +374,9 @@ Page({
       pushPart('SIZE NO.');
       pushPart('MAX STRENGTH(lb)');
     } else if (this.data.gearType === 'hook') {
-      pushPart('size');
+      pushPart('type');
+      pushPart('subType');
+      pushPart('quantityPerPack');
       pushPart('coating');
     } else {
       pushPart('Length');
@@ -522,6 +527,8 @@ Page({
 
     return {
       columns,
+      firstColumn: columns[0] || null,
+      scrollColumns: columns.slice(1),
       selectedVariantKey: selectedVariant ? selectedVariant.__key : '',
       selectedVariant: selectedVariant || {},
       variantOptions: (variants || []).map((variant) => ({
@@ -541,16 +548,16 @@ Page({
   buildSectionCopy() {
     if (this.data.gearType === 'hook') {
       return {
-        variantTitle: '先看规格组合',
-        variantSubtitle: '先确认你要看的钩型、子类和尺寸组合，再回头读具体参数。',
+        variantTitle: '先选尺寸',
+        variantSubtitle: '鱼钩同一主商品通常主要按尺寸区分，先选尺寸，再看钩型、包装和涂层。',
         coreTitle: '核心规格',
-        coreSubtitle: '先看最影响选择的钩型、尺寸、涂层和包装数量，不用先读整张规格表。',
+        coreSubtitle: '先看尺寸、钩型、包装数量和涂层，不用先读整张规格表。',
         specTitle: '完整规格',
         specSubtitle: '以下按鱼钩决策顺序整理，先看类别，再看尺寸、涂层和包装信息。',
         insightTitle: 'GearSage 提示',
         insightSubtitle: '以下是帮助判断适用场景的解释性提示，不等同于厂家官方参数。',
         seriesTitle: '系列规格速览',
-        seriesSubtitle: '把同系列不同尺寸和子类先摊开看清，再决定要不要继续深看。'
+        seriesSubtitle: '把同系列不同尺寸先摊开看清，再决定要不要继续深看。'
       };
     }
 
@@ -889,6 +896,9 @@ Page({
     const columns = [];
 
     keys.forEach((key) => {
+      if (this.data.gearType === 'hook' && key === 'sku') {
+        return;
+      }
       if (!this.data.ignoredFields.includes(key)) {
         columns.push({
           key,
@@ -909,6 +919,17 @@ Page({
     ];
 
     columns.sort((a, b) => {
+      const hookOrder = ['size', 'type', 'subType', 'quantityPerPack', 'coating', 'gapWidth', 'price', 'status'];
+      if (this.data.gearType === 'hook') {
+        const hookIndexA = hookOrder.indexOf(a.key);
+        const hookIndexB = hookOrder.indexOf(b.key);
+        if (hookIndexA !== -1 && hookIndexB !== -1) return hookIndexA - hookIndexB;
+        if (hookIndexA !== -1) return -1;
+        if (hookIndexB !== -1) return 1;
+        if (a.key === 'sku') return 1;
+        if (b.key === 'sku') return -1;
+      }
+
       const indexA = preferredOrder.indexOf(a.key);
       const indexB = preferredOrder.indexOf(b.key);
 

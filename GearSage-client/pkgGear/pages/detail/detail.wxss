@@ -453,20 +453,96 @@ page {
   color: #d7e1e5;
 }
 
-.outer-scroll-x {
+.series-table-shell {
   width: 100%;
-  white-space: nowrap;
+  overflow: hidden;
+  border: 1rpx solid #e2e7e8;
+  border-radius: 16rpx;
+}
+
+.container.dark .series-table-shell {
+  border-color: #3d4448;
 }
 
 .inner-container {
   min-width: 100%;
-  display: inline-block;
+  display: block;
 }
 
 .inner-scroll-y {
   max-height: 70vh;
-  width: max-content;
+  width: 100%;
   min-width: 100%;
+}
+
+.series-table-layout {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+}
+
+.series-frozen-column {
+  position: relative;
+  z-index: 12;
+  flex: 0 0 180rpx;
+  width: 180rpx;
+  box-shadow: 10rpx 0 14rpx rgba(22, 34, 40, 0.08);
+}
+
+.container.dark .series-frozen-column {
+  box-shadow: 10rpx 0 14rpx rgba(0, 0, 0, 0.22);
+}
+
+.series-scroll-x {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.frozen-cell {
+  box-sizing: border-box;
+  height: 72rpx;
+  padding: 18rpx 16rpx;
+  border-bottom: 1rpx solid #e2e7e8;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #465e68;
+  background: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container.dark .frozen-cell {
+  border-bottom-color: #3d4448;
+  color: #d6e0e4;
+  background: #262c30;
+}
+
+.frozen-cell--head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  font-weight: 700;
+  background-color: #f3f6f6;
+  color: #24343b;
+  border-bottom: 2rpx solid #d8e0e2;
+}
+
+.container.dark .frozen-cell--head {
+  background-color: #30373b;
+  color: #edf2f4;
+  border-bottom-color: #495156;
+}
+
+.frozen-cell--active {
+  background: #eef4f6;
+}
+
+.container.dark .frozen-cell--active {
+  background: #334148;
 }
 
 .table {
@@ -506,17 +582,22 @@ page {
 
 .td {
   display: table-cell;
+  box-sizing: border-box;
+  height: 72rpx;
   padding: 18rpx 16rpx;
   border-bottom: 1rpx solid #e2e7e8;
   font-size: 24rpx;
+  line-height: 36rpx;
   color: #556a73;
   text-align: left;
   white-space: nowrap;
+  background: #ffffff;
 }
 
 .container.dark .td {
   border-bottom-color: #3d4448;
   color: #d6e0e4;
+  background: #262c30;
 }
 
 .expand-control {

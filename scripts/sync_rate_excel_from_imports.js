@@ -187,7 +187,7 @@ const TASKS = [
         mode: 'master_merge',
         policyKey: 'reel',
         replacements: [
-            { sourceFiles: ['daiwa_spinning_reels_import.xlsx', 'daiwa_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'DRE' },
+            { sourceFiles: ['daiwa_spinning_reels_import.xlsx', 'daiwa_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'DRE', pruneMissing: true },
             { sourceFiles: ['shimano_spinning_reels_import.xlsx', 'shimano_baitcasting_reels_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'SRE' },
             { sourceFiles: ['abu_spinning_reels_import.xlsx', 'abu_baitcasting_reel_import.xlsx'], sourceSheet: 'reel', matchField: 'id', prefix: 'ARE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'reel', matchField: 'id', prefix: 'MRE' },
@@ -225,7 +225,7 @@ const TASKS = [
         policyKey: 'rod',
         replacements: [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'SR' },
-            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR' },
+            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR', pruneMissing: true },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'KR' },
             { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'ER' },
@@ -422,16 +422,22 @@ function mergeSliceRows(rows, incomingRows, matchField, prefix) {
     };
 }
 
-function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy) {
+function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy, options = {}) {
     const sliceIncomingRows = filterIncomingSlice(incomingRows, matchField, prefix);
     const incomingById = buildRowMap(sliceIncomingRows);
     const touchedIds = new Set(incomingById.keys());
     const output = [];
     let replacedCount = 0;
+    let removedStaleCount = 0;
 
     for (const row of rows) {
         const id = normalizeText(row.id);
-        if (!normalizeText(row[matchField]).startsWith(prefix) || !id || !incomingById.has(id)) {
+        const inPrefix = normalizeText(row[matchField]).startsWith(prefix);
+        if (options.pruneMissing && inPrefix && (!id || !incomingById.has(id))) {
+            removedStaleCount += 1;
+            continue;
+        }
+        if (!inPrefix || !id || !incomingById.has(id)) {
             output.push(row);
             continue;
         }
@@ -491,22 +497,21 @@ function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy) {
         replacedCount,
         incomingSliceCount: sliceIncomingRows.length,
         touchedCount: touchedIds.size,
+        removedStaleCount,
     };
 }
 
 function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
     const sliceIncomingRows = filterIncomingSlice(incomingRows, matchField, prefix);
     const existingById = buildRowMap(rows);
-    const existingIds = new Set(rows.map((row) => normalizeText(row.id)).filter(Boolean));
-    const existingGearIds = new Set(
-        rows
-            .filter((row) => normalizeText(row[matchField]).startsWith(prefix))
+    const touchedGearIds = new Set(
+        sliceIncomingRows
             .map((row) => normalizeText(row[matchField]))
             .filter(Boolean),
     );
 
-    const updatedById = new Map();
-    const rowsToAppend = [];
+    const replacementRows = [];
+    const processedIds = new Set();
     let replacedCount = 0;
 
     for (const row of sliceIncomingRows) {
@@ -515,7 +520,12 @@ function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
         if (!rowId || !gearId) {
             continue;
         }
-        if (existingIds.has(rowId)) {
+        if (processedIds.has(rowId)) {
+            continue;
+        }
+        processedIds.add(rowId);
+
+        if (existingById.has(rowId)) {
             const existing = existingById.get(rowId);
             const merged = { ...existing };
             Object.keys(row).forEach((key) => {
@@ -524,38 +534,35 @@ function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
                     merged[key] = row[key];
                 }
             });
-            updatedById.set(rowId, merged);
+            replacementRows.push(merged);
             replacedCount += 1;
             continue;
         }
-        if (!existingGearIds.has(gearId)) {
-            rowsToAppend.push(row);
-            existingGearIds.add(gearId);
-            existingIds.add(rowId);
-            continue;
-        }
-        rowsToAppend.push(row);
-        existingIds.add(rowId);
+
+        replacementRows.push(row);
     }
 
-    const mergedRows = rows.map((row) => {
-        const rowId = normalizeText(row.id);
-        if (rowId && updatedById.has(rowId)) {
-            return updatedById.get(rowId);
+    let removedStaleCount = 0;
+    const preservedRows = rows.filter((row) => {
+        const gearId = normalizeText(row[matchField]);
+        if (gearId.startsWith(prefix) && touchedGearIds.has(gearId)) {
+            removedStaleCount += 1;
+            return false;
         }
-        return row;
+        return true;
     });
 
     return {
-        rows: mergedRows.concat(rowsToAppend),
+        rows: preservedRows.concat(replacementRows),
         replacedCount,
         incomingSliceCount: sliceIncomingRows.length,
-        touchedCount: new Set(sliceIncomingRows.map((row) => normalizeText(row[matchField]))).size,
-        appendedCount: rowsToAppend.length,
+        touchedCount: touchedGearIds.size,
+        appendedCount: replacementRows.length - replacedCount,
+        removedStaleCount,
     };
 }
 
-function pruneOrphanMasters(masterFile, sheetName, headerKey, touchedPrefixes, importedIds, detailFiles) {
+function pruneOrphanMasters(masterFile, sheetName, headerKey, touchedPrefixes, importedIds, detailFiles, options = {}) {
     const masterPath = path.join(RATE_EXCEL_DIR, masterFile);
     const masterRows = readRows(masterPath, sheetName, { strict: true });
     const detailGearIds = new Set();
@@ -587,7 +594,7 @@ function pruneOrphanMasters(masterFile, sheetName, headerKey, touchedPrefixes, i
         }
         const existsInImport = importedIds.has(id);
         const hasDetail = detailGearIds.has(id);
-        if (!existsInImport && !hasDetail) {
+        if ((!existsInImport && !hasDetail) || (options.pruneMastersWithoutDetail && !hasDetail)) {
             removed += 1;
             return;
         }
@@ -599,6 +606,70 @@ function pruneOrphanMasters(masterFile, sheetName, headerKey, touchedPrefixes, i
     }
 
     return removed;
+}
+
+function collectImportedDetailGearIds(detailSources) {
+    const ids = new Set();
+
+    detailSources.forEach(({ sourceFiles, sourceFile, sourceSheet, matchField, prefix }) => {
+        const files = sourceFiles || [sourceFile];
+        files.forEach((file) => {
+            const sourcePath = path.join(DATA_RAW_DIR, file);
+            const rows = readRows(sourcePath, sourceSheet, { strict: true });
+            filterIncomingSlice(rows, matchField, prefix).forEach((row) => {
+                const gearId = normalizeText(row[matchField]);
+                if (gearId) {
+                    ids.add(gearId);
+                }
+            });
+        });
+    });
+
+    return ids;
+}
+
+function pruneDetailsOutsideImportedMasters(detailFiles, touchedPrefixes, importedDetailGearIds) {
+    const results = [];
+
+    detailFiles.forEach(({ file, sheet, headerKey, matchField }) => {
+        const detailPath = path.join(RATE_EXCEL_DIR, file);
+        const rows = readRows(detailPath, sheet, { strict: true });
+        let removed = 0;
+        const nextRows = rows.filter((row) => {
+            const gearId = normalizeText(row[matchField]);
+            const touched = touchedPrefixes.some((prefix) => gearId.startsWith(prefix));
+            if (touched && !importedDetailGearIds.has(gearId)) {
+                removed += 1;
+                return false;
+            }
+            return true;
+        });
+
+        if (removed > 0) {
+            writeSheet(detailPath, sheet, HEADERS[headerKey], nextRows);
+        }
+
+        results.push({ file, sheet, removed });
+    });
+
+    return results;
+}
+
+function getAuthoritativeDetailSources(state) {
+    if (state.targetFile === 'reel.xlsx' && state.authoritativePrefixes.includes('DRE')) {
+        return [
+            { sourceFile: 'daiwa_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+            { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+        ];
+    }
+
+    if (state.targetFile === 'rod.xlsx' && state.authoritativePrefixes.includes('DR')) {
+        return [
+            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR' },
+        ];
+    }
+
+    return [];
 }
 
 function validateReplacementResult(task, replacement, beforeRows, incomingRows, afterRows) {
@@ -619,7 +690,7 @@ function validateReplacementResult(task, replacement, beforeRows, incomingRows, 
         );
     }
 
-    if (afterCount < beforeCount) {
+    if (task.mode !== 'detail_slice' && !replacement.pruneMissing && afterCount < beforeCount) {
         throw new Error(
             `[sync_rate_excel_from_imports] slice shrank unexpectedly: ${task.targetFile} ${replacement.prefix} before=${beforeCount} after=${afterCount}`,
         );
@@ -661,6 +732,8 @@ function main() {
         let rows = readRows(targetPath, task.targetSheet, { strict: true });
         const importedIdsForTask = new Set();
         const touchedPrefixesForTask = new Set();
+        const authoritativeImportedIdsForTask = new Set();
+        const authoritativePrefixesForTask = new Set();
 
         for (const replacement of task.replacements) {
             const sourceFiles = replacement.sourceFiles || [replacement.sourceFile];
@@ -675,9 +748,15 @@ function main() {
                 const id = normalizeText(row.id);
                 if (id) {
                     importedIdsForTask.add(id);
+                    if (replacement.pruneMissing) {
+                        authoritativeImportedIdsForTask.add(id);
+                    }
                 }
             });
             touchedPrefixesForTask.add(replacement.prefix);
+            if (replacement.pruneMissing) {
+                authoritativePrefixesForTask.add(replacement.prefix);
+            }
 
             let result;
             if (task.mode === 'master_merge') {
@@ -687,6 +766,7 @@ function main() {
                     replacement.matchField,
                     replacement.prefix,
                     MASTER_MERGE_POLICIES[task.policyKey],
+                    { pruneMissing: replacement.pruneMissing === true },
                 );
             } else if (task.mode === 'detail_slice') {
                 result = mergeDetailSlice(rows, incomingRows, replacement.matchField, replacement.prefix);
@@ -710,6 +790,7 @@ function main() {
                 after: countPrefix(rows, replacement.matchField, replacement.prefix),
                 touched: result.touchedCount || 0,
                 appended: result.appendedCount || 0,
+                removedStale: result.removedStaleCount || 0,
             });
         }
 
@@ -722,11 +803,51 @@ function main() {
                 headerKey: task.headerKey,
                 importedIds: importedIdsForTask,
                 touchedPrefixes: [...touchedPrefixesForTask],
+                authoritativeImportedIds: authoritativeImportedIdsForTask,
+                authoritativePrefixes: [...authoritativePrefixesForTask],
             });
         }
     }
 
     masterStates.forEach((state) => {
+        let authoritativeDetailGearIds = null;
+
+        if (state.authoritativePrefixes.length > 0) {
+            authoritativeDetailGearIds = collectImportedDetailGearIds(getAuthoritativeDetailSources(state));
+            const detailFiles =
+                state.targetFile === 'reel.xlsx'
+                    ? [
+                        { file: 'spinning_reel_detail.xlsx', sheet: 'spinning_reel_detail', headerKey: 'spinningReelDetail', matchField: 'reel_id' },
+                        { file: 'baitcasting_reel_detail.xlsx', sheet: 'baitcasting_reel_detail', headerKey: 'baitcastingReelDetail', matchField: 'reel_id' },
+                    ]
+                    : state.targetFile === 'rod.xlsx'
+                        ? [{ file: 'rod_detail.xlsx', sheet: 'rod_detail', headerKey: 'rodDetail', matchField: 'rod_id' }]
+                        : [];
+            pruneDetailsOutsideImportedMasters(
+                detailFiles,
+                state.authoritativePrefixes,
+                authoritativeDetailGearIds,
+            ).forEach((result) => {
+                if (result.removed > 0) {
+                    report.push({
+                        targetFile: result.file,
+                        targetSheet: result.sheet,
+                        mode: 'detail_prune',
+                        prefix: state.authoritativePrefixes.join(','),
+                        sourceFile: '(post-sync)',
+                        sourceSheet: '(detail cleanup)',
+                        before: 0,
+                        incoming: 0,
+                        replaced: 0,
+                        after: 0,
+                        touched: authoritativeDetailGearIds.size,
+                        appended: 0,
+                        removed: result.removed,
+                    });
+                }
+            });
+        }
+
         if (state.targetFile === 'reel.xlsx') {
             const removed = pruneOrphanMasters(
                 state.targetFile,
@@ -738,6 +859,7 @@ function main() {
                     { file: 'spinning_reel_detail.xlsx', sheet: 'spinning_reel_detail', matchField: 'reel_id' },
                     { file: 'baitcasting_reel_detail.xlsx', sheet: 'baitcasting_reel_detail', matchField: 'reel_id' },
                 ],
+                { pruneMastersWithoutDetail: state.authoritativePrefixes.includes('DRE') },
             );
             if (removed > 0) {
                 report.push({
@@ -765,6 +887,7 @@ function main() {
                 state.touchedPrefixes,
                 state.importedIds,
                 [{ file: 'rod_detail.xlsx', sheet: 'rod_detail', matchField: 'rod_id' }],
+                { pruneMastersWithoutDetail: state.authoritativePrefixes.includes('DR') },
             );
             if (removed > 0) {
                 report.push({

@@ -35,7 +35,7 @@
 
     <view class="detail-section" wx:if="{{variantOptions.length > 0}}">
       <view class="section-head">
-        <text class="section-title">{{sectionCopy.variantTitle || '先选子型号'}}</text>
+        <text class="section-title">{{sectionCopy.variantTitle || '子型号'}}</text>
         <text class="section-subtitle">{{sectionCopy.variantSubtitle || '先确认你真正要看的规格，再去看参数和对比。'}}</text>
       </view>
       <scroll-view scroll-x class="variant-scroll" show-scrollbar="{{false}}">
@@ -102,12 +102,7 @@
         <text class="section-title">{{sectionCopy.seriesTitle || '系列子型号速览'}}</text>
         <text class="section-subtitle">{{sectionCopy.seriesSubtitle || '把同系列差异先摊开看清，再决定要不要继续做正式对比。'}}</text>
       </view>
-      <scroll-view
-        scroll-x
-        class="outer-scroll-x"
-        enhanced="{{true}}"
-        show-scrollbar="{{false}}"
-      >
+      <view class="series-table-shell">
         <view class="inner-container">
           <scroll-view
             scroll-y
@@ -115,23 +110,44 @@
             enhanced="{{true}}"
             show-scrollbar="{{true}}"
           >
-            <view class="table">
-              <view class="tr th">
-                <block wx:for="{{columns}}" wx:for-item="col" wx:key="key">
-                  <view class="td">{{col.label}}</view>
+            <view class="series-table-layout">
+              <view class="series-frozen-column" wx:if="{{firstColumn}}">
+                <view class="frozen-cell frozen-cell--head">{{firstColumn.label}}</view>
+                <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
+                  <view
+                    class="frozen-cell {{selectedVariantKey === variant.__key ? 'frozen-cell--active' : ''}}"
+                    wx:if="{{idx < 4 || isExpanded}}"
+                  >
+                    {{variant[firstColumn.key] || '-'}}
+                  </view>
                 </block>
               </view>
-              <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
-                <view class="tr {{selectedVariantKey === variant.__key ? 'tr-active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
-                  <block wx:for="{{columns}}" wx:for-item="col" wx:key="key">
-                    <view class="td">{{variant[col.key] || '-'}}</view>
+
+              <scroll-view
+                scroll-x
+                class="series-scroll-x"
+                enhanced="{{true}}"
+                show-scrollbar="{{false}}"
+              >
+                <view class="table">
+                  <view class="tr th">
+                    <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
+                      <view class="td">{{col.label}}</view>
+                    </block>
+                  </view>
+                  <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
+                    <view class="tr {{selectedVariantKey === variant.__key ? 'tr-active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
+                      <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
+                        <view class="td">{{variant[col.key] || '-'}}</view>
+                      </block>
+                    </view>
                   </block>
                 </view>
-              </block>
+              </scroll-view>
             </view>
           </scroll-view>
         </view>
-      </scroll-view>
+      </view>
 
       <view class="expand-control" wx:if="{{item.variants && item.variants.length > 4}}" bindtap="toggleExpand">
         <text>{{isExpanded ? '收起' : '展开更多 (' + (item.variants.length - 4) + ')'}}</text>
