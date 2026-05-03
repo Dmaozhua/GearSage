@@ -12,8 +12,10 @@ function normalizeText(text) {
 }
 
 function inferType(item) {
-  const model = normalizeText(item.model).toUpperCase();
+  const model = normalizeText(item.model || item.model_name).toUpperCase();
   const url = normalizeText(item.source_url).toLowerCase();
+  if (/MONOBLOCK|PAGANI/.test(model)) return 'drum';
+  if (model === 'LIN258HM' || model === 'RC-IDATEN 256') return 'spinning';
   if (/^GAUS\b/.test(model)) return 'spinning';
   if (url.includes('/gaus')) return 'spinning';
   return 'baitcasting';

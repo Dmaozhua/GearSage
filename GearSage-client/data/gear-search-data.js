@@ -2,7 +2,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1000",
-    "name": "2026 STELLA SW",
+    "name": "2026 STELLA SW 斯泰拉",
     "alias": "26 STELLA SW",
     "type_tips": "",
     "system": "",
@@ -13,7 +13,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1001",
-    "name": "2020 STELLA SW",
+    "name": "2020 STELLA SW 斯泰拉",
     "alias": "20 STELLA SW",
     "type_tips": "",
     "system": "",
@@ -24,7 +24,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1002",
-    "name": "2022 STELLA",
+    "name": "2022 STELLA 斯泰拉",
     "alias": "22 STELLA",
     "type_tips": "",
     "system": "",
@@ -68,7 +68,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1006",
-    "name": "2026 Vanquish CE",
+    "name": "2026 Vanquish CE 万奎士",
     "alias": "26 Vanquish CE",
     "type_tips": "",
     "system": "",
@@ -79,7 +79,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1007",
-    "name": "2023 Vanquish",
+    "name": "2023 Vanquish 万奎士",
     "alias": "23 Vanquish",
     "type_tips": "",
     "system": "",
@@ -134,7 +134,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1012",
-    "name": "2022 STRADIC SW",
+    "name": "2022 STRADIC SW 斯塔迪克",
     "alias": "22 STRADIC SW",
     "type_tips": "",
     "system": "",
@@ -156,7 +156,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1014",
-    "name": "2024 STRADIC SW",
+    "name": "2024 STRADIC SW 斯塔迪克",
     "alias": "24 STRADIC SW",
     "type_tips": "",
     "system": "",
@@ -189,7 +189,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1017",
-    "name": "2025 Soare XR",
+    "name": "2025 Soare XR 索阿雷",
     "alias": "25 Soare XR",
     "type_tips": "",
     "system": "",
@@ -200,7 +200,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1018",
-    "name": "2023 CARDIFF XR",
+    "name": "2023 CARDIFF XR 卡迪夫",
     "alias": "23 CARDIFF XR",
     "type_tips": "",
     "system": "",
@@ -222,7 +222,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1020",
-    "name": "2021 Soare XR",
+    "name": "2021 Soare XR 索阿雷",
     "alias": "21 Soare XR",
     "type_tips": "",
     "system": "",
@@ -244,7 +244,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1022",
-    "name": "2024 VANFORD",
+    "name": "2024 VANFORD 万福德",
     "alias": "24 VANFORD",
     "type_tips": "",
     "system": "",
@@ -266,7 +266,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1024",
-    "name": "2023 STRADIC",
+    "name": "2023 STRADIC 斯塔迪克",
     "alias": "23 STRADIC",
     "type_tips": "",
     "system": "",
@@ -310,7 +310,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1028",
-    "name": "2025 ULTEGRA",
+    "name": "2025 ULTEGRA 尤特加",
     "alias": "25 ULTEGRA",
     "type_tips": "",
     "system": "",
@@ -321,7 +321,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1029",
-    "name": "2022 Soare BB",
+    "name": "2022 Soare BB 索阿雷",
     "alias": "22 Soare BB",
     "type_tips": "",
     "system": "",
@@ -365,7 +365,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE1033",
-    "name": "2026 NASCI",
+    "name": "2026 NASCI 纳西",
     "alias": "26 NASCI",
     "type_tips": "",
     "system": "",
@@ -597,7 +597,7 @@ module.exports = [
     "type": "reel",
     "id": "SRE5002",
     "name": "2022 EXSENCE DC",
-    "alias": "22 Exsence DC",
+    "alias": "22 EXSENCE DC",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -607,8 +607,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5003",
-    "name": "2021 ANTARES DC",
-    "alias": "21 Antares DC",
+    "name": "2021 ANTARES DC 安塔列斯",
+    "alias": "21 ANTARES DC",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -640,7 +640,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5006",
-    "name": "2019 CALCUTTA CONQUEST DC",
+    "name": "2019 CALCUTTA CONQUEST DC CQ",
     "alias": "19 CALCUTTA CONQUEST DC",
     "type_tips": "",
     "system": "",
@@ -695,8 +695,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5011",
-    "name": "ANTARES",
-    "alias": "",
+    "name": "2025 ANTARES 安塔列斯",
+    "alias": "安塔列斯",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -717,7 +717,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5013",
-    "name": "CALCUTTA CONQUEST MD",
+    "name": "CALCUTTA CONQUEST MD CQ",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -728,7 +728,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5014",
-    "name": "2026 CALCUTTA CONQUEST BFS LIMITED",
+    "name": "2026 CALCUTTA CONQUEST BFS LIMITED CQ",
     "alias": "26 CALCUTTA CONQUEST BFS LIMITED",
     "type_tips": "",
     "system": "",
@@ -739,7 +739,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5015",
-    "name": "2024 Metanium DC",
+    "name": "2024 Metanium DC 蒙塔尼",
     "alias": "24 Metanium DC",
     "type_tips": "",
     "system": "",
@@ -750,7 +750,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5016",
-    "name": "2021 CALCUTTA CONQUEST",
+    "name": "2021 CALCUTTA CONQUEST CQ",
     "alias": "21 CALCUTTA CONQUEST",
     "type_tips": "",
     "system": "",
@@ -772,8 +772,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5018",
-    "name": "CALCUTTA CONQUEST SHALLOW EDITION",
-    "alias": "",
+    "name": "2024 CALCUTTA CONQUEST SHALLOW EDITION CQ",
+    "alias": "24 CQ SHALLOW EDITION",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -783,8 +783,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5019",
-    "name": "2023 CALCUTTA CONQUEST BFS",
-    "alias": "23 Calcutta Conquest BFS",
+    "name": "2023 CALCUTTA CONQUEST BFS CQ",
+    "alias": "23 CALCUTTA CONQUEST BFS",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -805,7 +805,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5021",
-    "name": "2025 ALDEBARAN DC",
+    "name": "2025 ALDEBARAN DC 阿德",
     "alias": "25 ALDEBARAN DC",
     "type_tips": "",
     "system": "",
@@ -849,7 +849,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5025",
-    "name": "2022 ALDEBARAN BFS 阿德巴兰 BFS",
+    "name": "2022 ALDEBARAN BFS 阿德",
     "alias": "22 Aldebaran BFS",
     "type_tips": "",
     "system": "",
@@ -860,7 +860,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5026",
-    "name": "2018 ALDEBARAN MGL 阿德巴兰 MGL",
+    "name": "2018 ALDEBARAN MGL 阿德",
     "alias": "18 Aldebaran MGL",
     "type_tips": "",
     "system": "",
@@ -871,7 +871,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5027",
-    "name": "2022 Metanium SHALLOW EDITION",
+    "name": "2022 Metanium SHALLOW EDITION 蒙塔尼",
     "alias": "22 Metanium SHALLOW EDITION",
     "type_tips": "",
     "system": "",
@@ -882,7 +882,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5028",
-    "name": "2020 Metanium",
+    "name": "2020 Metanium 蒙塔尼",
     "alias": "20 Metanium",
     "type_tips": "",
     "system": "",
@@ -981,7 +981,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5038",
-    "name": "Scorpion DC MD",
+    "name": "Scorpion DC MD 红蝎",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1003,7 +1003,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5040",
-    "name": "2021 Scorpion DC",
+    "name": "2021 Scorpion DC 红蝎",
     "alias": "21 Scorpion DC",
     "type_tips": "",
     "system": "",
@@ -1014,8 +1014,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5041",
-    "name": "2025 Scorpion MD 300",
-    "alias": "25 Scorpion MD 300",
+    "name": "2025 Scorpion MD 300 红蝎",
+    "alias": "25 红蝎 MD 300",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -1047,7 +1047,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5045",
-    "name": "Stephano SS",
+    "name": "Stephano SS 红蝎",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1069,7 +1069,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5047",
-    "name": "2024 Scorpion MD 200",
+    "name": "2024 Scorpion MD 200 红蝎",
     "alias": "24 Scorpion MD 200",
     "type_tips": "",
     "system": "",
@@ -1146,7 +1146,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5055",
-    "name": "CURADO 150",
+    "name": "CURADO 150 库拉多",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1157,7 +1157,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5057",
-    "name": "CURADO BFS",
+    "name": "CURADO BFS 库拉多",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1542,8 +1542,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5075",
-    "name": "2022 CURADO DC（200线杯）",
-    "alias": "22 CURADO DC 200",
+    "name": "2022 CURADO DC（200线杯） 库拉多",
+    "alias": "22 库拉多 DC 200",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -1553,7 +1553,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5076",
-    "name": "CURADO DC（150线杯）",
+    "name": "CURADO DC（150线杯） 库拉多",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1586,7 +1586,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5078",
-    "name": "CURADO MGL（70线杯）",
+    "name": "CURADO MGL（70线杯） 库拉多",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1597,7 +1597,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5079",
-    "name": "CURADO MGL（150线杯）",
+    "name": "CURADO MGL（150线杯） 库拉多",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2213,7 +2213,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "SRE5082",
-    "name": "CURADO（200线杯）",
+    "name": "CURADO（200线杯） 库拉多",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2752,7 +2752,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5014",
-    "name": "2022 PR100 H",
+    "name": "2022 PR100",
     "alias": "22 PR100 H",
     "type_tips": "",
     "system": "",
@@ -2763,8 +2763,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5015",
-    "name": "2022 STEEZ AII TW",
-    "alias": "22 STEEZ AII TW",
+    "name": "2022 STEEZ A II TW",
+    "alias": "22 STEEZ A II TW",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -2807,8 +2807,8 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5019",
-    "name": "2021 ALPHAS SV TW 800H／22 ALPHAS SV TW 800S-XHL",
-    "alias": "21 ALPHAS SV TW 800H／22 ALPHAS SV TW 800S-XHL",
+    "name": "2021 ALPHAS SV TW",
+    "alias": "21/22 ALPHAS SV TW",
     "type_tips": "",
     "system": "",
     "water_column": "",
@@ -2840,7 +2840,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5022",
-    "name": "TATULA TW 400",
+    "name": "TATULA TW 300/400",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2864,6 +2864,83 @@ module.exports = [
     "id": "DRE5024",
     "name": "STEEZ CT SV TW",
     "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5025",
+    "name": "2020 STEEZ AIR TW",
+    "alias": "20 STEEZ AIR TW",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5026",
+    "name": "MORETHAN PE TW",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5027",
+    "name": "2025 HRF TW PE SP",
+    "alias": "25 HRF TW PE SP",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5028",
+    "name": "SS AIR TW",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5029",
+    "name": "2023 SALTIST TW PE SPECIAL",
+    "alias": "23 SALTIST TW PE SPECIAL",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5030",
+    "name": "2025 TATULA TW 200",
+    "alias": "25 TATULA TW 200",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5031",
+    "name": "2024 BASS X 100",
+    "alias": "24 BASS X 100",
     "type_tips": "",
     "system": "",
     "water_column": "",

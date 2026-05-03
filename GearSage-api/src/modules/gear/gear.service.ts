@@ -443,7 +443,7 @@ export class GearService {
     const itemId = this.normalizeText(item.id);
 
     if (type === 'reels') {
-      const detailRows = data.reelDetails[this.normalizeText(item.type)] || [];
+      const detailRows = data.reelDetails[this.resolveReelDetailSourceKey(item.type)] || [];
       return detailRows
         .filter((variant) => this.normalizeText(variant.reel_id) === itemId)
         .map((variant) => this.decorateVariant(type, item, variant));
@@ -471,6 +471,14 @@ export class GearService {
     return detailRows
       .filter((variant) => this.normalizeText(variant.lure_id) === itemId)
       .map((variant) => this.decorateVariant(type, item, variant));
+  }
+
+  private resolveReelDetailSourceKey(value: any) {
+    const reelType = this.normalizeText(value);
+    if (reelType === 'drum' || reelType === 'conventional') {
+      return 'baitcasting';
+    }
+    return reelType;
   }
 
   private decorateVariant(type: GearType, master: any, variant: any) {

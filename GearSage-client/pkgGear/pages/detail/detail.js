@@ -4,10 +4,18 @@ const apiService = require('../../../services/api');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const MAX_COMPARE_ITEMS = 3;
+const SERIES_COLUMN_WIDTH = 190;
+const SERIES_ROW_HEIGHT = 72;
+const SERIES_MAX_BODY_HEIGHT = 548;
 const BOOLEAN_DISPLAY_FIELDS = new Set(['is_sw_edition', 'is_handle_double']);
+const HIDDEN_DETAIL_FIELDS = new Set(['custom_spool_compatibility', 'handle_knob_exchange_size']);
 const LINK_DISPLAY_FIELDS = {
-  EV_link: '爆炸图',
-  Specs_link: '说明书'
+  Specs_link: '说明书',
+  EV_link: '爆炸图'
+};
+const TECH_TERM_TOOLTIPS = {
+  'body_material_tech:HAGANE 机身':
+    'Hagane Body（Hagane 机身）是禧玛诺（Shimano）渔轮设计中的一项核心技术，指代使用轻量化但具有高刚性、高强度金属材料（通常为铝合金或镁合金）制造的渔轮主体。其核心目的是在重负载钓况下，彻底抑制因受力而产生的扭曲、晃动，确保精细齿轮的完美咬合，实现长久、顺滑的摇卷体验。'
 };
 
 const CORE_FIELDS_BY_TYPE = {
@@ -17,6 +25,7 @@ const CORE_FIELDS_BY_TYPE = {
     'WEIGHT',
     'MAX DRAG',
     'cm_per_turn',
+    'line_capacity_display',
     'spool_diameter_mm',
     'spool_depth_normalized',
     'brake_type_normalized',
@@ -43,7 +52,8 @@ const SPEC_GROUPS_BY_TYPE = {
         'Nylon_no_m',
         'fluorocarbon_lb_m',
         'fluorocarbon_no_m',
-        'pe_no_m'
+        'pe_no_m',
+        'line_capacity_display'
       ]
     },
     { title: '制动与结构', fields: ['brake_type_normalized', 'handle_length_mm'] }
@@ -102,15 +112,15 @@ const SPEC_LAYERS_BY_TYPE = {
         'fluorocarbon_lb_m',
         'fluorocarbon_no_m',
         'pe_no_m',
-        'line_capacity_display',
         'handle_length_mm',
         'body_material',
-        'handle_knob_type',
+        'body_material_tech',
         'official_environment',
+        'handle_knob_type',
         'market_reference_price',
         'product_code',
-        'EV_link',
-        'Specs_link'
+        'Specs_link',
+        'EV_link'
       ]
     },
     {
@@ -131,9 +141,19 @@ const SPEC_LAYERS_BY_TYPE = {
       ]
     },
     {
-      title: '玩家数据',
-      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
-      fields: ['player_environment', 'player_positioning', 'player_selling_points']
+      title: '深度玩家数据',
+      subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
+      fields: [
+        'player_environment',
+        'player_positioning',
+        'player_selling_points',
+        'drag_click',
+        'min_lure_weight_hint',
+        'knob_bearing_spec',
+        'knob_size',
+        'spool_weight_g',
+        'usage_environment'
+      ]
     }
   ],
   rods: [
@@ -159,9 +179,8 @@ const SPEC_LAYERS_BY_TYPE = {
         'Sinker Rating',
         'official_reference_price',
         'market_status',
-        'Description',
-        'EV_link',
-        'Specs_link'
+        'Specs_link',
+        'EV_link'
       ]
     },
     {
@@ -170,16 +189,15 @@ const SPEC_LAYERS_BY_TYPE = {
       fields: [
         'type_tips',
         'fit_style_tags',
-        'min_lure_weight_hint',
         'solidTip',
         'series_positioning',
         'main_selling_points'
       ]
     },
     {
-      title: '玩家数据',
-      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
-      fields: ['player_positioning', 'player_selling_points']
+      title: '深度玩家数据',
+      subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
+      fields: ['player_positioning', 'player_selling_points', 'min_lure_weight_hint']
     }
   ],
   lures: [
@@ -194,8 +212,8 @@ const SPEC_LAYERS_BY_TYPE = {
       fields: ['system', 'water_column', 'action', 'family', 'type_tips', 'fit_style_tags']
     },
     {
-      title: '玩家数据',
-      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      title: '深度玩家数据',
+      subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
       fields: ['player_positioning', 'player_selling_points']
     }
   ],
@@ -221,8 +239,8 @@ const SPEC_LAYERS_BY_TYPE = {
       fields: ['type_tips', 'fit_style_tags']
     },
     {
-      title: '玩家数据',
-      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      title: '深度玩家数据',
+      subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
       fields: ['player_positioning', 'player_selling_points']
     }
   ],
@@ -238,8 +256,8 @@ const SPEC_LAYERS_BY_TYPE = {
       fields: ['type_tips', 'fit_style_tags']
     },
     {
-      title: '玩家数据',
-      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      title: '深度玩家数据',
+      subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
       fields: ['player_positioning', 'player_selling_points']
     }
   ]
@@ -261,6 +279,16 @@ Page({
     specSections: [],
     sectionCopy: {},
     infoTags: [],
+    seriesDescription: '',
+    variantDescription: '',
+    isSeriesDescriptionExpanded: false,
+    isVariantDescriptionExpanded: false,
+    firstColumn: null,
+    scrollColumns: [],
+    seriesBodyWidth: 0,
+    seriesBodyHeight: 0,
+    seriesScrollLeft: 0,
+    seriesScrollTop: 0,
     compareCount: 0,
     isCurrentVariantCompared: false,
     canCompare: false,
@@ -329,9 +357,16 @@ Page({
       fit_style_tags: '适用风格',
       line_capacity_display: '线容量',
       body_material: '机身材质',
-      handle_knob_type: '手把旋钮',
-      official_environment: '官方场景',
-      gear_ratio_normalized: '速比归类',
+      body_material_tech: '机身技术',
+      handle_knob_type: '握丸样式',
+      handle_knob_exchange_size: '握丸型号/尺寸',
+      knob_bearing_spec: '握丸轴承规格',
+      knob_size: '握丸尺寸',
+      spool_weight_g: '原厂线杯重量(g)',
+      drag_click: '原厂卸力报警',
+      usage_environment: '主要使用环境',
+      official_environment: '环境定位',
+      gear_ratio_normalized: '速比',
       handle_style: '手把形式',
       is_sw_edition: 'SW 版本',
       is_handle_double: '双摇臂',
@@ -343,7 +378,7 @@ Page({
       official_reference_price: '官方参考价',
       market_status: '市场状态',
       Description: '说明',
-      min_lure_weight_hint: '轻饵提示',
+      min_lure_weight_hint: '启抛重量参考',
       solidTip: '实心竿稍',
       system: '系统',
       water_column: '泳层',
@@ -357,9 +392,9 @@ Page({
       'market_reference_price', 'product_code', 'AdminCode',
       'Market Reference Price', 'brand_id', 'reel_id', 'rod_id',
       'lure_id', 'line_id', 'hookId', 'id', '_id', '_openid', 'images', 'model',
-      'model_cn', 'model_year', 'type', 'description',
+      'model_cn', 'model_year', 'type', 'description', 'Description',
       'official_specs', 'gsc_traits', 'compare_profile',
-      '__key', '__displayName', '__secondaryLabel'
+      '__key', '__displayName', '__secondaryLabel', '__displayValues'
     ],
     relatedTabs: [
       { id: 'experience', label: '长测评', type: 1 },
@@ -375,6 +410,7 @@ Page({
     showBackToPost: false,
     sourcePostId: '',
     loadingRelated: false,
+    activeTechTooltipKey: '',
     isLoading: true
   },
 
@@ -489,12 +525,21 @@ Page({
       water_column: ['water_column', 'waterColumn'],
       gear_ratio_normalized: ['gear_ratio_normalized', 'gearRatioNormalized'],
       is_sw_edition: ['is_sw_edition', 'isSwEdition'],
-      is_handle_double: ['is_handle_double', 'isHandleDouble']
+      is_handle_double: ['is_handle_double', 'isHandleDouble'],
+      description: ['description', 'Description'],
+      Description: ['Description', 'description']
     };
     return aliases[key] || [key];
   },
 
   normalizeFieldValue(value, key = '') {
+    if (key === 'drag_click') {
+      const text = value === 0 ? '0' : this.normalizeText(value);
+      if (!text) return '';
+      if (text === '1') return '自带';
+      if (text === '0') return '无';
+      return text;
+    }
     if (BOOLEAN_DISPLAY_FIELDS.has(key)) {
       const text = value === 0 ? '0' : this.normalizeText(value);
       return text === '1' ? '是' : '-';
@@ -540,7 +585,7 @@ Page({
         pushTag(this.buildTagText('', item.type_tips));
       }
       if (tags.length < 4) {
-        pushTag(this.buildTagText('别名 ', item.alias));
+        pushTag(this.buildTagText(' ', item.alias));
       }
     } else if (this.data.gearType === 'rods') {
       pushTag(this.buildTagText('', item.type));
@@ -548,10 +593,10 @@ Page({
       pushTag(this.buildTagText('', item.type_tips));
     } else if (this.data.gearType === 'line') {
       pushTag(this.buildTagText('', item.type_tips));
-      pushTag(this.buildTagText('别名 ', item.alias));
+      pushTag(this.buildTagText(' ', item.alias));
     } else if (this.data.gearType === 'hook') {
       pushTag(this.buildTagText('', item.type_tips));
-      pushTag(this.buildTagText('别名 ', item.alias));
+      pushTag(this.buildTagText(' ', item.alias));
     } else {
       pushTag(this.buildTagText('', item.system));
       pushTag(this.buildTagText('', item.water_column));
@@ -601,14 +646,29 @@ Page({
   decorateVariants(variants) {
     return (Array.isArray(variants) ? variants : []).map((variant, index) => ({
       ...variant,
+      __displayValues: this.buildVariantDisplayValues(variant),
       __key: String(variant.id || variant.SKU || variant.sku || index),
       __displayName: this.resolveVariantName(variant, index),
       __secondaryLabel: this.buildVariantSecondaryLabel(variant)
     }));
   },
 
+  buildVariantDisplayValues(variant) {
+    return Object.keys(variant || {}).reduce((acc, key) => {
+      const value = this.normalizeFieldValue(variant[key], key);
+      if (value) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+  },
+
   findVariantByKey(variants, key) {
     return (variants || []).find((variant) => variant.__key === key) || null;
+  },
+
+  getDescriptionText(record) {
+    return this.getFieldValueFromSources([record, record && record.official_specs], 'description');
   },
 
   buildCoreSpecs(record, columns) {
@@ -683,18 +743,48 @@ Page({
     };
   },
 
-  buildLayerItems(fields, sources, usedFields) {
+  getTechTooltip(field, value) {
+    const key = `${field}:${this.normalizeText(value)}`;
+    const text = TECH_TERM_TOOLTIPS[key] || '';
+    return text ? { key, text } : null;
+  },
+
+  shouldHideDetailField(field, record) {
+    if (HIDDEN_DETAIL_FIELDS.has(field)) {
+      return true;
+    }
+
+    const hiddenBaitcastingFields = new Set(['handle_style', 'is_sw_edition', 'is_handle_double']);
+    if (!hiddenBaitcastingFields.has(field) || this.data.gearType !== 'reels') {
+      return false;
+    }
+    const reelType = this.normalizeText(record && record.type).toLowerCase();
+    return reelType === 'baitcasting' || reelType === 'drum' || reelType === 'conventional';
+  },
+
+  buildLayerItems(fields, sources, usedFields, record) {
     const items = [];
     fields.forEach((field) => {
-      const value = this.getFieldValueFromSources(sources, field);
+      if (this.shouldHideDetailField(field, record)) {
+        usedFields.add(field);
+        return;
+      }
+      const fieldSources = field === 'min_lure_weight_hint'
+        ? sources.concat(record.gsc_traits, record.compare_profile)
+        : sources;
+      const value = this.getFieldValueFromSources(fieldSources, field);
       if (!this.hasValue(value)) return;
       usedFields.add(field);
+      const tooltip = this.getTechTooltip(field, value);
       items.push({
         key: field,
         label: this.getFieldLabel(field),
         value: LINK_DISPLAY_FIELDS[field] ? '跳转' : value,
         isLink: !!LINK_DISPLAY_FIELDS[field],
-        url: LINK_DISPLAY_FIELDS[field] ? value : ''
+        url: LINK_DISPLAY_FIELDS[field] ? value : '',
+        hasTooltip: !!tooltip,
+        tooltipKey: tooltip ? tooltip.key : '',
+        tooltipText: tooltip ? tooltip.text : ''
       });
     });
     return items;
@@ -709,13 +799,13 @@ Page({
     const sourceKeyByTitle = {
       '官网参数': 'official',
       'GearSage 整理': 'gsc',
-      '玩家数据': 'player'
+      '深度玩家数据': 'player'
     };
     const usedFields = new Set();
     const sections = layerConfig
       .map((group) => {
         const sourceKey = sourceKeyByTitle[group.title] || 'official';
-        const items = this.buildLayerItems(group.fields || [], layerSources[sourceKey] || [], usedFields);
+        const items = this.buildLayerItems(group.fields || [], layerSources[sourceKey] || [], usedFields, record);
         return {
           title: group.title,
           subtitle: group.subtitle || '',
@@ -731,6 +821,7 @@ Page({
 
     const remainingItems = (columns || [])
       .filter((column) => !usedFields.has(column.key))
+      .filter((column) => !this.shouldHideDetailField(column.key, record))
       .map((column) => ({
         key: column.key,
         label: column.label,
@@ -750,14 +841,26 @@ Page({
   },
 
   buildDetailViewState(item, variants, selectedVariantKey) {
-    const columns = this.generateDynamicColumns(variants);
+    const columns = this.generateDynamicColumns(variants, item);
     const selectedVariant = this.findVariantByKey(variants, selectedVariantKey) || variants[0] || null;
     const displayRecord = this.buildMergedSpecRecord(item, selectedVariant);
+    const seriesDescription = this.getDescriptionText(item);
+    const selectedVariantDescription = this.getDescriptionText(selectedVariant);
+    const variantDescription = selectedVariantDescription && selectedVariantDescription !== seriesDescription
+      ? selectedVariantDescription
+      : '';
+    const scrollColumns = columns.slice(1);
+    const seriesBodyWidth = scrollColumns.length * SERIES_COLUMN_WIDTH;
+    const seriesBodyHeight = this.getSeriesBodyHeight((variants || []).length, false);
 
     return {
       columns,
       firstColumn: columns[0] || null,
-      scrollColumns: columns.slice(1),
+      scrollColumns,
+      seriesBodyWidth,
+      seriesBodyHeight,
+      seriesScrollLeft: 0,
+      seriesScrollTop: 0,
       selectedVariantKey: selectedVariant ? selectedVariant.__key : '',
       selectedVariant: selectedVariant || {},
       variantOptions: (variants || []).map((variant) => ({
@@ -769,8 +872,42 @@ Page({
       coreSpecs: this.buildCoreSpecs(displayRecord, columns),
       specSections: this.buildSpecSections(item, selectedVariant, columns),
       infoTags: this.buildInfoTags(item),
+      seriesDescription,
+      variantDescription,
       canCompare: ['reels', 'rods'].includes(this.data.gearType) && !!selectedVariant
     };
+  },
+
+  getSeriesBodyHeight(variantCount, isExpanded) {
+    const visibleVariantCount = isExpanded ? variantCount : Math.min(variantCount, 4);
+    return Math.min(visibleVariantCount * SERIES_ROW_HEIGHT, SERIES_MAX_BODY_HEIGHT);
+  },
+
+  syncSeriesScroll(nextState = {}) {
+    const rawLeft = typeof nextState.scrollLeft === 'number' ? nextState.scrollLeft : this.data.seriesScrollLeft;
+    const rawTop = typeof nextState.scrollTop === 'number' ? nextState.scrollTop : this.data.seriesScrollTop;
+    const nextLeft = Math.max(0, Math.round(rawLeft));
+    const nextTop = Math.max(0, Math.round(rawTop));
+
+    if (
+      Math.abs(nextLeft - this.data.seriesScrollLeft) < 2 &&
+      Math.abs(nextTop - this.data.seriesScrollTop) < 2
+    ) {
+      return;
+    }
+
+    this.setData({
+      seriesScrollLeft: nextLeft,
+      seriesScrollTop: nextTop
+    });
+  },
+
+  onSeriesBodyScroll(e) {
+    this.syncSeriesScroll(e.detail || {});
+  },
+
+  noop() {
+    return false;
   },
 
   buildSectionCopy() {
@@ -844,6 +981,8 @@ Page({
           brand_name: item.brand_name || ''
         },
         title: item.model,
+        isSeriesDescriptionExpanded: false,
+        isVariantDescriptionExpanded: false,
         ...viewState
       });
 
@@ -869,10 +1008,36 @@ Page({
 
     this.setData({
       isExpanded: false,
+      isVariantDescriptionExpanded: false,
       ...viewState
     });
 
     this.syncCompareState();
+  },
+
+  toggleSeriesDescription() {
+    this.setData({
+      isSeriesDescriptionExpanded: !this.data.isSeriesDescriptionExpanded
+    });
+  },
+
+  toggleVariantDescription() {
+    this.setData({
+      isVariantDescriptionExpanded: !this.data.isVariantDescriptionExpanded
+    });
+  },
+
+  onTechTermTap(e) {
+    const key = this.normalizeText(e.currentTarget.dataset.key);
+    if (!key) return;
+    this.setData({
+      activeTechTooltipKey: this.data.activeTechTooltipKey === key ? '' : key
+    });
+  },
+
+  hideTechTooltip() {
+    if (!this.data.activeTechTooltipKey) return;
+    this.setData({ activeTechTooltipKey: '' });
   },
 
   onSpecLinkTap(e) {
@@ -925,8 +1090,10 @@ Page({
   },
 
   toggleExpand() {
+    const nextExpanded = !this.data.isExpanded;
     this.setData({
-      isExpanded: !this.data.isExpanded
+      isExpanded: nextExpanded,
+      seriesBodyHeight: this.getSeriesBodyHeight((this.data.item.variants || []).length, nextExpanded)
     });
   },
 
@@ -1152,7 +1319,7 @@ Page({
     });
   },
 
-  generateDynamicColumns(variants) {
+  generateDynamicColumns(variants, item = {}) {
     if (!variants || variants.length === 0) return [];
 
     const keys = new Set();
@@ -1170,10 +1337,14 @@ Page({
       if (this.data.gearType === 'hook' && key === 'sku') {
         return;
       }
+      if (this.shouldHideDetailField(key, item)) {
+        return;
+      }
       if (!this.data.ignoredFields.includes(key)) {
         columns.push({
           key,
-          label: this.getFieldLabel(key)
+          label: this.getFieldLabel(key),
+          isLink: !!LINK_DISPLAY_FIELDS[key]
         });
       }
     });
@@ -1186,7 +1357,8 @@ Page({
       'spool_diameter_mm', 'spool_width_mm', 'spool_depth_normalized', 'brake_type_normalized', 'size_family',
       'spool_diameter_per_turn_mm', 'cm_per_turn',
       'Nylon_lb_m', 'Nylon_no_m', 'fluorocarbon_lb_m', 'fluorocarbon_no_m', 'pe_no_m',
-      'handle_length_mm'
+      'handle_length_mm',
+      'Specs_link', 'EV_link'
     ];
 
     columns.sort((a, b) => {

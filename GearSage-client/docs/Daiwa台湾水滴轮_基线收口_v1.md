@@ -1,8 +1,8 @@
 # Daiwa 台湾水滴轮 基线收口 v1
 
-版本：v1  
-状态：阶段性验收通过  
-更新时间：2026-04-21
+版本：v1.2  
+状态：当前官网基线已覆盖正式中间层，白名单玩家字段 stage1 已完成  
+更新时间：2026-05-03
 
 ---
 
@@ -10,8 +10,8 @@
 
 来源站点：
 
-- 台湾官网列表  
-  `https://www.daiwaseiko.com.tw/product-list/reel/double_shaft//`
+- Daiwa 当前台湾官网列表  
+  `https://www.daiwa.com/tw/product/productlist?category1=%E6%8D%B2%E7%B7%9A%E5%99%A8&choshu=&page=1&category2=%E8%B7%AF%E4%BA%9E%E9%BC%93%E5%BC%8F%E6%8D%B2%E7%B7%9A%E5%99%A8`
 
 当前正式中间层：
 
@@ -27,25 +27,23 @@
 
 当前主商品：
 
-- `25`
+- `32`
 
 当前 detail：
 
-- `98`
+- `149`
 
 ---
 
 ## 2. 当前已收住的流程
 
-当前台湾官网水滴轮链路已经成立：
+当前台湾官网水滴轮链路已经成立，并已从旧台湾站补齐到当前 `daiwa.com/tw` 商品列表：
 
 1. 列表页抓主商品
-2. 详情页分离：
-   - `#intro`
-   - `#price`
+2. 详情页抓官方标题、描述、產品規格表和主图
 3. 主图下载并写 CDN 格式 `images`
-4. `詳細規格` 图 OCR
-5. 按家族定点 parser
+4. 当前官网结构化规格表优先；旧站规格图 OCR / family parser 仅作为历史链路参考
+5. 按家族定点校正缺失 / 错位商品
 6. detail 回写正式中间层
 
 这条链路当前已经不是概念验证，而是可复用流程。
@@ -56,11 +54,11 @@
 
 当前主图已经闭环：
 
-- 正式表主商品：`25`
+- 正式表主商品：`32`
 - 本地目录：
   - `/Users/tommy/Pictures/images/daiwa_reels`
 - 当前命中：
-  - `25 / 25`
+  - `32 / 32`
 
 当前不需要再从：
 
@@ -81,10 +79,10 @@
 
 当前统计：
 
-- `series_positioning = 25 / 25`
-- `main_selling_points = 25 / 25`
-- `player_positioning = 25 / 25`
-- `player_selling_points = 25 / 25`
+- `series_positioning = 32 / 32`
+- `main_selling_points = 32 / 32`
+- `player_positioning = 32 / 32`
+- `player_selling_points = 32 / 32`
 
 ---
 
@@ -103,14 +101,14 @@
 
 当前统计：
 
-- `GEAR RATIO = 98 / 98`
-- `MAX DRAG = 98 / 98`
-- `WEIGHT = 98 / 98`
-- `cm_per_turn = 98 / 98`
-- `bearing_count_roller = 98 / 98`
-- `usage_environment = 98 / 98`
-- `market_reference_price = 98 / 98`
-- `product_code = 92 / 98`
+- `GEAR RATIO = 149 / 149`
+- `MAX DRAG = 149 / 149`
+- `WEIGHT = 149 / 149`
+- `cm_per_turn = 149 / 149`
+- `bearing_count_roller = 149 / 149`
+- `usage_environment = 131 / 149`
+- `market_reference_price = 149 / 149`
+- `product_code = 143 / 149`
 
 说明：
 
@@ -141,26 +139,26 @@
 
 ### 当前统计
 
-- `Nylon_no_m = 4 / 98`
-- `Nylon_lb_m = 67 / 98`
-- `fluorocarbon_lb_m = 4 / 98`
-- `pe_no_m = 62 / 98`
-- `handle_length_mm = 88 / 98`
-- `spool_diameter_mm = 73 / 98`
-- `spool_width_mm = 58 / 98`
-- `spool_weight_g = 29 / 98`
-- `handle_knob_type = 48 / 98`
-- `handle_knob_exchange_size = 43 / 98`
-- `body_material = 52 / 98`
-- `body_material_tech = 98 / 98`
-- `gear_material = 24 / 98`
-- `official_environment = 98 / 98`
-- `player_environment = 98 / 98`
-- `handle_style = 98 / 98`
-- `is_handle_double = 98 / 98`
-- `is_sw_edition = 98 / 98`
-- `fit_style_tags = 98 / 98`
-- `min_lure_weight_hint = 98 / 98`
+- `Nylon_no_m = 4 / 149`
+- `Nylon_lb_m = 98 / 149`
+- `fluorocarbon_lb_m = 22 / 149`
+- `pe_no_m = 100 / 149`
+- `handle_length_mm = 145 / 149`
+- `spool_diameter_mm = 137 / 149`
+- `spool_width_mm = 112 / 149`
+- `spool_weight_g = 18 / 149`
+- `handle_knob_type = 125 / 149`
+- `handle_knob_exchange_size = 105 / 149`
+- `body_material = 108 / 149`
+- `body_material_tech = 88 / 149`
+- `gear_material = 87 / 149`
+- `official_environment = 149 / 149`
+- `player_environment = 149 / 149`
+- `handle_style = 149 / 149`
+- `is_handle_double = 149 / 149`
+- `is_sw_edition = 149 / 149`
+- `fit_style_tags = 149 / 149`
+- `min_lure_weight_hint = 149 / 149`
 
 ---
 
@@ -187,6 +185,20 @@
 ## 8. 当前白名单状态
 
 当前白名单字段已经补了一轮，并打黄底。
+
+2026-05-03 已完成白名单玩家字段 stage1：
+
+- 主要来源：JapanTackle 精确系列页。
+- 只回写 `baitcasting_reel_detail` 中原本为空、证据明确的字段。
+- 本轮新增可信字段值 `62` 个，涉及 `8` 个主商品家族。
+- 回写字段：
+  - `drag_click`
+  - `body_material`
+  - `body_material_tech`
+- `spool_weight_g` 本轮没有找到可接受的原厂 / genuine 线杯重量硬证据，继续留空。
+- 证据文件：
+  - [daiwa_baitcasting_whitelist_player_fields_evidence.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_whitelist_player_fields_evidence.json)
+  - [daiwa_baitcasting_whitelist_player_fields_report.md](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_whitelist_player_fields_report.md)
 
 主表黄底字段：
 

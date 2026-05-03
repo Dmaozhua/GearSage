@@ -1,7 +1,7 @@
 <!--pkgGear/pages/detail/detail.wxml-->
 <custom-navbar title="{{title}}" show-back="{{true}}"></custom-navbar>
 
-<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+<view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;" bindtap="hideTechTooltip">
   <view class="return-to-post-float" wx:if="{{showBackToPost}}" bindtap="onBackToSourcePost">
     <text class="return-to-post-float__label">返回原帖</text>
   </view>
@@ -19,7 +19,13 @@
         <view class="detail-tags" wx:if="{{infoTags.length > 0}}">
           <text class="detail-tag" wx:for="{{infoTags}}" wx:key="*this">{{item}}</text>
         </view>
-        <text class="detail-desc" wx:if="{{item.description}}">{{item.description}}</text>
+        <view
+          wx:if="{{seriesDescription}}"
+          class="description-block description-block--header {{isSeriesDescriptionExpanded ? 'description-block--expanded' : 'description-block--collapsed'}}"
+          bindtap="toggleSeriesDescription"
+        >
+          <view class="description-text">{{seriesDescription}}</view>
+        </view>
         <view class="detail-actions">
           <view class="detail-action detail-action--ghost" wx:if="{{canCompare}}" bindtap="onToggleCompare">
             {{isCurrentVariantCompared ? '已在对比池' : '加入对比'}}
@@ -53,6 +59,13 @@
           </view>
         </view>
       </scroll-view>
+      <view
+        wx:if="{{variantDescription}}"
+        class="description-block description-block--variant {{isVariantDescriptionExpanded ? 'description-block--expanded' : 'description-block--collapsed'}}"
+        bindtap="toggleVariantDescription"
+      >
+        <view class="description-text description-text--variant">{{variantDescription}}</view>
+      </view>
     </view>
 
     <view class="detail-section" wx:if="{{coreSpecs.length > 0}}">
@@ -85,6 +98,17 @@
               bindtap="onSpecLinkTap"
               data-url="{{spec.url}}"
             >{{spec.value}}</text>
+            <view
+              wx:elif="{{spec.hasTooltip}}"
+              class="spec-row__value-wrap"
+              catchtap="onTechTermTap"
+              data-key="{{spec.tooltipKey}}"
+            >
+              <text class="spec-row__value spec-row__value--term">{{spec.value}}</text>
+              <view class="tech-tooltip" wx:if="{{activeTechTooltipKey === spec.tooltipKey}}">
+                {{spec.tooltipText}}
+              </view>
+            </view>
             <text wx:else class="spec-row__value">{{spec.value}}</text>
           </view>
         </view>
@@ -97,47 +121,71 @@
         <text class="section-subtitle">{{sectionCopy.seriesSubtitle || '把差异放在一起看，先找到最接近你场景的那一款。'}}</text>
       </view>
       <view class="series-table-shell">
-        <view class="inner-container">
+        <view class="series-freeze-head">
+          <view class="series-cell series-cell--first series-head-cell series-corner" wx:if="{{firstColumn}}">
+            {{firstColumn.label}}
+          </view>
           <scroll-view
+            scroll-x
+            class="series-head-scroll"
+            scroll-left="{{seriesScrollLeft}}"
+            catchtouchmove="noop"
+            enhanced="{{true}}"
+            show-scrollbar="{{false}}"
+          >
+            <view class="series-row" style="width: {{seriesBodyWidth}}rpx;">
+              <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
+                <view class="series-cell series-head-cell">
+                  {{col.label}}
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="series-freeze-body">
+          <scroll-view
+            wx:if="{{firstColumn}}"
             scroll-y
-            class="inner-scroll-y"
+            class="series-left-scroll"
+            style="height: {{seriesBodyHeight}}rpx;"
+            scroll-top="{{seriesScrollTop}}"
+            catchtouchmove="noop"
+            enhanced="{{true}}"
+            show-scrollbar="{{false}}"
+          >
+            <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
+              <view class="series-cell series-cell--first {{selectedVariantKey === variant.__key ? 'series-cell--active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
+                {{variant.__displayValues[firstColumn.key] || '-'}}
+              </view>
+            </block>
+          </scroll-view>
+          <scroll-view
+            scroll-x
+            scroll-y
+            class="series-data-scroll"
+            style="height: {{seriesBodyHeight}}rpx;"
+            scroll-left="{{seriesScrollLeft}}"
+            scroll-top="{{seriesScrollTop}}"
+            bindscroll="onSeriesBodyScroll"
             enhanced="{{true}}"
             show-scrollbar="{{true}}"
           >
-            <view class="series-table-layout">
-              <view class="series-frozen-column" wx:if="{{firstColumn}}">
-                <view class="frozen-cell frozen-cell--head">{{firstColumn.label}}</view>
-                <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
-                  <view
-                    class="frozen-cell {{selectedVariantKey === variant.__key ? 'frozen-cell--active' : ''}}"
-                    wx:if="{{idx < 4 || isExpanded}}"
-                  >
-                    {{variant[firstColumn.key] || '-'}}
-                  </view>
-                </block>
-              </view>
-
-              <scroll-view
-                scroll-x
-                class="series-scroll-x"
-                enhanced="{{true}}"
-                show-scrollbar="{{false}}"
-              >
-                <view class="table">
-                  <view class="tr th">
-                    <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
-                      <view class="td">{{col.label}}</view>
-                    </block>
-                  </view>
-                  <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
-                    <view class="tr {{selectedVariantKey === variant.__key ? 'tr-active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
-                      <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
-                        <view class="td">{{variant[col.key] || '-'}}</view>
-                      </block>
+            <view class="series-body-matrix" style="width: {{seriesBodyWidth}}rpx;">
+              <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
+                <view class="series-row {{selectedVariantKey === variant.__key ? 'series-row--active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
+                  <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
+                    <view class="series-cell">
+                      <text
+                        wx:if="{{col.isLink && variant[col.key]}}"
+                        class="series-cell-link"
+                        bindtap="onSpecLinkTap"
+                        data-url="{{variant[col.key]}}"
+                      >跳转</text>
+                      <text wx:else>{{variant.__displayValues[col.key] || '-'}}</text>
                     </view>
                   </block>
                 </view>
-              </scroll-view>
+              </block>
             </view>
           </scroll-view>
         </view>
