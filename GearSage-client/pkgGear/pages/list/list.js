@@ -112,8 +112,7 @@ Page({
       imageUrl,
       displayName,
       brandName: item.brand_name || this.data.brandsMap[String(item.brand_id)] || '',
-      summaryTags: this.buildSummaryTags(item),
-      compareHint: this.buildCompareHint(item)
+      summaryTags: this.buildSummaryTags(item)
     };
 
     return enrichGearItemWithSearchData(normalizedItem, this.data.currentType);
@@ -175,41 +174,6 @@ Page({
     }
 
     return tags.slice(0, 3);
-  },
-
-  buildCompareHint(item) {
-    const warningHints =
-      item &&
-      item.compare_profile &&
-      Array.isArray(item.compare_profile.warningHints)
-        ? item.compare_profile.warningHints
-        : item && item.gsc_traits && Array.isArray(item.gsc_traits.compareWarnings)
-          ? item.gsc_traits.compareWarnings
-          : [];
-    if (warningHints.length > 0) {
-      return this.normalizeText(warningHints[0]);
-    }
-
-    if (this.data.currentType === 'lures') {
-      return '当前以详情理解和筛选收敛为主';
-    }
-
-    if (this.data.currentType === 'line') {
-      return '当前以规格浏览和内容关联为主，正式对比后置处理';
-    }
-
-    if (this.data.currentType === 'hook') {
-      return '当前以规格查看和内容关联为主，正式对比后置处理';
-    }
-
-    const subtype = this.data.currentType === 'reels'
-      ? this.resolveReelTypeLabel(item.type)
-      : this.normalizeText(item.type);
-    if (subtype) {
-      return `${subtype}子型号后续可直接进入同类对比`;
-    }
-
-    return '先在详情里选子型号，再放进同类对比';
   },
 
   getCompareItems() {

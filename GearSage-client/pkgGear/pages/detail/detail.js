@@ -4,6 +4,11 @@ const apiService = require('../../../services/api');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const MAX_COMPARE_ITEMS = 3;
+const BOOLEAN_DISPLAY_FIELDS = new Set(['is_sw_edition', 'is_handle_double']);
+const LINK_DISPLAY_FIELDS = {
+  EV_link: '爆炸图',
+  Specs_link: '说明书'
+};
 
 const CORE_FIELDS_BY_TYPE = {
   reels: [
@@ -77,12 +82,167 @@ const SPEC_GROUPS_BY_TYPE = {
   ]
 };
 
-const SERIES_HINTS_BY_TYPE = {
-  reels: '先看线杯深浅、速比和自重，再回头判断卸力与收线节奏，更容易排除不适合自己的候选。',
-  rods: '先确认长度、强度、调性和饵重区间，再看节数与收纳长度，通常能更快看清使用方向。',
-  lures: '鱼饵第一版仍以筛选和详情理解为主，正式对比页后置处理。',
-  line: '鱼线第一版先把线号、长度、强度和颜色看清，再结合内容区的真实使用经验判断是否适合当前场景。',
-  hook: '鱼钩第一版先看钩型、子类、尺寸和包装数量，再结合内容区经验判断是否适合当前玩法。'
+const SPEC_LAYERS_BY_TYPE = {
+  reels: [
+    {
+      title: '官网参数',
+      subtitle: '厂家公布的装备参数规格。',
+      fields: [
+        'SKU',
+        'GEAR RATIO',
+        'WEIGHT',
+        'MAX DRAG',
+        'DRAG',
+        'cm_per_turn',
+        'spool_diameter_mm',
+        'spool_width_mm',
+        'spool_diameter_per_turn_mm',
+        'Nylon_lb_m',
+        'Nylon_no_m',
+        'fluorocarbon_lb_m',
+        'fluorocarbon_no_m',
+        'pe_no_m',
+        'line_capacity_display',
+        'handle_length_mm',
+        'body_material',
+        'handle_knob_type',
+        'official_environment',
+        'market_reference_price',
+        'product_code',
+        'EV_link',
+        'Specs_link'
+      ]
+    },
+    {
+      title: 'GearSage 整理',
+      subtitle: '把原始参数转成更容易筛选和比较的判断。',
+      fields: [
+        'type_tips',
+        'fit_style_tags',
+        'size_family',
+        'spool_depth_normalized',
+        'gear_ratio_normalized',
+        'brake_type_normalized',
+        'handle_style',
+        'is_sw_edition',
+        'is_handle_double',
+        'series_positioning',
+        'main_selling_points'
+      ]
+    },
+    {
+      title: '玩家数据',
+      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      fields: ['player_environment', 'player_positioning', 'player_selling_points']
+    }
+  ],
+  rods: [
+    {
+      title: '官网参数',
+      subtitle: '厂家公布的装备参数规格。',
+      fields: [
+        'SKU',
+        'TOTAL LENGTH',
+        'Action',
+        'LURE WEIGHT',
+        'Line Wt N F',
+        'PE Line Size',
+        'PIECES',
+        'CLOSELENGTH',
+        'Tip Diameter',
+        'Handle Length',
+        'CONTENT CARBON',
+        'Reel Seat Position',
+        'Service Card',
+        'Jig Weight',
+        'Squid Jig Size',
+        'Sinker Rating',
+        'official_reference_price',
+        'market_status',
+        'Description',
+        'EV_link',
+        'Specs_link'
+      ]
+    },
+    {
+      title: 'GearSage 整理',
+      subtitle: '把原始参数转成更容易筛选和比较的判断。',
+      fields: [
+        'type_tips',
+        'fit_style_tags',
+        'min_lure_weight_hint',
+        'solidTip',
+        'series_positioning',
+        'main_selling_points'
+      ]
+    },
+    {
+      title: '玩家数据',
+      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      fields: ['player_positioning', 'player_selling_points']
+    }
+  ],
+  lures: [
+    {
+      title: '官网参数',
+      subtitle: '厂家公布的装备参数规格。',
+      fields: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook']
+    },
+    {
+      title: 'GearSage 整理',
+      subtitle: '把原始参数转成更容易筛选和比较的判断。',
+      fields: ['system', 'water_column', 'action', 'family', 'type_tips', 'fit_style_tags']
+    },
+    {
+      title: '玩家数据',
+      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      fields: ['player_positioning', 'player_selling_points']
+    }
+  ],
+  line: [
+    {
+      title: '官网参数',
+      subtitle: '厂家公布的装备参数规格。',
+      fields: [
+        'SKU',
+        'COLOR',
+        'SIZE NO.',
+        'LENGTH(m)',
+        'MAX STRENGTH(lb)',
+        'MAX STRENGTH(kg)',
+        'AVG STRENGTH(lb)',
+        'AVG STRENGTH(kg)',
+        'Market Reference Price'
+      ]
+    },
+    {
+      title: 'GearSage 整理',
+      subtitle: '把原始参数转成更容易筛选和比较的判断。',
+      fields: ['type_tips', 'fit_style_tags']
+    },
+    {
+      title: '玩家数据',
+      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      fields: ['player_positioning', 'player_selling_points']
+    }
+  ],
+  hook: [
+    {
+      title: '官网参数',
+      subtitle: '厂家公布的装备参数规格。',
+      fields: ['sku', 'size', 'type', 'subType', 'quantityPerPack', 'coating', 'gapWidth', 'price', 'status', 'brand']
+    },
+    {
+      title: 'GearSage 整理',
+      subtitle: '把原始参数转成更容易筛选和比较的判断。',
+      fields: ['type_tips', 'fit_style_tags']
+    },
+    {
+      title: '玩家数据',
+      subtitle: '来自用户沉淀数据，不能保证数据完全准确。',
+      fields: ['player_positioning', 'player_selling_points']
+    }
+  ]
 };
 
 Page({
@@ -101,7 +261,6 @@ Page({
     specSections: [],
     sectionCopy: {},
     infoTags: [],
-    seriesInsights: [],
     compareCount: 0,
     isCurrentVariantCompared: false,
     canCompare: false,
@@ -153,7 +312,9 @@ Page({
       'MAX STRENGTH(kg)': '最大强度(kg)',
       'AVG STRENGTH(lb)': '平均强度(lb)',
       'AVG STRENGTH(kg)': '平均强度(kg)',
-      'Market Reference Price': '参考价格',
+      'Market Reference Price': '官网标注价格',
+      market_reference_price: '官网标注价格',
+      product_code: '产品代码',
       AdminCode: '编码',
       sku: '子型号',
       subType: '子类',
@@ -163,7 +324,33 @@ Page({
       quantityPerPack: '每包数量',
       price: '价格',
       status: '状态',
-      brand: '品牌'
+      brand: '品牌',
+      type_tips: '类型标签',
+      fit_style_tags: '适用风格',
+      line_capacity_display: '线容量',
+      body_material: '机身材质',
+      handle_knob_type: '手把旋钮',
+      official_environment: '官方场景',
+      gear_ratio_normalized: '速比归类',
+      handle_style: '手把形式',
+      is_sw_edition: 'SW 版本',
+      is_handle_double: '双摇臂',
+      series_positioning: '系列定位',
+      main_selling_points: '主要卖点',
+      player_environment: '玩家场景',
+      player_positioning: '玩家定位',
+      player_selling_points: '玩家看点',
+      official_reference_price: '官方参考价',
+      market_status: '市场状态',
+      Description: '说明',
+      min_lure_weight_hint: '轻饵提示',
+      solidTip: '实心竿稍',
+      system: '系统',
+      water_column: '泳层',
+      action: '动作',
+      family: '饵型家族',
+      EV_link: '爆炸图',
+      Specs_link: '说明书'
     },
     ignoredFields: [
       'created_at', 'updated_at', 'bearing_count_roller',
@@ -264,8 +451,9 @@ Page({
     for (const source of sources) {
       if (!source || typeof source !== 'object') continue;
       for (const candidate of keyCandidates) {
+        if (!Object.prototype.hasOwnProperty.call(source, candidate)) continue;
         const rawValue = source[candidate];
-        const normalized = this.normalizeFieldValue(rawValue);
+        const normalized = this.normalizeFieldValue(rawValue, key);
         if (normalized) {
           return normalized;
         }
@@ -275,18 +463,42 @@ Page({
     return '';
   },
 
+  getFieldValueFromSources(sources, key) {
+    const keyCandidates = this.resolveFieldCandidates(key);
+    for (const source of sources) {
+      if (!source || typeof source !== 'object') continue;
+      for (const candidate of keyCandidates) {
+        if (!Object.prototype.hasOwnProperty.call(source, candidate)) continue;
+        const normalized = this.normalizeFieldValue(source[candidate], key);
+        if (normalized) {
+          return normalized;
+        }
+      }
+    }
+    return '';
+  },
+
   resolveFieldCandidates(key) {
     const aliases = {
       fit_style_tags: ['fit_style_tags', 'fitStyleTags'],
       spool_depth_normalized: ['spool_depth_normalized', 'spoolDepthNormalized', 'lineCupDepth'],
       brake_type_normalized: ['brake_type_normalized', 'brakeTypeNormalized'],
       size_family: ['size_family', 'sizeFamily'],
-      min_lure_weight_hint: ['min_lure_weight_hint', 'minLureWeightHint']
+      min_lure_weight_hint: ['min_lure_weight_hint', 'minLureWeightHint'],
+      type_tips: ['type_tips', 'typeTips'],
+      water_column: ['water_column', 'waterColumn'],
+      gear_ratio_normalized: ['gear_ratio_normalized', 'gearRatioNormalized'],
+      is_sw_edition: ['is_sw_edition', 'isSwEdition'],
+      is_handle_double: ['is_handle_double', 'isHandleDouble']
     };
     return aliases[key] || [key];
   },
 
-  normalizeFieldValue(value) {
+  normalizeFieldValue(value, key = '') {
+    if (BOOLEAN_DISPLAY_FIELDS.has(key)) {
+      const text = value === 0 ? '0' : this.normalizeText(value);
+      return text === '1' ? '是' : '-';
+    }
     if (Array.isArray(value)) {
       const items = value.map((item) => this.normalizeText(item)).filter(Boolean);
       return items.length ? items.join(' / ') : '';
@@ -294,7 +506,7 @@ Page({
     if (value && typeof value === 'object') {
       return '';
     }
-    return this.normalizeText(value);
+    return value === 0 ? '0' : this.normalizeText(value);
   },
 
   formatSpecValue(value) {
@@ -425,41 +637,111 @@ Page({
       .filter((item) => this.hasValue(item.value));
   },
 
-  buildSpecSections(record, columns) {
+  buildMergedSpecRecord(item, selectedVariant) {
+    const master = item || {};
+    const variant = selectedVariant || {};
+    return {
+      ...master,
+      ...variant,
+      official_specs: {
+        ...(master.official_specs || {}),
+        ...(variant.official_specs || {})
+      },
+      gsc_traits: {
+        ...(master.gsc_traits || {}),
+        ...(variant.gsc_traits || {})
+      },
+      compare_profile: {
+        ...(master.compare_profile || {}),
+        ...(variant.compare_profile || {})
+      }
+    };
+  },
+
+  buildSpecSources(item, selectedVariant) {
+    const master = item || {};
+    const variant = selectedVariant || {};
+    return {
+      official: [
+        variant.official_specs,
+        master.official_specs,
+        variant,
+        master
+      ],
+      gsc: [
+        variant.gsc_traits,
+        master.gsc_traits,
+        variant.compare_profile,
+        master.compare_profile,
+        variant,
+        master
+      ],
+      player: [
+        variant,
+        master
+      ]
+    };
+  },
+
+  buildLayerItems(fields, sources, usedFields) {
+    const items = [];
+    fields.forEach((field) => {
+      const value = this.getFieldValueFromSources(sources, field);
+      if (!this.hasValue(value)) return;
+      usedFields.add(field);
+      items.push({
+        key: field,
+        label: this.getFieldLabel(field),
+        value: LINK_DISPLAY_FIELDS[field] ? '跳转' : value,
+        isLink: !!LINK_DISPLAY_FIELDS[field],
+        url: LINK_DISPLAY_FIELDS[field] ? value : ''
+      });
+    });
+    return items;
+  },
+
+  buildSpecSections(item, selectedVariant, columns) {
+    const record = this.buildMergedSpecRecord(item, selectedVariant);
     if (!record || typeof record !== 'object') return [];
 
-    const groupConfig = SPEC_GROUPS_BY_TYPE[this.data.gearType] || [];
+    const layerConfig = SPEC_LAYERS_BY_TYPE[this.data.gearType] || [];
+    const layerSources = this.buildSpecSources(item, selectedVariant);
+    const sourceKeyByTitle = {
+      '官网参数': 'official',
+      'GearSage 整理': 'gsc',
+      '玩家数据': 'player'
+    };
     const usedFields = new Set();
-    const sections = groupConfig
+    const sections = layerConfig
       .map((group) => {
-        const items = group.fields
-          .map((field) => ({
-            key: field,
-            label: this.getFieldLabel(field),
-            value: this.getFieldValue(record, field)
-          }))
-          .filter((item) => this.hasValue(item.value));
-
-        items.forEach((item) => usedFields.add(item.key));
+        const sourceKey = sourceKeyByTitle[group.title] || 'official';
+        const items = this.buildLayerItems(group.fields || [], layerSources[sourceKey] || [], usedFields);
         return {
           title: group.title,
+          subtitle: group.subtitle || '',
           items
         };
       })
       .filter((section) => section.items.length > 0);
+
+    const groupConfig = SPEC_GROUPS_BY_TYPE[this.data.gearType] || [];
+    groupConfig.forEach((group) => {
+      (group.fields || []).forEach((field) => usedFields.add(field));
+    });
 
     const remainingItems = (columns || [])
       .filter((column) => !usedFields.has(column.key))
       .map((column) => ({
         key: column.key,
         label: column.label,
-        value: this.getFieldValue(record, column.key)
+        value: this.getFieldValueFromSources([record.official_specs, record], column.key)
       }))
       .filter((item) => this.hasValue(item.value));
 
     if (remainingItems.length > 0) {
       sections.push({
-        title: '其他规格',
+        title: '其他参数',
+        subtitle: '暂未归入固定层级的补充字段。',
         items: remainingItems
       });
     }
@@ -467,63 +749,10 @@ Page({
     return sections;
   },
 
-  detectVariantDiffFields(variants) {
-    const groupedFields = (SPEC_GROUPS_BY_TYPE[this.data.gearType] || []).reduce((acc, group) => {
-      return acc.concat(group.fields || []);
-    }, []);
-    const candidates = [
-      ...(CORE_FIELDS_BY_TYPE[this.data.gearType] || []),
-      ...groupedFields
-    ];
-
-    return [...new Set(candidates)].filter((field) => {
-      const values = (variants || [])
-        .map((variant) => this.getFieldValue(variant, field))
-        .filter((value) => this.hasValue(value));
-      return values.length > 1 && new Set(values).size > 1;
-    });
-  },
-
-  buildSeriesInsights(item, variants) {
-    const insights = [];
-    const profileWarnings = item && item.compare_profile && Array.isArray(item.compare_profile.warningHints)
-      ? item.compare_profile.warningHints
-      : [];
-
-    if (variants.length <= 1) {
-      insights.push('当前系列已收录的子型号还不多，后续补齐后会更适合做完整对比。');
-    } else {
-      const diffFields = this.detectVariantDiffFields(variants);
-      if (diffFields.length > 0) {
-        const labels = diffFields.slice(0, 4).map((field) => this.getFieldLabel(field));
-        insights.push(`这个系列当前最值得先看的差异是 ${labels.join(' / ')}。`);
-      } else {
-        insights.push('当前已收录的子型号之间，核心差异不算大，可以优先按使用场景和手感偏好继续排除。');
-      }
-    }
-
-    if (this.hasValue(item.type_tips)) {
-      insights.push(`系列定位可先按“${this.normalizeText(item.type_tips)}”来理解，再回头看细参数。`);
-    }
-
-    profileWarnings.forEach((warning) => {
-      const text = this.normalizeText(warning);
-      if (text) {
-        insights.push(`当前已归纳提示：${text}。`);
-      }
-    });
-
-    if (SERIES_HINTS_BY_TYPE[this.data.gearType]) {
-      insights.push(SERIES_HINTS_BY_TYPE[this.data.gearType]);
-    }
-
-    return insights.slice(0, 3);
-  },
-
   buildDetailViewState(item, variants, selectedVariantKey) {
     const columns = this.generateDynamicColumns(variants);
     const selectedVariant = this.findVariantByKey(variants, selectedVariantKey) || variants[0] || null;
-    const displayRecord = selectedVariant || item || {};
+    const displayRecord = this.buildMergedSpecRecord(item, selectedVariant);
 
     return {
       columns,
@@ -538,9 +767,8 @@ Page({
       })),
       sectionCopy: this.buildSectionCopy(),
       coreSpecs: this.buildCoreSpecs(displayRecord, columns),
-      specSections: this.buildSpecSections(displayRecord, columns),
+      specSections: this.buildSpecSections(item, selectedVariant, columns),
       infoTags: this.buildInfoTags(item),
-      seriesInsights: this.buildSeriesInsights(item, variants),
       canCompare: ['reels', 'rods'].includes(this.data.gearType) && !!selectedVariant
     };
   },
@@ -548,45 +776,39 @@ Page({
   buildSectionCopy() {
     if (this.data.gearType === 'hook') {
       return {
-        variantTitle: '先选尺寸',
-        variantSubtitle: '鱼钩同一主商品通常主要按尺寸区分，先选尺寸，再看钩型、包装和涂层。',
-        coreTitle: '核心规格',
-        coreSubtitle: '先看尺寸、钩型、包装数量和涂层，不用先读整张规格表。',
-        specTitle: '完整规格',
-        specSubtitle: '以下按鱼钩决策顺序整理，先看类别，再看尺寸、涂层和包装信息。',
-        insightTitle: 'GearSage 提示',
-        insightSubtitle: '以下是帮助判断适用场景的解释性提示，不等同于厂家官方参数。',
-        seriesTitle: '系列规格速览',
-        seriesSubtitle: '把同系列不同尺寸先摊开看清，再决定要不要继续深看。'
+        variantTitle: '选尺寸',
+        variantSubtitle: '同款鱼钩通常先按尺寸选，再看钩型、涂层和一包数量。',
+        coreTitle: '基本参数',
+        coreSubtitle: '',
+        specTitle: '完整参数',
+        specSubtitle: '',
+        seriesTitle: '子型号列表',
+        seriesSubtitle: '子型号数据横向对比。'
       };
     }
 
     if (this.data.gearType === 'line') {
       return {
-        variantTitle: '先选子型号',
-        variantSubtitle: '先确认线号、长度和强度组合，再去看参数和内容承接。',
-        coreTitle: '核心参数',
-        coreSubtitle: '先看线号、长度、强度和颜色这些最常拿来排除候选的几项。',
-        specTitle: '完整规格',
-        specSubtitle: '以下仍是规格阅读区，但已经按阅读顺序分层，不再直接丢整张大表。',
-        insightTitle: 'GearSage 提示',
-        insightSubtitle: '以下内容是解释性提示，不等同于厂家官方参数。',
-        seriesTitle: '系列子型号速览',
-        seriesSubtitle: '把同系列差异先摊开看清，再决定要不要继续深看。'
+        variantTitle: '选线号规格',
+        variantSubtitle: '先确定线号、长度和强度，后面的参数按这个规格切换。',
+        coreTitle: '基本参数',
+        coreSubtitle: '',
+        specTitle: '完整参数',
+        specSubtitle: '',
+        seriesTitle: '子型号列表',
+        seriesSubtitle: '子型号数据横向对比。'
       };
     }
 
     return {
-      variantTitle: '先选子型号',
-      variantSubtitle: '先确认你真正要看的规格，再去看参数和对比。',
-      coreTitle: '核心参数',
-      coreSubtitle: '先看最常被真正拿来排除候选的几项，不用一上来读完整张大表。',
-      specTitle: '完整规格',
-      specSubtitle: '以下仍是规格阅读区，但已经按阅读顺序分层，不再直接丢整张大表。',
-      insightTitle: 'GearSage 提示',
-      insightSubtitle: '以下内容是解释性提示，不等同于厂家官方参数。',
-      seriesTitle: '系列子型号速览',
-      seriesSubtitle: '把同系列差异先摊开看清，再决定要不要继续做正式对比。'
+      variantTitle: '具体型号',
+      variantSubtitle: '选择型号，切换显示具体参数。',
+      coreTitle: '基本参数',
+      coreSubtitle: '',
+      specTitle: '完整参数',
+      specSubtitle: '',
+      seriesTitle: '子型号列表',
+      seriesSubtitle: '子型号数据横向对比。'
     };
   },
 
@@ -653,6 +875,55 @@ Page({
     this.syncCompareState();
   },
 
+  onSpecLinkTap(e) {
+    const url = this.normalizeText(e.currentTarget.dataset.url);
+    if (!url) {
+      wx.showToast({ title: '暂无链接', icon: 'none' });
+      return;
+    }
+
+    if (/\.(pdf)(\?|#|$)/i.test(url)) {
+      wx.showLoading({ title: '打开中' });
+      wx.downloadFile({
+        url,
+        success: (res) => {
+          if (res.statusCode === 200 && res.tempFilePath) {
+            wx.openDocument({
+              filePath: res.tempFilePath,
+              showMenu: true,
+              fail: () => this.copySpecLink(url)
+            });
+            return;
+          }
+          this.copySpecLink(url);
+        },
+        fail: () => this.copySpecLink(url),
+        complete: () => wx.hideLoading()
+      });
+      return;
+    }
+
+    if (/\.(png|jpe?g|webp)(\?|#|$)/i.test(url)) {
+      wx.previewImage({
+        urls: [url],
+        current: url,
+        fail: () => this.copySpecLink(url)
+      });
+      return;
+    }
+
+    this.copySpecLink(url);
+  },
+
+  copySpecLink(url) {
+    wx.setClipboardData({
+      data: url,
+      success: () => {
+        wx.showToast({ title: '链接已复制', icon: 'none' });
+      }
+    });
+  },
+
   toggleExpand() {
     this.setData({
       isExpanded: !this.data.isExpanded
@@ -704,12 +975,12 @@ Page({
     if (!this.data.canCompare) {
       wx.showToast({
         title: this.data.gearType === 'lures'
-          ? '鱼饵正式对比页后置'
+          ? '鱼饵先看参数和经验内容'
           : this.data.gearType === 'line'
-            ? '鱼线正式对比页后置'
+            ? '鱼线先看规格和经验内容'
             : this.data.gearType === 'hook'
-              ? '鱼钩正式对比页后置'
-            : '当前还没有可加入对比的子型号',
+              ? '鱼钩先看尺寸和经验内容'
+            : '当前还没有可对比的子型号',
         icon: 'none'
       });
       return;

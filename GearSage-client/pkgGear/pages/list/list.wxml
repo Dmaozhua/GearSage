@@ -47,7 +47,6 @@
               <view class="gear-tags" wx:if="{{item.summaryTags.length > 0}}">
                 <text class="gear-tag" wx:for="{{item.summaryTags}}" wx:key="*this">{{item}}</text>
               </view>
-              <text class="gear-foot-note">{{item.compareHint}}</text>
             </view>
           </view>
         </block>

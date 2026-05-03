@@ -354,7 +354,7 @@ page {
 
 .spec-section__title {
   display: block;
-  margin-bottom: 14rpx;
+  margin-bottom: 6rpx;
   font-size: 25rpx;
   line-height: 1.5;
   font-weight: 700;
@@ -363,6 +363,18 @@ page {
 
 .container.dark .spec-section__title {
   color: #d7e4e8;
+}
+
+.spec-section__subtitle {
+  display: block;
+  margin-bottom: 14rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: #7d8c92;
+}
+
+.container.dark .spec-section__subtitle {
+  color: #9ba7ac;
 }
 
 .spec-list {
@@ -408,6 +420,15 @@ page {
 
 .container.dark .spec-row__value {
   color: #edf2f4;
+}
+
+.spec-row__value--link {
+  color: #2f6280;
+  text-decoration: underline;
+}
+
+.container.dark .spec-row__value--link {
+  color: #9fc5d8;
 }
 
 .insight-list {

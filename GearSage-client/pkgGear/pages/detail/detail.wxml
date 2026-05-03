@@ -27,16 +27,16 @@
           <view class="detail-action detail-action--primary" bindtap="onGoRecommend">去求推荐</view>
         </view>
         <text class="compare-note" wx:if="{{gearType !== 'lures' && gearType !== 'line' && gearType !== 'hook'}}">
-          {{canCompare ? '对比池 ' + compareCount + ' / 3，只先收同类同子类候选。' : '当前还没有可加入对比的子型号数据。'}}
+          {{canCompare ? '对比池 ' + compareCount + ' / 3，先放同类型候选。' : '当前还没有可对比的子型号数据。'}}
         </text>
-        <view class="compare-entry-link" wx:if="{{gearType !== 'lures' && gearType !== 'line' && gearType !== 'hook' && compareCount >= 2}}" bindtap="onGoCompare">去看正式对比</view>
+        <view class="compare-entry-link" wx:if="{{gearType !== 'lures' && gearType !== 'line' && gearType !== 'hook' && compareCount >= 2}}" bindtap="onGoCompare">开始对比</view>
       </view>
     </view>
 
     <view class="detail-section" wx:if="{{variantOptions.length > 0}}">
       <view class="section-head">
-        <text class="section-title">{{sectionCopy.variantTitle || '子型号'}}</text>
-        <text class="section-subtitle">{{sectionCopy.variantSubtitle || '先确认你真正要看的规格，再去看参数和对比。'}}</text>
+        <text class="section-title">{{sectionCopy.variantTitle || '选具体型号'}}</text>
+        <text class="section-subtitle">{{sectionCopy.variantSubtitle || '选你要看的型号，下面的参数会跟着切换。'}}</text>
       </view>
       <scroll-view scroll-x class="variant-scroll" show-scrollbar="{{false}}">
         <view class="variant-list">
@@ -57,8 +57,8 @@
 
     <view class="detail-section" wx:if="{{coreSpecs.length > 0}}">
       <view class="section-head">
-        <text class="section-title">{{sectionCopy.coreTitle || '核心参数'}}</text>
-        <text class="section-subtitle">{{sectionCopy.coreSubtitle || '先看最常被真正拿来排除候选的几项，不用一上来读完整张大表。'}}</text>
+        <text class="section-title">{{sectionCopy.coreTitle || '基本参数'}}</text>
+        <text class="section-subtitle" wx:if="{{sectionCopy.coreSubtitle}}">{{sectionCopy.coreSubtitle}}</text>
       </view>
       <view class="core-grid">
         <view class="core-card" wx:for="{{coreSpecs}}" wx:key="key" wx:for-item="spec">
@@ -70,37 +70,31 @@
 
     <view class="detail-section" wx:if="{{specSections.length > 0}}">
       <view class="section-head">
-        <text class="section-title">{{sectionCopy.specTitle || '完整规格'}}</text>
-        <text class="section-subtitle">{{sectionCopy.specSubtitle || '以下仍是规格阅读区，但已经按阅读顺序分层，不再直接丢整张大表。'}}</text>
+        <text class="section-title">{{sectionCopy.specTitle || '完整参数'}}</text>
+        <text class="section-subtitle" wx:if="{{sectionCopy.specSubtitle}}">{{sectionCopy.specSubtitle}}</text>
       </view>
       <view class="spec-section" wx:for="{{specSections}}" wx:key="title" wx:for-item="group">
         <text class="spec-section__title">{{group.title}}</text>
+        <text class="spec-section__subtitle" wx:if="{{group.subtitle}}">{{group.subtitle}}</text>
         <view class="spec-list">
           <view class="spec-row" wx:for="{{group.items}}" wx:key="key" wx:for-item="spec">
             <text class="spec-row__label">{{spec.label}}</text>
-            <text class="spec-row__value">{{spec.value}}</text>
+            <text
+              wx:if="{{spec.isLink}}"
+              class="spec-row__value spec-row__value--link"
+              bindtap="onSpecLinkTap"
+              data-url="{{spec.url}}"
+            >{{spec.value}}</text>
+            <text wx:else class="spec-row__value">{{spec.value}}</text>
           </view>
-        </view>
-      </view>
-    </view>
-
-    <view class="detail-section" wx:if="{{seriesInsights.length > 0}}">
-      <view class="section-head">
-        <text class="section-title">{{sectionCopy.insightTitle || 'GearSage 提示'}}</text>
-        <text class="section-subtitle">{{sectionCopy.insightSubtitle || '以下内容是解释性提示，不等同于厂家官方参数。'}}</text>
-      </view>
-      <view class="insight-list">
-        <view class="insight-item" wx:for="{{seriesInsights}}" wx:key="*this">
-          <view class="insight-dot"></view>
-          <text class="insight-text">{{item}}</text>
         </view>
       </view>
     </view>
 
     <view class="detail-section" wx:if="{{item.variants && item.variants.length > 1}}">
       <view class="section-head">
-        <text class="section-title">{{sectionCopy.seriesTitle || '系列子型号速览'}}</text>
-        <text class="section-subtitle">{{sectionCopy.seriesSubtitle || '把同系列差异先摊开看清，再决定要不要继续做正式对比。'}}</text>
+        <text class="section-title">{{sectionCopy.seriesTitle || '同系列怎么选'}}</text>
+        <text class="section-subtitle">{{sectionCopy.seriesSubtitle || '把差异放在一起看，先找到最接近你场景的那一款。'}}</text>
       </view>
       <view class="series-table-shell">
         <view class="inner-container">
@@ -212,8 +206,8 @@
 
     <view class="recommend-entry">
       <view class="recommend-entry__copy">
-        <text class="recommend-entry__title">看完还是纠结？</text>
-        <text class="recommend-entry__desc">可以直接带着这件装备去求推荐，继续问真实场景下到底适不适合你。</text>
+        <text class="recommend-entry__title">拿不准？</text>
+        <text class="recommend-entry__desc">带着这件装备去问具体场景，看看是否适合你的钓法和目标鱼。</text>
       </view>
       <view class="recommend-entry__button" bindtap="onGoRecommend">去求推荐</view>
     </view>
