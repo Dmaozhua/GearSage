@@ -1,7 +1,7 @@
 # Daiwa 台湾水滴轮 基线收口 v1
 
-版本：v1.2  
-状态：当前官网基线已覆盖正式中间层，白名单玩家字段 stage1 已完成  
+版本：v1.4  
+状态：当前官网基线已覆盖正式中间层，白名单玩家字段 stage1 已完成，玩家辅助字段 stage2 已补强，JP 独有 IM Z 已补入  
 更新时间：2026-05-03
 
 ---
@@ -12,6 +12,10 @@
 
 - Daiwa 当前台湾官网列表  
   `https://www.daiwa.com/tw/product/productlist?category1=%E6%8D%B2%E7%B7%9A%E5%99%A8&choshu=&page=1&category2=%E8%B7%AF%E4%BA%9E%E9%BC%93%E5%BC%8F%E6%8D%B2%E7%B7%9A%E5%99%A8`
+- Daiwa 日本官网独有 IM Z 商品页  
+  `https://www.daiwa.com/jp/product/utqvf9l`  
+  `https://www.daiwa.com/jp/product/30bvi7i`  
+  `https://www.daiwa.com/jp/product/tz71iel`
 
 当前正式中间层：
 
@@ -27,11 +31,11 @@
 
 当前主商品：
 
-- `32`
+- `35`
 
 当前 detail：
 
-- `149`
+- `161`
 
 ---
 
@@ -48,17 +52,25 @@
 
 这条链路当前已经不是概念验证，而是可复用流程。
 
+2026-05-03 追加日本官网独有 `IM Z` 三个主商品：
+
+- `DRE5032 / IM Z LIMITBREAKER TW HD-C`
+- `DRE5033 / IM Z TW 200-C`
+- `DRE5034 / IM Z TW100-C`
+
+追加时只按这 3 个官方详情页定点补入，没有重跑既有 Daiwa 水滴轮全表。
+
 ---
 
 ## 3. 当前主图状态
 
 当前主图已经闭环：
 
-- 正式表主商品：`32`
+- 正式表主商品：`35`
 - 本地目录：
   - `/Users/tommy/Pictures/images/daiwa_reels`
 - 当前命中：
-  - `32 / 32`
+  - `35 / 35` 本地已下载；新增 3 张 CDN 目标 URL 已写入表内，需静态资源同步后线上可访问
 
 当前不需要再从：
 
@@ -79,10 +91,10 @@
 
 当前统计：
 
-- `series_positioning = 32 / 32`
-- `main_selling_points = 32 / 32`
-- `player_positioning = 32 / 32`
-- `player_selling_points = 32 / 32`
+- `series_positioning = 35 / 35`
+- `main_selling_points = 35 / 35`
+- `player_positioning = 35 / 35`
+- `player_selling_points = 35 / 35`
 
 ---
 
@@ -101,14 +113,14 @@
 
 当前统计：
 
-- `GEAR RATIO = 149 / 149`
-- `MAX DRAG = 149 / 149`
-- `WEIGHT = 149 / 149`
-- `cm_per_turn = 149 / 149`
-- `bearing_count_roller = 149 / 149`
-- `usage_environment = 131 / 149`
-- `market_reference_price = 149 / 149`
-- `product_code = 143 / 149`
+- `GEAR RATIO = 161 / 161`
+- `MAX DRAG = 161 / 161`
+- `WEIGHT = 161 / 161`
+- `cm_per_turn = 161 / 161`
+- `bearing_count_roller = 161 / 161`
+- `usage_environment = 143 / 161`
+- `market_reference_price = 161 / 161`
+- `product_code = 155 / 161`
 
 说明：
 
@@ -124,6 +136,10 @@
 - `spool_diameter_mm`
 - `spool_width_mm`
 - `spool_weight_g`
+- `drag_click`
+- `spool_depth_normalized`
+- `gear_ratio_normalized`
+- `brake_type_normalized`
 - `handle_knob_type`
 - `handle_knob_exchange_size`
 - `body_material`
@@ -139,26 +155,30 @@
 
 ### 当前统计
 
-- `Nylon_no_m = 4 / 149`
-- `Nylon_lb_m = 98 / 149`
-- `fluorocarbon_lb_m = 22 / 149`
-- `pe_no_m = 100 / 149`
-- `handle_length_mm = 145 / 149`
-- `spool_diameter_mm = 137 / 149`
-- `spool_width_mm = 112 / 149`
-- `spool_weight_g = 18 / 149`
-- `handle_knob_type = 125 / 149`
-- `handle_knob_exchange_size = 105 / 149`
-- `body_material = 108 / 149`
-- `body_material_tech = 88 / 149`
-- `gear_material = 87 / 149`
-- `official_environment = 149 / 149`
-- `player_environment = 149 / 149`
-- `handle_style = 149 / 149`
-- `is_handle_double = 149 / 149`
-- `is_sw_edition = 149 / 149`
-- `fit_style_tags = 149 / 149`
-- `min_lure_weight_hint = 149 / 149`
+- `Nylon_no_m = 4 / 161`
+- `Nylon_lb_m = 110 / 161`
+- `fluorocarbon_lb_m = 22 / 161`
+- `pe_no_m = 112 / 161`
+- `handle_length_mm = 157 / 161`
+- `spool_diameter_mm = 149 / 161`
+- `spool_width_mm = 124 / 161`
+- `spool_weight_g = 30 / 161`
+- `drag_click = 78 / 161`
+- `spool_depth_normalized = 161 / 161`
+- `gear_ratio_normalized = 161 / 161`
+- `brake_type_normalized = 120 / 161`
+- `handle_knob_type = 137 / 161`
+- `handle_knob_exchange_size = 117 / 161`
+- `body_material = 136 / 161`
+- `body_material_tech = 161 / 161`
+- `gear_material = 89 / 161`
+- `official_environment = 161 / 161`
+- `player_environment = 161 / 161`
+- `handle_style = 161 / 161`
+- `is_handle_double = 161 / 161`
+- `is_sw_edition = 161 / 161`
+- `fit_style_tags = 161 / 161`
+- `min_lure_weight_hint = 161 / 161`
 
 ---
 
@@ -173,6 +193,7 @@
 - `DRE5011 / STEEZ SV TW`
 - `DRE5018 / ZILLION SV TW`
 - `DRE5024 / STEEZ CT SV TW`
+- `DRE5030 / TATULA TW 200`
 
 当前规则：
 
@@ -199,6 +220,24 @@
 - 证据文件：
   - [daiwa_baitcasting_whitelist_player_fields_evidence.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_whitelist_player_fields_evidence.json)
   - [daiwa_baitcasting_whitelist_player_fields_report.md](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_whitelist_player_fields_report.md)
+
+2026-05-03 已完成玩家辅助字段 stage2：
+
+- 主要来源：Daiwa 官方正文 / 规格缓存、Daiwa 区域官网精确型号页、JapanTackle stage1 已确认链路。
+- 只回写 `baitcasting_reel_detail` 中原本为空、证据或规则明确的字段。
+- 本轮新增空字段补值 `537` 个；之后对 `spool_depth_normalized` 做了 `43` 个桶位修正，避免把船钓窄深杯误判为浅杯、或把 100 规格 PE 容量误判过深。
+- 回写 / 派生字段：
+  - `gear_ratio_normalized`
+  - `spool_depth_normalized`
+  - `brake_type_normalized`
+  - `drag_click`
+  - `body_material`
+  - `body_material_tech`
+  - `spool_weight_g`
+- `spool_weight_g` 本轮只新增 `DRE5030 / TATULA TW 200`，不从改装兼容页推断原厂线杯重量。
+- 证据文件：
+  - [daiwa_baitcasting_player_fields_stage2_evidence.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_player_fields_stage2_evidence.json)
+  - [daiwa_baitcasting_player_fields_stage2_report.md](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_player_fields_stage2_report.md)
 
 主表黄底字段：
 

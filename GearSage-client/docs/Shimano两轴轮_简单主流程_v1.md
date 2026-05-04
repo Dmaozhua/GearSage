@@ -233,8 +233,9 @@
 1. `body_material` 只写纯材质主值  
    例如：`Magnesium`、`Aluminum`、`Aluminum alloy`
 
-2. `body_material_tech` 只承接机身技术/结构表达  
-   例如：`HAGANE 机身`、`CORESOLID BODY / 一体成型`、`全加工`
+2. `body_material_tech` 承接整件商品的技术名合集  
+   例如：`HAGANE 机身`、`CORESOLID BODY`、`SVS INFINITY`、`MGL SPOOL`、`Micro Module Gear`
+   纯材质值仍只进入 `body_material`
 
 3. `main_gear_material` 保留三档口径  
    - `direct_write`

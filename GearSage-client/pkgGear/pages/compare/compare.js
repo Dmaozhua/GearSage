@@ -137,6 +137,51 @@ Page({
     return String(value || '').trim();
   },
 
+  buildMasterLabel(detail, entry) {
+    return this.normalizeText(detail && detail.model)
+      || this.normalizeText(detail && detail.model_cn)
+      || this.normalizeText(entry && entry.masterName)
+      || '未命名装备';
+  },
+
+  buildSummaryTags(item) {
+    const tags = [];
+    const pushTag = (value) => {
+      const text = this.normalizeText(value);
+      if (text && !tags.includes(text)) {
+        tags.push(text);
+      }
+    };
+
+    const traitTags =
+      item &&
+      item.compare_profile &&
+      Array.isArray(item.compare_profile.fitStyleTags)
+        ? item.compare_profile.fitStyleTags
+        : item && item.gsc_traits && Array.isArray(item.gsc_traits.fitStyleTags)
+          ? item.gsc_traits.fitStyleTags
+          : [];
+
+    pushTag(item && item.model_year);
+    traitTags.forEach(pushTag);
+
+    if (item && item.gearType === 'reels') {
+      if (!traitTags.length) {
+        pushTag(item.type_tips);
+      }
+    } else if (item && item.gearType === 'rods') {
+      pushTag(item.type);
+      pushTag(item.action);
+      pushTag(item.type_tips);
+    } else {
+      pushTag(item && item.system);
+      pushTag(item && item.water_column);
+      pushTag(item && item.action);
+    }
+
+    return tags.slice(0, 3);
+  },
+
   hasValue(value) {
     return value !== undefined && value !== null && String(value).trim() !== '';
   },
@@ -295,9 +340,13 @@ Page({
 
       const images = Array.isArray(detail.images) ? detail.images : [];
       const imageUrl = images[0] || detail.imageUrl || entry.imageUrl || '/images/default-gear.png';
-      const masterLabel = this.normalizeText(detail.displayName || detail.model);
+      const masterLabel = this.buildMasterLabel(detail, entry);
       const brandName = this.normalizeText(detail.brand_name || entry.brandName);
       const compareGroup = this.normalizeText(detail.type || detail.system || entry.compareGroup);
+      const summaryTags = this.buildSummaryTags({
+        ...detail,
+        gearType: entry.gearType
+      });
 
       return {
         ...entry,
@@ -307,6 +356,7 @@ Page({
         selectedVariant,
         compareGroup,
         compareGroupLabel: compareGroup || entry.compareGroupLabel || '',
+        summaryTags,
         compareLabel: [brandName, selectedVariant.__displayName].filter(Boolean).join(' ').trim(),
         detail
       };
@@ -389,7 +439,6 @@ Page({
     };
 
     const diffCoreLabels = coreRows.filter((row) => row.isDifferent).map((row) => row.label);
-    const groups = [...new Set(compareCards.map((item) => item.compareGroupLabel).filter(Boolean))];
     const collectedFitTags = compareCards.reduce((acc, item) => {
       const tags =
         item &&
@@ -414,10 +463,6 @@ Page({
       pushInsight(`这几个候选最值得先看的差异是 ${diffCoreLabels.slice(0, 4).join(' / ')}。`);
     } else {
       pushInsight('当前候选在核心参数上差异不大，可以继续结合手感、场景和帖子经验判断。');
-    }
-
-    if (groups.length === 1) {
-      pushInsight(`当前候选都属于「${groups[0]}」方向，更适合做同类收敛式比较。`);
     }
 
     if (!warnings.length && compareCards.length >= 2) {

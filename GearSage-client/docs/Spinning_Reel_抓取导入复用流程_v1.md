@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：可复用流程  
-更新时间：2026-05-01
+更新时间：2026-05-04
 
 ---
 
@@ -38,11 +38,13 @@
 - /Users/tommy/GearSage/AGENTS.md
 - /Users/tommy/GearSage/GearSage-client/docs/Spinning_Reel_抓取导入复用流程_v1.md
 - /Users/tommy/GearSage/GearSage-client/docs/reel_字段速查表_v1.md
+- /Users/tommy/GearSage/GearSage-client/docs/渔轮字段统一口径_v1.md
 - /Users/tommy/GearSage/GearSage-client/docs/Reel_基线收口总览_v1.md
 - /Users/tommy/GearSage/GearSage-client/docs/Daiwa台湾纺车轮_基线收口_v1.md
 - /Users/tommy/GearSage/scripts/gear_export_schema.js
 - /Users/tommy/GearSage/scripts/build_daiwa_tw_spinning_current_import.js
 - /Users/tommy/GearSage/scripts/apply_daiwa_tw_spinning_player_fields.js
+- /Users/tommy/GearSage/scripts/update_daiwa_spinning_body_material_tech.js
 
 目标：
 1. 先理解当前 schema、字段含义、图片规则、白名单/player 字段规则。
@@ -65,6 +67,8 @@
   - 项目行为、可信装备库原则、不要猜值。
 - [reel_字段速查表_v1.md](/Users/tommy/GearSage/GearSage-client/docs/reel_字段速查表_v1.md)
   - reel 主表和 spinning detail 字段含义。
+- [渔轮字段统一口径_v1.md](/Users/tommy/GearSage/GearSage-client/docs/渔轮字段统一口径_v1.md)
+  - reel 字段语义口径；`body_material_tech` 当前按整件商品技术名合集理解。
 - [gear_export_schema.js](/Users/tommy/GearSage/scripts/gear_export_schema.js)
   - 导出表头和 sheet 名唯一来源。
 
@@ -81,6 +85,8 @@
   - list/detail 抓取、结构化规格表解析、图片下载、dry-run/audit/commit。
 - [apply_daiwa_tw_spinning_player_fields.js](/Users/tommy/GearSage/scripts/apply_daiwa_tw_spinning_player_fields.js)
   - 主表玩家字段补充、白名单证据 sidecar、来源词防泄漏。
+- [update_daiwa_spinning_body_material_tech.js](/Users/tommy/GearSage/scripts/update_daiwa_spinning_body_material_tech.js)
+  - Daiwa spinning 专用单字段刷新；只重抓并写入 `spinning_reel_detail.body_material_tech`。
 
 ---
 
@@ -182,6 +188,52 @@ spinning 补充字段：
 - 官网明确给值才写官方规格字段。
 - 派生字段只按稳定规则写。
 - 不能确认就留空。
+
+### Step 4.1：`body_material_tech` 单字段重抓
+
+当前口径：
+
+- `body_material_tech` 是整件商品技术名合集，不再只表示机身材质技术。
+- 可写入机身、齿轮、线杯、刹车、导线规、平台设计等商品技术名。
+- 不写纯材质值；纯材质仍只进入 `body_material`。
+
+Daiwa Taiwan spinning 当前实现：
+
+- 数据源：官网产品详情页的 `DAIWA 技術` / `mainParts_technology` 区块。
+- 提取值：技术卡片标题，如 `AIRDRIVE DESIGN`、`MONOCOQUE BODY`、`TOUGH DIGIGEAR`、`ATD TYPE-L`、`MAGSEALED`、`LC-ABS(長距離拋投ABS)`。
+- 落表方式：按主商品 `reel_id` 复制到该系列全部 detail 行。
+- 不从规格表的 `本體材質` 取值。
+- 不把价格、速比、轴承数、线容量等规格字段混入。
+- 如果官网没有技术区块，留空并在 audit 里记录，不为补满而猜。
+
+标准命令：
+
+```bash
+cd /Users/tommy/GearSage/scripts
+node update_daiwa_spinning_body_material_tech.js
+```
+
+确认 audit 后覆盖正式表：
+
+```bash
+cd /Users/tommy/GearSage/scripts
+node update_daiwa_spinning_body_material_tech.js --commit
+```
+
+标准输出：
+
+- `daiwa_spinning_reels_body_material_tech_dry_run.xlsx`
+- `daiwa_spinning_reels_body_material_tech_audit.json`
+- `daiwa_spinning_reels_body_material_tech_audit.md`
+
+提交前 QA：
+
+- 正式表与 dry-run 除目标列外无差异。
+- `reel` 行数不变，`spinning_reel_detail` 行数不变。
+- 系列内同一 `reel_id` 的 `body_material_tech` 一致。
+- `body_material_tech` 不等于 `body_material`。
+- 没有规格字段串入，例如价格、速比、重量、JAN、线容量。
+- 空值必须能追溯到官网无技术区块。
 
 ---
 
@@ -403,6 +455,20 @@ node scripts/build_daiwa_tw_spinning_current_import.js --commit --force-images
 
 ```bash
 node scripts/apply_daiwa_tw_spinning_player_fields.js
+```
+
+单独刷新 Daiwa spinning `body_material_tech` dry-run：
+
+```bash
+cd /Users/tommy/GearSage/scripts
+node update_daiwa_spinning_body_material_tech.js
+```
+
+单独刷新 Daiwa spinning `body_material_tech` 并覆盖正式 import：
+
+```bash
+cd /Users/tommy/GearSage/scripts
+node update_daiwa_spinning_body_material_tech.js --commit
 ```
 
 ---

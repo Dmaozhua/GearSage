@@ -1,8 +1,8 @@
 # Reel 基线收口总览 v1
 
-版本：v1.1  
+版本：v1.2  
 状态：阶段性收口  
-更新时间：2026-04-30
+更新时间：2026-05-03
 
 ---
 
@@ -85,8 +85,8 @@
   - 主商品 `33`
   - detail `261`
 - 台湾水滴轮：
-  - 主商品 `25`
-  - detail `98`
+  - 主商品 `35`
+  - detail `161`
 
 ### Megabass
 
@@ -109,10 +109,11 @@
 ### Daiwa 台湾官网
 
 - 台湾纺车轮已切到当前 `daiwa.com/tw` 结构化规格表链路
+- 台湾水滴轮已从旧台湾站基线补齐到当前 `daiwa.com/tw` 商品列表，并追加日本官网独有 `IM Z` 三个主商品
 - 旧站规格图 OCR / family parser 作为历史测试链路保留
 - 纺车轮正式中间层已按当前官网 33 个商品覆盖
 - 主图链已闭环
-- 白名单主层已补一轮
+- 白名单主层已补一轮；水滴轮玩家辅助字段 stage2 已补强到 `gear_ratio_normalized / spool_depth_normalized` 全量、`body_material_tech` 全量
 
 ### Megabass 官网
 
@@ -146,6 +147,8 @@
   - 仅在确有结构含义时使用
 - `spool_weight_g`
   - 只补热门且证据硬的家族
+- `gear_ratio_normalized / spool_depth_normalized`
+  - 允许基于官方规格做规则派生，但需要抽样检查深浅杯桶位
 
 ### 白名单
 

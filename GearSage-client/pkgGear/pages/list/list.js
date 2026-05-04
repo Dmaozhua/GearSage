@@ -106,7 +106,7 @@ Page({
       if (Array.isArray(images) && images[0]) imageUrl = images[0].trim();
     }
 
-    const displayName = item.model_year ? `${item.model_year} ${item.model}` : item.model;
+    const displayName = this.normalizeText(item.model) || this.normalizeText(item.model_cn) || '未命名装备';
     const normalizedItem = {
       ...item,
       imageUrl,
@@ -148,14 +148,12 @@ Page({
           ? item.gsc_traits.fitStyleTags
           : [];
 
+    pushTag(item.model_year);
     traitTags.forEach(pushTag);
 
     if (this.data.currentType === 'reels') {
       if (!traitTags.length) {
         pushTag(item.type_tips);
-      }
-      if (tags.length < 3) {
-        pushTag(item.alias);
       }
     } else if (this.data.currentType === 'rods') {
       pushTag(item.type);
@@ -163,10 +161,8 @@ Page({
       pushTag(item.type_tips);
     } else if (this.data.currentType === 'line') {
       pushTag(item.type_tips);
-      pushTag(item.alias);
     } else if (this.data.currentType === 'hook') {
       pushTag(item.type_tips);
-      pushTag(item.alias);
     } else {
       pushTag(item.system);
       pushTag(item.water_column);

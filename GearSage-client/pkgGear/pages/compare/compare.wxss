@@ -199,6 +199,12 @@ page {
   font-weight: 600;
 }
 
+.candidate-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
 .candidate-group {
   align-self: flex-start;
   min-height: 42rpx;
@@ -263,6 +269,8 @@ page {
 .compare-section {
   padding: 28rpx;
   margin-bottom: 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .section-head {
@@ -277,26 +285,33 @@ page {
   justify-content: space-between;
   align-items: flex-start;
   gap: 18rpx;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .section-copy {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 10rpx;
 }
 
 .section-title {
+  display: block;
   font-size: 32rpx;
   line-height: 1.4;
   font-weight: 800;
   color: #24343b;
+  word-break: break-all;
 }
 
 .section-subtitle {
+  display: block;
   font-size: 23rpx;
   line-height: 1.7;
   color: #7a8a91;
+  word-break: break-all;
 }
 
 .toggle-link {
@@ -305,6 +320,7 @@ page {
   line-height: 1.5;
   color: #33566a;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .container.dark .section-title {
@@ -385,7 +401,11 @@ page {
 
 .table-scroll {
   width: 100%;
+  max-width: 100%;
+  display: block;
   white-space: nowrap;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .compare-table {

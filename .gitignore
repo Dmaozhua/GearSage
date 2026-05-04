@@ -16,12 +16,15 @@ __pycache__/
 .idea/
 .vscode/
 
+pkgGear/utils/技术名词解释.md
+
 # Local testing output (if needed)
 scripts/data_raw/
 normalized.json
 .omx/
 
 # Local/generated reel workflow artifacts
+GearSage-client/pkgGear/utils/技术名词解释.md
 GearSage-client/pkgGear/data_raw/*_normalized.json
 GearSage-client/pkgGear/data_raw/*_locks.json
 GearSage-client/pkgGear/data_raw/*_audit.json

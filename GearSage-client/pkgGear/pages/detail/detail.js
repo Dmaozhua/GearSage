@@ -8,7 +8,12 @@ const SERIES_COLUMN_WIDTH = 190;
 const SERIES_ROW_HEIGHT = 72;
 const SERIES_MAX_BODY_HEIGHT = 548;
 const BOOLEAN_DISPLAY_FIELDS = new Set(['is_sw_edition', 'is_handle_double']);
-const HIDDEN_DETAIL_FIELDS = new Set(['custom_spool_compatibility', 'handle_knob_exchange_size']);
+const HIDDEN_DETAIL_FIELDS = new Set([
+  'custom_spool_compatibility',
+  'handle_knob_exchange_size',
+  'main_selling_points',
+  'usage_environment'
+]);
 const LINK_DISPLAY_FIELDS = {
   Specs_link: '说明书',
   EV_link: '爆炸图'
@@ -113,12 +118,16 @@ const SPEC_LAYERS_BY_TYPE = {
         'fluorocarbon_no_m',
         'pe_no_m',
         'handle_length_mm',
+        'bearing_count_roller',
         'body_material',
         'body_material_tech',
         'official_environment',
         'handle_knob_type',
         'market_reference_price',
         'product_code',
+        'battery_capacity',
+        'battery_charge_time',
+        'continuous_cast_count',
         'Specs_link',
         'EV_link'
       ]
@@ -151,6 +160,7 @@ const SPEC_LAYERS_BY_TYPE = {
         'min_lure_weight_hint',
         'knob_bearing_spec',
         'knob_size',
+        'gear_material',
         'spool_weight_g',
         'usage_environment'
       ]
@@ -343,6 +353,9 @@ Page({
       'Market Reference Price': '官网标注价格',
       market_reference_price: '官网标注价格',
       product_code: '产品代码',
+      battery_capacity: '电池容量',
+      battery_charge_time: '充电时间',
+      continuous_cast_count: '连续抛投次数',
       AdminCode: '编码',
       sku: '子型号',
       subType: '子类',
@@ -356,8 +369,10 @@ Page({
       type_tips: '类型标签',
       fit_style_tags: '适用风格',
       line_capacity_display: '线容量',
+      bearing_count_roller: '轴承数',
       body_material: '机身材质',
       body_material_tech: '机身技术',
+      gear_material: '大齿材质',
       handle_knob_type: '握丸样式',
       handle_knob_exchange_size: '握丸型号/尺寸',
       knob_bearing_spec: '握丸轴承规格',
@@ -388,7 +403,7 @@ Page({
       Specs_link: '说明书'
     },
     ignoredFields: [
-      'created_at', 'updated_at', 'bearing_count_roller',
+      'created_at', 'updated_at',
       'market_reference_price', 'product_code', 'AdminCode',
       'Market Reference Price', 'brand_id', 'reel_id', 'rod_id',
       'lure_id', 'line_id', 'hookId', 'id', '_id', '_openid', 'images', 'model',
