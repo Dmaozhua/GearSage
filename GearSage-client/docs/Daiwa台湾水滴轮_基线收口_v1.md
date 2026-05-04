@@ -171,6 +171,7 @@
 - `handle_knob_exchange_size = 117 / 161`
 - `body_material = 136 / 161`
 - `body_material_tech = 161 / 161`
+  - 2026-05-04 收口：该字段作为商品技术名合集，只按 Daiwa 官方页面取值；白名单页面只保留为检索线索
 - `gear_material = 89 / 161`
 - `official_environment = 161 / 161`
 - `player_environment = 161 / 161`
@@ -211,11 +212,11 @@
 
 - 主要来源：JapanTackle 精确系列页。
 - 只回写 `baitcasting_reel_detail` 中原本为空、证据明确的字段。
-- 本轮新增可信字段值 `62` 个，涉及 `8` 个主商品家族。
+- 历史执行时新增可信字段值 `62` 个，涉及 `8` 个主商品家族；2026-05-04 已将其中的商品技术名改回官方来源口径。
 - 回写字段：
   - `drag_click`
   - `body_material`
-  - `body_material_tech`
+- 2026-05-04 之后，`body_material_tech` 不再从白名单 stage 写入，统一回到 Daiwa 官方页面取值。
 - `spool_weight_g` 本轮没有找到可接受的原厂 / genuine 线杯重量硬证据，继续留空。
 - 证据文件：
   - [daiwa_baitcasting_whitelist_player_fields_evidence.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_whitelist_player_fields_evidence.json)
@@ -223,7 +224,7 @@
 
 2026-05-03 已完成玩家辅助字段 stage2：
 
-- 主要来源：Daiwa 官方正文 / 规格缓存、Daiwa 区域官网精确型号页、JapanTackle stage1 已确认链路。
+- 主要来源：Daiwa 官方正文 / 规格缓存、Daiwa 区域官网精确型号页；其中 `body_material_tech` 只使用 Daiwa 官方页面技术名。
 - 只回写 `baitcasting_reel_detail` 中原本为空、证据或规则明确的字段。
 - 本轮新增空字段补值 `537` 个；之后对 `spool_depth_normalized` 做了 `43` 个桶位修正，避免把船钓窄深杯误判为浅杯、或把 100 规格 PE 容量误判过深。
 - 回写 / 派生字段：

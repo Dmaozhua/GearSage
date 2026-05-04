@@ -113,7 +113,7 @@
 - 旧站规格图 OCR / family parser 作为历史测试链路保留
 - 纺车轮正式中间层已按当前官网 33 个商品覆盖
 - 主图链已闭环
-- 白名单主层已补一轮；水滴轮玩家辅助字段 stage2 已补强到 `gear_ratio_normalized / spool_depth_normalized` 全量、`body_material_tech` 全量
+- 白名单主层已补一轮；水滴轮玩家辅助字段 stage2 已补强到 `gear_ratio_normalized / spool_depth_normalized` 全量、`body_material_tech` 全量；`body_material_tech` 现收口为官网 / 官方页面来源
 
 ### Megabass 官网
 

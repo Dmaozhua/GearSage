@@ -2598,7 +2598,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5000",
-    "name": "SILVER WOLF CT SV TW PE SPECIAL",
+    "name": "SILVER WOLF CT SV TW PE SPECIAL 银狼",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2609,7 +2609,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5001",
-    "name": "2026 TATULA BF TW",
+    "name": "2026 TATULA BF TW 蜘蛛",
     "alias": "26 TATULA BF TW",
     "type_tips": "",
     "system": "",
@@ -2620,7 +2620,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5002",
-    "name": "2026 月下美人 BF TW PE SP",
+    "name": "2026 月下美人 BF TW PE SP 月下美人",
     "alias": "26 月下美人 BF TW PE SP",
     "type_tips": "",
     "system": "",
@@ -2631,7 +2631,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5003",
-    "name": "STEEZ SV LIGHT TW",
+    "name": "STEEZ SV LIGHT TW 史帝兹",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2642,7 +2642,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5004",
-    "name": "2026 RYOGA",
+    "name": "2026 RYOGA 肉鸽",
     "alias": "26 RYOGA",
     "type_tips": "",
     "system": "",
@@ -2653,7 +2653,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5005",
-    "name": "2025 SALTIGA 10",
+    "name": "2025 SALTIGA 10 赛尔迪迦",
     "alias": "25 SALTIGA 10",
     "type_tips": "",
     "system": "",
@@ -2664,7 +2664,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5006",
-    "name": "2025 SALTIGA 35",
+    "name": "2025 SALTIGA 35 赛尔迪迦",
     "alias": "25 SALTIGA 35",
     "type_tips": "",
     "system": "",
@@ -2675,7 +2675,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5007",
-    "name": "STEEZ LIMITED CT SV TW",
+    "name": "STEEZ LIMITED CT SV TW 史帝兹",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2686,7 +2686,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5008",
-    "name": "2025 SALTIGA 300",
+    "name": "2025 SALTIGA 300 赛尔迪迦",
     "alias": "25 SALTIGA 300",
     "type_tips": "",
     "system": "",
@@ -2697,7 +2697,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5009",
-    "name": "2025 TATULA SV TW 100",
+    "name": "2025 TATULA SV TW 100 蜘蛛",
     "alias": "25 TATULA SV TW 100",
     "type_tips": "",
     "system": "",
@@ -2708,7 +2708,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5010",
-    "name": "2025 ALPHAS BF TW",
+    "name": "2025 ALPHAS BF TW 阿尔法",
     "alias": "25 ALPHAS BF TW",
     "type_tips": "",
     "system": "",
@@ -2719,7 +2719,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5011",
-    "name": "2024 STEEZ SV TW",
+    "name": "2024 STEEZ SV TW 史帝兹",
     "alias": "24 STEEZ SV TW",
     "type_tips": "",
     "system": "",
@@ -2730,7 +2730,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5012",
-    "name": "2024 TATULA TW 100",
+    "name": "2024 TATULA TW 100 蜘蛛",
     "alias": "24 TATULA TW 100",
     "type_tips": "",
     "system": "",
@@ -2741,7 +2741,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5013",
-    "name": "2022 SALTIGA 15",
+    "name": "2022 SALTIGA 15 赛尔迪迦",
     "alias": "22 SALTIGA 15",
     "type_tips": "",
     "system": "",
@@ -2763,7 +2763,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5015",
-    "name": "2022 STEEZ A II TW",
+    "name": "2022 STEEZ A II TW 史帝兹",
     "alias": "22 STEEZ A II TW",
     "type_tips": "",
     "system": "",
@@ -2774,7 +2774,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5016",
-    "name": "2022 ZILLION TW HD",
+    "name": "2022 ZILLION TW HD 子龙",
     "alias": "22 ZILLION TW HD",
     "type_tips": "",
     "system": "",
@@ -2785,7 +2785,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5017",
-    "name": "2021 SALTIGA IC",
+    "name": "2021 SALTIGA IC 赛尔迪迦",
     "alias": "21 SALTIGA IC",
     "type_tips": "",
     "system": "",
@@ -2796,7 +2796,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5018",
-    "name": "2021 ZILLION SV TW",
+    "name": "2021 ZILLION SV TW 子龙",
     "alias": "21 ZILLION SV TW",
     "type_tips": "",
     "system": "",
@@ -2807,7 +2807,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5019",
-    "name": "2021 ALPHAS SV TW",
+    "name": "2021 ALPHAS SV TW 阿尔法",
     "alias": "21/22 ALPHAS SV TW",
     "type_tips": "",
     "system": "",
@@ -2818,7 +2818,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5020",
-    "name": "2021 STEEZ LTD SV TW",
+    "name": "2021 STEEZ LTD SV TW 史帝兹",
     "alias": "21 STEEZ LTD SV TW",
     "type_tips": "",
     "system": "",
@@ -2840,7 +2840,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5022",
-    "name": "TATULA TW 300/400",
+    "name": "TATULA TW 300/400 蜘蛛",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2862,7 +2862,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5024",
-    "name": "STEEZ CT SV TW",
+    "name": "STEEZ CT SV TW 史帝兹",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2873,7 +2873,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5025",
-    "name": "2020 STEEZ AIR TW",
+    "name": "2020 STEEZ AIR TW 史帝兹",
     "alias": "20 STEEZ AIR TW",
     "type_tips": "",
     "system": "",
@@ -2884,7 +2884,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5026",
-    "name": "MORETHAN PE TW",
+    "name": "MORETHAN PE TW 猫赞",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -2917,7 +2917,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5029",
-    "name": "2023 SALTIST TW PE SPECIAL",
+    "name": "2023 SALTIST TW PE SPECIAL 赛尔迪",
     "alias": "23 SALTIST TW PE SPECIAL",
     "type_tips": "",
     "system": "",
@@ -2928,7 +2928,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "DRE5030",
-    "name": "2025 TATULA TW 200",
+    "name": "2025 TATULA TW 200 蜘蛛",
     "alias": "25 TATULA TW 200",
     "type_tips": "",
     "system": "",

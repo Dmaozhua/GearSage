@@ -81,6 +81,29 @@
       </view>
     </view>
 
+    <view class="detail-section" wx:if="{{techTerms.length > 0}}">
+      <view class="section-head">
+        <text class="section-title">核心技术</text>
+      </view>
+      <view class="tech-term-list">
+        <view
+          class="tech-term {{tech.hasInfo ? 'tech-term--interactive' : ''}}"
+          wx:for="{{techTerms}}"
+          wx:key="key"
+          wx:for-item="tech"
+          catchtap="onTechTermTap"
+          data-key="{{tech.hasInfo ? tech.key : ''}}"
+        >
+          <text class="tech-term__name">{{tech.name}}</text>
+        </view>
+      </view>
+      <view class="tech-term-panel" wx:if="{{activeTechTermInfo}}">
+        <text class="tech-term-panel__title">{{activeTechTermInfo.name}}</text>
+        <text class="tech-term-panel__simple" wx:if="{{activeTechTermInfo.simpleText}}">{{activeTechTermInfo.simpleText}}</text>
+        <text class="tech-term-panel__detail" wx:if="{{activeTechTermInfo.detailText}}">{{activeTechTermInfo.detailText}}</text>
+      </view>
+    </view>
+
     <view class="detail-section" wx:if="{{specSections.length > 0}}">
       <view class="section-head">
         <text class="section-title">{{sectionCopy.specTitle || '完整参数'}}</text>

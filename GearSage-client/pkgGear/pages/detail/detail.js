@@ -1,6 +1,7 @@
 // pkgGear/pages/detail/detail.js
 const app = getApp();
 const apiService = require('../../../services/api');
+const { techGlossary } = require('../../utils/官网解释_text_simple');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const MAX_COMPARE_ITEMS = 3;
@@ -10,19 +11,17 @@ const SERIES_MAX_BODY_HEIGHT = 548;
 const BOOLEAN_DISPLAY_FIELDS = new Set(['is_sw_edition', 'is_handle_double']);
 const HIDDEN_DETAIL_FIELDS = new Set([
   'custom_spool_compatibility',
+  'custom_knob_compatibility',
+  'body_material_tech',
   'handle_knob_exchange_size',
   'main_selling_points',
+  'main_gear_material',
   'usage_environment'
 ]);
 const LINK_DISPLAY_FIELDS = {
   Specs_link: '说明书',
   EV_link: '爆炸图'
 };
-const TECH_TERM_TOOLTIPS = {
-  'body_material_tech:HAGANE 机身':
-    'Hagane Body（Hagane 机身）是禧玛诺（Shimano）渔轮设计中的一项核心技术，指代使用轻量化但具有高刚性、高强度金属材料（通常为铝合金或镁合金）制造的渔轮主体。其核心目的是在重负载钓况下，彻底抑制因受力而产生的扭曲、晃动，确保精细齿轮的完美咬合，实现长久、顺滑的摇卷体验。'
-};
-
 const CORE_FIELDS_BY_TYPE = {
   reels: [
     'SKU',
@@ -120,9 +119,9 @@ const SPEC_LAYERS_BY_TYPE = {
         'handle_length_mm',
         'bearing_count_roller',
         'body_material',
-        'body_material_tech',
         'official_environment',
         'handle_knob_type',
+        'handle_knob_material',
         'market_reference_price',
         'product_code',
         'battery_capacity',
@@ -286,6 +285,7 @@ Page({
     selectedVariant: {},
     variantOptions: [],
     coreSpecs: [],
+    techTerms: [],
     specSections: [],
     sectionCopy: {},
     infoTags: [],
@@ -318,7 +318,7 @@ Page({
       spool_width_mm: '线杯宽度(mm)',
       spool_depth_normalized: '线杯深度',
       brake_type_normalized: '刹车类型',
-      size_family: '尺寸家族',
+      size_family: '线杯尺寸',
       Nylon_no_m: '尼龙线(号-m)',
       Nylon_lb_m: '尼龙线(lb-m)',
       handle_length_mm: '手把长(mm)',
@@ -374,6 +374,7 @@ Page({
       body_material_tech: '机身技术',
       gear_material: '大齿材质',
       handle_knob_type: '握丸样式',
+      handle_knob_material: '握丸材质',
       handle_knob_exchange_size: '握丸型号/尺寸',
       knob_bearing_spec: '握丸轴承规格',
       knob_size: '握丸尺寸',
@@ -426,6 +427,7 @@ Page({
     sourcePostId: '',
     loadingRelated: false,
     activeTechTooltipKey: '',
+    activeTechTermInfo: null,
     isLoading: true
   },
 
@@ -538,6 +540,7 @@ Page({
       min_lure_weight_hint: ['min_lure_weight_hint', 'minLureWeightHint'],
       type_tips: ['type_tips', 'typeTips'],
       water_column: ['water_column', 'waterColumn'],
+      gear_material: ['gear_material', 'main_gear_material'],
       gear_ratio_normalized: ['gear_ratio_normalized', 'gearRatioNormalized'],
       is_sw_edition: ['is_sw_edition', 'isSwEdition'],
       is_handle_double: ['is_handle_double', 'isHandleDouble'],
@@ -686,6 +689,43 @@ Page({
     return this.getFieldValueFromSources([record, record && record.official_specs], 'description');
   },
 
+  splitTechTerms(value) {
+    return this.normalizeText(value)
+      .split(/\s*\/\s*/)
+      .map((term) => this.normalizeText(term))
+      .filter(Boolean)
+      .filter((term, index, terms) => terms.indexOf(term) === index);
+  },
+
+  getTechGlossaryEntry(term) {
+    const key = this.normalizeText(term);
+    return (key && techGlossary && techGlossary[key]) || null;
+  },
+
+  buildTechTerms(record) {
+    const rawValue = this.getFieldValue(record, 'body_material_tech');
+    return this.splitTechTerms(rawValue).map((term, index) => {
+      const entry = this.getTechGlossaryEntry(term) || {};
+      const simpleText = this.normalizeText(entry.text_simple);
+      const detailText = this.normalizeText(entry.text);
+      return {
+        key: `tech-${index}-${term}`,
+        name: term,
+        simpleText,
+        detailText,
+        hasInfo: !!(simpleText || detailText)
+      };
+    });
+  },
+
+  formatCoreSpecValue(field, value) {
+    const text = this.normalizeText(value);
+    if (field === 'size_family') {
+      return text.replace(/级$/, '');
+    }
+    return text;
+  },
+
   buildCoreSpecs(record, columns) {
     if (!record || typeof record !== 'object') return [];
 
@@ -694,7 +734,7 @@ Page({
       .map((field) => ({
         key: field,
         label: this.getFieldLabel(field),
-        value: this.getFieldValue(record, field)
+        value: this.formatCoreSpecValue(field, this.getFieldValue(record, field))
       }))
       .filter((item) => this.hasValue(item.value));
 
@@ -707,7 +747,7 @@ Page({
       .map((column) => ({
         key: column.key,
         label: column.label,
-        value: this.getFieldValue(record, column.key)
+        value: this.formatCoreSpecValue(column.key, this.getFieldValue(record, column.key))
       }))
       .filter((item) => this.hasValue(item.value));
   },
@@ -759,8 +799,11 @@ Page({
   },
 
   getTechTooltip(field, value) {
+    const entry = field === 'body_material_tech'
+      ? this.getTechGlossaryEntry(value)
+      : null;
+    const text = entry ? this.normalizeText(entry.text_simple || entry.text) : '';
     const key = `${field}:${this.normalizeText(value)}`;
-    const text = TECH_TERM_TOOLTIPS[key] || '';
     return text ? { key, text } : null;
   },
 
@@ -790,11 +833,12 @@ Page({
       const value = this.getFieldValueFromSources(fieldSources, field);
       if (!this.hasValue(value)) return;
       usedFields.add(field);
-      const tooltip = this.getTechTooltip(field, value);
+      const displayValue = this.formatCoreSpecValue(field, value);
+      const tooltip = this.getTechTooltip(field, displayValue);
       items.push({
         key: field,
         label: this.getFieldLabel(field),
-        value: LINK_DISPLAY_FIELDS[field] ? '跳转' : value,
+        value: LINK_DISPLAY_FIELDS[field] ? '跳转' : displayValue,
         isLink: !!LINK_DISPLAY_FIELDS[field],
         url: LINK_DISPLAY_FIELDS[field] ? value : '',
         hasTooltip: !!tooltip,
@@ -885,6 +929,7 @@ Page({
       })),
       sectionCopy: this.buildSectionCopy(),
       coreSpecs: this.buildCoreSpecs(displayRecord, columns),
+      techTerms: this.buildTechTerms(displayRecord),
       specSections: this.buildSpecSections(item, selectedVariant, columns),
       infoTags: this.buildInfoTags(item),
       seriesDescription,
@@ -1024,6 +1069,8 @@ Page({
     this.setData({
       isExpanded: false,
       isVariantDescriptionExpanded: false,
+      activeTechTooltipKey: '',
+      activeTechTermInfo: null,
       ...viewState
     });
 
@@ -1045,14 +1092,22 @@ Page({
   onTechTermTap(e) {
     const key = this.normalizeText(e.currentTarget.dataset.key);
     if (!key) return;
+    const nextKey = this.data.activeTechTooltipKey === key ? '' : key;
+    const activeTechTermInfo = nextKey
+      ? (this.data.techTerms || []).find((term) => term.key === nextKey) || null
+      : null;
     this.setData({
-      activeTechTooltipKey: this.data.activeTechTooltipKey === key ? '' : key
+      activeTechTooltipKey: nextKey,
+      activeTechTermInfo
     });
   },
 
   hideTechTooltip() {
     if (!this.data.activeTechTooltipKey) return;
-    this.setData({ activeTechTooltipKey: '' });
+    this.setData({
+      activeTechTooltipKey: '',
+      activeTechTermInfo: null
+    });
   },
 
   onSpecLinkTap(e) {

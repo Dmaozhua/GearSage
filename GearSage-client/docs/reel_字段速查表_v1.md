@@ -210,7 +210,7 @@
 | `handle_knob_exchange_size` | 握丸可替换规格 | 兼容规格描述 | 可空 | 改装兼容字段 |
 | `handle_hole_spec` | 摇臂孔规格 | 具体规格 | 可空 | 改装兼容字段 |
 | `body_material` | 机身材质 | 如 `Magnesium`、`Aluminum alloy` 这类纯材质值 | 可空 | 主值只放纯材质，不混技术名 |
-| `body_material_tech` | 商品技术名合集 | 如 `HAGANE 机身`、`CORESOLID BODY`、`HYPERDRIVE DESIGN`、`TWS`、`MAGFORCE`、`SV BOOST` | 可空 | 历史字段名保留；不再限定为机身技术，纯材质仍只进 `body_material` |
+| `body_material_tech` | 商品技术名合集 | 如 `HAGANE 机身`、`CORESOLID BODY`、`HYPERDRIVE DESIGN`、`TWS`、`MAGFORCE`、`SV BOOST` | 可空 | 只从品牌官网 / 官方页面获取；历史字段名保留；不再限定为机身技术，纯材质仍只进 `body_material` |
 | `gear_material` | 主齿材质 | 明确材质词，如 `Brass`、`Duralumin`、`Aluminum` | 可空 | 当前按 `direct_write / cross_source_inferred / manual_required` 三档处理，不接受技术词冒充材质 |
 | `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |
 | `main_gear_size` | 大齿尺寸 | 官方明确或者采用玩家数据 | 可空 | 不猜，优先保留原始口径 |
@@ -249,7 +249,7 @@
 | `custom_spool_compatibility` | 改装线杯兼容 | 兼容规格描述 | 可空 | 字段保留，当前暂停持续自动抓取；已有值可暂存 |
 | `custom_knob_compatibility` | 改装握丸兼容 | 兼容规格描述 | 可空 | 字段保留，当前暂停持续自动抓取；已有值可暂存 |
 | `body_material` | 机身材质 | 如 `Magnesium`、`Aluminum alloy` 这类纯材质值 | 可空 | 官方明确或者采用玩家数据；主值只放纯材质 |
-| `body_material_tech` | 商品技术名合集 | 如 `HAGANE 机身`、`CORESOLID BODY`、`HYPERDRIVE DESIGN`、`TWS`、`MAGFORCE`、`SV BOOST` | 可空 | 历史字段名保留；不再限定为机身技术，纯材质仍只进 `body_material` |
+| `body_material_tech` | 商品技术名合集 | 如 `HAGANE 机身`、`CORESOLID BODY`、`HYPERDRIVE DESIGN`、`TWS`、`MAGFORCE`、`SV BOOST` | 可空 | 只从品牌官网 / 官方页面获取；历史字段名保留；不再限定为机身技术，纯材质仍只进 `body_material` |
 | `gear_material` | 主齿材质 | 明确材质词，如 `Brass`、`Duralumin`、`Aluminum` | 可空 | 当前按 `direct_write / cross_source_inferred / manual_required` 三档处理 |
 | `is_handle_double` | 是否双摇臂 | `1` 是，`0` 否 | 可空，默认按单摇臂理解 | 更偏纺车轮字段，优先依据官方信息或可靠玩家资料 |
 | `main_gear_material` | 大齿材质 | 官方明确或者采用玩家数据 | 可空 | 不猜 |

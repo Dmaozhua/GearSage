@@ -76,7 +76,39 @@
         </scroll-view>
       </view>
 
-      <view class="compare-section" wx:if="{{specSections.length > 0}}">
+      <view class="compare-section" wx:if="{{hasTechTerms}}">
+        <view class="section-head">
+          <text class="section-title">核心技术对比</text>
+        </view>
+        <scroll-view scroll-x class="tech-compare-scroll" show-scrollbar="{{false}}">
+          <view class="tech-compare-list">
+            <view class="tech-compare-card" wx:for="{{compareCards}}" wx:key="key" wx:for-item="card">
+              <text class="tech-compare-card__variant">{{card.selectedVariant.__displayName}}</text>
+              <text class="tech-compare-card__master">{{card.masterLabel}}</text>
+              <view class="tech-compare-tags" wx:if="{{card.techTerms.length > 0}}">
+                <view
+                  class="tech-compare-term {{tech.hasInfo ? 'tech-compare-term--interactive' : ''}}"
+                  wx:for="{{card.techTerms}}"
+                  wx:key="key"
+                  wx:for-item="tech"
+                  catchtap="onCompareTechTermTap"
+                  data-key="{{tech.hasInfo ? tech.key : ''}}"
+                >
+                  {{tech.name}}
+                </view>
+              </view>
+              <text class="tech-compare-empty" wx:else>-</text>
+            </view>
+          </view>
+        </scroll-view>
+        <view class="tech-compare-panel" wx:if="{{activeCompareTechInfo}}">
+          <text class="tech-compare-panel__title">{{activeCompareTechInfo.name}}</text>
+          <text class="tech-compare-panel__simple" wx:if="{{activeCompareTechInfo.simpleText}}">{{activeCompareTechInfo.simpleText}}</text>
+          <text class="tech-compare-panel__detail" wx:if="{{activeCompareTechInfo.detailText}}">{{activeCompareTechInfo.detailText}}</text>
+        </view>
+      </view>
+
+      <view class="compare-section compare-section--specs" wx:if="{{specSections.length > 0}}">
         <view class="section-head section-head--inline">
           <view class="section-copy">
             <text class="section-title">完整规格对比</text>

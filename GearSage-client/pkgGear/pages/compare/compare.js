@@ -1,5 +1,6 @@
 const app = getApp();
 const apiService = require('../../../services/api');
+const { techGlossary } = require('../../utils/官网解释_text_simple');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const CORE_FIELDS_BY_TYPE = {
@@ -12,6 +13,7 @@ const CORE_FIELDS_BY_TYPE = {
     'spool_diameter_mm',
     'spool_depth_normalized',
     'brake_type_normalized',
+    'bearing_count_roller',
     'size_family'
   ],
   rods: ['SKU', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES', 'CLOSELENGTH']
@@ -35,7 +37,7 @@ const SPEC_GROUPS_BY_TYPE = {
         'pe_no_m'
       ]
     },
-    { title: '制动与结构', fields: ['brake_type_normalized', 'handle_length_mm'] }
+    { title: '制动与结构', fields: ['brake_type_normalized', 'handle_length_mm', 'bearing_count_roller'] }
   ],
   rods: [
     { title: '基础识别', fields: ['SKU'] },
@@ -64,6 +66,9 @@ Page({
     compareWarnings: [],
     compareInsights: [],
     coreRows: [],
+    hasTechTerms: false,
+    activeCompareTechKey: '',
+    activeCompareTechInfo: null,
     specSections: [],
     showAllSpecs: false,
     fieldLabels: {
@@ -82,6 +87,7 @@ Page({
       spool_width_mm: '线杯宽度(mm)',
       spool_depth_normalized: '线杯深度',
       brake_type_normalized: '刹车类型',
+      bearing_count_roller: '轴承数',
       size_family: '尺寸家族',
       Nylon_no_m: '尼龙线(号-m)',
       Nylon_lb_m: '尼龙线(lb-m)',
@@ -142,6 +148,35 @@ Page({
       || this.normalizeText(detail && detail.model_cn)
       || this.normalizeText(entry && entry.masterName)
       || '未命名装备';
+  },
+
+  splitTechTerms(value) {
+    return this.normalizeText(value)
+      .split(/\s*\/\s*/)
+      .map((term) => this.normalizeText(term))
+      .filter(Boolean)
+      .filter((term, index, terms) => terms.indexOf(term) === index);
+  },
+
+  getTechGlossaryEntry(term) {
+    const key = this.normalizeText(term);
+    return (key && techGlossary && techGlossary[key]) || null;
+  },
+
+  buildTechTerms(record, keyPrefix = 'compare-tech') {
+    const rawValue = this.getFieldValue(record, 'body_material_tech');
+    return this.splitTechTerms(rawValue).map((term, index) => {
+      const entry = this.getTechGlossaryEntry(term) || {};
+      const simpleText = this.normalizeText(entry.text_simple);
+      const detailText = this.normalizeText(entry.text);
+      return {
+        key: `${keyPrefix}-${index}-${term}`,
+        name: term,
+        simpleText,
+        detailText,
+        hasInfo: !!(simpleText || detailText)
+      };
+    });
   },
 
   buildSummaryTags(item) {
@@ -347,6 +382,7 @@ Page({
         ...detail,
         gearType: entry.gearType
       });
+      const techTerms = this.buildTechTerms(selectedVariant, `${entry.masterId}-${selectedVariant.__key}`);
 
       return {
         ...entry,
@@ -357,6 +393,7 @@ Page({
         compareGroup,
         compareGroupLabel: compareGroup || entry.compareGroupLabel || '',
         summaryTags,
+        techTerms,
         compareLabel: [brandName, selectedVariant.__displayName].filter(Boolean).join(' ').trim(),
         detail
       };
@@ -485,6 +522,9 @@ Page({
         compareWarnings: [],
         compareInsights: [],
         coreRows: [],
+        hasTechTerms: false,
+        activeCompareTechKey: '',
+        activeCompareTechInfo: null,
         specSections: [],
         compareType: '',
         compareTitle: '装备对比'
@@ -496,6 +536,7 @@ Page({
     const compareCards = (await Promise.all(compareItems.map((item) => this.hydrateCompareCard(item)))).filter(Boolean);
     const warnings = this.buildCompareWarnings(compareCards);
     const coreRows = this.buildCompareRows(CORE_FIELDS_BY_TYPE[compareType] || [], compareCards);
+    const hasTechTerms = compareCards.some((card) => card.techTerms && card.techTerms.length > 0);
     const specSections = this.buildSpecSections(compareType, compareCards);
     const insights = this.buildCompareInsights(compareCards, coreRows, warnings);
 
@@ -507,6 +548,9 @@ Page({
       compareWarnings: warnings,
       compareInsights: insights,
       coreRows,
+      hasTechTerms,
+      activeCompareTechKey: '',
+      activeCompareTechInfo: null,
       specSections,
       compareType,
       compareTitle: this.resolveCompareTitle(compareType)
@@ -516,6 +560,23 @@ Page({
   toggleShowAllSpecs() {
     this.setData({
       showAllSpecs: !this.data.showAllSpecs
+    });
+  },
+
+  onCompareTechTermTap(e) {
+    const key = this.normalizeText(e.currentTarget.dataset.key);
+    if (!key) return;
+    const nextKey = this.data.activeCompareTechKey === key ? '' : key;
+    let activeCompareTechInfo = null;
+    if (nextKey) {
+      (this.data.compareCards || []).some((card) => {
+        activeCompareTechInfo = (card.techTerms || []).find((term) => term.key === nextKey) || null;
+        return !!activeCompareTechInfo;
+      });
+    }
+    this.setData({
+      activeCompareTechKey: nextKey,
+      activeCompareTechInfo
     });
   },
 

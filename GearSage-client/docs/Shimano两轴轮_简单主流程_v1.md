@@ -235,6 +235,7 @@
 
 2. `body_material_tech` 承接整件商品的技术名合集  
    例如：`HAGANE 机身`、`CORESOLID BODY`、`SVS INFINITY`、`MGL SPOOL`、`Micro Module Gear`
+   只从品牌官网 / 官方页面获取；白名单辅助站只作为检索线索，不直接落表
    纯材质值仍只进入 `body_material`
 
 3. `main_gear_material` 保留三档口径  
