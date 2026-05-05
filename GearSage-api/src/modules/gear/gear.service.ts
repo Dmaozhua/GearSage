@@ -675,7 +675,10 @@ export class GearService {
     const model = this.normalizeText(item.model);
     const modelCn = this.normalizeText(item.model_cn);
     const base = year ? `${year} ${model}` : model;
-    return modelCn ? `${base} ${modelCn}`.trim() : base;
+    if (!modelCn || modelCn.toLowerCase() === model.toLowerCase()) {
+      return base;
+    }
+    return `${base} ${modelCn}`.trim();
   }
 
   private normalizeImages(images: any) {

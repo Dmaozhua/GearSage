@@ -460,6 +460,7 @@ Page({
     const id = options.id;
     const type = options.type;
     const gearModel = options.gearModel ? decodeURIComponent(options.gearModel) : '';
+    const variantKey = options.variantKey ? decodeURIComponent(options.variantKey) : '';
     const showBackToPost = options.from === 'topic' && !!options.postId;
     const sourcePostId = options.postId || '';
 
@@ -470,7 +471,7 @@ Page({
       sourcePostId
     });
 
-    this.loadDetail(id, type, gearModel);
+    this.loadDetail(id, type, gearModel, variantKey);
   },
 
   onShow() {
@@ -815,6 +816,11 @@ Page({
       return true;
     }
 
+    if (field === 'is_compact_body' && this.data.gearType === 'reels') {
+      const reelType = this.normalizeText(record && record.type).toLowerCase();
+      return reelType !== 'spinning';
+    }
+
     const hiddenBaitcastingFields = new Set(['handle_style', 'is_sw_edition', 'is_handle_double']);
     if (!hiddenBaitcastingFields.has(field) || this.data.gearType !== 'reels') {
       return false;
@@ -987,7 +993,7 @@ Page({
     };
   },
 
-  async loadDetail(id, type, gearModel = '') {
+  async loadDetail(id, type, gearModel = '', variantKey = '') {
     this.setData({ isLoading: true });
 
     try {
@@ -1008,7 +1014,8 @@ Page({
       const images = Array.isArray(item.images) ? item.images : [];
       const mainImage = images[0] || item.imageUrl || '/images/empty.png';
       const variants = this.decorateVariants(item.variants || []);
-      const viewState = this.buildDetailViewState(item, variants, variants[0] ? variants[0].__key : '');
+      const selectedVariantKey = this.normalizeText(variantKey) || (variants[0] ? variants[0].__key : '');
+      const viewState = this.buildDetailViewState(item, variants, selectedVariantKey);
 
       this.setData({
         item: {
@@ -1259,6 +1266,7 @@ Page({
     if (!entry) return;
 
     const compareItems = this.getCompareItems();
+    const scopedItems = compareItems.filter((item) => item && item.gearType === entry.gearType);
     const existingIndex = compareItems.findIndex((item) => item.key === entry.key);
 
     if (existingIndex >= 0) {
@@ -1272,15 +1280,8 @@ Page({
       return;
     }
 
-    if (compareItems.length > 0) {
-      const baseItem = compareItems[0];
-      if (baseItem.gearType !== entry.gearType) {
-        wx.showToast({
-          title: '第一版只支持同类型比较',
-          icon: 'none'
-        });
-        return;
-      }
+    if (scopedItems.length > 0) {
+      const baseItem = scopedItems[0];
       if (baseItem.compareGroup && entry.compareGroup && baseItem.compareGroup !== entry.compareGroup) {
         wx.showToast({
           title: '先放同子类候选进对比池',
@@ -1290,7 +1291,7 @@ Page({
       }
     }
 
-    if (compareItems.length >= MAX_COMPARE_ITEMS) {
+    if (scopedItems.length >= MAX_COMPARE_ITEMS) {
       wx.showToast({
         title: '第一版最多先放 3 个候选',
         icon: 'none'
@@ -1317,7 +1318,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: '/pkgGear/pages/compare/compare'
+      url: `/pkgGear/pages/compare/compare?type=${this.data.gearType}`
     });
   },
 

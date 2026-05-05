@@ -25,6 +25,8 @@ const REQUIRED_FIELDS_BY_HEADER = {
     hookDetail: ['id', 'hookId', 'sku'],
 };
 
+const CLEAR_BLANK_FIELD_EXCLUDES = new Set(['created_at', 'updated_at']);
+
 const MASTER_MERGE_POLICIES = {
     reel: {
         strict: ['id', 'brand_id', 'type'],
@@ -199,7 +201,7 @@ const TASKS = [
         headerKey: 'spinningReelDetail',
         mode: 'detail_slice',
         replacements: [
-            { sourceFile: 'daiwa_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+            { sourceFile: 'daiwa_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'DRE', clearBlankFields: true },
             { sourceFile: 'shimano_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
             { sourceFile: 'abu_spinning_reels_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'ARE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'spinning_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
@@ -212,7 +214,7 @@ const TASKS = [
         mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_baitcasting_reels_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'SRE' },
-            { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'DRE' },
+            { sourceFile: 'daiwa_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'DRE', clearBlankFields: true },
             { sourceFile: 'abu_baitcasting_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'ARE' },
             { sourceFile: 'megabass_reel_import.xlsx', sourceSheet: 'baitcasting_reel_detail', matchField: 'reel_id', prefix: 'MRE' },
         ],
@@ -225,7 +227,7 @@ const TASKS = [
         policyKey: 'rod',
         replacements: [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'SR' },
-            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR', pruneMissing: true },
+            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'DR', pruneMissing: true, importPriorityIfNonBlank: ['model_cn'] },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'KR' },
             { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod', matchField: 'id', prefix: 'ER' },
@@ -245,7 +247,7 @@ const TASKS = [
         mode: 'detail_slice',
         replacements: [
             { sourceFile: 'shimano_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'SR' },
-            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR' },
+            { sourceFile: 'daiwa_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'DR', clearBlankFields: true },
             { sourceFile: 'megabass_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'MR' },
             { sourceFile: 'keitech_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'KR' },
             { sourceFile: 'evergreen_rod_import.xlsx', sourceSheet: 'rod_detail', matchField: 'rod_id', prefix: 'ER' },
@@ -361,6 +363,18 @@ function findConflictingIncomingIds(rows, matchField) {
     return conflicts;
 }
 
+function resolveClearBlankFields(clearBlankFields, headerKey) {
+    if (!clearBlankFields) {
+        return new Set();
+    }
+    if (clearBlankFields === true) {
+        return new Set(
+            (HEADERS[headerKey] || []).filter((field) => !CLEAR_BLANK_FIELD_EXCLUDES.has(field)),
+        );
+    }
+    return new Set(clearBlankFields.filter((field) => !CLEAR_BLANK_FIELD_EXCLUDES.has(field)));
+}
+
 function mergeSliceRows(rows, incomingRows, matchField, prefix) {
     const output = [];
     const existingById = buildRowMap(rows);
@@ -469,6 +483,13 @@ function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy, option
             }
         });
 
+        (options.importPriorityIfNonBlank || []).forEach((field) => {
+            const incomingValue = normalizeText(incoming[field]);
+            if (incomingValue !== '') {
+                merged[field] = incoming[field];
+            }
+        });
+
         policy.fillOnly.forEach((field) => {
             const currentValue = normalizeText(row[field]);
             const incomingValue = normalizeText(incoming[field]);
@@ -501,9 +522,10 @@ function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy, option
     };
 }
 
-function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
+function mergeDetailSlice(rows, incomingRows, matchField, prefix, options = {}) {
     const sliceIncomingRows = filterIncomingSlice(incomingRows, matchField, prefix);
     const existingById = buildRowMap(rows);
+    const clearBlankFields = resolveClearBlankFields(options.clearBlankFields, options.headerKey);
     const touchedGearIds = new Set(
         sliceIncomingRows
             .map((row) => normalizeText(row[matchField]))
@@ -513,6 +535,7 @@ function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
     const replacementRows = [];
     const processedIds = new Set();
     let replacedCount = 0;
+    let clearedBlankCount = 0;
 
     for (const row of sliceIncomingRows) {
         const rowId = normalizeText(row.id);
@@ -532,6 +555,11 @@ function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
                 const incomingValue = normalizeText(row[key]);
                 if (incomingValue !== '') {
                     merged[key] = row[key];
+                    return;
+                }
+                if (clearBlankFields.has(key) && normalizeText(merged[key]) !== '') {
+                    merged[key] = row[key];
+                    clearedBlankCount += 1;
                 }
             });
             replacementRows.push(merged);
@@ -559,6 +587,7 @@ function mergeDetailSlice(rows, incomingRows, matchField, prefix) {
         touchedCount: touchedGearIds.size,
         appendedCount: replacementRows.length - replacedCount,
         removedStaleCount,
+        clearedBlankCount,
     };
 }
 
@@ -713,6 +742,33 @@ function validateReplacementResult(task, replacement, beforeRows, incomingRows, 
             `[sync_rate_excel_from_imports] missing required fields after merge: ${task.targetFile} ${replacement.prefix} ${missingRequired.slice(0, 10).join(', ')}`,
         );
     }
+
+    const clearBlankFields = resolveClearBlankFields(replacement.clearBlankFields, task.headerKey);
+    if (clearBlankFields.size > 0) {
+        const afterById = buildRowMap(afterRows);
+        const mismatches = [];
+
+        filteredIncomingRows.forEach((row) => {
+            const id = normalizeText(row.id);
+            if (!id || !afterById.has(id)) {
+                return;
+            }
+            const mergedRow = afterById.get(id);
+            clearBlankFields.forEach((field) => {
+                const incomingValue = normalizeText(row[field]);
+                const mergedValue = normalizeText(mergedRow[field]);
+                if (incomingValue !== mergedValue) {
+                    mismatches.push(`${id}:${field} import=${incomingValue || '(blank)'} final=${mergedValue || '(blank)'}`);
+                }
+            });
+        });
+
+        if (mismatches.length > 0) {
+            throw new Error(
+                `[sync_rate_excel_from_imports] detail exact field mismatch: ${task.targetFile} ${replacement.prefix} ${mismatches.slice(0, 10).join(', ')}`,
+            );
+        }
+    }
 }
 
 function writeSheet(filePath, sheetName, header, rows) {
@@ -766,10 +822,19 @@ function main() {
                     replacement.matchField,
                     replacement.prefix,
                     MASTER_MERGE_POLICIES[task.policyKey],
-                    { pruneMissing: replacement.pruneMissing === true },
+                    {
+                        pruneMissing: replacement.pruneMissing === true,
+                        importPriorityIfNonBlank: replacement.importPriorityIfNonBlank || [],
+                    },
                 );
             } else if (task.mode === 'detail_slice') {
-                result = mergeDetailSlice(rows, incomingRows, replacement.matchField, replacement.prefix);
+                result = mergeDetailSlice(
+                    rows,
+                    incomingRows,
+                    replacement.matchField,
+                    replacement.prefix,
+                    { headerKey: task.headerKey, clearBlankFields: replacement.clearBlankFields },
+                );
             } else {
                 result = mergeSliceRows(rows, incomingRows, replacement.matchField, replacement.prefix);
             }
@@ -791,6 +856,7 @@ function main() {
                 touched: result.touchedCount || 0,
                 appended: result.appendedCount || 0,
                 removedStale: result.removedStaleCount || 0,
+                clearedBlank: result.clearedBlankCount || 0,
             });
         }
 

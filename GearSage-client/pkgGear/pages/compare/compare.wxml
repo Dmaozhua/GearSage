@@ -34,7 +34,13 @@
               <text class="candidate-group" wx:for="{{item.summaryTags}}" wx:key="*this">{{item}}</text>
             </view>
             <view class="candidate-actions">
-              <view class="candidate-link" bindtap="onOpenDetail" data-id="{{item.masterId}}" data-type="{{item.gearType}}">看详情</view>
+              <view
+                class="candidate-link"
+                bindtap="onOpenDetail"
+                data-id="{{item.masterId}}"
+                data-type="{{item.gearType}}"
+                data-variant-key="{{item.variantKey}}"
+              >看详情</view>
               <view class="candidate-link candidate-link--danger" bindtap="onRemoveCompareItem" data-key="{{item.key}}">移除</view>
             </view>
           </view>

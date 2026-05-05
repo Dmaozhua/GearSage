@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：本次 Daiwa Taiwan rods 阶段性收口  
-更新时间：2026-04-29
+更新时间：2026-05-06
 
 ---
 
@@ -10,8 +10,17 @@
 
 来源站点：
 
-- Daiwa 台湾官网 lure rod 列表  
+- 基础 A：Daiwa 台湾官网 lure rod 列表  
   `https://www.daiwaseiko.com.tw/product-list/rod/lure-rod//`
+- 补充 B：日本 Daiwa 官网台湾语言站当前列表  
+  `https://www.daiwa.com/tw/product/productlist?category1=釣竿&choshu=海水路亞（岸釣）,鱸魚,溪流鱒魚・飛蠅釣&category2=未指定`
+
+当前实际口径：
+
+- A 是历史基础表来源。
+- B 用于补充 A 缺少的主商品、补充 A 中主商品缺少的子型号，并用于当前官网数据校验。
+- B 不用于全量覆盖 A；A 中已有但 B 当前列表未覆盖的历史商品保留。
+- 旧 `daiwaseiko.com.tw` 规格图可作为历史商品修复证据，但后续新增和补缺优先使用 B。
 
 当前正式导入表：
 
@@ -25,27 +34,26 @@
 
 当前结果：
 
-- 主商品：`46`
-- 子型号：`338`
-- `rod.images`：`46 / 46`
-- `rod.Description`：`46 / 46`
-- `rod_detail.Description`：`223 / 338`
-- `rod_detail.Market Reference Price`：`337 / 338`
-- `rod_detail.AdminCode`：`338 / 338`
-- `rod_detail.player_environment`：`338 / 338`
-- `rod_detail.player_positioning`：`338 / 338`
-- `rod_detail.player_selling_points`：`338 / 338`
-- `rod_detail.guide_use_hint`：`338 / 338`
-- `rod_detail.guide_layout_type`：`119 / 338`
-- `rod_detail.recommended_rig_pairing`：`338 / 338`
+- 主商品：`75`
+- 子型号：`658`
+- `rod.images`：`75 / 75`
+- `rod.Description`：`75 / 75`
+- `rod.player_positioning`：`75 / 75`
+- `rod.player_selling_points`：`75 / 75`
+- `rod_detail.guide_use_hint`：`658 / 658`
+- `rod_detail.recommended_rig_pairing`：`658 / 658`
+- `rod_detail.player_environment`：`658 / 658`
+- `rod_detail.player_positioning`：`658 / 658`
+- `rod_detail.player_selling_points`：`658 / 658`
+- `rod_detail` 分组底色：`658 / 658`
 
 当前合理空值：
 
-- `official_environment = 0 / 338`  
+- `official_environment = 0 / 658`  
   Daiwa 台湾官网没有稳定官方场景字段，不用白名单站污染 official 语义。
-- `hook_keeper_included = 0 / 338`  
+- `hook_keeper_included = 0 / 658`  
   白名单站和官网都没有稳定覆盖，不硬填。
-- `sweet_spot_lure_weight_real = 0 / 338`  
+- `sweet_spot_lure_weight_real = 0 / 658`  
   白名单站能给规格范围，但不能给真实玩家甜区；不把算法推断写成事实。
 
 ---
@@ -293,7 +301,7 @@ python3 scripts/download_daiwa_tw_rod_main_images_stage13.py
 python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 ```
 
-当前玩家字段结果：
+stage14 当时玩家字段结果（46 主商品 / 338 子型号阶段）：
 
 - `rod.player_positioning = 46 / 46`
 - `rod.player_selling_points = 46 / 46`
@@ -304,13 +312,166 @@ python3 scripts/apply_daiwa_tw_rod_player_fields_stage14.py
 - `rod_detail.guide_layout_type = 119 / 338`
 - `rod_detail.recommended_rig_pairing = 338 / 338`
 
-stage25 精修结果：
+stage25 精修结果（46 主商品 / 338 子型号阶段）：
 
 - `player_environment`：`338 / 338`，`unique = 40`
 - `player_positioning`：`338 / 338`，`unique = 34`
 - `player_selling_points`：`338 / 338`，`unique = 91`
 - stage25 只允许修改这三个玩家字段，不改 `Description`、规格、导环、推荐钓组、主表字段。
 - stage25 写入后重新恢复 `rod_detail` 底色，并重新跑 usage quality gate。
+
+### 6.1 2026-05-06 玩家字段恢复与补全收口
+
+问题：
+
+- 当前导入表一度出现玩家字段为空：
+  - `rod_detail.guide_use_hint = 0 / 658`
+  - `rod_detail.recommended_rig_pairing = 0 / 658`
+  - `rod_detail.player_environment = 0 / 658`
+  - `rod_detail.player_positioning = 0 / 658`
+  - `rod_detail.player_selling_points = 0 / 658`
+- Git 历史确认这些字段曾经写入过，不是未做过，而是在后续重建/导出时被空模板覆盖。
+- 当前 `HEAD` 中这些字段也为空，因此不能直接认为是某个单步脚本刚刚清空。
+
+处理原则：
+
+- 只恢复/补充玩家字段和 `guide_use_hint / recommended_rig_pairing`。
+- 不覆盖已有非空字段。
+- 不修改规格字段、官网字段、`Description`、`images`。
+- 不按 `DRD id` 盲目恢复，因为历史中 `DRD` 和 `rod_id` 映射曾变化。
+- 每次保存 xlsx 后恢复 `rod_detail` 分组底色。
+
+#### stage41：从历史提交恢复可靠玩家字段
+
+脚本：
+
+- [fix_daiwa_rod_stage41_restore_reliable_player_fields.py](/Users/tommy/GearSage/scripts/fix_daiwa_rod_stage41_restore_reliable_player_fields.py)
+
+来源：
+
+- Git 历史提交：`0d3bfc9`
+
+可靠匹配规则：
+
+1. 主表按唯一 `model` 匹配。
+2. 子表优先按唯一 `AdminCode / JAN` 匹配。
+3. 子表再按唯一 `model + SKU` 匹配。
+4. 匹配不到或不唯一的历史行不恢复。
+
+恢复结果：
+
+- `rod.player_positioning`：恢复 `40`
+- `rod.player_selling_points`：恢复 `40`
+- `rod_detail.guide_use_hint`：恢复 `332`
+- `rod_detail.recommended_rig_pairing`：恢复 `332`
+- `rod_detail.player_environment`：恢复 `332`
+- `rod_detail.player_positioning`：恢复 `332`
+- `rod_detail.player_selling_points`：恢复 `332`
+- 子表恢复方式：
+  - `AdminCode / JAN`：`316`
+  - `model + SKU`：`16`
+
+恢复后额外处理：
+
+- 两条历史 `recommended_rig_pairing = Soft Plastic` 过泛，不保留，清空后留给后续白名单/规则补全。
+
+#### stage42：白名单辅助补全空白玩家字段
+
+脚本：
+
+- [fix_daiwa_rod_stage42_fill_blank_player_fields_whitelist.py](/Users/tommy/GearSage/scripts/fix_daiwa_rod_stage42_fill_blank_player_fields_whitelist.py)
+
+白名单辅助站：
+
+- `https://tackledb.uosoku.com/`
+- `https://rodsearch.com/`
+- `https://rods.jp/`
+
+写入范围：
+
+- 只填空白字段。
+- 不覆盖 stage41 恢复值。
+- 不覆盖人工检查过的规格、官网描述、主图和官方字段。
+
+补全依据：
+
+- 当前官网 Description、SKU、POWER、规格边界作为不越界约束。
+- 白名单站用于确认玩家场景、目标鱼、常见钓组/饵型和类别边界。
+- 无法做到三站全量逐条抓取，避免对白名单站造成压力；按系列和代表型号验证后保守扩展到同系列空白子型号。
+
+补全结果：
+
+- `rod.player_positioning`：补 `35`
+- `rod.player_selling_points`：补 `35`
+- `rod_detail.guide_use_hint`：补 `326`
+- `rod_detail.recommended_rig_pairing`：补 `328`
+- `rod_detail.player_environment`：补 `326`
+- `rod_detail.player_positioning`：补 `326`
+- `rod_detail.player_selling_points`：补 `326`
+
+系列分布：
+
+- `bass`：`134`
+- `seabass`：`38`
+- `shore_jigging`：`51`
+- `light_salt`：`32`
+- `chining`：`16`
+- `rockfish`：`19`
+- `trout`：`38`
+
+#### stage43：新补玩家卖点去模板化
+
+脚本：
+
+- [fix_daiwa_rod_stage43_degeneric_new_player_selling.py](/Users/tommy/GearSage/scripts/fix_daiwa_rod_stage43_degeneric_new_player_selling.py)
+
+问题：
+
+- stage42 补空后，`player_selling_points` 虽然不冲突，但同系列内有部分句式重复较高，读起来像模板。
+
+处理：
+
+- 只改 stage42 新补入的通用模板句。
+- 不改 stage41 恢复值。
+- 不改任何其他字段。
+- 把 `model + SKU + POWER + recommended_rig_pairing` 写进玩家卖点，使同系列子型号读起来能区分。
+
+结果：
+
+- 去模板化修改：`326` 条。
+- `player_selling_points` 高频重复句：`0`。
+
+最终覆盖率：
+
+- `rod.player_positioning = 75 / 75`
+- `rod.player_selling_points = 75 / 75`
+- `rod_detail.guide_use_hint = 658 / 658`
+- `rod_detail.recommended_rig_pairing = 658 / 658`
+- `rod_detail.player_environment = 658 / 658`
+- `rod_detail.player_positioning = 658 / 658`
+- `rod_detail.player_selling_points = 658 / 658`
+
+最终 QA：
+
+- 空值：`0`
+- `recommended_rig_pairing` 过泛值：`0`
+  - 不允许保留 `Soft Plastic / Light Rig / Hardbait / General Lure / Soft Bait` 这类单独泛值。
+- `guide_use_hint` 与 `recommended_rig_pairing` 明显软硬饵冲突：`0`
+- `guide_use_hint` 旧口头禅 `重點是`：`0`
+- `rod_detail` 分组底色已恢复：
+  - `FFF8F3C8 = 405`
+  - `FFE8F1FB = 253`
+
+复用规则：
+
+- 后续其他品牌如果出现“玩家字段曾经写过但当前为空”，先查 Git 历史或备份，不要重新生成覆盖。
+- 恢复历史值时不能只看 detail id，必须用稳定业务键：
+  - `AdminCode / JAN / product code`
+  - `model + SKU`
+  - 必要时加 `TYPE / POWER`
+- 白名单补空时只写空白，不覆盖已确认值。
+- 白名单站内容不写进 `official_*` 字段。
+- `player_selling_points` 不允许整组重复一条模板；至少要包含子型号、规格强弱、主要钓组或使用场景差异。
 
 玩家字段来源口径：
 
@@ -424,7 +585,7 @@ python3 scripts/run_rod_usage_quality_gate.py \
 - 当该品牌正式新增 `recommended_rig_pairing` 后，quality gate 才作为导出前阻断闸门使用。
 - 三个通用脚本只读 `.xlsx`，只写 sidecar JSON/report，不保存或改写 Excel。
 
-当前 Daiwa 运行结果：
+当时 Daiwa 运行结果（338 子型号阶段）：
 
 - usage facts：`338`
 - confidence：`high = 123`，`medium = 215`
@@ -488,7 +649,7 @@ validator 当前提醒规则：
 - 木虾、铁板、岸投、船拋等专项竿也写具体搭配，例如 `Eging / Sinker Rig`、`SLJ / Metal Jig`、`Plug / Metal Jig`。
 - 字段值里不写“官网确认”“白名单来源”等来源说明；证据链放 sidecar JSON 或流程记录。
 
-本次 Daiwa 落表结果：
+stage15/stage16 Daiwa 落表结果（338 子型号阶段）：
 
 - 新增列位置：`rod_detail.guide_use_hint` 后、`hook_keeper_included` 前。
 - 覆盖：`338 / 338`。
@@ -530,13 +691,14 @@ stage16 白名单补充重点：
 - 将单独 `Metal Jig` 细化为 `Light Jigging / Slow Jigging / Offshore Jigging / Tachiuo Jigging / SLSJ` 等。
 - 将单独 `Plug` 细化为 `Diving Pencil / Popper / Stickbait / Offshore Plug` 或岸投 `Heavy Plug / Sinking Pencil / Metal Jig / Surf Plug`。
 
-质量检查：
+stage15/stage16 质量检查：
 
 - `General Lure` 残留：`0`
 - `Light Rig` 残留：`0`
 - `Texas Rig / Crankbait / Spinnerbait / Down Shot` 默认模板残留：`0`
 - 单独 `Metal Jig / Plug / Eging / Big Bait` 残留：`0`
 - `rod_detail` 分组底色：`338 / 338` 行保留。
+- 当前最终覆盖率已在 `6.1 2026-05-06 玩家字段恢复与补全收口` 更新为 `658 / 658`。
 
 ### 6.4 `fit_style_tags` 导入中间层补充
 
@@ -780,6 +942,12 @@ python3 scripts/shade_daiwa_rod_detail_groups_stage12.py
 
 - `FFF8F3C8`
 - `FFE8F1FB`
+
+当前 `rod_detail` 行数与底色覆盖：
+
+- `rod_detail`：`658`
+- `FFF8F3C8 = 405`
+- `FFE8F1FB = 253`
 
 硬规则：
 

@@ -21,7 +21,6 @@ const CORE_FIELDS_BY_TYPE = {
 
 const SPEC_GROUPS_BY_TYPE = {
   reels: [
-    { title: '基础识别', fields: ['SKU', 'size_family'] },
     { title: '核心性能', fields: ['GEAR RATIO', 'WEIGHT', 'MAX DRAG', 'DRAG', 'cm_per_turn'] },
     {
       title: '线杯与线量',
@@ -40,7 +39,6 @@ const SPEC_GROUPS_BY_TYPE = {
     { title: '制动与结构', fields: ['brake_type_normalized', 'handle_length_mm', 'bearing_count_roller'] }
   ],
   rods: [
-    { title: '基础识别', fields: ['SKU'] },
     {
       title: '核心性能',
       fields: ['TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size']
@@ -117,11 +115,12 @@ Page({
     }
   },
 
-  onLoad() {
+  onLoad(options = {}) {
     const windowInfo = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
     const navBarHeight = windowInfo.statusBarHeight + 44;
     const isDarkMode = app.globalData.isDarkMode;
-    this.setData({ navBarHeight, isDarkMode });
+    const compareType = this.normalizeGearType(options.type || '');
+    this.setData({ navBarHeight, isDarkMode, compareType });
 
     this.themeListener = (isDark) => this.setData({ isDarkMode: isDark });
     if (app.globalData.themeListeners) {
@@ -248,7 +247,7 @@ Page({
         termMap[name].holders.push({
           key: card.key,
           label: card.selectedVariant && card.selectedVariant.__displayName,
-          masterLabel: card.masterLabel
+          masterLabel: card.masterLabelWithYear || card.masterLabel
         });
       });
     });
@@ -388,6 +387,23 @@ Page({
 
   saveCompareItems(items) {
     wx.setStorageSync(COMPARE_STORAGE_KEY, items);
+  },
+
+  getScopedCompareItems(type) {
+    const compareType = this.normalizeGearType(type || this.data.compareType);
+    const items = this.getCompareItems();
+    if (!compareType) return items;
+    return items.filter((item) => item && item.gearType === compareType);
+  },
+
+  saveScopedCompareItems(type, scopedItems) {
+    const compareType = this.normalizeGearType(type || this.data.compareType);
+    if (!compareType) {
+      this.saveCompareItems(scopedItems);
+      return;
+    }
+    const otherItems = this.getCompareItems().filter((item) => item && item.gearType !== compareType);
+    this.saveCompareItems(otherItems.concat(scopedItems));
   },
 
   normalizeGearType(type) {
@@ -631,7 +647,7 @@ Page({
   async loadCompareData() {
     this.setData({ isLoading: true });
 
-    const compareItems = this.getCompareItems().slice(0, 3);
+    const compareItems = this.getScopedCompareItems(this.data.compareType).slice(0, 3);
     if (!compareItems.length) {
       this.setData({
         isLoading: false,
@@ -654,7 +670,7 @@ Page({
       return;
     }
 
-    const compareType = this.normalizeText(compareItems[0].gearType) || 'reels';
+    const compareType = this.normalizeText(this.data.compareType || compareItems[0].gearType) || 'reels';
     const compareCards = (await Promise.all(compareItems.map((item) => this.hydrateCompareCard(item)))).filter(Boolean);
     const warnings = this.buildCompareWarnings(compareCards);
     const coreRows = this.buildCompareRows(CORE_FIELDS_BY_TYPE[compareType] || [], compareCards);
@@ -708,8 +724,9 @@ Page({
   onRemoveCompareItem(e) {
     const key = e.currentTarget.dataset.key;
     if (!key) return;
-    const nextItems = this.getCompareItems().filter((item) => item.key !== key);
-    this.saveCompareItems(nextItems);
+    const compareType = this.data.compareType;
+    const nextItems = this.getScopedCompareItems(compareType).filter((item) => item.key !== key);
+    this.saveScopedCompareItems(compareType, nextItems);
     wx.showToast({
       title: '已移除候选',
       icon: 'none'
@@ -718,7 +735,7 @@ Page({
   },
 
   onClearCompareItems() {
-    wx.removeStorageSync(COMPARE_STORAGE_KEY);
+    this.saveScopedCompareItems(this.data.compareType, []);
     wx.showToast({
       title: '已清空对比池',
       icon: 'none'
@@ -729,9 +746,17 @@ Page({
   onOpenDetail(e) {
     const id = e.currentTarget.dataset.id;
     const type = e.currentTarget.dataset.type;
+    const variantKey = this.normalizeText(e.currentTarget.dataset.variantKey);
     if (!id || !type) return;
+    const query = [
+      `id=${encodeURIComponent(id)}`,
+      `type=${encodeURIComponent(type)}`
+    ];
+    if (variantKey) {
+      query.push(`variantKey=${encodeURIComponent(variantKey)}`);
+    }
     wx.navigateTo({
-      url: `/pkgGear/pages/detail/detail?id=${id}&type=${type}`
+      url: `/pkgGear/pages/detail/detail?${query.join('&')}`
     });
   },
 

@@ -184,7 +184,8 @@ Page({
   },
 
   onClearComparePool() {
-    wx.removeStorageSync(COMPARE_STORAGE_KEY);
+    const nextItems = this.getCompareItems().filter((item) => item && item.gearType !== this.data.currentType);
+    wx.setStorageSync(COMPARE_STORAGE_KEY, nextItems);
     this.syncCompareState();
     wx.showToast({
       title: '已清空对比池',
@@ -195,7 +196,7 @@ Page({
   onCompareAction() {
     if (this.data.compareCount >= 2) {
       wx.navigateTo({
-        url: '/pkgGear/pages/compare/compare'
+        url: `/pkgGear/pages/compare/compare?type=${this.data.currentType}`
       });
       return;
     }

@@ -74,8 +74,12 @@ GearSage-client/pkgGear/data_raw/*_check.json
 # Local gear expansion helper scripts kept outside product commits
 scripts/apply_daiwa_rod_*stage*.js
 scripts/apply_daiwa_rod_*stage*.py
+scripts/append_daiwa_rod_*stage*.py
+scripts/add_daiwa_jp_*stage*.py
+scripts/apply_daiwa_baitcasting_*stage*.py
 scripts/apply_daiwa_support_links_stage*.js
 scripts/apply_daiwa_tw_rod_player_fields_stage*.py
+scripts/update_daiwa_spinning_body_material_tech.js
 scripts/apply_abu_rod_fit_style_tags_stage*.py
 scripts/apply_ark_rod_fit_style_tags.py
 scripts/apply_dstyle_rod_fit_style_tags_stage*.py
@@ -95,6 +99,7 @@ scripts/build_shimano_cn_line_current_import.js
 scripts/download_daiwa_tw_rod_main_images_stage*.py
 scripts/export_abu_*_review.js
 scripts/fetch_daiwa_rod_bass_urls_stage*.py
+scripts/fix_daiwa_rod_stage*.py
 scripts/merge_daiwa_rod_variant_descriptions_stage*.js
 scripts/ocr_daiwa_tw_rod_price_images_stage*.py
 scripts/parse_daiwa_tw_rod_*.py

@@ -1311,7 +1311,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5000",
-    "name": "GAUS 20X GAUS 20X",
+    "name": "GAUS 20X",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1322,7 +1322,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5001",
-    "name": "GAUS 30X GAUS 30X",
+    "name": "GAUS 30X",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1333,7 +1333,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5002",
-    "name": "LIN258HM LIN258HM",
+    "name": "LIN258HM",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1344,7 +1344,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5003",
-    "name": "RC-IDATEN 256 RC-IDATEN 256",
+    "name": "RC-IDATEN 256",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1355,7 +1355,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5004",
-    "name": "MONOBLOCK SPECIALE GRIGIO STONE MONOBLOCK SPECIALE GRIGIO STONE",
+    "name": "MONOBLOCK SPECIALE GRIGIO STONE",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1366,7 +1366,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5005",
-    "name": "MONOBLOCK SPECIALE ITO-GAMBLER MONOBLOCK SPECIALE ITO-GAMBLER",
+    "name": "MONOBLOCK SPECIALE ITO-GAMBLER",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1377,7 +1377,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5006",
-    "name": "MONOBLOCK SPECIALE MONOBLOCK SPECIALE",
+    "name": "MONOBLOCK SPECIALE",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1388,7 +1388,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5007",
-    "name": "RHODIUM 73 RHODIUM 73",
+    "name": "RHODIUM 73",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1399,7 +1399,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5008",
-    "name": "RHODIUM 81 RHODIUM 81",
+    "name": "RHODIUM 81",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1410,7 +1410,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5009",
-    "name": "RHODIUM 63 RHODIUM 63",
+    "name": "RHODIUM 63",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1421,7 +1421,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5010",
-    "name": "Pagani R100 Pagani R100",
+    "name": "Pagani R100",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1432,7 +1432,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5011",
-    "name": "Pagani P200 Pagani P200",
+    "name": "Pagani P200",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1443,7 +1443,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5012",
-    "name": "Pagani P300 Pagani P300",
+    "name": "Pagani P300",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1454,7 +1454,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5013",
-    "name": "LAUDA58 LAUDA58",
+    "name": "LAUDA58",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1465,7 +1465,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5014",
-    "name": "LAUDA72 LAUDA72",
+    "name": "LAUDA72",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1476,7 +1476,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5015",
-    "name": "LAUDA72 LIMITED EDITION LAUDA72 LIMITED EDITION",
+    "name": "LAUDA72 LIMITED EDITION",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1487,7 +1487,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5016",
-    "name": "IP79 IP79",
+    "name": "IP79",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1498,7 +1498,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "MRE5017",
-    "name": "IP68 IP68",
+    "name": "IP68",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -5194,7 +5194,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1004",
-    "name": "Outrage XV C EMERALDAS LANDING GAFF",
+    "name": "Outrage XV C Outrage XV C",
     "alias": "Outrage XV C",
     "type_tips": "",
     "system": "",
@@ -5205,7 +5205,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1005",
-    "name": "TATULA TRAVEL Outrage XV C",
+    "name": "TATULA TRAVEL TATULA TRAVEL",
     "alias": "TATULA TRAVEL",
     "type_tips": "",
     "system": "",
@@ -5216,7 +5216,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1006",
-    "name": "26 TATULA TATULA TRAVEL",
+    "name": "26 TATULA 26 TATULA",
     "alias": "26 TATULA",
     "type_tips": "",
     "system": "",
@@ -5227,7 +5227,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1007",
-    "name": "25 STEEZ (直柄款) 26 TATULA",
+    "name": "25 STEEZ (直柄款) 25 STEEZ（BAITCASTING MODEL）",
     "alias": "25 STEEZ (直柄款)",
     "type_tips": "",
     "system": "",
@@ -5249,7 +5249,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1009",
-    "name": "Outrage XV SJ 25 STEEZ（BAITCASTING MODEL）",
+    "name": "Outrage XV SJ Outrage XV SJ",
     "alias": "Outrage XV SJ",
     "type_tips": "",
     "system": "",
@@ -5260,7 +5260,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1010",
-    "name": "Outrage XV LJ Outrage XV SJ",
+    "name": "Outrage XV LJ Outrage XV LJ",
     "alias": "Outrage XV LJ",
     "type_tips": "",
     "system": "",
@@ -5271,7 +5271,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1011",
-    "name": "Outrage XV J Outrage XV LJ",
+    "name": "Outrage XV J Outrage XV J",
     "alias": "Outrage XV J",
     "type_tips": "",
     "system": "",
@@ -5282,7 +5282,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1012",
-    "name": "25 STEEZ TRAVEL Outrage XV J",
+    "name": "25 STEEZ TRAVEL 25 STEEZ TRAVEL",
     "alias": "25 STEEZ TRAVEL",
     "type_tips": "",
     "system": "",
@@ -5293,7 +5293,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1013",
-    "name": "2025 【2025.01追加】HEARTLAND LIBERALIST 25 STEEZ TRAVEL",
+    "name": "2025 【2025.01追加】HEARTLAND LIBERALIST HEARTLAND LIBERALIST",
     "alias": "【2025.01追加型號】HEARTLAND LIBERALIST",
     "type_tips": "",
     "system": "",
@@ -5304,7 +5304,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1014",
-    "name": "2025 【2025.01追加】EMERALDAS STOIST ST (外導環款) HEARTLAND LIBERALIST",
+    "name": "2025 【2025.01追加】EMERALDAS STOIST ST (外導環款) EMERALDAS STOIST ST（OUT GUIDE MODEL）",
     "alias": "【2025.01追加型號】EMERALDAS STOIST ST (外導環款)",
     "type_tips": "",
     "system": "",
@@ -5315,7 +5315,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1015",
-    "name": "2024 【2024.12追加】STEEZ (直柄款) EMERALDAS STOIST ST（OUT GUIDE MODEL）",
+    "name": "2024 【2024.12追加】STEEZ (直柄款) STEEZ（SPINNING MODEL）",
     "alias": "【2024.12追加型號】STEEZ (直柄款)",
     "type_tips": "",
     "system": "",
@@ -5326,7 +5326,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1016",
-    "name": "2024 【2024.12追加】STEEZ (槍柄款) STEEZ（SPINNING MODEL）",
+    "name": "2024 【2024.12追加】STEEZ (槍柄款) STEEZ（BAITCASTING MODEL）",
     "alias": "【2024.12追加型號】STEEZ (槍柄款)",
     "type_tips": "",
     "system": "",
@@ -5337,7 +5337,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1017",
-    "name": "2024 STEEZ Real Control STEEZ（BAITCASTING MODEL）",
+    "name": "2024 STEEZ Real Control STEEZ REAL CONTROL",
     "alias": "STEEZ Real Control",
     "type_tips": "",
     "system": "",
@@ -5348,7 +5348,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1018",
-    "name": "BLACK LABEL STEEZ REAL CONTROL",
+    "name": "BLACK LABEL BLACK LABEL",
     "alias": "BLACK LABEL",
     "type_tips": "",
     "system": "",
@@ -5359,7 +5359,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1019",
-    "name": "OUTRAGE SJ BLACK LABEL",
+    "name": "OUTRAGE SJ OUTRAGE SJ",
     "alias": "OUTRAGE SJ",
     "type_tips": "",
     "system": "",
@@ -5370,7 +5370,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1020",
-    "name": "LATEO (K) OUTRAGE SJ",
+    "name": "LATEO (K) LATEO (K)",
     "alias": "LATEO (K)",
     "type_tips": "",
     "system": "",
@@ -5381,7 +5381,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1021",
-    "name": "EMERALDAS AIR LATEO (K)",
+    "name": "EMERALDAS AIR EMERALDAS AIR",
     "alias": "EMERALDAS AIR",
     "type_tips": "",
     "system": "",
@@ -5392,7 +5392,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1022",
-    "name": "2024 【2024.07追加】EMERALDAS STOIST RT EMERALDAS AIR",
+    "name": "2024 【2024.07追加】EMERALDAS STOIST RT EMERALDAS STOIST RT（OUT GUIDE MODEL）",
     "alias": "【2024.07追加型號】EMERALDAS STOIST RT",
     "type_tips": "",
     "system": "",
@@ -5403,7 +5403,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1023",
-    "name": "2024 24 OVERTHERE EMERALDAS STOIST RT（OUT GUIDE MODEL）",
+    "name": "2024 24 OVERTHERE 24 OVERTHERE",
     "alias": "24 OVERTHERE",
     "type_tips": "",
     "system": "",
@@ -5414,7 +5414,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1024",
-    "name": "OUTRAGE BR LJ 24 OVERTHERE",
+    "name": "OUTRAGE BR LJ OUTRAGE BR LJ",
     "alias": "OUTRAGE BR LJ",
     "type_tips": "",
     "system": "",
@@ -5425,7 +5425,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1025",
-    "name": "24 鏡牙 AIR OUTRAGE BR LJ",
+    "name": "24 鏡牙 AIR 24 鏡牙 AIR (KYOHGA AIR)",
     "alias": "24 鏡牙 AIR",
     "type_tips": "",
     "system": "",
@@ -5436,7 +5436,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1026",
-    "name": "2024 【2024追加】OUTRAGE BR 24 鏡牙 AIR (KYOHGA AIR)",
+    "name": "2024 【2024追加】OUTRAGE BR OUTRAGE BR",
     "alias": "【2024追加型號】 OUTRAGE BR",
     "type_tips": "",
     "system": "",
@@ -5447,7 +5447,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1027",
-    "name": "2024 【2024追加】SALTIGA C (CASTING MODEL) OUTRAGE BR",
+    "name": "2024 【2024追加】SALTIGA C (CASTING MODEL) SALTIGA C (CASTING MODEL)",
     "alias": "【2024追加型號】SALTIGA C (CASTING MODEL)",
     "type_tips": "",
     "system": "",
@@ -5458,7 +5458,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1028",
-    "name": "2024 24 HARDROCK X SALTIGA C (CASTING MODEL)",
+    "name": "2024 24 HARDROCK X 24 HARDROCK X",
     "alias": "24 HARDROCK X",
     "type_tips": "",
     "system": "",
@@ -5469,7 +5469,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1029",
-    "name": "DRAGGER X SLSJ 24 HARDROCK X",
+    "name": "DRAGGER X SLSJ DRAGGER X SLSJ",
     "alias": "DRAGGER X SLSJ",
     "type_tips": "",
     "system": "",
@@ -5480,7 +5480,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1030",
-    "name": "DRAGGER SX SLSJ DRAGGER X SLSJ",
+    "name": "DRAGGER SX SLSJ DRAGGER SX SLSJ",
     "alias": "DRAGGER SX SLSJ",
     "type_tips": "",
     "system": "",
@@ -5491,7 +5491,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1031",
-    "name": "23 WILDERNESS X DRAGGER SX SLSJ",
+    "name": "23 WILDERNESS X 23 WILDERNESS X",
     "alias": "23 WILDERNESS X",
     "type_tips": "",
     "system": "",
@@ -5502,7 +5502,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1032",
-    "name": "EMERALDAS X 23 WILDERNESS X",
+    "name": "EMERALDAS X EMERALDAS X",
     "alias": "EMERALDAS X",
     "type_tips": "",
     "system": "",
@@ -5513,7 +5513,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1033",
-    "name": "EMERALDAS MX EMERALDAS X",
+    "name": "EMERALDAS MX EMERALDAS MX",
     "alias": "EMERALDAS MX",
     "type_tips": "",
     "system": "",
@@ -5524,7 +5524,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1035",
-    "name": "BLACK LABEL TRAVEL EGING X",
+    "name": "BLACK LABEL TRAVEL BLACK LABEL TRAVEL",
     "alias": "BLACK LABEL TRAVEL",
     "type_tips": "",
     "system": "",
@@ -5535,7 +5535,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1038",
-    "name": "月下美人 CROSSFIRE",
+    "name": "月下美人 月下美人",
     "alias": "月下美人",
     "type_tips": "",
     "system": "",
@@ -5546,7 +5546,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1039",
-    "name": "CROSSBEAT SW 月下美人",
+    "name": "CROSSBEAT SW CROSSBEAT SW",
     "alias": "CROSSBEAT SW",
     "type_tips": "",
     "system": "",
@@ -5557,7 +5557,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1040",
-    "name": "IPRIMI CROSSBEAT SW",
+    "name": "IPRIMI IPRIMI",
     "alias": "IPRIMI",
     "type_tips": "",
     "system": "",
@@ -5568,7 +5568,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1041",
-    "name": "WIND X IPRIMI",
+    "name": "WIND X WIND X",
     "alias": "WIND X",
     "type_tips": "",
     "system": "",
@@ -5579,7 +5579,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1042",
-    "name": "月下美人 MX MOBILE WIND X",
+    "name": "月下美人 MX MOBILE 月下美人 MX MOBILE",
     "alias": "月下美人 MX MOBILE",
     "type_tips": "",
     "system": "",
@@ -5590,7 +5590,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1043",
-    "name": "HEARTLAND (BAITCASTING MODEL) 月下美人 MX MOBILE",
+    "name": "HEARTLAND (BAITCASTING MODEL) HEARTLAND (BAITCASTING MODEL)",
     "alias": "HEARTLAND (BAITCASTING MODEL)",
     "type_tips": "",
     "system": "",
@@ -5601,7 +5601,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1044",
-    "name": "AIREDGE MOBILE HEARTLAND (BAITCASTING MODEL)",
+    "name": "AIREDGE MOBILE AIREDGE MOBILE",
     "alias": "AIREDGE MOBILE",
     "type_tips": "",
     "system": "",
@@ -9916,6 +9916,336 @@ module.exports = [
     "name": "CROSSFIRE CROSSFIRE",
     "alias": "CROSSFIRE",
     "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1045",
+    "name": "MORETHAN WISEMEN MORETHAN WISEMEN",
+    "alias": "MORETHAN WISEMEN",
+    "type_tips": "海鱸",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1046",
+    "name": "HEARTLAND AGS(紡車式款式) HEARTLAND AGS(紡車式款式)",
+    "alias": "HEARTLAND AGS(紡車式款式)",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1047",
+    "name": "HEARTLAND AGS(拋投兩軸款式) HEARTLAND AGS(拋投兩軸款式)",
+    "alias": "HEARTLAND AGS(拋投兩軸款式)",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1048",
+    "name": "MORETHAN MORETHAN",
+    "alias": "MORETHAN",
+    "type_tips": "海鱸",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1049",
+    "name": "DRAGGER BREAK THROUGH DRAGGER BREAK THROUGH",
+    "alias": "DRAGGER BREAK THROUGH",
+    "type_tips": "海水岸邊鐵板",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1050",
+    "name": "銀狼 EX 銀狼 EX",
+    "alias": "銀狼 EX",
+    "type_tips": "黑鯛路亞",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1051",
+    "name": "DRAGGER SX DRAGGER SX",
+    "alias": "DRAGGER SX",
+    "type_tips": "海水岸邊鐵板",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1052",
+    "name": "HRF SX HRF SX",
+    "alias": "HRF SX",
+    "type_tips": "HRF(根魚路亞釣)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1053",
+    "name": "HRF SX GR HRF SX GR",
+    "alias": "HRF SX GR",
+    "type_tips": "HRF(根魚路亞釣)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1054",
+    "name": "SWAGGER SWAGGER",
+    "alias": "SWAGGER",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1055",
+    "name": "OVERTHERE SX OVERTHERE SX",
+    "alias": "OVERTHERE SX",
+    "type_tips": "SURF(比目魚・牛尾魚・青物)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1056",
+    "name": "Silver Creek Trad Silver Creek Trad",
+    "alias": "Silver Creek Trad",
+    "type_tips": "鱒魚・飛蠅釣法",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1057",
+    "name": "月下美人 MX 月下美人 MX",
+    "alias": "月下美人 MX",
+    "type_tips": "輕型SW路亞(岩魚・竹筴魚)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1058",
+    "name": "銀狼 MX 銀狼 MX",
+    "alias": "銀狼 MX",
+    "type_tips": "黑鯛路亞",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1059",
+    "name": "DRAGGER X DRAGGER X",
+    "alias": "DRAGGER X",
+    "type_tips": "海水岸邊鐵板",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1060",
+    "name": "DRAGGER MX DRAGGER MX",
+    "alias": "DRAGGER MX",
+    "type_tips": "海水岸邊鐵板",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1061",
+    "name": "WiseStream WiseStream",
+    "alias": "WiseStream",
+    "type_tips": "鱒魚・飛蠅釣法",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1062",
+    "name": "HRF HRF",
+    "alias": "HRF",
+    "type_tips": "HRF(根魚路亞釣)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1063",
+    "name": "B.B.B (Triple B) B.B.B (Triple B)",
+    "alias": "B.B.B (Triple B)",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1064",
+    "name": "PURELIST PURELIST",
+    "alias": "PURELIST",
+    "type_tips": "鱒魚・飛蠅釣法",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1065",
+    "name": "銀狼 銀狼",
+    "alias": "銀狼",
+    "type_tips": "黑鯛路亞",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1066",
+    "name": "BLAZON BLAZON",
+    "alias": "BLAZON",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1067",
+    "name": "MOBILE PACK MOBILE PACK",
+    "alias": "MOBILE PACK",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1068",
+    "name": "月下美人 AJING 月下美人 AJING",
+    "alias": "月下美人 AJING",
+    "type_tips": "輕型SW路亞(岩魚・竹筴魚)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1069",
+    "name": "BLAZON 行動版 BLAZON 行動版",
+    "alias": "BLAZON 行動版",
+    "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1070",
+    "name": "SHOREJIGGING X SHOREJIGGING X",
+    "alias": "SHOREJIGGING X",
+    "type_tips": "海水岸邊鐵板",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1071",
+    "name": "SEABASS FLAT X SEABASS FLAT X",
+    "alias": "SEABASS FLAT X",
+    "type_tips": "海鱸",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1072",
+    "name": "CHINING X CHINING X",
+    "alias": "CHINING X",
+    "type_tips": "黑鯛路亞",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1073",
+    "name": "竹筴魚 X 竹筴魚 X",
+    "alias": "竹筴魚 X",
+    "type_tips": "輕型SW路亞(岩魚・竹筴魚)",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1074",
+    "name": "TATULA XT TATULA XT",
+    "alias": "TATULA XT",
+    "type_tips": "鱸魚",
     "system": "",
     "water_column": "",
     "action": "",
