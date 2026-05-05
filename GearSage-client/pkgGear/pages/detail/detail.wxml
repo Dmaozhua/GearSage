@@ -7,6 +7,28 @@
   </view>
 
   <block wx:if="{{!isLoading}}">
+    <view
+      class="variant-float-bar"
+      wx:if="{{showVariantFloat && variantOptions.length > 0}}"
+      style="top: {{navBarHeight}}px;"
+    >
+      <scroll-view scroll-x class="variant-scroll variant-scroll--float" show-scrollbar="{{false}}">
+        <view class="variant-list">
+          <view
+            class="variant-pill variant-pill--float {{selectedVariantKey === variant.key ? 'active' : ''}}"
+            wx:for="{{variantOptions}}"
+            wx:key="key"
+            wx:for-item="variant"
+            data-key="{{variant.key}}"
+            bindtap="onVariantSelect"
+          >
+            <text class="variant-pill__title">{{variant.label}}</text>
+            <text class="variant-pill__sub" wx:if="{{variant.secondary}}">{{variant.secondary}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
     <view class="detail-header">
       <image
         class="detail-image"
@@ -44,7 +66,7 @@
         <text class="section-title">{{sectionCopy.variantTitle || '选具体型号'}}</text>
         <text class="section-subtitle">{{sectionCopy.variantSubtitle || '选你要看的型号，下面的参数会跟着切换。'}}</text>
       </view>
-      <scroll-view scroll-x class="variant-scroll" show-scrollbar="{{false}}">
+      <scroll-view id="variantSelectorAnchor" scroll-x class="variant-scroll" show-scrollbar="{{false}}">
         <view class="variant-list">
           <view
             class="variant-pill {{selectedVariantKey === variant.key ? 'active' : ''}}"
@@ -78,29 +100,6 @@
           <text class="core-card__label">{{spec.label}}</text>
           <text class="core-card__value">{{spec.value}}</text>
         </view>
-      </view>
-    </view>
-
-    <view class="detail-section" wx:if="{{techTerms.length > 0}}">
-      <view class="section-head">
-        <text class="section-title">核心技术</text>
-      </view>
-      <view class="tech-term-list">
-        <view
-          class="tech-term {{tech.hasInfo ? 'tech-term--interactive' : ''}}"
-          wx:for="{{techTerms}}"
-          wx:key="key"
-          wx:for-item="tech"
-          catchtap="onTechTermTap"
-          data-key="{{tech.hasInfo ? tech.key : ''}}"
-        >
-          <text class="tech-term__name">{{tech.name}}</text>
-        </view>
-      </view>
-      <view class="tech-term-panel" wx:if="{{activeTechTermInfo}}">
-        <text class="tech-term-panel__title">{{activeTechTermInfo.name}}</text>
-        <text class="tech-term-panel__simple" wx:if="{{activeTechTermInfo.simpleText}}">{{activeTechTermInfo.simpleText}}</text>
-        <text class="tech-term-panel__detail" wx:if="{{activeTechTermInfo.detailText}}">{{activeTechTermInfo.detailText}}</text>
       </view>
     </view>
 
@@ -138,80 +137,87 @@
       </view>
     </view>
 
+    <view class="detail-section" wx:if="{{techTerms.length > 0}}">
+      <view class="section-head">
+        <text class="section-title">核心技术</text>
+      </view>
+      <view class="tech-term-list">
+        <view
+          class="tech-term {{tech.hasInfo ? 'tech-term--interactive' : ''}}"
+          wx:for="{{techTerms}}"
+          wx:key="key"
+          wx:for-item="tech"
+          catchtap="onTechTermTap"
+          data-key="{{tech.hasInfo ? tech.key : ''}}"
+        >
+          <text class="tech-term__name">{{tech.name}}</text>
+        </view>
+      </view>
+      <view class="tech-term-panel" wx:if="{{activeTechTermInfo}}" catchtap="noop">
+        <text class="tech-term-panel__title">{{activeTechTermInfo.name}}</text>
+        <view class="tech-term-panel__summary" wx:if="{{activeTechTermInfo.simpleText}}">
+          <text class="tech-term-panel__label">GearSage 总结</text>
+          <text class="tech-term-panel__simple">{{activeTechTermInfo.simpleText}}</text>
+        </view>
+        <view class="tech-term-panel__official" wx:if="{{activeTechTermInfo.detailText}}">
+          <text class="tech-term-panel__label tech-term-panel__label--muted">官网解释</text>
+          <text class="tech-term-panel__detail">{{activeTechTermInfo.detailText}}</text>
+        </view>
+      </view>
+    </view>
+
     <view class="detail-section" wx:if="{{item.variants && item.variants.length > 1}}">
       <view class="section-head">
         <text class="section-title">{{sectionCopy.seriesTitle || '同系列怎么选'}}</text>
         <text class="section-subtitle">{{sectionCopy.seriesSubtitle || '把差异放在一起看，先找到最接近你场景的那一款。'}}</text>
       </view>
       <view class="series-table-shell">
-        <view class="series-freeze-head">
-          <view class="series-cell series-cell--first series-head-cell series-corner" wx:if="{{firstColumn}}">
-            {{firstColumn.label}}
-          </view>
-          <scroll-view
-            scroll-x
-            class="series-head-scroll"
-            scroll-left="{{seriesScrollLeft}}"
-            catchtouchmove="noop"
-            enhanced="{{true}}"
-            show-scrollbar="{{false}}"
-          >
-            <view class="series-row" style="width: {{seriesBodyWidth}}rpx;">
-              <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
-                <view class="series-cell series-head-cell">
-                  {{col.label}}
-                </view>
-              </block>
-            </view>
-          </scroll-view>
-        </view>
-        <view class="series-freeze-body">
-          <scroll-view
-            wx:if="{{firstColumn}}"
-            scroll-y
-            class="series-left-scroll"
-            style="height: {{seriesBodyHeight}}rpx;"
-            scroll-top="{{seriesScrollTop}}"
-            catchtouchmove="noop"
-            enhanced="{{true}}"
-            show-scrollbar="{{false}}"
-          >
-            <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
-              <view class="series-cell series-cell--first {{selectedVariantKey === variant.__key ? 'series-cell--active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
-                {{variant.__displayValues[firstColumn.key] || '-'}}
+        <scroll-view
+          scroll-x
+          class="series-x-scroll"
+          enhanced="{{true}}"
+          show-scrollbar="{{true}}"
+        >
+          <view class="series-x-content" style="width: {{seriesBodyWidth}}rpx;">
+            <view class="series-row">
+              <view class="series-cell series-cell--first series-head-cell" wx:if="{{firstColumn}}">
+                {{firstColumn.label}}
               </view>
-            </block>
-          </scroll-view>
-          <scroll-view
-            scroll-x
-            scroll-y
-            class="series-data-scroll"
-            style="height: {{seriesBodyHeight}}rpx;"
-            scroll-left="{{seriesScrollLeft}}"
-            scroll-top="{{seriesScrollTop}}"
-            bindscroll="onSeriesBodyScroll"
-            enhanced="{{true}}"
-            show-scrollbar="{{true}}"
-          >
-            <view class="series-body-matrix" style="width: {{seriesBodyWidth}}rpx;">
-              <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
-                <view class="series-row {{selectedVariantKey === variant.__key ? 'series-row--active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
-                  <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
-                    <view class="series-cell">
-                      <text
-                        wx:if="{{col.isLink && variant[col.key]}}"
-                        class="series-cell-link"
-                        bindtap="onSpecLinkTap"
-                        data-url="{{variant[col.key]}}"
-                      >跳转</text>
-                      <text wx:else>{{variant.__displayValues[col.key] || '-'}}</text>
-                    </view>
-                  </block>
-                </view>
-              </block>
+              <view class="series-cell series-head-cell" wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
+                {{col.label}}
+              </view>
             </view>
-          </scroll-view>
-        </view>
+
+            <scroll-view
+              scroll-y
+              class="series-y-scroll"
+              style="height: {{seriesBodyHeight}}rpx;"
+              enhanced="{{true}}"
+              show-scrollbar="{{true}}"
+            >
+              <view class="series-body-matrix">
+                <block wx:for="{{item.variants}}" wx:for-item="variant" wx:key="__key" wx:for-index="idx">
+                  <view class="series-row {{selectedVariantKey === variant.__key ? 'series-row--active' : ''}}" wx:if="{{idx < 4 || isExpanded}}">
+                    <view class="series-cell series-cell--first" wx:if="{{firstColumn}}">
+                      {{variant.__displayValues[firstColumn.key] || '-'}}
+                    </view>
+                    <block wx:for="{{scrollColumns}}" wx:for-item="col" wx:key="key">
+                      <view class="series-cell">
+                        <text
+                          wx:if="{{col.isLink && variant[col.key]}}"
+                          class="series-cell-link"
+                          bindtap="onSpecLinkTap"
+                          data-url="{{variant[col.key]}}"
+                        >跳转</text>
+                        <text wx:else>{{variant.__displayValues[col.key] || '-'}}</text>
+                      </view>
+                    </block>
+                  </view>
+                </block>
+              </view>
+            </scroll-view>
+          </view>
+        </scroll-view>
       </view>
 
       <view class="expand-control" wx:if="{{item.variants && item.variants.length > 4}}" bindtap="toggleExpand">

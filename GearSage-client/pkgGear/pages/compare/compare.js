@@ -67,6 +67,9 @@ Page({
     compareInsights: [],
     coreRows: [],
     hasTechTerms: false,
+    commonTechTerms: [],
+    differentTechTerms: [],
+    differentTechGroups: [],
     activeCompareTechKey: '',
     activeCompareTechInfo: null,
     specSections: [],
@@ -150,6 +153,17 @@ Page({
       || '未命名装备';
   },
 
+  formatShortYear(value) {
+    const text = this.normalizeText(value);
+    const match = text.match(/\d{2,4}/);
+    if (!match) return '';
+    return match[0].slice(-2);
+  },
+
+  buildMasterLabelWithYear(detail, masterLabel) {
+    return [this.formatShortYear(detail && detail.model_year), masterLabel].filter(Boolean).join(' ');
+  },
+
   splitTechTerms(value) {
     return this.normalizeText(value)
       .split(/\s*\/\s*/)
@@ -179,6 +193,110 @@ Page({
     });
   },
 
+  normalizeCompareKey(value) {
+    return this.normalizeText(value).toLowerCase();
+  },
+
+  getTechCompareGroup(card) {
+    return this.normalizeCompareKey(card && (card.compareGroup || card.gearType));
+  },
+
+  canCompareTechTerms(compareCards) {
+    const validCards = (compareCards || []).filter(Boolean);
+    if (validCards.length < 2) return false;
+
+    const brandKeys = [...new Set(validCards.map((card) => this.normalizeCompareKey(card.brandName)).filter(Boolean))];
+    const groupKeys = [...new Set(validCards.map((card) => this.getTechCompareGroup(card)).filter(Boolean))];
+
+    return brandKeys.length === 1 && groupKeys.length === 1;
+  },
+
+  buildTechComparison(compareCards) {
+    if (!this.canCompareTechTerms(compareCards)) {
+      return {
+        hasTechTerms: false,
+        commonTechTerms: [],
+        differentTechTerms: [],
+        differentTechGroups: []
+      };
+    }
+
+    const termMap = {};
+    const validCards = (compareCards || []).filter(Boolean);
+
+    validCards.forEach((card) => {
+      const seenTerms = [];
+      (card.techTerms || []).forEach((term) => {
+        const name = this.normalizeText(term.name);
+        if (!name || seenTerms.includes(name)) return;
+        seenTerms.push(name);
+
+        if (!termMap[name]) {
+          termMap[name] = {
+            name,
+            simpleText: term.simpleText,
+            detailText: term.detailText,
+            hasInfo: term.hasInfo,
+            holders: []
+          };
+        } else if (!termMap[name].hasInfo && term.hasInfo) {
+          termMap[name].simpleText = term.simpleText;
+          termMap[name].detailText = term.detailText;
+          termMap[name].hasInfo = term.hasInfo;
+        }
+
+        termMap[name].holders.push({
+          key: card.key,
+          label: card.selectedVariant && card.selectedVariant.__displayName,
+          masterLabel: card.masterLabel
+        });
+      });
+    });
+
+    const allTerms = Object.values(termMap)
+      .sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'))
+      .map((term, index) => ({
+        ...term,
+        key: `compare-tech-${index}-${term.name}`,
+        holderCount: term.holders.length
+      }));
+
+    const commonTechTerms = allTerms.filter((term) => validCards.length > 1 && term.holderCount === validCards.length);
+    const differentTechTerms = allTerms.filter((term) => term.holderCount !== validCards.length);
+    const groupMap = {};
+    differentTechTerms.forEach((term) => {
+      const holderKey = term.holders.map((holder) => holder.key).sort().join('|');
+      if (!groupMap[holderKey]) {
+        groupMap[holderKey] = {
+          key: `tech-diff-group-${holderKey}`,
+          holderCount: term.holderCount,
+          holders: term.holders,
+          terms: []
+        };
+      }
+      groupMap[holderKey].terms.push(term);
+    });
+
+    const differentTechGroups = Object.values(groupMap)
+      .sort((a, b) => {
+        if (b.holderCount !== a.holderCount) return b.holderCount - a.holderCount;
+        const aLabel = this.normalizeText(a.holders[0] && a.holders[0].label);
+        const bLabel = this.normalizeText(b.holders[0] && b.holders[0].label);
+        return aLabel.localeCompare(bLabel, 'zh-Hans-CN');
+      })
+      .map((group) => ({
+        ...group,
+        terms: group.terms.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'))
+      }));
+
+    return {
+      hasTechTerms: allTerms.length > 0,
+      commonTechTerms,
+      differentTechTerms,
+      differentTechGroups
+    };
+  },
+
   buildSummaryTags(item) {
     const tags = [];
     const pushTag = (value) => {
@@ -197,7 +315,6 @@ Page({
           ? item.gsc_traits.fitStyleTags
           : [];
 
-    pushTag(item && item.model_year);
     traitTags.forEach(pushTag);
 
     if (item && item.gearType === 'reels') {
@@ -376,6 +493,7 @@ Page({
       const images = Array.isArray(detail.images) ? detail.images : [];
       const imageUrl = images[0] || detail.imageUrl || entry.imageUrl || '/images/default-gear.png';
       const masterLabel = this.buildMasterLabel(detail, entry);
+      const masterLabelWithYear = this.buildMasterLabelWithYear(detail, masterLabel);
       const brandName = this.normalizeText(detail.brand_name || entry.brandName);
       const compareGroup = this.normalizeText(detail.type || detail.system || entry.compareGroup);
       const summaryTags = this.buildSummaryTags({
@@ -389,6 +507,7 @@ Page({
         imageUrl,
         brandName,
         masterLabel,
+        masterLabelWithYear,
         selectedVariant,
         compareGroup,
         compareGroupLabel: compareGroup || entry.compareGroupLabel || '',
@@ -523,6 +642,9 @@ Page({
         compareInsights: [],
         coreRows: [],
         hasTechTerms: false,
+        commonTechTerms: [],
+        differentTechTerms: [],
+        differentTechGroups: [],
         activeCompareTechKey: '',
         activeCompareTechInfo: null,
         specSections: [],
@@ -536,7 +658,7 @@ Page({
     const compareCards = (await Promise.all(compareItems.map((item) => this.hydrateCompareCard(item)))).filter(Boolean);
     const warnings = this.buildCompareWarnings(compareCards);
     const coreRows = this.buildCompareRows(CORE_FIELDS_BY_TYPE[compareType] || [], compareCards);
-    const hasTechTerms = compareCards.some((card) => card.techTerms && card.techTerms.length > 0);
+    const techComparison = this.buildTechComparison(compareCards);
     const specSections = this.buildSpecSections(compareType, compareCards);
     const insights = this.buildCompareInsights(compareCards, coreRows, warnings);
 
@@ -548,7 +670,10 @@ Page({
       compareWarnings: warnings,
       compareInsights: insights,
       coreRows,
-      hasTechTerms,
+      hasTechTerms: techComparison.hasTechTerms,
+      commonTechTerms: techComparison.commonTechTerms,
+      differentTechTerms: techComparison.differentTechTerms,
+      differentTechGroups: techComparison.differentTechGroups,
       activeCompareTechKey: '',
       activeCompareTechInfo: null,
       specSections,
@@ -569,10 +694,10 @@ Page({
     const nextKey = this.data.activeCompareTechKey === key ? '' : key;
     let activeCompareTechInfo = null;
     if (nextKey) {
-      (this.data.compareCards || []).some((card) => {
-        activeCompareTechInfo = (card.techTerms || []).find((term) => term.key === nextKey) || null;
-        return !!activeCompareTechInfo;
-      });
+      activeCompareTechInfo = []
+        .concat(this.data.commonTechTerms || [], this.data.differentTechTerms || [])
+        .find((term) => term.key === nextKey && term.hasInfo) || null;
+      if (!activeCompareTechInfo) return;
     }
     this.setData({
       activeCompareTechKey: nextKey,

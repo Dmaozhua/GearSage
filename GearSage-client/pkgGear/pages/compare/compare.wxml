@@ -28,7 +28,7 @@
           <view class="candidate-card" wx:for="{{compareCards}}" wx:key="key">
             <image class="candidate-image" src="{{item.imageUrl || '/images/default-gear.png'}}" mode="aspectFit"></image>
             <text class="candidate-brand">{{item.brandName}}</text>
-            <text class="candidate-master">{{item.masterLabel}}</text>
+            <text class="candidate-master">{{item.masterLabelWithYear || item.masterLabel}}</text>
             <text class="candidate-variant">{{item.selectedVariant.__displayName}}</text>
             <view class="candidate-tags" wx:if="{{item.summaryTags.length > 0}}">
               <text class="candidate-group" wx:for="{{item.summaryTags}}" wx:key="*this">{{item}}</text>
@@ -65,7 +65,7 @@
               <view class="table-cell table-cell--label">字段</view>
               <view class="table-cell table-cell--value" wx:for="{{compareCards}}" wx:key="key">
                 <text class="head-name">{{item.selectedVariant.__displayName}}</text>
-                <text class="head-sub">{{item.masterLabel}}</text>
+                <text class="head-sub">{{item.masterLabelWithYear || item.masterLabel}}</text>
               </view>
             </view>
             <view class="table-row {{row.isDifferent ? '' : 'table-row--same'}}" wx:for="{{coreRows}}" wx:key="key" wx:for-item="row">
@@ -74,38 +74,6 @@
             </view>
           </view>
         </scroll-view>
-      </view>
-
-      <view class="compare-section" wx:if="{{hasTechTerms}}">
-        <view class="section-head">
-          <text class="section-title">核心技术对比</text>
-        </view>
-        <scroll-view scroll-x class="tech-compare-scroll" show-scrollbar="{{false}}">
-          <view class="tech-compare-list">
-            <view class="tech-compare-card" wx:for="{{compareCards}}" wx:key="key" wx:for-item="card">
-              <text class="tech-compare-card__variant">{{card.selectedVariant.__displayName}}</text>
-              <text class="tech-compare-card__master">{{card.masterLabel}}</text>
-              <view class="tech-compare-tags" wx:if="{{card.techTerms.length > 0}}">
-                <view
-                  class="tech-compare-term {{tech.hasInfo ? 'tech-compare-term--interactive' : ''}}"
-                  wx:for="{{card.techTerms}}"
-                  wx:key="key"
-                  wx:for-item="tech"
-                  catchtap="onCompareTechTermTap"
-                  data-key="{{tech.hasInfo ? tech.key : ''}}"
-                >
-                  {{tech.name}}
-                </view>
-              </view>
-              <text class="tech-compare-empty" wx:else>-</text>
-            </view>
-          </view>
-        </scroll-view>
-        <view class="tech-compare-panel" wx:if="{{activeCompareTechInfo}}">
-          <text class="tech-compare-panel__title">{{activeCompareTechInfo.name}}</text>
-          <text class="tech-compare-panel__simple" wx:if="{{activeCompareTechInfo.simpleText}}">{{activeCompareTechInfo.simpleText}}</text>
-          <text class="tech-compare-panel__detail" wx:if="{{activeCompareTechInfo.detailText}}">{{activeCompareTechInfo.detailText}}</text>
-        </view>
       </view>
 
       <view class="compare-section compare-section--specs" wx:if="{{specSections.length > 0}}">
@@ -126,7 +94,7 @@
                   <view class="table-cell table-cell--label">字段</view>
                   <view class="table-cell table-cell--value" wx:for="{{compareCards}}" wx:key="key">
                     <text class="head-name">{{item.selectedVariant.__displayName}}</text>
-                    <text class="head-sub">{{item.masterLabel}}</text>
+                    <text class="head-sub">{{item.masterLabelWithYear || item.masterLabel}}</text>
                   </view>
                 </view>
                 <block wx:for="{{group.rows}}" wx:key="key" wx:for-item="row">
@@ -139,6 +107,64 @@
             </scroll-view>
           </view>
         </block>
+      </view>
+
+      <view class="compare-section" wx:if="{{hasTechTerms}}">
+        <view class="section-head">
+          <text class="section-title">核心技术对比</text>
+          <text class="section-subtitle">先看哪些技术是共同基础，哪些只出现在某个候选上。</text>
+        </view>
+
+        <view class="tech-compare-block" wx:if="{{commonTechTerms.length > 0}}">
+          <text class="tech-compare-block__title">共同具备</text>
+          <view class="tech-compare-tags">
+            <view
+              class="tech-compare-term {{tech.hasInfo ? 'tech-compare-term--interactive' : ''}}"
+              wx:for="{{commonTechTerms}}"
+              wx:key="key"
+              wx:for-item="tech"
+              catchtap="onCompareTechTermTap"
+              data-key="{{tech.key}}"
+            >
+              {{tech.name}}
+            </view>
+          </view>
+        </view>
+
+        <view class="tech-compare-block" wx:if="{{differentTechGroups.length > 0}}">
+          <text class="tech-compare-block__title">差异项</text>
+          <view class="tech-diff-list">
+            <view class="tech-diff-card" wx:for="{{differentTechGroups}}" wx:key="key" wx:for-item="group">
+              <view class="tech-diff-card__head">
+                <view class="tech-compare-tags tech-compare-tags--diff">
+                  <view
+                    class="tech-compare-term {{tech.hasInfo ? 'tech-compare-term--interactive' : ''}}"
+                    wx:for="{{group.terms}}"
+                    wx:key="key"
+                    wx:for-item="tech"
+                    catchtap="onCompareTechTermTap"
+                    data-key="{{tech.key}}"
+                  >
+                    {{tech.name}}
+                  </view>
+                </view>
+                <text class="tech-diff-count">{{group.holderCount}}/{{compareCards.length}}</text>
+              </view>
+              <view class="tech-holder-list">
+                <view class="tech-holder" wx:for="{{group.holders}}" wx:key="key" wx:for-item="holder">
+                  <text class="tech-holder__variant">{{holder.label}}</text>
+                  <text class="tech-holder__master">{{holder.masterLabel}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="tech-compare-panel" wx:if="{{activeCompareTechInfo}}">
+          <text class="tech-compare-panel__title">{{activeCompareTechInfo.name}}</text>
+          <text class="tech-compare-panel__simple" wx:if="{{activeCompareTechInfo.simpleText}}">{{activeCompareTechInfo.simpleText}}</text>
+          <text class="tech-compare-panel__detail" wx:if="{{activeCompareTechInfo.detailText}}">{{activeCompareTechInfo.detailText}}</text>
+        </view>
       </view>
     </block>
 

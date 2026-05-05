@@ -1,7 +1,7 @@
 const meta = {
   "generatedAt": "2026-05-04T08:34:06.565Z",
-  "totalTerms": 207,
-  "explainedTerms": 145
+  "totalTerms": 208,
+  "explainedTerms": 146
 };
 
 const techGlossary = {
@@ -1705,6 +1705,14 @@ const techGlossary = {
       "daiwa_spinning_reels_import"
     ]
   },
+  "机身 + 机身盖": {
+    "text": "传统纺车轮常见的分体式机身结构，由机身与机身盖共同支撑内部传动系统。相比一体成型机身，这类结构更偏向成熟、易维护的通用设计，但在高负荷下的整体刚性和齿轮支撑精度通常更依赖材料、加工精度与装配设计。",
+    "text_simple": "分体式机身结构，成熟易维护，刚性表现更依赖材料和装配。",
+    "sources": [],
+    "groups": [
+      "daiwa_spinning_reels_import"
+    ]
+  },
   "Multi Disc Drag System": {
     "text": "Multi disc drag system",
     "text_simple": "多片卸力更平顺，出线更稳定。",
@@ -2579,6 +2587,7 @@ const termsByBrand = {
     "MAGSEALED BALL BEARING",
     "MAGSEALED LINE ROLLER",
     "MONOCOQUE BODY",
+    "机身 + 机身盖",
     "OVERSIZED POWER DIGIGEAR",
     "PE Long Distance Tune spool",
     "PE SPECIAL spool",

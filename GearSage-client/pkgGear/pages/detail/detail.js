@@ -8,7 +8,7 @@ const MAX_COMPARE_ITEMS = 3;
 const SERIES_COLUMN_WIDTH = 190;
 const SERIES_ROW_HEIGHT = 72;
 const SERIES_MAX_BODY_HEIGHT = 548;
-const BOOLEAN_DISPLAY_FIELDS = new Set(['is_sw_edition', 'is_handle_double']);
+const BOOLEAN_DISPLAY_FIELDS = new Set(['is_sw_edition', 'is_handle_double', 'is_compact_body']);
 const HIDDEN_DETAIL_FIELDS = new Set([
   'custom_spool_compatibility',
   'custom_knob_compatibility',
@@ -144,6 +144,7 @@ const SPEC_LAYERS_BY_TYPE = {
         'handle_style',
         'is_sw_edition',
         'is_handle_double',
+        'is_compact_body',
         'series_positioning',
         'main_selling_points'
       ]
@@ -284,6 +285,8 @@ Page({
     selectedVariantKey: '',
     selectedVariant: {},
     variantOptions: [],
+    showVariantFloat: false,
+    variantFloatThreshold: 0,
     coreSpecs: [],
     techTerms: [],
     specSections: [],
@@ -297,8 +300,6 @@ Page({
     scrollColumns: [],
     seriesBodyWidth: 0,
     seriesBodyHeight: 0,
-    seriesScrollLeft: 0,
-    seriesScrollTop: 0,
     compareCount: 0,
     isCurrentVariantCompared: false,
     canCompare: false,
@@ -386,6 +387,7 @@ Page({
       handle_style: '手把形式',
       is_sw_edition: 'SW 版本',
       is_handle_double: '双摇臂',
+      is_compact_body: '精巧机身',
       series_positioning: '系列定位',
       main_selling_points: '主要卖点',
       player_environment: '玩家场景',
@@ -544,6 +546,7 @@ Page({
       gear_ratio_normalized: ['gear_ratio_normalized', 'gearRatioNormalized'],
       is_sw_edition: ['is_sw_edition', 'isSwEdition'],
       is_handle_double: ['is_handle_double', 'isHandleDouble'],
+      is_compact_body: ['is_compact_body', 'isCompactBody'],
       description: ['description', 'Description'],
       Description: ['Description', 'description']
     };
@@ -909,7 +912,7 @@ Page({
       ? selectedVariantDescription
       : '';
     const scrollColumns = columns.slice(1);
-    const seriesBodyWidth = scrollColumns.length * SERIES_COLUMN_WIDTH;
+    const seriesBodyWidth = (columns[0] ? 180 : 0) + scrollColumns.length * SERIES_COLUMN_WIDTH;
     const seriesBodyHeight = this.getSeriesBodyHeight((variants || []).length, false);
 
     return {
@@ -918,8 +921,6 @@ Page({
       scrollColumns,
       seriesBodyWidth,
       seriesBodyHeight,
-      seriesScrollLeft: 0,
-      seriesScrollTop: 0,
       selectedVariantKey: selectedVariant ? selectedVariant.__key : '',
       selectedVariant: selectedVariant || {},
       variantOptions: (variants || []).map((variant) => ({
@@ -941,29 +942,6 @@ Page({
   getSeriesBodyHeight(variantCount, isExpanded) {
     const visibleVariantCount = isExpanded ? variantCount : Math.min(variantCount, 4);
     return Math.min(visibleVariantCount * SERIES_ROW_HEIGHT, SERIES_MAX_BODY_HEIGHT);
-  },
-
-  syncSeriesScroll(nextState = {}) {
-    const rawLeft = typeof nextState.scrollLeft === 'number' ? nextState.scrollLeft : this.data.seriesScrollLeft;
-    const rawTop = typeof nextState.scrollTop === 'number' ? nextState.scrollTop : this.data.seriesScrollTop;
-    const nextLeft = Math.max(0, Math.round(rawLeft));
-    const nextTop = Math.max(0, Math.round(rawTop));
-
-    if (
-      Math.abs(nextLeft - this.data.seriesScrollLeft) < 2 &&
-      Math.abs(nextTop - this.data.seriesScrollTop) < 2
-    ) {
-      return;
-    }
-
-    this.setData({
-      seriesScrollLeft: nextLeft,
-      seriesScrollTop: nextTop
-    });
-  },
-
-  onSeriesBodyScroll(e) {
-    this.syncSeriesScroll(e.detail || {});
   },
 
   noop() {
@@ -1044,6 +1022,8 @@ Page({
         isSeriesDescriptionExpanded: false,
         isVariantDescriptionExpanded: false,
         ...viewState
+      }, () => {
+        this.scheduleMeasureVariantFloat();
       });
 
       this.syncCompareState();
@@ -1052,7 +1032,9 @@ Page({
       console.error(e);
       wx.showToast({ title: '加载失败', icon: 'none' });
     } finally {
-      this.setData({ isLoading: false });
+      this.setData({ isLoading: false }, () => {
+        this.scheduleMeasureVariantFloat();
+      });
     }
   },
 
@@ -1075,6 +1057,56 @@ Page({
     });
 
     this.syncCompareState();
+  },
+
+  scheduleMeasureVariantFloat() {
+    const runMeasure = () => this.measureVariantFloatThreshold();
+    if (wx.nextTick) {
+      wx.nextTick(runMeasure);
+      return;
+    }
+    setTimeout(runMeasure, 0);
+  },
+
+  measureVariantFloatThreshold() {
+    if (!this.data.variantOptions.length) {
+      this.setData({
+        showVariantFloat: false,
+        variantFloatThreshold: 0
+      });
+      return;
+    }
+
+    const query = wx.createSelectorQuery().in(this);
+    query.select('#variantSelectorAnchor').boundingClientRect();
+    query.selectViewport().scrollOffset();
+    query.exec((res) => {
+      const rect = res && res[0];
+      const viewport = res && res[1];
+      if (!rect) return;
+
+      const scrollTop = this.lastPageScrollTop || (viewport && viewport.scrollTop) || 0;
+      const threshold = Math.max(0, scrollTop + rect.top - this.data.navBarHeight);
+      const showVariantFloat = scrollTop > threshold;
+      this.setData({
+        variantFloatThreshold: threshold,
+        showVariantFloat
+      });
+    });
+  },
+
+  onPageScroll(e) {
+    const scrollTop = (e && e.scrollTop) || 0;
+    this.lastPageScrollTop = scrollTop;
+
+    const shouldShow =
+      this.data.variantOptions.length > 0 &&
+      this.data.variantFloatThreshold > 0 &&
+      scrollTop > this.data.variantFloatThreshold;
+
+    if (shouldShow !== this.data.showVariantFloat) {
+      this.setData({ showVariantFloat: shouldShow });
+    }
   },
 
   toggleSeriesDescription() {
