@@ -5,6 +5,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const XLSX = require('xlsx');
 const { BRAND_IDS, HEADERS, SHEET_NAMES } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const BASE_URL = 'https://www.evergreen-fishing.com';
 const ENTRY_URLS = [
@@ -12,7 +13,7 @@ const ENTRY_URLS = [
   `${BASE_URL}/trout/`,
 ];
 
-const OUTPUT_DIR = path.join(__dirname, '../GearSage-client/pkgGear/data_raw');
+const OUTPUT_DIR = gearDataPaths.dataRawDir;
 const NORMALIZED_PATH = path.join(OUTPUT_DIR, 'evergreen_rod_normalized.json');
 const EXCEL_PATH = path.join(OUTPUT_DIR, 'evergreen_rod_import.xlsx');
 

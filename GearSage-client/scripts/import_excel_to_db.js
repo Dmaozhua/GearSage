@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const tcb = require('@cloudbase/node-sdk');
 const xlsx = require('xlsx');
+const gearDataPaths = require('../../scripts/gear_data_paths');
 
 // Initialize CloudBase
 // Ensure you have logged in via CLI `tcb login` or set TCB_SECRET_ID and TCB_SECRET_KEY env vars
@@ -24,7 +25,7 @@ try {
 const db = app.database();
 const _ = db.command;
 
-const EXCEL_DIR = path.join(__dirname, '../rate/excel');
+const EXCEL_DIR = gearDataPaths.excelDir;
 const SEARCH_DATA_DIR = path.join(__dirname, '../pkgGear/searchData');
 const SEARCH_DATA_FILE = path.join(SEARCH_DATA_DIR, 'Data.js');
 

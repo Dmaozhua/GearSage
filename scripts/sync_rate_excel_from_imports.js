@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const ROOT = path.resolve(__dirname, '..');
-const RATE_EXCEL_DIR = path.join(ROOT, 'GearSage-client/rate/excel');
-const DATA_RAW_DIR = path.join(ROOT, 'GearSage-client/pkgGear/data_raw');
+const RATE_EXCEL_DIR = gearDataPaths.excelDir;
+const DATA_RAW_DIR = gearDataPaths.dataRawDir;
 
 const REQUIRED_FIELDS_BY_HEADER = {
     reelMaster: ['id', 'brand_id', 'model', 'type'],

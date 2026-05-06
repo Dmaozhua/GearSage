@@ -1,10 +1,11 @@
 from copy import copy
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 
 HINT_BY_ID = {
     "DRD10056": "超輕精細：AGS/CWS 減少竿尖負擔，Down Shot、Neko、No Sinker 等輕量釣組讀底、看線和微弱咬口更清楚。",

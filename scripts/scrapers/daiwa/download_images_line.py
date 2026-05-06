@@ -1,12 +1,17 @@
 import json
 import os
 import concurrent.futures
+import sys
+from pathlib import Path
 from curl_cffi import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR, resolve_data_raw
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-DATA_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
+DATA_DIR = str(DATA_RAW_DIR)
 INPUT_FILE = os.path.join(DATA_DIR, "daiwa_line_normalized.json")
-IMAGE_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw/images/daiwa_lines")
+IMAGE_DIR = str(resolve_data_raw("images", "daiwa_lines"))
 
 os.makedirs(IMAGE_DIR, exist_ok=True)
 
@@ -17,7 +22,7 @@ def download_image(item):
     if not main_image_url or not local_image_path:
         return
         
-    full_local_path = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw", local_image_path)
+    full_local_path = str(resolve_data_raw(local_image_path))
     
     if os.path.exists(full_local_path):
         print(f"Skipping (already exists): {local_image_path}")

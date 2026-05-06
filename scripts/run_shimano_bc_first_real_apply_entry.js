@@ -1,40 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const APPLY_INPUT_JSON = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_v1.json'
-);
-const BASELINE_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx'
-);
-const PLAN_JSON = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_执行计划.json'
-);
-const PREVIEW_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_预览.xlsx'
-);
-const PREVIEW_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_预览.md'
-);
-const AUDIT_JSON = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_审计.json'
-);
-const RESULT_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_结果候选.xlsx'
-);
-const CHECKLIST_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/第一次真实apply_执行前检查清单.md'
-);
+const APPLY_INPUT_JSON = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_v1.json');
+const BASELINE_XLSX = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_副本.xlsx');
+const PLAN_JSON = gearDataPaths.resolveDataRaw('experiment_reports/review/第一次真实apply_执行计划.json');
+const PREVIEW_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/第一次真实apply_预览.xlsx');
+const PREVIEW_MD = gearDataPaths.resolveDataRaw('experiment_reports/review/第一次真实apply_预览.md');
+const AUDIT_JSON = gearDataPaths.resolveDataRaw('experiment_reports/review/第一次真实apply_审计.json');
+const RESULT_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/第一次真实apply_结果候选.xlsx');
+const CHECKLIST_MD = gearDataPaths.resolveDataRaw('experiment_reports/review/第一次真实apply_执行前检查清单.md');
 const SAMPLE_REELS = new Set(['SRE5003', 'SRE5004', 'SRE5015', 'SRE5019', 'SRE5025']);
 
 function normalizeText(value) {

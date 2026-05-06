@@ -10,9 +10,10 @@ from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
+from gear_data_paths import DATA_RAW_DIR
 
 ROOT = Path("/Users/tommy/GearSage")
-DATA_DIR = ROOT / "GearSage-client/pkgGear/data_raw"
+DATA_DIR = DATA_RAW_DIR
 CACHE_DIR = DATA_DIR / "dstyle_rods_cache"
 DETAIL_CACHE_DIR = CACHE_DIR / "details"
 IMAGE_DIR = Path("/Users/tommy/Pictures/images/dstyle_rods")

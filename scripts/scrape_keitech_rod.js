@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const gearDataPaths = require('./gear_data_paths');
 
 const BASE_URL = 'https://keitech.co.jp';
 const IMAGE_DIR = path.join(__dirname, '../GearSage-client/pkgGear/images/rod/KEITECH');
@@ -172,7 +173,7 @@ async function scrapeKeitechRods() {
         }
     }
 
-    const outPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_rod_normalized.json');
+    const outPath = gearDataPaths.resolveDataRaw('keitech_rod_normalized.json');
     fs.writeFileSync(outPath, JSON.stringify(results, null, 2));
     console.log(`Scraping complete. Data saved to ${outPath}`);
 }

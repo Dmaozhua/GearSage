@@ -3,14 +3,15 @@ import re
 from collections import defaultdict
 from copy import copy
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_whitelist_backfill_report.json"
+XLSX_PATH = resolve_data_raw('megabass_rod_import.xlsx')
+REPORT_PATH = resolve_data_raw('megabass_rod_whitelist_backfill_report.json')
 
 YELLOW = "FFFFFF00"
 FILL_A = PatternFill(fill_type="solid", fgColor="FFF8F3C8")

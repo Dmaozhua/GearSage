@@ -4,9 +4,13 @@ import sys
 import unicodedata
 import re
 import difflib
+from pathlib import Path
 from curl_cffi import requests
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import resolve_data_raw
 
 def sanitize_filename(name):
     return re.sub(r'[\\/*?:"<>|]', "", name).strip()
@@ -294,7 +298,7 @@ def process_url(i, url, total):
 
 def scrape_daiwa_rods():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    urls_file = os.path.join(base_dir, "../../../../GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_urls.json")
+    urls_file = str(resolve_data_raw("daiwa_rod_urls.json"))
     
     if not os.path.exists(urls_file):
         print(f"Error: {urls_file} not found.")
@@ -312,7 +316,7 @@ def scrape_daiwa_rods():
             if res:
                 results.append(res)
             
-    out_path = os.path.join(base_dir, "../../../../GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_normalized.json")
+    out_path = str(resolve_data_raw("daiwa_rod_normalized.json"))
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)

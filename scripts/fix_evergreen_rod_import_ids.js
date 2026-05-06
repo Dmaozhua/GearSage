@@ -2,12 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { HEADERS, SHEET_NAMES } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const FILE_PATH = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/evergreen_rod_import.xlsx');
-const BACKUP_PATH = path.resolve(
-  __dirname,
-  '../GearSage-client/pkgGear/data_raw/evergreen_rod_import.before_id_dedup.xlsx',
-);
+const FILE_PATH = gearDataPaths.resolveDataRaw('evergreen_rod_import.xlsx');
+const BACKUP_PATH = gearDataPaths.resolveDataRaw('evergreen_rod_import.before_id_dedup.xlsx');
 
 function normalize(v) {
   return String(v || '').trim();

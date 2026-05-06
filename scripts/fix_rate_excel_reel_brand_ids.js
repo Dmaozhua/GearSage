@@ -1,7 +1,8 @@
 const path = require('path');
 const xlsx = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const FILE_PATH = path.resolve(__dirname, '../GearSage-client/rate/excel/reel.xlsx');
+const FILE_PATH = gearDataPaths.resolveExcel('reel.xlsx');
 const SHEET_NAME = 'reel';
 const HEADER = [
     'id',

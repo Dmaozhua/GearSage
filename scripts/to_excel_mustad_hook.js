@@ -3,8 +3,9 @@ const path = require('path');
 const XLSX = require('xlsx');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const gearDataPaths = require('./gear_data_paths');
 
-const OUTPUT_DIR = path.join(__dirname, '../GearSage-client/pkgGear/data_raw');
+const OUTPUT_DIR = gearDataPaths.dataRawDir;
 const NORMALIZED_PATH = path.join(OUTPUT_DIR, 'mustad_hook_normalized.json');
 const EXCEL_PATH = path.join(OUTPUT_DIR, 'mustad_hook_import.xlsx');
 const IMAGE_DIR = path.join(__dirname, '../GearSage-client/pkgGear/images/hook/MUSTAD');

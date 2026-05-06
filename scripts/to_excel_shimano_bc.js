@@ -3,10 +3,11 @@ const path = require('path');
 const crypto = require('crypto');
 const { spawnSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const INPUT_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json');
-const OUTPUT_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
+const INPUT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reel_normalized.json');
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
 const WHITELIST_EXPERIMENT_CONFIG = path.resolve(
   __dirname,
   './config/whitelist_experiments/shimano_baitcasting_reel.json'
@@ -14,7 +15,7 @@ const WHITELIST_EXPERIMENT_CONFIG = path.resolve(
 const ENABLE_WHITELIST_ENRICHMENT = process.env.GS_ENABLE_SHIMANO_BC_WHITELIST_ENRICHMENT === '1';
 const TEMPLATE_FILES = [
   OUTPUT_FILE,
-  path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx'),
+  gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_副本.xlsx'),
 ];
 
 const BRAND_ID = 1;
@@ -24,10 +25,7 @@ const MASTER_PREFIX = 'SRE';
 const DETAIL_PREFIX = 'SRED';
 const SHIMANO_REEL_STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/';
 const HIGHLIGHT_HELPER = path.resolve(__dirname, 'patch_xlsx_highlights.py');
-const HIGHLIGHT_PAYLOAD = path.resolve(
-  __dirname,
-  '../GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_highlights.json'
-);
+const HIGHLIGHT_PAYLOAD = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_highlights.json');
 const YELLOW_FIELDS_MASTER = new Set([
   'model_cn',
   'model_year',

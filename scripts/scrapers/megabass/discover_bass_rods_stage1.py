@@ -1,4 +1,5 @@
 import json
+import sys
 import time
 from pathlib import Path
 from urllib.parse import urljoin
@@ -6,9 +7,11 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from curl_cffi import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR
 
 START_URL = "https://www.megabass.co.jp/site/freshwater/bass_rod/"
-DATA_DIR = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw")
+DATA_DIR = DATA_RAW_DIR
 OUTPUT_PATH = DATA_DIR / "megabass_bass_rod_discovery.json"
 
 HEADERS = {

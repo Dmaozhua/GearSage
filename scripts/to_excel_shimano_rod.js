@@ -2,13 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 // We output a single excel file with multiple sheets, or two separate ones?
 // Usually, we've been outputting one file with multiple sheets, e.g., 'Rods Master' and 'Rod Variants'.
 // Let's output two sheets: "rod" and "rod_detail" as requested.
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_rod_normalized.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_rod_import.xlsx');
+const inputFile = gearDataPaths.resolveDataRaw('shimano_rod_normalized.json');
+const outputFile = gearDataPaths.resolveDataRaw('shimano_rod_import.xlsx');
 
 if (!fs.existsSync(inputFile)) {
     console.error(`[Error] Input file not found: ${inputFile}`);

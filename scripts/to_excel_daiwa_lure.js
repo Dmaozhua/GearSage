@@ -3,6 +3,7 @@ const path = require('path');
 const xlsx = require('xlsx');
 const DAIWA_BRAND_ID = 2;
 const { SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 function classifyLure(modelName, buoyancy) {
     let typeTips = 'special_lure';
@@ -109,7 +110,7 @@ function classifyLure(modelName, buoyancy) {
 }
 
 function generateDaiwaLureExcel() {
-    const rawDataPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_lure_normalized.json');
+    const rawDataPath = gearDataPaths.resolveDataRaw('daiwa_lure_normalized.json');
     if (!fs.existsSync(rawDataPath)) {
         console.error(`File not found: ${rawDataPath}`);
         return;
@@ -241,7 +242,7 @@ function generateDaiwaLureExcel() {
         xlsx.utils.book_append_sheet(wb, wsJig, SHEET_NAMES.jigLureDetail);
     }
 
-    const outputPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_lure_import.xlsx');
+    const outputPath = gearDataPaths.resolveDataRaw('daiwa_lure_import.xlsx');
     xlsx.writeFile(wb, outputPath);
     console.log(`Exported ${lureRows.length} main models and details to ${outputPath}`);
 }

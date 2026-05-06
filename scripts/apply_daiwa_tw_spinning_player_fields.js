@@ -2,11 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = '/Users/tommy/GearSage';
-const IMPORT_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_import.xlsx');
-const EVIDENCE_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_player_fields_evidence.json');
-const REPORT_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_player_fields_report.md');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('daiwa_spinning_reels_import.xlsx');
+const EVIDENCE_FILE = gearDataPaths.resolveDataRaw('daiwa_spinning_reels_player_fields_evidence.json');
+const REPORT_FILE = gearDataPaths.resolveDataRaw('daiwa_spinning_reels_player_fields_report.md');
 
 const SOURCE_EVALUATION = [
   {
@@ -256,7 +257,7 @@ function writeReport(evidence) {
     '',
     `- Generated at: ${evidence.generated_at}`,
     '- Target fields: `reel.player_positioning`, `reel.player_selling_points`',
-    '- Import file: `/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_import.xlsx`',
+    `- Import file: \`${gearDataPaths.resolveDataRaw('daiwa_spinning_reels_import.xlsx')}\``,
     '',
     '## Whitelist Source Usefulness',
     ...SOURCE_EVALUATION.map((source) => `- ${source.source_site}: ${source.status}; ${source.limitation}`),

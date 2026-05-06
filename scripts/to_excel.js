@@ -3,9 +3,10 @@ const path = require('path');
 const crypto = require('crypto');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_reel_normalized.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_import.xlsx');
+const inputFile = gearDataPaths.resolveDataRaw('daiwa_reel_normalized.json');
+const outputFile = gearDataPaths.resolveDataRaw('daiwa_spinning_reels_import.xlsx');
 
 function normalizeText(value) {
     return String(value || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();

@@ -2,12 +2,13 @@ import argparse
 import json
 import re
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-DEFAULT_XLSX = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
-DEFAULT_OUTPUT = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_variant_usage_facts.json")
+DEFAULT_XLSX = resolve_data_raw('daiwa_rod_import.xlsx')
+DEFAULT_OUTPUT = resolve_data_raw('daiwa_rod_variant_usage_facts.json')
 
 RIG_PATTERNS = [
     ("Down Shot", [r"down\s*shot", "倒吊", "落下釣組"]),

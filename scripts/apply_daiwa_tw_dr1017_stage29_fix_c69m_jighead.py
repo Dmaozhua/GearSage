@@ -1,9 +1,10 @@
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 TARGET_ID = "DRD10120"
 UPDATES = {
     "recommended_rig_pairing": "Neko Rig / No Sinker / Down Shot / Texas Rig / Leaderless Down Shot / Free Rig / Rubber Jig / Guarded Jighead / Spinnerbait / Vibration / Crankbait / Craw",

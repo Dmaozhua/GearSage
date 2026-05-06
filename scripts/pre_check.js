@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const gearDataPaths = require('./gear_data_paths');
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_reel_normalized.json');
+const inputFile = gearDataPaths.resolveDataRaw('daiwa_reel_normalized.json');
 
 function main() {
     console.log('[Pre-Check] Starting validation for', inputFile);

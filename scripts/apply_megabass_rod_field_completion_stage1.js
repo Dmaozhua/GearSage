@@ -3,9 +3,10 @@ const path = require('path');
 const xlsx = require('xlsx');
 const { HEADERS, SHEET_NAMES } = require('./gear_export_schema');
 const { runMegabassRodDetailGroupShading } = require('./run_megabass_rod_detail_group_shading');
+const gearDataPaths = require('./gear_data_paths');
 
-const RAW_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_raw.json');
-const XLSX_FILE = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx');
+const RAW_FILE = gearDataPaths.resolveDataRaw('megabass_rod_raw.json');
+const XLSX_FILE = gearDataPaths.resolveDataRaw('megabass_rod_import.xlsx');
 
 function n(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();

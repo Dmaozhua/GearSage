@@ -1,7 +1,8 @@
 const path = require('path');
 const XLSX = require('./node_modules/xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_rod_import.xlsx');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_rod_import.xlsx');
 
 function n(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();

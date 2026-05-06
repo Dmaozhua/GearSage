@@ -5,11 +5,12 @@ const crypto = require('crypto');
 const puppeteer = require('puppeteer-core');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const LIST_URL = 'https://www.daiwaseiko.com.tw/product-list/reel/spinning_reel/';
-const OUTPUT_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_import_test.xlsx';
-const OUTPUT_JSON = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_spinning_test_normalized.json';
-const LOCK_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_spinning_reels_locks.json';
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('daiwa_spinning_reels_import_test.xlsx');
+const OUTPUT_JSON = gearDataPaths.resolveDataRaw('daiwa_tw_spinning_test_normalized.json');
+const LOCK_FILE = gearDataPaths.resolveDataRaw('daiwa_tw_spinning_reels_locks.json');
 const IMAGE_DIR = '/Users/tommy/Pictures/images/daiwa_reels';
 const STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/daiwa_reels/';
 const BROWSER = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';

@@ -1,44 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const CONFLICT_TAGGED_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_conflict_tagged_recheck_view.xlsx'
-);
-const ADAPTER_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_adapter_v1.xlsx'
-);
-const APPROVED_PATCH_JSON = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch.json'
-);
-const BASELINE_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx'
-);
-const OUTPUT_JSON = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_v1.json'
-);
-const OUTPUT_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_v1.xlsx'
-);
-const OUTPUT_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_summary_v1.md'
-);
-const PRECHECK_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_builder_driven_third_dry_run_precheck.md'
-);
-const PRECHECK_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_builder_driven_third_dry_run_precheck.xlsx'
-);
+const CONFLICT_TAGGED_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_conflict_tagged_recheck_view.xlsx');
+const ADAPTER_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_adapter_v1.xlsx');
+const APPROVED_PATCH_JSON = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch.json');
+const BASELINE_XLSX = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_副本.xlsx');
+const OUTPUT_JSON = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_v1.json');
+const OUTPUT_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_v1.xlsx');
+const OUTPUT_MD = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_apply_input_summary_v1.md');
+const PRECHECK_MD = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_builder_driven_third_dry_run_precheck.md');
+const PRECHECK_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_builder_driven_third_dry_run_precheck.xlsx');
 
 function normalizeText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();

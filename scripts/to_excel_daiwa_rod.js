@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_rod_normalized.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx');
+const inputFile = gearDataPaths.resolveDataRaw('daiwa_rod_normalized.json');
+const outputFile = gearDataPaths.resolveDataRaw('daiwa_rod_import.xlsx');
 const urlsFileArgIndex = process.argv.indexOf('--urls-file');
 const urlsFile = urlsFileArgIndex >= 0 ? process.argv[urlsFileArgIndex + 1] : '';
 

@@ -1,11 +1,12 @@
 import json
 import re
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 SNAPSHOT_PATH = Path("/tmp/daiwa_rod_before_rig_whitelist_pass.json")
 FIELD = "recommended_rig_pairing"
 

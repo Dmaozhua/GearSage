@@ -5,11 +5,12 @@ import subprocess
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-DATA_DIR = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw")
+DATA_DIR = DATA_RAW_DIR
 XLSX_PATH = DATA_DIR / "ark_rod_import.xlsx"
 NORMALIZED_PATH = DATA_DIR / "ark_rod_normalized.json"
 REPORT_PATH = DATA_DIR / "ark_rod_player_fields_refine_report.json"

@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 const SHIMANO_BRAND_ID = 1;
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_line_normalized.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_line_import.xlsx');
+const inputFile = gearDataPaths.resolveDataRaw('shimano_line_normalized.json');
+const outputFile = gearDataPaths.resolveDataRaw('shimano_line_import.xlsx');
 
 if (!fs.existsSync(inputFile)) {
     console.error(`[Error] Input file not found: ${inputFile}`);

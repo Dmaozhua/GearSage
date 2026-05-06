@@ -2,8 +2,9 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
+const gearDataPaths = require('./gear_data_paths');
 
-const OUTPUT_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/yamamoto_lure_normalized.json');
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('yamamoto_lure_normalized.json');
 const IMAGE_DIR = path.join(__dirname, '../GearSage-client/pkgGear/images/lure/YAMAMOTO');
 
 if (!fs.existsSync(IMAGE_DIR)) {

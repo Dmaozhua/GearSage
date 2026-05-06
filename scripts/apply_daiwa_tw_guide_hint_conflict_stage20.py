@@ -1,9 +1,10 @@
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 
 HINT_BY_ID = {
     "DRD10043": "精細多用途：Jighead、Down Shot、Neko 與小型硬餌都能兼顧，細線出線、控線和小餌操作更穩。",

@@ -2,12 +2,13 @@
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
 
-OUTPUT_DIR = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw")
+OUTPUT_DIR = DATA_RAW_DIR
 IMPORT_FILE = OUTPUT_DIR / "nories_rod_import.xlsx"
 EVIDENCE_FILE = OUTPUT_DIR / "nories_rod_whitelist_player_evidence.json"
 

@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const RAW_DATA_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_lure_normalized.json');
-const OUTPUT_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_lure_import.xlsx');
+const RAW_DATA_PATH = gearDataPaths.resolveDataRaw('keitech_lure_normalized.json');
+const OUTPUT_PATH = gearDataPaths.resolveDataRaw('keitech_lure_import.xlsx');
 
 function normalizeText(text) {
     if (!text) return '';

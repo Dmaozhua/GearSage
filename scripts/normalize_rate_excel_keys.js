@@ -1,7 +1,8 @@
 const path = require('path');
 const xlsx = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const EXCEL_DIR = path.resolve(__dirname, '../GearSage-client/rate/excel');
+const EXCEL_DIR = gearDataPaths.excelDir;
 
 const FILES = {
     lure: 'lure.xlsx',

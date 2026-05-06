@@ -2,11 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('../../node_modules/xlsx');
+const gearDataPaths = require('../../gear_data_paths');
 
 const ROOT = path.resolve(__dirname, '../../..');
-const IMPORT_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx');
-const RAW_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/megabass_rod_raw.json');
-const OUT_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/megabass_rod_whitelist_player_evidence.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('megabass_rod_import.xlsx');
+const RAW_FILE = gearDataPaths.resolveDataRaw('megabass_rod_raw.json');
+const OUT_FILE = gearDataPaths.resolveDataRaw('megabass_rod_whitelist_player_evidence.json');
 
 const TW_SOURCES = [
   {

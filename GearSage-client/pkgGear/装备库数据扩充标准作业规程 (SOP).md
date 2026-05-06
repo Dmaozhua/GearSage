@@ -38,11 +38,12 @@
 ### **0. 最终基准约定（每次扩充前先确认）**
 
 1.  **`rate/excel` 是最终基准**:
-    *   `/Users/tommy/GearSage/GearSage-client/rate/excel/` 目录下的总表是最终使用数据。
+    *   `/Users/tommy/GearSage-data/rate/excel/` 目录下的总表是最终使用数据。
     *   数据库导入、前后端联调、抽样核对都以这里为准。
 
 2.  **`pkgGear/data_raw` 是中间层**:
-    *   `/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/` 用于存放抓取原始数据、`normalized.json`、中间导出的 `*_import.xlsx` 和差异报告。
+    *   `/Users/tommy/GearSage-data/data_raw/` 用于存放抓取原始数据、`normalized.json`、中间导出的 `*_import.xlsx`。
+    *   `/Users/tommy/GearSage-data/reports/` 用于存放差异报告、审计报告和检查报告。
     *   默认不要把这里的脚本产物直接视为最终可导库数据。
 
 3.  **默认冻结结构，优先补内容**:
@@ -126,14 +127,14 @@
 2.  **数据清洗与转换**:
     *   校验通过后，我将运行专门的转换脚本 (如 `scripts/to_excel_megabass_lure.js`)。
     *   脚本会在内存中执行动态枚举推导（如 `classifyLure`），将非结构化数据映射为系统的标准枚举（`type_tips`, `system`, `water_column` 等）。
-    *   转换脚本会读取 `normalized.json` 并生成品牌级的中间 Excel，统一输出至 `pkgGear/data_raw/` 目录，例如 `daiwa_lure_import.xlsx`、`shimano_line_import.xlsx`。
+    *   转换脚本会读取 `normalized.json` 并生成品牌级的中间 Excel，统一输出至 `/Users/tommy/GearSage-data/data_raw/` 目录，例如 `daiwa_lure_import.xlsx`、`shimano_line_import.xlsx`。
     *   `data_raw` 导出规则现在要求直接对齐最终基准表：`brand_id` 使用 `brand.xlsx` 中的纯数字品牌 ID；装备主键/外键使用字符串前缀主键；sheet 名、表头顺序与 `rate/excel` 保持一致。
     *   公共导出常量统一维护在 `scripts/gear_export_schema.js`。新增或修改 `to_excel_*` 脚本时，优先复用这里的品牌 ID、sheet 名和 header 定义，不再在各脚本内重复手写。
-    *   **注意**：`pkgGear/data_raw/*_import.xlsx` 只是中间产物，当前数据库导入仍以 `GearSage-client/rate/excel/` 目录下的总表为准。
+    *   **注意**：`/Users/tommy/GearSage-data/data_raw/*_import.xlsx` 只是中间产物，当前数据库导入仍以 `/Users/tommy/GearSage-data/rate/excel/` 目录下的总表为准。
 
 3.  **对比最终总表，不默认自动覆盖**:
     *   生成品牌级中间 Excel 后，默认先运行 `scripts/report_rate_excel_diffs.js`。
-    *   该脚本会将 `data_raw` 导出与 `rate/excel` 最终基准做只读比对，并输出报告到 `pkgGear/data_raw/rate_excel_diff_report.md`。
+    *   该脚本会将 `data_raw` 导出与 `rate/excel` 最终基准做只读比对，并输出报告到 `/Users/tommy/GearSage-data/reports/rate_excel_diff_report.md`。
     *   报告重点关注：
         新增型号、缺失型号、字段值差异、表头不一致、外键不一致。
     *   只有在您确认“导出规则”和“最终表规则”都合理后，才手动更新 `rate/excel`。
@@ -262,7 +263,7 @@
     *   如果只是补数据，不改结构。
 
 2.  **补抓取/清洗数据**
-    *   更新 `pkgGear/data_raw/*.json` 或 `*_normalized.json`。
+    *   更新 `/Users/tommy/GearSage-data/data_raw/*.json` 或 `*_normalized.json`。
     *   如新增品牌，先补 `brand.xlsx` 与导出脚本中的品牌 ID 映射。
 
 3.  **运行预检查**
@@ -272,14 +273,14 @@
     *   先消除 `error`，再决定是否接受 `warning`。
 
 4.  **运行对应导出脚本**
-    *   生成 `pkgGear/data_raw/*_import.xlsx`。
+    *   生成 `/Users/tommy/GearSage-data/data_raw/*_import.xlsx`。
     *   默认要求导出结果直接对齐最终 `rate/excel` 的主键、表头、sheet 名规则。
 
 5.  **运行差异报告**
     ```bash
     node /Users/tommy/GearSage/scripts/report_rate_excel_diffs.js
     ```
-    *   查看 `/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/rate_excel_diff_report.md`。
+    *   查看 `/Users/tommy/GearSage-data/reports/rate_excel_diff_report.md`。
 
 6.  **同步主包搜索索引**
     ```bash

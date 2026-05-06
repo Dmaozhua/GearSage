@@ -3,10 +3,11 @@ const path = require('path');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const XLSX = require('./node_modules/xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const ROOT = path.resolve(__dirname, '..');
-const IMPORT_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/evergreen_rod_import.xlsx');
-const OUT_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/evergreen_rod_whitelist_player_evidence.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('evergreen_rod_import.xlsx');
+const OUT_FILE = gearDataPaths.resolveDataRaw('evergreen_rod_whitelist_player_evidence.json');
 
 const COLLECTION_URLS = [
   'https://store.plus-fishing.com/collections/freshwater-rods/products.json?limit=250',

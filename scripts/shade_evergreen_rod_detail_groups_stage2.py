@@ -3,9 +3,10 @@ import posixpath
 import re
 import zipfile
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 from xml.etree import ElementTree as ET
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/evergreen_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('evergreen_rod_import.xlsx')
 
 NS = {
     "main": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",

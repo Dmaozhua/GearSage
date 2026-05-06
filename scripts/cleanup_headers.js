@@ -1,5 +1,6 @@
 const fs = require('fs');
 const xlsx = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 function cleanupFile(filePath, sheetName, columnsToRemove) {
     console.log('Cleaning up', filePath);
@@ -32,8 +33,8 @@ function cleanupFile(filePath, sheetName, columnsToRemove) {
     }
 }
 
-cleanupFile('GearSage-client/rate/excel/lure.xlsx', 'lure', ['official_link', 'Description']);
-cleanupFile('GearSage-client/rate/excel/soft_lure_detail.xlsx', 'soft_lure_detail', [
+cleanupFile(gearDataPaths.resolveExcel('lure.xlsx'), 'lure', ['official_link', 'Description']);
+cleanupFile(gearDataPaths.resolveExcel('soft_lure_detail.xlsx'), 'soft_lure_detail', [
     'Size', 'Market Reference Price', 'Quantity', 'Hook', 'Hook Size', 
     'Ring Size', 'Material', 'Sale Price', 'Description'
 ]);

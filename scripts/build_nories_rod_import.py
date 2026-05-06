@@ -13,6 +13,8 @@ from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 
+from gear_data_paths import DATA_RAW_DIR
+
 
 BASE_URL = "https://nories.com"
 ENTRY_URL = f"{BASE_URL}/bass/category/rods/"
@@ -23,7 +25,7 @@ PRODUCT_URLS = [
     f"{BASE_URL}/bass/road-runner-voice-jungle/",
 ]
 
-OUTPUT_DIR = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw")
+OUTPUT_DIR = DATA_RAW_DIR
 CACHE_DIR = OUTPUT_DIR / "nories_rods_cache"
 NORMALIZED_PATH = OUTPUT_DIR / "nories_rod_normalized.json"
 OUTPUT_FILE = OUTPUT_DIR / "nories_rod_import.xlsx"

@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const DATA_RAW_DIR = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw';
+const DATA_RAW_DIR = gearDataPaths.dataRawDir;
 const LOCAL_IMAGE_ROOT = '/Users/tommy/Pictures/images';
 const URL_BASE = 'https://static.gearsage.club/gearsage/Gearimg/images';
 

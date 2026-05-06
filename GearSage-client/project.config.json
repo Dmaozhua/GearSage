@@ -19,6 +19,26 @@
         "type": "folder"
       },
       {
+        "value": "docs",
+        "type": "folder"
+      },
+      {
+        "value": "rate",
+        "type": "folder"
+      },
+      {
+        "value": "pkgGear/data_raw",
+        "type": "folder"
+      },
+      {
+        "value": "pkgGear/*.md",
+        "type": "glob"
+      },
+      {
+        "value": "__pycache__",
+        "type": "folder"
+      },
+      {
         "value": "package-lock.json",
         "type": "file"
       }

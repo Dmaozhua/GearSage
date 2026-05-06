@@ -5,10 +5,11 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const XLSX = require('xlsx');
 const { BRAND_IDS, HEADERS, SHEET_NAMES } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const BASE_URL = 'http://raidjapan.com';
 const ENTRY_URL = `${BASE_URL}/?page_id=46`;
-const OUTPUT_DIR = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw');
+const OUTPUT_DIR = gearDataPaths.dataRawDir;
 const CACHE_DIR = path.join(OUTPUT_DIR, 'raid_rods_cache');
 const CATEGORY_CACHE_DIR = path.join(CACHE_DIR, 'categories');
 const DETAIL_CACHE_DIR = path.join(CACHE_DIR, 'details');

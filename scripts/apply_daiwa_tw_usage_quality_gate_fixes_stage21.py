@@ -1,9 +1,10 @@
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 
 HINT_BY_ID = {
     "DRD10206": "岸投遠投：Metal Jig、Minnow、Sinking Pencil 與 Surf Plug 切換時，PE 出線、線弧和迎風控線更穩。",

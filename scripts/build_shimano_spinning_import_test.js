@@ -2,13 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = '/Users/tommy/GearSage';
-const SOURCE_IMPORT = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx');
-const NORMALIZED_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json');
-const OUTPUT_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import_test.xlsx');
+const SOURCE_IMPORT = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import.xlsx');
+const NORMALIZED_FILE = gearDataPaths.resolveDataRaw('shimano_spinning_reel_normalized.json');
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import_test.xlsx');
 const HIGHLIGHT_HELPER = path.join(REPO_ROOT, 'scripts/patch_xlsx_highlights.py');
-const HIGHLIGHT_PAYLOAD = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/.shimano_spinning_import_test_highlights.json');
+const HIGHLIGHT_PAYLOAD = gearDataPaths.resolveDataRaw('.shimano_spinning_import_test_highlights.json');
 
 const MASTER_SHEET = 'reel';
 const DETAIL_SHEET = 'spinning_reel_detail';

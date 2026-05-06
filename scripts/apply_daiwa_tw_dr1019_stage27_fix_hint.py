@@ -1,9 +1,10 @@
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 TARGET_ID = "DRD10144"
 TARGET_FIELD = "guide_use_hint"
 NEW_HINT = "SC 全能底操：Neko、No Sinker、Down Shot、Texas 和 Free Rig 為主，實心竿尖也能兼顧 Spinnerbait、Vibration、Crankbait 的鬆線回收與觸感。"

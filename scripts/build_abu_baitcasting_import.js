@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 const { execFileSync } = require('child_process');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const LIST_URLS = [
   'https://www.abugarcia.com/collections/reels?filter.p.product_type=Low+Profile+Baitcast+Reels&sort_by=manual',
@@ -12,8 +13,8 @@ const LIST_URLS = [
   'https://www.abugarcia.com/collections/reels?filter.p.product_type=Round+Baitcast+Reels&sort_by=manual',
 ];
 
-const OUTPUT_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_baitcasting_reel_import.xlsx';
-const OUTPUT_JSON = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_baitcasting_reels_normalized.json';
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('abu_baitcasting_reel_import.xlsx');
+const OUTPUT_JSON = gearDataPaths.resolveDataRaw('abu_baitcasting_reels_normalized.json');
 const IMAGE_DIR = '/Users/tommy/Pictures/images/abu_reels';
 const STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/abu_reels/';
 

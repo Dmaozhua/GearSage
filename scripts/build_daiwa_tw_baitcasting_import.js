@@ -4,10 +4,11 @@ const { execFileSync } = require('child_process');
 const puppeteer = require('puppeteer-core');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const LIST_URL = 'https://www.daiwaseiko.com.tw/product-list/reel/double_shaft//';
-const OUTPUT_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_import.xlsx';
-const OUTPUT_JSON = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_baitcasting_normalized.json';
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('daiwa_baitcasting_reel_import.xlsx');
+const OUTPUT_JSON = gearDataPaths.resolveDataRaw('daiwa_tw_baitcasting_normalized.json');
 const IMAGE_DIR = '/Users/tommy/Pictures/images/daiwa_reels';
 const STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/daiwa_reels/';
 const BROWSER = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';

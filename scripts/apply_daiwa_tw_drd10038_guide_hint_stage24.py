@@ -1,9 +1,10 @@
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 DETAIL_ID = "DRD10038"
 NEW_HINT = "Power Game 泛用：Jighead、Texas、Punching 與 Heavy Carolina 打點為主，也能兼顧 Spoon、Spinnerbait 等重型移動餌。"
 

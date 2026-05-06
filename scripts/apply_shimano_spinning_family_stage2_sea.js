@@ -2,10 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = '/Users/tommy/GearSage';
-const IMPORT_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx');
-const HIGHLIGHT_PAYLOAD = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import_highlights.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import.xlsx');
+const HIGHLIGHT_PAYLOAD = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import_highlights.json');
 const HIGHLIGHT_HELPER = path.join(REPO_ROOT, 'scripts/patch_xlsx_highlights.py');
 const SHIMANO_SUPPORT_SEARCH_URL = 'https://www.shimanofishingservice.jp/price.php';
 const SHIMANO_SUPPORT_BASE_URL = 'https://www.shimanofishingservice.jp/';

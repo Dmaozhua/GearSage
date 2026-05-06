@@ -2,6 +2,7 @@ from copy import copy
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 import re
 import ssl
 from urllib.request import Request, urlopen
@@ -9,7 +10,7 @@ from urllib.request import Request, urlopen
 from openpyxl import load_workbook
 
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('daiwa_rod_import.xlsx')
 OFFICIAL_URL = "https://www.daiwa.com/tw/product/t32myhm"
 TARGET_ROD_ID = "DR1017"
 TARGET_FIELDS = ["Description", "recommended_rig_pairing", "guide_use_hint"]

@@ -1,9 +1,10 @@
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/raid_rod_import.xlsx")
+XLSX_PATH = resolve_data_raw('raid_rod_import.xlsx')
 FILL_A = PatternFill(fill_type="solid", fgColor="FFF8F3C8")
 FILL_B = PatternFill(fill_type="solid", fgColor="FFE8F1FB")
 

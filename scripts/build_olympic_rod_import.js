@@ -5,6 +5,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const XLSX = require('xlsx');
 const { BRAND_IDS, HEADERS, SHEET_NAMES } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const BASE_URL = 'https://olympic-co-ltd.jp';
 const LINEUPS = [
@@ -24,7 +25,7 @@ const LINEUPS = [
   },
 ];
 
-const OUTPUT_DIR = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw');
+const OUTPUT_DIR = gearDataPaths.dataRawDir;
 const CACHE_DIR = path.join(OUTPUT_DIR, 'olympic_rods_cache');
 const LINEUP_CACHE_DIR = path.join(CACHE_DIR, 'lineups');
 const DETAIL_CACHE_DIR = path.join(CACHE_DIR, 'details');

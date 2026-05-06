@@ -2,10 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync, spawnSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx';
-const INDEX_FILE = 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_whitelist_source_index.json';
-const HIGHLIGHT_PAYLOAD = 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_highlights.json';
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
+const INDEX_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_whitelist_source_index.json');
+const HIGHLIGHT_PAYLOAD = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_highlights.json');
 const HIGHLIGHT_HELPER = 'scripts/patch_xlsx_highlights.py';
 const DOWNLOAD_DIR = '/Users/tommy/Pictures/images/shimano_reels';
 const STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/';

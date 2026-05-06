@@ -2,13 +2,14 @@ import json
 import re
 from collections import Counter
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/raid_rod_import.xlsx"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/raid_rod_recommended_rig_pairing_check.json"
+XLSX_PATH = resolve_data_raw('raid_rod_import.xlsx')
+REPORT_PATH = resolve_data_raw('raid_rod_recommended_rig_pairing_check.json')
 
 FIELD = "recommended_rig_pairing"
 OVER_GENERIC = {

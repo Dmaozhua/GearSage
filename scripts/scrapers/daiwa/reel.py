@@ -1,12 +1,17 @@
 import json
 import os
+import sys
+from pathlib import Path
 from urllib.parse import urljoin
 from scrapling import Fetcher
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR
 
 # Paths
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 CONFIG_PATH = os.path.join(BASE_DIR, "GearSage-client/pkgGear/source_config.json")
-OUTPUT_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
+OUTPUT_DIR = str(DATA_RAW_DIR)
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "daiwa_reel_urls.json")
 
 def load_config():

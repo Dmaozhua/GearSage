@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const RAW_DATA_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/yamamoto_lure_normalized.json');
-const OUTPUT_PATH = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/yamamoto_lure_import.xlsx');
+const RAW_DATA_PATH = gearDataPaths.resolveDataRaw('yamamoto_lure_normalized.json');
+const OUTPUT_PATH = gearDataPaths.resolveDataRaw('yamamoto_lure_import.xlsx');
 
 function generateExcel() {
     if (!fs.existsSync(RAW_DATA_PATH)) {

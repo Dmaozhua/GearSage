@@ -3,15 +3,16 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 from urllib.parse import urlparse
 
 from openpyxl import load_workbook
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx"
-RAW_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_raw.json"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_master_images_refresh_report.json"
+XLSX_PATH = resolve_data_raw('megabass_rod_import.xlsx')
+RAW_PATH = resolve_data_raw('megabass_rod_raw.json')
+REPORT_PATH = resolve_data_raw('megabass_rod_master_images_refresh_report.json')
 
 BRAND_DIR = "megabass_rods"
 OLD_DIR = Path("/Users/tommy/Pictures/images_old_copy") / BRAND_DIR

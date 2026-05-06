@@ -1,40 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const IDENTITY_PATCH = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json'
-);
-const IDENTITY_QUALITY_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/quality/2026-04-16_shimano_baitcasting_reel_identity_quality_report.xlsx'
-);
-const IDENTITY_REVIEW_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_review.xlsx'
-);
-const WHITELIST_PATCH = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch.json'
-);
-const WHITELIST_REVIEW_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review_filled.xlsx'
-);
-const GEAR_MATERIAL_LAYERED_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_gear_material_layered_decision_report.xlsx'
-);
-const OUTPUT_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_field_recheck_view.md'
-);
-const OUTPUT_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_field_recheck_view.xlsx'
-);
+const IDENTITY_PATCH = gearDataPaths.resolveDataRaw('identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json');
+const IDENTITY_QUALITY_XLSX = gearDataPaths.resolveDataRaw('identity_reports/quality/2026-04-16_shimano_baitcasting_reel_identity_quality_report.xlsx');
+const IDENTITY_REVIEW_XLSX = gearDataPaths.resolveDataRaw('identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_review.xlsx');
+const WHITELIST_PATCH = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_patch.json');
+const WHITELIST_REVIEW_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_review_filled.xlsx');
+const GEAR_MATERIAL_LAYERED_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_gear_material_layered_decision_report.xlsx');
+const OUTPUT_MD = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_field_recheck_view.md');
+const OUTPUT_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_field_recheck_view.xlsx');
 const REVIEW_SUPPORT_OVERRIDES = {
   SRE5004: {
     body_material_tech: 'HAGANE 机身',

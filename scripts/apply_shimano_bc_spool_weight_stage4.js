@@ -1,9 +1,10 @@
 const XLSX = require('xlsx');
 const { execFileSync, spawnSync } = require('child_process');
 const fs = require('fs');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx';
-const HIGHLIGHT_PAYLOAD = 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_highlights.json';
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
+const HIGHLIGHT_PAYLOAD = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_highlights.json');
 const HIGHLIGHT_HELPER = 'scripts/patch_xlsx_highlights.py';
 const PAGE_CACHE = new Map();
 

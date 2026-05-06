@@ -1,8 +1,13 @@
 import os
 import json
 import time
+import sys
+from pathlib import Path
 from curl_cffi import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import resolve_data_raw
 
 def download_single_image(item, img_dir):
     img_url = item.get("main_image_url")
@@ -32,7 +37,7 @@ def download_single_image(item, img_dir):
 
 def download_daiwa_lure_images():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    json_path = os.path.join(base_dir, "../../../GearSage-client/pkgGear/data_raw/daiwa_lure_normalized.json")
+    json_path = str(resolve_data_raw("daiwa_lure_normalized.json"))
     img_dir = os.path.join(base_dir, "../../../GearSage-client/pkgGear/images/daiwa_lures")
     
     if not os.path.exists(json_path):

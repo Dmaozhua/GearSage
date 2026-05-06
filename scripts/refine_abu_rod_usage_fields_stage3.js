@@ -3,10 +3,11 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('./node_modules/xlsx');
 const { HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/abu_rod_import.xlsx');
-const NORMALIZED_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/abu_rods_normalized.json');
-const REPORT_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/abu_rod_usage_fields_refine_report.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('abu_rod_import.xlsx');
+const NORMALIZED_FILE = gearDataPaths.resolveDataRaw('abu_rods_normalized.json');
+const REPORT_FILE = gearDataPaths.resolveDataRaw('abu_rod_usage_fields_refine_report.json');
 const SHADE_SCRIPT = path.join(__dirname, 'shade_abu_rod_detail_groups.py');
 
 const BANNED_GENERIC = /\b(?:General Lure|Light Rig|Hardbait|Soft Bait)\b/i;

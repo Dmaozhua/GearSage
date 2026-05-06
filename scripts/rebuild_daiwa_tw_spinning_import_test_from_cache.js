@@ -4,11 +4,12 @@ const { execFileSync } = require('child_process');
 const crypto = require('crypto');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const INPUT_JSON = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_spinning_test_normalized.json';
-const OUTPUT_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_spinning_reels_import_test.xlsx';
+const INPUT_JSON = gearDataPaths.resolveDataRaw('daiwa_tw_spinning_test_normalized.json');
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('daiwa_spinning_reels_import_test.xlsx');
 const OCR_SWIFT = '/Users/tommy/GearSage/scripts/ocr_apple_vision.swift';
-const LOCK_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_tw_spinning_reels_locks.json';
+const LOCK_FILE = gearDataPaths.resolveDataRaw('daiwa_tw_spinning_reels_locks.json');
 const TARGET_MODELS = String(process.env.DAIWA_TARGET_MODELS || '')
   .split(',')
   .map((value) => value.trim())

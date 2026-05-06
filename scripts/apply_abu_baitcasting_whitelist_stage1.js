@@ -1,7 +1,8 @@
 const path = require('path');
 const XLSX = require('./node_modules/xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/abu_baitcasting_reel_import.xlsx');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('abu_baitcasting_reel_import.xlsx');
 
 function n(v) {
   return String(v || '').trim();

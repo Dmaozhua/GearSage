@@ -1,28 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const IDENTITY_PATCH = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json'
-);
-const RECHECK_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_field_recheck_view.xlsx'
-);
+const IDENTITY_PATCH = gearDataPaths.resolveDataRaw('identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json');
+const RECHECK_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_whitelist_field_recheck_view.xlsx');
 const CONFLICT_STRATEGY_MD = path.resolve(
   REPO_ROOT,
   'GearSage-client/docs/Shimano_baitcasting_reel_字段数据冲突解决策略_v1.md'
 );
-const OUTPUT_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_conflict_tagged_recheck_view.md'
-);
-const OUTPUT_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_conflict_tagged_recheck_view.xlsx'
-);
+const OUTPUT_MD = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_conflict_tagged_recheck_view.md');
+const OUTPUT_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_conflict_tagged_recheck_view.xlsx');
 
 function normalizeText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();

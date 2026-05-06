@@ -4,14 +4,15 @@ import subprocess
 from collections import Counter
 from copy import copy
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx"
-EVIDENCE_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_whitelist_player_evidence.json"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_recommended_rig_pairing_report.json"
+XLSX_PATH = resolve_data_raw('megabass_rod_import.xlsx')
+EVIDENCE_PATH = resolve_data_raw('megabass_rod_whitelist_player_evidence.json')
+REPORT_PATH = resolve_data_raw('megabass_rod_recommended_rig_pairing_report.json')
 SHADE_SCRIPT = ROOT / "scripts/shade_megabass_rod_detail_groups_stage2.py"
 
 FIELD = "recommended_rig_pairing"

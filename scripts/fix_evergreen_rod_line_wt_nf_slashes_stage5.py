@@ -1,5 +1,6 @@
 from copy import copy
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 import json
 import re
 
@@ -8,8 +9,8 @@ from openpyxl.styles import PatternFill
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/evergreen_rod_import.xlsx"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/evergreen_rod_line_wt_cleanup_report.json"
+XLSX_PATH = resolve_data_raw('evergreen_rod_import.xlsx')
+REPORT_PATH = resolve_data_raw('evergreen_rod_line_wt_cleanup_report.json')
 SHADE_SCRIPT = ROOT / "scripts/shade_evergreen_rod_detail_groups_stage2.py"
 
 YELLOW_FILL = PatternFill(fill_type="solid", fgColor="FFFFFF00")

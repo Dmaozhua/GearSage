@@ -3,6 +3,7 @@ import re
 import subprocess
 from collections import Counter
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
@@ -10,8 +11,8 @@ import apply_megabass_rod_recommended_rig_pairing_stage9 as stage9
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/megabass_rod_usage_hint_enrichment_report.json"
+XLSX_PATH = resolve_data_raw('megabass_rod_import.xlsx')
+REPORT_PATH = resolve_data_raw('megabass_rod_usage_hint_enrichment_report.json')
 SHADE_SCRIPT = ROOT / "scripts/shade_megabass_rod_detail_groups_stage2.py"
 
 MAX_ITEMS = 8

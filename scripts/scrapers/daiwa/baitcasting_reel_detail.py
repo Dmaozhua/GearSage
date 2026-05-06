@@ -5,14 +5,19 @@ import re
 import time
 import unicodedata
 import requests
+import sys
+from pathlib import Path
 from datetime import datetime
 from urllib.parse import urljoin
 from fake_useragent import UserAgent
 from scrapling import Fetcher
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import resolve_data_raw
+
 # Paths
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-OUTPUT_FILE = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_test.json")
+OUTPUT_FILE = str(resolve_data_raw("daiwa_baitcasting_reel_test.json"))
 
 def load_urls():
     list_url = "https://www.daiwa.com/jp/product/productlist?category1=%E3%83%AA%E3%83%BC%E3%83%AB&number=200&page=1&category2=%E3%83%99%E3%82%A4%E3%83%88%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%AA%E3%83%BC%E3%83%AB&search=1"

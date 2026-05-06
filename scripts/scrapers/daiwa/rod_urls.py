@@ -2,8 +2,13 @@ import json
 import os
 import time
 import urllib.parse
+import sys
+from pathlib import Path
 from bs4 import BeautifulSoup
 from curl_cffi import requests
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import resolve_data_raw
 
 all_detail_urls = []
 
@@ -46,7 +51,7 @@ for base_url in const_urls:
             print(f"Failed to fetch {url}: {e}")
             break
 
-output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_urls.json'))
+output_path = str(resolve_data_raw("daiwa_rod_urls.json"))
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(all_detail_urls, f, indent=2, ensure_ascii=False)

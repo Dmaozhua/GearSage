@@ -16,6 +16,11 @@ __pycache__/
 .idea/
 .vscode/
 
+# Gear library data assets live outside the mini-program client.
+GearSage-client/pkgGear/data_raw/
+GearSage-client/rate/
+/GearSage-data/
+
 pkgGear/utils/技术名词解释.md
 
 # Local testing output (if needed)

@@ -2,11 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const IMPORT_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
-const OUTPUT_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_whitelist_source_index.json');
-const TMP_OUTPUT_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_whitelist_source_index.partial.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_whitelist_source_index.json');
+const TMP_OUTPUT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_whitelist_source_index.partial.json');
 const urlCache = new Map();
 const LIMIT = Number.parseInt(process.env.GS_SHIMANO_WHITELIST_INDEX_LIMIT || '', 10);
 

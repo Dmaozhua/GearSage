@@ -3,13 +3,14 @@ import subprocess
 from collections import Counter
 from copy import copy
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from openpyxl import load_workbook
 
 
 ROOT = Path("/Users/tommy/GearSage")
-XLSX_PATH = ROOT / "GearSage-client/pkgGear/data_raw/raid_rod_import.xlsx"
-REPORT_PATH = ROOT / "GearSage-client/pkgGear/data_raw/raid_rod_player_fields_stage3_report.json"
+XLSX_PATH = resolve_data_raw('raid_rod_import.xlsx')
+REPORT_PATH = resolve_data_raw('raid_rod_player_fields_stage3_report.json')
 SHADE_SCRIPT = ROOT / "scripts/shade_raid_rod_detail_groups.py"
 
 TARGET_FIELDS = ["player_environment", "player_positioning", "player_selling_points"]

@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx';
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import.xlsx');
 const DOWNLOAD_DIR = '/Users/tommy/Pictures/images/shimano_reels';
 
 const FORBIDDEN_TOKENS = {
@@ -145,7 +146,7 @@ function main() {
     results,
   };
 
-  const out = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_spinning_reels_image_download_stage1.json';
+  const out = gearDataPaths.resolveDataRaw('shimano_spinning_reels_image_download_stage1.json');
   fs.writeFileSync(out, JSON.stringify(summary, null, 2));
   console.log(JSON.stringify(summary, null, 2));
 }

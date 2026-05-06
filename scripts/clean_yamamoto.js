@@ -1,5 +1,6 @@
 const fs = require('fs');
 const xlsx = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 function removePrefix(filePath, sheetName, idPrefix) {
     if (!fs.existsSync(filePath)) return;
@@ -18,5 +19,5 @@ function removePrefix(filePath, sheetName, idPrefix) {
     }
 }
 
-removePrefix('GearSage-client/rate/excel/lure.xlsx', 'lure', 'YAM');
-removePrefix('GearSage-client/rate/excel/soft_lure_detail.xlsx', 'soft_lure_detail', 'YAM');
+removePrefix(gearDataPaths.resolveExcel('lure.xlsx'), 'lure', 'YAM');
+removePrefix(gearDataPaths.resolveExcel('soft_lure_detail.xlsx'), 'soft_lure_detail', 'YAM');

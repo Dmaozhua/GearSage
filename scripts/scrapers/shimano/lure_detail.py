@@ -3,12 +3,17 @@ import os
 import re
 import time
 import random
+import sys
+from pathlib import Path
 from bs4 import BeautifulSoup
 from curl_cffi import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR
+
 # Base directories
 BASE_DIR = os.path.dirname(__file__)
-DATA_DIR = os.path.join(BASE_DIR, "../../../GearSage-client/pkgGear/data_raw")
+DATA_DIR = str(DATA_RAW_DIR)
 os.makedirs(DATA_DIR, exist_ok=True)
 
 OUTPUT_FILE = os.path.join(DATA_DIR, "shimano_lure_normalized.json")

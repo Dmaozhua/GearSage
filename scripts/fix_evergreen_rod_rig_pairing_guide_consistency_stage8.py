@@ -1,6 +1,7 @@
 from copy import copy
 from datetime import datetime, timezone
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 import json
 import re
 import subprocess
@@ -10,7 +11,7 @@ from openpyxl.styles import PatternFill
 
 
 ROOT = Path("/Users/tommy/GearSage")
-DATA_DIR = ROOT / "GearSage-client/pkgGear/data_raw"
+DATA_DIR = DATA_RAW_DIR
 XLSX_PATH = DATA_DIR / "evergreen_rod_import.xlsx"
 REPORT_PATH = DATA_DIR / "evergreen_rod_rig_pairing_guide_consistency_fix_report.json"
 SHADE_SCRIPT = ROOT / "scripts/shade_evergreen_rod_detail_groups_stage2.py"

@@ -1,12 +1,17 @@
 import json
 import os
 import time
+import sys
+from pathlib import Path
 from bs4 import BeautifulSoup
 from curl_cffi import requests
 from urllib.parse import urljoin
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-OUTPUT_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
+OUTPUT_DIR = str(DATA_RAW_DIR)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "daiwa_line_urls.json")
 

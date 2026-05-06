@@ -357,13 +357,15 @@ psql "postgresql://用户名:密码@127.0.0.1:5432/gearsage" -c "select now(), c
 ```bash
 UPLOAD_DIR=/lhcos-data/gearsage
 UPLOAD_BASE_URL=https://static.gearsage.club/gearsage
-GEAR_EXCEL_DIR=/Users/tommy/GearSage/GearSage-client/rate/excel
+GEARSAGE_DATA_ROOT=/Users/tommy/GearSage-data
+GEAR_EXCEL_DIR=/Users/tommy/GearSage-data/rate/excel
 ```
 
 兼容说明：
 
 - 若未配置 `UPLOAD_BASE_URL`，开发态仍会回退为 `http://127.0.0.1:3001/uploads/*`
-- `GEAR_EXCEL_DIR` 用于 P1 装备库第一版，默认读取客户端仓库中的 Excel 源数据
+- `GEARSAGE_DATA_ROOT` 是装备库数据资产根目录
+- `GEAR_EXCEL_DIR` 指向装备库最终 Excel 基准，默认从 `/Users/tommy/GearSage-data/rate/excel` 读取
 - `POST /upload/image` 当前会统一落到 `topic/` 目录
 - `POST /upload/avatar` 落到 `avatar/` 目录
 - `POST /upload/background` 落到 `background/` 目录

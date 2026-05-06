@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, HEADERS, SHEET_NAMES } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 function fitStyleTags(item) {
     if (item.fit_style_tags) return item.fit_style_tags;
@@ -35,7 +36,7 @@ function firstValue(...values) {
 }
 
 function convertToExcel() {
-    const dataPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_rod_normalized.json');
+    const dataPath = gearDataPaths.resolveDataRaw('keitech_rod_normalized.json');
     if (!fs.existsSync(dataPath)) {
         console.error('Data file not found:', dataPath);
         return;
@@ -139,7 +140,7 @@ function convertToExcel() {
     const wsDetail = xlsx.utils.json_to_sheet(rodDetailData, { header: HEADERS.rodDetail });
     xlsx.utils.book_append_sheet(wb, wsDetail, SHEET_NAMES.rodDetail);
 
-    const outPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_rod_import.xlsx');
+    const outPath = gearDataPaths.resolveDataRaw('keitech_rod_import.xlsx');
     xlsx.writeFile(wb, outPath);
     console.log(`Excel generated at ${outPath}`);
 }

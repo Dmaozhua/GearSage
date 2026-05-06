@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const ROOT = path.resolve(__dirname, '..');
-const DATA_RAW_DIR = path.join(ROOT, 'GearSage-client/pkgGear/data_raw');
-const RATE_EXCEL_DIR = path.join(ROOT, 'GearSage-client/rate/excel');
-const REPORT_PATH = path.join(DATA_RAW_DIR, 'rate_excel_diff_report.md');
+const DATA_RAW_DIR = gearDataPaths.dataRawDir;
+const RATE_EXCEL_DIR = gearDataPaths.excelDir;
+const REPORT_PATH = gearDataPaths.resolveReport('rate_excel_diff_report.md');
 
 const IGNORED_FIELDS = new Set(['created_at', 'updated_at']);
 const MAX_ID_SAMPLES = 10;
@@ -511,7 +511,7 @@ function main() {
     );
 
     const output = [
-        '# rate/excel diff report',
+        '# GearSage-data excel diff report',
         '',
         `generated_at: ${now}`,
         '',
@@ -520,6 +520,7 @@ function main() {
         ...taskReports.flatMap((report) => [...report.lines, '']),
     ].join('\n');
 
+    fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
     fs.writeFileSync(REPORT_PATH, output, 'utf8');
     console.log(output);
     console.log(`\n[report_rate_excel_diffs] wrote ${REPORT_PATH}`);

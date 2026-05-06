@@ -5,10 +5,11 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const BASE_URL = 'https://www.abugarcia.com';
 const START_URL = `${BASE_URL}/collections/rods?sort_by=created-descending`;
-const OUTPUT_DIR = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw');
+const OUTPUT_DIR = gearDataPaths.dataRawDir;
 const CACHE_DIR = path.join(OUTPUT_DIR, 'abu_rods_cache');
 const DETAIL_CACHE_DIR = path.join(CACHE_DIR, 'details');
 const LIST_CACHE_DIR = path.join(CACHE_DIR, 'list_pages');

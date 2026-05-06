@@ -5,13 +5,14 @@ import urllib.parse
 import urllib.request
 from collections import Counter
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 
-NORMALIZED_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/raid_rod_normalized.json")
-XLSX_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/raid_rod_import.xlsx")
-OUTPUT_PATH = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/raid_rod_whitelist_player_evidence.json")
+NORMALIZED_PATH = resolve_data_raw('raid_rod_normalized.json')
+XLSX_PATH = resolve_data_raw('raid_rod_import.xlsx')
+OUTPUT_PATH = resolve_data_raw('raid_rod_whitelist_player_evidence.json')
 
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "

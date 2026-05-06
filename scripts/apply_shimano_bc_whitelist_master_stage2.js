@@ -2,11 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { spawnSync } = require('child_process');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const IMPORT_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
-const INDEX_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_whitelist_source_index.json');
-const HIGHLIGHT_PAYLOAD = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_highlights.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
+const INDEX_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_whitelist_source_index.json');
+const HIGHLIGHT_PAYLOAD = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_highlights.json');
 const HIGHLIGHT_HELPER = path.resolve(__dirname, 'patch_xlsx_highlights.py');
 
 function normalizeText(value) {

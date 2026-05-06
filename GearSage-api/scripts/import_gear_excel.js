@@ -2,22 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
 const XLSX = require('xlsx');
+const gearDataPaths = require('../../scripts/gear_data_paths');
 
 const ROOT_DIR = path.join(__dirname, '..');
-const DEFAULT_EXCEL_DIR = path.join(
-  ROOT_DIR,
-  '..',
-  'GearSage-client',
-  'rate',
-  'excel',
-);
-const DEFAULT_WEBP_DIR = path.join(
-  ROOT_DIR,
-  '..',
-  'GearSage-client',
-  'rate',
-  'webp',
-);
+const GEAR_EXCEL_DIR = gearDataPaths.excelDir;
+const GEAR_WEBP_DIR = gearDataPaths.webpDir;
 const SEARCH_DATA_DIR = path.join(
   ROOT_DIR,
   '..',
@@ -98,7 +87,7 @@ main(cliOptions).catch((error) => {
 async function main(options) {
   loadEnvFiles();
 
-  const excelDir = process.env.GEAR_EXCEL_DIR || DEFAULT_EXCEL_DIR;
+  const excelDir = GEAR_EXCEL_DIR;
   if (!fs.existsSync(excelDir)) {
     throw new Error(`GEAR_EXCEL_DIR not found: ${excelDir}`);
   }
@@ -576,7 +565,7 @@ function mapImage(input) {
     return '';
   }
 
-  if (fs.existsSync(path.join(DEFAULT_WEBP_DIR, fileName))) {
+  if (fs.existsSync(path.join(GEAR_WEBP_DIR, fileName))) {
     return `/rate/webp/${fileName}`;
   }
 

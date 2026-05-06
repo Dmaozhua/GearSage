@@ -4,10 +4,11 @@ const crypto = require('crypto');
 const XLSX = require('xlsx');
 const cheerio = require('cheerio');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const LIST_URL = 'https://www.daiwa.com/tw/product/productlist?category1=%E6%8D%B2%E7%B7%9A%E5%99%A8&category2=%E7%B4%A1%E8%BB%8A%E5%BC%8F%E6%8D%B2%E7%B7%9A%E5%99%A8';
 const SITE_ORIGIN = 'https://www.daiwa.com';
-const DATA_DIR = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw';
+const DATA_DIR = gearDataPaths.dataRawDir;
 const DRY_RUN_OUTPUT_FILE = path.join(DATA_DIR, 'daiwa_spinning_reels_import_current_official_dry_run.xlsx');
 const FINAL_OUTPUT_FILE = path.join(DATA_DIR, 'daiwa_spinning_reels_import.xlsx');
 const OUTPUT_JSON = path.join(DATA_DIR, 'daiwa_spinning_reels_current_official_normalized.json');

@@ -2,6 +2,7 @@ const fs = require('fs');
 const xlsx = require('xlsx');
 const path = require('path');
 const { SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 const SHIMANO_BRAND_ID = 1;
 
 function classifyLure(modelName, buoyancy) {
@@ -98,8 +99,8 @@ function classifyLure(modelName, buoyancy) {
     return { typeTips, system, waterColumn, action };
 }
 
-const dataPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_lure_normalized.json');
-const outputPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_lure_import.xlsx');
+const dataPath = gearDataPaths.resolveDataRaw('shimano_lure_normalized.json');
+const outputPath = gearDataPaths.resolveDataRaw('shimano_lure_import.xlsx');
 
 const rawData = fs.readFileSync(dataPath, 'utf8');
 const data = JSON.parse(rawData);

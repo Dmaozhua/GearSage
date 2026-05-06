@@ -2,10 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const IMPORT_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
-const SUMMARY_FILE = path.resolve(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_thickening_14_summary.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
+const SUMMARY_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_thickening_14_summary.json');
 
 const STEPS = [
   'scripts/build_shimano_bc_whitelist_source_index.js',
@@ -42,8 +43,8 @@ function countFilled(rows, field) {
 
 function main() {
   const backupPath = path.resolve(
-    REPO_ROOT,
-    `GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_14字段补厚前备份_${new Date()
+    gearDataPaths.dataRawDir,
+    `shimano_baitcasting_reels_import_14字段补厚前备份_${new Date()
       .toISOString()
       .replace(/[:T]/g, '-')
       .slice(0, 19)}.xlsx`

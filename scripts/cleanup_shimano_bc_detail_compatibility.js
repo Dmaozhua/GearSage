@@ -1,6 +1,7 @@
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const FILE = 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx';
+const FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
 
 function normalizeText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();

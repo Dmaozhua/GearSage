@@ -2,6 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
+const gearDataPaths = require('./gear_data_paths');
 
 const BASE_URL = 'https://www.megabass.co.jp';
 
@@ -178,7 +179,7 @@ async function scrapeMegabassReel() {
         results.push(productData);
     }
     
-    const outPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_reel_normalized.json');
+    const outPath = gearDataPaths.resolveDataRaw('megabass_reel_normalized.json');
     fs.writeFileSync(outPath, JSON.stringify(results, null, 2));
     console.log(`Saved ${results.length} items to ${outPath}`);
 }

@@ -2,8 +2,13 @@ import os
 import json
 import time
 import requests
+import sys
+from pathlib import Path
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import resolve_data_raw
 
 def get_soup(url):
     try:
@@ -177,7 +182,7 @@ def main():
             if (i+1) % 10 == 0:
                 print(f"Parsed {i+1}/{len(all_product_urls)} products...")
 
-    output_path = "/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_raw.json"
+    output_path = str(resolve_data_raw("megabass_rod_raw.json"))
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     print(f"Saved {len(results)} products to {output_path}")

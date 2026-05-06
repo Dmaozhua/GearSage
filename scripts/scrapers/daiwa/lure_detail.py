@@ -1,9 +1,14 @@
 import os
 import json
 import re
+import sys
+from pathlib import Path
 from curl_cffi import requests
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import resolve_data_raw
 
 def sanitize_filename(name):
     return re.sub(r'[\\/*?:"<>|]', "", name).strip()
@@ -131,7 +136,7 @@ def scrape_daiwa_lures():
                 results.append(res)
             
     # Output to the same directory structure
-    out_path = os.path.join(base_dir, "../../../GearSage-client/pkgGear/data_raw/daiwa_lure_normalized.json")
+    out_path = str(resolve_data_raw("daiwa_lure_normalized.json"))
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)

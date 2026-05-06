@@ -2,12 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const INPUT_CANDIDATES = [
-    path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_normalized.json'),
-    path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_test.json'),
+    gearDataPaths.resolveDataRaw('daiwa_baitcasting_reel_normalized.json'),
+    gearDataPaths.resolveDataRaw('daiwa_baitcasting_reel_test.json'),
 ];
-const outputFile = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/daiwa_baitcasting_reel_import.xlsx');
+const outputFile = gearDataPaths.resolveDataRaw('daiwa_baitcasting_reel_import.xlsx');
 
 function resolveInputFile() {
     return INPUT_CANDIDATES.find((filePath) => fs.existsSync(filePath)) || '';

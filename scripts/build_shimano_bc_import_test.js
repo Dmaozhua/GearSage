@@ -2,10 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync, execFileSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = '/Users/tommy/GearSage';
-const SOURCE_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx');
-const OUTPUT_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_test.xlsx');
+const SOURCE_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx');
+const OUTPUT_FILE = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_test.xlsx');
 
 const SOURCE_TEST_REEL_IDS = ['SRE5058', 'SRE5025', 'SRE5026', 'SRE5054', 'SRE5028', 'SRE5033', 'SRE5004', 'SRE5002'];
 const TEST_REEL_IDS = [
@@ -756,10 +757,7 @@ function main() {
     ],
   };
 
-  const highlightPayloadPath = path.join(
-    REPO_ROOT,
-    'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_test_highlights.json'
-  );
+  const highlightPayloadPath = gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_test_highlights.json');
   fs.writeFileSync(highlightPayloadPath, JSON.stringify(highlightPayload, null, 2), 'utf8');
 
   const patchResult = spawnSync('python3', [HIGHLIGHT_HELPER, OUTPUT_FILE, highlightPayloadPath], {
@@ -778,7 +776,7 @@ function main() {
     highlight_payload: highlightPayloadPath,
   };
   fs.writeFileSync(
-    path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_test_summary.json'),
+    gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import_test_summary.json'),
     JSON.stringify(summary, null, 2),
     'utf8'
   );

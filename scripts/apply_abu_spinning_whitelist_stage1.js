@@ -1,7 +1,8 @@
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
-const IMPORT_FILE = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/abu_spinning_reels_import.xlsx');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('abu_spinning_reels_import.xlsx');
 
 const MASTER_HEADERS = [
   'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',

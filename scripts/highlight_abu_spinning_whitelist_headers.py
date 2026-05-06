@@ -3,6 +3,7 @@ import re
 import zipfile
 from io import BytesIO
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 from xml.etree import ElementTree as ET
 
 NS = {
@@ -14,8 +15,8 @@ NS = {
 ET.register_namespace("", NS["a"])
 ET.register_namespace("r", NS["r"])
 
-IMPORT_FILE = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_spinning_reels_import.xlsx")
-REVIEW_FILE = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/abu_spinning_reels_review.xlsx")
+IMPORT_FILE = resolve_data_raw('abu_spinning_reels_import.xlsx')
+REVIEW_FILE = resolve_data_raw('abu_spinning_reels_review.xlsx')
 
 IMPORT_TARGETS = {
     "reel": {"series_positioning", "player_positioning", "player_selling_points"},

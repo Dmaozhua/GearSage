@@ -2,11 +2,12 @@ import argparse
 import subprocess
 import sys
 from pathlib import Path
+from gear_data_paths import DATA_RAW_DIR, EXCEL_DIR, resolve_data_raw, resolve_excel
 
 
-DEFAULT_XLSX = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_import.xlsx")
-DEFAULT_FACTS = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_variant_usage_facts.json")
-DEFAULT_REPORT = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/daiwa_rod_usage_consistency_report.json")
+DEFAULT_XLSX = resolve_data_raw('daiwa_rod_import.xlsx')
+DEFAULT_FACTS = resolve_data_raw('daiwa_rod_variant_usage_facts.json')
+DEFAULT_REPORT = resolve_data_raw('daiwa_rod_usage_consistency_report.json')
 
 
 def run(cmd):

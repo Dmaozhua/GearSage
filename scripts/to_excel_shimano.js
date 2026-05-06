@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx');
+const inputFile = gearDataPaths.resolveDataRaw('shimano_spinning_reel_normalized.json');
+const outputFile = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import.xlsx');
 const SHIMANO_REEL_CDN_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/';
 
 function sanitizeFilename(name) {

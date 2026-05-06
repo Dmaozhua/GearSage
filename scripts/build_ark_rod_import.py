@@ -15,11 +15,13 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
+from gear_data_paths import DATA_RAW_DIR
+
 
 BASE_URL = "https://arkrods.com"
 COLLECTION_URL = f"{BASE_URL}/collections/rods"
 COLLECTION_JSON_URL = f"{COLLECTION_URL}/products.json?limit=250"
-OUTPUT_DIR = Path("/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw")
+OUTPUT_DIR = DATA_RAW_DIR
 CACHE_DIR = OUTPUT_DIR / "ark_rods_cache"
 DETAIL_CACHE_DIR = CACHE_DIR / "details"
 LIST_PATH = CACHE_DIR / "ark_rod_list_items.json"

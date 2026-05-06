@@ -6,12 +6,16 @@ import re
 import sys
 import time
 import urllib.parse
+from pathlib import Path
 
 from bs4 import BeautifulSoup
 from curl_cffi import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-DATA_DIR = os.path.join(BASE_DIR, "GearSage-client/pkgGear/data_raw")
+DATA_DIR = str(DATA_RAW_DIR)
 OUTPUT_FILE = os.path.join(DATA_DIR, "shimano_baitcasting_reel_normalized.json")
 
 DEFAULT_ENTRY_URL = "https://fish.shimano.com/zh-CN/product/reel.html"

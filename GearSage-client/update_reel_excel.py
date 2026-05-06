@@ -11,8 +11,10 @@ except ImportError:
 
 
 ROOT_DIR = Path(__file__).resolve().parent
-EXCEL_DIR = ROOT_DIR / 'rate' / 'excel'
-WEBP_DIR = ROOT_DIR / 'rate' / 'webp'
+GEARSAGE_ROOT = ROOT_DIR.parent
+sys.path.insert(0, str(GEARSAGE_ROOT / 'scripts'))
+from gear_data_paths import EXCEL_DIR, WEBP_DIR
+
 DEFAULT_IMAGE = 'linshi.webp'
 LOCAL_IMAGE_PREFIX = '/rate/webp/'
 

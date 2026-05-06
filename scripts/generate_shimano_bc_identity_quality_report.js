@@ -1,24 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const IDENTITY_REVIEW = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_review.xlsx'
-);
-const IDENTITY_PATCH = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json'
-);
-const OUTPUT_MD = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/quality/2026-04-16_shimano_baitcasting_reel_identity_quality_report.md'
-);
-const OUTPUT_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/identity_reports/quality/2026-04-16_shimano_baitcasting_reel_identity_quality_report.xlsx'
-);
+const IDENTITY_REVIEW = gearDataPaths.resolveDataRaw('identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_review.xlsx');
+const IDENTITY_PATCH = gearDataPaths.resolveDataRaw('identity_reports/review/2026-04-16_shimano_baitcasting_reel_identity_patch.json');
+const OUTPUT_MD = gearDataPaths.resolveDataRaw('identity_reports/quality/2026-04-16_shimano_baitcasting_reel_identity_quality_report.md');
+const OUTPUT_XLSX = gearDataPaths.resolveDataRaw('identity_reports/quality/2026-04-16_shimano_baitcasting_reel_identity_quality_report.xlsx');
 
 function normalizeText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();

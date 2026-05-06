@@ -2,33 +2,34 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const IMAGE_DIR = '/Users/tommy/Pictures/images/shimano_reels';
 const STATIC_PREFIX = 'https://static.gearsage.club/gearsage/Gearimg/images/shimano_reels/';
-const REPORT_FILE = path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_reel_images_audit.json');
+const REPORT_FILE = gearDataPaths.resolveDataRaw('shimano_reel_images_audit.json');
 
 const WORKBOOKS = [
   {
-    file: path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx'),
+    file: gearDataPaths.resolveDataRaw('shimano_spinning_reels_import.xlsx'),
     sheet: 'reel',
     filter: (row) => normalizeText(row.id).startsWith('SRE'),
   },
   {
-    file: path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import.xlsx'),
+    file: gearDataPaths.resolveDataRaw('shimano_baitcasting_reels_import.xlsx'),
     sheet: 'reel',
     filter: (row) => normalizeText(row.id).startsWith('SRE'),
   },
   {
-    file: path.join(REPO_ROOT, 'GearSage-client/rate/excel/reel.xlsx'),
+    file: gearDataPaths.resolveExcel('reel.xlsx'),
     sheet: 'reel',
     filter: (row) => normalizeText(row.id).startsWith('SRE') || normalizeText(row.brand_id) === '1',
   },
 ];
 
 const NORMALIZED_FILES = [
-  path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json'),
-  path.join(REPO_ROOT, 'GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json'),
+  gearDataPaths.resolveDataRaw('shimano_spinning_reel_normalized.json'),
+  gearDataPaths.resolveDataRaw('shimano_baitcasting_reel_normalized.json'),
 ];
 
 const MANUAL_SOURCES = {

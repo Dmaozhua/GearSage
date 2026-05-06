@@ -1,16 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUTPUT_MD = path.resolve(
   REPO_ROOT,
   'GearSage-client/docs/Shimano_baitcasting_reel_字段数据冲突解决策略_v1.md'
 );
-const OUTPUT_XLSX = path.resolve(
-  REPO_ROOT,
-  'GearSage-client/pkgGear/data_raw/experiment_reports/review/2026-04-16_shimano_baitcasting_reel_field_conflict_resolution_strategy_v1.xlsx'
-);
+const OUTPUT_XLSX = gearDataPaths.resolveDataRaw('experiment_reports/review/2026-04-16_shimano_baitcasting_reel_field_conflict_resolution_strategy_v1.xlsx');
 
 function ensureDir(filePath) {
   const dir = path.dirname(filePath);

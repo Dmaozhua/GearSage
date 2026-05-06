@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx');
 const { BRAND_IDS, SHEET_NAMES, HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 function normalizeExtraNote(key, value) {
     return /^Other\.\d+$/i.test(key) ? value : `${key}: ${value}`;
@@ -27,8 +28,8 @@ function assignExtraNote(row, note, preferredSlot) {
     }
 }
 
-const inputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_raw.json');
-const outputFile = path.resolve(__dirname, '../GearSage-client/pkgGear/data_raw/megabass_rod_import.xlsx');
+const inputFile = gearDataPaths.resolveDataRaw('megabass_rod_raw.json');
+const outputFile = gearDataPaths.resolveDataRaw('megabass_rod_import.xlsx');
 
 if (!fs.existsSync(inputFile)) {
     console.error(`[Error] Input file not found: ${inputFile}`);

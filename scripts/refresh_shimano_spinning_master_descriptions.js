@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const { execFileSync } = require('child_process');
+const gearDataPaths = require('./gear_data_paths');
 
-const NORMALIZED_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_spinning_reel_normalized.json';
-const IMPORT_FILE = '/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/shimano_spinning_reels_import.xlsx';
+const NORMALIZED_FILE = gearDataPaths.resolveDataRaw('shimano_spinning_reel_normalized.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('shimano_spinning_reels_import.xlsx');
 
 function normalizeSpace(value) {
   return String(value ?? '').replace(/\s+/g, ' ').trim();

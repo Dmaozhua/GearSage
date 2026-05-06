@@ -3,11 +3,12 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const XLSX = require('./node_modules/xlsx');
 const { HEADERS } = require('./gear_export_schema');
+const gearDataPaths = require('./gear_data_paths');
 
 const ROOT = path.resolve(__dirname, '..');
-const IMPORT_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/evergreen_rod_import.xlsx');
-const EVIDENCE_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/evergreen_rod_whitelist_player_evidence.json');
-const REPORT_FILE = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/evergreen_rod_whitelist_player_backfill_report.json');
+const IMPORT_FILE = gearDataPaths.resolveDataRaw('evergreen_rod_import.xlsx');
+const EVIDENCE_FILE = gearDataPaths.resolveDataRaw('evergreen_rod_whitelist_player_evidence.json');
+const REPORT_FILE = gearDataPaths.resolveDataRaw('evergreen_rod_whitelist_player_backfill_report.json');
 const SHADE_SCRIPT = path.join(__dirname, 'shade_evergreen_rod_detail_groups_stage2.py');
 
 function n(value) {

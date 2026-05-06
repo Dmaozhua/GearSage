@@ -1,10 +1,11 @@
 const path = require('path');
 const XLSX = require('xlsx');
+const gearDataPaths = require('./gear_data_paths');
 
 const ROOT = path.resolve(__dirname, '..');
-const SRC = path.join(ROOT, 'GearSage-client/pkgGear/data_raw/mustad_hook_import.xlsx');
-const TARGET_HOOK = path.join(ROOT, 'GearSage-client/rate/excel/hook.xlsx');
-const TARGET_DETAIL = path.join(ROOT, 'GearSage-client/rate/excel/hook_detail.xlsx');
+const SRC = gearDataPaths.resolveDataRaw('mustad_hook_import.xlsx');
+const TARGET_HOOK = gearDataPaths.resolveExcel('hook.xlsx');
+const TARGET_DETAIL = gearDataPaths.resolveExcel('hook_detail.xlsx');
 const PREFIX = 'MHK';
 
 function norm(v) {
