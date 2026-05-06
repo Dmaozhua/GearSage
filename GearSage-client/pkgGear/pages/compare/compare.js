@@ -16,7 +16,7 @@ const CORE_FIELDS_BY_TYPE = {
     'bearing_count_roller',
     'size_family'
   ],
-  rods: ['SKU', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES', 'CLOSELENGTH']
+  rods: ['SKU', 'TYPE', 'POWER', 'WEIGHT', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size']
 };
 
 const SPEC_GROUPS_BY_TYPE = {
@@ -40,10 +40,6 @@ const SPEC_GROUPS_BY_TYPE = {
   ],
   rods: [
     {
-      title: '核心性能',
-      fields: ['TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size']
-    },
-    {
       title: '结构规格',
       fields: ['PIECES', 'CLOSELENGTH', 'Tip Diameter', 'Handle Length', 'CONTENT CARBON', 'Reel Seat Position']
     },
@@ -64,6 +60,7 @@ Page({
     compareWarnings: [],
     compareInsights: [],
     coreRows: [],
+    usageDirectionCards: [],
     hasTechTerms: false,
     commonTechTerms: [],
     differentTechTerms: [],
@@ -94,6 +91,7 @@ Page({
       Nylon_lb_m: '尼龙线(lb-m)',
       handle_length_mm: '手把长(mm)',
       'TOTAL LENGTH': '全长(m)',
+      POWER: '硬度',
       Action: '调性',
       PIECES: '节数',
       CLOSELENGTH: '收纳长(cm)',
@@ -104,10 +102,12 @@ Page({
       'Handle Length': '手把长(mm)',
       'CONTENT CARBON': '含碳量(%)',
       'Service Card': '首保价(元)',
-      'Jig Weight': '铁板重(g)',
+      'Jig Weight': '铁板重量',
       'Squid Jig Size': '木虾(号)',
       'Sinker Rating': '铅坠(号)',
       TYPE: '类别',
+      guide_use_hint: '推荐方向',
+      recommended_rig_pairing: '推荐搭配',
       'Reel Seat Position': '轮座位置',
       type: '类别',
       system: '体系',
@@ -349,7 +349,7 @@ Page({
     for (const source of sources) {
       if (!source || typeof source !== 'object') continue;
       for (const candidate of keyCandidates) {
-        const normalized = this.normalizeFieldValue(source[candidate]);
+        const normalized = this.normalizeFieldValue(source[candidate], key);
         if (normalized) {
           return normalized;
         }
@@ -369,7 +369,14 @@ Page({
     return aliases[key] || [key];
   },
 
-  normalizeFieldValue(value) {
+  normalizeFieldValue(value, key = '') {
+    if (key === 'TYPE' && this.data.compareType === 'rods') {
+      const text = this.normalizeText(value);
+      const upper = text.toUpperCase();
+      if (upper === 'C') return '枪柄';
+      if (upper === 'S') return '直柄';
+      return text;
+    }
     if (Array.isArray(value)) {
       const items = value.map((item) => this.normalizeText(item)).filter(Boolean);
       return items.length ? items.join(' / ') : '';
@@ -600,6 +607,25 @@ Page({
       .filter((section) => section.rows.length > 0);
   },
 
+  buildUsageDirectionCards(compareType, compareCards) {
+    if (compareType !== 'rods') return [];
+
+    return (compareCards || [])
+      .map((card) => {
+        const direction = this.getFieldValue(card.selectedVariant, 'guide_use_hint');
+        const pairing = this.getFieldValue(card.selectedVariant, 'recommended_rig_pairing');
+        return {
+          key: card.key,
+          variantLabel: card.selectedVariant && card.selectedVariant.__displayName,
+          masterLabel: card.masterLabelWithYear || card.masterLabel,
+          direction,
+          pairing,
+          hasValue: this.hasValue(direction) || this.hasValue(pairing)
+        };
+      })
+      .filter((card) => card.hasValue);
+  },
+
   buildCompareInsights(compareCards, coreRows, warnings) {
     const insights = [];
     const compareType = this.normalizeText(compareCards[0] && compareCards[0].gearType);
@@ -657,6 +683,7 @@ Page({
         compareWarnings: [],
         compareInsights: [],
         coreRows: [],
+        usageDirectionCards: [],
         hasTechTerms: false,
         commonTechTerms: [],
         differentTechTerms: [],
@@ -674,6 +701,7 @@ Page({
     const compareCards = (await Promise.all(compareItems.map((item) => this.hydrateCompareCard(item)))).filter(Boolean);
     const warnings = this.buildCompareWarnings(compareCards);
     const coreRows = this.buildCompareRows(CORE_FIELDS_BY_TYPE[compareType] || [], compareCards);
+    const usageDirectionCards = this.buildUsageDirectionCards(compareType, compareCards);
     const techComparison = this.buildTechComparison(compareCards);
     const specSections = this.buildSpecSections(compareType, compareCards);
     const insights = this.buildCompareInsights(compareCards, coreRows, warnings);
@@ -686,6 +714,7 @@ Page({
       compareWarnings: warnings,
       compareInsights: insights,
       coreRows,
+      usageDirectionCards,
       hasTechTerms: techComparison.hasTechTerms,
       commonTechTerms: techComparison.commonTechTerms,
       differentTechTerms: techComparison.differentTechTerms,

@@ -103,8 +103,27 @@ ROD_DETAIL_HEADERS = [
     "player_positioning",
     "player_selling_points",
     "Description",
+    "product_technical",
     "Extra Spec 1",
     "Extra Spec 2",
+]
+
+TECH_PATTERNS = [
+    ("ARK HPCR (High Pressure Carbon Fiber Rolling) technology", r"\b(?:ARK\s+)?HPCR\b|\bHigh[- ]Pressure Carbon[- ]Fiber Rolling Technology\b|\bARK high pressure carbon[- ]fiber rolling technology\b"),
+    ("Multi-Direction Multi-Layer technology", r"\bMulti[- ]Direction Multi[- ]Layer technology\b|\bMDML Technology\b"),
+    ("carbon nano tube reinforcement", r"\bcarbon nano tubes?\b|\bnano tube reinforcements?\b|\bNano tube reinforcement\b"),
+    ("Fuji PTS/TVS reel seat", r"\bFuji PTS/TVS reel seat\b"),
+    ("Fuji K concept Alconite guides", r"\bFuji K concept alconite guides\b"),
+    ("Fuji K concept guides", r"\bFuji K[- ]concept (?:tangle[- ]free )?guides\b|\bFuji K concept guides\b"),
+    ("FazLite rings", r"\bFazL?ite (?:rings|inserts)\b"),
+    ("ARK Titanium Tangle-Free Guides", r"\bARK Titanium Tangle[- ]Free Guides\b"),
+    ("ARK Stainless Steel Tangle-Free Guides", r"\bARK Stainless Steel Tangle[- ]Free Guides\b"),
+    ("ARK Tangle-Free Guides", r"\bARK Tangle[- ]?Free Guides\b"),
+    ("NanoForce Rings", r"\bNanoForce(?:™)? (?:Ring|Rings|guides)\b"),
+    ("A-Ring technology", r"\bA[- ]Ring technology\b"),
+    ("Black Coated Stainless Micro Guides System With Zirconium Inserts", r"\bBlack Coated Stainless Micro Guides System With Zirconium Inserts\b"),
+    ("Team ARK reel seat", r"\bTeam ARK reel seat\b"),
+    ("High-Visibility Strike Indicator", r"\bHigh[- ]Visibility Strike Indicator\b"),
 ]
 
 
@@ -492,6 +511,20 @@ def fit_style_tags(title, series, description):
     return ",".join(tags)
 
 
+def product_technical_terms(description):
+    text = re.sub(
+        r"From 2026 onward, new batches of rods will be upgraded from Fuji guides to ARK Tangle Free Guides with NanoForce™ Rings\.?",
+        "",
+        compact_text(description),
+        flags=re.I,
+    )
+    terms = []
+    for term, pattern in TECH_PATTERNS:
+        if re.search(pattern, text, flags=re.I) and term not in terms:
+            terms.append(term)
+    return " / ".join(terms)
+
+
 def master_player_positioning(series, title):
     title_text = title.lower()
     if "Ice" in series:
@@ -786,7 +819,9 @@ def build_rows(normalized, refresh_images=False):
         grip = grip_type(item["description"].split("\n\n"))
         seat = reel_seat(item["description"].split("\n\n"))
         pieces = "2" if re.search(r"2[- ]?piece", item["title"], flags=re.I) else ""
+        product_technical = product_technical_terms(item["description"])
         for spec in item["specs"]:
+            spec["product_technical"] = product_technical
             type_code = infer_type(item["title"], spec["raw_model"], spec["sku"], spec["section_type"])
             positioning = infer_player_positioning(spec["application"], spec["sku"], spec["power"], item["title"])
             extra_2 = []
@@ -848,6 +883,7 @@ def build_rows(normalized, refresh_images=False):
                         positioning,
                     ),
                     "Description": item["description"],
+                    "product_technical": spec.get("product_technical", ""),
                     "Extra Spec 1": " / ".join(item["features"]),
                     "Extra Spec 2": "; ".join(extra_2),
                 }

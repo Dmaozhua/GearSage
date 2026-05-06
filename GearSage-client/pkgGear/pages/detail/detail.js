@@ -35,7 +35,7 @@ const CORE_FIELDS_BY_TYPE = {
     'brake_type_normalized',
     'size_family'
   ],
-  rods: ['SKU', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES', 'CLOSELENGTH'],
+  rods: ['SKU', 'TYPE', 'POWER', 'TOTAL LENGTH', 'Action', 'LURE WEIGHT', 'Line Wt N F', 'PE Line Size', 'PIECES'],
   lures: ['SKU', 'TYPE', 'Length', 'Weight', 'Buoyancy', 'Range', 'Hook'],
   line: ['SKU', 'SIZE NO.', 'LENGTH(m)', 'MAX STRENGTH(lb)', 'MAX STRENGTH(kg)', 'COLOR', 'Market Reference Price'],
   hook: ['size', 'type', 'subType', 'quantityPerPack', 'coating']
@@ -172,9 +172,13 @@ const SPEC_LAYERS_BY_TYPE = {
       subtitle: '厂家公布的装备参数规格。',
       fields: [
         'SKU',
+        'TYPE',
         'TOTAL LENGTH',
+        'WEIGHT',
+        'POWER',
         'Action',
         'LURE WEIGHT',
+        'LURE WEIGHT (oz)',
         'Line Wt N F',
         'PE Line Size',
         'PIECES',
@@ -183,10 +187,13 @@ const SPEC_LAYERS_BY_TYPE = {
         'Handle Length',
         'CONTENT CARBON',
         'Reel Seat Position',
+        'Joint Type',
+        'Code Name',
         'Service Card',
         'Jig Weight',
         'Squid Jig Size',
         'Sinker Rating',
+        'official_environment',
         'official_reference_price',
         'market_status',
         'Specs_link',
@@ -199,6 +206,8 @@ const SPEC_LAYERS_BY_TYPE = {
       fields: [
         'type_tips',
         'fit_style_tags',
+        'guide_use_hint',
+        'recommended_rig_pairing',
         'solidTip',
         'series_positioning',
         'main_selling_points'
@@ -207,7 +216,7 @@ const SPEC_LAYERS_BY_TYPE = {
     {
       title: '深度玩家数据',
       subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
-      fields: ['player_positioning', 'player_selling_points', 'min_lure_weight_hint']
+      fields: ['player_environment', 'player_positioning', 'player_selling_points', 'min_lure_weight_hint']
     }
   ],
   lures: [
@@ -324,17 +333,21 @@ Page({
       Nylon_lb_m: '尼龙线(lb-m)',
       handle_length_mm: '手把长(mm)',
       'TOTAL LENGTH': '全长(m)',
+      POWER: '硬度',
       Action: '调性',
       PIECES: '节数',
       CLOSELENGTH: '收纳长(cm)',
       'Tip Diameter': '先径(mm)',
       'LURE WEIGHT': '饵重(g)',
+      'LURE WEIGHT (oz)': '饵重(oz)',
       'Line Wt N F': '尼/氟线(lb)',
       'PE Line Size': 'PE线(号)',
       'Handle Length': '手把长(mm)',
       'CONTENT CARBON': '含碳量(%)',
+      'Joint Type': '插节形式',
+      'Code Name': '代号',
       'Service Card': '首保价(元)',
-      'Jig Weight': '铁板重(g)',
+      'Jig Weight': '铁板重量',
       'Squid Jig Size': '木虾(号)',
       'Sinker Rating': '铅坠(号)',
       TYPE: '类别',
@@ -390,6 +403,8 @@ Page({
       is_compact_body: '精巧机身',
       series_positioning: '系列定位',
       main_selling_points: '主要卖点',
+      guide_use_hint: '推荐方向',
+      recommended_rig_pairing: '推荐搭配',
       player_environment: '玩家场景',
       player_positioning: '玩家定位',
       player_selling_points: '玩家看点',
@@ -555,6 +570,13 @@ Page({
   },
 
   normalizeFieldValue(value, key = '') {
+    if (key === 'TYPE' && this.data.gearType === 'rods') {
+      const text = value === 0 ? '0' : this.normalizeText(value);
+      const upper = text.toUpperCase();
+      if (upper === 'C') return '枪柄';
+      if (upper === 'S') return '直柄';
+      return text;
+    }
     if (key === 'drag_click') {
       const text = value === 0 ? '0' : this.normalizeText(value);
       if (!text) return '';

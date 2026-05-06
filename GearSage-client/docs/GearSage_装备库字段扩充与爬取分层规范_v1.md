@@ -451,6 +451,7 @@
 - `market_status`
 - `player_positioning`
 - `player_selling_points`
+- `product_technical`（子型号适用技术名合集；只从品牌官网 / 官方页面获取，多个技术名用 ` / ` 分隔）
 - `Description`（主型号简介）
 
 #### SKU 级官方参数层
@@ -573,6 +574,7 @@
 | `PE Line Size` | 已有 | official_specs | official | detail_full / compare | 是 | excel_structured | PE 范围 |
 | `Tip Diameter` | 已有 | official_specs | official | detail_full / compare | 是 | excel_structured | 先径 |
 | `POWER` | 已有（待归一） | official_specs | official | detail_core / compare | 是 | excel_structured | 先保留原值 |
+| `product_technical` | 新增定义 | supplement | official | deep_read | 否 | excel_structured | SKU 级官方技术名合集；可空；只从品牌官网 / 官方页面获取，多个技术名用 ` / ` 分隔；官网标注只适用部分规格时必须落到对应子型号 |
 | `Description` | 已有 | official_specs / supplement | official | detail_full / deep_read | 否 | excel_structured | 先做官方说明区 |
 | `Extra Spec 1` | 已有 | official_specs / supplement | official/manual | detail_full | 否 | excel_structured | 历史兜底列 |
 | `Extra Spec 2` | 已有 | official_specs / supplement | official/manual | detail_full | 否 | excel_structured | 历史兜底列 |
@@ -866,6 +868,8 @@
 2. 不进入对比主字段
 3. 不进入第一版主筛选
 4. 只作为详情页补充层
+
+鱼竿详情表中的 `product_technical` 承接 SKU 级官方技术名合集。该字段可空，只允许从品牌官网独立产品技术模块、该模块的技术适用规格说明、官方技术页写入；多个技术名统一使用 ` / ` 分隔。`Description`、规格表、白名单站点推断值、营销长句或跨品牌等价判断不得写入该字段。若官网技术模块存在“仅某规格”“除外规格”等适用关系，必须按子型号写入 `rod_detail.product_technical`，不得把整页技术合集套给所有子型号；主表如需展示系列技术概览，应从详情行聚合生成，不作为事实源维护。
 
 ### 13.2 系列定位 / 卖点摘要
 

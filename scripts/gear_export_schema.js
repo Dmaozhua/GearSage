@@ -186,7 +186,7 @@ const HEADERS = {
         'Grip Type', 'Reel Size',
         'guide_layout_type', 'guide_use_hint', 'recommended_rig_pairing', 'hook_keeper_included', 'sweet_spot_lure_weight_real',
         'official_environment', 'player_environment', 'player_positioning', 'player_selling_points',
-        'Description', 'Extra Spec 1', 'Extra Spec 2',
+        'Description', 'product_technical', 'Extra Spec 1', 'Extra Spec 2',
     ],
     lureMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',

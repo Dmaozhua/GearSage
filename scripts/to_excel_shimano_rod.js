@@ -173,6 +173,20 @@ function stripModelPrefixFromSku(sku, model) {
     return rest.replace(/^[-_/（(［[\s]+/, '').trim() || value;
 }
 
+function mergeTechTerms(values) {
+    const merged = [];
+    for (const value of values) {
+        for (const term of String(value || '').split('/').map((part) => part.trim()).filter(Boolean)) {
+            if (!merged.includes(term)) merged.push(term);
+        }
+    }
+    return merged.join(' / ');
+}
+
+function inferVariantProductTechnical(item, variant, sku, rodType) {
+    return mergeTechTerms([variant.product_technical || '']);
+}
+
 for (const item of data) {
     const currentRodId = `SR${rodIdCounter++}`;
     const existingRod = existingRodByModel.get(item.model_name) || {};
@@ -238,11 +252,13 @@ for (const item of data) {
             parsedPower = pMatch[1];
         }
         
+        const detailSku = stripModelPrefixFromSku(v.variant_name, item.model_name);
+
         detailRows.push({
             'id': `SRD${detailIdCounter++}`,
             'rod_id': currentRodId,
             'TYPE': rodType, // S for Spinning, C for Casting
-            'SKU': stripModelPrefixFromSku(v.variant_name, item.model_name),
+            'SKU': detailSku,
             'TOTAL LENGTH': specs.total_length_m || '',
             'POWER': parsedPower,
             'Action': specs.action || '',
@@ -273,6 +289,7 @@ for (const item of data) {
             'player_positioning': '',
             'player_selling_points': '',
             'Description': v.variant_description || '',
+            'product_technical': inferVariantProductTechnical(item, v, detailSku, rodType),
             'Extra Spec 1': '',
             'Extra Spec 2': ''
         });

@@ -56,7 +56,7 @@ ROD_DETAIL_HEADERS = [
     "guide_layout_type", "guide_use_hint", "recommended_rig_pairing",
     "hook_keeper_included", "sweet_spot_lure_weight_real",
     "official_environment", "player_environment", "player_positioning", "player_selling_points",
-    "Description", "Extra Spec 1", "Extra Spec 2",
+    "Description", "product_technical", "Extra Spec 1", "Extra Spec 2",
 ]
 
 PLAYER_FIELD_OVERRIDES = {
@@ -517,6 +517,133 @@ def infer_guide_hint(positioning):
     return "Bass 泛用：出線順暢、兼容多種線徑，軟餌、硬餌和搜索場景切換更自然。"
 
 
+def merge_terms(terms):
+    merged = []
+    for term in terms:
+        text = normalize_text(term)
+        if text and text not in merged:
+            merged.append(text)
+    return " / ".join(merged)
+
+
+def infer_product_technical(model, sku, type_code):
+    model_upper = normalize_text(model).upper()
+    terms = []
+    if "VOICE LTT" in model_upper:
+        terms.extend(
+            [
+                "富士工業製ステンレスフレームSICガイド",
+                "Kガイド",
+                "MNSTトップガイド",
+                "富士工業製PTSリールシート",
+                "富士工業製WBCバランサー",
+            ]
+        )
+    elif "HARD BAIT SPECIAL" in model_upper:
+        terms.append("バリアブルテーパー")
+        if sku.endswith("-Gc"):
+            terms.extend(["グラスコンポジット（-Gc）", "バキューム"])
+        if type_code == "S":
+            terms.extend(
+                [
+                    "富士工業製チタンフレームSiC KRコンセプトガイド",
+                    "SGt（シャキットグラスティップ）",
+                    "富士工業製VSSリールシート",
+                ]
+            )
+        elif sku == "HB660L-Gc":
+            terms.extend(
+                [
+                    "チタンフレームガイド",
+                    "富士工業製PTSリールシート",
+                    "富士工業製WBCバランサー",
+                ]
+            )
+        elif sku == "HB6100ML-Gc":
+            terms.extend(
+                [
+                    "ステンレスフレームオールダブルフットガイド",
+                    "富士工業製PTSリールシート",
+                    "富士工業製WBCバランサー",
+                ]
+            )
+        elif sku in {"HB6100M-Gc", "HB730MH-Gc"}:
+            terms.extend(
+                [
+                    "チタンフレームガイド",
+                    "シングルフットティップガイド",
+                    "富士工業製PTSリールシート",
+                    "富士工業製WBCバランサー",
+                ]
+            )
+            if sku == "HB730MH-Gc":
+                terms.append("グリップジョイント")
+        else:
+            terms.extend(
+                [
+                    "富士工業製GMステンレスフレームSiC-Sガイド",
+                    "Kガイド",
+                    "LGSTトップガイド",
+                    "富士工業製PTSリールシート",
+                    "富士工業製WBCバランサー",
+                ]
+            )
+            if sku in {"HB710LL", "HB760L", "HB760M"}:
+                terms.append("テレスコピックハンドル")
+            if sku == "HB730MH-Gc":
+                terms.append("グリップジョイント")
+    elif "STRUCTURE NXS" in model_upper:
+        terms.append("ストラクチャーNXSブランク")
+        if type_code == "S":
+            terms.extend(
+                [
+                    "富士工業製チタンフレームトルザイトガイド",
+                    "KLガイド",
+                    "KTガイド",
+                    "富士工業製VSSシート",
+                ]
+            )
+        else:
+            terms.extend(
+                [
+                    "富士工業製チタンフレームトルザイトガイド",
+                    "LRVガイド",
+                    "KTガイド",
+                    "富士工業製ECSリールシート",
+                ]
+            )
+        if sku.endswith("-St"):
+            terms.append("ショートカーボンソリッドティップ")
+        if sku in {"STN720MH", "STN720H"}:
+            terms.append("テレスコピック")
+        if sku == "STN640MLS-Md":
+            terms.append("モーメントディレイブランク")
+        if sku == "STN511LLS":
+            terms.append("アンサンドフィニッシュ")
+    elif "VOICE JUNGLE" in model_upper:
+        if type_code == "S":
+            terms.extend(
+                [
+                    "富士工業製チタンフレームトルザイトリング",
+                    "KRコンセプト",
+                    "富士工業製VSSリールシート",
+                ]
+            )
+        else:
+            terms.extend(
+                [
+                    "テレスコピック",
+                    "富士工業製ステンレスフレームSICガイド",
+                    "Kガイド",
+                    "MNSTトップガイド",
+                    "テレスコピックストッパー",
+                    "富士工業製TCSリールシート",
+                    "富士工業製WBCバランサー",
+                ]
+            )
+    return merge_terms(terms)
+
+
 def apply_player_overrides(sku, fields):
     override = PLAYER_FIELD_OVERRIDES.get(sku)
     if override:
@@ -552,6 +679,7 @@ def parse_variants(article, model, feature_text):
                 "player_selling_points": infer_selling_points(positioning),
                 "guide_layout_type": infer_guide_layout(model, type_code, guide_source),
                 "guide_use_hint": infer_guide_hint(positioning),
+                "product_technical": infer_product_technical(model, sku, type_code),
                 "Description": description,
             }
         )
@@ -559,6 +687,7 @@ def parse_variants(article, model, feature_text):
         variants.append(
             {
                 "sku": sku,
+                "product_technical": fields.get("product_technical", ""),
                 "title": h3_text,
                 "model_type": small,
                 "description": description,
@@ -713,7 +842,7 @@ def build_workbook(normalized):
     for ws, headers in [(ws_rod, ROD_HEADERS), (ws_detail, ROD_DETAIL_HEADERS)]:
         ws.freeze_panes = "A2"
         for col_idx, header in enumerate(headers, start=1):
-            width = 90 if header == "Description" else 24 if header in {"player_selling_points", "guide_layout_type", "guide_use_hint"} else 16
+            width = 90 if header == "Description" else 48 if header == "product_technical" else 24 if header in {"player_selling_points", "guide_layout_type", "guide_use_hint"} else 16
             ws.column_dimensions[ws.cell(row=1, column=col_idx).column_letter].width = width
 
     shade_detail_groups(ws_detail)

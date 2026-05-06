@@ -2,7 +2,7 @@
 
 版本：v1  
 状态：Megabass rod 字段补充阶段性收口  
-更新时间：2026-04-29  
+更新时间：2026-05-06  
 
 ---
 
@@ -39,6 +39,7 @@
 - `rod_detail.POWER`：`178 / 186`；`DESTROYER T.S / MR1001` 的 8 个子型号按人工复核决定保留为空，不再从 `TS...X / TS...XS / TS...X+` 后缀推断 POWER
 - `rod_detail.LURE WEIGHT`：`186 / 186`；其中官网只有 oz 的型号已换算为 g，原始 oz 保留在 `LURE WEIGHT (oz)`；Tracking Buddy 的线材/拖钓标注保留官网文本
 - `rod_detail.Description`：`186 / 186`
+- `rod_detail.product_technical`：`183 / 186`，只从 Megabass 官方商品页 `TECHNOLOGY` 区块抽取技术名，字段位于 `Description` 后、`Extra Spec 1` 前；`GREATHUNTING TRACKING BUDDY` 3 个子型号因官网无 `TECHNOLOGY` 区块留空
 - `rod_detail.recommended_rig_pairing`：`186 / 186`，字段位于 `guide_use_hint` 后、`hook_keeper_included` 前；用于承接当前子型号最适合的钓组/饵型，并按“最擅长 -> 合适”排序
 - `rod_detail.player_environment`：`186 / 186`
 - `rod_detail.player_positioning`：`186 / 186`
@@ -532,6 +533,49 @@ node scripts/reorder_megabass_rod_import_by_official_order_stage3.js
 - `scripts/to_excel_megabass_rod.js` 已接入该字段，后续重建导入表会优先读取 raw item 级 `fit_style_tags`，缺失时才按系列语境保守推断。
 - 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
 
+### 3.15 product_technical 详情表字段补充
+
+脚本：
+
+- [apply_megabass_rod_product_technical_stage14.py](/Users/tommy/GearSage/scripts/apply_megabass_rod_product_technical_stage14.py)
+
+输出证据与报告：
+
+- [megabass_rod_product_technical_official_evidence.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_product_technical_official_evidence.json)
+- [megabass_rod_product_technical_stage14_report.json](/Users/tommy/GearSage/GearSage-client/pkgGear/data_raw/megabass_rod_product_technical_stage14_report.json)
+
+字段口径：
+
+- `product_technical` 只落在 `rod_detail` SKU 级字段，`rod` 主表不维护该字段。
+- Megabass 当前 raw 是单 SKU item 结构，因此只给可导入的 186 个 rod item 写入 item 级 `product_technical`；6 个非导入附件/替换件 item 不写该字段。
+- 来源使用 Megabass 官方商品页独立 `TECHNOLOGY` 区块，以及官方 SKU 描述中明确写出的技术短语；不使用白名单、玩家资料、规格推断或跨品牌等价判断。
+- 多个技术名统一使用 ` / ` 分隔；排除 `BENDING CURVE`、收纳袋、包装、空标题、天然木件、普通握把/卷线座标题等非技术名或过泛模块标题。
+- 对 `GUIDE / GUIDES` 这类过泛标题，不直接写标题；只有正文明确给出具体导环技术时，才提取正文中的技术名。
+
+本次结果：
+
+- 官方商品页缓存：`192 / 192`
+- `megabass_rod_raw.json`：
+  - rod item：`186`
+  - item 级 `product_technical` 非空：`183 / 186`
+  - 非导入 item 写入 `product_technical`：`0`
+- `megabass_rod_import.xlsx / rod`：
+  - `product_technical` 不存在
+- `megabass_rod_import.xlsx / rod_detail`：
+  - 列位置：`Description` 后、`Extra Spec 1` 前
+  - 覆盖率：`183 / 186`
+  - 留空：`GREATHUNTING TRACKING BUDDY / GHT610-M`、`GHT124-2M`、`GHT77-2ML`，原因是官方商品页无独立 `TECHNOLOGY` 区块
+- 子型号匹配复核后修正 `6` 个单元格：
+  - `EVOLUZION / F1-63tix-S`、`F3.1/2-73tix-S`、`F2-63tix`、`F4-65tix`、`F4.1/2st-62tix-S` 补入官方技术块标题 `ITO ENGINEERING SLANT BRIDGE（PAT.）`
+  - `DESTROYER T.S / TS78X` 补入官方技术块标题 `Grip End Balancer`
+- 进一步按官方正文复核型号级对应关系后，补齐 `35` 个单元格：
+  - `ARMS SUPER LEGGERA / ARMS SUPER LEGGERA SPINNING`：从 `GUIDE(S)` 正文补入 `ITO WOVEN GRAPHITE GUIDE STAGE`、`ITO ARTIFICIAL CUSTOM THREAD WRAPPING`、`Fuji TORZITE GUIDE RING＋TITANIUM FRAME ARMS SETTING`
+  - `DESTROYER T.S`：从 `GUIDES` 正文补入 `All double footed and double wrapped guide system`
+  - `OROCHI X10 / F5-70XT`：从空标题导环正文补入 `OROCHI X10 ORIGINAL TIGHT THREADING FUJI STAINLESS FRAME SiC-S GUIDE`
+  - 官方 SKU 描述明确写到的技术短语已定点补入对应型号：`Solid Tip / Megabass original solid tip / Double-footed guides and double-wrapped guide setting / Large diameter #8 guides / Small diameter #6 guides / STINGER TIP technology / High frame K-Guide stripper guide / High-precision Spigot Ferrule Joint System`
+- `scripts/to_excel_megabass_rod.js` 已接入该字段，后续重建导入表会读取 raw item 级 `product_technical` 写入 `rod_detail.product_technical`。
+- 保存后已运行 `shade_megabass_rod_detail_groups_stage2.py`，恢复 `rod_detail` 分组底色。
+
 ---
 
 ## 4. 本轮验证
@@ -571,6 +615,17 @@ node scripts/reorder_megabass_rod_import_by_official_order_stage3.js
 - Stage 13 `fit_style_tags` 非法枚举：`0`
 - Stage 13 `旅行` 标签已按 v1.2 校验，`GREATHUNTING RIVER&LAKE EDITION` 因 `継数 = 2本` 保持 `溪流`
 - Stage 13 `to_excel_megabass_rod.js` 语法检查：通过
+- Stage 14 `rod_detail.product_technical` 覆盖率：`183 / 186`
+- Stage 14 `product_technical` 与官方 evidence 按 `series_name + SKU` 匹配：缺失 `0`，不一致 `0`
+- Stage 14 `rod.product_technical`：不存在
+- Stage 14 `product_technical` 列位置：`Description -> product_technical -> Extra Spec 1`
+- Stage 14 `product_technical` 分隔符异常：`0`
+- Stage 14 `product_technical` 禁用来源词/玩家词/钓组词残留：`0`
+- Stage 14 `product_technical` 重复技术名：`0`
+- Stage 14 `product_technical` 过长异常：`0`
+- Stage 14 `product_technical` 噪声标题残留：`0`，已排除 `BENDING CURVE / Cloth bag / 専用パッケージ / Natural bird... / CORK GRIP / Reel Sheet` 等非技术名标题
+- Stage 14 `megabass_rod_import.xlsx` 压缩结构检查：通过
+- Stage 14 `apply_megabass_rod_product_technical_stage14.py` 语法检查：通过
 - bass 记录未误落到鳟鱼、船钓、木虾、海水场景
 - trout 记录保留鳟鱼场景
 - `rod_detail` 分组底色已恢复并交替

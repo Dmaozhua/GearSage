@@ -42,6 +42,7 @@ const MASTER_MERGE_POLICIES = {
             'official_reference_price',
             'market_status',
             'Description',
+            'product_technical',
         ],
         finalPriority: ['is_show'],
         fillOnly: ['model_cn', 'player_positioning', 'player_selling_points'],

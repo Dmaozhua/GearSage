@@ -82,6 +82,29 @@
         </scroll-view>
       </view>
 
+      <view class="compare-section" wx:if="{{usageDirectionCards.length > 0}}">
+        <view class="section-head">
+          <text class="section-title">使用方向对比</text>
+          <text class="section-subtitle">把 GearSage 整理出的推荐方向和搭配单独摊开看。</text>
+        </view>
+        <view class="usage-direction-list">
+          <view class="usage-direction-card" wx:for="{{usageDirectionCards}}" wx:key="key">
+            <view class="usage-direction-card__head">
+              <text class="usage-direction-card__variant">{{item.variantLabel}}</text>
+              <text class="usage-direction-card__master">{{item.masterLabel}}</text>
+            </view>
+            <view class="usage-direction-field" wx:if="{{item.direction}}">
+              <text class="usage-direction-field__label">推荐方向</text>
+              <text class="usage-direction-field__value">{{item.direction}}</text>
+            </view>
+            <view class="usage-direction-field" wx:if="{{item.pairing}}">
+              <text class="usage-direction-field__label">推荐搭配</text>
+              <text class="usage-direction-field__value">{{item.pairing}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
       <view class="compare-section compare-section--specs" wx:if="{{specSections.length > 0}}">
         <view class="section-head section-head--inline">
           <view class="section-copy">

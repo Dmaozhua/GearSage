@@ -482,6 +482,146 @@ function inferFitStyleTags(item) {
   return ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'].filter((tag) => tags.includes(tag)).join(',');
 }
 
+function mergeTechTerms(terms) {
+  const seen = new Set();
+  return terms
+    .map((term) => normalizeText(term))
+    .filter(Boolean)
+    .filter((term) => {
+      if (seen.has(term)) return false;
+      seen.add(term);
+      return true;
+    })
+    .join(' / ');
+}
+
+function baseSkuForTech(sku) {
+  return normalizeText(sku).replace(/\/2$/, '');
+}
+
+function inferProductTechnical(source, variant) {
+  const sku = normalizeText(variant.sku);
+  const baseSku = baseSkuForTech(sku);
+  const type = normalizeText(variant.fields?.TYPE);
+  const terms = [];
+
+  if (source.category_key === 'revoltage-rod') {
+    terms.push('富士工業社製SiCガイドリング');
+    const isRevoltageTwoPiece = /2pcs|ツーピース/i.test(
+      normalizeText(`${source.model || ''} ${source.listing_model || ''} ${source.url || ''}`),
+    );
+
+    const t1100Skus = isRevoltageTwoPiece
+      ? new Set([
+          'RVⅡ-C69L+BF',
+          'RVⅡ-C66M+',
+          'RVⅡ-C67MH+',
+          'RVⅡ-C68MH',
+          'RVⅡ-C610M',
+          'RVⅡ-C71H-ST',
+          'RVⅡ-C73H',
+          'RVⅡ-C711H',
+          'RVⅡ-S65UL',
+          'RVⅡ-S65L',
+          'RVⅡ-S67ML',
+          'RVⅡ-S68MH+',
+          'RVⅡ-S69UL+',
+          'RVⅡ-S78ML+',
+        ])
+      : new Set([
+          'RVⅡ-C67L-FM',
+          'RVⅡ-C69L+BF',
+          'RVⅡ-C610M',
+          'RVⅡ-C66M+',
+          'RVⅡ-C68MH',
+          'RVⅡ-C67MH+',
+          'RVⅡ-C71H-ST',
+          'RVⅡ-C73H',
+          'RVⅡ-C711H',
+          'RVⅡ-S510SUL-ST',
+          'RVⅡ-S60SUL',
+          'RVⅡ-S65UL',
+          'RVⅡ-S68MH+',
+          'RVⅡ-S69UL+',
+          'RVⅡ-S78ML+',
+        ]);
+    const m40xSkus = isRevoltageTwoPiece
+      ? new Set(['RVⅡ-C64ML-ST', 'RVⅡ-S68MH+', 'RVⅡ-C68MH', 'RVⅡ-C71H-ST', 'RVⅡ-C711H', 'RVⅡ-S69UL+', 'RVⅡ-S61L-ST'])
+      : new Set([
+          'RVⅡ-C64ML-ST',
+          'RVⅡ-C68MH',
+          'RVⅡ-C71H-ST',
+          'RVⅡ-C711H',
+          'RVⅡ-S510SUL-ST',
+          'RVⅡ-S61L-ST',
+          'RVⅡ-S68MH+',
+          'RVⅡ-S69UL+',
+        ]);
+    const gripJointSkus = isRevoltageTwoPiece
+      ? new Set()
+      : new Set([
+          'RVⅡ-C67MH+',
+          'RVⅡ-C68MH',
+          'RVⅡ-C69L+BF',
+          'RVⅡ-C610M',
+          'RVⅡ-C71H-ST',
+          'RVⅡ-C73H',
+          'RVⅡ-C711H',
+          'RVⅡ-S68MH+',
+          'RVⅡ-S69UL+',
+          'RVⅡ-S78ML+',
+        ]);
+    const solid30tSkus = isRevoltageTwoPiece
+      ? new Set(['RVⅡ-S61L-ST', 'RVⅡ-C64ML-ST', 'RVⅡ-C71H-ST'])
+      : new Set(['RVⅡ-S510SUL-ST', 'RVⅡ-S61L-ST', 'RVⅡ-C64ML-ST', 'RVⅡ-C71H-ST']);
+
+    if (t1100Skus.has(baseSku)) terms.push('トレカ®T1100G');
+    if (m40xSkus.has(baseSku)) terms.push('トレカ®M40X');
+    if (['RVⅡ-C62L-GC', 'RVⅡ-C66ML-GC'].includes(baseSku)) {
+      terms.push('UD Glass', 'グラスコンポジットブランク');
+    }
+    if (solid30tSkus.has(baseSku)) terms.push('30tカーボンソリッドティップ');
+    if (!isRevoltageTwoPiece && baseSku === 'RVⅡ-S61UL-ST') terms.push('ロングソリッドティップ');
+    if (!isRevoltageTwoPiece && baseSku === 'RVⅡ-S56XUL/L-ST') terms.push('ショートソリッドティップ');
+    if (!isRevoltageTwoPiece && baseSku === 'RVⅡ-C64M+PBF') terms.push('スパイラルガイドセッティング');
+    if (gripJointSkus.has(baseSku)) terms.push('グリップジョイント構造');
+    if (type === 'S') {
+      terms.push('Kガイド', 'LYガイド');
+      if ((!isRevoltageTwoPiece && baseSku === 'RVⅡ-S510SUL-ST') || baseSku === 'RVⅡ-S68MH+') terms.push('全ガイドKガイド');
+    }
+    if (baseSku === 'RVⅡ-S78ML+') terms.push('ダブルロックシステム');
+    if (!isRevoltageTwoPiece && baseSku === 'RVⅡ-S69UL+') terms.push('大径トップ〜第4ガイド');
+  } else if (source.category_key === 'bpm') {
+    const isBpNew = /^BP-/.test(sku);
+    if (isBpNew) {
+      terms.push('Fujiガイド', '1&ハーフ設計');
+      if (type === 'C') terms.push('Fuji ECSリールシート');
+      if (type === 'S') terms.push('Fuji TVSリールシート');
+      if (/BP-S70L-ST|BP-C70M\+\s*ST/.test(sku)) terms.push('カーボンソリッドティップ');
+    } else {
+      terms.push('富士工業製アルコナイトガイド', 'SiCトップガイド');
+      if (['B1-C66MLG', 'B1-C70MG', 'B2-C66MLG'].includes(sku)) terms.push('グラスコンポジットブランク');
+      if (['B1-C72MH', 'B1-C70H', 'B1-C73XHSB', 'B1-S73M', 'B1-C70MG'].includes(sku)) {
+        terms.push('グリップジョイント構造');
+      }
+    }
+  } else if (source.category_key === 'nazzy-choice') {
+    if (/SG/.test(sku)) {
+      terms.push('スパイラルガイド', '蓄光スレッド', 'グラスコンポジットブランクス', 'ソフトティップ');
+    } else {
+      terms.push(
+        'Fuji製オールダブルフットガイド',
+        'ステンレスフレームSiCトップガイド',
+        'ステンレスフレームアルコナイトガイド',
+      );
+      if (/CACAOBLACK/.test(sku)) terms.push('グラスコンポジットティップ', '並継構造', 'PMNST6トップガイド');
+      else terms.push('グラスコンポジット素材', '並継構造');
+    }
+  }
+
+  return mergeTechTerms(terms);
+}
+
 function parseProductDetail($, source) {
   const rawModel = normalizeText($('h1 .title-main').first().text()) || source.listing_model || source.category_title;
   const model = cleanModelTitle(rawModel);
@@ -502,21 +642,28 @@ function parseProductDetail($, source) {
       mapped.PIECES = '2';
     }
     const positioning = inferPlayerPositioning(source.category_key, type, mapped.SKU, mapped.POWER, variantDescription);
+    const fields = {
+      TYPE: type,
+      ...mapped,
+      official_environment: officialEnvironment(source.category_key),
+      player_environment: playerEnvironment(source.category_key),
+      player_positioning: positioning,
+      player_selling_points: inferPlayerSellingPoints(source.category_key, positioning),
+      guide_layout_type: inferGuideLayout(source.category_key, type, featureText),
+      guide_use_hint: inferGuideUseHint(source.category_key, positioning),
+      Description: variantDescription,
+    };
+    fields.product_technical = inferProductTechnical(source, {
+      sku: mapped.SKU,
+      description: variantDescription,
+      fields,
+    });
     return {
       sku: mapped.SKU,
+      product_technical: fields.product_technical,
       raw_spec: spec,
       description: variantDescription,
-      fields: {
-        TYPE: type,
-        ...mapped,
-        official_environment: officialEnvironment(source.category_key),
-        player_environment: playerEnvironment(source.category_key),
-        player_positioning: positioning,
-        player_selling_points: inferPlayerSellingPoints(source.category_key, positioning),
-        guide_layout_type: inferGuideLayout(source.category_key, type, featureText),
-        guide_use_hint: inferGuideUseHint(source.category_key, positioning),
-        Description: variantDescription,
-      },
+      fields,
     };
   });
 

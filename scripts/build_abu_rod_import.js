@@ -226,6 +226,33 @@ function inferFeatureSellingPoints(features) {
   return points.join(' / ');
 }
 
+function inferProductTechnical(item, variant = null) {
+  const features = item.features || [];
+  const text = [item.description, ...features].map((value) => normalizeText(value)).join(' ');
+  const terms = [];
+  const add = (term) => {
+    if (!terms.includes(term)) terms.push(term);
+  };
+
+  const powerlux = [...text.matchAll(/Powerlux[®™]?\s*(1000|500|200|100)\b/gi)]
+    .map((match) => match[1])
+    .sort((a, b) => Number(b) - Number(a));
+  for (const number of [...new Set(powerlux)]) add(`Powerlux® ${number}`);
+  if (/\bROCS[™®]?\b|Robotically Optimized Casting System/i.test(text)) add('ROCS™');
+  if (/\bIntraCarbon[™®]?\b/i.test(text)) add('IntraCarbon™');
+  if (/\bCCRS[™®]?\b|Carbon Constructed Reel Seat/i.test(text)) add('CCRS™');
+  const pieces = String(variant?.specs?.['Number of Pieces'] || variant?.specs?.Pieces || '').trim();
+  if (
+    item.model === 'Beast™ Casting Rod' &&
+    pieces === '2' &&
+    /2 piece ferrule locking mechanism.*select models/i.test(text)
+  ) {
+    add('2 piece ferrule locking mechanism');
+  }
+
+  return terms.join(' / ');
+}
+
 function formatFitStyleTags(tags) {
   const order = ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'];
   return order.filter((tag) => tags.includes(tag)).join(',');
@@ -617,9 +644,11 @@ function buildRows(normalized) {
         player_positioning: '',
         player_selling_points: featureSellingPoints,
         Description: item.description,
+        product_technical: variant.product_technical || inferProductTechnical(item, variant),
         'Extra Spec 1': guideType ? `Guide Type: ${guideType}` : inferExtraSpecFromFeatures(item.features),
         'Extra Spec 2': buildExtraSpec2(upcNote, reelSeat),
       });
+      variant.product_technical = variant.product_technical || inferProductTechnical(item, variant);
     });
   });
 

@@ -1267,7 +1267,39 @@ rod 玩家字段不能再按字段各自独立生成。
 
 ---
 
-## 12. 当前不应继续做的事
+## 12. `product_technical` 子型号字段补充
+
+执行口径：
+
+- 字段位置：`daiwa_rod_import.xlsx / rod_detail`，放在 `Description` 后。
+- 来源：只使用日本 Daiwa 官网台湾语言页面 `https://www.daiwa.com/tw/product/...`。
+- 抓取位置：先读取子型号 `Description` 中的官方 `TECHNOLOGY：...` / `搭載技術：...`；没有子型号技术清单时，再读取页面 `DAIWA 技術` 模块中的技术标题。不从规格表、白名单站或玩家字段推断。
+- 写值格式：多个技术名使用 ` / ` 分隔。
+- 可空：官网台湾语言页面找不到对应商品页、页面没有技术模块，或技术项不能确认适用当前 SKU 时留空。
+- 同步：`scripts/gear_export_schema.js` 的 `rodDetail` header 已加入该字段；最终表 `rod_detail.xlsx` 通过 detail 切片同步。
+- 数据安全：脚本写入前后按“忽略 `product_technical` 后逐单元一致”校验，避免串列或影响其它字段。
+- 子型号适用性：官网 `DAIWA 技術` 模块若写有 `僅限...型號`、`...除外`、`全旋轉式/全拋投式`、`2PCS品項` 等备注，必须按 SKU / TYPE / PIECES 拆分后写入，不能把整页技术合集套给所有子型号。
+- 优先级：子型号描述里的技术清单高于页面级 `DAIWA 技術`。如果官网明确某 SKU 带有或不带有某项技术，必须按 SKU 写出差异；没有特殊标注时，才认为页面级技术默认适用同页全部 SKU。
+
+本轮 Daiwa 结果：
+
+- DR 子型号：658 个。
+- 有官方技术模块可校验并写入非空：574 个。
+- 子型号描述中存在明确 `TECHNOLOGY/搭載技術` 的 SKU：48 个，已按描述覆盖页面级合集。
+- 当前按“子型号描述优先，其余页面级技术备注回落”复核后，中间表与最终表 mismatch 为 0。
+- 典型修正：`DRD10056` 保留 `SVF COMPILE-X` 相关技术；`DRD10057`、`DRD10058` 不再继承 `SVF COMPILE-X`；`DRD10059` 的残缺技术名 `ZERO SEA` 规范为 `ZERO_SEAT`。
+
+执行文件：
+
+- 初次抓取脚本：`scripts/refresh_daiwa_rod_product_technical_stage44.py`
+- SKU 适用性修正脚本：`scripts/fix_daiwa_rod_stage46_product_technical_detail_match.py`
+- 修正报告：`GearSage-client/pkgGear/data_raw/daiwa_rod_product_technical_detail_match_stage46_report.json`
+- 子型号描述技术覆盖脚本：`scripts/fix_daiwa_rod_stage47_product_technical_from_variant_description.py`
+- 子型号描述覆盖报告：`GearSage-client/pkgGear/data_raw/daiwa_rod_product_technical_variant_desc_stage47_report.json`
+
+---
+
+## 13. 当前不应继续做的事
 
 - 不应为了补满 `official_environment` 使用白名单站 category。
 - 不应为了补满 `hook_keeper_included` 使用不稳定页面或 AI 文案。
@@ -1277,7 +1309,7 @@ rod 玩家字段不能再按字段各自独立生成。
 
 ---
 
-## 13. 推荐后续改进
+## 14. 推荐后续改进
 
 如果后续还要做更多 rod 品牌，建议补一个通用的 evidence sidecar 机制，而不是往导入表加来源列。
 

@@ -34,6 +34,7 @@ const SHADE_SCRIPT = path.join(__dirname, 'shade_olympic_rod_detail_groups.py');
 const APPLY_RIG_PAIRING_SCRIPT = path.join(__dirname, 'apply_olympic_rod_recommended_rig_pairing_stage2.js');
 const APPLY_PLAYER_FIELDS_SCRIPT = path.join(__dirname, 'apply_olympic_rod_player_fields_stage3.py');
 const APPLY_FIT_STYLE_TAGS_SCRIPT = path.join(__dirname, 'apply_olympic_rod_fit_style_tags_stage4.py');
+const APPLY_PRODUCT_TECHNICAL_SCRIPT = path.join(__dirname, 'apply_olympic_rod_product_technical_stage5.py');
 const IMAGE_DIR = '/Users/tommy/Pictures/images/olympic_rods';
 const OLD_IMAGE_DIR = '/Users/tommy/Pictures/images_old_copy/olympic_rods';
 const STATIC_IMAGE_BASE = 'https://static.gearsage.club/gearsage/Gearimg/images/olympic_rods';
@@ -625,6 +626,7 @@ async function main() {
   execFileSync('python3', [APPLY_FIT_STYLE_TAGS_SCRIPT], { stdio: 'inherit' });
   execFileSync('node', [APPLY_RIG_PAIRING_SCRIPT], { stdio: 'inherit' });
   execFileSync('python3', [APPLY_PLAYER_FIELDS_SCRIPT], { stdio: 'inherit' });
+  execFileSync('python3', [APPLY_PRODUCT_TECHNICAL_SCRIPT], { stdio: 'inherit' });
 
   console.log(
     JSON.stringify(

@@ -265,6 +265,7 @@ for (const [seriesName, seriesInfo] of seriesMap.entries()) {
             'Grip Type': '',
             'Reel Size': '',
             'Description': item.description_en || '',
+            'product_technical': item.product_technical || '',
             'created_at': '',
             'updated_at': '',
             'Extra Spec 1': '',
