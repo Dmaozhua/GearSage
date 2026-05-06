@@ -316,14 +316,33 @@
 
         <view class="topic-section-card">
           <view class="topic-section-title">进阶信息</view>
+          <view class="topic-compare-panel" wx:if="{{productDetail.compareGearText || productDetail.compareProfileText || productDetail.compareBuyDecisionText || productDetail.compareDesc}}">
+            <view class="topic-compare-panel__head">
+              <text class="topic-compare-panel__title">对比判断</text>
+            </view>
+            <view class="topic-compare-list">
+              <view class="topic-compare-row" wx:if="{{productDetail.compareGearText}}">
+                <text class="topic-compare-label">对比对象</text>
+                <text class="topic-compare-value">{{productDetail.compareGearText}}</text>
+              </view>
+              <view class="topic-compare-row" wx:if="{{productDetail.compareProfileText}}">
+                <text class="topic-compare-label">对比定位</text>
+                <text class="topic-compare-value">{{productDetail.compareProfileText}}</text>
+              </view>
+              <view class="topic-compare-row topic-compare-row--decision" wx:if="{{productDetail.compareBuyDecisionText}}">
+                <text class="topic-compare-label">购买结论</text>
+                <text class="topic-compare-value">{{productDetail.compareBuyDecisionText}}</text>
+              </view>
+              <view class="topic-compare-row" wx:if="{{productDetail.compareDesc}}">
+                <text class="topic-compare-label">对比说明</text>
+                <text class="topic-compare-value">{{productDetail.compareDesc}}</text>
+              </view>
+            </view>
+          </view>
           <view class="topic-info-grid">
             <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.comboGearText}}">
               <text class="topic-info-label">常用搭配</text>
               <text class="topic-info-value">{{productDetail.comboGearText}}</text>
-            </view>
-            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareGearText}}">
-              <text class="topic-info-label">对比对象</text>
-              <text class="topic-info-value">{{productDetail.compareGearText}}</text>
             </view>
             <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.fitContextText}}">
               <text class="topic-info-label">适配场景</text>
@@ -332,14 +351,6 @@
             <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.fitTechniqueText}}">
               <text class="topic-info-label">适配玩法</text>
               <text class="topic-info-value">{{productDetail.fitTechniqueText}}</text>
-            </view>
-            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareProfileText}}">
-              <text class="topic-info-label">对比定位</text>
-              <text class="topic-info-value">{{productDetail.compareProfileText}}</text>
-            </view>
-            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareBuyDecisionText}}">
-              <text class="topic-info-label">对比购买结论</text>
-              <text class="topic-info-value">{{productDetail.compareBuyDecisionText}}</text>
             </view>
             <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.purchaseAdviceText}}">
               <text class="topic-info-label">入手建议</text>
@@ -352,10 +363,6 @@
             <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.comboDesc}}">
               <text class="topic-info-label">搭配说明</text>
               <text class="topic-info-value">{{productDetail.comboDesc}}</text>
-            </view>
-            <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.compareDesc}}">
-              <text class="topic-info-label">对比说明</text>
-              <text class="topic-info-value">{{productDetail.compareDesc}}</text>
             </view>
             <view class="topic-info-item topic-info-item--full" wx:if="{{productDetail.supplementParamsText}}">
               <text class="topic-info-label">参数补充</text>

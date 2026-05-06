@@ -27,6 +27,13 @@ function fitStyleTags(item) {
     return ['bass', '溪流', '海鲈', '根钓', '岸投', '船钓', '旅行'].filter((tag) => tags.includes(tag)).join(',');
 }
 
+function firstValue(...values) {
+    for (const value of values) {
+        if (value !== undefined && value !== null && String(value).trim() !== '') return value;
+    }
+    return '';
+}
+
 function convertToExcel() {
     const dataPath = path.join(__dirname, '../GearSage-client/pkgGear/data_raw/keitech_rod_normalized.json');
     if (!fs.existsSync(dataPath)) {
@@ -53,14 +60,20 @@ function convertToExcel() {
             brand_id: brandId,
             model: item.model || '',
             model_cn: item.model_cn || '',
-            model_year: '',
-            alias: '',
-            type_tips: 'casting', // Most Keitech rods are casting (ベイトモデル)
+            model_year: item.model_year || '',
+            alias: item.alias || '',
+            type_tips: item.type_tips || 'casting',
             fit_style_tags: fitStyleTags(item),
             images: item.local_image_path || item.main_image_url || '',
             created_at: item.scraped_at || '',
             updated_at: item.scraped_at || '',
-            Description: item.description || '',
+            series_positioning: item.series_positioning || '',
+            main_selling_points: item.main_selling_points || '',
+            official_reference_price: item.official_reference_price || '',
+            market_status: item.market_status || '',
+            Description: item.Description || item.description || '',
+            player_positioning: item.player_positioning || '',
+            player_selling_points: item.player_selling_points || '',
         });
 
         if (item.variants && item.variants.length > 0) {
@@ -70,39 +83,49 @@ function convertToExcel() {
                 rodDetailData.push({
                     id: detailId,
                     rod_id: rodId,
-                    TYPE: 'casting',
+                    TYPE: firstValue(variant.TYPE, variant.type, 'C'),
                     SKU: variant.sku || '',
-                    'TOTAL LENGTH': variant.total_length || '',
-                    Action: variant.action || '',
-                    PIECES: variant.pieces || '',
-                    CLOSELENGTH: '',
-                    WEIGHT: variant.weight || '',
-                    'Tip Diameter': '',
-                    'LURE WEIGHT': variant.lure_weight || '',
-                    'Line Wt N F': variant.line_wt || '',
-                    'PE Line Size': '',
-                    'Handle Length': '',
-                    'Reel Seat Position': '',
-                    'CONTENT CARBON': '',
-                    'Market Reference Price': variant.price || '',
-                    AdminCode: '',
-                    'Service Card': '',
-                    ' Jig Weight': '',
-                    'Squid Jig Size': '',
-                    'Sinker Rating': '',
+                    POWER: variant.POWER || '',
+                    'TOTAL LENGTH': firstValue(variant['TOTAL LENGTH'], variant.total_length),
+                    Action: firstValue(variant.Action, variant.action),
+                    PIECES: firstValue(variant.PIECES, variant.pieces),
+                    CLOSELENGTH: variant.CLOSELENGTH || '',
+                    WEIGHT: firstValue(variant.WEIGHT, variant.weight),
+                    'Tip Diameter': variant['Tip Diameter'] || '',
+                    'LURE WEIGHT': firstValue(variant['LURE WEIGHT'], variant.lure_weight),
+                    'Line Wt N F': firstValue(variant['Line Wt N F'], variant.line_wt),
+                    'PE Line Size': variant['PE Line Size'] || '',
+                    'Handle Length': variant['Handle Length'] || '',
+                    'Reel Seat Position': variant['Reel Seat Position'] || '',
+                    'CONTENT CARBON': variant['CONTENT CARBON'] || '',
+                    'Market Reference Price': firstValue(variant['Market Reference Price'], variant.price),
+                    AdminCode: variant.AdminCode || '',
+                    'Service Card': variant['Service Card'] || '',
+                    ' Jig Weight': variant[' Jig Weight'] || '',
+                    'Squid Jig Size': variant['Squid Jig Size'] || '',
+                    'Sinker Rating': variant['Sinker Rating'] || '',
                     created_at: item.scraped_at || '',
                     updated_at: item.scraped_at || '',
-                    POWER: '',
-                    'LURE WEIGHT (oz)': '',
-                    'Sale Price': '',
-                    'Joint Type': '',
-                    'Code Name': '',
-                    'Fly Line': '',
-                    'Grip Type': '',
-                    'Reel Size': '',
-                    Description: '',
-                    'Extra Spec 1': '',
-                    'Extra Spec 2': ''
+                    'LURE WEIGHT (oz)': variant['LURE WEIGHT (oz)'] || '',
+                    'Sale Price': variant['Sale Price'] || '',
+                    'Joint Type': variant['Joint Type'] || '',
+                    'Code Name': variant['Code Name'] || '',
+                    'Fly Line': variant['Fly Line'] || '',
+                    'Grip Type': variant['Grip Type'] || '',
+                    'Reel Size': variant['Reel Size'] || '',
+                    guide_layout_type: variant.guide_layout_type || '',
+                    guide_use_hint: variant.guide_use_hint || '',
+                    recommended_rig_pairing: variant.recommended_rig_pairing || '',
+                    hook_keeper_included: variant.hook_keeper_included || '',
+                    sweet_spot_lure_weight_real: variant.sweet_spot_lure_weight_real || '',
+                    official_environment: variant.official_environment || '',
+                    player_environment: variant.player_environment || '',
+                    player_positioning: variant.player_positioning || '',
+                    player_selling_points: variant.player_selling_points || '',
+                    Description: variant.Description || variant.description || '',
+                    product_technical: variant.product_technical || '',
+                    'Extra Spec 1': variant['Extra Spec 1'] || '',
+                    'Extra Spec 2': variant['Extra Spec 2'] || ''
                 });
             });
         }

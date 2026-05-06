@@ -1,7 +1,8 @@
 // pkgGear/pages/detail/detail.js
 const app = getApp();
 const apiService = require('../../../services/api');
-const { techGlossary } = require('../../utils/官网解释_text_simple');
+const { techGlossary: reelTechGlossary } = require('../../utils/官网解释_text_simple');
+const { techGlossary: rodTechGlossary } = require('../../utils/官网解释_text_simple_rod');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const MAX_COMPARE_ITEMS = 3;
@@ -13,6 +14,10 @@ const HIDDEN_DETAIL_FIELDS = new Set([
   'custom_spool_compatibility',
   'custom_knob_compatibility',
   'body_material_tech',
+  'product_technical',
+  'guide_layout_type',
+  'Extra Spec 1',
+  'Extra Spec 2',
   'handle_knob_exchange_size',
   'main_selling_points',
   'main_gear_material',
@@ -187,6 +192,7 @@ const SPEC_LAYERS_BY_TYPE = {
         'Handle Length',
         'CONTENT CARBON',
         'Reel Seat Position',
+        'Grip Type',
         'Joint Type',
         'Code Name',
         'Service Card',
@@ -216,7 +222,7 @@ const SPEC_LAYERS_BY_TYPE = {
     {
       title: '深度玩家数据',
       subtitle: '来自用户沉淀数据，*不能保证数据完全准确。',
-      fields: ['player_environment', 'player_positioning', 'player_selling_points', 'min_lure_weight_hint']
+      fields: ['player_environment', 'player_positioning', 'player_selling_points', 'min_lure_weight_hint', 'hook_keeper_included']
     }
   ],
   lures: [
@@ -343,6 +349,7 @@ Page({
       'Line Wt N F': '尼/氟线(lb)',
       'PE Line Size': 'PE线(号)',
       'Handle Length': '手把长(mm)',
+      'Grip Type': '握把类型',
       'CONTENT CARBON': '含碳量(%)',
       'Joint Type': '插节形式',
       'Code Name': '代号',
@@ -386,6 +393,7 @@ Page({
       bearing_count_roller: '轴承数',
       body_material: '机身材质',
       body_material_tech: '机身技术',
+      product_technical: '核心技术',
       gear_material: '大齿材质',
       handle_knob_type: '握丸样式',
       handle_knob_material: '握丸材质',
@@ -408,6 +416,7 @@ Page({
       player_environment: '玩家场景',
       player_positioning: '玩家定位',
       player_selling_points: '玩家看点',
+      hook_keeper_included: '挂钩器',
       official_reference_price: '官方参考价',
       market_status: '市场状态',
       Description: '说明',
@@ -563,6 +572,7 @@ Page({
       is_sw_edition: ['is_sw_edition', 'isSwEdition'],
       is_handle_double: ['is_handle_double', 'isHandleDouble'],
       is_compact_body: ['is_compact_body', 'isCompactBody'],
+      hook_keeper_included: ['hook_keeper_included', 'hookKeeperIncluded'],
       description: ['description', 'Description'],
       Description: ['Description', 'description']
     };
@@ -583,6 +593,10 @@ Page({
       if (text === '1') return '自带';
       if (text === '0') return '无';
       return text;
+    }
+    if (key === 'hook_keeper_included') {
+      const text = value === 0 ? '0' : this.normalizeText(value);
+      return text === '1' ? '自带' : '';
     }
     if (BOOLEAN_DISPLAY_FIELDS.has(key)) {
       const text = value === 0 ? '0' : this.normalizeText(value);
@@ -717,19 +731,49 @@ Page({
 
   splitTechTerms(value) {
     return this.normalizeText(value)
-      .split(/\s*\/\s*/)
+      .split(/\s*[\/／]\s*/)
       .map((term) => this.normalizeText(term))
       .filter(Boolean)
       .filter((term, index, terms) => terms.indexOf(term) === index);
   },
 
+  getTechFieldKey() {
+    if (this.data.gearType === 'rods') return 'product_technical';
+    if (this.data.gearType === 'reels') return 'body_material_tech';
+    return '';
+  },
+
+  getTechGlossary() {
+    if (this.data.gearType === 'rods') return rodTechGlossary;
+    if (this.data.gearType === 'reels') return reelTechGlossary;
+    return {};
+  },
+
+  normalizeTechLookupKey(value) {
+    return this.normalizeText(value)
+      .toLowerCase()
+      .replace(/[™®]/g, '')
+      .replace(/[＋+]/g, '+')
+      .replace(/[（）()]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  },
+
   getTechGlossaryEntry(term) {
     const key = this.normalizeText(term);
-    return (key && techGlossary && techGlossary[key]) || null;
+    const glossary = this.getTechGlossary();
+    if (!key || !glossary) return null;
+    if (glossary[key]) return glossary[key];
+
+    const lookupKey = this.normalizeTechLookupKey(key);
+    const matchedKey = Object.keys(glossary).find((entryKey) => this.normalizeTechLookupKey(entryKey) === lookupKey);
+    return matchedKey ? glossary[matchedKey] : null;
   },
 
   buildTechTerms(record) {
-    const rawValue = this.getFieldValue(record, 'body_material_tech');
+    const techFieldKey = this.getTechFieldKey();
+    if (!techFieldKey) return [];
+    const rawValue = this.getFieldValue(record, techFieldKey);
     return this.splitTechTerms(rawValue).map((term, index) => {
       const entry = this.getTechGlossaryEntry(term) || {};
       const simpleText = this.normalizeText(entry.text_simple);
@@ -825,7 +869,7 @@ Page({
   },
 
   getTechTooltip(field, value) {
-    const entry = field === 'body_material_tech'
+    const entry = field === this.getTechFieldKey()
       ? this.getTechGlossaryEntry(value)
       : null;
     const text = entry ? this.normalizeText(entry.text_simple || entry.text) : '';

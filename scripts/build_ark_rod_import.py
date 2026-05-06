@@ -149,6 +149,16 @@ def compact_text(value):
     return re.sub(r"\s+", " ", normalize_text(value)).strip()
 
 
+def normalize_tag_list(value):
+    if isinstance(value, list):
+        raw_items = value
+    elif isinstance(value, str):
+        raw_items = value.split(",")
+    else:
+        raw_items = []
+    return [compact_text(item) for item in raw_items if compact_text(item)]
+
+
 def fetch_json(url):
     req = urllib.request.Request(url, headers=HTTP_HEADERS)
     with urllib.request.urlopen(req, timeout=60, context=SSL_CONTEXT) as response:
@@ -701,7 +711,7 @@ def parse_product(product):
     description = "\n\n".join(paragraphs)
     features = extract_features(paragraphs)
     spec_rows = parse_table_rows(product.get("body_html", ""))
-    tags = product.get("tags", [])
+    tags = normalize_tag_list(product.get("tags", []))
     title = strip_sale_prefix(product.get("title", ""))
     variants = product.get("variants", [])
     variants_by_sku = {normalize_sku_key(v.get("sku", "")): v for v in variants if v.get("sku")}
@@ -780,7 +790,9 @@ def build_rows(normalized, refresh_images=False):
 
     for index, item in enumerate(normalized):
         rod_id = f"{ROD_PREFIX}{1000 + index}"
-        series = series_positioning(item["title"], item["tags"], item["description"])
+        tags = normalize_tag_list(item.get("tags", []))
+        item["tags"] = tags
+        series = series_positioning(item["title"], tags, item["description"])
         image_cdn = download_image(
             item["main_image_url"],
             f"{rod_id}_{sanitize_filename(item['handle'])}",
@@ -800,7 +812,7 @@ def build_rows(normalized, refresh_images=False):
                 "model_cn": "",
                 "model_year": item["model_year"],
                 "alias": item["title"],
-                "type_tips": " / ".join(item["tags"]),
+                "type_tips": "",
                 "fit_style_tags": item["fit_style_tags"],
                 "images": image_cdn,
                 "created_at": now,

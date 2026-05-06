@@ -7,7 +7,7 @@
         <view class="summary-copy">
           <text class="summary-title">{{compareTitle}}</text>
           <text class="summary-desc">
-            {{compareCards.length >= 2 ? '这页只把差异摊开给你看，方便你继续收敛。' : '再补 1 个候选，就能更像真正的同类对比。'}}
+            {{compareCards.length >= 2 ? '先看关键差异，再决定是否需要展开完整参数。' : '再补 1 个候选，就能更像真正的同类对比。'}}
           </text>
         </view>
         <view class="summary-actions">
@@ -50,7 +50,7 @@
       <view class="compare-section" wx:if="{{compareInsights.length > 0}}">
         <view class="section-head">
           <text class="section-title">GearSage 提示</text>
-          <text class="section-subtitle">默认只提醒真正有助于继续收敛的差异，不给你伪装成自动结论。</text>
+          <text class="section-subtitle">先看核心参数、使用方向和技术差异。相同项默认收起，完整参数可展开核对。</text>
         </view>
         <view class="insight-list">
           <view class="insight-item" wx:for="{{compareInsights}}" wx:key="*this">

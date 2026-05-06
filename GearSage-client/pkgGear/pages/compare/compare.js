@@ -1,6 +1,7 @@
 const app = getApp();
 const apiService = require('../../../services/api');
-const { techGlossary } = require('../../utils/官网解释_text_simple');
+const { techGlossary: reelTechGlossary } = require('../../utils/官网解释_text_simple');
+const { techGlossary: rodTechGlossary } = require('../../utils/官网解释_text_simple_rod');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const CORE_FIELDS_BY_TYPE = {
@@ -165,21 +166,53 @@ Page({
 
   splitTechTerms(value) {
     return this.normalizeText(value)
-      .split(/\s*\/\s*/)
+      .split(/\s*[\/／]\s*/)
       .map((term) => this.normalizeText(term))
       .filter(Boolean)
       .filter((term, index, terms) => terms.indexOf(term) === index);
   },
 
-  getTechGlossaryEntry(term) {
-    const key = this.normalizeText(term);
-    return (key && techGlossary && techGlossary[key]) || null;
+  getTechFieldKey(type) {
+    const gearType = this.normalizeGearType(type || this.data.compareType);
+    if (gearType === 'rods') return 'product_technical';
+    if (gearType === 'reels') return 'body_material_tech';
+    return '';
   },
 
-  buildTechTerms(record, keyPrefix = 'compare-tech') {
-    const rawValue = this.getFieldValue(record, 'body_material_tech');
+  getTechGlossary(type) {
+    const gearType = this.normalizeGearType(type || this.data.compareType);
+    if (gearType === 'rods') return rodTechGlossary;
+    if (gearType === 'reels') return reelTechGlossary;
+    return {};
+  },
+
+  normalizeTechLookupKey(value) {
+    return this.normalizeText(value)
+      .toLowerCase()
+      .replace(/[™®]/g, '')
+      .replace(/[＋+]/g, '+')
+      .replace(/[（）()]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  },
+
+  getTechGlossaryEntry(term, type) {
+    const key = this.normalizeText(term);
+    const glossary = this.getTechGlossary(type);
+    if (!key || !glossary) return null;
+    if (glossary[key]) return glossary[key];
+
+    const lookupKey = this.normalizeTechLookupKey(key);
+    const matchedKey = Object.keys(glossary).find((entryKey) => this.normalizeTechLookupKey(entryKey) === lookupKey);
+    return matchedKey ? glossary[matchedKey] : null;
+  },
+
+  buildTechTerms(record, keyPrefix = 'compare-tech', type = '') {
+    const techFieldKey = this.getTechFieldKey(type);
+    if (!techFieldKey) return [];
+    const rawValue = this.getFieldValue(record, techFieldKey);
     return this.splitTechTerms(rawValue).map((term, index) => {
-      const entry = this.getTechGlossaryEntry(term) || {};
+      const entry = this.getTechGlossaryEntry(term, type) || {};
       const simpleText = this.normalizeText(entry.text_simple);
       const detailText = this.normalizeText(entry.text);
       return {
@@ -523,7 +556,7 @@ Page({
         ...detail,
         gearType: entry.gearType
       });
-      const techTerms = this.buildTechTerms(selectedVariant, `${entry.masterId}-${selectedVariant.__key}`);
+      const techTerms = this.buildTechTerms(selectedVariant, `${entry.masterId}-${selectedVariant.__key}`, entry.gearType);
 
       return {
         ...entry,
@@ -664,7 +697,7 @@ Page({
     }
 
     if (!warnings.length && compareCards.length >= 2) {
-      pushInsight('这页只负责把差异摊开，不会替你直接下购买结论。看完还纠结，再带着候选去求推荐会更有效。');
+      pushInsight('相同规格默认收起；字段为空时不参与差异判断，完整参数可以在下方展开核对。');
     }
 
     return insights.slice(0, 3);
