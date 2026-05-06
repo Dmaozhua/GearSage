@@ -10,6 +10,12 @@ const QUERY_PAGE_SIZE = 20;
 const SEARCH_QUERY_PAGE_SIZE = 500;
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 
+function hideLoadingSafely() {
+  wx.hideLoading({
+    fail: () => {}
+  });
+}
+
 Page({
   data: {
     navBarHeight: 0,
@@ -234,7 +240,7 @@ Page({
       console.error('[List Page] search error:', error);
       wx.showToast({ title: '搜索失败，请稍后再试', icon: 'none' });
     } finally {
-      wx.hideLoading();
+      hideLoadingSafely();
       this.finishSearchUI();
     }
   },
@@ -287,7 +293,7 @@ Page({
         console.error('[List Page] filter error:', error);
         wx.showToast({ title: '筛选失败，请稍后再试', icon: 'none' });
       })
-      .finally(() => wx.hideLoading());
+      .finally(() => hideLoadingSafely());
   },
 
   async queryGearData(keyword = '', filters = {}) {
@@ -302,6 +308,8 @@ Page({
       page: 1,
       pageSize: SEARCH_QUERY_PAGE_SIZE,
       ...filters
+    }, {
+      silent: true
     });
     const allData = response && Array.isArray(response.list) ? response.list : [];
     const normalizedList = allData.map((item) => this.normalizeItem(item));
@@ -336,6 +344,8 @@ Page({
         type: this.data.currentType,
         page,
         pageSize
+      }, {
+        silent: true
       });
 
       const data = (res.list || []).map((item) => this.normalizeItem(item));
@@ -355,7 +365,7 @@ Page({
       this.setData({ isLoading: false });
     }
 
-    wx.hideLoading();
+    hideLoadingSafely();
   },
 
   onReachBottom() {

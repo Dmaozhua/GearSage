@@ -8,6 +8,7 @@ import { DatabaseService } from '../../common/database.service';
 type GearType = 'reels' | 'rods' | 'lures' | 'lines' | 'hooks';
 type GearKind = 'reel' | 'rod' | 'lure' | 'line' | 'hook';
 const STATIC_GEAR_IMAGE_BASE_URL = 'https://static.gearsage.club/gearsage/Gearimg/images';
+const DEFAULT_GEAR_DATA_ROOT = '/Users/tommy/GearSage-data';
 
 interface GearListQuery {
   type?: string;
@@ -1538,12 +1539,19 @@ export class GearService {
   private getExcelDir() {
     return (
       this.configService.get<string>('GEAR_EXCEL_DIR') ||
-      join(process.cwd(), '..', 'GearSage-client', 'rate', 'excel')
+      join(this.getGearDataRoot(), 'rate', 'excel')
     );
   }
 
   private getClientWebpDir() {
-    return join(process.cwd(), '..', 'GearSage-client', 'rate', 'webp');
+    return (
+      this.configService.get<string>('GEAR_WEBP_DIR') ||
+      join(this.getGearDataRoot(), 'rate', 'webp')
+    );
+  }
+
+  private getGearDataRoot() {
+    return this.configService.get<string>('GEARSAGE_DATA_ROOT') || DEFAULT_GEAR_DATA_ROOT;
   }
 
   private pickFirstTextValue(...values: any[]) {

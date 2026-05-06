@@ -1642,7 +1642,7 @@ class ApiService {
     });
   }
 
-  getGearList(params = {}) {
+  getGearList(params = {}, options = {}) {
     const normalizedParams = { ...params };
     ['brands', 'types', 'system', 'water_column', 'action', 'options', 'brakeSys', 'usageTags', 'type_tips'].forEach((key) => {
       if (Array.isArray(normalizedParams[key])) {
@@ -1653,7 +1653,8 @@ class ApiService {
       }
     });
     return this.get('/mini/gear/list', {
-      data: normalizedParams
+      data: normalizedParams,
+      ...options
     }).then(result => {
       const payload = result && typeof result === 'object' ? result : {};
       return {
