@@ -163,8 +163,8 @@ async function main(options) {
         `
           INSERT INTO gear_master (
             kind, id, "brandId", "isShow", model, "modelCn", "modelYear", type,
-            system, "waterColumn", action, alias, "typeTips", images, raw_json
-          ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
+            system, "waterColumn", action, alias, "typeTips", images, "pronunciationAudioUrl", raw_json
+          ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15,$16::jsonb)
         `,
         [
           item.kind,
@@ -181,6 +181,7 @@ async function main(options) {
           item.alias,
           item.typeTips,
           JSON.stringify(item.images),
+          item.pronunciationAudioUrl,
           JSON.stringify(item.raw_json),
         ],
       );
@@ -314,6 +315,7 @@ function normalizeMasterRow(kind, row) {
     alias: normalizeText(row.alias),
     typeTips: normalizeText(row.type_tips),
     images: normalizedImages,
+    pronunciationAudioUrl: normalizeText(row.pronunciation_audio_url),
     raw_json: normalized,
   };
 }

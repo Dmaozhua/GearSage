@@ -6,7 +6,7 @@ const IMPORT_FILE = gearDataPaths.resolveDataRaw('abu_spinning_reels_import.xlsx
 
 const MASTER_HEADERS = [
   'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-  'type_tips', 'type', 'images', 'created_at', 'updated_at',
+  'type_tips', 'type', 'images', 'pronunciation_audio_url', 'created_at', 'updated_at',
   'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
   'Description', 'market_reference_price', 'player_positioning', 'player_selling_points',
 ];

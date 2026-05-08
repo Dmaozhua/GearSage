@@ -519,7 +519,7 @@ for (const row of details) {
 
 wb.Sheets.reel = XLSX.utils.json_to_sheet(masters, { header: [
   'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-  'type_tips', 'type', 'images', 'created_at', 'updated_at',
+  'type_tips', 'type', 'images', 'pronunciation_audio_url', 'created_at', 'updated_at',
   'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
   'Description', 'market_reference_price', 'player_positioning', 'player_selling_points',
 ] });

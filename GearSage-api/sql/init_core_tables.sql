@@ -321,6 +321,7 @@ CREATE TABLE IF NOT EXISTS gear_master (
   alias VARCHAR(255) NOT NULL DEFAULT '',
   "typeTips" VARCHAR(255) NOT NULL DEFAULT '',
   images JSONB NOT NULL DEFAULT '[]'::jsonb,
+  "pronunciationAudioUrl" TEXT NOT NULL DEFAULT '',
   raw_json JSONB NOT NULL DEFAULT '{}'::jsonb,
   "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),

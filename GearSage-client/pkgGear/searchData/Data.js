@@ -2981,6 +2981,50 @@ module.exports = [
     "family": ""
   },
   {
+    "type": "reel",
+    "id": "DRE5035",
+    "name": "2023 SALAMANDURA SV TW 1000S 火子龙",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5036",
+    "name": "2023 SALAMANDURA AIR TW 火蜥蜴",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5037",
+    "name": "SALAMANDURA SV TW 70/103/150 火蜥蜴",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "reel",
+    "id": "DRE5038",
+    "name": "2024 SALAMANDURA SV TW 150 火蜥蜴",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
     "type": "rod",
     "id": "SR1000",
     "name": "24 WORLD SHAULA TECHNICAL EDITION 沙湖啦 TECHNICAEDITION",
@@ -10246,6 +10290,28 @@ module.exports = [
     "name": "TATULA XT TATULA XT",
     "alias": "TATULA XT",
     "type_tips": "鱸魚",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1075",
+    "name": "SALAMANDURA J 火蜥蜴",
+    "alias": "火蜥蜴",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1076",
+    "name": "PARABELLUM 帕拉贝姆",
+    "alias": "帕拉贝姆",
+    "type_tips": "",
     "system": "",
     "water_column": "",
     "action": "",

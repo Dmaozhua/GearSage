@@ -37,7 +37,21 @@
       ></image>
       <view class="detail-info">
         <text class="detail-brand">{{item.brand_name}}</text>
-        <text class="detail-name">{{item.detailName}}</text>
+        <view class="detail-name-row">
+          <text class="detail-name">{{item.detailName}}</text>
+          <view
+            class="pronunciation-button {{pronunciationAudioState === 'playing' ? 'pronunciation-button--playing' : ''}}"
+            wx:if="{{item.pronunciation_audio_url}}"
+            catchtap="onPronunciationTap"
+          >
+            <view class="pronunciation-icon">
+              <view class="pronunciation-icon__box"></view>
+              <view class="pronunciation-icon__cone"></view>
+              <view class="pronunciation-icon__wave pronunciation-icon__wave--inner"></view>
+              <view class="pronunciation-icon__wave pronunciation-icon__wave--outer"></view>
+            </view>
+          </view>
+        </view>
         <view class="detail-tags" wx:if="{{infoTags.length > 0}}">
           <text class="detail-tag" wx:for="{{infoTags}}" wx:key="*this">{{item}}</text>
         </view>

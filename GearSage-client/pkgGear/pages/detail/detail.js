@@ -434,7 +434,7 @@ Page({
       'market_reference_price', 'product_code', 'AdminCode',
       'Market Reference Price', 'brand_id', 'reel_id', 'rod_id',
       'lure_id', 'line_id', 'hookId', 'id', '_id', '_openid', 'images', 'model',
-      'model_cn', 'model_year', 'type', 'description', 'Description',
+      'model_cn', 'model_year', 'type', 'description', 'Description', 'pronunciation_audio_url',
       'official_specs', 'gsc_traits', 'compare_profile',
       '__key', '__displayName', '__secondaryLabel', '__displayValues'
     ],
@@ -454,6 +454,7 @@ Page({
     loadingRelated: false,
     activeTechTooltipKey: '',
     activeTechTermInfo: null,
+    pronunciationAudioState: 'idle',
     isLoading: true
   },
 
@@ -509,6 +510,7 @@ Page({
         app.globalData.themeListeners.splice(index, 1);
       }
     }
+    this.destroyPronunciationAudio();
   },
 
   normalizeText(value) {
@@ -1083,19 +1085,24 @@ Page({
       const selectedVariantKey = this.normalizeText(variantKey) || (variants[0] ? variants[0].__key : '');
       const viewState = this.buildDetailViewState(item, variants, selectedVariantKey);
 
+      const pronunciationAudioUrl = this.normalizeText(item.pronunciation_audio_url);
+
       this.setData({
         item: {
           ...item,
           variants,
           mainImage,
           detailName,
-          brand_name: item.brand_name || ''
+          brand_name: item.brand_name || '',
+          pronunciation_audio_url: pronunciationAudioUrl
         },
         title: item.model,
         isSeriesDescriptionExpanded: false,
         isVariantDescriptionExpanded: false,
+        pronunciationAudioState: 'idle',
         ...viewState
       }, () => {
+        this.preparePronunciationAudio(pronunciationAudioUrl);
         this.scheduleMeasureVariantFloat();
       });
 
@@ -1213,6 +1220,149 @@ Page({
       activeTechTooltipKey: '',
       activeTechTermInfo: null
     });
+  },
+
+  getPronunciationAudioUrl() {
+    return this.normalizeText(this.data.item && this.data.item.pronunciation_audio_url);
+  },
+
+  setPronunciationAudioState(state) {
+    const nextState = state || 'idle';
+    this.pronunciationAudioState = nextState;
+    if (this.data.pronunciationAudioState !== nextState) {
+      this.setData({ pronunciationAudioState: nextState });
+    }
+  },
+
+  ensurePronunciationAudioContext() {
+    if (this.pronunciationAudioContext) {
+      return this.pronunciationAudioContext;
+    }
+
+    const audioContext = wx.createInnerAudioContext();
+    audioContext.obeyMuteSwitch = false;
+    audioContext.onPlay(() => {
+      this.setPronunciationAudioState('playing');
+    });
+    audioContext.onEnded(() => {
+      this.hasUserRequestedPronunciationAudio = false;
+      this.setPronunciationAudioState('idle');
+    });
+    audioContext.onStop(() => {
+      if (this.isDestroyingPronunciationAudio) return;
+      this.hasUserRequestedPronunciationAudio = false;
+      this.setPronunciationAudioState('idle');
+    });
+    audioContext.onError(() => {
+      if (this.hasUserRequestedPronunciationAudio) {
+        this.showPronunciationAudioError();
+      }
+      this.hasUserRequestedPronunciationAudio = false;
+      this.setPronunciationAudioState('idle');
+    });
+    this.pronunciationAudioContext = audioContext;
+    return audioContext;
+  },
+
+  stopPronunciationAudio() {
+    if (!this.pronunciationAudioContext) return;
+    try {
+      this.pronunciationAudioContext.stop();
+    } catch (e) {
+      console.warn('Stop pronunciation audio failed', e);
+    }
+  },
+
+  abortPronunciationAudioDownload() {
+    if (!this.pronunciationDownloadTask) return;
+    try {
+      this.pronunciationDownloadTask.abort();
+    } catch (e) {
+      console.warn('Abort pronunciation audio download failed', e);
+    }
+    this.pronunciationDownloadTask = null;
+  },
+
+  preparePronunciationAudio(url = '') {
+    const audioUrl = this.normalizeText(url);
+    this.pronunciationAudioRequestId = (this.pronunciationAudioRequestId || 0) + 1;
+    this.abortPronunciationAudioDownload();
+    this.pronunciationAudioTempFilePath = '';
+    this.pronunciationAudioPreparedUrl = audioUrl;
+    this.hasUserRequestedPronunciationAudio = false;
+    this.setPronunciationAudioState('idle');
+
+    if (!audioUrl) {
+      this.destroyPronunciationAudio();
+      return;
+    }
+
+    const audioContext = this.ensurePronunciationAudioContext();
+    audioContext.src = audioUrl;
+
+    const requestId = this.pronunciationAudioRequestId;
+    this.pronunciationDownloadTask = wx.downloadFile({
+      url: audioUrl,
+      success: (res) => {
+        if (requestId !== this.pronunciationAudioRequestId) return;
+        if (res.statusCode !== 200 || !res.tempFilePath) return;
+
+        this.pronunciationAudioTempFilePath = res.tempFilePath;
+        if ((this.pronunciationAudioState || 'idle') === 'idle' && this.pronunciationAudioContext) {
+          this.pronunciationAudioContext.src = res.tempFilePath;
+        }
+      },
+      complete: () => {
+        if (requestId === this.pronunciationAudioRequestId) {
+          this.pronunciationDownloadTask = null;
+        }
+      }
+    });
+  },
+
+  destroyPronunciationAudio() {
+    this.pronunciationAudioRequestId = (this.pronunciationAudioRequestId || 0) + 1;
+    this.abortPronunciationAudioDownload();
+    if (!this.pronunciationAudioContext) return;
+    this.isDestroyingPronunciationAudio = true;
+    this.stopPronunciationAudio();
+    try {
+      this.pronunciationAudioContext.destroy();
+    } catch (e) {
+      console.warn('Destroy pronunciation audio failed', e);
+    }
+    this.isDestroyingPronunciationAudio = false;
+    this.pronunciationAudioContext = null;
+    this.pronunciationAudioPreparedUrl = '';
+    this.pronunciationAudioTempFilePath = '';
+    this.hasUserRequestedPronunciationAudio = false;
+    this.setPronunciationAudioState('idle');
+  },
+
+  showPronunciationAudioError() {
+    wx.showToast({
+      title: '音频暂时无法播放',
+      icon: 'none'
+    });
+  },
+
+  onPronunciationTap() {
+    const url = this.getPronunciationAudioUrl();
+    if (!url) return;
+    if ((this.pronunciationAudioState || this.data.pronunciationAudioState) !== 'idle') return;
+
+    const audioContext = this.ensurePronunciationAudioContext();
+    if (this.pronunciationAudioPreparedUrl !== url) {
+      this.preparePronunciationAudio(url);
+    }
+
+    this.hasUserRequestedPronunciationAudio = true;
+    this.setPronunciationAudioState('playing');
+    const nextAudioSrc = this.pronunciationAudioTempFilePath || url;
+    if (audioContext.src !== nextAudioSrc) {
+      audioContext.src = nextAudioSrc;
+    }
+    audioContext.play();
   },
 
   onSpecLinkTap(e) {
