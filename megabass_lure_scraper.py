@@ -4,6 +4,7 @@ import re
 from curl_cffi import requests
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from scripts.gear_data_paths import resolve_data_raw
 
 def get_product_links(url):
     print(f"Fetching links from {url}")
@@ -211,8 +212,7 @@ def scrape_megabass_lures():
             except Exception as e:
                 print(f"[{i+1}/{len(unique_links)}] Error processing {url}: {e}")
                 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(base_dir, "GearSage-client/pkgGear/data_raw/megabass_lure_normalized.json")
+    out_path = resolve_data_raw("megabass_lure_normalized.json")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     
     with open(out_path, "w", encoding="utf-8") as f:

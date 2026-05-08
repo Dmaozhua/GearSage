@@ -1,11 +1,15 @@
 import json
 import os
 import re
+import sys
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from curl_cffi import requests
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-DATA_DIR = os.path.join(BASE_DIR, "GearSage-client", "pkgGear", "data_raw")
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from gear_data_paths import DATA_RAW_DIR
+
+DATA_DIR = str(DATA_RAW_DIR)
 
 # Target image directories
 IMAGE_DIR = "/Users/tommy/GearSage/temp_images/megabass_reels"

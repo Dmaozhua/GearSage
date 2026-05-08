@@ -4,13 +4,13 @@
   "category": "baitcasting_reel",
   "default_entry_script": "scripts/run_shimano_bc_simple_flow.js",
   "inputs": {
-    "official_normalized_json": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reel_normalized.json",
-    "template_workbook": "GearSage-client/pkgGear/data_raw/shimano_baitcasting_reels_import_副本.xlsx"
+    "official_normalized_json": "/Users/tommy/GearSage-data/data_raw/shimano_baitcasting_reel_normalized.json",
+    "template_workbook": "/Users/tommy/GearSage-data/data_raw/shimano_baitcasting_reels_import_副本.xlsx"
   },
   "outputs": {
-    "working_copy": "GearSage-client/pkgGear/data_raw/Shimano两轴轮_工作副本_简单主流程.xlsx",
-    "sidecar_json": "GearSage-client/pkgGear/data_raw/Shimano两轴轮_简单主流程_sidecar.json",
-    "summary_markdown": "GearSage-client/pkgGear/data_raw/Shimano两轴轮_简单主流程_试运行摘要.md"
+    "working_copy": "/Users/tommy/GearSage-data/data_raw/Shimano两轴轮_工作副本_简单主流程.xlsx",
+    "sidecar_json": "/Users/tommy/GearSage-data/data_raw/Shimano两轴轮_简单主流程_sidecar.json",
+    "summary_markdown": "/Users/tommy/GearSage-data/data_raw/Shimano两轴轮_简单主流程_试运行摘要.md"
   },
   "master_fields": [
     "model_year",

@@ -1,7 +1,8 @@
 import json
+from scripts.gear_data_paths import resolve_data_raw
 
 try:
-    with open('GearSage-client/pkgGear/data_raw/daiwa_rod_normalized.json', 'r', encoding='utf-8') as f:
+    with open(resolve_data_raw('daiwa_rod_normalized.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
         for i in range(12, 16):
             if i < len(data):
