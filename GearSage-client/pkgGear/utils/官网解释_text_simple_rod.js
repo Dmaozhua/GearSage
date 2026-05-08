@@ -6059,45 +6059,71 @@ for (const [term, entry] of Object.entries(olympicTechGlossary)) {
   }
 }
 
+const DAIWA_TERMS = [
+  "3DX",
+  "AGS",
+  "AIRSENSOR",
+  "BRAIDING X",
+  "CWS",
+  "HVF NANOPLUS",
+  "HVF碳纤维",
+  "MEGATOP",
+  "MEGATOP R",
+  "SMT",
+  "SVF COMPILE-X 碳纤维密度",
+  "SVF COMPILE-X NANOPLUS",
+  "SVF GLASS",
+  "SVF NANOPLUS",
+  "SVF碳纤维",
+  "V-JOINT",
+  "V-JOINTα",
+  "X45",
+  "X45 FULL SHIELD",
+  "ZERO SEAT",
+  "低模量碳纖維",
+  "ESS",
+  "管狀動力纖細形狀"
+];
+
 const daiwaTechGlossary = {
   "3DX": {
-    "text": "3DX是一種著重於復原力的支撐結構。在外周採用了具備卓越穩定性和復原力的蜂窩狀結構，以增強釣竿的形狀復原力。釣竿每彎曲一次就會承受負荷，竿身截面會變形為略微扁平的形狀。從這裡恢復到正圓形的力量越強，復原力就越高，能抑制竿尖晃動、提高拋投穩定性和拋投距離。",
+    "text": "利用正六角形的排列构造， 从各方向而来的力量都拥有相同的承受强力， 具有很好形状复原力的3轴编织法。",
     "text_simple": "蜂窝状外周支撑结构，重点提升竿身弯曲后的复原速度，减少竿尖晃动，让抛投更稳、距离更容易出来。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67327&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=64337&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=57458&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
   "AGS": {
-    "text": "AGS（空氣導環系統）：實現輕量化、高感度的AGS採用碳纖維框架，由於碳纖維的剛性約為鈦合金的3倍，能將釣線傳來的微小信號毫無吸收地直接傳遞給竿身，具備高感度。此外，碳纖維的輕量化有助於提高揮竿速度和加快竿尖晃動的收束，大幅提升拋投距離和控制性能。",
+    "text": "融合了轻量及强度的AIR GUIDE SYSTEM(轻盈导环系统)[AGS]。碳纤框架的轻量性使飞距离及控制性更为提高。碳纤维具有比钛合金高的高刚性，其高刚性通过鱼线即使有微少的信号也能把信号传达到竿尾的高感应度。有单脚和双脚导环而且在尺寸和形状上更具有选择性。",
     "text_simple": "碳纤维框架导环，比金属框架更轻更硬，核心价值是放大线端反馈、减轻竿尖负担，并提升抛投和控线响应。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/4vqep3r")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67908&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67583&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "AIR SENSOR SEAT": {
-    "text": "透過加入碳纖維的AIR SENSOR SEAT，實現輕量化、高強度和高感度。根據釣竿的用途進行專門設計，帶來一般通用捲線器座無法體驗的操作性。",
+  "AIRSENSOR": {
+    "text": "实现轻量化，高强度，高灵敏度的含碳纤AIR SENSOR SEAT依据用途而针对设计，可体验到通用轮座无法呈现的操作性。",
     "text_simple": "含碳纤维的轻量轮座，按竿种用途设计，重点是减重、提高强度，并让手部更直接感到竿身反馈。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/b1vam0h"),
-      daiwaSource("https://www.daiwa.com/tw/product/pz8nro6"),
-      daiwaSource("https://www.daiwa.com/tw/product/4vqep3r")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68212&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67916&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
   "BRAIDING X": {
-    "text": "用碳纖維帶將竿身尾節的最外層以X狀纏繞，釣竿操作時，抑制了會導致力量損耗的扭轉的強化結構。竿身本身保持纖細的同時，也確保了高強度，並降低手持時的重量感，從而提升操作性。",
+    "text": "一种用于抑制扭曲的增强结构,通过用碳带将X形状固定在竿身上减少鱼竿操作期功率损失,减少握持感,提高操作性。",
     "text_simple": "在竿身外层用碳带做 X 状补强，抑制操作和搏鱼时的扭转，让细身竿也能保留强度和控竿稳定性。",
     "sources": [
       daiwaSource("https://www.daiwa.com/tw/product/b1vam0h"),
@@ -6108,97 +6134,95 @@ const daiwaTechGlossary = {
       DAIWA_GROUP
     ]
   },
-  "CWS（碳纖維包覆系統）": {
-    "text": "DAIWA獨自的技術，用於將導環和捲線器座固定在竿身上。不是使用線，而是用堅固編織的碳纖維布來固定零件，實現零件安裝部位的輕量化。此外，CWS也提高了抗變形的保持力（導環安裝部的抗扭轉剛性）和耐久性（抗裂強度）。透過碳纖維布特有的外觀，更彰顯其存在感。",
+  "CWS": {
+    "text": "将导环和轮座固定在竿身坯料上，是DAIWA自创的技术。有别于用寻常的线捆绑固定，CWS是以强韧牢固的碳布来固定零件，实现安装零件位置的轻量化。而且，CWS在保持力（即对抗导环安装位置扭曲的刚性）和持久性（即抗磨损的强度）上均有很大的提升。碳布的外观处理，充分体现材质的存在感。",
     "text_simple": "用碳纤维布固定导环和轮座，减少传统绑线带来的重量，同时提升安装处抗扭、抗变形和耐久表现。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67908&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67583&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "HVF 奈米PLUS": {
-    "text": "透過減少樹脂量並相對增加碳纖維密度的「高密度HVF碳纖維」是最適合重視彈性和強度的釣竿材料，DAIWA透過獨有製法將其與東麗株式會社的奈米合金技術（Nanoalloy® technology）結合，得以實現進一步的高強度化和輕量化。",
+  "HVF NANOPLUS": {
+    "text": "以东丽株式会社 NANOALLOY TECHNOLOGY 的材料，配合纳米等级特殊混合技术，让固定碳纤的数种接着树脂实现高性能、高机化。DAIWA 透过独自的设计手法与制造手法，针对每个机种进行提升，使竿节发挥更高强度并减轻重量。",
     "text_simple": "高密度 HVF 碳布结合 Nanoalloy 技术，在弹性、强度和轻量化之间取得更好的平衡。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/g1dluk7"),
-      daiwaSource("https://www.daiwa.com/tw/product/vlsy3ii"),
-      daiwaSource("https://www.daiwa.com/tw/product/am9pxu2")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67674&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67327&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "HVF碳纖維": {
-    "text": "DAIWA著眼於對釣竿性能影響最大的碳纖維布中，不僅追求碳纖維本身的高彈性化，也聚焦作為黏合劑的樹脂量。減少被稱為贅肉的樹脂量，相對增加碳纖維密度的「高密度HVF碳纖維」更具肌肉感和力量。它是最適合重視彈性和強度的釣竿材料。",
+  "HVF碳纤维": {
+    "text": "适量减少树脂含量，使纤维间的密度更高，着重轻量&强力两项重要要素的高密度碳纤维「HVF」。",
     "text_simple": "减少树脂、提高碳纤维密度的竿胚材料，目标是让竿身更有弹性和力量感。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/pz8nro6"),
-      daiwaSource("https://www.daiwa.com/tw/product/bv7uhs5"),
-      daiwaSource("https://www.daiwa.com/tw/product/7jxry61")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68212&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67708&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=64377&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "MEGA TOP": {
-    "text": "MEGA TOP是一種纖維與樹脂均勻分佈的碳纖維實心材料，無論從哪個方向彎曲都展現相同的彎曲度。其強度比一般碳纖維實心材料飛躍性提升。這使得製造出細徑、柔軟、高錐形形狀的竿尖成為可能，不僅增強了傳遞魚訊至手掌的感度，更傳遞視覺感知，打造出精準捕捉魚訊的彎曲竿尖。",
+  "MEGATOP": {
+    "text": "MEGA TOP 是纤维与树脂均一地分散排列的实心碳纤维，无论从哪个方向都能清晰地看见其曲度。比普通的实心碳纤维强度更高。因此可以做到细径的柔软及锥形的竿尾。发挥出碳纤维材质的传导性，大幅提高竿尾的视觉感度。",
     "text_simple": "高强度碳纤维实心竿稍，弯曲方向更均匀，适合提升轻咬识别、视觉鱼讯和精细操作反馈。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/vlsy3ii")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68212&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67916&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "MEGA TOP R（MEGA TOP R）": {
-    "text": "在纖維與樹脂均勻分散的碳纖維實心材料「Mega Top」中，結合了東麗株式會社的TORAYCA T1100G碳纖維布與DAIWA獨家製造技術。透過研發更深入至樹脂領域，實現大幅提升的靈敏度與高反應的操作性，打造出高彈性碳纖維實心竿尾。",
+  "MEGATOP R": {
+    "text": "振动传递率比普通实心竿稍相比提升160%（与本公司制品相比)。「MEGA TOP RJ 是一种高弹性碳纤竿稍，具有压倒性的操作性和高感度。以DAIWA独有的制造技术将「MEGA TOPJ与东丽株式会社TORAYCA T1100G碳布结合，实现树脂领域研发技术的沉淀，大幅度提升感度与操作性。素材强度的提高，使竿径更为纤细，目视性能更强，更轻量化。",
     "text_simple": "更高弹、更高响应的 Mega Top 实心竿稍，重点强化灵敏度和操作反应，适合需要主动控饵的精细型号。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/4vqep3r"),
-      daiwaSource("https://www.daiwa.com/tw/product/njz9xki")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=58239&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67815&scid=2239")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "SMT（SuperMetalTop）": {
-    "text": "SMT是DAIWA獨有的技術，在釣竿竿尖使用超彈性鈦合金材料。憑藉金屬特有的振動放大能力，為釣魚者提供碳纖維材料無法達到的感度領域。具備高彈性金屬材料的強度和抗外傷特性，其精緻竿尖更靈敏彎曲以捕捉細微動作，因此能將魚訊確實傳遞到手上，並有金屬特有手感和肉眼可見魚訊的視覺辨識度。",
+  "SMT": {
+    "text": "竿尾使用高弹性钛合金的 SUPER METAL TOP。高弹性钛合金的SUPERMETALTOP具柔韧且高感度。同时也是视觉(看的感度),连触觉(握的感度)也能判断出鱼讯的新世代竿尾。将柔软且振动传递强的高弹性钛合金和碳纤维及玻璃素材混合,配合在各式各样的钓竿上实现出适合的调子及轻量化。",
     "text_simple": "钛合金金属竿稍，利用金属振动放大能力提升手感和目视鱼讯，适合极细微咬口判断。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/njz9xki"),
-      daiwaSource("https://www.daiwa.com/tw/product/hcx7dyx"),
-      daiwaSource("https://www.daiwa.com/tw/product/u6d1f71")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=56617&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "SVF COMPILE-X": {
-    "text": "對釣竿性能影響最大的碳纖維布中，透過減少樹脂含量並緊密填入碳纖維，實現輕量化、力量提升和細身化。強勁的反彈力帶來銳利的揮竿性能，以及能清楚感受路亞動作的高感度。",
+  "SVF COMPILE-X 碳纤维密度": {
+    "text": "削减更多的树脂含量，相对应的加入了大量的石墨纤维，从而实现了强韧肉厚的竿身素材",
     "text_simple": "高阶低树脂高密度碳布，追求轻量、强反弹和高感度，适合需要快速响应和清晰路亚动作反馈的竿型。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm"),
-      daiwaSource("https://www.daiwa.com/tw/product/u6d1f71")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67908&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67583&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "SVF COMPILE-X 奈米PLUS": {
-    "text": "由大幅減少的樹脂、以及相應地大量密集填入的石墨纖維所構成的超肌肉質竿身。因具有高硬度與彈性，帶來卓越的情報傳達能力，宛如親手觸摸水中的感度。此外，減少的樹脂量意味著輕量化與力量的升級，在相同力量下能製作更輕的釣竿，在相同力量與輕量下能製作更細的釣竿。這是對於要求咬餌瞬間立即反應的釣法不可或缺的竿身，能感受到敏銳的感度與強勁的竿尾力量。由於細身，更易恩於揮出，能進行不偏離目標點的精準拋投，其輕量化使持續拋投一整天成為可能。此高性能竿身因 NANO PLUS 技術而實現進化突破。",
+  "SVF COMPILE-X NANOPLUS": {
+    "text": "SVF COMPILE-X 碳纤维密度：削减更多的树脂含量，相对应的加入了大量的石墨纤维，从而实现了强韧肉厚的竿身素材 NANOPLUS：以东丽株式会社NANOALLOY TECHNOLOGY的材料配合奈米等级混合技术，让固定碳纤的数种接着树脂具备更高的性能与更功能。DAIWA透过自身的设计手法与制造手法，针对每个机种进行优化，使竿节发挥更高强度并减轻重量。",
     "text_simple": "SVF COMPILE-X 加上 Nano Plus 强化，核心是更轻、更细、更高硬度和高弹性，适合要求瞬间反应、精准抛投和高感度的高阶型号。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/avbw5tw"),
-      daiwaSource("https://www.daiwa.com/tw/product/t32myhm")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67908&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67583&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
@@ -6215,84 +6239,84 @@ const daiwaTechGlossary = {
     ]
   },
   "SVF NANOPLUS": {
-    "text": "在實現輕量化、力量和細身化的超高密度碳纖維SVF中，DAIWA透過獨有製法將其與東麗株式會社的奈米合金技術結合，得以實現進一步的高強度化和輕量化。",
+    "text": "SVF碳纤维：比HVF的树脂含量更少，加入更多的碳纤物，实现了轻量、强力、纤细化的高高密度碳纤维「SVF」。 NANOPLUS：以东丽株式会社NANOALLOY TECHNOLOGY的材料配合奈米等级混合技术，让固定碳纤的数种接着树脂具备更高的性能与更功能。DAIWA透过自身的设计手法与制造手法，针对每个机种进行优化，使竿节发挥更高强度并减轻重量。",
     "text_simple": "SVF 高密度碳布结合 Nanoalloy 技术，在轻量、强度和细身化基础上进一步提高耐用和支撑。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/njz9xki")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67916&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "SVF碳纖維": {
-    "text": "SVF碳纖維是比HVF進一步減少樹脂含量，並緊密填入更多碳纖維，實現輕量化、力量和細身化。",
+  "SVF碳纤维": {
+    "text": "比HVF的树脂含量更少，加入更多的碳纤物，实现了轻量、强力、纤细化的高高密度碳纤维「SVF」。",
     "text_simple": "比 HVF 更进一步减少树脂并提高碳纤维密度，重点是轻量、力量和细身竿胚。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/4vqep3r"),
-      daiwaSource("https://www.daiwa.com/tw/product/ymb9khi"),
-      daiwaSource("https://www.daiwa.com/tw/product/70qxp95")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67916&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
   "V-JOINT": {
-    "text": "透過在釣竿的接合處採用偏置結構的碳纖維布，實現如同單節竿般少扭曲的美麗彎曲。相較於未搭載此技術的產品，其力量，彈性，和彎曲恢復的速度都大幅提升，產生了理想的調性。",
+    "text": "V-JOINT：具线条美感弧度能达到理想的状态及发挥更高威力。在竿节的部位使用DAIWA自身的BIAS构造。实现结合部的理想弧度，同时提高力量/传导/感度性能。",
     "text_simple": "接节处使用偏置碳布，让多节竿弯曲更接近一节竿，减少扭转并提升力量、弹性和回弹速度。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/pz8nro6"),
-      daiwaSource("https://www.daiwa.com/tw/product/g1dluk7"),
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67908&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
   "V-JOINTα": {
-    "text": "透過在接合部採用高強度素材的奈米合金，並充分利用DAIWA獨有的精密加工技術，誕生了V-JOINT α，使V-JOINT進化得更強韌、更輕盈、更優美的彎曲。在反複拋投的釣法中，將接合部做得更薄，使整體竿身更細，提高了揮竿的順暢度和操作感。",
+    "text": "V-JOINTα：使用含nano+的高强度材质及DAIWA自身高精准度钓竿设计制造技术， 使V-JOINT更加强韧、轻盈、美观。",
     "text_simple": "V-JOINT 的进阶版，接节更强、更轻、更薄，让多节竿曲线更顺，反复抛投时手感更连贯。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/4vqep3r"),
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67908&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
   "X45": {
-    "text": "為了防止在拋投、操作、上鉤、搏魚等動作中產生的扭轉，長年研究結果顯示，除了傳統結構（相對於竿尖0°、90°）外，再捲繞「45°」偏置交叉布（±45°傾斜的碳纖維等）是防止扭轉的最佳選擇。搭載X45，實現防止扭轉，並使力量、操作性和感度得到飛躍性提升。",
+    "text": "X45：扭转[45°]适合具有强度、操控性的很好的构造设计。在以往的构造上(对竿身0°、90°)包覆着DAIWA的BIAS CROSS(+-45°的斜行碳纤维等)不但能防止扭曲现象，使力量、操作性、灵敏度都得以提升。",
     "text_simple": "45 度交叉碳布补强，用来抑制抛投、操作、刺鱼和搏鱼时的竿身扭转，让力量和感度更直接。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/pz8nro6"),
-      daiwaSource("https://www.daiwa.com/tw/product/g1dluk7"),
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "X4全覆蓋（＝X45柯博護盾）": {
-    "text": "為了防止在拋投、操作、上鉤、搏魚等動作中所產生的扭曲，透過在竿身最容易發生扭曲的前端位置，以 45° 碳纖維斜紋布從最外層緊密纏繞而成的結構，即為X45全覆蓋。藉此，竿身的抗扭剛性大幅提升。因此能夠實現比以往更好的拋投精準度，並充分發揮竿子本身所具備的性能。",
+  "X45 FULL SHIELD": {
+    "text": "X45 FULL SHIELD：针对抛竿、诱鱼、弓鱼、博鱼，X45 FULL SHIELD会排除掉在这些动作和操作中出现的扭曲现象。从容易产生扭曲的素材先端开始，用45°的斜行纤维从能体现效果的外层开始包裹，从而耐扭曲的刚性得到了很大的提升。",
     "text_simple": "在竿身前端外层做 45 度碳布全覆盖，强化最容易扭曲的位置，重点提升抛投精度和竿身抗扭稳定性。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/4vqep3r")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
     ]
   },
-  "ZERO_SEAT": {
-    "text": "ZERO SEAT（零感捲線器座）是讓釣魚者無壓力、全心享受釣魚樂趣為目標的新捲線器座設計理念。",
+  "ZERO SEAT": {
+    "text": "以“零负担”为目标，追求握竿作钓时犹如身体一部分那般自然的握持感。舒适感、重量、操作性。追求在各种各样的钓況中，通过实钓验证探索最适合的平衡。",
     "text_simple": "Daiwa 的轮座设计理念，目标是减少握持压力和多余存在感，让控竿和感度传递更自然。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/535jj4d"),
-      daiwaSource("https://www.daiwa.com/tw/product/v0p4xdm"),
-      daiwaSource("https://www.daiwa.com/tw/product/njz9xki")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67791&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67674&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67583&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
@@ -6308,13 +6332,13 @@ const daiwaTechGlossary = {
       DAIWA_GROUP
     ]
   },
-  "感性領域設計系統 [ESS]（專家感性模擬）": {
-    "text": "當釣竿彎曲時，會產生與彎曲方向相反的能量（復原力）。這是變形（扭曲）的竿身試圖恢復原狀的「扭曲能量」，是左右釣竿性能的極為重要要素。DAIWA獨自開發了分析和設計「扭曲能量」的系統，不僅能以數值明確掌握「優勢何在」、「不足之處」，還能將釣魚者的感性領域反映到設計中，使釣竿更貼近釣魚者的需求。",
+  "ESS": {
+    "text": "当钓竿弯曲时,其反方向便会自然产生一种自然复元力。那就是能将变形的钓竿变回原形的「应变能量」是对钓竿性能有很大影响力的一个因素.DAIWA开发了能将「应变能量」透彻分析并进行设计的系统。不仅能明确地显示出“那个部分好”“那个部分不足”，还能把感度领域也能在钓竿上显现出来，制作出理想的钓竿，改变性的钓竿“ESS”设计系统。",
     "text_simple": "Daiwa 用来分析竿身复原力和扭曲能量的设计系统，把力量、感度和钓手手感转化为可设计的竿身调性。",
     "sources": [
-      daiwaSource("https://www.daiwa.com/tw/product/8hqy3jm"),
-      daiwaSource("https://www.daiwa.com/tw/product/njz9xki"),
-      daiwaSource("https://www.daiwa.com/tw/product/hcx7dyx")
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=61549&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=57458&scid=51"),
+      daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=56617&scid=51")
     ],
     "groups": [
       DAIWA_GROUP
@@ -6604,7 +6628,7 @@ for (const [term, entry] of Object.entries(keitechTechGlossary)) {
   }
 }
 
-meta.generatedAt = "2026-05-06T18:10:00+08:00";
+meta.generatedAt = "2026-05-08T21:30:00+08:00";
 meta.totalTerms = Object.keys(techGlossary).length;
 meta.explainedTerms = Object.values(techGlossary).filter((entry) => entry.text_simple).length;
 
@@ -6950,31 +6974,7 @@ const termsByBrand = {
     "High frame K-Guide stripper guide",
     "Stainless SiC Guide"
   ],
-  "daiwa": [
-    "3DX",
-    "AGS",
-    "AIR SENSOR SEAT",
-    "BRAIDING X",
-    "CWS（碳纖維包覆系統）",
-    "HVF 奈米PLUS",
-    "HVF碳纖維",
-    "MEGA TOP",
-    "MEGA TOP R（MEGA TOP R）",
-    "SMT（SuperMetalTop）",
-    "SVF COMPILE-X",
-    "SVF COMPILE-X 奈米PLUS",
-    "SVF GLASS",
-    "SVF NANOPLUS",
-    "SVF碳纖維",
-    "V-JOINT",
-    "V-JOINTα",
-    "X45",
-    "X4全覆蓋（＝X45柯博護盾）",
-    "ZERO_SEAT",
-    "低模量碳纖維",
-    "感性領域設計系統 [ESS]（專家感性模擬）",
-    "管狀動力纖細形狀"
-  ],
+  "daiwa": DAIWA_TERMS,
   "keitech": KEITECH_TERMS,
   "olympic": OLYMPIC_TERMS
 };

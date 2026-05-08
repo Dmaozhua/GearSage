@@ -1630,7 +1630,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1000",
-    "name": "Beast™ Spinning Reel",
+    "name": "Beast™",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1641,7 +1641,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1001",
-    "name": "Ike Signature Spinning Reel",
+    "name": "Ike Signature",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1652,7 +1652,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1002",
-    "name": "Max™ Elite Spinning Reel",
+    "name": "Max™ Elite",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1663,7 +1663,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1003",
-    "name": "Max™ SX Spinning Reel",
+    "name": "Max™ SX",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1674,7 +1674,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1004",
-    "name": "Max™ X Spinning Reel",
+    "name": "Max™ X",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1685,7 +1685,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1005",
-    "name": "Max™ Pro Spinning Reel",
+    "name": "Max™ Pro",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1696,7 +1696,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1006",
-    "name": "Zenon™ X Spinning Reel",
+    "name": "Zenon™ X",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1707,7 +1707,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1007",
-    "name": "Revo® X Spinning Reel",
+    "name": "Revo® X",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1718,7 +1718,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1008",
-    "name": "Revo® SX Spinning Reel",
+    "name": "Revo® SX",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1729,7 +1729,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1009",
-    "name": "Revo® Winch Spinning Reel",
+    "name": "Revo® Winch",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1740,7 +1740,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1010",
-    "name": "Revo® Rocket Spinning Reel",
+    "name": "Revo® Rocket",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -1751,7 +1751,7 @@ module.exports = [
   {
     "type": "reel",
     "id": "ARE1011",
-    "name": "Max™ Pro Spinning Reel (Prior Gen)",
+    "name": "Max™ Pro (Prior Gen)",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -5700,7 +5700,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1000",
-    "name": "IRSC-63MHR-TG40X ウォーガゼルRS",
+    "name": "IRSC-63MHR-TG40X War Gazelle RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5711,7 +5711,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1001",
-    "name": "GTR-C66LLR スーパースティードGT-R",
+    "name": "GTR-C66LLR Super Steed GT-R",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5722,7 +5722,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1002",
-    "name": "IRSC-66M コブラRS",
+    "name": "IRSC-66M Cobra RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5733,7 +5733,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1003",
-    "name": "IGTC-66M コブラGT",
+    "name": "IGTC-66M Cobra GT",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5744,7 +5744,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1004",
-    "name": "IRSC-66MHF-TG40X ブラックレイブンエクストリームRS",
+    "name": "IRSC-66MHF-TG40X Black Raven Extreme RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5755,7 +5755,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1005",
-    "name": "IRSC-69MH スタリオンRS",
+    "name": "IRSC-69MH Stallion RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5766,7 +5766,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1006",
-    "name": "IGTC-69MH スタリオンGT",
+    "name": "IGTC-69MH Stallion GT",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5777,7 +5777,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1007",
-    "name": "IRSC-610MHRF スーパーレイブンRS",
+    "name": "IRSC-610MHRF Super Raven RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5788,7 +5788,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1008",
-    "name": "IRSC-611XMH グランドコブラRS",
+    "name": "IRSC-611XMH Grand Cobra RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5799,7 +5799,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1009",
-    "name": "IGTC-611XMH グランドコブラGT",
+    "name": "IGTC-611XMH Grand Cobra GT",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5810,7 +5810,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1010",
-    "name": "IRSC-611XXXHR-SXF＜SG＞ ジャイアントディアウルフRS",
+    "name": "IRSC-611XXXHR-SXF＜SG＞ Giant Dire Wolf RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5821,7 +5821,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1011",
-    "name": "IRSC-70MF-SXF クーガーエリート7RS",
+    "name": "IRSC-70MF-SXF Cougar Elite 7 RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5832,7 +5832,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1012",
-    "name": "IGTC-71MF-SXF クーガーエリート7GT",
+    "name": "IGTC-71MF-SXF Cougar Elite 7 GT",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5843,7 +5843,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1013",
-    "name": "IRSC-70MHR-SXF ディアウルフワイルド7RS",
+    "name": "IRSC-70MHR-SXF Dire Wolf Wild 7 RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5854,7 +5854,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1014",
-    "name": "GTR-C70MHR-SXF＜SG＞ ディアウルフワイルド7GT-R",
+    "name": "GTR-C70MHR-SXF＜SG＞ Dire Wolf Wild 7 GT-R",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5865,7 +5865,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1015",
-    "name": "RSR-C70XHX ラピッドガンナーRSR",
+    "name": "RSR-C70XHX Rapid Gunner RSR",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5876,7 +5876,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1016",
-    "name": "HD-C70XHX ラピッドガンナーHD",
+    "name": "HD-C70XHX Rapid Gunner HD",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5887,7 +5887,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1017",
-    "name": "IGTC-71MH スーパースタリオンGT",
+    "name": "IGTC-71MH Super Stallion GT",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5898,7 +5898,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1018",
-    "name": "GT2RS-C71MH スーパースタリオンGT2RS",
+    "name": "GT2RS-C71MH Super Stallion GT2RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5909,7 +5909,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1019",
-    "name": "GT3RS-C71MH-TG40X スーパースタリオンGT3RS",
+    "name": "GT3RS-C71MH-TG40X Super Stallion GT3RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5920,7 +5920,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1020",
-    "name": "GTX-C710XHX グランドスタリオンGT-X",
+    "name": "GTX-C710XHX Grand Stallion GT-X",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5931,7 +5931,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1021",
-    "name": "IRSC-66MR-ST＜SPG＞ ヴェロキラプターRS",
+    "name": "IRSC-66MR-ST＜SPG＞ Velociraptor RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5942,7 +5942,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1022",
-    "name": "IRSC-67MHF-ST/SS ストライダーRS",
+    "name": "IRSC-67MHF-ST/SS Strider RS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5953,7 +5953,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1023",
-    "name": "TKIC-63ML スティングレイスーパーシェイク(トーナメントシリーズ)",
+    "name": "TKIC-63ML Stingray Super Shake",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5964,7 +5964,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1024",
-    "name": "TKIC-63ML-BK スティングレイスーパーシェイク(ブラックシリーズ)",
+    "name": "TKIC-63ML-BK Stingray Super Shake B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5975,7 +5975,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1025",
-    "name": "TKIC-66M コブラDG66M(トーナメントシリーズ)",
+    "name": "TKIC-66M Cobra DG66M",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5986,7 +5986,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1026",
-    "name": "TKIC-66M-BK コブラDG66M(ブラックシリーズ)",
+    "name": "TKIC-66M-BK Cobra DG66M B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -5997,7 +5997,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1027",
-    "name": "TKIC-66MH ブラックレイブン(トーナメントシリーズ)",
+    "name": "TKIC-66MH Black Raven",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6008,7 +6008,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1028",
-    "name": "TKIC-66MH-BK ブラックレイブン(ブラックシリーズ)",
+    "name": "TKIC-66MH-BK Black Raven B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6019,7 +6019,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1029",
-    "name": "TKIC-69MH スタリオンDG69MH(トーナメントシリーズ)",
+    "name": "TKIC-69MH Stallion DG69MH",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6030,7 +6030,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1030",
-    "name": "TKIC-69MH-BK スタリオンDG69MH(ブラックシリーズ)",
+    "name": "TKIC-69MH-BK Stallion DG69MH B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6041,7 +6041,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1031",
-    "name": "TKIC-610MR スーパークーガー(トーナメントシリーズ)",
+    "name": "TKIC-610MR Super Cougar",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6052,7 +6052,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1032",
-    "name": "TKIC-610MR-BK スーパークーガー(ブラックシリーズ)",
+    "name": "TKIC-610MR-BK Super Cougar B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6063,7 +6063,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1033",
-    "name": "TKIC-610H ガンスリンジャー(トーナメントシリーズ)",
+    "name": "TKIC-610H Gunslinger",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6074,7 +6074,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1034",
-    "name": "TKIC-610H-BK ガンスリンジャー(ブラックシリーズ)",
+    "name": "TKIC-610H-BK Gunslinger B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6085,7 +6085,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1035",
-    "name": "TKIC-611XMH-BK グランドコブラ・リミテッド(ブラックシリーズ)",
+    "name": "TKIC-611XMH-BK Grand Cobra Limited",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6096,7 +6096,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1036",
-    "name": "TKIC-70H エゴイスト(トーナメントシリーズ)",
+    "name": "TKIC-70H Egoist",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6107,7 +6107,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1037",
-    "name": "TKIC-70H-BK エゴイスト(ブラックシリーズ)",
+    "name": "TKIC-70H-BK Egoist B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6118,7 +6118,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1038",
-    "name": "TKIC-71MH スーパースタリオン(トーナメントシリーズ)",
+    "name": "TKIC-71MH Super Stallion",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6129,7 +6129,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1039",
-    "name": "TKIC-71MH-BK スーパースタリオン(ブラックシリーズ)",
+    "name": "TKIC-71MH-BK Super Stallion B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6140,7 +6140,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1040",
-    "name": "TKIC-65MLST ブラックブライアー(トーナメントシリーズ)",
+    "name": "TKIC-65MLST Black Briar",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6151,7 +6151,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1041",
-    "name": "TKIC-65MLST-BK ブラックブライアー(ブラックシリーズ)",
+    "name": "TKIC-65MLST-BK Black Briar B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6162,7 +6162,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1042",
-    "name": "TKIC-67MHST-R スティングレイワイルドフィネス(トーナメントシリーズ)",
+    "name": "TKIC-67MHST-R Stingray Wild Finesse",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6173,7 +6173,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1043",
-    "name": "TKIC-67MHST-R-BK スティングレイワイルドフィネス(ブラックシリーズ)",
+    "name": "TKIC-67MHST-R-BK Stingray Wild Finesse B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6184,7 +6184,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1044",
-    "name": "TKIC-67MHST-F ブラックレイブンSS(トーナメントシリーズ)",
+    "name": "TKIC-67MHST-F Black Raven SS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6195,7 +6195,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1045",
-    "name": "TKIC-67MHST-F-BK ブラックレイブンSS(ブラックシリーズ)",
+    "name": "TKIC-67MHST-F-BK Black Raven SS B",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6206,7 +6206,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1046",
-    "name": "TKSS-63UL-ZZ インクレディブルセンサー・デルジェスUL",
+    "name": "TKSS-63UL-ZZ Incredible Sensor Delges UL",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6217,7 +6217,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1047",
-    "name": "TKSS-63L-ZZ インクレディブルセンサー・デルジェス",
+    "name": "TKSS-63L-ZZ Incredible Sensor Delges",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6228,7 +6228,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1048",
-    "name": "TKSS-64L ビースティンガー",
+    "name": "TKSS-64L Beastinger",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6239,7 +6239,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1049",
-    "name": "TKSS-64ML ビースティンガーエクストリーム",
+    "name": "TKSS-64ML Beastinger Extreme",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6250,7 +6250,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1050",
-    "name": "TKSS-67XM インクレディブルセンサー・ガルネリウス",
+    "name": "TKSS-67XM Incredible Sensor Galnerius",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6261,7 +6261,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1051",
-    "name": "TKSS-611MH-TG40X スパイダースピン",
+    "name": "TKSS-611MH-TG40X Spider Spin",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6272,7 +6272,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1052",
-    "name": "TKSS-76UL/XM-LTD LLキャロライナスペシャル",
+    "name": "TKSS-76UL/XM-LTD LL Carolina Special",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6283,7 +6283,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1053",
-    "name": "TKSS-61ULST スーパーフィネス",
+    "name": "TKSS-61ULST Super Finesse",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6294,7 +6294,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1054",
-    "name": "TKSS-61MLST サイトイーグル",
+    "name": "TKSS-61MLST Sight Eagle",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6305,7 +6305,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1055",
-    "name": "TKSS-63LST マイティーフィネス",
+    "name": "TKSS-63LST Mighty Finesse",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6316,7 +6316,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1056",
-    "name": "TKSS-63LXST＜S-1＞ マーシャルイーグル",
+    "name": "TKSS-63LXST＜S-1＞ Marshall Eagle",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6327,7 +6327,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1057",
-    "name": "TKSS-63MLST サイトホーク",
+    "name": "TKSS-63MLST Sight Hawk",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6338,7 +6338,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1058",
-    "name": "TKSS-64MST スピンサーペント",
+    "name": "TKSS-64MST Spin Serpent",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6349,7 +6349,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1059",
-    "name": "TKSS-66MHST ブッシュサーペント",
+    "name": "TKSS-66MHST Bush Serpent",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6360,7 +6360,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1060",
-    "name": "TKSS-711MHST キングサーペント",
+    "name": "TKSS-711MHST King Serpent",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6371,7 +6371,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1061",
-    "name": "OCSC-64L アルエット",
+    "name": "OCSC-64L Alouette",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6382,7 +6382,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1062",
-    "name": "OCSC-67ML デジェル",
+    "name": "OCSC-67ML Degel",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6393,7 +6393,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1063",
-    "name": "OCSC-67ML+ ライトニングストライク",
+    "name": "OCSC-67ML+ Lightning Strike",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6404,7 +6404,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1064",
-    "name": "OCSC-67M カンタータ",
+    "name": "OCSC-67M Cantata",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6415,7 +6415,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1065",
-    "name": "OCSC-67MH ユミハリ",
+    "name": "OCSC-67MH Yumihari",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6426,7 +6426,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1066",
-    "name": "OCSC-68ML ファイアソード",
+    "name": "OCSC-68ML Fire Sword",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6437,7 +6437,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1067",
-    "name": "OCSC-68M スカイソード",
+    "name": "OCSC-68M Sky Sword",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6448,7 +6448,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1068",
-    "name": "OCSC-69MH ムーンゲイザー",
+    "name": "OCSC-69MH Moongazer",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6459,7 +6459,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1069",
-    "name": "OCSC-69H スターゲイザー",
+    "name": "OCSC-69H Stargazer",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6470,7 +6470,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1070",
-    "name": "OCSC-71H+ ブラックローズ",
+    "name": "OCSC-71H+ Black Rose",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6481,7 +6481,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1071",
-    "name": "OCSC-79MH シルヴァ",
+    "name": "OCSC-79MH Silva",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6492,7 +6492,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1072",
-    "name": "OCSC-711XX スローン",
+    "name": "OCSC-711XX Throne",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6503,7 +6503,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1073",
-    "name": "OCSS-65L ウィロー",
+    "name": "OCSS-65L Willow",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6514,7 +6514,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1074",
-    "name": "OCSS-65ML ブラックガーディアン",
+    "name": "OCSS-65ML Black Guardian",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6525,7 +6525,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1075",
-    "name": "OCSS-69H ハイド アンド シーク",
+    "name": "OCSS-69H Hide and Seek",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6536,7 +6536,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1076",
-    "name": "OCSS-60XUL-ST クイックセンシズ",
+    "name": "OCSS-60XUL-ST Quick Senses",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6547,7 +6547,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1077",
-    "name": "OCSS-60UL-ST ガルサ",
+    "name": "OCSS-60UL-ST Garza",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6558,7 +6558,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1078",
-    "name": "OCSS-63UL-ST フリーウィル",
+    "name": "OCSS-63UL-ST Free Will",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6569,7 +6569,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1079",
-    "name": "HCSC-62M EGアクション",
+    "name": "HCSC-62M EG Action",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6580,7 +6580,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1080",
-    "name": "HCSC-63MH テクニカルアクション",
+    "name": "HCSC-63MH Technical Action",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6591,7 +6591,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1081",
-    "name": "HCSC-64MＬ ウォレシア",
+    "name": "HCSC-64MＬ Wallacea",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6602,7 +6602,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1082",
-    "name": "HCSC-64M マニピュレーター",
+    "name": "HCSC-64M Manipulator",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6613,7 +6613,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1083",
-    "name": "HCSC-65ML+PLUS メタルウィップ",
+    "name": "HCSC-65ML+PLUS Metal Whip",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6624,7 +6624,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1084",
-    "name": "HCSC-66ML-LTS エアレギウスLTS",
+    "name": "HCSC-66ML-LTS Air Regius LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6635,7 +6635,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1085",
-    "name": "HCSC-66ML エアレギウス",
+    "name": "HCSC-66ML Air Regius",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6646,7 +6646,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1086",
-    "name": "HCSC-66M-LTS フォースグランディスLTS",
+    "name": "HCSC-66M-LTS Force Grandis LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6657,7 +6657,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1087",
-    "name": "HCSC-66M フォースグランディス",
+    "name": "HCSC-66M Force Grandis",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6668,7 +6668,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1088",
-    "name": "HCSC-67M EGムービング",
+    "name": "HCSC-67M EG Moving",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6679,7 +6679,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1089",
-    "name": "HCSC-67MHR レッドマイスター",
+    "name": "HCSC-67MHR Red Meister",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6690,7 +6690,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1090",
-    "name": "HCSC-67MH-LTS ブルーマイスターLTS",
+    "name": "HCSC-67MH-LTS Bluemeister LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6701,7 +6701,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1091",
-    "name": "HCSC-67MH ブルーマイスター",
+    "name": "HCSC-67MH Bluemeister",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6712,7 +6712,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1092",
-    "name": "HCSC-68L/MH プロガイダンスC68",
+    "name": "HCSC-68L/MH Pro Guidance C68",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6723,7 +6723,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1093",
-    "name": "HCSC-69H-LTS ヘラクレスLTS",
+    "name": "HCSC-69H-LTS Heracles LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6734,7 +6734,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1094",
-    "name": "HCSC-69H ヘラクレス",
+    "name": "HCSC-69H Heracles",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6745,7 +6745,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1095",
-    "name": "HCSC-70ML エアレギウス7",
+    "name": "HCSC-70ML Air Regius 7",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6756,7 +6756,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1096",
-    "name": "HCSC-70M フォースグランディス7",
+    "name": "HCSC-70M Force Grandis 7",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6767,7 +6767,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1097",
-    "name": "HCSC-70M-LTS フォースグランディス7LTS",
+    "name": "HCSC-70M-LTS Force Grandis 7 LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6778,7 +6778,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1098",
-    "name": "HCSC-70MH ブルーマイスター7",
+    "name": "HCSC-70MH Bluemeister 7",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6789,7 +6789,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1099",
-    "name": "HCSC-70MH-LTS ブルーマイスター7LTS",
+    "name": "HCSC-70MH-LTS Bluemeister 7 LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6800,7 +6800,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1100",
-    "name": "HCSC-70H ヘラクレス7",
+    "name": "HCSC-70H Heracles 7",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6811,7 +6811,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1101",
-    "name": "HCSC-70H-LTS ヘラクレス7LTS",
+    "name": "HCSC-70H-LTS Heracles 7 LTS",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6822,7 +6822,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1102",
-    "name": "HCSC-72MH EGスイミング",
+    "name": "HCSC-72MH EG Swimming",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6833,7 +6833,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1103",
-    "name": "HCSC-72X スーパーエクスプロージョン",
+    "name": "HCSC-72X Super Explosion",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6844,7 +6844,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1104",
-    "name": "HCSC-74X アクテオン",
+    "name": "HCSC-74X Actaeon",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6855,7 +6855,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1105",
-    "name": "HCSC-75H エアリーフリップ",
+    "name": "HCSC-75H Airy Flip",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6866,7 +6866,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1106",
-    "name": "HCSC-77MH ストライクマスター77",
+    "name": "HCSC-77MH Strike Master 77",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6877,7 +6877,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1107",
-    "name": "HCSC-79XX アクテオンマグナムEX",
+    "name": "HCSC-79XX Actaeon Magnum EX",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6888,7 +6888,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1108",
-    "name": "HCSC-82XX アクテオンマグナム",
+    "name": "HCSC-82XX Actaeon Magnum",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6899,7 +6899,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1109",
-    "name": "HCSC-60UL/MST スパークショット",
+    "name": "HCSC-60UL/MST Sparkshot",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6910,7 +6910,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1110",
-    "name": "HCSC-66MG トルクアータ66",
+    "name": "HCSC-66MG Torquata 66",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6921,7 +6921,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1111",
-    "name": "HCSC-68MG オセロット",
+    "name": "HCSC-68MG Ocelot",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6932,7 +6932,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1112",
-    "name": "HCSC-611MHG サーバル",
+    "name": "HCSC-611MHG Serval",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6943,7 +6943,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1113",
-    "name": "HCSC-70MG トルクアータ7",
+    "name": "HCSC-70MG Torquata 7",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6954,7 +6954,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1114",
-    "name": "HCSC-73HG レパード",
+    "name": "HCSC-73HG Leopard",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -6965,7 +6965,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1115",
-    "name": "HCSS-64ML ブラックレギウス",
+    "name": "HCSS-64ML Black Regius",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6976,7 +6976,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1116",
-    "name": "HCSS-65L UTスピン",
+    "name": "HCSS-65L UT Spin",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6987,7 +6987,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1117",
-    "name": "HCSS-68ML パワーシェイカー68ML",
+    "name": "HCSS-68ML Power Shaker 68ML",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -6998,7 +6998,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1118",
-    "name": "HCSS-611M パワーシェイカー611M",
+    "name": "HCSS-611M Power Shaker 611M",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7009,7 +7009,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1119",
-    "name": "HCSS-70UL ファランクス",
+    "name": "HCSS-70UL Phalanx",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7020,7 +7020,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1120",
-    "name": "HCSS-61ULST ソリッドセンサー61",
+    "name": "HCSS-61ULST Solid Sensor 61",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7031,7 +7031,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1121",
-    "name": "HFAC-65M",
+    "name": "HFAC-65M HFAC-65M",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7042,7 +7042,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1122",
-    "name": "HFAC-66ML",
+    "name": "HFAC-66ML HFAC-66ML",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7053,7 +7053,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1123",
-    "name": "HFAC-511MHST",
+    "name": "HFAC-511MHST HFAC-511MHST",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7064,7 +7064,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1124",
-    "name": "HFAC-66MST",
+    "name": "HFAC-66MST HFAC-66MST",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7075,7 +7075,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1125",
-    "name": "HFAC-67MHST",
+    "name": "HFAC-67MHST HFAC-67MHST",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7086,7 +7086,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1126",
-    "name": "HFAC-70HST",
+    "name": "HFAC-70HST HFAC-70HST",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7097,7 +7097,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1127",
-    "name": "HFAS-511MHST",
+    "name": "HFAS-511MHST HFAS-511MHST",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7108,7 +7108,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1128",
-    "name": "HFAS-61ULST",
+    "name": "HFAS-61ULST HFAS-61ULST",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7119,7 +7119,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1129",
-    "name": "HFAS-64XULST",
+    "name": "HFAS-64XULST HFAS-64XULST",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7130,7 +7130,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1130",
-    "name": "HFAS-65ULST",
+    "name": "HFAS-65ULST HFAS-65ULST",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7141,7 +7141,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1131",
-    "name": "CSYC-610ML リッピンフィート",
+    "name": "CSYC-610ML Rippin Feat",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7152,7 +7152,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1132",
-    "name": "CSYC-70M+ マルチローラー",
+    "name": "CSYC-70M+ Multi Roller",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7163,7 +7163,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1133",
-    "name": "CSYC-71H スーパーディトネーター",
+    "name": "CSYC-71H Super Detonator",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7174,7 +7174,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1134",
-    "name": "CSYC-73MH＋ スーパートライアンフ",
+    "name": "CSYC-73MH＋ Super Triumph",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7185,7 +7185,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1135",
-    "name": "CSYC-77H スーパーマグナム",
+    "name": "CSYC-77H Super Magnum",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7196,7 +7196,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1136",
-    "name": "PCSC-63ML+ レーザーショット",
+    "name": "PCSC-63ML+ Razor Shot",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7207,7 +7207,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1137",
-    "name": "PCSC-66L+ BF フィールディンスター・ベイトフィネス",
+    "name": "PCSC-66L+ Fieldin Star Bait Finesse",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7218,7 +7218,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1138",
-    "name": "PCSC-66ML+ シューティンスター",
+    "name": "PCSC-66ML+ Shooting Star",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7229,7 +7229,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1139",
-    "name": "PCSC-66M ウォリアー",
+    "name": "PCSC-66M Warrior",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7240,7 +7240,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1140",
-    "name": "PCSC-67MH テンペスト",
+    "name": "PCSC-67MH Tempest",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7251,7 +7251,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1141",
-    "name": "PCSC-68H タイラント",
+    "name": "PCSC-68H Tyrant",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7262,7 +7262,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1142",
-    "name": "PCSC-70MHR ワイルドシューター",
+    "name": "PCSC-70MHR Wild Shooter",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7273,7 +7273,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1143",
-    "name": "PCSC-71M+ シャープシューター",
+    "name": "PCSC-71M+ Sharp Shooter",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7284,7 +7284,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1144",
-    "name": "PCSC-71MH エクスプローラー",
+    "name": "PCSC-71MH Explorer",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7295,7 +7295,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1145",
-    "name": "PCSC-71XX パワープラント",
+    "name": "PCSC-71XX Power Plant",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7306,7 +7306,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1146",
-    "name": "PCSC-72H ディッガー",
+    "name": "PCSC-72H Digger",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7317,7 +7317,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1147",
-    "name": "PCSC-74X ブラックアクテオン",
+    "name": "PCSC-74X Black Actaeon",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7328,7 +7328,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1148",
-    "name": "PCSS-56L マスターアーチャー56",
+    "name": "PCSS-56L Master Archer 56",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7339,7 +7339,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1149",
-    "name": "PCSS-64UL ドリフトマスター",
+    "name": "PCSS-64UL Drift Master",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7350,7 +7350,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1150",
-    "name": "PCSS-65L+ スピットファイア",
+    "name": "PCSS-65L+ Spitfire",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7361,7 +7361,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1151",
-    "name": "PCSS-65M スムーズトルク",
+    "name": "PCSS-65M Smooth Torque",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7372,7 +7372,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1152",
-    "name": "PCSS-68L フォーチュンブルー",
+    "name": "PCSS-68L Fortune Blue",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7383,7 +7383,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1153",
-    "name": "CLCC-68ML",
+    "name": "CLCC-68ML CLCC-68ML",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7394,7 +7394,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1154",
-    "name": "CLCC-610M",
+    "name": "CLCC-610M CLCC-610M",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7405,7 +7405,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1155",
-    "name": "CLCC-611MH",
+    "name": "CLCC-611MH CLCC-611MH",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7416,7 +7416,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1156",
-    "name": "CLCC-71MH",
+    "name": "CLCC-71MH CLCC-71MH",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7427,7 +7427,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1157",
-    "name": "CLCC-71H",
+    "name": "CLCC-71H CLCC-71H",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7438,7 +7438,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1158",
-    "name": "CLCS-611L",
+    "name": "CLCS-611L CLCS-611L",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7449,7 +7449,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1159",
-    "name": "CLCS-70ML",
+    "name": "CLCS-70ML CLCS-70ML",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7460,7 +7460,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1160",
-    "name": "CLCS-75M",
+    "name": "CLCS-75M CLCS-75M",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7471,7 +7471,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1161",
-    "name": "CLCS-77MH",
+    "name": "CLCS-77MH CLCS-77MH",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7482,7 +7482,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1162",
-    "name": "ICSS-60UL エアリアルレジェンド",
+    "name": "ICSS-60UL Aerial",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7493,7 +7493,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1163",
-    "name": "ICSS-63UL スーパーエアリアルレジェンド",
+    "name": "ICSS-63UL Super Aerial",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7504,7 +7504,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1164",
-    "name": "PREJ508-2 リアルジャーカー508-2",
+    "name": "PREJ508-2 Real Jerker 508-2",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7515,7 +7515,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1165",
-    "name": "PREJ508-3 リアルジャーカー508-3",
+    "name": "PREJ508-3 Real Jerker 508-3",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7526,7 +7526,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1166",
-    "name": "PREJ508-4 リアルジャーカー508-4",
+    "name": "PREJ508-4 Real Jerker 508-4",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7537,7 +7537,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1167",
-    "name": "PSLJ 603-1 スロージャーカー603-1",
+    "name": "PSLJ Slow Jerker 603-1",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7548,7 +7548,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1168",
-    "name": "PSLJ 603-1.5 スロージャーカー603-1.5",
+    "name": "PSLJ Slow Jerker 603-1.5",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7559,7 +7559,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1169",
-    "name": "PSLJ 603-2 スロージャーカー603-2",
+    "name": "PSLJ Slow Jerker 603-2",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7570,7 +7570,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1170",
-    "name": "PSLJ 603-3 スロージャーカー603-3",
+    "name": "PSLJ Slow Jerker 603-3",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7581,7 +7581,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1171",
-    "name": "PSLJ 603-4 スロージャーカー603-4",
+    "name": "PSLJ Slow Jerker 603-4",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7592,7 +7592,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1172",
-    "name": "PSLJ 603-5 スロージャーカー603-5",
+    "name": "PSLJ Slow Jerker 603-5",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7603,7 +7603,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1173",
-    "name": "PSLJ 603-6 スロージャーカー603-6",
+    "name": "PSLJ Slow Jerker 603-6",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7614,7 +7614,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1174",
-    "name": "PLFJ77XH ロングフォールジャーカー77XH",
+    "name": "PLFJ77XH Long Fall Jerker 77XH",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7625,7 +7625,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1175",
-    "name": "PLFJ710L-1.5 ロングフォールジャーカー710L-1.5",
+    "name": "PLFJ710L-1.5 Long Fall Jerker 710L-1.5",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7636,7 +7636,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1176",
-    "name": "PLFJ710ML-2 ロングフォールジャーカー710ML-2",
+    "name": "PLFJ710ML-2 Long Fall Jerker 710ML-2",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7647,7 +7647,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1177",
-    "name": "PLFJ710M-3 ロングフォールジャーカー710M-3",
+    "name": "PLFJ710M-3 Long Fall Jerker 710M-3",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7658,7 +7658,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1178",
-    "name": "PLFJ710MH-4 ロングフォールジャーカー710MH-4",
+    "name": "PLFJ710MH-4 Long Fall Jerker 710MH-4",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7669,7 +7669,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1179",
-    "name": "PLFJ710H-5 ロングフォールジャーカー710H-5",
+    "name": "PLFJ710H-5 Long Fall Jerker 710H-5",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7680,7 +7680,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1180",
-    "name": "PLFJ710H-6 ロングフォールジャーカー710H-6",
+    "name": "PLFJ710H-6 Long Fall Jerker 710H-6",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7691,7 +7691,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1181",
-    "name": "PHPJ 410 ハイピッチジャーカー410",
+    "name": "PHPJ High Pitch Jerker 410",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7702,7 +7702,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1182",
-    "name": "PHPJ 501 ハイピッチジャーカー501",
+    "name": "PHPJ High Pitch Jerker 501",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7713,7 +7713,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1183",
-    "name": "PHPJ 504 ハイピッチジャーカー504",
+    "name": "PHPJ High Pitch Jerker 504",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7724,7 +7724,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1184",
-    "name": "PHPJ 600 ハイピッチジャーカー600",
+    "name": "PHPJ High Pitch Jerker 600",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7735,7 +7735,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1185",
-    "name": "PHPJ606L-4 ハイピッチジャーカーライト606L-4",
+    "name": "PHPJ606L-4 High Pitch Jerker Light 606L-4",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7746,7 +7746,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1186",
-    "name": "PHPJ607L-3 ハイピッチジャーカーライト607L-3",
+    "name": "PHPJ607L-3 High Pitch Jerker Light 607L-3",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7757,7 +7757,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1187",
-    "name": "PSPJ 500 スピンジャーカー500",
+    "name": "PSPJ Spin Jerker 500",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7768,7 +7768,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1188",
-    "name": "PSPJ 502 スピンジャーカー502",
+    "name": "PSPJ Spin Jerker 502",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7779,7 +7779,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1189",
-    "name": "PSPJ 602 スピンジャーカー602",
+    "name": "PSPJ Spin Jerker 602",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7790,7 +7790,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1190",
-    "name": "PSPJ 603L-1.5 スピンジャーカーライト603L-1.5",
+    "name": "PSPJ Spin Jerker Light 603L-1.5",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7801,7 +7801,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1191",
-    "name": "PSPJ 603L スピンジャーカーライト603L",
+    "name": "PSPJ Spin Jerker Light 603L",
     "alias": "",
     "type_tips": "",
     "system": "",
@@ -7812,7 +7812,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1192",
-    "name": "PSPJ 603L-5 スピンジャーカーライト603L-5",
+    "name": "PSPJ Spin Jerker Light 603L-5",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7823,7 +7823,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1193",
-    "name": "PSMC-66L/MLST",
+    "name": "PSMC-66L/MLST PSMC-66L/MLST",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7834,7 +7834,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1194",
-    "name": "PSMC-68UL/MLST",
+    "name": "PSMC-68UL/MLST PSMC-68UL/MLST",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7845,7 +7845,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1195",
-    "name": "PSMS-70L/M",
+    "name": "PSMS-70L/M PSMS-70L/M",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7856,7 +7856,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1196",
-    "name": "PSMS-68UL/MLST",
+    "name": "PSMS-68UL/MLST PSMS-68UL/MLST",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7867,7 +7867,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1197",
-    "name": "NIMC-61ULST MSダンサー61(イカメタルモデル)",
+    "name": "NIMC-61ULST MS Dancer 61",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7878,7 +7878,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1198",
-    "name": "NIMC-63XUL/LST ドラッギンマスターC63",
+    "name": "NIMC-63XUL/LST Draggin Master C63",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7889,7 +7889,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1199",
-    "name": "NIMC-611M-ST ソードティップマスターC611(イカメタル・オモリグモデル)",
+    "name": "NIMC-611M-ST Sword Tip Master C611",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7900,7 +7900,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1200",
-    "name": "NIMC-70MST ディープエモーション70",
+    "name": "NIMC-70MST Deep Emotion 70",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -7911,7 +7911,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1201",
-    "name": "NIMS-73M ウィップジャーク73",
+    "name": "NIMS-73M Whip Jerk 73",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7922,7 +7922,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1202",
-    "name": "NIMS-75MH ラッシュジャーク75",
+    "name": "NIMS-75MH Lash Jerk 75",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7933,7 +7933,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1203",
-    "name": "NIMS-77SL フェザージャーク77",
+    "name": "NIMS-77SL Feather Jerk 77",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7944,7 +7944,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1204",
-    "name": "NIMS-82L テクニマスター82",
+    "name": "NIMS-82L Technimaster 82",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7955,7 +7955,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1205",
-    "name": "NIMS-86SL フェザージャーク86",
+    "name": "NIMS-86SL Feather Jerk 86",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7966,7 +7966,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1206",
-    "name": "NIMS-86L スラックマスター86",
+    "name": "NIMS-86L Slackmaster 86",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7977,7 +7977,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1207",
-    "name": "NIMS-86L-EX スラックマスター86EX",
+    "name": "NIMS-86L-EX Slack Master 86EX",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7988,7 +7988,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1208",
-    "name": "NIMS-86M レーザーキング86",
+    "name": "NIMS-86M Razor King 86",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -7999,7 +7999,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1209",
-    "name": "NIMS-90L スラックマスター90",
+    "name": "NIMS-90L Slackmaster 90",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8010,7 +8010,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1210",
-    "name": "NIMS-110ML スラックキング110",
+    "name": "NIMS-110ML Slack King 110",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8021,7 +8021,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1211",
-    "name": "NIMS-63XUL/LST ドラッギンマスターS63",
+    "name": "NIMS-63XUL/LST Draggin Master S63",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8032,7 +8032,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1212",
-    "name": "NIMS-70ML-ST ソードティップマスターS70(イカメタル・オモリグモデル)",
+    "name": "NIMS-70ML-ST Sword Tip Master S70",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8043,7 +8043,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1213",
-    "name": "NIMS-80ULST レスポンスマスター80",
+    "name": "NIMS-80ULST Response Master 80",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8054,7 +8054,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1214",
-    "name": "SSSS-88L スラックジャーク88",
+    "name": "SSSS-88L Slack Jerk 88",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8065,7 +8065,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1215",
-    "name": "SSSS-92L スラックジャーク92",
+    "name": "SSSS-92L Slack Jerk 92",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8076,7 +8076,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1216",
-    "name": "SSSS-86M レーザージャーク86",
+    "name": "SSSS-86M Razor Jerk 86",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8087,7 +8087,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1217",
-    "name": "SSSS-90M レーザージャーク90",
+    "name": "SSSS-90M Razor Jerk 90",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8098,7 +8098,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1218",
-    "name": "SSSS-710MH マグナムジャーク710",
+    "name": "SSSS-710MH Magnum Jerk 710",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8109,7 +8109,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1219",
-    "name": "SSSS-84MH マグナムジャーク84",
+    "name": "SSSS-84MH Magnum Jerk 84",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8120,7 +8120,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1220",
-    "name": "ZAGC-73 グランフューリー",
+    "name": "ZAGC-73 Gran Fury",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -8131,7 +8131,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1221",
-    "name": "ZAGC-710 グランソード",
+    "name": "ZAGC-710 Gran Sword",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -8142,7 +8142,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1222",
-    "name": "ZAGS-78 クロースコンバット78",
+    "name": "ZAGS-78 Close Combat 78",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8153,7 +8153,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1223",
-    "name": "ZAGS-85 ファストブレイク85",
+    "name": "ZAGS-85 Fast Break 85",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8164,7 +8164,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1224",
-    "name": "ZAGS-87L/MLR ストリームウィップ87",
+    "name": "ZAGS-87L/MLR Stream Whip 87",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8175,7 +8175,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1225",
-    "name": "ZAGS-87M/MH マイティスラッガー87",
+    "name": "ZAGS-87M/MH Mighty Slugger 87",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8186,7 +8186,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1226",
-    "name": "ZAGS-91UL/L スウィープマスター91",
+    "name": "ZAGS-91UL/L Sweep Master 91",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8197,7 +8197,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1227",
-    "name": "ZAGS-92 ワイドアタッカー92",
+    "name": "ZAGS-92 Wide Attacker 92",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8208,7 +8208,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1228",
-    "name": "ZAGS-93 パスブレイカー93",
+    "name": "ZAGS-93 Pathbreaker 93",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8219,7 +8219,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1229",
-    "name": "ZAGS-96L+R ファイナルウィップ96",
+    "name": "ZAGS-96L+R Final Whip 96",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8230,7 +8230,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1230",
-    "name": "ZAGS-96R ストリームウィップ96",
+    "name": "ZAGS-96R Stream Whip 96",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8241,7 +8241,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1231",
-    "name": "ZAGS-96 ストリームキング96",
+    "name": "ZAGS-96 Stream King 96",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8252,7 +8252,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1232",
-    "name": "ZAGS-96ML/M+ エースアタッカー96",
+    "name": "ZAGS-96ML/M+ Ace Attacker 96",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8263,7 +8263,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1233",
-    "name": "ZAGS-98 マイティスラッガー98",
+    "name": "ZAGS-98 Mighty Slugger 98",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8274,7 +8274,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1234",
-    "name": "ZAGS-98M/MH-EX マイティスラッガー98EX",
+    "name": "ZAGS-98M/MH-EX Mighty Slugger 98EX",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8285,7 +8285,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1235",
-    "name": "ZAGS-102 スプレマシー102AGS",
+    "name": "ZAGS-102 Supremacy 102AGS",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8296,7 +8296,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1236",
-    "name": "ZAGS-103M/H ハープーン103",
+    "name": "ZAGS-103M/H Harpoon 103",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8307,7 +8307,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1237",
-    "name": "ZAGS-108 ショアパトロール108",
+    "name": "ZAGS-108 Shore Patrol 108",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8318,7 +8318,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1238",
-    "name": "ZAGS-118 フレックスマスター118",
+    "name": "ZAGS-118 Flex Master 118",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8329,7 +8329,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1239",
-    "name": "ZAGS-86ST ソリッドソリューションUFT86",
+    "name": "ZAGS-86ST Solid Solution UFT 86",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8340,7 +8340,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1240",
-    "name": "ZAGS-88ST ソリッドソリューションGRT88",
+    "name": "ZAGS-88ST Solid Solution GRT 88",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8351,7 +8351,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1241",
-    "name": "SPRC-66L/M-S＜BOAT＞ ディープセンスC (バーチカルボートアジングモデル)",
+    "name": "SPRC-66L/M-S＜BOAT＞ Deep Sense C",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -8362,7 +8362,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1242",
-    "name": "SPRS-56XUL-S トゥイッギー",
+    "name": "SPRS-56XUL-S Twiggy",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8373,7 +8373,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1243",
-    "name": "SPRS-60XUL-S ファインセンサー",
+    "name": "SPRS-60XUL-S Fine Sensor",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8384,7 +8384,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1244",
-    "name": "SPRS-63SL-S スペリオル",
+    "name": "SPRS-63SL-S Superior",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8395,7 +8395,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1245",
-    "name": "SPRS-66L/M-S＜BOAT＞ ディープセンスS (バーチカルボートアジングモデル)",
+    "name": "SPRS-66L/M-S＜BOAT＞ Deep Sense S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8406,7 +8406,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1246",
-    "name": "SPRS-66SUL-S スーパートゥイッギー",
+    "name": "SPRS-66SUL-S Super Twiggy",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8417,7 +8417,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1247",
-    "name": "SPRS-610UL-S リンバーティップSS",
+    "name": "SPRS-610UL-S Limber Tip SS",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8428,7 +8428,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1248",
-    "name": "SPRS-76MH-S スーパーDアタッカー",
+    "name": "SPRS-76MH-S Super D Attacker",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8439,7 +8439,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1249",
-    "name": "SPRS-64UL-T シャープカット",
+    "name": "SPRS-64UL-T Sharp Cut",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8450,7 +8450,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1250",
-    "name": "SPRS-65L-T サンダーショット",
+    "name": "SPRS-65L-T Thunder Shot",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8461,7 +8461,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1251",
-    "name": "SPRS-70L-T スカウトマスター",
+    "name": "SPRS-70L-T Scout Master",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8472,7 +8472,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1252",
-    "name": "SPRS-77M-T リライアンス",
+    "name": "SPRS-77M-T Reliance",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8483,7 +8483,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1253",
-    "name": "SPRS-83H-T マイティハンツマン",
+    "name": "SPRS-83H-T Mighty Huntsman",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8494,7 +8494,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1254",
-    "name": "SPRS-84M-T マニューバー",
+    "name": "SPRS-84M-T Maneuver",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8505,7 +8505,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1255",
-    "name": "SPRS-93MH-T プロスペクター",
+    "name": "SPRS-93MH-T Prospector",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8516,7 +8516,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1256",
-    "name": "PSSC-70S マルチポテンシャル",
+    "name": "PSSC-70S Multi Potential",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -8527,7 +8527,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1257",
-    "name": "PSSC-82T ゲームファインダー",
+    "name": "PSSC-82T Game Finder",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -8538,7 +8538,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1258",
-    "name": "PSSS-53S プチプリッカー",
+    "name": "PSSS-53S Petit Pricker",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8549,7 +8549,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1259",
-    "name": "PSSS-67S スーパーセンサー",
+    "name": "PSSS-67S Super Sensor",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8560,7 +8560,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1260",
-    "name": "PSSS-610S リンバーティップ",
+    "name": "PSSS-610S Limber Tip",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8571,7 +8571,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1261",
-    "name": "PSSS-70S Dアタッカー",
+    "name": "PSSS-70S D Attacker",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8582,7 +8582,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1262",
-    "name": "PSSS-74S BBヒットマン",
+    "name": "PSSS-74S BB Hitman",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8593,7 +8593,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1263",
-    "name": "PSSS-77S リミットブレーカー",
+    "name": "PSSS-77S Limit Breaker",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8604,7 +8604,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1264",
-    "name": "PSSS-57T ロッキーダガー",
+    "name": "PSSS-57T Rocky Dagger",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8615,7 +8615,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1265",
-    "name": "PSSS-73T ワイドレシーバー",
+    "name": "PSSS-73T Wide Receiver",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8626,7 +8626,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1266",
-    "name": "PSSS-76T ワイルドカード",
+    "name": "PSSS-76T Wild Card",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8637,7 +8637,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1267",
-    "name": "PSSS-78T ライトタフ",
+    "name": "PSSS-78T Light Tough",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8648,7 +8648,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1268",
-    "name": "PSSS-82T ロッキーハンツマン",
+    "name": "PSSS-82T Rocky Huntsman",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8659,7 +8659,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1269",
-    "name": "PSSS-84T マークスマン",
+    "name": "PSSS-84T Marksman",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8670,7 +8670,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1270",
-    "name": "NEOS-60XUL-S",
+    "name": "NEOS-60XUL-S NEOS-60XUL-S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8681,7 +8681,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1271",
-    "name": "NEOS-63SL-S",
+    "name": "NEOS-63SL-S NEOS-63SL-S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8692,7 +8692,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1272",
-    "name": "NEOS-610UL-S",
+    "name": "NEOS-610UL-S NEOS-610UL-S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8703,7 +8703,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1273",
-    "name": "NEOS-70L-S",
+    "name": "NEOS-70L-S NEOS-70L-S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8714,7 +8714,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1274",
-    "name": "NEOS-77ML-S",
+    "name": "NEOS-77ML-S NEOS-77ML-S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8725,7 +8725,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1275",
-    "name": "NEOS-64L+R-T",
+    "name": "NEOS-64L+R-T NEOS-64L+R-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8736,7 +8736,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1276",
-    "name": "NEOS-73M+R-T",
+    "name": "NEOS-73M+R-T NEOS-73M+R-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8747,7 +8747,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1277",
-    "name": "NEOS-76M-T",
+    "name": "NEOS-76M-T NEOS-76M-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8758,7 +8758,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1278",
-    "name": "NEOS-78MH-T",
+    "name": "NEOS-78MH-T NEOS-78MH-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8769,7 +8769,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1279",
-    "name": "NEOS-79MH+R-T",
+    "name": "NEOS-79MH+R-T NEOS-79MH+R-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8780,7 +8780,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1280",
-    "name": "NEOS-82H-T",
+    "name": "NEOS-82H-T NEOS-82H-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8791,7 +8791,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1281",
-    "name": "NEOS-84MH-T",
+    "name": "NEOS-84MH-T NEOS-84MH-T",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8802,7 +8802,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1282",
-    "name": "AATS-61UL/R",
+    "name": "AATS-61UL/R AATS-61UL/R",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8813,7 +8813,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1283",
-    "name": "AATS-61L/RF",
+    "name": "AATS-61L/RF AATS-61L/RF",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8824,7 +8824,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1284",
-    "name": "AATS-61ML/S",
+    "name": "AATS-61ML/S AATS-61ML/S",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8835,7 +8835,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1285",
-    "name": "AATS-62MH/R",
+    "name": "AATS-62MH/R AATS-62MH/R",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8846,7 +8846,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1286",
-    "name": "AATS-60MLST/F",
+    "name": "AATS-60MLST/F AATS-60MLST/F",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -8857,7 +8857,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1287",
-    "name": "AMSC-410",
+    "name": "AMSC-410 AMSC-410",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -8868,7 +8868,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1288",
-    "name": "AMSS-52",
+    "name": "AMSS-52 AMSS-52",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -9693,7 +9693,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1289",
-    "name": "AMSS-510",
+    "name": "AMSS-510 AMSS-510",
     "alias": "",
     "type_tips": "spinning",
     "system": "",
@@ -9704,7 +9704,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1290",
-    "name": "IRSC-66M-Aurora コブラRS オーロラ エディション",
+    "name": "IRSC-66M-Aurora Cobra RS Aurora Edition",
     "alias": "",
     "type_tips": "casting",
     "system": "",
@@ -9715,7 +9715,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "ER1291",
-    "name": "IRSC-71MH-Aurora スーパースタリオンRS オーロラ エディション",
+    "name": "IRSC-71MH-Aurora Super Stallion RS Aurora Edition",
     "alias": "",
     "type_tips": "casting",
     "system": "",
