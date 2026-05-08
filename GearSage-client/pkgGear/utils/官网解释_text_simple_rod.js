@@ -6080,7 +6080,7 @@ const DAIWA_TERMS = [
   "X45",
   "X45 FULL SHIELD",
   "ZERO SEAT",
-  "低模量碳纖維",
+  "低模量碳纤维",
   "ESS",
   "管狀動力纖細形狀"
 ];
@@ -6322,7 +6322,7 @@ const daiwaTechGlossary = {
       DAIWA_GROUP
     ]
   },
-  "低模量碳纖維": {
+  "低模量碳纤维": {
     "text": "",
     "text_simple": "",
     "sources": [
