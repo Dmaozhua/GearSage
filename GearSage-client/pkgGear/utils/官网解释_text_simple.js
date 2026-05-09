@@ -1,7 +1,7 @@
 const meta = {
-  "generatedAt": "2026-05-04T08:34:06.565Z",
-  "totalTerms": 208,
-  "explainedTerms": 146
+  "generatedAt": "2026-05-09T00:00:00+08:00",
+  "totalTerms": 209,
+  "explainedTerms": 147
 };
 
 const techGlossary = {
@@ -1906,6 +1906,14 @@ const techGlossary = {
       "daiwa_spinning_reels_import"
     ]
   },
+  "SENSITIVE TUNE感度设计": {
+    "text": "将影响旋转轻量感的旋转部位主要部件中的BB(滚珠轴承)从常规型号的润滑脂规格BB(CRBB)变更为润滑油规格BB,实现细腻且直接的卷线舒适度的特殊设计。此外,因为是用于精细作钓的,因此去除了齿轮部分的MAGSEALED,尽可能的轻量化。(※仅ST低音顺滑版)",
+    "text_simple": "把关键旋转轴承改为润滑油规格，并取消齿轮部位 MAGSEALED，换来更轻、更直接的细腻收线手感。",
+    "sources": [],
+    "groups": [
+      "daiwa_spinning_reels_import"
+    ]
+  },
   "S A-RB": {
     "text": "培林施加特殊防锈处理的，进一步提升防锈能力。SA-RB在侧面施加防锈素材，防止内部盐结晶化并大幅减少其造成的卡盐问题。",
     "text_simple": "轴承更防锈防盐，海水环境更耐用。",
@@ -2596,6 +2604,7 @@ const termsByBrand = {
     "POWERDRIVE ROTOR",
     "QUICK DRAG",
     "ROLLER POWER OSCILLATION",
+    "SENSITIVE TUNE感度设计",
     "SS MAGFORCE",
     "SV BOOST",
     "SV CONCEPT",
