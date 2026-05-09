@@ -1,8 +1,8 @@
 <!-- pages/articlePage/articlePage.wxml -->
 <!-- 自定义导航栏 -->
-<custom-navbar 
-  id="custom-navbar"
-  title="钓鱼技巧文章" 
+<custom-navbar
+	  id="custom-navbar"
+	  title="装备经验"
   show-back="{{true}}"
   show-search="{{false}}"
   background-color="#BDC3C7"
@@ -21,8 +21,8 @@
     <view class="container {{containerClass}}">
         <!-- 页面标题 -->
         <view class="header">
-            <text class="title">钓鱼技巧文章</text>
-            <text class="subtitle">精选钓鱼技巧与知识</text>
+	            <text class="title">装备经验</text>
+	            <text class="subtitle">精选真实使用经验与装备知识</text>
         </view>
         <view class="search-box">
             <view class="search-bar bordered">
@@ -31,23 +31,23 @@
                 <button bindtap="onSearch" class="search-btn">搜索</button>
             </view>
         </view>
-        <!-- 文章列表 -->
+        <!-- 装备经验列表 -->
         <view class="article-list">
             <block wx:if="{{loading}}">
                 <view class="loading">加载中...</view>
             </block>
             
             <block wx:elif="{{showNoResults}}">
-                <view class="no-results">
-                    <view class="no-results-content">
-                        <text>没有相关文章</text>
-                    </view>
-                </view>
+	                <view class="no-results">
+	                    <view class="no-results-content">
+	                        <text>没有相关装备经验</text>
+	                    </view>
+	                </view>
             </block>
             
             <block wx:elif="{{articles.length === 0}}">
                 <view class="no-data">
-                    <text>暂无文章数据</text>
+	                    <text>暂无装备经验</text>
                 </view>
             </block>
             

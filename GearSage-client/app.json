@@ -2,6 +2,7 @@
   "lazyCodeLoading": "requiredComponents",
   "pages": [
     "pages/index/index",
+    "pages/gear-tab/index",
     "pages/points/points",
     "pages/profile/profile",
     "pages/login/login",
@@ -70,7 +71,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "钓友说",
+    "navigationBarTitleText": "GearSage",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
   },
@@ -88,10 +89,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/points/points",
-        "iconPath": "images/icons/积分.png",
-        "selectedIconPath": "images/icons/积分-.png",
-        "text": "积分"
+        "pagePath": "pages/gear-tab/index",
+        "iconPath": "images/icons/publis/轮.png",
+        "selectedIconPath": "images/icons/轮-夜晚.png",
+        "text": "装备库"
       },
       {
         "pagePath": "pages/profile/profile",

@@ -65,13 +65,14 @@ export class TaskService {
         const time = new Date(row.createTime).getTime();
         return time >= start.getTime() && time < end.getTime();
       })
+      .filter((row) => !this.shouldHideTaskForReview(row))
       .map((row) => ({
         id: Number(row.id),
         taskId: String(row.taskFeatId || row.id),
         type: Number(row.type || 0),
-        name: row.name || row.taskFeatName || '',
-        taskFeatName: row.taskFeatName || row.name || '',
-        taskFeatDesc: row.taskFeatDesc || row.task_feat_desc || '',
+        name: this.sanitizeReviewText(row.name || row.taskFeatName || ''),
+        taskFeatName: this.sanitizeReviewText(row.taskFeatName || row.name || ''),
+        taskFeatDesc: this.sanitizeReviewText(row.taskFeatDesc || row.task_feat_desc || ''),
         points: Number(row.points || 0),
         received: Boolean(row.received),
         completed: true,
@@ -89,6 +90,7 @@ export class TaskService {
 
     const result = await Promise.all(
       tasks
+        .filter((task) => !this.shouldHideTaskForReview(task))
         .filter((task) => !claimedTaskIds.has(String(task.id)))
         .map(async (task) => {
           const progress = await this.calculateTaskProgress(userId, task);
@@ -96,9 +98,9 @@ export class TaskService {
             id: String(task.id),
             taskId: String(task.id),
             type: Number(task.type || 0),
-            name: task.name || '',
-            taskFeatName: task.name || '',
-            taskFeatDesc: task.task_feat_desc || '',
+            name: this.sanitizeReviewText(task.name || ''),
+            taskFeatName: this.sanitizeReviewText(task.name || ''),
+            taskFeatDesc: this.sanitizeReviewText(task.task_feat_desc || ''),
             points: Number(task.points || 0),
             currentCount: progress.currentCount,
             targetCount: progress.targetCount,
@@ -241,6 +243,26 @@ export class TaskService {
       });
     }
     await this.seedPromise;
+  }
+
+  private sanitizeReviewText(value: string) {
+    return String(value || '')
+      .replace(/发帖/g, '发布')
+      .replace(/帖子/g, '内容')
+      .replace(/邀请/g, '分享');
+  }
+
+  private shouldHideTaskForReview(task: Partial<TaskRow & TaskRecordRow>) {
+    const text = [
+      task.id,
+      task.taskFeatId,
+      task.action_type,
+      task.name,
+      task.taskFeatName,
+      task.task_feat_desc,
+      task.taskFeatDesc,
+    ].map((item) => String(item || '')).join(' ');
+    return /invite|邀请/i.test(text);
   }
 
   private async performSeedData() {

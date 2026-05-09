@@ -845,12 +845,32 @@ page {
   text-align: center;
 }
 
+.empty-action {
+  margin-top: 34rpx;
+  min-width: 220rpx;
+  height: 74rpx;
+  padding: 0 34rpx;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2f5f5b;
+  color: #ffffff;
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
 .container.dark .empty-title {
   color: #edf2f4;
 }
 
 .container.dark .empty-sub {
   color: #97a4a9;
+}
+
+.container.dark .empty-action {
+  background: #4b7f78;
+  color: #f3f8f7;
 }
 
 .loading-card {

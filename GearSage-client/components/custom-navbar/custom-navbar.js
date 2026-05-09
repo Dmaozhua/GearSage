@@ -38,7 +38,7 @@ Component({
     },
     rightButtonText: {
       type: String,
-      value: '更多'
+      value: ''
     },
     rightButtonIcon: {
       type: String,

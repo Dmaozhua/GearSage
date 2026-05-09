@@ -177,6 +177,31 @@ function buildQuestionEntryPrefill(options = {}) {
   };
 }
 
+function buildIntentEntry(options = {}) {
+  const intent = String(options.intent || '').trim();
+  const intentModeMap = {
+    recommend: 'question',
+    experience: 'experience',
+    question: 'question'
+  };
+  const modeKey = intentModeMap[intent];
+
+  if (!modeKey) {
+    return null;
+  }
+
+  const formData = createModeInitialFormData(modeKey);
+
+  if (intent === 'question') {
+    formData.questionType = 'ask';
+  }
+
+  return {
+    modeKey,
+    formData
+  };
+}
+
 function buildDraftFormDataFromTopic(topic = {}) {
   const modeConfig = getModeConfigByTopicCategory(topic.topicCategory);
   const modeKey = modeConfig ? modeConfig.modeKey : 'experience';
@@ -370,7 +395,11 @@ Page({
       return;
     }
 
-    this.applyEntryPrefill(options);
+    if (this.applyEntryPrefill(options)) {
+      return;
+    }
+
+    this.applyIntentEntry(options);
   },
 
   onShow: function () {
@@ -416,7 +445,7 @@ Page({
   applyEntryPrefill(options = {}) {
     const prefillFormData = buildQuestionEntryPrefill(options);
     if (!prefillFormData) {
-      return;
+      return false;
     }
 
     const selectedMode = getModeConfigByKey('question') || this.data.postModes[2];
@@ -430,6 +459,31 @@ Page({
       editingDraftId: null
     });
     this.captureInitialDraftSnapshot();
+    return true;
+  },
+
+  applyIntentEntry(options = {}) {
+    const intentEntry = buildIntentEntry(options);
+    if (!intentEntry) {
+      return false;
+    }
+
+    const selectedMode = getModeConfigByKey(intentEntry.modeKey);
+    if (!selectedMode) {
+      return false;
+    }
+
+    const selectedIndex = this.data.postModes.findIndex(item => item.modeKey === intentEntry.modeKey);
+
+    this.setData({
+      selectedMode,
+      showModeSelection: false,
+      lastSelectedIndex: selectedIndex >= 0 ? selectedIndex : 1,
+      formData: intentEntry.formData,
+      editingDraftId: null
+    });
+    this.captureInitialDraftSnapshot();
+    return true;
   },
 
   async loadDraftForEditing(options = {}) {

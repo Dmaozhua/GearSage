@@ -595,7 +595,7 @@ Page({
 
       if (!postId) {
         wx.showToast({
-          title: '缺少帖子ID',
+          title: '缺少内容ID',
           icon: 'none'
         });
         this.setData({
@@ -743,7 +743,7 @@ Page({
     },
 
     getCommentDisabledReason() {
-      return this.data.productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论';
+      return this.data.productDetail.commentDisabledReason || '内容正在审核中，暂不支持评论';
     },
 
     canCurrentPostComment() {
@@ -752,7 +752,7 @@ Page({
     },
 
     getLikeDisabledReason() {
-      return this.data.productDetail.likeDisabledReason || '帖子正在审核中，暂不支持点赞';
+      return this.data.productDetail.likeDisabledReason || '内容正在审核中，暂不支持点赞';
     },
 
     canCurrentPostLike() {
@@ -761,7 +761,7 @@ Page({
     },
 
     getShareDisabledReason() {
-      return this.data.productDetail.shareDisabledReason || '帖子正在审核中，暂不支持分享';
+      return this.data.productDetail.shareDisabledReason || '内容正在审核中，暂不支持分享';
     },
 
     canCurrentPostShare() {
@@ -781,7 +781,7 @@ Page({
 
       wx.hideShareMenu({
         success: () => {
-          console.log('[详情页] 当前帖子未发布，已隐藏分享菜单');
+          console.log('[详情页] 当前内容未发布，已隐藏分享菜单');
         }
       });
     },
@@ -870,7 +870,7 @@ Page({
             wx.removeStorageSync(cacheKey);
           }
         } catch (error) {
-          console.warn('[详情页] 清理首页缓存中的失效帖子失败:', cacheKey, error);
+          console.warn('[详情页] 清理首页缓存中的失效内容失败:', cacheKey, error);
         }
       });
     },
@@ -929,7 +929,7 @@ Page({
     },
 
     getTopicCategoryLabel(value) {
-      return TOPIC_CATEGORY_LABELS[Number(value)] || '帖子';
+      return TOPIC_CATEGORY_LABELS[Number(value)] || '内容';
     },
 
     getGearCategoryLabel(value) {
@@ -1486,9 +1486,9 @@ Page({
           });
           return true;
         } else {
-          console.error('未找到对应的帖子数据');
+          console.error('未找到对应的内容数据');
           wx.showToast({
-            title: '帖子不存在或已删除',
+            title: '内容不存在或已删除',
             icon: 'none'
           });
           this.setData({
@@ -1502,10 +1502,10 @@ Page({
           return false;
         }
       } catch (error) {
-        console.error('加载帖子详情失败:', error);
+        console.error('加载内容详情失败:', error);
         const isNotFound = Number(error && error.code) === 404;
         wx.showToast({
-          title: isNotFound ? '帖子不存在或已删除' : '加载失败',
+          title: isNotFound ? '内容不存在或已删除' : '加载失败',
           icon: 'none'
         });
         this.setData({
@@ -2041,7 +2041,7 @@ Page({
         }
 
         this.setData({ commentLoading: true });
-        console.log('开始加载评论，帖子ID:', postId);
+        console.log('开始加载评论，内容ID:', postId);
         
         const apiService = require('../../services/api.js');
         const comments = await apiService.getTopicComments(postId);
@@ -2507,7 +2507,7 @@ Page({
     onShareAppMessage: function () {
       if (!this.canCurrentPostShare()) {
         return {
-          title: '帖子审核中',
+          title: '内容审核中',
           path: '/pages/index/index'
         };
       }
@@ -2520,7 +2520,7 @@ Page({
     onShareTimeline: function () {
       if (!this.canCurrentPostShare()) {
         return {
-          title: '帖子审核中',
+          title: '内容审核中',
           query: ''
         };
       }
@@ -2545,7 +2545,7 @@ Page({
       const sharePath = this.buildSharePath();
 
       wx.showActionSheet({
-        itemList: ['朋友圈轻量预览', '复制帖子路径', '会话分享提示'],
+        itemList: ['朋友圈轻量预览', '复制内容路径', '会话分享提示'],
         success: (res) => {
           if (res.tapIndex === 0) {
             wx.navigateTo({
@@ -2559,7 +2559,7 @@ Page({
               data: sharePath,
               success: () => {
                 wx.showToast({
-                  title: '帖子路径已复制',
+                  title: '内容路径已复制',
                   icon: 'success'
                 });
               }
@@ -3164,18 +3164,18 @@ Page({
       switch (action) {
         case 'approve':
           wx.showToast({
-            title: '帖子已审核通过',
+            title: '内容已审核通过',
             icon: 'success'
           });
           break;
         case 'delete':
           wx.showModal({
             title: '确认删除',
-            content: '确定要删除这个帖子吗？',
+            content: '确定要删除这个内容吗？',
             success: (res) => {
               if (res.confirm) {
                 wx.showToast({
-                  title: '帖子已删除',
+                  title: '内容已删除',
                   icon: 'success'
                 });
                 setTimeout(() => {
@@ -3187,7 +3187,7 @@ Page({
           break;
         case 'pin':
           wx.showToast({
-            title: '帖子已置顶',
+            title: '内容已置顶',
             icon: 'success'
           });
           break;
@@ -3356,7 +3356,7 @@ Page({
         refresherTriggered: true
       });
       
-      // 重新加载帖子详情和评论数据
+      // 重新加载内容详情和评论数据
       this.loadDetailPage(this.data.postId).finally(() => {
         this.setData({
           refresherTriggered: false

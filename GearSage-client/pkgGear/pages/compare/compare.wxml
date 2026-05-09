@@ -201,6 +201,7 @@
       <view class="empty-icon">对比</view>
       <text class="empty-title">对比池还是空的</text>
       <text class="empty-sub">先去装备详情里选好子型号，再把 2 到 3 个同类候选放进来。</text>
+      <view class="empty-action" bindtap="onGoGearLibrary">去装备库选择</view>
     </view>
   </block>
 

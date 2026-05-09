@@ -822,6 +822,17 @@ Page({
     });
   },
 
+  onGoGearLibrary() {
+    wx.switchTab({
+      url: '/pages/gear-tab/index',
+      fail: () => {
+        wx.navigateTo({
+          url: '/pkgGear/pages/index/index'
+        });
+      }
+    });
+  },
+
   onGoRecommend() {
     if (this.data.compareCards.length < 2) {
       wx.showToast({

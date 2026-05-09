@@ -1,0 +1,122 @@
+<custom-navbar
+  title="装备库"
+  show-back="{{false}}"
+  background-color="#BDC3C7"
+  text-color="#000000">
+</custom-navbar>
+
+<scroll-view
+  class="gear-tab-scroll {{isDarkMode ? 'dark' : ''}}"
+  scroll-y="true"
+  enable-flex="true"
+  enhanced="true"
+  show-scrollbar="{{false}}"
+  style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="gear-tab-page">
+    <view class="gear-tab-header">
+      <text class="gear-tab-title">路亚装备库</text>
+      <text class="gear-tab-subtitle">查资料、看参数、进对比，再结合真实装备经验做选择</text>
+    </view>
+
+    <view class="gear-search-panel">
+      <view class="gear-search-box">
+        <text class="gear-search-icon">🔍</text>
+        <input
+          class="gear-search-input"
+          value="{{searchKeyword}}"
+          focus="{{focusSearch}}"
+          placeholder="搜索装备 / 型号 / SKU / 品牌"
+          confirm-type="search"
+          bindinput="onSearchInput"
+          bindconfirm="onSearchConfirm" />
+      </view>
+      <view class="gear-search-types">
+        <view
+          wx:for="{{categories}}"
+          wx:key="type"
+          class="gear-search-type {{selectedSearchType === item.type ? 'gear-search-type--active' : ''}}"
+          data-type="{{item.type}}"
+          bindtap="onSelectSearchType">
+          {{item.title}}
+        </view>
+      </view>
+      <button class="gear-search-button" bindtap="onSearchConfirm" loading="{{isSearching}}">搜索当前分类</button>
+    </view>
+
+    <view class="gear-section">
+      <view class="gear-section-header">
+        <text class="gear-section-title">装备分类</text>
+      </view>
+      <view class="gear-category-grid">
+        <view
+          wx:for="{{categories}}"
+          wx:key="type"
+          class="gear-category-card"
+          data-type="{{item.type}}"
+          data-title="{{item.title}}"
+          bindtap="navigateToCategory">
+          <image class="gear-category-icon" src="{{item.icon}}" mode="aspectFit"></image>
+          <view class="gear-category-copy">
+            <text class="gear-category-title">{{item.title}}</text>
+            <text class="gear-category-desc">{{item.desc}}</text>
+          </view>
+          <text class="gear-category-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="gear-compare-card" bindtap="navigateToCompare">
+      <view>
+        <text class="gear-compare-title">装备对比</text>
+        <text class="gear-compare-desc">查看已加入对比池的装备参数差异</text>
+      </view>
+      <text class="gear-compare-arrow">›</text>
+    </view>
+
+    <view class="gear-section" wx:if="{{searchResults.length}}">
+      <view class="gear-section-header">
+        <text class="gear-section-title">搜索结果</text>
+      </view>
+      <view class="gear-list">
+        <view
+          wx:for="{{searchResults}}"
+          wx:key="id"
+          class="gear-list-card"
+          data-id="{{item.id}}"
+          data-type="{{item.type}}"
+          bindtap="navigateToGearDetail">
+          <image class="gear-list-image" src="{{item.imageUrl}}" mode="aspectFill" lazy-load="true"></image>
+          <view class="gear-list-copy">
+            <text class="gear-list-title">{{item.title}}</text>
+            <text class="gear-list-meta">{{item.meta}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="gear-section">
+      <view class="gear-section-header">
+        <text class="gear-section-title">最近更新装备</text>
+      </view>
+      <view wx:if="{{isLoading}}" class="gear-loading">
+        <svg-loading spinning="{{true}}" text="加载装备资料..." size="medium" show-text="{{true}}"></svg-loading>
+      </view>
+      <view wx:elif="{{recentGearList.length === 0}}" class="gear-empty">暂无装备更新</view>
+      <view wx:else class="gear-list">
+        <view
+          wx:for="{{recentGearList}}"
+          wx:key="id"
+          class="gear-list-card"
+          data-id="{{item.id}}"
+          data-type="{{item.type}}"
+          bindtap="navigateToGearDetail">
+          <image class="gear-list-image" src="{{item.imageUrl}}" mode="aspectFill" lazy-load="true"></image>
+          <view class="gear-list-copy">
+            <text class="gear-list-title">{{item.title}}</text>
+            <text class="gear-list-meta">{{item.meta}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

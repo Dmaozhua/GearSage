@@ -1,7 +1,7 @@
 <!--pages/points/points.wxml-->
 <custom-navbar
   title="积分中心"
-  showBack="{{false}}"
+  showBack="{{true}}"
   showShadow="{{!isDarkMode}}"
   right-button-text=""
   background-color="transparent"
@@ -212,18 +212,4 @@
     </view>
   </view>
 
-  <view class="bottom-actions">
-    <view class="action-item" bindtap="showPointsRules">
-      <image class="action-icon" src="/images/icons/h117.png" mode="aspectFit"></image>
-      <text class="action-text">积分规则</text>
-    </view>
-    <view class="action-item" bindtap="showFAQ">
-      <image class="action-icon" src="/images/icons/h113.png" mode="aspectFit"></image>
-      <text class="action-text">常见问题</text>
-    </view>
-    <view class="action-item" bindtap="onInviteFriends">
-      <image class="action-icon" src="/images/share.png" mode="aspectFit"></image>
-      <text class="action-text">邀请好友</text>
-    </view>
-  </view>
 </view>

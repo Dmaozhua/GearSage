@@ -1,11 +1,9 @@
 <custom-navbar
   id="custom-navbar"
-  title="帖子详情"
+  title="装备交流详情"
   show-back="{{true}}"
-  right-icon="/images/share.svg"
   background-color="#BDC3C7"
-  text-color="#000000"
-  bind:rightButtonTap="onNavbarShareTap">
+  text-color="#000000">
 </custom-navbar>
 
 <scroll-view
@@ -58,9 +56,9 @@
   </view>
 
   <view class="detail-empty-state" wx:elif="{{notFound}}">
-    <view class="detail-empty-icon">帖子已失效</view>
-    <view class="detail-empty-title">这条帖子不存在或已被删除</view>
-    <view class="detail-empty-desc">可能是历史数据被清理了，返回列表再打开一条新的帖子试试。</view>
+    <view class="detail-empty-icon">内容已失效</view>
+    <view class="detail-empty-title">这条内容不存在或已被删除</view>
+    <view class="detail-empty-desc">可能是历史数据被清理了，返回列表再打开一条新的内容试试。</view>
   </view>
   
   <view class="topic-page {{showCommentInput ? 'topic-page--editing' : ''}}" wx:else>
@@ -571,7 +569,7 @@
     <view class="comments-section">
       <view class="section-title">{{productDetail.isRecommendQuestion ? '回应' : '评论'}}（{{totalCommentCount || 0}}）</view>
       <view class="comment-disabled-note" wx:if="{{!productDetail.canComment}}">
-        {{productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论'}}
+        {{productDetail.commentDisabledReason || '内容正在审核中，暂不支持评论'}}
       </view>
       <block wx:if="{{productDetail.isRecommendQuestion}}">
         <view class="comment-subsection" wx:if="{{productDetail.hasRecommendFeedback}}">
@@ -910,7 +908,7 @@
   </view>
 
   <view class="comment-input-container {{!productDetail.canComment ? 'comment-input-container--disabled' : ''}}" wx:if="{{!showCommentInput && !productDetail.isRecommendQuestion}}">
-    <input class="comment-input" placeholder="{{productDetail.canComment ? (replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…') : (productDetail.commentDisabledReason || '帖子正在审核中，暂不支持评论')}}" bindtap="onShowCommentInput" disabled="{{true}}" />
+    <input class="comment-input" placeholder="{{productDetail.canComment ? (replyToUsername ? '回复 @' + replyToUsername + '：' : '善言善语，说点什么…') : (productDetail.commentDisabledReason || '内容正在审核中，暂不支持评论')}}" bindtap="onShowCommentInput" disabled="{{true}}" />
   </view>
 
   <view class="comment-editor-panel" wx:if="{{showCommentInput && commentEditorMode === 'normal'}}">

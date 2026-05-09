@@ -394,11 +394,11 @@ function mapOptionList(values = [], labelMap = {}) {
 }
 
 function formatTopicStatusLabel(value) {
-  return TOPIC_STATUS_LABELS[Number(value)] || '帖子';
+  return TOPIC_STATUS_LABELS[Number(value)] || '内容';
 }
 
 function getTopicCategoryLabel(value) {
-  return TOPIC_CATEGORY_LABELS[Number(value)] || '帖子';
+  return TOPIC_CATEGORY_LABELS[Number(value)] || '内容';
 }
 
 function getGearCategoryLabel(value) {
@@ -678,9 +678,9 @@ function buildTopicDetailView(postData = {}, options = {}) {
   const canComment = isPublished;
   const canLike = isPublished;
   const canShare = isPublished;
-  const commentDisabledReason = canComment ? '' : '帖子正在审核中，暂不支持评论';
-  const likeDisabledReason = canLike ? '' : '帖子正在审核中，暂不支持点赞';
-  const shareDisabledReason = canShare ? '' : '帖子正在审核中，暂不支持分享';
+  const commentDisabledReason = canComment ? '' : '内容正在审核中，暂不支持评论';
+  const likeDisabledReason = canLike ? '' : '内容正在审核中，暂不支持点赞';
+  const shareDisabledReason = canShare ? '' : '内容正在审核中，暂不支持分享';
   const averageRate = calculateAverageRating(postData.ratings);
   const targetFish = [...normalizeStringList(postData.targetFish)];
   const customTargetFish = normalizeString(postData.customTargetFish, '');

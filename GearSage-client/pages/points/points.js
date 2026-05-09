@@ -68,15 +68,20 @@ Page({
       
       console.log('合并后的任务列表:', allTasks);
       
-      const mapFn = this._mapTaskRecord.bind(this);
+      const mapVisibleTask = (item) => {
+        if (this.shouldHideTaskForReview(item)) {
+          return null;
+        }
+        return this._mapTaskRecord(item);
+      };
       
       // 根据type字段分类任务
       // type: 0 -> 每日任务
-      const daily = allTasks.filter(item => Number(item.type) === 0).map(mapFn);
+      const daily = allTasks.filter(item => Number(item.type) === 0).map(mapVisibleTask).filter(Boolean);
       // type: 1 -> 更多任务
-      const more = allTasks.filter(item => Number(item.type) === 1).map(mapFn);
+      const more = allTasks.filter(item => Number(item.type) === 1).map(mapVisibleTask).filter(Boolean);
       // type: 2 -> 成就列表
-      const achievements = allTasks.filter(item => Number(item.type) === 2).map(mapFn);
+      const achievements = allTasks.filter(item => Number(item.type) === 2).map(mapVisibleTask).filter(Boolean);
       
       console.log('分类后的任务:', { daily, more, achievements });
       
@@ -108,10 +113,32 @@ Page({
     }
   },
 
+  sanitizeReviewText(value) {
+    return String(value || '')
+      .replace(/发帖/g, '发布')
+      .replace(/帖子/g, '内容')
+      .replace(/邀请/g, '分享');
+  },
+
+  shouldHideTaskForReview(record = {}) {
+    const text = [
+      record.id,
+      record.taskId,
+      record.actionType,
+      record.action_type,
+      record.taskFeatName,
+      record.name,
+      record.title,
+      record.taskFeatDesc,
+      record.description
+    ].map(item => String(item || '')).join(' ');
+    return /invite|邀请/i.test(text);
+  },
+
   // 规范化任务记录为前端展示用结构
   _mapTaskRecord(record) {
-    const title = record.taskFeatName || record.name || record.title || '任务';
-    const description = record.taskFeatDesc || record.description || '';
+    const title = this.sanitizeReviewText(record.taskFeatName || record.name || record.title || '任务');
+    const description = this.sanitizeReviewText(record.taskFeatDesc || record.description || '');
     const points = Number(record.points || record.point || 0);
     const current = Number(record.currentCount || record.current || 0);
     const target = Number(record.targetCount || record.target || 0);
@@ -349,7 +376,7 @@ Page({
   showPointsRules() {
     wx.showModal({
       title: '积分规则',
-      content: '1. 每日签到可获得10积分\n2. 发布帖子可获得20积分\n3. 评论互动可获得5积分\n4. 分享内容可获得15积分\n5. 完成每日任务可获得额外积分\n\n积分可用于兑换各种奖励，快来参与吧！',
+      content: '1. 每日签到可获得10积分\n2. 发布内容可获得20积分\n3. 评论互动可获得5积分\n4. 完成每日任务可获得额外积分\n\n积分可用于兑换奖励，提审期以基础记录展示为主。',
       showCancel: false,
       confirmText: '我知道了',
       confirmColor: '#4A90E2'

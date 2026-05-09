@@ -90,11 +90,11 @@
     display: block;
 }
 
-/* 文章列表 */
+/* 装备经验列表 */
 .article-list {
-    padding-bottom: 120rpx; /* 为底部添加足够的内边距，防止最后一篇文章被遮挡 */
+    padding-bottom: 120rpx; /* 为底部添加足够的内边距，防止最后一条装备经验被遮挡 */
     -webkit-overflow-scrolling: touch; /* 增强iOS滚动体验 */
-    flex: 1; /* 让文章列表占据剩余空间 */
+    flex: 1; /* 让装备经验列表占据剩余空间 */
     display: flex;
     flex-direction: column;
 }

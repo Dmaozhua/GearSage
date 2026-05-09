@@ -94,16 +94,25 @@
           <text class="menu-arrow">></text>
         </view>
 
-        <view class="menu-item publish-item" bindtap="onMyPublish">
-          <text class="menu-icon">📄</text>
-          <view class="menu-content">
-            <text class="menu-title">我的发布</text>
-            <text class="menu-subtitle">查看我的发布</text>
-          </view>
-          <text class="menu-arrow">></text>
-        </view>
+	        <view class="menu-item publish-item" bindtap="onMyPublish">
+	          <text class="menu-icon">📄</text>
+	          <view class="menu-content">
+	            <text class="menu-title">我的发布</text>
+	            <text class="menu-subtitle">查看我的发布</text>
+	          </view>
+	          <text class="menu-arrow">></text>
+	        </view>
 
-        <view class="menu-item" bindtap="onMyTags">
+	        <view class="menu-item" bindtap="onPoints">
+	          <text class="menu-icon">◎</text>
+	          <view class="menu-content">
+	            <text class="menu-title">积分</text>
+	            <text class="menu-subtitle">查看积分与任务记录</text>
+	          </view>
+	          <text class="menu-arrow">></text>
+	        </view>
+
+	        <view class="menu-item" bindtap="onMyTags">
           <text class="menu-icon">🏷️</text>
           <view class="menu-content">
             <text class="menu-title">编辑标签</text>

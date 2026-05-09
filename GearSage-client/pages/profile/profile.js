@@ -524,14 +524,20 @@ Page({
   /**
    * 我的发布
    */
-  onMyPublish() {
-    console.log('我的发布');
-    wx.navigateTo({
-      url: '/pkgContent/my-publish/my-publish'
-    });
-  },
+	  onMyPublish() {
+	    console.log('我的发布');
+	    wx.navigateTo({
+	      url: '/pkgContent/my-publish/my-publish'
+	    });
+	  },
 
-  async loadMessageUnreadCount() {
+	  onPoints() {
+	    wx.navigateTo({
+	      url: '/pages/points/points'
+	    });
+	  },
+
+	  async loadMessageUnreadCount() {
     if (!this.data.isLoggedIn) {
       this.setData({ messageUnreadCount: 0 });
       return;

@@ -28,6 +28,56 @@ const WATERFALL_HEIGHT_PRESET = {
 // 最小错位阈值：避免两列高度“刚好一样”看着别扭
 const WATERFALL_MIN_DIFF = 40; // rpx，可按实际效果微调
 const MAX_WATERFALL_TITLE_LENGTH = 16;
+const HOME_PREVIEW_LIMIT = 5;
+const GEAR_TAB_SEARCH_FOCUS_KEY = 'gear_tab_focus_search';
+
+const HOME_FUNCTION_LIST = [
+    {
+        id: 'gear-library',
+        name: '装备库',
+        desc: '查资料与参数',
+        icon: '/images/icons/publis/轮.png',
+        iconDark: '/images/icons/轮-夜晚.png',
+        path: '/pages/gear-tab/index',
+        disabled: false
+    },
+    {
+        id: 'gear-compare',
+        name: '装备对比',
+        desc: '看参数差异',
+        icon: '/images/icons/publis/竿.png',
+        iconDark: '/images/icons/竿-夜晚.png',
+        path: '/pkgGear/pages/compare/compare',
+        disabled: false
+    },
+    {
+        id: 'ask-recommend',
+        name: '求推荐',
+        desc: '说需求问选择',
+        icon: '/images/icons/post1.png',
+        iconDark: '/images/icons/post1-夜晚.png',
+        path: '/pkgContent/publishMode/publishMode?intent=recommend',
+        disabled: false
+    },
+    {
+        id: 'gear-experience',
+        name: '装备经验',
+        desc: '看真实使用',
+        icon: '/images/icons/publis/饵.png',
+        iconDark: '/images/icons/饵-夜晚.png',
+        path: '/pkgContent/articlePage/articlePage',
+        disabled: false
+    }
+];
+
+const GEAR_PREVIEW_TYPES = ['reels', 'rods', 'lures', 'line', 'hook'];
+const GEAR_TYPE_LABELS = {
+    reels: '渔轮',
+    rods: '鱼竿',
+    lures: '鱼饵',
+    line: '鱼线',
+    hook: '鱼钩'
+};
 
 const TOPIC_CATEGORY = {
     RECOMMEND: 0,
@@ -174,12 +224,17 @@ Page({
         waterfallColumnHeights: [0, 0],
         isWaterfallLoading: false,
         
-        // 轮播图相关数据
-        currentNavbarColor: '#BDC3C7', // 当前导航栏颜色
-        currentTextColor: '#000000', // 当前文字颜色
-        functionNavHeight: 0, // 功能导航区域高度
+	        // 首屏与功能入口相关数据
+	        currentNavbarColor: '#BDC3C7', // 当前导航栏颜色
+	        currentTextColor: '#000000', // 当前文字颜色
+	        functionNavHeight: 0, // 功能导航区域高度
+	        homeFunctionList: HOME_FUNCTION_LIST,
+	        homePreviewLoading: false,
+	        recentGearList: [],
+	        latestRecommendList: [],
+	        featuredExperienceList: [],
         
-        // 文章相关数据
+	        // 装备经验相关数据
         articles: [],
         loading: false,
 
@@ -223,10 +278,10 @@ Page({
         return text || fallback;
     },
 
-    enablePageShare() {
-        if (typeof wx.showShareMenu !== 'function') {
-            return;
-        }
+	    enablePageShare() {
+	        if (typeof wx.showShareMenu !== 'function') {
+	            return;
+	        }
 
         const options = {
             withShareTicket: true
@@ -235,9 +290,188 @@ Page({
         if (wx.canIUse && wx.canIUse('showShareMenu.menus')) {
             options.menus = ['shareAppMessage', 'shareTimeline'];
         }
+	        wx.showShareMenu(options);
+	    },
 
-        wx.showShareMenu(options);
-    },
+	    normalizeHomeGearItem(item = {}, fallbackType = '') {
+	        const images = this.normalizeStringList(item.images);
+	        const gearType = fallbackType || item.gearType || item.type || '';
+	        const title = this.normalizeDisplayText(item.model)
+	            || this.normalizeDisplayText(item.model_cn)
+	            || this.normalizeDisplayText(item.name)
+	            || '未命名装备';
+	        const brand = this.normalizeDisplayText(item.brand_name || item.brandName, '');
+	        const meta = [
+	            brand,
+	            this.normalizeDisplayText(item.model_year, ''),
+	            this.normalizeDisplayText(item.type_tips || item.system || item.action, '')
+	        ].filter(Boolean).join(' · ');
+	        const tags = [
+	            GEAR_TYPE_LABELS[gearType] || '',
+	            this.normalizeDisplayText(item.brakeSys || item.water_column, ''),
+	            this.normalizeDisplayText(item.usageTags, '')
+	        ].filter(Boolean).slice(0, 3);
+
+	        return {
+	            id: item.id || item.gear_id || item.masterId || '',
+	            type: gearType,
+	            title,
+	            meta: meta || (GEAR_TYPE_LABELS[gearType] || '装备资料'),
+	            imageUrl: images[0] || '/images/缺省页_上传中.png',
+	            tags
+	        };
+	    },
+
+	    normalizeHomeTopicItem(item = {}) {
+	        const parsedContent = parseRichTextPayload(item.content || '');
+	        const plainContent = parsedContent.text || this.normalizeDisplayText(item.content, '');
+	        const topicCategory = Number(item.topicCategory);
+	        const label = topicCategory === TOPIC_CATEGORY.QUESTION
+	            ? (this.formatQuestionTypeLabel(item.questionType) || '求推荐')
+	            : '装备经验';
+	        const meta = [
+	            this.normalizeDisplayText(item.nickName || item.authorName, ''),
+	            this.normalizeDisplayText(item.relatedGearModel || item.gearModel, ''),
+	            label
+	        ].filter(Boolean).join(' · ');
+
+	        return {
+	            id: item.id || item._id || '',
+	            title: this.normalizeDisplayText(item.title, '未命名发布'),
+	            meta,
+	            desc: plainContent || this.buildTopicMeta(item, topicCategory) || '暂无摘要',
+	            topicCategory,
+	            questionType: item.questionType || '',
+	            likeCount: Number(item.likeCount || item.likes || 0),
+	            commentCount: Number(item.commentCount || item.comments || 0)
+	        };
+	    },
+
+	    async loadRecentGearPreview() {
+	        const responses = await Promise.all(GEAR_PREVIEW_TYPES.map(type => (
+	            apiService.getGearList({ type, page: 1, pageSize: 2 }, { silent: true })
+	                .then(result => (result && Array.isArray(result.list) ? result.list : []).map(item => this.normalizeHomeGearItem(item, type)))
+	                .catch(error => {
+	                    console.warn('[首页] 分类装备预览加载失败:', type, error);
+	                    return [];
+	                })
+	        )));
+
+	        return responses.flat().slice(0, HOME_PREVIEW_LIMIT);
+	    },
+
+	    async loadHomePreviewData(options = {}) {
+	        const { silent = false } = options;
+	        if (this._isLoadingHomePreview) {
+	            return;
+	        }
+	        this._isLoadingHomePreview = true;
+	        if (!silent) {
+	            this.setData({ homePreviewLoading: true });
+	        }
+
+	        try {
+	            const [recentGearList, topicList] = await Promise.all([
+	                this.loadRecentGearPreview(),
+	                apiService.getAllTopics({ limit: 30 }).catch(error => {
+	                    console.warn('[首页] 加载装备交流预览失败:', error);
+	                    return [];
+	                })
+	            ]);
+
+	            const normalizedTopics = Array.isArray(topicList)
+	                ? topicList
+	                    .filter(item => {
+	                        const statusValue = item && (item.status !== undefined ? item.status : item.auditStatus);
+	                        const isDeleted = item && (item.isDelete === 1 || item.isDelete === true || item.deleted === true);
+	                        return !isDeleted && (statusValue === undefined || statusValue === null || Number(statusValue) === 2);
+	                    })
+	                    .map(item => this.normalizeHomeTopicItem(item))
+	                    .filter(item => item.id)
+	                : [];
+	            const latestRecommendList = normalizedTopics
+	                .filter(item => item.topicCategory === TOPIC_CATEGORY.QUESTION && item.questionType === 'recommend')
+	                .slice(0, HOME_PREVIEW_LIMIT);
+	            const featuredExperienceList = normalizedTopics
+	                .filter(item => item.topicCategory === TOPIC_CATEGORY.EXPERIENCE)
+	                .slice(0, HOME_PREVIEW_LIMIT);
+
+	            this.setData({
+	                recentGearList,
+	                latestRecommendList,
+	                featuredExperienceList,
+	                homePreviewLoading: false,
+	                lastUpdatedAt: Date.now()
+	            });
+	        } catch (error) {
+	            console.error('[首页] 加载首页预览失败:', error);
+	            this.setData({ homePreviewLoading: false });
+	        } finally {
+	            this._isLoadingHomePreview = false;
+	        }
+	    },
+
+	    onHomeSearchTap() {
+	        wx.setStorageSync(GEAR_TAB_SEARCH_FOCUS_KEY, true);
+	        wx.switchTab({
+	            url: '/pages/gear-tab/index',
+	            fail: () => {
+	                wx.showToast({ title: '装备库暂时无法打开', icon: 'none' });
+	            }
+	        });
+	    },
+
+	    onHeroGearTap() {
+	        wx.switchTab({
+	            url: '/pages/gear-tab/index',
+	            fail: () => {
+	                wx.navigateTo({ url: '/pkgGear/pages/index/index' });
+	            }
+	        });
+	    },
+
+	    onMoreRecentGear() {
+	        wx.switchTab({
+	            url: '/pages/gear-tab/index'
+	        });
+	    },
+
+	    onMoreRecommend() {
+	        wx.navigateTo({
+	            url: '/pkgContent/search/search?scene=recommend'
+	        }).catch(() => {
+	            wx.showToast({ title: '暂时无法打开更多求推荐', icon: 'none' });
+	        });
+	    },
+
+	    onMoreExperience() {
+	        wx.navigateTo({
+	            url: '/pkgContent/articlePage/articlePage'
+	        }).catch(() => {
+	            wx.showToast({ title: '暂时无法打开装备经验', icon: 'none' });
+	        });
+	    },
+
+	    onHomeGearItemTap(e) {
+	        const { id, type } = e.currentTarget.dataset;
+	        if (!id || !type) {
+	            wx.switchTab({ url: '/pages/gear-tab/index' });
+	            return;
+	        }
+	        wx.navigateTo({
+	            url: `/pkgGear/pages/detail/detail?id=${id}&type=${type}`
+	        });
+	    },
+
+	    onHomeTopicTap(e) {
+	        const id = e.currentTarget.dataset.id;
+	        if (!id) {
+	            return;
+	        }
+	        wx.navigateTo({
+	            url: `/pkgContent/detail/detail?id=${id}`
+	        });
+	    },
 
     getCurrentUserId() {
         try {
@@ -738,14 +972,8 @@ Page({
         // 初始化主题模式
         this.initThemeMode();
 
-        // 初始化布局模式
-        this.initLayoutMode();
-
-        // 使用本地缓存兜底首屏
-        this.renderCachedHomeFeed();
-
-        // 加载钓友说数据
-        this.loadAnglerData();
+	        // 加载首页工具预览数据
+	        this.loadHomePreviewData();
 
         // 计算功能导航区域高度
         this.calculateFunctionNavHeight();
@@ -2336,12 +2564,9 @@ Page({
     /**
      * 搜索框点击事件
      */
-    onSearchTap: function() {
-        console.log('点击搜索框');
-        wx.navigateTo({
-            url: '/pkgContent/search/search'
-        });
-    },
+	    onSearchTap: function() {
+	        this.onHomeSearchTap();
+	    },
 
     /**
      * 点赞事件
@@ -2466,7 +2691,7 @@ Page({
     },
 
     /**
-     * 加载文章数据
+	     * 加载装备经验数据
      */
     loadArticles: function() {
         this.setData({
@@ -2478,13 +2703,13 @@ Page({
             // 记录开始加载时间，用于性能统计
             const startTime = Date.now();
             
-            // 动态加载文章数据
+            // 动态加载装备经验数据
             const articleData = [];
             
-            // 尝试读取textData目录下的所有文章文件
+            // 尝试读取textData目录下的所有装备经验文件
             // 由于小程序的安全限制，我们无法直接列出目录内容
-            // 所以我们使用一个足够大的范围来尝试加载文章
-            const maxArticleNumber = 50; // 设置一个足够大的数字来尝试加载文章
+            // 所以我们使用一个足够大的范围来尝试加载装备经验
+            const maxArticleNumber = 50; // 设置一个足够大的数字来尝试加载装备经验
             
             for (let i = 1; i <= maxArticleNumber; i++) {
                 try {
@@ -2499,28 +2724,28 @@ Page({
                     } else {
                         currentArticle = articleModule;
                     }
-                    // 将文章数据和对应的ID一起存储
+                    // 将装备经验数据和对应的ID一起存储
                     articleData.push({id: i, data: currentArticle});
-                    console.log(`成功加载文章: article${i}.js`);
+                    console.log(`成功加载装备经验: article${i}.js`);
                 } catch (e) {
-                    // 如果连续5个文件都加载失败，则认为已经没有更多文章了
+                    // 如果连续5个文件都加载失败，则认为已经没有更多装备经验了
                     if (i > 5 && articleData.length === 0) {
-                        console.log('没有找到任何文章文件，停止尝试加载');
+                        console.log('没有找到任何装备经验文件，停止尝试加载');
                         break;
                     }
-                    // 如果已经加载了一些文章，并且连续5个文件都加载失败，则认为已经加载完所有文章
+                    // 如果已经加载了一些装备经验，并且连续5个文件都加载失败，则认为已经加载完所有装备经验
                     if (articleData.length > 0 && i - articleData.length >= 5) {
-                        console.log('已加载所有可用文章文件，停止尝试加载');
+                        console.log('已加载所有可用装备经验文件，停止尝试加载');
                         break;
                     }
                     console.log(`尝试加载article${i}.js：文件不存在或格式不正确`);
                 }
             }
             
-            // 如果没有加载到任何文章，使用默认数据
+            // 如果没有加载到任何装备经验，使用默认数据
             if (articleData.length === 0) {
-                console.log('未能加载任何文章，使用默认数据');
-                // 文章1数据
+                console.log('未能加载任何装备经验，使用默认数据');
+                // 默认装备经验数据
                 const article1 = {
                     "title": "春季路亚鲈鱼技巧与找鱼方式全解析",
                     "author": "AImPhish",
@@ -2538,15 +2763,15 @@ Page({
                 
                 // 显示提示信息
                 wx.showToast({
-                    title: '使用默认文章数据',
+                    title: '使用默认装备经验数据',
                     icon: 'none',
                     duration: 2000
                 });
             } else {
-                console.log(`成功加载了${articleData.length}篇文章`);
+                console.log(`成功加载了${articleData.length}条装备经验`);
             }
             
-            // 对文章数据进行排序（按ID或日期）
+            // 对装备经验数据进行排序（按ID或日期）
             articleData.sort((a, b) => {
                 // 如果有publishDate字段，按日期排序（新的在前）
                 if (a.data.publishDate && b.data.publishDate) {
@@ -2555,11 +2780,11 @@ Page({
                 return 0; // 保持原有顺序
             });
             
-            // 处理文章数据
+            // 处理装备经验数据
             const articles = articleData.map((fishingDataWithId, index) => {
                 const fishingData = fishingDataWithId.data;
                 const articleId = fishingDataWithId.id;
-                // 检查文章格式，适配新旧两种格式
+                // 检查装备经验格式，适配新旧两种格式
                 if (fishingData.content !== undefined) {
                     // 新格式使用 content 属性
                     return {
@@ -2605,7 +2830,7 @@ Page({
             
             // 计算加载时间
              const loadTime = Date.now() - startTime;
-             console.log(`文章加载完成，共加载${articles.length}篇文章，耗时${loadTime}ms`);
+             console.log(`装备经验加载完成，共加载${articles.length}条装备经验，耗时${loadTime}ms`);
              
              this.setData({
                  articles: articles,
@@ -2615,26 +2840,26 @@ Page({
             // 显示加载成功提示
             if (articles.length > 0) {
                 wx.showToast({
-                    title: `已加载${articles.length}篇文章`,
+                    title: `已加载${articles.length}条装备经验`,
                     icon: 'success',
                     duration: 1500
                 });
             }
             
         } catch (error) {
-            console.error("加载文章失败:", error);
+            console.error("加载装备经验失败:", error);
             this.setData({
                 loading: false
             });
             wx.showToast({
-                title: '加载文章失败',
+                title: '加载装备经验失败',
                 icon: 'none'
             });
         }
     },
 
     /**
-     * 跳转到文章详情
+     * 跳转到装备经验详情
      */
     navigateToArticlePage: async function(e) {
         // 检查登录状态
@@ -2655,25 +2880,31 @@ Page({
     /**
      * 发布按钮点击事件
      */
-    onPublish: async function() {
-        // 检查登录状态
-        const AuthService = require('../../services/auth.js');
-        try {
-            await AuthService.ensureLogin();
-        } catch (error) {
-            // 如果已有登录弹窗在显示，避免重复提示
-            if (error && error.message === 'LoginPromptAlreadyOpen') {
-                return;
-            }
-            console.log('用户取消登录');
-            return;
-        }
-        
-        // 跳转到新的发布模式选择页面
-        wx.navigateTo({
-            url: '/pkgContent/publishMode/publishMode'
-        });
-    },
+	    onPublish: async function() {
+	        // 检查登录状态
+	        const AuthService = require('../../services/auth.js');
+	        try {
+	            await AuthService.ensureLogin();
+	        } catch (error) {
+	            // 如果已有登录弹窗在显示，避免重复提示
+	            if (error && error.message === 'LoginPromptAlreadyOpen') {
+	                return;
+	            }
+	            console.log('用户取消登录');
+	            return;
+	        }
+
+	        wx.showActionSheet({
+	            itemList: ['发起求推荐', '发布装备经验', '提一个装备问题'],
+	            success: (res) => {
+	                const intentMap = ['recommend', 'experience', 'question'];
+	                const intent = intentMap[res.tapIndex] || 'question';
+	                wx.navigateTo({
+	                    url: `/pkgContent/publishMode/publishMode?intent=${intent}`
+	                });
+	            }
+	        });
+	    },
 
     /**
      * 初始化主题模式
@@ -2696,88 +2927,40 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow() {
-        console.log('AnglerSay页面onShow开始');
-        // 同步主题模式状态
-        this.initThemeMode();
-        
-        // 通知自定义导航栏更新主题
-        const customNavbar = this.selectComponent('#custom-navbar');
-        console.log('获取自定义导航栏组件:', customNavbar);
-        if (customNavbar && customNavbar.updateTheme) {
-            console.log('调用updateTheme方法');
-            customNavbar.updateTheme();
-        } else {
-            console.log('未找到自定义导航栏组件或updateTheme方法');
-        }
-        
-        // 通知轮播图组件更新主题
-        const bannerCarousel = this.selectComponent('#banner-carousel');
-        if (bannerCarousel && bannerCarousel.updateTheme) {
-            bannerCarousel.updateTheme();
-        }
-        
-        // 通知功能导航组件更新主题
-        const functionNav = this.selectComponent('#functionNav');
-        if (functionNav && functionNav.updateTheme) {
-            functionNav.updateTheme();
-        }
-        
-        // 列表状态处理逻辑
-        if (!this.data.originList || this.data.originList.length === 0) {
-            console.log('[首页] 列表为空，重新加载数据');
-            if (!this._isLoadingAnglerData) {
-                this.loadAnglerData();
-            }
-        } else {
-            console.log('[首页] 列表已存在，叠加本地点赞缓存以确保状态不丢失');
-            try {
-                const updatedList = this.mergeLikeCache(this.data.originList);
-                updatedList.forEach(item => {
-                    this.updateFullAnglerListItem(item.id, item);
-                });
-                this.setData({ originList: updatedList });
-                console.log('[首页] 已叠加本地点赞缓存');
+	    onShow() {
+	        console.log('[首页] 页面onShow开始');
+	        this.initThemeMode();
 
-                // 如果当前是瀑布流布局，同步瀑布列中的点赞状态与计数
-                // if (this.data.layoutMode === LAYOUT_MODE.WATERFALL) {
-                //     console.log('[首页][瀑布流] 同步点赞状态并重建列数据');
-                //     const rebuilt = this.prepareWaterfallAppend(updatedList, true);
-                //     if (rebuilt) {
-                //         this.setData({
-                //             waterfallColumns: rebuilt.columns,
-                //             waterfallColumnHeights: rebuilt.heights
-                //         });
-                //         console.log('[首页][瀑布流] 列已同步，卡片点赞状态就绪');
-                //     } else {
-                //         console.log('[首页][瀑布流] 重建结果为空或无需更新');
-                //     }
-                // }
-            } catch (e) {
-                console.warn('[首页] 叠加本地点赞缓存失败:', e);
-            }
-            console.log('[首页] 点赞状态刷新流程完成');
-        }
-        
-        // 登录完成后的一次性刷新：未登录加载过则在登录后重新拉取带islike的数据
-        try {
-            const isLoggedIn = AuthService.checkLoginStatus();
-            const needRefresh = wx.getStorageSync('needRefreshAfterLogin');
-            if (isLoggedIn && needRefresh) {
-                console.log('[首页] 检测到登录完成，触发一次列表刷新以获取服务端islike');
-                this.loadAnglerData();
-                wx.removeStorageSync('needRefreshAfterLogin');
-            }
-            const needRefreshAfterPublish = wx.getStorageSync('needRefreshAfterPublish');
-            if (needRefreshAfterPublish) {
-                console.log('[首页] 检测到发帖完成，刷新首页列表');
-                this.loadAnglerData();
-                wx.removeStorageSync('needRefreshAfterPublish');
-            }
-        } catch (e) { console.warn('[首页] 登录后刷新检查失败:', e); }
-        
-        console.log('AnglerSay页面onShow结束');
-    },
+	        const customNavbar = this.selectComponent('#custom-navbar');
+	        if (customNavbar && customNavbar.updateTheme) {
+	            customNavbar.updateTheme();
+	        }
+
+	        const functionNav = this.selectComponent('#functionNav');
+	        if (functionNav && functionNav.updateTheme) {
+	            functionNav.updateTheme();
+	        }
+
+	        try {
+	            const isLoggedIn = AuthService.checkLoginStatus();
+	            const needRefresh = wx.getStorageSync('needRefreshAfterLogin');
+	            if (isLoggedIn && needRefresh) {
+	                console.log('[首页] 检测到登录完成，刷新首页预览');
+	                this.loadHomePreviewData({ silent: true });
+	                wx.removeStorageSync('needRefreshAfterLogin');
+	            }
+	            const needRefreshAfterPublish = wx.getStorageSync('needRefreshAfterPublish');
+	            if (needRefreshAfterPublish) {
+	                console.log('[首页] 检测到发布完成，刷新首页预览');
+	                this.loadHomePreviewData({ silent: true });
+	                wx.removeStorageSync('needRefreshAfterPublish');
+	            }
+	        } catch (e) {
+	            console.warn('[首页] 刷新检查失败:', e);
+	        }
+
+	        console.log('[首页] 页面onShow结束');
+	    },
 
     /**
      * 生命周期函数--监听页面隐藏
@@ -2796,16 +2979,12 @@ Page({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    async onPullDownRefresh() {
-        this.setData({ isPullRefreshing: true });
-        try {
-            console.log('[首页] 开始下拉刷新');
-
-            // 重新加载钓友说数据（基于话题接口）
-            this._ttiMarks = { start: Date.now(), logged: false };
-            await this.loadAnglerData({ silent: true, source: 'refresh' });
-
-            console.log('[首页] 下拉刷新完成');
+	    async onPullDownRefresh() {
+	        this.setData({ isPullRefreshing: true });
+	        try {
+	            console.log('[首页] 开始下拉刷新');
+	            await this.loadHomePreviewData({ silent: true });
+	            console.log('[首页] 下拉刷新完成');
         } catch (error) {
             console.error('[首页] 下拉刷新失败:', error);
         } finally {
@@ -2818,11 +2997,9 @@ Page({
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom() {
-        if (this.data.anglerHasMore) {
-            this.loadNextAnglerPage();
-        }
-    },
+	    onReachBottom() {
+	        // 首页只展示装备与经验预览，不做默认大帖子流分页。
+	    },
 
     /**
      * 用户点击右上角分享
@@ -2849,65 +3026,20 @@ Page({
         this.closeMoreMenu();
     },
 
-    /**
-     * 轮播图导航栏颜色变化事件
-     */
-    onNavbarColorChange(e) {
-        const { backgroundColor, textColor } = e.detail;
-        
-        // 更新数据
-        this.setData({
-            currentNavbarColor: backgroundColor,
-            currentTextColor: textColor
-        });
-        
-        // 获取导航栏组件实例并更新颜色
-        const navbar = this.selectComponent('#custom-navbar');
-        if (navbar) {
-            navbar.setData({
-                backgroundColor: backgroundColor,
-                textColor: textColor
-            });
-        }
-    },
+	    /**
+	     * 功能导航点击事件
+	     */
+	    onFunctionTap: async function(e) {
+	        const { item, id } = e.detail;
+	        console.log('功能导航点击:', item);
 
-    /**
-     * 轮播图切换事件
-     */
-    onBannerChange(e) {
-        const { current, item } = e.detail;
-        console.log('轮播图切换到:', current, item);
-    },
-
-    /**
-     * 轮播图点击事件
-     */
-    onBannerTap(e) {
-        const { index, item } = e.detail;
-        console.log('点击轮播图:', index, item);
-        
-        // 根据轮播图配置的链接进行跳转
-        if (item.link) {
-            wx.navigateTo({
-                url: item.link
-            });
-        }
-    },
-
-    /**
-     * 功能导航点击事件
-     */
-    onFunctionTap: async function(e) {
-        const { item, id } = e.detail;
-        console.log('功能导航点击:', item);
-
-        const guestAllowedIds = ['gear-library', 'discover'];
-        if (!guestAllowedIds.includes(id)) {
-            try {
-                const AuthService = require('../../services/auth.js');
-                await AuthService.ensureLogin();
-            } catch (error) {
-                if (error && error.message === 'LoginPromptAlreadyOpen') {
+	        const guestAllowedIds = ['gear-library', 'gear-compare', 'gear-experience'];
+	        if (!guestAllowedIds.includes(id)) {
+	            try {
+	                const AuthService = require('../../services/auth.js');
+	                await AuthService.ensureLogin();
+	            } catch (error) {
+	                if (error && error.message === 'LoginPromptAlreadyOpen') {
                     return;
                 }
                 wx.showToast({ title: '请先登录', icon: 'none' });
@@ -2915,22 +3047,32 @@ Page({
             }
         }
 
-        // 可以在这里添加统计埋点
-        this.trackFunctionClick(id);
-        
-        // 处理特定功能的跳转逻辑
-        if (id === 'discover') {
-            // 跳转到文章页面
-            wx.navigateTo({
-                url: '/pkgContent/articlePage/articlePage'
-            }).catch(() => {
-                wx.showToast({
-                    title: '页面跳转失败',
-                    icon: 'none'
-                });
-            });
-            return;
-        }
+	        this.trackFunctionClick(id);
+
+	        if (id === 'gear-library') {
+	            wx.switchTab({
+	                url: '/pages/gear-tab/index'
+	            });
+	            return;
+	        }
+
+	        if (id === 'gear-experience') {
+	            wx.navigateTo({
+	                url: '/pkgContent/articlePage/articlePage'
+	            }).catch(() => {
+	                wx.showToast({ title: '页面跳转失败', icon: 'none' });
+	            });
+	            return;
+	        }
+
+	        if (id === 'ask-recommend') {
+	            wx.navigateTo({
+	                url: '/pkgContent/publishMode/publishMode?intent=recommend'
+	            }).catch(() => {
+	                wx.showToast({ title: '页面跳转失败', icon: 'none' });
+	            });
+	            return;
+	        }
 
         // 其他功能：统一使用功能项的path进行跳转
         if (item && item.path) {
@@ -2945,10 +3087,10 @@ Page({
     },
 
     /**
-     * 更多功能点击事件
+     * 功能入口扩展点击事件
      */
     onMoreTap(e) {
-        console.log('更多功能点击');
+        console.log('功能入口扩展点击');
         wx.navigateTo({
             url: '/pages/function-list/function-list'
         }).catch(() => {
