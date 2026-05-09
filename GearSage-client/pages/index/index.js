@@ -309,7 +309,7 @@ Page({
 
     getHomeShareConfig() {
         return {
-            title: '钓友说｜看真实装备体验和钓获分享',
+            title: 'GearSage｜装备资料查询、参数对比与经验交流',
             path: '/pages/index/index',
             imageUrl: '/images/share.png'
         };
@@ -392,11 +392,65 @@ Page({
         });
     },
 
-    onMoreMenuReportTap() {
+    onMoreMenuReportTap(e) {
         this.closeMoreMenu();
-        wx.showToast({
-            title: '举报功能开发中',
-            icon: 'none'
+        const postId = this.normalizeDisplayText(
+            (e && e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.id) || '',
+            ''
+        );
+        this.submitReport('topic', postId);
+    },
+
+    async submitReport(targetType, targetId) {
+        const normalizedTargetId = Number(targetId || 0);
+        if (!normalizedTargetId) {
+            wx.showToast({ title: '举报对象无效', icon: 'none' });
+            return;
+        }
+
+        const AuthService = require('../../services/auth.js');
+        try {
+            await AuthService.ensureLogin();
+        } catch (error) {
+            if (error && error.message === 'LoginPromptAlreadyOpen') {
+                return;
+            }
+            wx.showToast({ title: '请先登录', icon: 'none' });
+            return;
+        }
+
+        wx.showModal({
+            title: '举报内容',
+            editable: true,
+            placeholderText: '请简要说明违规原因',
+            confirmText: '提交',
+            success: async (res) => {
+                if (!res.confirm) {
+                    return;
+                }
+                const reason = String(res.content || '').trim();
+                if (!reason) {
+                    wx.showToast({ title: '请填写举报原因', icon: 'none' });
+                    return;
+                }
+
+                try {
+                    wx.showLoading({ title: '提交中...' });
+                    await apiService.reportTarget({
+                        targetType,
+                        targetId: normalizedTargetId,
+                        reason
+                    });
+                    wx.hideLoading();
+                    wx.showToast({ title: '举报已提交', icon: 'success' });
+                } catch (error) {
+                    wx.hideLoading();
+                    wx.showToast({
+                        title: apiService.getErrorMessage(error, '提交失败'),
+                        icon: 'none'
+                    });
+                }
+            }
         });
     },
 
@@ -2847,17 +2901,18 @@ Page({
         const { item, id } = e.detail;
         console.log('功能导航点击:', item);
 
-        // 登录拦截：功能导航统一需登录（若后续有公共项，可加入白名单）
-        try {
-            const AuthService = require('../../services/auth.js');
-            await AuthService.ensureLogin();
-        } catch (error) {
-            // 如果已有登录弹窗在显示，避免重复提示
-            if (error && error.message === 'LoginPromptAlreadyOpen') {
+        const guestAllowedIds = ['gear-library', 'discover'];
+        if (!guestAllowedIds.includes(id)) {
+            try {
+                const AuthService = require('../../services/auth.js');
+                await AuthService.ensureLogin();
+            } catch (error) {
+                if (error && error.message === 'LoginPromptAlreadyOpen') {
+                    return;
+                }
+                wx.showToast({ title: '请先登录', icon: 'none' });
                 return;
             }
-            wx.showToast({ title: '请先登录', icon: 'none' });
-            return;
         }
 
         // 可以在这里添加统计埋点
@@ -2933,7 +2988,7 @@ Page({
         
         // 可以在这里处理分享逻辑
         return {
-            title: title || '钓友说 - 专业的钓鱼交流平台',
+            title: title || 'GearSage - 装备资料查询与经验交流',
             path: path || '/pages/index/index'
         };
     },

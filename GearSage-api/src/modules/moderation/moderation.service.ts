@@ -128,19 +128,19 @@ export class ModerationService {
     if (decision.result === 'PASS') {
       return;
     }
-    throw new BadRequestException('内容不符合社区规范，请修改后重试');
+    throw new BadRequestException('内容不符合内容规范，请修改后重试');
   }
 
   assertUploadImageAllowed(decision: ModerationDecision) {
     if (decision.result === 'PASS') {
       return;
     }
-    throw new BadRequestException('图片内容不符合社区规范，请更换后重试');
+    throw new BadRequestException('图片内容不符合内容规范，请更换后重试');
   }
 
   assertTopicPublishAccepted(decision: ModerationDecision) {
     if (decision.result === 'REJECT') {
-      throw new BadRequestException('内容不符合社区规范，请修改后重试');
+      throw new BadRequestException('内容不符合内容规范，请修改后重试');
     }
   }
 

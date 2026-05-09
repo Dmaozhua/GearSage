@@ -222,6 +222,10 @@
   font-size: 20rpx;
 }
 
+.comment-report-btn {
+  color: #8a4d4d;
+}
+
 .topic-author-tag--light,
 .topic-author-tag--mini {
   font-size: 18rpx;

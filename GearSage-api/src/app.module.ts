@@ -11,6 +11,8 @@ import { AdminAuthController } from './modules/admin/admin-auth.controller';
 import { AdminAuthService } from './modules/admin/admin-auth.service';
 import { AdminLogController } from './modules/admin/admin-log.controller';
 import { AdminLogService } from './modules/admin/admin-log.service';
+import { AdminReportController } from './modules/admin/admin-report.controller';
+import { AdminReportService } from './modules/admin/admin-report.service';
 import { AdminReviewController } from './modules/admin/admin-review.controller';
 import { AdminReviewService } from './modules/admin/admin-review.service';
 import { AdminRuleController } from './modules/admin/admin-rule.controller';
@@ -41,6 +43,8 @@ import { ModerationService } from './modules/moderation/moderation.service';
 import { ModerationTencentService } from './modules/moderation/moderation.tencent.service';
 import { MessageController } from './modules/message/message.controller';
 import { MessageService } from './modules/message/message.service';
+import { ReportController } from './modules/report/report.controller';
+import { ReportService } from './modules/report/report.service';
 
 @Module({
   imports: [
@@ -56,6 +60,7 @@ import { MessageService } from './modules/message/message.service';
     AdminReviewController,
     AdminUserController,
     AdminLogController,
+    AdminReportController,
     AdminRuleController,
     AuthController,
     UserController,
@@ -68,6 +73,7 @@ import { MessageService } from './modules/message/message.service';
     TaskController,
     InviteController,
     MessageController,
+    ReportController,
   ],
   providers: [
     DatabaseService,
@@ -79,6 +85,7 @@ import { MessageService } from './modules/message/message.service';
     AdminReviewService,
     AdminUserService,
     AdminLogService,
+    AdminReportService,
     AdminRuleService,
     AuthService,
     SmsService,
@@ -93,6 +100,7 @@ import { MessageService } from './modules/message/message.service';
     ModerationService,
     ModerationTencentService,
     MessageService,
+    ReportService,
   ],
 })
 export class AppModule {}

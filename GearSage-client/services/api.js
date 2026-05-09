@@ -1484,6 +1484,14 @@ class ApiService {
     return this.get(`/mini/comment?topicId=${topicId}`);
   }
 
+  reportTarget(reportData = {}) {
+    return this.post('/mini/report', {
+      targetType: reportData.targetType,
+      targetId: Number(reportData.targetId),
+      reason: reportData.reason || ''
+    }).then(result => result || null);
+  }
+
   // ========== 管理员相关接口 ==========
   
   /**

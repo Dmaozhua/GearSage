@@ -5,10 +5,10 @@ module.exports = {
       {
         name: 'div',
         attrs: { class: 'title' },
-        children: [{ type: 'text', text: '【关于本小程序：钓友说】' }]
+            children: [{ type: 'text', text: '【关于本小程序：GearSage】' }]
       },
       { type: 'text', text: '\n\n' }, // 换行分隔
-      
+
       {
         name: 'div',
         attrs: { class: 'subtitle' },
@@ -17,10 +17,10 @@ module.exports = {
       {
         name: 'div',
         attrs: { class: 'content' },
-        children: [{ type: 'text', text: '专注路亚装备深度分享论坛小程序' }]
+        children: [{ type: 'text', text: '面向路亚钓友的装备资料查询、参数对比和装备经验交流工具' }]
       },
       { type: 'text', text: '\n\n' },
-      
+
       {
         name: 'div',
         attrs: { class: 'subtitle' },
@@ -29,32 +29,32 @@ module.exports = {
       {
         name: 'div',
         attrs: { class: 'content' },
-        children: [{ 
-          type: 'text', 
-          text: '召集所有路亚玩家，专注于各类路亚装备的真实分享，涵盖路亚竿、轮和饵、线等消耗品，以及任何能提升钓鱼体验的物品都可以在这里找到交流。' 
+        children: [{
+          type: 'text',
+          text: 'GearSage 聚焦路亚竿、轮、饵、线等装备资料、参数对比与长期使用经验，帮助钓友做更清楚的装备判断。'
         }]
       },
       { type: 'text', text: '\n\n' },
-      
+
       {
         name: 'div',
         attrs: { class: 'subtitle' },
-        children: [{ type: 'text', text: '论坛的硬核原则：' }]
+        children: [{ type: 'text', text: '经验交流的基本原则：' }]
       },
       {
         name: 'div',
         attrs: { class: 'content' },
-        children: [{ 
-          type: 'text', 
-          text: '所有装备分享，发帖者必须是该装备的 “资深使用者”—— 使用时间满 2 年以上。这意味着你看到的每一份评价，都是经过长期实战检验的综合体验，杜绝一时兴起的片面之词。' 
+        children: [{
+          type: 'text',
+          text: '鼓励长期、真实、可复核的装备经验。系统会对发布内容进行审核，审核通过后再公开展示。'
         }]
       },
       { type: 'text', text: '\n\n' },
-      
+
       {
         name: 'div',
         attrs: { class: 'subtitle' },
-        children: [{ type: 'text', text: '在这儿，你可以尽情分享：' }]
+        children: [{ type: 'text', text: '在这里，你可以：' }]
       },
       {
         name: 'ul',
@@ -63,26 +63,26 @@ module.exports = {
           {
             name: 'li',
             attrs: { class: 'list-item' },
-            children: [{ type: 'text', text: '心仪装备的独特亮点，让更多人发现它的魅力；' }]
+            children: [{ type: 'text', text: '查询装备基础资料，查看关键参数；' }]
           },
           {
             name: 'li',
             attrs: { class: 'list-item' },
-            children: [{ type: 'text', text: '实用装备的使用心得，用亲身经验为钓友们指路推荐；' }]
+            children: [{ type: 'text', text: '对比同类装备，减少盲买；' }]
           },
           {
             name: 'li',
             attrs: { class: 'list-item' },
-            children: [{ type: 'text', text: '那些不为人知的小众好物，让好装备不再被埋没。' }]
+            children: [{ type: 'text', text: '发布或阅读真实使用经验与求推荐内容。' }]
           }
         ]
       },
       { type: 'text', text: '\n' },
-      
+
       {
         name: 'div',
         attrs: { class: 'conclusion' },
-        children: [{ type: 'text', text: '快来加入我们，一起在真实的装备体验分享中，让路亚之路获得最好的体验！' }]
+        children: [{ type: 'text', text: 'GearSage 希望用可信资料和真实经验，帮助每一次装备选择更稳一点。' }]
       }
     ]
   }

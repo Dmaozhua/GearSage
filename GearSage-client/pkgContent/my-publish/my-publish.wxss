@@ -129,6 +129,11 @@
   color: #155724;
 }
 
+.post-status.rejected {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
 .status-text {
   font-size: 24rpx;
   font-weight: 500;
@@ -331,6 +336,11 @@
 .dark-mode .post-status.published {
   background-color: #1e3a2e;
   color: #4caf50;
+}
+
+.dark-mode .post-status.rejected {
+  background-color: #4a2528;
+  color: #ff9aa2;
 }
 
 .dark-mode .empty-text {

@@ -933,7 +933,7 @@ Page({
       
       wx.hideLoading();
       wx.showToast({
-        title: Number(publishResult && publishResult.status) === 1 ? '已提交审核' : '发布成功',
+        title: '已提交审核',
         icon: 'success',
         duration: 2000
       });
@@ -946,7 +946,7 @@ Page({
     } catch (error) {
       console.error('发布失败:', error);
       wx.showToast({
-        title: api.getErrorMessage(error, '发布内容不符合社区规范，请修改后重试'),
+        title: api.getErrorMessage(error, '发布内容不符合内容规范，请修改后重试'),
         icon: 'none'
       });
     } finally {

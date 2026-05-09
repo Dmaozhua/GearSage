@@ -1092,7 +1092,7 @@ Page(Object.assign({}, debouncePageMixin, {
             showNetworkLoading: false
           });
           wx.showToast({
-            title: api.getErrorMessage(error, '保存内容不符合社区规范，请修改后重试'),
+            title: api.getErrorMessage(error, '保存内容不符合内容规范，请修改后重试'),
             icon: 'none'
           });
         }

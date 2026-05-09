@@ -170,6 +170,20 @@ CREATE TABLE IF NOT EXISTS user_messages (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS user_reports (
+  id BIGSERIAL PRIMARY KEY,
+  "reporterUserId" BIGINT NOT NULL,
+  "targetType" VARCHAR(32) NOT NULL,
+  "targetId" VARCHAR(64) NOT NULL,
+  reason TEXT NOT NULL DEFAULT '',
+  status VARCHAR(16) NOT NULL DEFAULT 'pending',
+  "handledByAdminId" BIGINT,
+  "handledRemark" TEXT NOT NULL DEFAULT '',
+  "handledAt" TIMESTAMPTZ,
+  "createTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS moderation_records (
   id BIGSERIAL PRIMARY KEY,
   scene VARCHAR(64) NOT NULL,

@@ -14,18 +14,18 @@ module.exports = {
         children: [{ type: 'text', text: '【关于审核：用严格守护时间的重量】' }]
       },
       { type: 'text', text: '\n\n' },
-      
+
       // 引言
       {
         name: 'div',
         attrs: { class: 'intro' },
-        children: [{ 
-          type: 'text', 
-          text: '为了让每篇分享都配得上 “2 年使用” 的硬核标签，论坛审核会带着 “放大镜” 较真' 
+        children: [{
+          type: 'text',
+          text: '为了让装备经验交流保持可信，发布、评论、资料更新和举报理由都会进入内容审核与必要的人工处理。'
         }]
       },
       { type: 'text', text: '\n' },
-      
+
       // 必交材料部分
       {
         name: 'div',
@@ -37,9 +37,9 @@ module.exports = {
       {
         name: 'div',
         attrs: { class: 'section-content' },
-        children: [{ 
-          type: 'text', 
-          text: '每篇装备分享帖，除了装备本身的细节展示，必须附上能证明购买时间的凭证（订单截图、购物记录、实体发票等均可）。我们会对凭证做双重核查：' 
+        children: [{
+          type: 'text',
+          text: '每篇装备分享帖，除了装备本身的细节展示，必须附上能证明购买时间的凭证（订单截图、购物记录、实体发票等均可）。我们会对凭证做双重核查：'
         }]
       },
       {
@@ -68,7 +68,7 @@ module.exports = {
         children: [{ type: 'text', text: '（放心，所有隐私信息可打码处理，我们只聚焦 “购买时间” 这一核心）' }]
       },
       { type: 'text', text: '\n' },
-      
+
       // 审核尺度部分
       {
         name: 'div',
@@ -101,7 +101,7 @@ module.exports = {
         ]
       },
       { type: 'text', text: '\n' },
-      
+
       // 审核结果部分
       {
         name: 'div',
@@ -131,14 +131,14 @@ module.exports = {
         ]
       },
       { type: 'text', text: '\n' },
-      
+
       // 结尾
       {
         name: 'div',
         attrs: { class: 'conclusion' },
-        children: [{ 
-          type: 'text', 
-          text: '我们知道审核严格会让发帖多花点时间，但这正是为了让你刷到的每篇分享，都带着 “时间筛过的真实”—— 毕竟，热爱从不是一时的热闹，而是能陪伴每一次抛投的实在建议。' 
+        children: [{
+          type: 'text',
+          text: '我们知道审核严格会让发帖多花点时间，但这正是为了让你刷到的每篇分享，都带着 “时间筛过的真实”—— 毕竟，热爱从不是一时的热闹，而是能陪伴每一次抛投的实在建议。'
         }]
       }
     ]

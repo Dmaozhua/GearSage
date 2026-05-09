@@ -25,8 +25,8 @@
   <view class="login-prompt" wx:if="{{!loading && !isLoggedIn}}">
     <view class="login-content">
       <image class="login-icon" src="/images/login-icon.png" mode="aspectFit" />
-      <text class="login-title">欢迎来到钓友说</text>
-      <text class="login-subtitle">登录后可发布装备体验、参与讨论</text>
+      <text class="login-title">欢迎来到 GearSage</text>
+      <text class="login-subtitle">游客可先浏览装备库，发布、评论、求推荐时再登录</text>
       <button class="login-btn" bindtap="onLogin">
         <text class="login-btn-text">手机号登录</text>
       </button>
@@ -137,7 +137,7 @@
 
         <view class="menu-item" bindtap="onAbout">
           <text class="menu-icon">ℹ️</text>
-          <text class="menu-title">关于</text>
+          <text class="menu-title">协议与说明</text>
           <text class="menu-arrow">></text>
         </view>
 

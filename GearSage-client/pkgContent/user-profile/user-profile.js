@@ -178,6 +178,68 @@ Page({
     }
   },
 
+  async onReportUser() {
+    const targetId = Number(this.data.userId || 0);
+    if (!targetId) {
+      wx.showToast({
+        title: '举报对象无效',
+        icon: 'none',
+      });
+      return;
+    }
+
+    const auth = require('../../services/auth.js');
+    try {
+      await auth.ensureLogin();
+    } catch (error) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      });
+      return;
+    }
+
+    wx.showModal({
+      title: '举报用户',
+      editable: true,
+      placeholderText: '请简要说明违规原因',
+      confirmText: '提交',
+      success: async (res) => {
+        if (!res.confirm) {
+          return;
+        }
+        const reason = String(res.content || '').trim();
+        if (!reason) {
+          wx.showToast({
+            title: '请填写举报原因',
+            icon: 'none',
+          });
+          return;
+        }
+
+        try {
+          wx.showLoading({ title: '提交中...' });
+          await api.reportTarget({
+            targetType: 'user',
+            targetId,
+            reason,
+          });
+          wx.hideLoading();
+          wx.showToast({
+            title: '举报已提交',
+            icon: 'success',
+          });
+        } catch (error) {
+          wx.hideLoading();
+          wx.showToast({
+            title: api.getErrorMessage(error, '提交失败'),
+            icon: 'none',
+          });
+        }
+      },
+    });
+  },
+
   async resolveProfileMediaUrls(profile = {}) {
     try {
       const requests = [];

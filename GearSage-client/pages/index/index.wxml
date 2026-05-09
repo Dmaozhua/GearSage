@@ -1,11 +1,11 @@
 <custom-navbar
   id="custom-navbar"
-  title="钓友说"
+  title="GearSage"
   show-back="{{false}}"
   left-icon="/images/logo/GearSageLogo.png"
   left-icon-dark="/images/logo/GearSageLogo-w.png"
   show-search="{{true}}"
-  search-placeholder="搜索钓友体验"
+  search-placeholder="搜索装备资料和经验"
   right-button-text=""
   background-color="#BDC3C7"
   text-color="#000000"

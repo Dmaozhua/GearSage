@@ -2617,7 +2617,7 @@ Page({
             case 2:
               // 复制链接
               wx.setClipboardData({
-                data: `钓友说 - ${this.data.productDetail.name}`,
+                data: `GearSage - ${this.data.productDetail.name}`,
                 success: () => {
                   wx.showToast({
                     title: '链接已复制',
@@ -2855,7 +2855,7 @@ Page({
       } catch (error) {
         wx.hideLoading();
         wx.showToast({
-          title: api.getErrorMessage(error, '评论内容不符合社区规范，请修改后重试'),
+          title: api.getErrorMessage(error, '评论内容不符合内容规范，请修改后重试'),
           icon: 'none'
         });
         console.error('发布评论失败:', error);
@@ -3234,7 +3234,74 @@ Page({
         duration: 2000
       });
     },
-  
+
+    onReportComment(e) {
+      const commentId = Number(
+        (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.commentId) || 0
+      );
+      this.submitReport('comment', commentId);
+    },
+
+    async submitReport(targetType, targetId) {
+      const normalizedTargetId = Number(targetId || 0);
+      if (!normalizedTargetId) {
+        wx.showToast({
+          title: '举报对象无效',
+          icon: 'none'
+        });
+        return;
+      }
+
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
+      wx.showModal({
+        title: '举报内容',
+        editable: true,
+        placeholderText: '请简要说明违规原因',
+        confirmText: '提交',
+        success: async (res) => {
+          if (!res.confirm) {
+            return;
+          }
+
+          const reason = String(res.content || '').trim();
+          if (!reason) {
+            wx.showToast({
+              title: '请填写举报原因',
+              icon: 'none'
+            });
+            return;
+          }
+
+          try {
+            wx.showLoading({ title: '提交中...' });
+            await api.reportTarget({
+              targetType,
+              targetId: normalizedTargetId,
+              reason
+            });
+            wx.hideLoading();
+            wx.showToast({
+              title: '举报已提交',
+              icon: 'success'
+            });
+          } catch (error) {
+            wx.hideLoading();
+            wx.showToast({
+              title: api.getErrorMessage(error, '提交失败'),
+              icon: 'none'
+            });
+          }
+        }
+      });
+    },
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

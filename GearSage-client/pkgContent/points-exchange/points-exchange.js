@@ -35,7 +35,7 @@ const TAG_EXCHANGE_MOCK_PRODUCTS = [
     image: '/images/icons/h28.png',
     points: 65,
     stock: 999,
-    description: '轻度翻车也能优雅自嘲的社区梗标签。',
+    description: '轻度翻车也能优雅自嘲的圈内梗标签。',
     rules: '兑换后永久获得，可在编辑资料中佩戴。',
     rarityLevel: 2,
     displayTag: {

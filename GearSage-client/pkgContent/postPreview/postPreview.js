@@ -157,7 +157,7 @@ Page({
       wx.setStorageSync('needRefreshAfterPublish', true);
       wx.removeStorageSync(TOPIC_PREVIEW_STORAGE_KEY);
       wx.showToast({
-        title: Number(publishResult && publishResult.status) === 1 ? '已提交审核' : '发布成功',
+        title: '已提交审核',
         icon: 'success'
       });
 
@@ -167,7 +167,7 @@ Page({
     } catch (error) {
       wx.hideLoading();
       console.error('[postPreview] 发布失败:', error);
-      const message = api.getErrorMessage(error, '发布内容不符合社区规范，请修改后重试');
+      const message = api.getErrorMessage(error, '发布内容不符合内容规范，请修改后重试');
       wx.showToast({
         title: message,
         icon: 'none'

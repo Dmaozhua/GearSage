@@ -734,7 +734,7 @@ Page({
       
       // 提交成功
       wx.showToast({
-        title: Number(res && res.status) === 1 ? '已提交审核' : '发布成功',
+        title: '已提交审核',
         icon: 'success',
         duration: 2000
       });
@@ -749,7 +749,7 @@ Page({
       wx.hideLoading();
       console.error('发布失败:', err);
       
-      const message = api.getErrorMessage(err, '发布内容不符合社区规范，请修改后重试');
+      const message = api.getErrorMessage(err, '发布内容不符合内容规范，请修改后重试');
       wx.showToast({
         title: message,
         icon: 'error',

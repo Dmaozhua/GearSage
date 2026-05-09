@@ -13,6 +13,10 @@ const viewMeta = {
     title: '评论审核',
     subtitle: '承接评论待审与人工复核动作。',
   },
+  reports: {
+    title: '举报处理',
+    subtitle: '查看用户举报，处理帖子、评论和用户相关投诉。',
+  },
   users: {
     title: '用户管理',
     subtitle: '处理封禁、解封与用户基础状态查看。',
@@ -219,6 +223,22 @@ function getCommentStatusLabel(status, isVisible) {
   return String(status ?? '-');
 }
 
+function getReportStatusLabel(status) {
+  const normalized = String(status || '').trim();
+  if (normalized === 'pending') return '待处理';
+  if (normalized === 'handled') return '已处理';
+  if (normalized === 'rejected') return '已驳回';
+  return normalized || '-';
+}
+
+function getReportTargetLabel(targetType) {
+  const normalized = String(targetType || '').trim();
+  if (normalized === 'topic') return '帖子';
+  if (normalized === 'comment') return '评论';
+  if (normalized === 'user') return '用户';
+  return normalized || '-';
+}
+
 function renderMediaPreview(images = []) {
   const list = normalizeMediaUrls(images);
   if (!list.length) {
@@ -333,6 +353,26 @@ function renderUserDetail(data) {
   `;
 }
 
+function renderReportDetail(data) {
+  return `
+    ${renderKeyValueSection('举报信息', [
+      { label: '举报 ID', value: data.id },
+      { label: '举报人', value: data.reporterName || '-' },
+      { label: '举报人手机号', value: data.reporterPhone || '-' },
+      { label: '对象', value: `${getReportTargetLabel(data.targetType)} #${data.targetId}` },
+      { label: '状态', value: getReportStatusLabel(data.status) },
+      { label: '系统审核结果', value: data.moderationResult || '-' },
+      { label: '风险原因', value: data.moderationRiskReason || '-' },
+      { label: '处理备注', value: data.handledRemark || '-' },
+      { label: '创建时间', value: data.createTime || '-' },
+      { label: '处理时间', value: data.handledAt || '-' },
+    ])}
+    ${renderJsonBlock('举报理由', data.reason || '')}
+    ${renderJsonBlock('审核记录', data.moderationRecords || [])}
+    ${renderJsonBlock('后台日志', data.adminLogs || [])}
+  `;
+}
+
 function renderDrawerContent(data) {
   if (data && Array.isArray(data.moderationRecords) && Array.isArray(data.adminLogs) && Object.prototype.hasOwnProperty.call(data, 'images')) {
     return renderTopicDetail(data);
@@ -344,6 +384,10 @@ function renderDrawerContent(data) {
 
   if (data && Object.prototype.hasOwnProperty.call(data, 'points') && Object.prototype.hasOwnProperty.call(data, 'phone')) {
     return renderUserDetail(data);
+  }
+
+  if (data && Object.prototype.hasOwnProperty.call(data, 'reporterUserId') && Object.prototype.hasOwnProperty.call(data, 'reason')) {
+    return renderReportDetail(data);
   }
 
   return `<pre class="json-block">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
@@ -454,6 +498,39 @@ async function loadUsers() {
   ], list);
 }
 
+async function loadReports() {
+  const status = document.getElementById('reports-status').value;
+  const targetType = document.getElementById('reports-target-type').value;
+  const list = await request(
+    `/admin/reports?status=${encodeURIComponent(status)}&targetType=${encodeURIComponent(targetType)}&limit=50`,
+  );
+
+  renderTable('reports-table', [
+    {
+      label: '举报',
+      render: (row) => makePrimaryCell(`#${row.id} ${getReportTargetLabel(row.targetType)} #${row.targetId}`, `举报人：${row.reporterName || '-'} / 状态：${getReportStatusLabel(row.status)}`),
+    },
+    {
+      label: '理由',
+      render: (row) => makePrimaryCell(row.reason || '-', `${row.moderationProvider || '-'} / ${row.moderationRiskReason || '-'}`),
+    },
+    {
+      label: '时间',
+      render: (row) => makePrimaryCell(row.createTime || '-', row.handledAt ? `处理：${row.handledAt}` : ''),
+    },
+    {
+      label: '操作',
+      render: (row) => `
+        <div class="action-row">
+          <button class="secondary" data-report-detail="${row.id}">详情</button>
+          ${String(row.status) === 'pending' ? `<button class="success" data-report-handle="${row.id}">标记处理</button>` : ''}
+          ${String(row.status) === 'pending' ? `<button class="warning" data-report-reject="${row.id}">驳回举报</button>` : ''}
+        </div>
+      `,
+    },
+  ], list);
+}
+
 async function loadLogs() {
   const targetType = document.getElementById('logs-target-type').value.trim();
   const action = document.getElementById('logs-action').value.trim();
@@ -509,6 +586,8 @@ async function loadActiveView() {
       await loadTopics();
     } else if (state.activeView === 'comments') {
       await loadComments();
+    } else if (state.activeView === 'reports') {
+      await loadReports();
     } else if (state.activeView === 'users') {
       await loadUsers();
     } else if (state.activeView === 'logs') {
@@ -548,6 +627,12 @@ async function handleActionClick(event) {
     if (target.dataset.userDetail) {
       const data = await request(`/admin/users/${target.dataset.userDetail}`);
       openDrawer(`用户详情 #${target.dataset.userDetail}`, data);
+      return;
+    }
+
+    if (target.dataset.reportDetail) {
+      const data = await request(`/admin/reports/${target.dataset.reportDetail}`);
+      openDrawer(`举报详情 #${target.dataset.reportDetail}`, data);
       return;
     }
 
@@ -629,6 +714,24 @@ async function handleActionClick(event) {
       });
       showMessage('用户已解封');
       await loadUsers();
+      return;
+    }
+
+    if (target.dataset.reportHandle) {
+      await withPromptAction('确认该举报已处理？', async (remark) => {
+        await request(`/admin/reports/${target.dataset.reportHandle}/handle`, { method: 'POST', body: { remark } });
+      });
+      showMessage('举报已处理');
+      await loadReports();
+      return;
+    }
+
+    if (target.dataset.reportReject) {
+      await withPromptAction('确认驳回该举报？', async (remark) => {
+        await request(`/admin/reports/${target.dataset.reportReject}/reject`, { method: 'POST', body: { remark } });
+      });
+      showMessage('举报已驳回');
+      await loadReports();
       return;
     }
 
@@ -728,6 +831,7 @@ document.querySelectorAll('.nav-item').forEach((node) => {
 document.getElementById('topics-search').addEventListener('click', loadTopics);
 document.getElementById('comments-search').addEventListener('click', loadComments);
 document.getElementById('users-search').addEventListener('click', loadUsers);
+document.getElementById('reports-search').addEventListener('click', loadReports);
 document.getElementById('logs-search').addEventListener('click', loadLogs);
 document.getElementById('rule-create').addEventListener('click', createRule);
 document.body.addEventListener('click', handleActionClick);

@@ -140,7 +140,7 @@ export class CommentService {
     );
 
     if (decision.result === 'REJECT') {
-      throw new ForbiddenException('内容不符合社区规范，请修改后重试');
+      throw new ForbiddenException('内容不符合内容规范，请修改后重试');
     }
 
     const status = decision.result === 'REVIEW' ? 0 : 2;

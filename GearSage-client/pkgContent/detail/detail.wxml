@@ -753,6 +753,7 @@
                       </view>
                       <view class="comment-accept-btn comment-accept-btn--primary" wx:if="{{!productDetail.hasAcceptedAnswer && isTopicOwner}}" bindtap="onAcceptRecommendAnswer" data-comment-id="{{item.id}}">采纳回答</view>
                       <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">追问</view>
+                      <view class="comment-reply-btn comment-report-btn" bindtap="onReportComment" data-comment-id="{{item.id}}">举报</view>
                     </view>
                   </view>
                 </view>
@@ -803,6 +804,7 @@
                         <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
                       </view>
                       <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
+                      <view class="comment-reply-btn comment-report-btn" bindtap="onReportComment" data-comment-id="{{item.id}}">举报</view>
                     </view>
                   </view>
                 </view>
@@ -856,6 +858,7 @@
                     <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
                   </view>
                   <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
+                  <view class="comment-reply-btn comment-report-btn" bindtap="onReportComment" data-comment-id="{{item.id}}">举报</view>
                 </view>
               </view>
             </view>

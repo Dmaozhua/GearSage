@@ -1,4 +1,6 @@
-﻿# 钓友说小程序 API（当前代码实装盘点）
+﻿# GearSage 小程序 API（当前代码实装盘点）
+
+> 2026-05-09 P3-A 补充：当前提审收口以独立后台 `GearSage-api` 为准，统一返回 `{ code, message, data }`。本文早期云函数口径仅作历史参考，新增/修改接口按独立后台口径记录。
 
 本文档按“当前小程序代码里实际调用/映射到的接口”整理，包含：
 - `/mini/*` 路由：在小程序侧由 [api.js](file:///d:/Xiaochengxu/Diaoyoushuo/services/api.js) 根据 `CLOUD_ACTION_MAP` 自动转为云函数 `miniApi` 调用
@@ -6,6 +8,20 @@
 - 少量“代码里有调用但未在仓库找到实现/映射”的接口：标记为“待确认”
 
 ## 0. 通用约定
+
+### 0.0 当前独立后台返回包络
+
+当前独立后台统一返回：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {}
+}
+```
+
+P3-A 禁止改动该结构。
 
 ### 0.1 真实调用方式
 
@@ -127,6 +143,64 @@ wx.cloud.callFunction({
   - `200` 成功
   - `500` 未登录 / 用户状态异常
 - 分页格式：无
+
+## 1-A. P3-A 举报接口
+
+### 1-A.1 POST /mini/report
+
+- 方法：POST
+- 路径：`/mini/report`
+- 是否需要登录：是
+- 用途：提交帖子、评论、用户举报
+- 请求参数：
+  - `targetType: "topic" | "comment" | "user"`
+  - `targetId: number`
+  - `reason: string`，最长 200 字
+- 审核口径：
+  - `reason` 走 `report_reason` 文本审核
+  - 命中 `REJECT / REVIEW` 时阻断提交
+  - 通过后写入 `user_reports`
+  - 审核留痕写入 `moderation_records`
+- 返回结构：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "id": 1,
+    "targetType": "topic",
+    "targetId": 43,
+    "status": "pending",
+    "createTime": "2026-05-09T07:18:50.000Z"
+  }
+}
+```
+
+### 1-A.2 GET /admin/reports
+
+- 方法：GET
+- 路径：`/admin/reports`
+- 是否需要后台登录：是
+- 用途：审核后台查看举报记录
+- 查询参数：
+  - `status?: "pending" | "handled" | "rejected" | "all"`
+  - `targetType?: "topic" | "comment" | "user" | "all"`
+  - `limit?: number`
+
+### 1-A.3 POST /admin/reports/:id/handle
+
+- 方法：POST
+- 路径：`/admin/reports/:id/handle`
+- 是否需要后台登录：是
+- 用途：标记举报已处理并写入后台日志
+
+### 1-A.4 POST /admin/reports/:id/reject
+
+- 方法：POST
+- 路径：`/admin/reports/:id/reject`
+- 是否需要后台登录：是
+- 用途：驳回无效举报并写入后台日志
 
 ## 2. 邀请
 

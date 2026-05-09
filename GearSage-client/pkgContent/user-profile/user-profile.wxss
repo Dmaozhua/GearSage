@@ -103,6 +103,17 @@ page {
   color: rgba(244, 249, 255, 0.9);
 }
 
+.profile-report-btn {
+  align-self: flex-start;
+  margin-top: 18rpx;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(247, 251, 255, 0.9);
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+
 .section-card {
   padding: 26rpx 24rpx;
   margin-bottom: 18rpx;

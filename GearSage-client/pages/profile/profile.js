@@ -999,17 +999,31 @@ Page({
   onAbout() {
     console.log('关于');
     wx.showActionSheet({
-      itemList: ['关于小程序', '关于审核'],
+      itemList: ['关于小程序', '关于审核', '隐私政策', '用户协议', '账号注销说明', '联系方式'],
       success: (res) => {
         if (res.tapIndex === 0) {
-          // 跳转到关于小程序页面
           wx.navigateTo({
             url: '/pkgContent/about-page/about-page?type=about'
           });
         } else if (res.tapIndex === 1) {
-          // 跳转到关于审核页面
           wx.navigateTo({
             url: '/pkgContent/about-page/about-page?type=audit'
+          });
+        } else if (res.tapIndex === 2) {
+          wx.navigateTo({
+            url: '/pkgContent/about-page/about-page?type=privacy'
+          });
+        } else if (res.tapIndex === 3) {
+          wx.navigateTo({
+            url: '/pkgContent/about-page/about-page?type=terms'
+          });
+        } else if (res.tapIndex === 4) {
+          wx.navigateTo({
+            url: '/pkgContent/about-page/about-page?type=cancel'
+          });
+        } else if (res.tapIndex === 5) {
+          wx.navigateTo({
+            url: '/pkgContent/about-page/about-page?type=contact'
           });
         }
       },

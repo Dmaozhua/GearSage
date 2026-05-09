@@ -39,7 +39,7 @@ Component({
       {
         id: 'gear-library',
         name: '装备库',
-        desc: '装备基本信息库',
+        desc: '资料查询与参数对比',
         icon: '/images/icons/publis/轮.png',
         iconDark: '/images/icons/轮-夜晚.png',
         badge: 'New',
@@ -49,8 +49,8 @@ Component({
       },
       {
         id: 'discover',
-        name: '文章',
-        desc: '探索历史&流行',
+        name: '经验',
+        desc: '装备使用经验交流',
         icon: '/images/icons/文章.png',
         iconDark: '/images/icons/文章-夜晚.png',
         badge: '',
@@ -61,7 +61,7 @@ Component({
       {
         id: 'points-mall',
         name: '积分商城',
-        desc: '获取积分兑好礼',
+        desc: '登录后查看权益',
         icon: '/images/icons/商城.png',
         iconDark: '/images/icons/商城-夜晚.png',
         badge: '热',
@@ -205,7 +205,7 @@ Component({
       
       // 触发分享事件
       this.triggerEvent('share', {
-        title: '钓友说 - 专业的钓鱼交流平台',
+        title: 'GearSage - 装备资料查询与经验交流',
         path: '/pages/index/index'
       });
     },
