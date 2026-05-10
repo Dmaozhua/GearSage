@@ -16,6 +16,15 @@ function hideLoadingSafely() {
   });
 }
 
+function safeDecodeURIComponent(value) {
+  const text = String(value || '');
+  try {
+    return decodeURIComponent(text);
+  } catch (error) {
+    return text;
+  }
+}
+
 Page({
   data: {
     navBarHeight: 0,
@@ -50,8 +59,9 @@ Page({
 
     this.setData({
       navBarHeight,
-      title: options.title || '装备列表',
-      currentType: options.type || 'reels'
+      title: options.title ? safeDecodeURIComponent(options.title) : '装备列表',
+      currentType: options.type || 'reels',
+      searchKeyword: options.keyword ? safeDecodeURIComponent(options.keyword) : ''
     });
 
     this.initData();
@@ -70,6 +80,11 @@ Page({
 
   async initData() {
     await this.loadBrands();
+    const keyword = this.normalizeText(this.data.searchKeyword);
+    if (keyword) {
+      await this.runKeywordSearch(keyword);
+      return;
+    }
     await this.loadData(true);
   },
 
@@ -218,7 +233,7 @@ Page({
   },
 
   async onSearch(e) {
-    const query = e.detail.query;
+    const query = this.normalizeText(e.detail.query);
     if (!query) return;
 
     console.log('[List Page] onSearch trigger:', {
@@ -226,11 +241,19 @@ Page({
       query
     });
 
-    this.setData({ searchKeyword: query, page: 1, hasMore: false, isSearchMode: true });
+    await this.runKeywordSearch(query);
+    this.finishSearchUI();
+  },
+
+  async runKeywordSearch(query) {
+    const keyword = this.normalizeText(query);
+    if (!keyword) return;
+
+    this.setData({ searchKeyword: keyword, page: 1, hasMore: false, isSearchMode: true });
     wx.showLoading({ title: '搜索中...' });
 
     try {
-      const list = await this.queryGearData(query, {});
+      const list = await this.queryGearData(keyword, {});
       this.setData({ list, allList: list, activeFilters: {}, isSearchMode: true, hasMore: false });
 
       if (!list.length) {
@@ -241,7 +264,6 @@ Page({
       wx.showToast({ title: '搜索失败，请稍后再试', icon: 'none' });
     } finally {
       hideLoadingSafely();
-      this.finishSearchUI();
     }
   },
 

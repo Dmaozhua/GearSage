@@ -67,6 +67,13 @@ Component({
       observer() {
         this.loadFilters(this.data.mappedType);
       }
+    },
+    initialSearchText: {
+      type: String,
+      value: '',
+      observer(newVal) {
+        this.setData({ searchText: String(newVal || '') });
+      }
     }
   },
 
@@ -179,14 +186,14 @@ Component({
 
     resetUIState() {
       this.setData({
-        searchText: '',
         suggestions: [],
         showSuggestions: false,
         selectedFilters: {},
         isExpanded: false,
         searchLoading: false,
         canSubmit: true,
-        recommendations: []
+        recommendations: [],
+        searchText: this.properties.initialSearchText || ''
       });
     },
 

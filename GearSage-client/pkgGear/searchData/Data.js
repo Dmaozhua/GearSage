@@ -3025,6 +3025,17 @@ module.exports = [
     "family": ""
   },
   {
+    "type": "reel",
+    "id": "DRE1033",
+    "name": "2026 EXIST 20th",
+    "alias": "",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
     "type": "rod",
     "id": "SR1000",
     "name": "24 WORLD SHAULA TECHNICAL EDITION 沙湖啦 TECHNICAEDITION",
@@ -10298,7 +10309,7 @@ module.exports = [
   {
     "type": "rod",
     "id": "DR1075",
-    "name": "SALAMANDURA J 火蜥蜴",
+    "name": "SALAMANDURA J 火蜥蜴 J",
     "alias": "火蜥蜴",
     "type_tips": "",
     "system": "",
@@ -10311,6 +10322,17 @@ module.exports = [
     "id": "DR1076",
     "name": "PARABELLUM 帕拉贝姆",
     "alias": "帕拉贝姆",
+    "type_tips": "",
+    "system": "",
+    "water_column": "",
+    "action": "",
+    "family": ""
+  },
+  {
+    "type": "rod",
+    "id": "DR1077",
+    "name": "SALAMANDURA MX J 火蜥蜴 MX J",
+    "alias": "火蜥蜴",
     "type_tips": "",
     "system": "",
     "water_column": "",

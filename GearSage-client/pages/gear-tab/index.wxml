@@ -25,7 +25,7 @@
           class="gear-search-input"
           value="{{searchKeyword}}"
           focus="{{focusSearch}}"
-          placeholder="搜索装备 / 型号 / SKU / 品牌"
+          placeholder="输入关键词，先选分类再搜索"
           confirm-type="search"
           bindinput="onSearchInput"
           bindconfirm="onSearchConfirm" />
@@ -40,7 +40,7 @@
           {{item.title}}
         </view>
       </view>
-      <button class="gear-search-button" bindtap="onSearchConfirm" loading="{{isSearching}}">搜索当前分类</button>
+      <button class="gear-search-button" bindtap="onSearchConfirm">进入分类搜索</button>
     </view>
 
     <view class="gear-section">
@@ -71,27 +71,6 @@
         <text class="gear-compare-desc">查看已加入对比池的装备参数差异</text>
       </view>
       <text class="gear-compare-arrow">›</text>
-    </view>
-
-    <view class="gear-section" wx:if="{{searchResults.length}}">
-      <view class="gear-section-header">
-        <text class="gear-section-title">搜索结果</text>
-      </view>
-      <view class="gear-list">
-        <view
-          wx:for="{{searchResults}}"
-          wx:key="id"
-          class="gear-list-card"
-          data-id="{{item.id}}"
-          data-type="{{item.type}}"
-          bindtap="navigateToGearDetail">
-          <image class="gear-list-image" src="{{item.imageUrl}}" mode="aspectFill" lazy-load="true"></image>
-          <view class="gear-list-copy">
-            <text class="gear-list-title">{{item.title}}</text>
-            <text class="gear-list-meta">{{item.meta}}</text>
-          </view>
-        </view>
-      </view>
     </view>
 
     <view class="gear-section">

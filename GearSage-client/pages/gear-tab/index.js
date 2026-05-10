@@ -20,9 +20,7 @@ Page({
     selectedSearchType: '',
     categories: CATEGORY_LIST,
     recentGearList: [],
-    searchResults: [],
-    isLoading: false,
-    isSearching: false
+    isLoading: false
   },
 
   onLoad() {
@@ -132,7 +130,7 @@ Page({
     this.setData({ selectedSearchType: type });
   },
 
-  async onSearchConfirm() {
+  onSearchConfirm() {
     const keyword = this.normalizeText(this.data.searchKeyword);
     if (!keyword) {
       wx.showToast({ title: '请输入装备或型号', icon: 'none' });
@@ -143,27 +141,11 @@ Page({
       return;
     }
 
-    this.setData({ isSearching: true, searchResults: [] });
-    try {
-      const result = await apiService.getGearList({
-        type: this.data.selectedSearchType,
-        page: 1,
-        pageSize: 200
-      }, { silent: true });
-      const lowerKeyword = keyword.toLowerCase();
-      const list = (result && Array.isArray(result.list) ? result.list : [])
-        .map(item => this.normalizeGearItem(item, this.data.selectedSearchType))
-        .filter(item => `${item.title} ${item.meta}`.toLowerCase().includes(lowerKeyword))
-        .slice(0, 10);
-      this.setData({ searchResults: list, isSearching: false });
-      if (!list.length) {
-        wx.showToast({ title: '当前分类未找到匹配装备', icon: 'none' });
-      }
-    } catch (error) {
-      console.error('[装备库Tab] 搜索失败:', error);
-      this.setData({ isSearching: false });
-      wx.showToast({ title: '搜索失败，请稍后再试', icon: 'none' });
-    }
+    const category = CATEGORY_LIST.find(item => item.type === this.data.selectedSearchType) || null;
+    const title = category ? category.title : '装备列表';
+    wx.navigateTo({
+      url: `/pkgGear/pages/list/list?type=${encodeURIComponent(this.data.selectedSearchType)}&title=${encodeURIComponent(title)}&keyword=${encodeURIComponent(keyword)}`
+    });
   },
 
   navigateToCategory(e) {
