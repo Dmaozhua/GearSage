@@ -473,3 +473,162 @@
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.08);
 }
+
+/* GearSage light theme readability */
+.post-evaluation-container {
+  color: #1f2a27;
+}
+
+.post-evaluation-container .step-content {
+  background: #ffffff;
+  border: 1rpx solid rgba(58, 68, 62, 0.12);
+  box-shadow: 0 8rpx 22rpx rgba(31, 42, 39, 0.05);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.post-evaluation-container .step-title,
+.post-evaluation-container .form-label,
+.post-evaluation-container .label-text,
+.post-evaluation-container .sub-label,
+.post-evaluation-container .picker-text,
+.post-evaluation-container .recommend-input,
+.post-evaluation-container .custom-tag-input,
+.post-evaluation-container .selector-option-label,
+.post-evaluation-container .drawer-title,
+.post-evaluation-container .group-label {
+  color: #1f2a27;
+  text-shadow: none;
+}
+
+.post-evaluation-container .optional,
+.post-evaluation-container .form-tip,
+.post-evaluation-container .picker-arrow,
+.post-evaluation-container .drawer-close,
+.post-evaluation-container .group-limit {
+  color: #68716b;
+}
+
+.post-evaluation-container .required,
+.post-evaluation-container .error-text {
+  color: #9a4a42;
+}
+
+.post-evaluation-container .picker,
+.post-evaluation-container .recommend-input,
+.post-evaluation-container .custom-tag-input,
+.post-evaluation-container .tag-chip,
+.post-evaluation-container .selector-option,
+.post-evaluation-container .tag-option {
+  background: #f7f8f5;
+  border-color: rgba(58, 68, 62, 0.14);
+  color: #1f2a27;
+}
+
+.post-evaluation-container .picker:active,
+.post-evaluation-container .recommend-input:focus,
+.post-evaluation-container .custom-tag-input:focus {
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.28);
+}
+
+.post-evaluation-container .tag-chip {
+  color: #4f6654;
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.28);
+}
+
+.post-evaluation-container .add-tag-btn,
+.post-evaluation-container .tag-option.selected,
+.post-evaluation-container .selector-option.selected {
+  color: #4f6654;
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.36);
+}
+
+.post-evaluation-container .selector-option-check {
+  color: #4f6654;
+}
+
+.post-evaluation-container .add-btn {
+  background: #4f6654;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.post-evaluation-container .delete-btn {
+  background: #9a4a42;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.post-evaluation-container .drawer-content {
+  background: #ffffff;
+  color: #1f2a27;
+}
+
+.post-evaluation-container .drawer-header,
+.post-evaluation-container .drawer-footer {
+  border-color: rgba(58, 68, 62, 0.12);
+}
+
+.post-evaluation-container .btn-confirm {
+  background: #26332d;
+  color: #ffffff;
+}
+
+.post-evaluation-container.dark {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-evaluation-container.dark .step-content {
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.22);
+}
+
+.post-evaluation-container.dark .step-title,
+.post-evaluation-container.dark .form-label,
+.post-evaluation-container.dark .label-text,
+.post-evaluation-container.dark .sub-label,
+.post-evaluation-container.dark .picker-text,
+.post-evaluation-container.dark .recommend-input,
+.post-evaluation-container.dark .custom-tag-input,
+.post-evaluation-container.dark .selector-option-label,
+.post-evaluation-container.dark .drawer-title,
+.post-evaluation-container.dark .group-label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.post-evaluation-container.dark .optional,
+.post-evaluation-container.dark .form-tip,
+.post-evaluation-container.dark .picker-arrow,
+.post-evaluation-container.dark .drawer-close,
+.post-evaluation-container.dark .group-limit {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.post-evaluation-container.dark .picker,
+.post-evaluation-container.dark .recommend-input,
+.post-evaluation-container.dark .custom-tag-input,
+.post-evaluation-container.dark .tag-chip,
+.post-evaluation-container.dark .selector-option,
+.post-evaluation-container.dark .tag-option {
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-evaluation-container.dark .tag-chip,
+.post-evaluation-container.dark .add-tag-btn,
+.post-evaluation-container.dark .tag-option.selected,
+.post-evaluation-container.dark .selector-option.selected {
+  background: rgba(154, 160, 131, 0.22);
+  border-color: rgba(154, 160, 131, 0.42);
+  color: #d8decb;
+}
+
+.post-evaluation-container.dark .drawer-content {
+  background: #182028;
+  color: rgba(255, 255, 255, 0.92);
+}

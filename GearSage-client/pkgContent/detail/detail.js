@@ -769,6 +769,69 @@ Page({
       return Boolean(post.canShare);
     },
 
+    isTopicRemovedError(error) {
+      const data = error && error.data ? error.data : {};
+      const statusCode = Number(
+        (error && error.statusCode)
+        || data.statusCode
+        || (error && error.code)
+        || 0
+      );
+      const message = [
+        error && error.message,
+        error && error.error,
+        data.message,
+        data.error
+      ].filter(Boolean).join(' ').toLowerCase();
+
+      if (!message) {
+        return false;
+      }
+
+      return (
+        statusCode === 404
+        && (
+          message.indexOf('topic not found') !== -1
+          || message.indexOf('帖子不存在') !== -1
+          || message.indexOf('已下架') !== -1
+        )
+      );
+    },
+
+    markCurrentTopicRemoved() {
+      const productDetail = this.data.productDetail || {};
+
+      this.setData({
+        productDetail: {
+          ...productDetail,
+          status: -1,
+          canComment: false,
+          canLike: false,
+          canShare: false,
+          commentDisabledReason: '帖子已下架',
+          likeDisabledReason: '帖子已下架',
+          shareDisabledReason: '帖子已下架'
+        },
+        showCommentInput: false,
+        commentEditorMode: 'normal',
+        commentContent: '',
+        replyTo: null,
+        replyToCommentId: null,
+        replyToUserId: null,
+        replyToUsername: '',
+        canSendComment: false
+      }, () => {
+        this.updateShareMenuState();
+      });
+    },
+
+    showTopicRemovedNotice() {
+      wx.showToast({
+        title: '帖子已下架',
+        icon: 'none'
+      });
+    },
+
     updateShareMenuState() {
       if (typeof wx.showShareMenu !== 'function' || typeof wx.hideShareMenu !== 'function') {
         return;
@@ -2488,6 +2551,12 @@ Page({
             });
         } catch (error) {
             console.error('点赞失败:', error);
+            if (this.isTopicRemovedError(error)) {
+                this.markCurrentTopicRemoved();
+                this.showTopicRemovedNotice();
+                return;
+            }
+
             wx.showToast({
                 title: '操作失败',
                 icon: 'none'
@@ -2781,11 +2850,14 @@ Page({
         return;
       }
 
+      let loadingShown = false;
+
       try {
         // 显示加载状态
         wx.showLoading({
           title: '发布中...'
         });
+        loadingShown = true;
         
         // 构建请求参数
         const commentData = isRecommendAnswer
@@ -2824,7 +2896,10 @@ Page({
           });
           this.refreshRecommendAnswerOptionViews(createEmptyRecommendAnswerForm());
           
-          wx.hideLoading();
+          if (loadingShown) {
+            wx.hideLoading();
+            loadingShown = false;
+          }
           if (!isReviewPending) {
             wx.showToast({
               title: isRecommendAnswer ? '回答发布成功' : '评论发布成功',
@@ -2867,7 +2942,17 @@ Page({
         }
         
       } catch (error) {
-        wx.hideLoading();
+        if (loadingShown) {
+          wx.hideLoading();
+          loadingShown = false;
+        }
+        if (this.isTopicRemovedError(error)) {
+          this.markCurrentTopicRemoved();
+          this.showTopicRemovedNotice();
+          console.error('发布评论失败:', error);
+          return;
+        }
+
         wx.showToast({
           title: api.getErrorMessage(error, '评论内容不符合内容规范，请修改后重试'),
           icon: 'none'

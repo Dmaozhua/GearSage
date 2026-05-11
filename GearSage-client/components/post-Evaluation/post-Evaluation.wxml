@@ -108,7 +108,7 @@
           <input 
             class="recommend-input {{errors.pros ? 'error' : ''}}"
             placeholder="可补充、说明优点具体内容..." 
-            placeholder-style="color: rgba(255,255,255,0.4);"
+            placeholder-style="{{isDarkMode ? 'color: rgba(255,255,255,0.4);' : 'color: #8a918a;'}}"
             maxlength="20"
             value="{{item}}" 
             data-index="{{index}}"
@@ -147,7 +147,7 @@
           <input 
             class="recommend-input {{errors.cons ? 'error' : ''}}"
             placeholder="可补充、说明缺点具体内容..." 
-            placeholder-style="color: rgba(255,255,255,0.4);"
+            placeholder-style="{{isDarkMode ? 'color: rgba(255,255,255,0.4);' : 'color: #8a918a;'}}"
             maxlength="20"
             value="{{item}}" 
             data-index="{{index}}"

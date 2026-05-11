@@ -1111,3 +1111,28 @@
 .post-experience-container.dark .verify-image-add .add-text {
   color: rgba(255, 255, 255, 0.56);
 }
+
+.post-experience-container .form-textarea {
+  color: #1f2a27;
+  background: #f7f8f5;
+  border-color: rgba(58, 68, 62, 0.14);
+}
+
+.post-experience-container .form-textarea:focus {
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.28);
+}
+
+.post-experience-container .char-count {
+  color: #68716b;
+}
+
+.post-experience-container.dark .form-textarea {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.post-experience-container.dark .char-count {
+  color: rgba(255, 255, 255, 0.56);
+}

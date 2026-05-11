@@ -318,6 +318,35 @@ function renderReviewFields(title, rows = []) {
   return renderKeyValueSection(title, normalized);
 }
 
+function renderReadableRows(title, rows = []) {
+  const normalized = rows
+    .map((row) => ({
+      label: row && row.label,
+      value: formatReviewValue(row && row.value),
+    }))
+    .filter((row) => row.label && row.value);
+  if (!normalized.length) {
+    return '';
+  }
+
+  const isBodySection = title === '正文' && normalized.length === 1;
+  return `
+    <section class="drawer-section readable-section">
+      <h4>${escapeHtml(title)}</h4>
+      ${isBodySection
+        ? `<div class="readable-body-text">${escapeHtml(normalized[0].value)}</div>`
+        : `<div class="readable-row-list">
+          ${normalized.map((row) => `
+            <div class="readable-row">
+              <div class="readable-label">${escapeHtml(row.label)}</div>
+              <div class="readable-value">${escapeHtml(row.value)}</div>
+            </div>
+          `).join('')}
+        </div>`}
+    </section>
+  `;
+}
+
 function renderTopicReviewSections(sections = []) {
   const normalized = Array.isArray(sections)
     ? sections.filter((section) => section && section.title !== '帖子概览')
@@ -327,7 +356,7 @@ function renderTopicReviewSections(sections = []) {
   }
 
   return normalized
-    .map((section) => renderReviewFields(section.title || '已填写内容', section.rows || []))
+    .map((section) => renderReadableRows(section.title || '已填写内容', section.rows || []))
     .join('');
 }
 
@@ -337,18 +366,22 @@ function renderReportTopicBlock(topic) {
   }
 
   return `
-    ${renderKeyValueSection('被举报帖子', [
-      { label: '帖子 ID', value: topic.id },
-      { label: '标题', value: topic.title || '-' },
-      { label: '作者', value: topic.authorName || '-' },
-      { label: '作者手机号', value: topic.authorPhone || '-' },
-      { label: '内容类型', value: topic.topicCategoryLabel || '-' },
-      { label: '帖子状态', value: `${getTopicStatusLabel(topic.status)} / isDelete=${topic.isDelete}` },
-      { label: '点赞数', value: topic.likeCount },
-      { label: '评论数', value: topic.commentCount },
-      { label: '发布时间', value: topic.publishTime || '-' },
-      { label: '创建时间', value: topic.createTime || '-' },
-    ])}
+    <section class="drawer-section report-topic-summary">
+      <div class="report-topic-kicker">被举报帖子 · ${escapeHtml(topic.topicCategoryLabel || '-')}</div>
+      <div class="report-topic-title">${escapeHtml(topic.title || '无标题')}</div>
+      <div class="report-topic-meta">
+        <span>ID ${escapeHtml(topic.id)}</span>
+        <span>${escapeHtml(topic.authorName || '-')}</span>
+        <span>${escapeHtml(topic.authorPhone || '-')}</span>
+        <span>${escapeHtml(getTopicStatusLabel(topic.status))} / isDelete=${escapeHtml(topic.isDelete)}</span>
+      </div>
+      <div class="report-topic-stats">
+        <span>点赞 ${escapeHtml(topic.likeCount || 0)}</span>
+        <span>评论 ${escapeHtml(topic.commentCount || 0)}</span>
+        <span>发布 ${escapeHtml(topic.publishTime || '-')}</span>
+        <span>创建 ${escapeHtml(topic.createTime || '-')}</span>
+      </div>
+    </section>
     ${renderTopicReviewSections(topic.reviewSections || [])}
     <section class="drawer-section">
       <h4>帖子图片</h4>
@@ -359,23 +392,34 @@ function renderReportTopicBlock(topic) {
 
 function renderTopicDetail(data) {
   return `
-    ${renderKeyValueSection('帖子信息', [
-      { label: '帖子 ID', value: data.id },
-      { label: '标题', value: data.title || '-' },
-      { label: '作者', value: data.authorName || '-' },
-      { label: '作者手机号', value: data.authorPhone || '-' },
-      { label: '状态', value: getTopicStatusLabel(data.status) },
+    <section class="drawer-section report-topic-summary">
+      <div class="report-topic-kicker">审核帖子 · ${escapeHtml(data.topicCategoryLabel || '-')}</div>
+      <div class="report-topic-title">${escapeHtml(data.title || '无标题')}</div>
+      <div class="report-topic-meta">
+        <span>ID ${escapeHtml(data.id)}</span>
+        <span>${escapeHtml(data.authorName || '-')}</span>
+        <span>${escapeHtml(data.authorPhone || '-')}</span>
+        <span>${escapeHtml(getTopicStatusLabel(data.status))} / isDelete=${escapeHtml(data.isDelete || 0)}</span>
+      </div>
+      <div class="report-topic-stats">
+        <span>点赞 ${escapeHtml(data.likeCount || 0)}</span>
+        <span>评论 ${escapeHtml(data.commentCount || 0)}</span>
+        <span>发布 ${escapeHtml(data.publishTime || '-')}</span>
+        <span>创建 ${escapeHtml(data.createTime || '-')}</span>
+      </div>
+    </section>
+    ${renderReadableRows('审核信号', [
       { label: '系统审核结果', value: data.moderationResult || '-' },
       { label: '风险原因', value: data.moderationRiskReason || '-' },
-      { label: '创建时间', value: data.createTime || '-' },
-      { label: '更新时间', value: data.updateTime || '-' },
+      { label: '风险等级', value: data.moderationRiskLevel || '-' },
+      { label: '最近后台动作', value: data.latestAdminAction || '-' },
+      { label: '最近处理备注', value: data.latestAdminRemark || '-' },
     ])}
-    ${renderJsonBlock('正文', data.content || '')}
+    ${renderTopicReviewSections(data.reviewSections || [])}
     <section class="drawer-section">
       <h4>用户上传图片</h4>
       ${renderMediaPreview(data.images)}
     </section>
-    ${renderJsonBlock('扩展字段', data.extra || {})}
     ${renderJsonBlock('审核记录', data.moderationRecords || [])}
     ${renderJsonBlock('后台日志', data.adminLogs || [])}
   `;

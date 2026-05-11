@@ -123,3 +123,44 @@
 .dark .error-text {
   color: #ff6b6b;
 }
+
+/* GearSage light theme readability */
+.publish-rating-container {
+  background: transparent;
+}
+
+.rating-label {
+  color: #1f2a27;
+  text-shadow: none;
+}
+
+.star-bg {
+  color: #d9ded6;
+}
+
+.star-fg {
+  color: #b59a45;
+  text-shadow: none;
+}
+
+.rating-value {
+  color: #b59a45;
+  text-shadow: none;
+}
+
+.publish-rating-container.dark {
+  background: transparent;
+}
+
+.publish-rating-container.dark .rating-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.publish-rating-container.dark .star-bg {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.publish-rating-container.dark .star-fg,
+.publish-rating-container.dark .rating-value {
+  color: #f1c40f;
+}

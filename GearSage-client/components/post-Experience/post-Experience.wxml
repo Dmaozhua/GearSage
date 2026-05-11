@@ -296,6 +296,7 @@
       <textarea 
         class="form-textarea" 
         placeholder="简要说明搭配理由..." 
+        placeholder-style="{{isDarkMode ? 'color: rgba(255,255,255,0.4);' : 'color: #8a918a;'}}"
         maxlength="200" 
         value="{{formData.comboDesc}}" 
         bindinput="onComboDescInput"
@@ -363,6 +364,7 @@
       <textarea 
         class="form-textarea" 
         placeholder="简要说明对比差异..." 
+        placeholder-style="{{isDarkMode ? 'color: rgba(255,255,255,0.4);' : 'color: #8a918a;'}}"
         maxlength="200" 
         value="{{formData.compareDesc}}" 
         bindinput="onCompareDescInput"
