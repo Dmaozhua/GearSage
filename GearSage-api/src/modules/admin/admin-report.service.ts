@@ -79,6 +79,68 @@ const RATING_LABELS: Record<string, string> = {
   costScore: '性价比',
 };
 
+const REVIEW_ENUM_LABELS: Record<string, string> = {
+  strongly_recommend: '强烈推荐，明显超出预期',
+  recommend: '值得推荐，整体满意',
+  soso: '有亮点，但不一定适合所有人',
+  not_recommend: '不太推荐，实际体验一般',
+  buy_same: '会继续使用同款',
+  buy_upgrade: '会考虑升级同系列',
+  try_other: '可能尝试其他品牌',
+  never_buy: '不会再买',
+  budget_other_balanced: '均衡好用',
+  usage_other_longtime: '长时使用',
+  fit_intermediate: '进阶玩家',
+  unfit_intermediate: '不适合远投需求',
+  compare_profile_other_5: '更耐用',
+  compare_buy_decision_other_2: '对比款更值得买',
+  purchase_advice_other_5: '当前不建议',
+  buy_stage_other_5: '收纳备选',
+  rod_scene_precise: '精细作钓',
+  other_scene_high_uv: '高紫外线',
+  other_pro_comfortable: '佩戴舒适',
+  other_con_stability_normal: '稳定性一般',
+};
+
+const REVIEW_ENUM_TOKEN_LABELS: Record<string, string> = {
+  rod: '鱼竿',
+  reel: '渔轮',
+  bait: '假饵',
+  line: '鱼线',
+  hook: '钩子',
+  other: '其他',
+  budget: '预算',
+  usage: '使用',
+  scene: '场景',
+  fit: '适合',
+  unfit: '不适合',
+  compare: '对比',
+  profile: '定位',
+  buy: '购买',
+  decision: '结论',
+  purchase: '入手',
+  advice: '建议',
+  stage: '阶段',
+  pro: '优点',
+  con: '不足',
+  precise: '精细',
+  balanced: '均衡',
+  longtime: '长时',
+  intermediate: '进阶',
+  stability: '稳定性',
+  normal: '一般',
+  comfortable: '舒适',
+  high: '高',
+  uv: '紫外线',
+  value: '实用',
+  premium: '专业',
+  general: '泛用',
+  main: '主力',
+  specialized: '专项',
+  threshold: '门槛高',
+  daily: '日常',
+};
+
 @Injectable()
 export class AdminReportService {
   constructor(
@@ -785,13 +847,40 @@ export class AdminReportService {
       'receiptImages',
     ]);
 
-    return Object.entries(extra)
-      .filter(([key, value]) => !skippedKeys.has(key) && !usedKeys.has(key) && !this.isEmptyReviewValue(value))
-      .map(([key, value]) => ({
-        label: this.getFieldLabel(key),
-        value: this.formatReviewValue(value),
-      }))
-      .filter((row) => row.value);
+    return this.collectOtherReviewRows(extra, usedKeys, skippedKeys);
+  }
+
+  private collectOtherReviewRows(
+    value: any,
+    usedKeys: Set<string>,
+    skippedKeys: Set<string>,
+    path = '',
+  ): Array<{ label: string; value: string }> {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return [];
+    }
+
+    return Object.entries(value).flatMap(([key, nestedValue]) => {
+      const nextPath = path ? `${path}.${key}` : key;
+      if (skippedKeys.has(nextPath) || skippedKeys.has(key) || usedKeys.has(nextPath) || this.isEmptyReviewValue(nestedValue)) {
+        return [];
+      }
+
+      if (nestedValue && typeof nestedValue === 'object' && !Array.isArray(nestedValue)) {
+        const nestedRows = this.collectOtherReviewRows(nestedValue, usedKeys, skippedKeys, nextPath);
+        if (nestedRows.length) {
+          return nestedRows;
+        }
+      }
+
+      const formatted = this.formatReviewValue(nestedValue);
+      return formatted
+        ? [{
+          label: this.getPathLabel(nextPath),
+          value: formatted,
+        }]
+        : [];
+    });
   }
 
   private formatReviewValue(value: any): string {
@@ -815,7 +904,7 @@ export class AdminReportService {
     }
 
     if (typeof value === 'string') {
-      return value.trim();
+      return this.formatEnumText(value.trim());
     }
 
     if (value && typeof value === 'object') {
@@ -852,11 +941,6 @@ export class AdminReportService {
   private markUsedKeys(usedKeys: Set<string>, keys?: string | string[]) {
     this.normalizeStringList(keys).forEach((key) => {
       usedKeys.add(key);
-      const rootKey = key.split('.')[0];
-      if (rootKey === 'tags' || rootKey === 'recommendMeta') {
-        const group = keys === 'tags' || keys === 'recommendMeta' ? key : rootKey;
-        usedKeys.add(group);
-      }
     });
   }
 
@@ -934,6 +1018,34 @@ export class AdminReportService {
       acceptedAt: '采纳时间',
     };
     return labels[key] || key;
+  }
+
+  private getPathLabel(path: string) {
+    return path
+      .split('.')
+      .filter(Boolean)
+      .map((item) => this.getFieldLabel(item))
+      .join(' / ');
+  }
+
+  private formatEnumText(value: string) {
+    if (!value) {
+      return '';
+    }
+
+    if (REVIEW_ENUM_LABELS[value]) {
+      return REVIEW_ENUM_LABELS[value];
+    }
+
+    if (!value.includes('_') || /[\u4e00-\u9fa5]/.test(value)) {
+      return value;
+    }
+
+    return value
+      .split('_')
+      .map((item) => REVIEW_ENUM_TOKEN_LABELS[item] || item)
+      .filter(Boolean)
+      .join(' / ');
   }
 
   private normalizeList(value: any) {
