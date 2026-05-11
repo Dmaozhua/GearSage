@@ -54,6 +54,86 @@ const QUESTION_TYPE_LABELS: Record<string, string> = {
   chat_with_photos: '晒图闲聊',
 };
 
+const RECOMMEND_INTENT_LABELS: Record<string, string> = {
+  first_set: '第一套入门',
+  fill_gap: '已有一套，想补一个空位',
+  replace_old: '旧装备用久了想替换',
+  upgrade: '已有装备，想升级进阶',
+  compare_options: '二选一 / 三选一',
+  full_combo: '整套求配',
+};
+
+const BUDGET_RANGE_LABELS: Record<string, string> = {
+  under_300: '300 以内',
+  '300_500': '300~500',
+  '500_800': '500~800',
+  '800_1200': '800~1200',
+  '1200_1800': '1200~1800',
+  '1800_2500': '1800~2500',
+  '2500_4000': '2500~4000',
+  '4000_plus': '4000+',
+};
+
+const BUDGET_FLEXIBLE_LABELS: Record<string, string> = {
+  hard_limit: '预算基本卡死',
+  slightly_flexible: '可上浮一点',
+  accept_used: '可接受二手',
+  new_only: '只看全新',
+};
+
+const TARGET_FISH_LABELS: Record<string, string> = {
+  largemouth_bass: '鲈鱼',
+  topmouth_culter: '翘嘴',
+  mandarin_fish: '鳜鱼',
+  snakehead: '黑鱼',
+  stream_small_fish: '马口 / 溪流小型鱼',
+  seabass: '海鲈',
+  all_round: '综合泛用',
+  other: '其他',
+};
+
+const USE_SCENE_LABELS: Record<string, string> = {
+  wild_river: '野河',
+  reservoir: '水库',
+  stream: '溪流',
+  inshore: '近海',
+  urban_river: '城市河道',
+  managed_water: '黑坑 / 管理场',
+  mixed: '综合不固定',
+};
+
+const CARE_PRIORITY_LABELS: Record<string, string> = {
+  value_for_money: '性价比',
+  versatile: '泛用',
+  lightweight: '轻量',
+  long_cast: '远投',
+  smooth: '顺滑',
+  durable: '耐用',
+  beginner_friendly: '新手友好',
+  fish_control: '控鱼 / 腰力',
+  sensitive: '细腻手感',
+  appearance: '做工颜值',
+  resale: '保值',
+};
+
+const AVOID_POINT_LABELS: Record<string, string> = {
+  too_heavy: '不想太重',
+  too_expensive: '不想太贵',
+  too_delicate: '不想太娇气',
+  too_specialized: '不想太专用',
+  hard_to_use: '不想难上手',
+  high_maintenance: '不想后期维护麻烦',
+  picky_line_bait: '不想太挑线 / 挑饵',
+  other: '其他',
+};
+
+const RECOMMEND_USAGE_FREQUENCY_LABELS: Record<string, string> = {
+  essential: '出钓必备 / 高频使用',
+  weekly_once: '每周一次左右',
+  monthly_several: '每月几次',
+  occasional: '偶尔玩玩',
+};
+
 const RATING_LABELS: Record<string, string> = {
   actionMatchScore: '调性匹配',
   sensitivityScore: '传导性',
@@ -909,13 +989,21 @@ export class AdminReviewService {
 
     if (category === 2) {
       addSection('提问信息', (add) => {
+        const recommendMeta = this.normalizePlainObject(extra.recommendMeta);
         add('问题类型', this.mapByLabel(QUESTION_TYPE_LABELS, extra.questionType), 'questionType');
         add('关联分类', this.getGearCategoryLabel(extra.relatedGearCategory), 'relatedGearCategory');
         add('关联型号', extra.relatedGearModel, 'relatedGearModel');
-        add('候选选项', extra.recommendMeta?.candidateOptions || extra.candidateOptions, ['recommendMeta.candidateOptions', 'candidateOptions']);
-        add('使用频率', this.mapByLabel(USAGE_FREQUENCY_LABELS, extra.recommendMeta?.usageFrequency || extra.usageFrequency), ['recommendMeta.usageFrequency', 'usageFrequency']);
-        add('使用场景', extra.recommendMeta?.scenes || extra.environments, ['recommendMeta.scenes', 'environments']);
-        add('预算', extra.recommendMeta?.budget || extra.budget, ['recommendMeta.budget', 'budget']);
+        add('求推荐类型', this.mapByLabel(RECOMMEND_INTENT_LABELS, recommendMeta.recommendIntent || recommendMeta.currentStage), ['recommendMeta.recommendIntent', 'recommendMeta.currentStage']);
+        add('预算范围', this.mapByLabel(BUDGET_RANGE_LABELS, recommendMeta.budgetRange || recommendMeta.budget || extra.budget), ['recommendMeta.budgetRange', 'recommendMeta.budget', 'budget']);
+        add('预算弹性', this.mapByLabel(BUDGET_FLEXIBLE_LABELS, recommendMeta.budgetFlexible), 'recommendMeta.budgetFlexible');
+        add('目标鱼', this.mapListByLabel(TARGET_FISH_LABELS, recommendMeta.targetFish || extra.targetFish), ['recommendMeta.targetFish', 'targetFish']);
+        add('使用场景', this.mapListByLabel(USE_SCENE_LABELS, recommendMeta.useScene || recommendMeta.scenes || extra.environments), ['recommendMeta.useScene', 'recommendMeta.scenes', 'environments']);
+        add('在意点', this.mapListByLabel(CARE_PRIORITY_LABELS, recommendMeta.carePriorities), 'recommendMeta.carePriorities');
+        add('避坑点', this.mapListByLabel(AVOID_POINT_LABELS, recommendMeta.avoidPoints), 'recommendMeta.avoidPoints');
+        add('当前装备', recommendMeta.currentGear, 'recommendMeta.currentGear');
+        add('候选选项', recommendMeta.candidateOptions || extra.candidateOptions, ['recommendMeta.candidateOptions', 'candidateOptions']);
+        add('使用频率', this.mapByLabel(RECOMMEND_USAGE_FREQUENCY_LABELS, recommendMeta.usageFrequency || extra.usageFrequency), ['recommendMeta.usageFrequency', 'usageFrequency']);
+        add('核心纠结', recommendMeta.coreQuestion, 'recommendMeta.coreQuestion');
         add('回复模式', extra.quickReplyOnly ? '仅快答' : '开放讨论', 'quickReplyOnly');
       });
     }
@@ -989,6 +1077,7 @@ export class AdminReviewService {
         if (nestedRows.length) {
           return nestedRows;
         }
+        return [];
       }
 
       const formatted = this.formatReviewValue(nestedValue);
@@ -1136,9 +1225,19 @@ export class AdminReviewService {
     return GEAR_CATEGORY_LABELS[text] || this.formatEnumText(text);
   }
 
+  private normalizePlainObject(value: any): Record<string, any> {
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  }
+
   private mapByLabel(map: Record<string, string>, value: any) {
     const text = String(value || '').trim();
     return map[text] || this.formatEnumText(text);
+  }
+
+  private mapListByLabel(map: Record<string, string>, value: any) {
+    return this.normalizeReadableStringList(value)
+      .map((item) => this.mapByLabel(map, item))
+      .filter(Boolean);
   }
 
   private formatRatings(ratings: any) {
