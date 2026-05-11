@@ -292,6 +292,71 @@ function renderJsonBlock(title, value) {
   `;
 }
 
+function formatReviewValue(value) {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => (typeof item === 'object' ? JSON.stringify(item) : String(item)))
+      .filter(Boolean)
+      .join('、');
+  }
+
+  if (value && typeof value === 'object') {
+    return JSON.stringify(value, null, 2);
+  }
+
+  return String(value ?? '');
+}
+
+function renderReviewFields(title, rows = []) {
+  const normalized = rows
+    .map((row) => ({
+      label: row && row.label,
+      value: formatReviewValue(row && row.value),
+    }))
+    .filter((row) => row.label && row.value);
+
+  return renderKeyValueSection(title, normalized);
+}
+
+function renderTopicReviewSections(sections = []) {
+  const normalized = Array.isArray(sections)
+    ? sections.filter((section) => section && section.title !== '帖子概览')
+    : [];
+  if (!normalized.length) {
+    return '';
+  }
+
+  return normalized
+    .map((section) => renderReviewFields(section.title || '已填写内容', section.rows || []))
+    .join('');
+}
+
+function renderReportTopicBlock(topic) {
+  if (!topic) {
+    return '';
+  }
+
+  return `
+    ${renderKeyValueSection('被举报帖子', [
+      { label: '帖子 ID', value: topic.id },
+      { label: '标题', value: topic.title || '-' },
+      { label: '作者', value: topic.authorName || '-' },
+      { label: '作者手机号', value: topic.authorPhone || '-' },
+      { label: '内容类型', value: topic.topicCategoryLabel || '-' },
+      { label: '帖子状态', value: `${getTopicStatusLabel(topic.status)} / isDelete=${topic.isDelete}` },
+      { label: '点赞数', value: topic.likeCount },
+      { label: '评论数', value: topic.commentCount },
+      { label: '发布时间', value: topic.publishTime || '-' },
+      { label: '创建时间', value: topic.createTime || '-' },
+    ])}
+    ${renderTopicReviewSections(topic.reviewSections || [])}
+    <section class="drawer-section">
+      <h4>帖子图片</h4>
+      ${renderMediaPreview(topic.images || [])}
+    </section>
+  `;
+}
+
 function renderTopicDetail(data) {
   return `
     ${renderKeyValueSection('帖子信息', [
@@ -360,6 +425,7 @@ function renderReportDetail(data) {
       { label: '举报人', value: data.reporterName || '-' },
       { label: '举报人手机号', value: data.reporterPhone || '-' },
       { label: '对象', value: `${getReportTargetLabel(data.targetType)} #${data.targetId}` },
+      { label: '被举报内容', value: data.targetContent || '-' },
       { label: '状态', value: getReportStatusLabel(data.status) },
       { label: '系统审核结果', value: data.moderationResult || '-' },
       { label: '风险原因', value: data.moderationRiskReason || '-' },
@@ -367,6 +433,7 @@ function renderReportDetail(data) {
       { label: '创建时间', value: data.createTime || '-' },
       { label: '处理时间', value: data.handledAt || '-' },
     ])}
+    ${renderReportTopicBlock(data.targetTopic)}
     ${renderJsonBlock('举报理由', data.reason || '')}
     ${renderJsonBlock('审核记录', data.moderationRecords || [])}
     ${renderJsonBlock('后台日志', data.adminLogs || [])}
@@ -508,7 +575,25 @@ async function loadReports() {
   renderTable('reports-table', [
     {
       label: '举报',
-      render: (row) => makePrimaryCell(`#${row.id} ${getReportTargetLabel(row.targetType)} #${row.targetId}`, `举报人：${row.reporterName || '-'} / 状态：${getReportStatusLabel(row.status)}`),
+      render: (row) => makePrimaryCell(
+        `#${row.id} ${getReportTargetLabel(row.targetType)} #${row.targetId}`,
+        `举报人：${row.reporterName || '-'} / 状态：${getReportStatusLabel(row.status)}`,
+      ),
+    },
+    {
+      label: '被举报内容',
+      render: (row) => {
+        if (row.targetTopic) {
+          return makePrimaryCell(
+            row.targetTopic.title || `帖子 #${row.targetTopic.id}`,
+            [
+              row.targetTopic.content ? row.targetTopic.content.slice(0, 80) : '',
+              `状态：${getTopicStatusLabel(row.targetTopic.status)} / 作者：${row.targetTopic.authorName || '-'}`,
+            ].filter(Boolean).join(' / '),
+          );
+        }
+        return makePrimaryCell(row.targetContent || '-', row.targetType === 'comment' ? '评论正文' : '');
+      },
     },
     {
       label: '理由',
@@ -523,6 +608,8 @@ async function loadReports() {
       render: (row) => `
         <div class="action-row">
           <button class="secondary" data-report-detail="${row.id}">详情</button>
+          ${String(row.status) === 'pending' && String(row.targetType) === 'comment' ? `<button class="danger" data-report-accept-comment="${row.id}">认可并隐藏评论</button>` : ''}
+          ${String(row.status) === 'pending' && String(row.targetType) === 'topic' ? `<button class="danger" data-report-accept-topic="${row.id}">认可并下架帖子</button>` : ''}
           ${String(row.status) === 'pending' ? `<button class="success" data-report-handle="${row.id}">标记处理</button>` : ''}
           ${String(row.status) === 'pending' ? `<button class="warning" data-report-reject="${row.id}">驳回举报</button>` : ''}
         </div>
@@ -722,6 +809,24 @@ async function handleActionClick(event) {
         await request(`/admin/reports/${target.dataset.reportHandle}/handle`, { method: 'POST', body: { remark } });
       });
       showMessage('举报已处理');
+      await loadReports();
+      return;
+    }
+
+    if (target.dataset.reportAcceptComment) {
+      await withPromptAction('确认认可该举报，并隐藏被举报评论及其回复？', async (remark) => {
+        await request(`/admin/reports/${target.dataset.reportAcceptComment}/accept-comment`, { method: 'POST', body: { remark } });
+      });
+      showMessage('举报已认可，评论已隐藏');
+      await loadReports();
+      return;
+    }
+
+    if (target.dataset.reportAcceptTopic) {
+      await withPromptAction('确认认可该举报，并下架被举报帖子？', async (remark) => {
+        await request(`/admin/reports/${target.dataset.reportAcceptTopic}/accept-topic`, { method: 'POST', body: { remark } });
+      });
+      showMessage('举报已认可，帖子已下架');
       await loadReports();
       return;
     }

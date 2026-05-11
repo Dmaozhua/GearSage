@@ -1,12 +1,90 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
 import { AdminLogService } from './admin-log.service';
+import { MessageService } from '../message/message.service';
+
+const TOPIC_CATEGORY_LABELS: Record<number, string> = {
+  0: '好物速报',
+  1: '长测评',
+  2: '讨论提问',
+  3: '鱼获展示',
+  4: '钓行分享',
+};
+
+const GEAR_CATEGORY_LABELS: Record<string, string> = {
+  rod: '鱼竿',
+  reel: '渔轮',
+  bait: '鱼饵',
+  line: '鱼线',
+  hook: '鱼钩',
+  combo: '整套搭配',
+  other: '其他',
+};
+
+const USAGE_YEAR_LABELS: Record<string, string> = {
+  love_at_first_sight: '一见钟情',
+  '1_month': '1个月',
+  '1_3_months': '1-3个月',
+  '3_12_months': '3-12个月',
+  '1_year_plus': '1年以上',
+};
+
+const USAGE_FREQUENCY_LABELS: Record<string, string> = {
+  essential: '出钓必备',
+  several_times_week: '每周多次',
+  once_week: '每周一次',
+  several_times_month: '每月多次',
+  once_month: '每月一次',
+  several_times_year: '每年多次',
+};
+
+const RECOMMEND_SUMMARY_LABELS: Record<string, string> = {
+  strongly_recommend: '强烈推荐，明显超出预期',
+  recommend: '值得推荐，整体满意',
+  soso: '有亮点，但不一定适合所有人',
+  not_recommend: '不太推荐，实际体验一般',
+};
+
+const QUESTION_TYPE_LABELS: Record<string, string> = {
+  ask: '提问',
+  discuss: '讨论',
+  recommend: '求推荐',
+  avoid_pitfall: '求避坑',
+  chat_with_photos: '晒图闲聊',
+};
+
+const RATING_LABELS: Record<string, string> = {
+  actionMatchScore: '调性匹配',
+  sensitivityScore: '传导性',
+  castingScore: '抛投表现',
+  workmanshipScore: '做工',
+  durabilityScore: '耐用性',
+  retrieveFeelScore: '收线手感',
+  dragScore: '卸力表现',
+  smoothnessScore: '顺滑度',
+  balanceScore: '轻量与平衡',
+  actionScore: '动作表现',
+  stabilityScore: '稳定性',
+  attractionScore: '诱鱼表现',
+  strengthScore: '强度表现',
+  abrasionScore: '耐磨性',
+  handlingScore: '顺滑与操作感',
+  castabilityScore: '抛投表现',
+  sharpnessScore: '锋利度',
+  penetrationScore: '刺鱼效率',
+  resistanceScore: '抗变形',
+  coatingScore: '防锈与涂层',
+  practicalityScore: '实用性',
+  designScore: '设计合理性',
+  costScore: '性价比',
+};
 
 @Injectable()
 export class AdminReportService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly adminLogService: AdminLogService,
+    private readonly messageService: MessageService,
   ) {}
 
   async list(filters: { status?: string; targetType?: string; limit?: string | number } = {}) {
@@ -45,11 +123,41 @@ export class AdminReportService {
         r."updateTime",
         u."nickName" AS "reporterName",
         u.phone AS "reporterPhone",
+        tc.content AS "targetCommentContent",
+        tt.id AS "targetTopicId",
+        tt."topicCategory" AS "targetTopicCategory",
+        tt.title AS "targetTopicTitle",
+        tt.content AS "targetTopicContent",
+        tt.images AS "targetTopicImages",
+        tt.extra AS "targetTopicExtra",
+        tt.status AS "targetTopicStatus",
+        tt."isDelete" AS "targetTopicIsDelete",
+        tt."userId" AS "targetTopicUserId",
+        tt."publishTime" AS "targetTopicPublishTime",
+        tt."createTime" AS "targetTopicCreateTime",
+        tt."updateTime" AS "targetTopicUpdateTime",
+        tt."likeCount" AS "targetTopicLikeCount",
+        tt."commentCount" AS "targetTopicCommentCount",
+        tu."nickName" AS "targetTopicAuthorName",
+        tu.phone AS "targetTopicAuthorPhone",
         mr.result AS "moderationResult",
         mr.provider AS "moderationProvider",
         mr."riskReason" AS "moderationRiskReason"
       FROM user_reports r
       LEFT JOIN bz_mini_user u ON u.id = r."reporterUserId"
+      LEFT JOIN bz_topic_comment tc
+        ON r."targetType" = 'comment'
+       AND tc.id = CASE
+         WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+         ELSE NULL
+       END
+      LEFT JOIN bz_mini_topic tt
+        ON r."targetType" = 'topic'
+       AND tt.id = CASE
+         WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+         ELSE NULL
+       END
+      LEFT JOIN bz_mini_user tu ON tu.id = tt."userId"
       LEFT JOIN LATERAL (
         SELECT result, provider, "riskReason"
         FROM moderation_records
@@ -74,9 +182,39 @@ export class AdminReportService {
       SELECT
         r.*,
         u."nickName" AS "reporterName",
-        u.phone AS "reporterPhone"
+        u.phone AS "reporterPhone",
+        tc.content AS "targetCommentContent",
+        tt.id AS "targetTopicId",
+        tt."topicCategory" AS "targetTopicCategory",
+        tt.title AS "targetTopicTitle",
+        tt.content AS "targetTopicContent",
+        tt.images AS "targetTopicImages",
+        tt.extra AS "targetTopicExtra",
+        tt.status AS "targetTopicStatus",
+        tt."isDelete" AS "targetTopicIsDelete",
+        tt."userId" AS "targetTopicUserId",
+        tt."publishTime" AS "targetTopicPublishTime",
+        tt."createTime" AS "targetTopicCreateTime",
+        tt."updateTime" AS "targetTopicUpdateTime",
+        tt."likeCount" AS "targetTopicLikeCount",
+        tt."commentCount" AS "targetTopicCommentCount",
+        tu."nickName" AS "targetTopicAuthorName",
+        tu.phone AS "targetTopicAuthorPhone"
       FROM user_reports r
       LEFT JOIN bz_mini_user u ON u.id = r."reporterUserId"
+      LEFT JOIN bz_topic_comment tc
+        ON r."targetType" = 'comment'
+       AND tc.id = CASE
+         WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+         ELSE NULL
+       END
+      LEFT JOIN bz_mini_topic tt
+        ON r."targetType" = 'topic'
+       AND tt.id = CASE
+         WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+         ELSE NULL
+       END
+      LEFT JOIN bz_mini_user tu ON tu.id = tt."userId"
       WHERE r.id = $1
       LIMIT 1
       `,
@@ -100,6 +238,265 @@ export class AdminReportService {
 
   async reject(reportId: number, admin: { id: number }, remark?: string) {
     return this.handle(reportId, admin, 'rejected', 'report_reject', remark);
+  }
+
+  async acceptCommentReport(reportId: number, admin: { id: number }, remark?: string) {
+    return this.databaseService.withTransaction(async (client) => {
+      const reportResult = await client.query(
+        `
+        SELECT *
+        FROM user_reports
+        WHERE id = $1
+          AND "targetType" = 'comment'
+        LIMIT 1
+        `,
+        [reportId],
+      );
+
+      if (!reportResult.rows.length) {
+        throw new NotFoundException('comment report not found');
+      }
+
+      const report = reportResult.rows[0];
+      const commentId = Number(report.targetId || 0);
+
+      const commentResult = await client.query(
+        `
+        WITH RECURSIVE comment_tree AS (
+          SELECT id, "topicId", status, "isVisible"
+          FROM bz_topic_comment
+          WHERE id = $1
+          UNION ALL
+          SELECT c.id, c."topicId", c.status, c."isVisible"
+          FROM bz_topic_comment c
+          INNER JOIN comment_tree ct ON c."replyCommentId" = ct.id
+        )
+        SELECT id, "topicId", status, "isVisible"
+        FROM comment_tree
+        `,
+        [commentId],
+      );
+
+      if (!commentResult.rows.length) {
+        throw new NotFoundException('comment not found');
+      }
+
+      const topicId = Number(commentResult.rows[0].topicId || 0);
+      const hiddenVisibleCount = commentResult.rows.filter(
+        (row: any) => Number(row.isVisible || 0) === 1,
+      ).length;
+      const commentIds = commentResult.rows.map((row: any) => Number(row.id));
+
+      await client.query(
+        `
+        UPDATE bz_topic_comment
+        SET
+          status = 9,
+          "isVisible" = 0,
+          "updateTime" = NOW()
+        WHERE id = ANY($1::bigint[])
+        `,
+        [commentIds],
+      );
+
+      if (hiddenVisibleCount > 0) {
+        await client.query(
+          `
+          UPDATE bz_mini_topic
+          SET
+            "commentCount" = GREATEST("commentCount" - $2, 0),
+            "updateTime" = NOW()
+          WHERE id = $1
+          `,
+          [topicId, hiddenVisibleCount],
+        );
+      }
+
+      const updateReportResult = await client.query(
+        `
+        UPDATE user_reports
+        SET
+          status = 'handled',
+          "handledByAdminId" = $2,
+          "handledRemark" = $3,
+          "handledAt" = NOW(),
+          "updateTime" = NOW()
+        WHERE id = $1
+        RETURNING *
+        `,
+        [reportId, Number(admin.id || 0), remark || ''],
+      );
+
+      await client.query(
+        `
+        INSERT INTO admin_operation_logs
+        ("adminUserId", "targetType", "targetId", action, remark, extra, "createTime")
+        VALUES
+        ($1, 'report', $2, 'report_accept', $3, $4::jsonb, NOW())
+        `,
+        [
+          Number(admin.id || 0),
+          String(reportId),
+          remark || '',
+          JSON.stringify({
+          reportStatus: 'handled',
+          targetType: 'comment',
+          targetId: commentId,
+          hiddenCommentIds: commentIds,
+          hiddenVisibleCount,
+          topicId,
+          }),
+        ],
+      );
+
+      await client.query(
+        `
+        INSERT INTO admin_operation_logs
+        ("adminUserId", "targetType", "targetId", action, remark, extra, "createTime")
+        VALUES
+        ($1, 'comment', $2, 'comment_remove', $3, $4::jsonb, NOW())
+        `,
+        [
+          Number(admin.id || 0),
+          String(commentId),
+          remark || '',
+          JSON.stringify({
+          source: 'report_accept',
+          reportId,
+          hiddenCommentIds: commentIds,
+          hiddenVisibleCount,
+          topicId,
+          }),
+        ],
+      );
+
+      return {
+        ...this.formatReport(updateReportResult.rows[0]),
+        action: 'report_accept',
+        hiddenCommentIds: commentIds,
+        hiddenVisibleCount,
+      };
+    });
+  }
+
+  async acceptTopicReport(reportId: number, admin: { id: number }, remark?: string) {
+    const result = await this.databaseService.withTransaction(async (client) => {
+      const reportResult = await client.query(
+        `
+        SELECT r.*, t.title, t."userId", t.status AS "topicStatus", t."isDelete"
+        FROM user_reports r
+        JOIN bz_mini_topic t ON t.id = CASE
+          WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+          ELSE NULL
+        END
+        WHERE r.id = $1
+          AND r."targetType" = 'topic'
+        LIMIT 1
+        `,
+        [reportId],
+      );
+
+      if (!reportResult.rows.length) {
+        throw new NotFoundException('topic report not found');
+      }
+
+      const report = reportResult.rows[0];
+      const topicId = Number(report.targetId || 0);
+
+      await client.query(
+        `
+        UPDATE bz_mini_topic
+        SET
+          status = 9,
+          "isDelete" = 1,
+          "updateTime" = NOW()
+        WHERE id = $1
+        `,
+        [topicId],
+      );
+
+      const updateReportResult = await client.query(
+        `
+        UPDATE user_reports
+        SET
+          status = 'handled',
+          "handledByAdminId" = $2,
+          "handledRemark" = $3,
+          "handledAt" = NOW(),
+          "updateTime" = NOW()
+        WHERE id = $1
+        RETURNING *
+        `,
+        [reportId, Number(admin.id || 0), remark || ''],
+      );
+
+      await client.query(
+        `
+        INSERT INTO admin_operation_logs
+        ("adminUserId", "targetType", "targetId", action, remark, extra, "createTime")
+        VALUES
+        ($1, 'report', $2, 'report_accept', $3, $4::jsonb, NOW())
+        `,
+        [
+          Number(admin.id || 0),
+          String(reportId),
+          remark || '',
+          JSON.stringify({
+            reportStatus: 'handled',
+            targetType: 'topic',
+            targetId: topicId,
+            topicStatus: 9,
+            isDelete: 1,
+          }),
+        ],
+      );
+
+      await client.query(
+        `
+        INSERT INTO admin_operation_logs
+        ("adminUserId", "targetType", "targetId", action, remark, extra, "createTime")
+        VALUES
+        ($1, 'topic', $2, 'topic_remove', $3, $4::jsonb, NOW())
+        `,
+        [
+          Number(admin.id || 0),
+          String(topicId),
+          remark || '',
+          JSON.stringify({
+            source: 'report_accept',
+            reportId,
+            topicStatus: 9,
+            isDelete: 1,
+          }),
+        ],
+      );
+
+      return {
+        report: updateReportResult.rows[0],
+        topic: report,
+      };
+    });
+
+    await this.messageService.create({
+      userId: Number(result.topic.userId || 0),
+      type: 'topic_removed',
+      title: '你的帖子已被下架',
+      content: `你发布的《${result.topic.title || '未命名帖子'}》因举报处理已被下架。`,
+      targetType: 'topic',
+      targetId: Number(result.topic.targetId || 0),
+      extra: {
+        topicId: Number(result.topic.targetId || 0),
+        topicTitle: result.topic.title || '',
+        source: 'report_accept',
+        reportId,
+      },
+    });
+
+    return {
+      ...this.formatReport(result.report),
+      action: 'report_accept',
+      removedTopicId: Number(result.topic.targetId || 0),
+    };
   }
 
   private async handle(
@@ -174,6 +571,7 @@ export class AdminReportService {
   }
 
   private formatReport(row: any) {
+    const targetTopic = this.formatTargetTopic(row);
     return {
       id: Number(row.id),
       reporterUserId: Number(row.reporterUserId || 0),
@@ -182,6 +580,8 @@ export class AdminReportService {
       targetType: row.targetType || '',
       targetId: Number(row.targetId || 0),
       reason: row.reason || '',
+      targetContent: row.targetCommentContent || this.buildTopicContentSummary(targetTopic),
+      targetTopic,
       status: row.status || '',
       handledByAdminId: row.handledByAdminId ? Number(row.handledByAdminId) : null,
       handledRemark: row.handledRemark || '',
@@ -192,6 +592,355 @@ export class AdminReportService {
       moderationProvider: row.moderationProvider || '',
       moderationRiskReason: row.moderationRiskReason || '',
     };
+  }
+
+  private formatTargetTopic(row: any) {
+    if (!row.targetTopicId) {
+      return null;
+    }
+
+    const extra = row.targetTopicExtra && typeof row.targetTopicExtra === 'object' && !Array.isArray(row.targetTopicExtra)
+      ? row.targetTopicExtra
+      : {};
+
+    const topicCategory = Number(row.targetTopicCategory || 0);
+    const topic = {
+      id: Number(row.targetTopicId),
+      topicCategory,
+      topicCategoryLabel: this.getTopicCategoryLabel(topicCategory),
+      title: row.targetTopicTitle || '',
+      content: row.targetTopicContent || '',
+      images: this.normalizeList(row.targetTopicImages),
+      extra,
+      status: Number(row.targetTopicStatus || 0),
+      isDelete: Number(row.targetTopicIsDelete || 0),
+      userId: Number(row.targetTopicUserId || 0),
+      authorName: row.targetTopicAuthorName || '',
+      authorPhone: row.targetTopicAuthorPhone || '',
+      publishTime: row.targetTopicPublishTime || null,
+      createTime: row.targetTopicCreateTime || null,
+      updateTime: row.targetTopicUpdateTime || null,
+      likeCount: Number(row.targetTopicLikeCount || 0),
+      commentCount: Number(row.targetTopicCommentCount || 0),
+    };
+
+    return {
+      ...topic,
+      reviewSections: this.buildTopicReviewSections(topic, extra),
+      reviewFields: this.buildTopicReviewFields(extra),
+    };
+  }
+
+  private buildTopicContentSummary(topic: any) {
+    if (!topic) {
+      return '';
+    }
+
+    const parts = [
+      topic.title ? `标题：${topic.title}` : '',
+      topic.content ? `正文：${String(topic.content).slice(0, 120)}` : '',
+    ].filter(Boolean);
+    return parts.join('\n');
+  }
+
+  private buildTopicReviewFields(extra: Record<string, any>) {
+    return this.buildTopicReviewSections({ topicCategory: -1 }, extra)
+      .flatMap((section) => section.rows || []);
+  }
+
+  private buildTopicReviewSections(topic: any, extra: Record<string, any>) {
+    const usedKeys = new Set<string>();
+    const sections: Array<{ title: string; rows: Array<{ label: string; value: string }> }> = [];
+    const addSection = (title: string, build: (add: (label: string, value: any, keys?: string | string[]) => void) => void) => {
+      const rows: Array<{ label: string; value: string }> = [];
+      const add = (label: string, value: any, keys?: string | string[]) => {
+        const formatted = this.formatReviewValue(value);
+        if (!formatted) {
+          return;
+        }
+        this.markUsedKeys(usedKeys, keys);
+        rows.push({ label, value: formatted });
+      };
+
+      build(add);
+      if (rows.length) {
+        sections.push({ title, rows });
+      }
+    };
+
+    addSection('帖子概览', (add) => {
+      add('内容类型', this.getTopicCategoryLabel(topic.topicCategory));
+      add('作者', topic.authorName);
+      add('作者手机号', topic.authorPhone);
+      add('当前状态', `${this.getTopicStatusLabel(topic.status)} / isDelete=${topic.isDelete}`);
+      add('点赞数', topic.likeCount);
+      add('评论数', topic.commentCount);
+      add('发布时间', topic.publishTime);
+      add('创建时间', topic.createTime);
+    });
+
+    if (topic.content) {
+      sections.push({
+        title: '正文',
+        rows: [{ label: '正文内容', value: String(topic.content) }],
+      });
+    }
+
+    const category = Number(topic.topicCategory);
+    if (category === 0 || category === 1 || category === -1) {
+      addSection('装备与使用', (add) => {
+        add('装备分类', this.getGearCategoryLabel(extra.gearCategory), 'gearCategory');
+        add('装备型号', extra.gearModel, 'gearModel');
+        add('使用年限', this.mapByLabel(USAGE_YEAR_LABELS, extra.usageYear), 'usageYear');
+        add('使用频率', this.mapByLabel(USAGE_FREQUENCY_LABELS, extra.usageFrequency || extra.usageRate), ['usageFrequency', 'usageRate']);
+        add('使用场景', extra.environments || extra.environment, ['environments', 'environment']);
+        add('自定义场景', extra.customScene, 'customScene');
+      });
+
+      addSection(category === 0 ? '推荐结论' : '测评结论', (add) => {
+        add('一句话总结', category === 0 ? this.mapByLabel(RECOMMEND_SUMMARY_LABELS, extra.summary) : extra.summary, 'summary');
+        add('分享理由', extra.tags?.shareReasons, 'tags.shareReasons');
+        add('优点', extra.pros, 'pros');
+        add('不足', extra.cons, 'cons');
+        add('回购意愿', extra.repurchase, 'repurchase');
+        add('适合人群', extra.customFit, 'customFit');
+        add('不适合人群', extra.customUnfit, 'customUnfit');
+      });
+
+      addSection('评分与对比', (add) => {
+        add('评分', this.formatRatings(extra.ratings), 'ratings');
+        add('常用搭配', extra.comboGear, 'comboGear');
+        add('搭配说明', extra.comboDesc, 'comboDesc');
+        add('对比对象', extra.compareGear, 'compareGear');
+        add('对比说明', extra.compareDesc, 'compareDesc');
+        add('预算倾向', extra.tags?.budget, 'tags.budget');
+        add('使用倾向', extra.tags?.usage, 'tags.usage');
+        add('适合标签', extra.tags?.fit, 'tags.fit');
+        add('不适合标签', extra.tags?.unfit, 'tags.unfit');
+        add('适配场景', extra.tags?.fitContextTags, 'tags.fitContextTags');
+        add('适配玩法', extra.tags?.fitTechniqueTags, 'tags.fitTechniqueTags');
+        add('对比定位', extra.tags?.compareProfile, 'tags.compareProfile');
+        add('对比购买结论', extra.tags?.compareBuyDecision, 'tags.compareBuyDecision');
+        add('入手建议', extra.tags?.purchaseAdvice, 'tags.purchaseAdvice');
+        add('购买定位', extra.tags?.buyStage, 'tags.buyStage');
+        add('补充参数', extra.tags?.supplementParams, 'tags.supplementParams');
+      });
+    }
+
+    if (category === 2 || category === -1) {
+      addSection('提问信息', (add) => {
+        add('问题类型', this.mapByLabel(QUESTION_TYPE_LABELS, extra.questionType), 'questionType');
+        add('关联分类', this.getGearCategoryLabel(extra.relatedGearCategory), 'relatedGearCategory');
+        add('关联型号', extra.relatedGearModel, 'relatedGearModel');
+        add('候选选项', extra.recommendMeta?.candidateOptions || extra.candidateOptions, ['recommendMeta.candidateOptions', 'candidateOptions']);
+        add('使用频率', this.mapByLabel(USAGE_FREQUENCY_LABELS, extra.recommendMeta?.usageFrequency || extra.usageFrequency), ['recommendMeta.usageFrequency', 'usageFrequency']);
+        add('使用场景', extra.recommendMeta?.scenes || extra.environments, ['recommendMeta.scenes', 'environments']);
+        add('预算', extra.recommendMeta?.budget || extra.budget, ['recommendMeta.budget', 'budget']);
+        add('回复模式', extra.quickReplyOnly ? '仅快答' : '开放讨论', 'quickReplyOnly');
+      });
+    }
+
+    if (category === 3 || category === -1) {
+      addSection('鱼获信息', (add) => {
+        add('位置标签', extra.locationTag, 'locationTag');
+        add('长度', this.formatCatchMeasure('长度', extra.length, extra.isLengthSecret, extra.isLengthEstimated, 'cm'), ['length', 'isLengthSecret', 'isLengthEstimated']);
+        add('重量', this.formatCatchMeasure('重量', extra.weight, extra.isWeightSecret, extra.isWeightEstimated, 'kg'), ['weight', 'isWeightSecret', 'isWeightEstimated']);
+      });
+    }
+
+    if (category === 4 || category === -1) {
+      addSection('钓行信息', (add) => {
+        const targetFish = [
+          ...this.normalizeStringList(extra.targetFish),
+          ...this.normalizeStringList(extra.customTargetFish),
+        ];
+        add('钓行结果', extra.tripResult, 'tripResult');
+        add('钓行总结', extra.tripStatus, 'tripStatus');
+        add('目标鱼', targetFish, ['targetFish', 'customTargetFish']);
+        add('季节', extra.season, 'season');
+        add('天气', extra.weather, 'weather');
+        add('水域类型', extra.waterType, 'waterType');
+        add('主要钓点', extra.mainSpot, 'mainSpot');
+        add('作钓时间', extra.fishingTime, 'fishingTime');
+        add('环境感受', extra.envFeelings, 'envFeelings');
+        add('主要钓组/饵型', extra.rigs, 'rigs');
+        add('手法简述', extra.rigDescription, 'rigDescription');
+      });
+    }
+
+    const otherRows = this.buildOtherReviewRows(extra, usedKeys);
+    if (otherRows.length) {
+      sections.push({ title: '其他已填写内容', rows: otherRows });
+    }
+
+    return sections;
+  }
+
+  private buildOtherReviewRows(extra: Record<string, any>, usedKeys: Set<string>) {
+    const skippedKeys = new Set([
+      'contentImages',
+      'coverImg',
+      'verifyImage',
+      'receipt',
+      'receiptImages',
+    ]);
+
+    return Object.entries(extra)
+      .filter(([key, value]) => !skippedKeys.has(key) && !usedKeys.has(key) && !this.isEmptyReviewValue(value))
+      .map(([key, value]) => ({
+        label: this.getFieldLabel(key),
+        value: this.formatReviewValue(value),
+      }))
+      .filter((row) => row.value);
+  }
+
+  private formatReviewValue(value: any): string {
+    if (this.isEmptyReviewValue(value)) {
+      return '';
+    }
+
+    if (Array.isArray(value)) {
+      return value
+        .map((item) => this.formatReviewValue(item))
+        .filter(Boolean)
+        .join('、');
+    }
+
+    if (typeof value === 'boolean') {
+      return value ? '是' : '否';
+    }
+
+    if (typeof value === 'number') {
+      return String(value);
+    }
+
+    if (typeof value === 'string') {
+      return value.trim();
+    }
+
+    if (value && typeof value === 'object') {
+      if (value.label || value.name || value.value || value.text) {
+        return [
+          value.label || value.name || '',
+          value.value || value.text || '',
+        ].filter(Boolean).join('：');
+      }
+
+      return Object.entries(value)
+        .filter(([, nestedValue]) => !this.isEmptyReviewValue(nestedValue))
+        .map(([key, nestedValue]) => `${this.getFieldLabel(key)}：${this.formatReviewValue(nestedValue)}`)
+        .filter(Boolean)
+        .join('；');
+    }
+
+    return '';
+  }
+
+  private isEmptyReviewValue(value: any): boolean {
+    if (value === undefined || value === null || value === '') {
+      return true;
+    }
+    if (Array.isArray(value)) {
+      return value.length === 0 || value.every((item) => this.isEmptyReviewValue(item));
+    }
+    if (typeof value === 'object') {
+      return Object.keys(value).length === 0;
+    }
+    return false;
+  }
+
+  private markUsedKeys(usedKeys: Set<string>, keys?: string | string[]) {
+    this.normalizeStringList(keys).forEach((key) => {
+      usedKeys.add(key);
+      const rootKey = key.split('.')[0];
+      if (rootKey === 'tags' || rootKey === 'recommendMeta') {
+        const group = keys === 'tags' || keys === 'recommendMeta' ? key : rootKey;
+        usedKeys.add(group);
+      }
+    });
+  }
+
+  private normalizeStringList(value: any): string[] {
+    if (!value) {
+      return [];
+    }
+    if (Array.isArray(value)) {
+      return value.map((item) => String(item || '').trim()).filter(Boolean);
+    }
+    return [String(value).trim()].filter(Boolean);
+  }
+
+  private getTopicCategoryLabel(value: any) {
+    return TOPIC_CATEGORY_LABELS[Number(value)] || '内容';
+  }
+
+  private getTopicStatusLabel(status: any) {
+    const normalized = Number(status || 0);
+    if (normalized === 1) return '待审核';
+    if (normalized === 2) return '已通过';
+    if (normalized === 9) return '已驳回/下架';
+    if (normalized === 0) return '草稿';
+    return String(status ?? '-');
+  }
+
+  private getGearCategoryLabel(value: any) {
+    const normalized = Array.isArray(value) ? value[0] : value;
+    const text = String(normalized || '').trim();
+    return GEAR_CATEGORY_LABELS[text] || text;
+  }
+
+  private mapByLabel(map: Record<string, string>, value: any) {
+    const text = String(value || '').trim();
+    return map[text] || text;
+  }
+
+  private formatRatings(ratings: any) {
+    const list = Array.isArray(ratings) ? ratings : [];
+    return list
+      .map((item) => {
+        if (!item || typeof item !== 'object') {
+          return '';
+        }
+        const key = String(item.key || item.name || '').trim();
+        const score = Number(item.score || item.value || 0);
+        if (!key || score <= 0) {
+          return '';
+        }
+        return `${RATING_LABELS[key] || item.label || key} ${score}/5`;
+      })
+      .filter(Boolean);
+  }
+
+  private formatCatchMeasure(label: string, value: any, isSecret: any, isEstimated: any, unit: string) {
+    if (isSecret) {
+      return `${label}保密`;
+    }
+    const text = String(value || '').trim();
+    if (!text) {
+      return '';
+    }
+    return `${text}${unit}${isEstimated ? '（目测）' : ''}`;
+  }
+
+  private getFieldLabel(key: string) {
+    const labels: Record<string, string> = {
+      tags: '标签信息',
+      recommendMeta: '求推荐补充信息',
+      gearItemId: '装备 ID',
+      relatedGearItemId: '关联装备 ID',
+      acceptedAnswerId: '已采纳回答 ID',
+      feedbackText: '反馈内容',
+      finalProduct: '最终选择',
+      acceptedAt: '采纳时间',
+    };
+    return labels[key] || key;
+  }
+
+  private normalizeList(value: any) {
+    if (!value) {
+      return [];
+    }
+    return Array.isArray(value) ? value : [value];
   }
 
   private normalizeLimit(limit?: string | number) {

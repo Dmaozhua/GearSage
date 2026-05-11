@@ -19,6 +19,22 @@
   padding: 24rpx 20rpx 0;
 }
 
+.topic-moderation-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 24rpx 20rpx;
+}
+
+.topic-report-btn {
+  color: #6f8194;
+  font-size: 24rpx;
+  line-height: 40rpx;
+}
+
+.topic-report-btn:active {
+  color: #8a4d4d;
+}
+
 .topic-hero-card,
 .topic-section-card,
 .comments-section {
@@ -1317,6 +1333,14 @@
 .dark .reply-user,
 .dark .topic-section-title {
   color: #eef5ff;
+}
+
+.dark .topic-report-btn {
+  color: #8b9aab;
+}
+
+.dark .topic-report-btn:active {
+  color: #c08a8a;
 }
 
 .dark .topic-subtitle,

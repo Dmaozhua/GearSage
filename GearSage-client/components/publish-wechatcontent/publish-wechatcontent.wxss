@@ -238,3 +238,36 @@
 .wechat-content-section.dark .add-text {
   color: rgba(255, 255, 255, 0.56);
 }
+
+/* Light theme title input readability */
+.wechat-content-section .title-input-container {
+  border-bottom-color: rgba(58, 68, 62, 0.12);
+}
+
+.wechat-content-section .wechat-title-input {
+  color: #1f2a27;
+}
+
+.wechat-content-section .wechat-title-input::placeholder {
+  color: #8a918a;
+}
+
+.wechat-content-section .char-count {
+  color: #68716b;
+}
+
+.wechat-content-section.dark .title-input-container {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.wechat-content-section.dark .wechat-title-input {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.wechat-content-section.dark .wechat-title-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.wechat-content-section.dark .char-count {
+  color: rgba(255, 255, 255, 0.4);
+}

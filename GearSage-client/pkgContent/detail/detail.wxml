@@ -566,6 +566,10 @@
       </block>
     </view>
 
+    <view class="topic-moderation-actions" wx:if="{{productDetail.status === 2}}">
+      <view class="topic-report-btn" bindtap="onReportTopic">举报帖子</view>
+    </view>
+
     <view class="comments-section">
       <view class="section-title">{{productDetail.isRecommendQuestion ? '回应' : '评论'}}（{{totalCommentCount || 0}}）</view>
       <view class="comment-disabled-note" wx:if="{{!productDetail.canComment}}">

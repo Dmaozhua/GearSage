@@ -2825,12 +2825,12 @@ Page({
           this.refreshRecommendAnswerOptionViews(createEmptyRecommendAnswerForm());
           
           wx.hideLoading();
-          wx.showToast({
-            title: isReviewPending
-              ? (response.message || '评论已提交审核，通过后展示')
-              : (isRecommendAnswer ? '回答发布成功' : '评论发布成功'),
-            icon: isReviewPending ? 'none' : 'success'
-          });
+          if (!isReviewPending) {
+            wx.showToast({
+              title: isRecommendAnswer ? '回答发布成功' : '评论发布成功',
+              icon: 'success'
+            });
+          }
           
           // 重新加载评论列表以更新树形结构
           const postId = this.data.productDetail.id || this.data.postId;
@@ -2852,6 +2852,15 @@ Page({
                 console.log('[详情页] 已同步更新首页评论数:', updated[index].commentCount);
               }
             }
+          }
+
+          if (isReviewPending) {
+            wx.showModal({
+              title: '已提交审核',
+              content: response.message || '评论已提交审核，通过后展示',
+              showCancel: false,
+              confirmText: '知道了'
+            });
           }
         } else {
           throw new Error(api.getErrorMessage(response, '发布失败'));
@@ -3245,6 +3254,11 @@ Page({
         (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.commentId) || 0
       );
       this.submitReport('comment', commentId);
+    },
+
+    onReportTopic() {
+      const topicId = Number((this.data.productDetail && this.data.productDetail.id) || this.data.postId || 0);
+      this.submitReport('topic', topicId);
     },
 
     async submitReport(targetType, targetId) {

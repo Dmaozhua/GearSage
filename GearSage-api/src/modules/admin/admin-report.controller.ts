@@ -44,6 +44,40 @@ export class AdminReportController {
     };
   }
 
+  @Post(':id/accept-comment')
+  async acceptComment(
+    @Param('id') id: string,
+    @CurrentAdmin() admin?: { id: number },
+    @Body() body?: AdminReviewActionDto,
+  ) {
+    return {
+      code: 0,
+      message: 'ok',
+      data: await this.adminReportService.acceptCommentReport(
+        Number(id),
+        { id: Number(admin?.id || 0) },
+        body?.remark,
+      ),
+    };
+  }
+
+  @Post(':id/accept-topic')
+  async acceptTopic(
+    @Param('id') id: string,
+    @CurrentAdmin() admin?: { id: number },
+    @Body() body?: AdminReviewActionDto,
+  ) {
+    return {
+      code: 0,
+      message: 'ok',
+      data: await this.adminReportService.acceptTopicReport(
+        Number(id),
+        { id: Number(admin?.id || 0) },
+        body?.remark,
+      ),
+    };
+  }
+
   @Post(':id/reject')
   async reject(
     @Param('id') id: string,
