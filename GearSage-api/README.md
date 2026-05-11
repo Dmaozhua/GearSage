@@ -197,8 +197,9 @@ Ctrl + C
 3. Git 提交
 4. 推送 GitHub
 5. 服务器拉取代码
-6. 构建并重启 PM2
-7. 验证正式环境
+6. 如本次改了装备库 Excel 数据，服务器同步 `GearSage-data` 并执行 `npm run import:gear`
+7. 构建并重启 PM2
+8. 验证正式环境
 
 ---
 
@@ -247,17 +248,37 @@ npm install
 npm run build
 ```
 
-### 6. 重启服务
+### 6. 装备库数据导入（仅装备 Excel 有变化时）
+
+代码发布只会更新 NestJS 服务文件，不会自动改写 PostgreSQL 中的装备库数据。
+
+如果本次改动包含 `/Users/tommy/GearSage-data/rate/excel` 下的装备库 Excel，需要先在服务器同步数据仓库，再执行：
+
+```bash
+cd /srv/gearsage-api
+GEARSAGE_DATA_ROOT=/srv/GearSage-data npm run import:gear
+```
+
+`npm run import:gear` 会重建：
+
+- `gear_brands`
+- `gear_master`
+- `gear_variants`
+
+注意：该命令会清空并重导上述三张装备表；不要把它当成普通 PM2 重启步骤。
+
+### 7. 重启服务
 
 ```bash
 pm2 restart gearsage-api
 ```
 
-### 7. 验证正式环境
+### 8. 验证正式环境
 
 ```bash
 curl https://api.gearsage.club/health
 curl https://api.gearsage.club/health/db
+curl "https://api.gearsage.club/mini/gear/list?type=reels&page=1&pageSize=1"
 ```
 
 如果本次改了业务接口，也要额外验证对应接口。

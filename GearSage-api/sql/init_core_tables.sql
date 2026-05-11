@@ -317,9 +317,6 @@ CREATE TABLE IF NOT EXISTS gear_brands (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-DROP TABLE IF EXISTS gear_variants;
-DROP TABLE IF EXISTS gear_master;
-
 CREATE TABLE IF NOT EXISTS gear_master (
   kind VARCHAR(16) NOT NULL,
   id VARCHAR(64) NOT NULL,
@@ -353,6 +350,9 @@ CREATE TABLE IF NOT EXISTS gear_variants (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   PRIMARY KEY (kind, "sourceKey", "variantId")
 );
+
+ALTER TABLE gear_master
+  ADD COLUMN IF NOT EXISTS "pronunciationAudioUrl" TEXT NOT NULL DEFAULT '';
 
 ALTER TABLE bz_mini_user
   ADD COLUMN IF NOT EXISTS phone VARCHAR(32),

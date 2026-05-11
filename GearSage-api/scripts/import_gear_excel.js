@@ -2,9 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
 const XLSX = require('xlsx');
-const gearDataPaths = require('../../scripts/gear_data_paths');
 
 const ROOT_DIR = path.join(__dirname, '..');
+
+loadEnvFiles();
+
+const gearDataPaths = resolveGearDataPaths();
 const GEAR_EXCEL_DIR = gearDataPaths.excelDir;
 const GEAR_WEBP_DIR = gearDataPaths.webpDir;
 const SEARCH_DATA_DIR = path.join(
@@ -85,8 +88,6 @@ main(cliOptions).catch((error) => {
 });
 
 async function main(options) {
-  loadEnvFiles();
-
   const excelDir = GEAR_EXCEL_DIR;
   if (!fs.existsSync(excelDir)) {
     throw new Error(`GEAR_EXCEL_DIR not found: ${excelDir}`);
@@ -218,6 +219,31 @@ async function main(options) {
   } finally {
     await client.end();
   }
+}
+
+function resolveGearDataPaths() {
+  const dataRoot = resolveDataRoot();
+
+  return {
+    dataRoot,
+    excelDir: process.env.GEAR_EXCEL_DIR || path.join(dataRoot, 'rate', 'excel'),
+    webpDir: process.env.GEAR_WEBP_DIR || path.join(dataRoot, 'rate', 'webp'),
+  };
+}
+
+function resolveDataRoot() {
+  if (process.env.GEARSAGE_DATA_ROOT) {
+    return process.env.GEARSAGE_DATA_ROOT;
+  }
+
+  const candidates = [
+    path.join(ROOT_DIR, '..', 'GearSage-data'),
+    '/srv/GearSage-data',
+    '/srv/gearsage-data',
+    '/Users/tommy/GearSage-data',
+  ];
+
+  return candidates.find((candidate) => fs.existsSync(candidate)) || candidates[0];
 }
 
 function loadEnvFiles() {
