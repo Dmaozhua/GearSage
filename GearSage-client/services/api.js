@@ -1455,7 +1455,18 @@ class ApiService {
       replayCommentId: commentData.replayCommentId || null,
       replayUserId: commentData.replayUserId || null
     };
-    return this.put('/mini/comment', payload).then(result => result === true || !!result);
+    return this.put('/mini/comment', payload).then(result => {
+      if (result && typeof result === 'object') {
+        return {
+          success: result.success !== false,
+          status: Number(result.status || 0),
+          isVisible: Number(result.isVisible || 0),
+          reviewPending: result.reviewPending === true || Number(result.status || 0) === 0,
+          message: result.message || ''
+        };
+      }
+      return result === true || !!result;
+    });
   }
 
   acceptRecommendAnswer(topicId, commentId) {

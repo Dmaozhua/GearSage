@@ -202,9 +202,17 @@ export class CommentService {
           },
         });
       }
+
+      return true;
     }
 
-    return true;
+    return {
+      success: true,
+      status,
+      isVisible,
+      reviewPending: true,
+      message: '评论已提交审核，通过后展示',
+    };
   }
 
   private normalizeCommentType(value?: string | null) {

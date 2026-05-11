@@ -2805,7 +2805,10 @@ Page({
         
         console.log('评论接口响应:', response);
         
-        if (response === true || (response && response.code === 200)) {
+        const isReviewPending = response && response.reviewPending === true;
+        const isCommentAccepted = response === true || isReviewPending || (response && response.code === 200);
+
+        if (isCommentAccepted) {
           // 隐藏评论输入框并清空状态
           this.setData({
             commentContent: '',
@@ -2823,8 +2826,10 @@ Page({
           
           wx.hideLoading();
           wx.showToast({
-            title: isRecommendAnswer ? '回答发布成功' : '评论发布成功',
-            icon: 'success'
+            title: isReviewPending
+              ? (response.message || '评论已提交审核，通过后展示')
+              : (isRecommendAnswer ? '回答发布成功' : '评论发布成功'),
+            icon: isReviewPending ? 'none' : 'success'
           });
           
           // 重新加载评论列表以更新树形结构
@@ -2838,7 +2843,7 @@ Page({
             if (prevPage && prevPage.data && Array.isArray(prevPage.data.originList)) {
               const updated = prevPage.data.originList.slice();
               const index = updated.findIndex(item => item.id == postId);
-              if (index !== -1) {
+              if (index !== -1 && !isReviewPending) {
                 updated[index] = {
                   ...updated[index],
                   commentCount: (updated[index].commentCount || 0) + 1

@@ -427,11 +427,16 @@ wx.cloud.callFunction({
   - `content: string`
   - 可选：`replayCommentId?: string`、`replayUserId?: string` 等（具体由前端传什么决定）
 - 返回结构：
-  - `data: true`
+  - `data: true`：评论审核通过并公开展示
+  - `data.reviewPending: true`：评论已进入人工审核，已入库但暂不展示
+  - `data.status: 0`、`data.isVisible: 0`：待审核评论状态
 - 错误码：
   - `200` 成功
   - `400` 帖子不存在
   - `500` 未登录 / 服务端异常
+- 审核说明：
+  - 命中本地关键词或腾讯云 `Block` 时返回错误，不入库
+  - 腾讯云返回 `Review` 时接口成功，评论进入后台审核，前端提示“评论已提交审核，通过后展示”
 - 分页格式：无
 
 ### 4.3 POST /mini/comment/like（评论点赞 / 取消点赞）
