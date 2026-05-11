@@ -197,7 +197,7 @@ Ctrl + C
 3. Git 提交
 4. 推送 GitHub
 5. 服务器拉取代码
-6. 如本次改了装备库 Excel 数据，服务器同步 `GearSage-data` 并执行 `npm run import:gear`
+6. 如本次改了装备库 Excel 数据，服务器同步 Excel 到 `/srv/gear-excel` 并执行 `npm run import:gear`
 7. 构建并重启 PM2
 8. 验证正式环境
 
@@ -217,6 +217,34 @@ git push origin main
 ---
 
 ## 正式环境发布流程
+
+### 代码 + 装备数据一起更新
+
+本地：
+
+```bash
+cd /Users/tommy/GearSage
+git add .
+git commit -m "feat: gear xxx"
+git subtree split --prefix=GearSage-api -b api-deploy-main
+git push --force-with-lease devser api-deploy-main:main
+rsync -avz /Users/tommy/GearSage-data/rate/excel/ root@49.232.195.121:/srv/gear-excel/
+```
+
+服务器：
+
+```bash
+ssh root@49.232.195.121
+/root/deploy-gearsage.sh
+/root/import-gear.sh
+```
+
+如果 `/root/import-gear.sh` 未显式设置环境变量，应等价执行：
+
+```bash
+cd /srv/gearsage-api
+GEAR_EXCEL_DIR=/srv/gear-excel npm run import:gear
+```
 
 ### 1. SSH 登录服务器
 
@@ -252,11 +280,11 @@ npm run build
 
 代码发布只会更新 NestJS 服务文件，不会自动改写 PostgreSQL 中的装备库数据。
 
-如果本次改动包含 `/Users/tommy/GearSage-data/rate/excel` 下的装备库 Excel，需要先在服务器同步数据仓库，再执行：
+如果本次改动包含 `/Users/tommy/GearSage-data/rate/excel` 下的装备库 Excel，需要先把 Excel 同步到服务器 `/srv/gear-excel`，再执行：
 
 ```bash
 cd /srv/gearsage-api
-GEARSAGE_DATA_ROOT=/srv/GearSage-data npm run import:gear
+GEAR_EXCEL_DIR=/srv/gear-excel npm run import:gear
 ```
 
 `npm run import:gear` 会重建：

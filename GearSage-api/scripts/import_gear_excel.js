@@ -223,10 +223,16 @@ async function main(options) {
 
 function resolveGearDataPaths() {
   const dataRoot = resolveDataRoot();
+  const excelDir =
+    process.env.GEAR_EXCEL_DIR ||
+    ['/srv/gear-excel', path.join(dataRoot, 'rate', 'excel')].find((candidate) =>
+      fs.existsSync(candidate),
+    ) ||
+    path.join(dataRoot, 'rate', 'excel');
 
   return {
     dataRoot,
-    excelDir: process.env.GEAR_EXCEL_DIR || path.join(dataRoot, 'rate', 'excel'),
+    excelDir,
     webpDir: process.env.GEAR_WEBP_DIR || path.join(dataRoot, 'rate', 'webp'),
   };
 }
