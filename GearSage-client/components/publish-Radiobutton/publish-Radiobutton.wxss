@@ -134,3 +134,59 @@
 .dark .control.disabled .control__indicator {
   background: rgba(255, 255, 255, 0.05);
 }
+
+/* GearSage light theme readability */
+.control {
+  color: #1f2a27;
+  background: #f7f8f5;
+  border-color: rgba(58, 68, 62, 0.14);
+  box-shadow: none;
+}
+
+.control:active {
+  background: #eef2ed;
+}
+
+.control__indicator {
+  background: #ffffff;
+  border-color: rgba(79, 102, 84, 0.32);
+}
+
+.control.checked {
+  color: #4f6654;
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.36);
+  box-shadow: 0 6rpx 14rpx rgba(31, 42, 39, 0.08);
+}
+
+.control.checked .control__indicator {
+  background: #4f6654;
+  border-color: #4f6654;
+}
+
+.control-group.dark .control {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(13, 25, 48, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.control-group.dark .control:active {
+  background: rgba(13, 25, 48, 0.8);
+}
+
+.control-group.dark .control__indicator {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.control-group.dark .control.checked {
+  color: #000000;
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.control-group.dark .control.checked .control__indicator {
+  background: #000000;
+  border-color: #000000;
+}

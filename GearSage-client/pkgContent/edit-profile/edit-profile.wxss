@@ -3,7 +3,7 @@
 
 .edit-profile-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #f4f5f1;
   padding-bottom: 120rpx;
   transition: all 0.3s ease;
   position: relative;
@@ -11,18 +11,17 @@
 }
 
 .edit-content {
-  padding: 20rpx;
+  padding: 24rpx 28rpx 20rpx;
 }
 
 /* 编辑区块 */
 .edit-section {
-  background: white;
-  border-radius: 24rpx;
-  padding: 40rpx 20rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.06);
-  border: 1rpx solid rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10rpx);
+  background: #ffffff;
+  border-radius: 10rpx;
+  padding: 28rpx;
+  margin-bottom: 18rpx;
+  box-shadow: 0 6rpx 18rpx rgba(31, 42, 39, 0.045);
+  border: 1rpx solid rgba(58, 68, 62, 0.11);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -34,21 +33,22 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4rpx;
-  background: linear-gradient(90deg, #3a87f0, #64b5f6, #81c784);
-  border-radius: 24rpx 24rpx 0 0;
+  width: 4rpx;
+  height: 100%;
+  right: auto;
+  background: #6c7654;
+  border-radius: 10rpx 0 0 10rpx;
 }
 
 .edit-section:hover {
-  transform: translateY(-4rpx);
-  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8rpx 22rpx rgba(31, 42, 39, 0.06);
 }
 
 .section-title {
-  font-size: 34rpx;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 24rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1f2a27;
+  margin-bottom: 22rpx;
   position: relative;
   padding-left: 16rpx;
 }
@@ -61,7 +61,7 @@
   transform: translateY(-50%);
   width: 6rpx;
   height: 24rpx;
-  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+  background: #6c7654;
   border-radius: 3rpx;
 }
 
@@ -73,7 +73,7 @@
   position: relative;
   padding: 10rpx 0;
   width: 100%;
-  height: 350rpx;
+  height: 320rpx;
 }
 
 /* 背景图容器 */
@@ -81,16 +81,16 @@
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 24rpx;
+  border-radius: 8rpx;
   overflow: hidden;
-  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6rpx 18rpx rgba(31, 42, 39, 0.08);
 }
 
 /* 背景图 */
 .avatar-background {
   width: 100%;
   height: 100%;
-  border-radius: 24rpx;
+  border-radius: 8rpx;
   object-fit: cover;
   object-position: center;
   transition: all 0.3s ease;
@@ -128,8 +128,8 @@
   width: 160rpx;
   height: 160rpx;
   border-radius: 80rpx;
-  border: 6rpx solid #fff;
-  box-shadow: 0 6rpx 24rpx rgba(0, 0, 0, 0.2);
+  border: 5rpx solid #fff;
+  box-shadow: 0 6rpx 20rpx rgba(31, 42, 39, 0.18);
   display: block;
   transition: all 0.3s ease;
 }
@@ -142,7 +142,7 @@
   width: 160rpx;
   height: 160rpx;
   border-radius: 80rpx;
-  background: linear-gradient(135deg, rgba(58, 135, 240, 0.8), rgba(100, 181, 246, 0.8));
+  background: rgba(31, 42, 39, 0.68);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,9 +168,9 @@
     top: 15rpx;
     right: 15rpx;
     padding: 12rpx 8rpx; /* 进一步减小左右内边距 */
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(31, 42, 39, 0.72);
     border: none;
-    border-radius: 20rpx;
+    border-radius: 8rpx;
     backdrop-filter: blur(10rpx);
     transition: all 0.3s ease;
     z-index: 3;
@@ -199,17 +199,17 @@
   width: 100%;
   height: 40rpx;
   padding: 40rpx 15;
-  font-size: 30rpx;
-  color: #333;
+  font-size: 28rpx;
+  color: #1f2a27;
   border: none;
-  border-bottom: 2rpx solid #eee;
+  border-bottom: 2rpx solid rgba(58, 68, 62, 0.14);
   background: transparent;
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .edit-input:focus {
-  border-bottom-color: #3a87f0;
+  border-bottom-color: #6c7654;
   outline: none;
 }
 
@@ -224,11 +224,11 @@
   min-height: 140rpx;
   max-height: 300rpx;
   padding: 24rpx 20rpx;
-  font-size: 32rpx;
-  color: #2c3e50;
-  border: 2rpx solid #e9ecef;
-  border-radius: 16rpx;
-  background: #f8f9fa;
+  font-size: 28rpx;
+  color: #1f2a27;
+  border: 1rpx solid rgba(58, 68, 62, 0.13);
+  border-radius: 8rpx;
+  background: #f6f7f3;
   line-height: 1.6;
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -238,10 +238,9 @@
 }
 
 .edit-textarea:focus {
-  border-color: #3a87f0;
+  border-color: #6c7654;
   background: #fff;
-  box-shadow: 0 0 0 6rpx rgba(58, 135, 240, 0.1);
-  transform: translateY(-2rpx);
+  box-shadow: 0 0 0 4rpx rgba(108, 118, 84, 0.1);
   position: relative;
   z-index: 10;
 }
@@ -254,7 +253,7 @@
 .char-count {
   text-align: right;
   font-size: 26rpx;
-  color: #6c757d;
+  color: #8a918a;
   margin-top: 12rpx;
   font-weight: 500;
 }
@@ -661,12 +660,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32rpx 28rpx;
-  border: 2rpx solid #e9ecef;
-  border-radius: 20rpx;
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  padding: 28rpx;
+  border: 1rpx solid rgba(58, 68, 62, 0.11);
+  border-radius: 8rpx;
+  background: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4rpx 14rpx rgba(31, 42, 39, 0.04);
   position: relative;
   overflow: hidden;
 }
@@ -678,18 +677,18 @@
   left: 0;
   width: 6rpx;
   height: 100%;
-  background: linear-gradient(135deg, #e9ecef, #dee2e6);
+  background: #d9ded5;
   transition: all 0.3s ease;
 }
 
 .address-item.default {
-  border-color: #3a87f0;
-  background: linear-gradient(135deg, #f0f8ff, #e3f2fd);
-  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.15);
+  border-color: rgba(108, 118, 84, 0.34);
+  background: #f7f8f4;
+  box-shadow: 0 6rpx 18rpx rgba(31, 42, 39, 0.055);
 }
 
 .address-item.default::before {
-  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+  background: #6c7654;
 }
 
 .address-item:active {
@@ -710,19 +709,19 @@
 
 .receiver-name {
   font-size: 30rpx;
-  font-weight: bold;
-  color: #333;
+  font-weight: 700;
+  color: #1f2a27;
 }
 
 .receiver-phone {
   font-size: 26rpx;
-  color: #666;
+  color: #68716b;
 }
 
 .default-badge {
-  background: #3a87f0;
+  background: #6c7654;
   padding: 4rpx 12rpx;
-  border-radius: 10rpx;
+  border-radius: 6rpx;
 }
 
 .default-badge .badge-text {
@@ -733,14 +732,14 @@
 
 .address-detail {
   font-size: 26rpx;
-  color: #666;
+  color: #68716b;
   line-height: 1.4;
   margin-bottom: 5rpx;
 }
 
 .address-street {
   font-size: 24rpx;
-  color: #999;
+  color: #8a918a;
   line-height: 1.4;
 }
 
@@ -765,23 +764,23 @@
 }
 
 .action-default {
-  color: #3a87f0;
-  background: #f0f8ff;
-  border: 1rpx solid #3a87f0;
+  color: #4f6654;
+  background: #eef2ed;
+  border: 1rpx solid rgba(79, 102, 84, 0.24);
 }
 
 .action-default:active {
-  background: #e6f3ff;
+  background: #e4ebe2;
 }
 
 .action-delete {
-  color: #dc3545;
-  background: #fff8f8;
-  border: 1rpx solid #dc3545;
+  color: #9a4a42;
+  background: #f3e7e4;
+  border: 1rpx solid rgba(154, 74, 66, 0.24);
 }
 
 .action-delete:active {
-  background: #ffe6e6;
+  background: #ead6d2;
 }
 
 /* 添加地址 */
@@ -791,23 +790,16 @@
   justify-content: center;
   gap: 20rpx;
   padding: 40rpx 20rpx;
-  border: 3rpx dashed #3a87f0;
-  border-radius: 20rpx;
-  background: linear-gradient(135deg, #f0f8ff, #e3f2fd);
+  border: 2rpx dashed rgba(79, 102, 84, 0.36);
+  border-radius: 8rpx;
+  background: #f7f8f4;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
 
 .add-address::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(58, 135, 240, 0.1), transparent);
-  transition: left 0.6s ease;
+  display: none;
 }
 
 .add-address:active::before {
@@ -815,28 +807,27 @@
 }
 
 .add-address:active {
-  transform: translateY(-2rpx);
-  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.2);
-  border-color: #2c5aa0;
+  box-shadow: 0 6rpx 18rpx rgba(31, 42, 39, 0.06);
+  border-color: #4f6654;
 }
 
 .add-icon {
   font-size: 40rpx;
-  color: #3a87f0;
+  color: #4f6654;
   font-weight: bold;
   transition: all 0.3s ease;
 }
 
 .add-text {
   font-size: 30rpx;
-  color: #3a87f0;
+  color: #4f6654;
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
 .add-address:active .add-icon,
 .add-address:active .add-text {
-  color: #2c5aa0;
+  color: #26332d;
 }
 
 /* 保存区域 */
@@ -845,11 +836,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.95));
+  background: rgba(244, 245, 241, 0.96);
   backdrop-filter: blur(20rpx);
   padding: 30rpx 20rpx;
-  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.12);
-  border-top: 1rpx solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 -6rpx 18rpx rgba(31, 42, 39, 0.08);
+  border-top: 1rpx solid rgba(58, 68, 62, 0.1);
 }
 
 .button-group {
@@ -861,10 +852,10 @@
 .cancel-btn {
   flex: 0 0 auto;
   background: transparent;
-  border: 2rpx solid #e9ecef;
-  border-radius: 50rpx;
+  border: 1rpx solid rgba(58, 68, 62, 0.14);
+  border-radius: 8rpx;
   padding: 28rpx 40rpx;
-  color: #6c757d;
+  color: #68716b;
   font-size: 30rpx;
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -875,36 +866,29 @@
 }
 
 .cancel-btn:active {
-  color: #495057;
-  background: #f8f9fa;
-  border-color: #dee2e6;
+  color: #1f2a27;
+  background: #f6f7f3;
+  border-color: rgba(58, 68, 62, 0.22);
   transform: scale(0.96);
 }
 
 .save-btn {
   flex: 1;
-  background: linear-gradient(135deg, #3a87f0, #2c5aa0);
+  background: #26332d;
   border: none;
-  border-radius: 50rpx;
+  border-radius: 8rpx;
   padding: 28rpx 0;
   color: white;
-  font-size: 34rpx;
+  font-size: 30rpx;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.3);
+  box-shadow: 0 8rpx 20rpx rgba(31, 42, 39, 0.14);
   position: relative;
   overflow: hidden;
 }
 
 .save-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
+  display: none;
 }
 
 .save-btn:active::before {
@@ -917,7 +901,7 @@
 
 .save-btn:active {
   transform: scale(0.98) translateY(-2rpx);
-  box-shadow: 0 8rpx 24rpx rgba(58, 135, 240, 0.4);
+  box-shadow: 0 8rpx 22rpx rgba(31, 42, 39, 0.18);
 }
 
 .save-btn[loading] {
@@ -938,27 +922,27 @@
 
 /* 夜间模式适配 */
 .dark .edit-profile-container {
-  background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+  background: #0f1518;
 }
 
 .dark .edit-section {
-  background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
-  border-color: #333;
-  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.3);
+  background: #182028;
+  border-color: rgba(229, 236, 231, 0.08);
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.22);
 }
 
 .dark .edit-section::before {
-  background: linear-gradient(90deg, #3a87f0, #64b5f6, #81c784);
+  background: #9aa083;
 }
 
 /* 夜间模式下的背景图容器 */
 .dark .avatar-background-container {
-  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.28);
 }
 
 /* 夜间模式下的更换背景按钮 */
 .dark .change-background-btn {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(15, 21, 24, 0.74);
   backdrop-filter: blur(15rpx);
 }
 
@@ -971,22 +955,22 @@
 }
 
 .dark .section-title::before {
-  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+  background: #9aa083;
 }
 
 .dark .avatar-preview {
-  border-color: #333;
-  box-shadow: 0 2rpx 24rpx rgba(0, 0, 0, 0.4), 0 0 0 2rpx rgba(58, 135, 240, 0.2);
+  border-color: #182028;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.3);
 }
 
 .dark .edit-input {
   background: transparent;
-  border-bottom-color: #444;
-  color: #ffffff;
+  border-bottom-color: rgba(229, 236, 231, 0.12);
+  color: #eef5f2;
 }
 
 .dark .edit-input:focus {
-  border-bottom-color: #3a87f0;
+  border-bottom-color: #9aa083;
 }
 
 .dark .edit-input::placeholder {
@@ -994,15 +978,15 @@
 }
 
 .dark .edit-textarea {
-  background: #2a2a2a;
-  border-color: #444;
-  color: #ffffff;
+  background: rgba(238, 245, 242, 0.08);
+  border-color: rgba(229, 236, 231, 0.08);
+  color: #eef5f2;
 }
 
 .dark .edit-textarea:focus {
-  background: #333;
-  border-color: #3a87f0;
-  box-shadow: 0 0 0 6rpx rgba(58, 135, 240, 0.2);
+  background: rgba(238, 245, 242, 0.1);
+  border-color: #9aa083;
+  box-shadow: 0 0 0 4rpx rgba(154, 160, 131, 0.12);
 }
 
 .dark .edit-textarea::placeholder {
@@ -1020,8 +1004,8 @@
 }
 
 .dark .tag-option.selected {
-  border: 4rpx solid #64b5f6;
-  box-shadow: 0 0 0 4rpx rgba(100, 181, 246, 0.3), 0 4rpx 12rpx rgba(100, 181, 246, 0.4);
+  border: 4rpx solid #9aa083;
+  box-shadow: 0 0 0 4rpx rgba(154, 160, 131, 0.18), 0 4rpx 12rpx rgba(0, 0, 0, 0.22);
 }
 
 /* 暗色模式下的稀有度样式已移至user-tag组件中 */
@@ -1042,23 +1026,23 @@
 }
 
 .dark .address-item {
-  background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
-  border-color: #444;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
+  background: #182028;
+  border-color: rgba(229, 236, 231, 0.08);
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.18);
 }
 
 .dark .address-item::before {
-  background: linear-gradient(135deg, #444, #555);
+  background: rgba(238, 245, 242, 0.16);
 }
 
 .dark .address-item.default {
-  background: linear-gradient(135deg, #1a3a5c, #2c5aa0);
-  border-color: #3a87f0;
-  box-shadow: 0 6rpx 20rpx rgba(58, 135, 240, 0.3);
+  background: rgba(154, 160, 131, 0.08);
+  border-color: rgba(154, 160, 131, 0.28);
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.2);
 }
 
 .dark .address-item.default::before {
-  background: linear-gradient(135deg, #3a87f0, #64b5f6);
+  background: #9aa083;
 }
 
 .dark .receiver-name {
@@ -1066,48 +1050,48 @@
 }
 
 .dark .receiver-phone {
-  color: #cccccc;
+  color: rgba(236, 244, 241, 0.68);
 }
 
 .dark .address-detail {
-  color: #cccccc;
+  color: rgba(236, 244, 241, 0.68);
 }
 
 .dark .address-street {
-  color: #aaa;
+  color: rgba(236, 244, 241, 0.48);
 }
 
 .dark .action-default {
-  background: rgba(58, 135, 240, 0.2);
-  border-color: #3a87f0;
-  color: #64b5f6;
+  background: rgba(154, 160, 131, 0.12);
+  border-color: rgba(154, 160, 131, 0.26);
+  color: #b8bfa0;
 }
 
 .dark .action-delete {
-  background: rgba(220, 53, 69, 0.2);
-  border-color: #dc3545;
-  color: #ff6b6b;
+  background: rgba(154, 74, 66, 0.16);
+  border-color: rgba(154, 74, 66, 0.26);
+  color: #d59a92;
 }
 
 .dark .add-address {
-  background: linear-gradient(135deg, rgba(58, 135, 240, 0.1), rgba(100, 181, 246, 0.1));
-  border-color: #3a87f0;
+  background: rgba(154, 160, 131, 0.08);
+  border-color: rgba(154, 160, 131, 0.28);
 }
 
 .dark .add-icon,
 .dark .add-text {
-  color: #64b5f6;
+  color: #b8bfa0;
 }
 
 .dark .add-address:active .add-icon,
 .dark .add-address:active .add-text {
-  color: #3a87f0;
+  color: #d0d5bd;
 }
 
 .dark .save-section {
-  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(42, 42, 42, 0.95));
-  border-top-color: rgba(68, 68, 68, 0.8);
-  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.4);
+  background: rgba(15, 21, 24, 0.96);
+  border-top-color: rgba(229, 236, 231, 0.08);
+  box-shadow: 0 -8rpx 22rpx rgba(0, 0, 0, 0.22);
 }
 
 .dark .cancel-btn {

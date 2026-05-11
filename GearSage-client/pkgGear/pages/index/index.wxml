@@ -1,5 +1,5 @@
 <!--pkgGear/pages/index/index.wxml-->
-<custom-navbar title="装备库" show-back="{{true}}" background-color="transparent"></custom-navbar>
+<custom-navbar title="装备库" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
 
 <view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight + 20}}px;">
   <!-- 头部区域 -->

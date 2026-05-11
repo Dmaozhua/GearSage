@@ -1,4 +1,4 @@
-<custom-navbar title="{{compareTitle}}" show-back="{{true}}"></custom-navbar>
+<custom-navbar title="{{compareTitle}}" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
 
 <view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
   <block wx:if="{{!isLoading}}">

@@ -468,3 +468,160 @@
   background: rgba(10, 15, 30, 0.9);
   border-top-color: rgba(255, 255, 255, 0.05);
 }
+
+/* Light theme readability pass for publishMode */
+.post-question-container {
+  color: #1f2a27;
+}
+
+.post-question-container .step-content,
+.post-question-container .switch-card,
+.post-question-container .control {
+  background: #ffffff;
+  border: 1rpx solid rgba(58, 68, 62, 0.12);
+  box-shadow: 0 8rpx 22rpx rgba(31, 42, 39, 0.05);
+}
+
+.post-question-container .step-title,
+.post-question-container .form-label,
+.post-question-container .label-text,
+.post-question-container .recommend-section-title,
+.post-question-container .switch-title,
+.post-question-container .text-input,
+.post-question-container .textarea-input,
+.post-question-container .gear-model-input,
+.post-question-container .gear-model-option,
+.post-question-container .control {
+  color: #1f2a27;
+  text-shadow: none;
+}
+
+.post-question-container .optional,
+.post-question-container .form-tip,
+.post-question-container .recommend-section-subtitle,
+.post-question-container .switch-status,
+.post-question-container .switch-desc,
+.post-question-container .gear-model-empty {
+  color: #68716b;
+}
+
+.post-question-container .required,
+.post-question-container .error-text {
+  color: #9a4a42;
+}
+
+.post-question-container .option-chip,
+.post-question-container .text-input,
+.post-question-container .textarea-input,
+.post-question-container .gear-model-input-wrap,
+.post-question-container .gear-model-dropdown,
+.post-question-container .control__indicator {
+  background: #f7f8f5;
+  border-color: rgba(58, 68, 62, 0.14);
+  color: #1f2a27;
+}
+
+.post-question-container .option-chip.active,
+.post-question-container .control.checked {
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.36);
+  color: #4f6654;
+}
+
+.post-question-container .control.checked .control__indicator {
+  background: #4f6654;
+  border-color: #4f6654;
+}
+
+.post-question-container .switch-status {
+  background: #f4f5f1;
+}
+
+.post-question-container .switch-status.active {
+  background: #eef2ed;
+  color: #4f6654;
+}
+
+.post-question-container .bottom-buttons {
+  background: rgba(244, 245, 241, 0.96);
+  border-top-color: rgba(58, 68, 62, 0.12);
+  box-shadow: 0 -8rpx 20rpx rgba(31, 42, 39, 0.06);
+}
+
+.post-question-container .btn-secondary {
+  background: #ffffff;
+  border-color: rgba(79, 102, 84, 0.22);
+  color: #4f6654;
+}
+
+.post-question-container .btn-primary,
+.post-question-container .btn-success {
+  background: #26332d;
+  color: #ffffff;
+  box-shadow: 0 8rpx 18rpx rgba(31, 42, 39, 0.16);
+}
+
+.post-question-container.dark {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-question-container.dark .step-content,
+.post-question-container.dark .switch-card,
+.post-question-container.dark .control,
+.post-question-container.dark .option-chip,
+.post-question-container.dark .text-input,
+.post-question-container.dark .textarea-input,
+.post-question-container.dark .gear-model-input-wrap,
+.post-question-container.dark .gear-model-dropdown,
+.post-question-container.dark .control__indicator {
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-question-container.dark .step-title,
+.post-question-container.dark .form-label,
+.post-question-container.dark .label-text,
+.post-question-container.dark .recommend-section-title,
+.post-question-container.dark .switch-title,
+.post-question-container.dark .text-input,
+.post-question-container.dark .textarea-input,
+.post-question-container.dark .gear-model-input,
+.post-question-container.dark .gear-model-option,
+.post-question-container.dark .control {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.post-question-container.dark .optional,
+.post-question-container.dark .form-tip,
+.post-question-container.dark .recommend-section-subtitle,
+.post-question-container.dark .switch-status,
+.post-question-container.dark .switch-desc,
+.post-question-container.dark .gear-model-empty {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.post-question-container.dark .option-chip.active,
+.post-question-container.dark .control.checked {
+  background: rgba(154, 160, 131, 0.22);
+  border-color: rgba(154, 160, 131, 0.42);
+  color: #d8decb;
+}
+
+.post-question-container.dark .control.checked .control__indicator {
+  background: #b9c0a1;
+  border-color: #b9c0a1;
+}
+
+.post-question-container.dark .switch-status {
+  color: #d8decb;
+  background: rgba(154, 160, 131, 0.18);
+  border: 1rpx solid rgba(154, 160, 131, 0.34);
+}
+
+.post-question-container.dark .switch-status.active {
+  color: #101619;
+  background: #b9c0a1;
+  border-color: #b9c0a1;
+  font-weight: 600;
+}

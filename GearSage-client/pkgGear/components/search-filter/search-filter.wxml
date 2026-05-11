@@ -16,7 +16,7 @@
         <text class="clear-icon">×</text>
       </view>
       <view class="search-btn {{searchLoading ? 'loading' : ''}}" bindtap="onSearchConfirm">
-        <text class="search-icon" wx:if="{{!searchLoading}}">🔍</text>
+        <view class="search-icon" wx:if="{{!searchLoading}}"></view>
         <text class="search-loading" wx:else>搜索中...</text>
       </view>
     </view>

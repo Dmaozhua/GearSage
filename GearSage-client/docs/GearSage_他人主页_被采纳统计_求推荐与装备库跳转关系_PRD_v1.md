@@ -602,8 +602,11 @@
 
 - `relatedGearCategory`
 - `relatedGearItemId`
+- `relatedGearModel`
 - `recommendMeta.candidateOptions`
 - `recommendMeta.recommendIntent`
+
+补充口径：`hook` 类型装备详情进入求推荐时，也应展示装备型号输入与联想，保持 `relatedGearCategory=hook`、`relatedGearModel`、`relatedGearItemId` 的关联关系。
 
 ---
 

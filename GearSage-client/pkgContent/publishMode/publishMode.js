@@ -2,36 +2,67 @@
 const api = require('../../services/api.js');
 
 const TOPIC_PREVIEW_STORAGE_KEY = 'topic_preview_payload_v1';
-const MODE_CONFIG = [
+const LEGACY_MODE_CONFIG = [
   {
     modeKey: 'recommend',
+    formModeKey: 'recommend',
     title: '好物速报',
     content: '爱不释手的好物件，何不拿出来分享',
     topicCategory: 0
   },
   {
     modeKey: 'experience',
-    title: '长测评',
-    content: '你的宝贵经验，系统评测',
+    formModeKey: 'experience',
+    title: '装备经验',
+    content: '记录真实使用感受与关键判断',
     topicCategory: 1
   },
   {
     modeKey: 'question',
+    formModeKey: 'question',
     title: '讨论&提问',
     content: '发布问题召集路亚老手答疑解惑',
     topicCategory: 2
   },
   {
     modeKey: 'catch',
+    formModeKey: 'catch',
     title: '鱼获展示',
     content: '晒出你的高光时刻，纪录每一次心跳',
     topicCategory: 3
   },
   {
     modeKey: 'trip',
+    formModeKey: 'trip',
     title: '钓行分享',
     content: '记录每一次出钓的得失与感悟',
     topicCategory: 4
+  }
+];
+
+const PUBLISH_MODE_CONFIG = [
+  {
+    modeKey: 'question_recommend',
+    formModeKey: 'question',
+    title: '求推荐',
+    content: '说清预算、场景和纠结点，找更合适的装备选择',
+    topicCategory: 2,
+    defaultQuestionType: 'recommend'
+  },
+  {
+    modeKey: 'experience',
+    formModeKey: 'experience',
+    title: '装备经验',
+    content: '记录真实使用感受与关键判断',
+    topicCategory: 1
+  },
+  {
+    modeKey: 'question_ask',
+    formModeKey: 'question',
+    title: '提问',
+    content: '提一个装备相关问题，补充具体型号和使用场景',
+    topicCategory: 2,
+    defaultQuestionType: 'ask'
   }
 ];
 
@@ -40,11 +71,29 @@ function cloneValue(value) {
 }
 
 function getModeConfigByKey(modeKey) {
-  return MODE_CONFIG.find(item => item.modeKey === modeKey) || null;
+  return PUBLISH_MODE_CONFIG.find(item => item.modeKey === modeKey)
+    || LEGACY_MODE_CONFIG.find(item => item.modeKey === modeKey)
+    || null;
 }
 
 function getModeConfigByTopicCategory(topicCategory) {
-  return MODE_CONFIG.find(item => Number(item.topicCategory) === Number(topicCategory)) || null;
+  return LEGACY_MODE_CONFIG.find(item => Number(item.topicCategory) === Number(topicCategory)) || null;
+}
+
+function getModeConfigForTopic(topic = {}) {
+  const topicCategory = Number(topic.topicCategory);
+  if (topicCategory === 2) {
+    if (topic.questionType === 'ask') {
+      return getModeConfigByKey('question_ask');
+    }
+    if (!topic.questionType || topic.questionType === 'recommend') {
+      return getModeConfigByKey('question_recommend');
+    }
+  }
+  if (topicCategory === 1) {
+    return getModeConfigByKey('experience');
+  }
+  return getModeConfigByTopicCategory(topic.topicCategory);
 }
 
 function createModeInitialFormData(modeKey) {
@@ -74,6 +123,19 @@ function createModeInitialFormData(modeKey) {
   }
 
   return {};
+}
+
+function createInitialFormDataForMode(modeConfig = {}) {
+  const formModeKey = modeConfig.formModeKey || modeConfig.modeKey;
+  const formData = createModeInitialFormData(formModeKey);
+  if (formModeKey === 'question' && modeConfig.defaultQuestionType) {
+    formData.questionType = modeConfig.defaultQuestionType;
+  }
+  return formData;
+}
+
+function getFormModeKey(modeConfig = {}) {
+  return modeConfig.formModeKey || modeConfig.modeKey || '';
 }
 
 function normalizeImages(value) {
@@ -160,6 +222,7 @@ function buildQuestionEntryPrefill(options = {}) {
     ...initialQuestionData,
     questionType: 'recommend',
     relatedGearCategory: gearCategory || '',
+    relatedGearModel: gearLabel || '',
     relatedGearItemId: gearItemId,
     recommendMeta: {
       ...initialQuestionData.recommendMeta,
@@ -180,21 +243,18 @@ function buildQuestionEntryPrefill(options = {}) {
 function buildIntentEntry(options = {}) {
   const intent = String(options.intent || '').trim();
   const intentModeMap = {
-    recommend: 'question',
+    recommend: 'question_recommend',
     experience: 'experience',
-    question: 'question'
+    question: 'question_ask'
   };
   const modeKey = intentModeMap[intent];
+  const modeConfig = getModeConfigByKey(modeKey);
 
-  if (!modeKey) {
+  if (!modeConfig) {
     return null;
   }
 
-  const formData = createModeInitialFormData(modeKey);
-
-  if (intent === 'question') {
-    formData.questionType = 'ask';
-  }
+  const formData = createInitialFormDataForMode(modeConfig);
 
   return {
     modeKey,
@@ -367,9 +427,9 @@ Page({
     showModeSelection: true,
     formData: {},
     publishScrollIntoView: '',
-    lastSelectedIndex: 1, // 记录用户上次选择的模式索引，默认为长测评
+    lastSelectedIndex: 1, // 记录用户上次选择的模式索引，默认为装备经验
     isDarkMode: false, // 夜间模式状态
-    postModes: MODE_CONFIG,
+    postModes: PUBLISH_MODE_CONFIG,
     backgroundImages: [
       'https://anglertest.xyz/Banner/banner1.jpg',
       'https://anglertest.xyz/Banner/banner2.jpg',
@@ -381,8 +441,10 @@ Page({
   async onLoad(options) {
     // 获取系统信息
     const windowInfo = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
+    const app = getApp();
     this.setData({
-      statusBarHeight: windowInfo.statusBarHeight
+      statusBarHeight: app.globalData.statusBarHeight || windowInfo.statusBarHeight || 0,
+      navBarHeight: app.globalData.navBarHeight || 44
     });
 
     this.options = options || {};
@@ -433,13 +495,13 @@ Page({
       selectedMode: selectedMode,
       showModeSelection: false,
       lastSelectedIndex: index, // 记录选择的索引
-      formData: createModeInitialFormData(selectedMode.modeKey),
+      formData: createInitialFormDataForMode(selectedMode),
       editingDraftId: null
     });
     this.captureInitialDraftSnapshot();
     
     console.log('选中的模式:', selectedMode);
-    console.log('[publishMode] onCardSelect index=', index, 'card=', card, 'init formData.gearCategory=rod');
+    console.log('[publishMode] onCardSelect index=', index, 'card=', card);
   },
 
   applyEntryPrefill(options = {}) {
@@ -448,13 +510,13 @@ Page({
       return false;
     }
 
-    const selectedMode = getModeConfigByKey('question') || this.data.postModes[2];
-    const selectedIndex = this.data.postModes.findIndex(item => item.modeKey === 'question');
+    const selectedMode = getModeConfigByKey('question_recommend') || this.data.postModes[0];
+    const selectedIndex = this.data.postModes.findIndex(item => item.modeKey === selectedMode.modeKey);
 
     this.setData({
       selectedMode,
       showModeSelection: false,
-      lastSelectedIndex: selectedIndex >= 0 ? selectedIndex : 2,
+      lastSelectedIndex: selectedIndex >= 0 ? selectedIndex : 0,
       formData: prefillFormData,
       editingDraftId: null
     });
@@ -503,7 +565,7 @@ Page({
         return;
       }
 
-      const selectedMode = getModeConfigByTopicCategory(draft.topicCategory) || this.data.postModes[1];
+      const selectedMode = getModeConfigForTopic(draft) || this.data.postModes[1];
       const selectedIndex = this.data.postModes.findIndex(item => item.modeKey === selectedMode.modeKey);
       const formData = buildDraftFormDataFromTopic(draft);
 
@@ -557,7 +619,7 @@ Page({
       return null;
     }
 
-    const payload = this.buildPostData(modeConfig.modeKey, {
+    const payload = this.buildPostData(getFormModeKey(modeConfig), {
       ...this.data.formData,
       id: this.data.formData.id || this.data.editingDraftId || null
     });

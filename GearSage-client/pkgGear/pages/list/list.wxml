@@ -1,5 +1,5 @@
 <!--pkgGear/pages/list/list.wxml-->
-<custom-navbar title="{{title}}" show-back="{{true}}"></custom-navbar>
+<custom-navbar title="{{title}}" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
 
 <view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
   <!-- Search & Filter Component -->
@@ -65,7 +65,7 @@
     <block wx:elif="{{!isLoading}}">
       <view class="empty-state">
         <view class="empty-icon-placeholder">
-          <text class="iconfont">🔍</text>
+          <view class="empty-search-icon"></view>
         </view>
         <text class="empty-title">{{isSearchMode ? "未找到相关数据" : "暂无数据"}}</text>
         <text class="empty-sub">{{isSearchMode ? "请尝试其他关键词或筛选条件" : "请稍后再试"}}</text>

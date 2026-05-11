@@ -208,3 +208,33 @@
 .dark .char-count {
   color: rgba(255, 255, 255, 0.4);
 }
+
+/* Light theme readability pass for publish image add */
+.wechat-content-section .wechat-image-add {
+  background: #f7f8f5;
+  border-color: rgba(79, 102, 84, 0.32);
+}
+
+.wechat-content-section .wechat-image-add:active {
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.46);
+}
+
+.wechat-content-section .add-icon,
+.wechat-content-section .add-text {
+  color: #68716b;
+}
+
+.wechat-content-section.dark .wechat-image-add {
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.wechat-content-section.dark .wechat-image-add:active {
+  background: rgba(13, 25, 48, 0.6);
+}
+
+.wechat-content-section.dark .add-icon,
+.wechat-content-section.dark .add-text {
+  color: rgba(255, 255, 255, 0.56);
+}

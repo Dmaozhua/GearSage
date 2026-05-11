@@ -116,6 +116,3 @@
 </view>
 
 </view>
-<view class="float-home-btn" hover-class="float-btn-hover" bindtap="navigateToHome">
-    <text class="home-btn-text">列表</text>
-</view>

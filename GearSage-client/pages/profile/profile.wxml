@@ -85,7 +85,7 @@
 
     <view class="quick-menu">
         <view class="menu-item" bindtap="onMessageCenter">
-          <text class="menu-icon">🔔</text>
+          <view class="menu-icon menu-icon--message"></view>
           <view class="menu-content">
             <text class="menu-title">消息中心</text>
             <text class="menu-subtitle" wx:if="{{messageUnreadCount > 0}}">有 {{messageUnreadCount}} 条未读消息</text>
@@ -95,7 +95,7 @@
         </view>
 
 	        <view class="menu-item publish-item" bindtap="onMyPublish">
-	          <text class="menu-icon">📄</text>
+	          <view class="menu-icon menu-icon--publish"></view>
 	          <view class="menu-content">
 	            <text class="menu-title">我的发布</text>
 	            <text class="menu-subtitle">查看我的发布</text>
@@ -104,7 +104,7 @@
 	        </view>
 
 	        <view class="menu-item" bindtap="onPoints">
-	          <text class="menu-icon">◎</text>
+	          <view class="menu-icon menu-icon--points"></view>
 	          <view class="menu-content">
 	            <text class="menu-title">积分</text>
 	            <text class="menu-subtitle">查看积分与任务记录</text>
@@ -113,7 +113,7 @@
 	        </view>
 
 	        <view class="menu-item" bindtap="onMyTags">
-          <text class="menu-icon">🏷️</text>
+          <view class="menu-icon menu-icon--tag"></view>
           <view class="menu-content">
             <text class="menu-title">编辑标签</text>
             <text class="menu-subtitle">{{userInfo.equippedDisplayTag ? '管理主标签与帖子展示模式' : '设置主标签与帖子展示模式'}}</text>
@@ -122,7 +122,7 @@
         </view>
 
         <view class="menu-item" bindtap="onEditProfile">
-          <text class="menu-icon">✏️</text>
+          <view class="menu-icon menu-icon--edit"></view>
           <view class="menu-content">
             <text class="menu-title">编辑个人信息</text>
             <text class="menu-subtitle">修改头像、昵称、个人信息等</text>
@@ -145,19 +145,19 @@
         </view>
 
         <view class="menu-item" bindtap="onAbout">
-          <text class="menu-icon">ℹ️</text>
+          <view class="menu-icon menu-icon--about"></view>
           <text class="menu-title">协议与说明</text>
           <text class="menu-arrow">></text>
         </view>
 
         <view class="menu-item" wx:if="{{isAdmin}}" bindtap="onAdmin">
-          <text class="menu-icon">🛠️</text>
+          <view class="menu-icon menu-icon--admin"></view>
           <text class="menu-title">管理</text>
           <text class="menu-arrow">></text>
         </view>
 
         <view class="menu-item logout-item" bindtap="onLogout">
-          <text class="menu-icon">🚪</text>
+          <view class="menu-icon menu-icon--logout"></view>
           <text class="menu-title">退出登录</text>
           <text class="menu-arrow">></text>
         </view>

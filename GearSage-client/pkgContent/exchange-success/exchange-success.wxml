@@ -1,5 +1,5 @@
 <!--pages/exchange-success/exchange-success.wxml-->
-<custom-navbar title="兑换成功" showBack="{{true}}"></custom-navbar>
+<custom-navbar title="兑换成功" showBack="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
 
 <view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{statusBarHeight + navBarHeight + 10}}px;">
   <!-- 成功图标 -->

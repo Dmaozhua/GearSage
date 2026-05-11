@@ -29,6 +29,7 @@ const WATERFALL_HEIGHT_PRESET = {
 const WATERFALL_MIN_DIFF = 40; // rpx，可按实际效果微调
 const MAX_WATERFALL_TITLE_LENGTH = 16;
 const HOME_PREVIEW_LIMIT = 5;
+const HOME_RECOMMEND_PREVIEW_LIMIT = 3;
 const GEAR_TAB_SEARCH_FOCUS_KEY = 'gear_tab_focus_search';
 
 const HOME_FUNCTION_LIST = [
@@ -232,7 +233,11 @@ Page({
 	        homePreviewLoading: false,
 	        recentGearList: [],
 	        latestRecommendList: [],
+	        latestRecommendAllList: [],
+	        recommendPreviewExpanded: false,
 	        featuredExperienceList: [],
+	        featuredExperienceAllList: [],
+	        experiencePreviewExpanded: false,
         
 	        // 装备经验相关数据
         articles: [],
@@ -338,6 +343,7 @@ Page({
 	        return {
 	            id: item.id || item._id || '',
 	            title: this.normalizeDisplayText(item.title, '未命名发布'),
+	            label,
 	            meta,
 	            desc: plainContent || this.buildTopicMeta(item, topicCategory) || '暂无摘要',
 	            topicCategory,
@@ -390,16 +396,24 @@ Page({
 	                    .filter(item => item.id)
 	                : [];
 	            const latestRecommendList = normalizedTopics
-	                .filter(item => item.topicCategory === TOPIC_CATEGORY.QUESTION && item.questionType === 'recommend')
-	                .slice(0, HOME_PREVIEW_LIMIT);
+	                .filter(item => item.topicCategory === TOPIC_CATEGORY.QUESTION && ['recommend', 'ask'].includes(item.questionType || 'recommend'))
+	                .slice(0, HOME_RECOMMEND_PREVIEW_LIMIT);
+	            const latestRecommendAllList = normalizedTopics
+	                .filter(item => item.topicCategory === TOPIC_CATEGORY.QUESTION && ['recommend', 'ask'].includes(item.questionType || 'recommend'));
 	            const featuredExperienceList = normalizedTopics
 	                .filter(item => item.topicCategory === TOPIC_CATEGORY.EXPERIENCE)
 	                .slice(0, HOME_PREVIEW_LIMIT);
+	            const featuredExperienceAllList = normalizedTopics
+	                .filter(item => item.topicCategory === TOPIC_CATEGORY.EXPERIENCE);
 
 	            this.setData({
 	                recentGearList,
 	                latestRecommendList,
+	                latestRecommendAllList,
+	                recommendPreviewExpanded: false,
 	                featuredExperienceList,
+	                featuredExperienceAllList,
+	                experiencePreviewExpanded: false,
 	                homePreviewLoading: false,
 	                lastUpdatedAt: Date.now()
 	            });
@@ -437,18 +451,32 @@ Page({
 	    },
 
 	    onMoreRecommend() {
-	        wx.navigateTo({
-	            url: '/pkgContent/search/search?scene=recommend'
-	        }).catch(() => {
-	            wx.showToast({ title: '暂时无法打开更多求推荐', icon: 'none' });
+	        const allList = Array.isArray(this.data.latestRecommendAllList) ? this.data.latestRecommendAllList : [];
+	        if (allList.length <= HOME_RECOMMEND_PREVIEW_LIMIT) {
+	            wx.showToast({ title: '已显示最近内容', icon: 'none' });
+	            return;
+	        }
+	        const nextExpanded = !this.data.recommendPreviewExpanded;
+	        this.setData({
+	            recommendPreviewExpanded: nextExpanded,
+	            latestRecommendList: nextExpanded
+	                ? allList.slice(0, HOME_PREVIEW_LIMIT * 2)
+	                : allList.slice(0, HOME_RECOMMEND_PREVIEW_LIMIT)
 	        });
 	    },
 
 	    onMoreExperience() {
-	        wx.navigateTo({
-	            url: '/pkgContent/articlePage/articlePage'
-	        }).catch(() => {
-	            wx.showToast({ title: '暂时无法打开装备经验', icon: 'none' });
+	        const allList = Array.isArray(this.data.featuredExperienceAllList) ? this.data.featuredExperienceAllList : [];
+	        if (allList.length <= HOME_PREVIEW_LIMIT) {
+	            wx.showToast({ title: '已显示最近内容', icon: 'none' });
+	            return;
+	        }
+	        const nextExpanded = !this.data.experiencePreviewExpanded;
+	        this.setData({
+	            experiencePreviewExpanded: nextExpanded,
+	            featuredExperienceList: nextExpanded
+	                ? allList.slice(0, HOME_PREVIEW_LIMIT * 2)
+	                : allList.slice(0, HOME_PREVIEW_LIMIT)
 	        });
 	    },
 

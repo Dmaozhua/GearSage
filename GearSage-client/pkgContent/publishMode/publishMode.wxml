@@ -4,16 +4,16 @@
   id="custom-navbar"
   title="选择发布模式"
   show-back="{{true}}"
-  background-color="transparent"
-  text-color="#ffffff"
+  background-color="#F4F5F1"
+  text-color="#1F2A27"
   bind:back="handlePageExit">
 </custom-navbar>
 
-<view class="publish-mode-container {{showModeSelection ? 'mode-selection-active' : 'publish-content-active'}} {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{showModeSelection ? statusBarHeight + navBarHeight : 0}}px;">
+<view class="publish-mode-container {{showModeSelection ? 'mode-selection-active' : 'publish-content-active'}} {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{showModeSelection ? statusBarHeight + navBarHeight + 8 : statusBarHeight + 8}}px;">
   <view class="mode-selection" wx:if="{{showModeSelection}}">
     <view class="mode-title">
       <text class="title-text">选择你的发布模式</text>
-      <text class="subtitle-text">左右滑动切换不同模式，点击进入</text>
+      <text class="subtitle-text">围绕装备经验、提问和求推荐发布</text>
     </view>
 
     <view class="mode-carousel">
@@ -36,7 +36,7 @@
 
     <view class="publish-form-container">
       <post-experience
-        wx:if="{{selectedMode.title === '长测评'}}"
+        wx:if="{{selectedMode.formModeKey === 'experience'}}"
         initialData="{{formData}}"
         bind:datachange="onFormDataChange"
         bind:scrolltotop="handleFormScrollToTop"
@@ -44,7 +44,7 @@
       />
 
       <post-recommend
-        wx:if="{{selectedMode.title === '好物速报'}}"
+        wx:if="{{selectedMode.formModeKey === 'recommend'}}"
         initialData="{{formData}}"
         bind:datachange="onFormDataChange"
         bind:scrolltotop="handleFormScrollToTop"
@@ -52,21 +52,21 @@
       />
 
       <post-question
-        wx:if="{{selectedMode.title === '讨论&提问'}}"
+        wx:if="{{selectedMode.formModeKey === 'question'}}"
         initialData="{{formData}}"
         bind:datachange="onFormDataChange"
         bind:submit="onSubmitQuestion"
       />
 
       <post-catch
-        wx:if="{{selectedMode.title === '鱼获展示'}}"
+        wx:if="{{selectedMode.formModeKey === 'catch'}}"
         initialData="{{formData}}"
         bind:datachange="onFormDataChange"
         bind:submit="onSubmitCatch"
       />
 
       <post-trip
-        wx:if="{{selectedMode.title === '钓行分享'}}"
+        wx:if="{{selectedMode.formModeKey === 'trip'}}"
         initialData="{{formData}}"
         bind:datachange="onFormDataChange"
         bind:submit="onSubmitTrip"

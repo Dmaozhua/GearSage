@@ -2,8 +2,8 @@
   id="custom-navbar"
   title="消息中心"
   show-back="{{true}}"
-  background-color="#BDC3C7"
-  text-color="#000000">
+  background-color="#F4F5F1"
+  text-color="#1F2A27">
 </custom-navbar>
 
 <view class="message-page {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">

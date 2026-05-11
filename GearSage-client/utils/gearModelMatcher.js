@@ -5,6 +5,7 @@ const CATEGORY_TO_TYPE_MAP = {
   reel: 'reel',
   bait: 'lure',
   line: 'line',
+  hook: 'hook',
 };
 
 const MAX_MATCH_CANDIDATE_COUNT = 20;

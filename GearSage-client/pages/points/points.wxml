@@ -5,7 +5,7 @@
   showShadow="{{!isDarkMode}}"
   right-button-text=""
   background-color="transparent"
-  text-color="{{isDarkMode ? '#F3F7FC' : '#112033'}}"></custom-navbar>
+  text-color="{{isDarkMode ? '#F1F4EE' : '#1F2A27'}}"></custom-navbar>
 
 <view class="container {{isDarkMode ? 'dark' : ''}}">
   <block wx:if="{{!showSkeleton}}">

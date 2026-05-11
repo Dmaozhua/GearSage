@@ -1,5 +1,5 @@
 <!--pkgGear/pages/detail/detail.wxml-->
-<custom-navbar title="{{title}}" show-back="{{true}}"></custom-navbar>
+<custom-navbar title="{{title}}" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
 
 <view class="container {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;" bindtap="hideTechTooltip">
   <view class="return-to-post-float" wx:if="{{showBackToPost}}" bindtap="onBackToSourcePost">

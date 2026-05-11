@@ -332,13 +332,6 @@ Page({
     });
   },
 
-  // 导航到主页
-  navigateToHome: function() {
-    wx.switchTab({
-      url: '/pages/home/home'
-    });
-  },
-
   /**
    * 初始化主题模式
    */

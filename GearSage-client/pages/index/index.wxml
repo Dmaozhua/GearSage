@@ -6,12 +6,12 @@
   left-icon-dark="/images/logo/GearSageLogo-w.png"
   show-search="{{false}}"
   right-button-text=""
-  background-color="#BDC3C7"
-  text-color="#000000">
+  background-color="#F4F5F1"
+  text-color="#1F2A27">
 </custom-navbar>
 
 <view class="pull-refresh-indicator {{containerClass}} {{isPullRefreshing ? 'pull-refresh-indicator--show' : ''}}" style="top: {{statusBarHeight + navBarHeight}}px;">
-  <svg-loading spinning="{{true}}" showText="{{false}}" size="small" color="{{containerClass ? '#9cc3ff' : '#2c7cf6'}}"></svg-loading>
+  <svg-loading spinning="{{true}}" showText="{{false}}" size="small" color="{{containerClass ? '#9AA083' : '#4F6654'}}"></svg-loading>
 </view>
 
 <view class="home-tool-page {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
@@ -21,12 +21,13 @@
       <text class="home-brand__subtitle">路亚装备资料库与经验交流</text>
     </view>
     <view class="home-search" bindtap="onHomeSearchTap">
-      <text class="home-search__icon">🔍</text>
+      <view class="home-search__icon"></view>
       <text class="home-search__placeholder">搜索装备 / 型号 / SKU / 品牌</text>
     </view>
   </view>
 
   <view class="home-hero-card" bindtap="onHeroGearTap">
+    <image class="home-hero-card__image" src="/images/icons/publis/竿.png" mode="aspectFit"></image>
     <view class="home-hero-card__content">
       <text class="home-hero-card__title">查装备，问选择，看经验</text>
       <text class="home-hero-card__desc">看参数、比技术、找真实使用经验</text>
@@ -84,12 +85,12 @@
     <view class="home-section">
       <view class="home-section__header">
         <view>
-          <text class="home-section__title">最新求推荐</text>
+          <text class="home-section__title">最新求推荐与提问</text>
           <text class="home-section__subtitle">按真实需求找选择</text>
         </view>
-        <view class="home-section__more" bindtap="onMoreRecommend">查看更多</view>
+        <view class="home-section__more" bindtap="onMoreRecommend">{{recommendPreviewExpanded ? '收起' : '查看更多'}}</view>
       </view>
-      <view wx:if="{{latestRecommendList.length === 0 && !homePreviewLoading}}" class="home-empty">暂无新的求推荐</view>
+      <view wx:if="{{latestRecommendList.length === 0 && !homePreviewLoading}}" class="home-empty">暂无新的求推荐或提问</view>
       <view wx:else class="home-card-list">
         <view
           wx:for="{{latestRecommendList}}"
@@ -97,7 +98,7 @@
           class="home-topic-card"
           data-id="{{item.id}}"
           bindtap="onHomeTopicTap">
-          <view class="home-topic-card__label">求推荐</view>
+          <view class="home-topic-card__label">{{item.label}}</view>
           <view class="home-topic-card__main">
             <text class="home-topic-card__title">{{item.title}}</text>
             <text class="home-topic-card__meta">{{item.meta}}</text>
@@ -113,7 +114,7 @@
           <text class="home-section__title">装备经验精选</text>
           <text class="home-section__subtitle">真实使用反馈预览</text>
         </view>
-        <view class="home-section__more" bindtap="onMoreExperience">查看更多</view>
+        <view class="home-section__more" bindtap="onMoreExperience">{{experiencePreviewExpanded ? '收起' : '查看更多'}}</view>
       </view>
       <view wx:if="{{featuredExperienceList.length === 0 && !homePreviewLoading}}" class="home-empty">暂无装备经验</view>
       <view wx:else class="home-card-list">

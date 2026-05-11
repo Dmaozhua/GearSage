@@ -4,8 +4,8 @@
   id="custom-navbar"
   title="我的发布" 
   show-back="{{true}}"
-  background-color="#BDC3C7"
-  text-color="#000000">
+  background-color="#F4F5F1"
+  text-color="#1F2A27">
 </custom-navbar>
 
 <view class="publish-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">

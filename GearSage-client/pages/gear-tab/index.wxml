@@ -1,8 +1,8 @@
 <custom-navbar
   title="装备库"
   show-back="{{false}}"
-  background-color="#BDC3C7"
-  text-color="#000000">
+  background-color="#F4F5F1"
+  text-color="#1F2A27">
 </custom-navbar>
 
 <scroll-view
@@ -20,7 +20,7 @@
 
     <view class="gear-search-panel">
       <view class="gear-search-box">
-        <text class="gear-search-icon">🔍</text>
+        <view class="gear-search-icon"></view>
         <input
           class="gear-search-input"
           value="{{searchKeyword}}"

@@ -4,8 +4,8 @@
   id="custom-navbar"
   title="编辑个人信息" 
   show-back="{{true}}"
-  background-color="#BDC3C7"
-  text-color="#000000">
+  background-color="#F4F5F1"
+  text-color="#1F2A27">
 </custom-navbar>
 
 <view class="edit-profile-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
@@ -54,7 +54,7 @@
         class="edit-input" 
         type="nickname"
         placeholder="请输入昵称，最大8个字符"
-        placeholder-style="color:#999"
+        placeholder-style="color:#8A918A"
         value="{{userInfo.nickname}}"
         bindinput="onNicknameInput"
         maxlength="8"

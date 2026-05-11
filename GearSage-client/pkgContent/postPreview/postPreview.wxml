@@ -14,7 +14,7 @@
   <view class="preview-page">
     <view class="preview-header-card">
       <view class="preview-header-card__eyebrow">发布确认前再看一眼</view>
-      <view class="preview-header-card__title">{{selectedMode ? selectedMode.title : '帖子预览'}}</view>
+      <view class="preview-header-card__title">{{selectedMode ? selectedMode.title : '内容预览'}}</view>
       <view class="preview-header-card__desc">先确认封面信息和详情结构，没问题后再正式发布。</view>
     </view>
 
@@ -79,7 +79,7 @@
 
       <block wx:elif="{{productDetail.topicCategory === 1}}">
         <view class="topic-hero-card topic-hero-card--experience">
-          <text class="topic-kicker">长测评</text>
+          <text class="topic-kicker">装备经验</text>
           <view class="topic-title">{{productDetail.title}}</view>
           <view class="topic-subtitle">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
           <view class="topic-summary-card" wx:if="{{productDetail.summaryDisplay || productDetail.summary}}">{{productDetail.summaryDisplay || productDetail.summary}}</view>
@@ -200,7 +200,7 @@
       <block wx:elif="{{productDetail.topicCategory === 2}}">
         <view class="topic-hero-card topic-hero-card--question">
           <view class="topic-header-stack">
-            <text class="topic-chip topic-chip--dark">{{productDetail.questionTypeLabel || '讨论&提问'}}</text>
+            <text class="topic-chip topic-chip--dark">{{productDetail.questionTypeLabel || '提问'}}</text>
             <text class="topic-chip" wx:if="{{productDetail.quickReplyOnly}}">快速回答</text>
           </view>
           <view class="topic-title">{{productDetail.title}}</view>

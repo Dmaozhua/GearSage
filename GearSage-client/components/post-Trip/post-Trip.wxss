@@ -942,3 +942,278 @@
   border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Light theme readability pass for publishMode */
+.post-experience-container {
+  color: #1f2a27;
+}
+
+.post-experience-container .stepper-container,
+.post-experience-container .step-content {
+  background: #ffffff;
+  border: 1rpx solid rgba(58, 68, 62, 0.12);
+  box-shadow: 0 8rpx 22rpx rgba(31, 42, 39, 0.05);
+}
+
+.post-experience-container .step-title,
+.post-experience-container .form-label,
+.post-experience-container .label-text,
+.post-experience-container .group-label,
+.post-experience-container .sub-label,
+.post-experience-container .form-input,
+.post-experience-container .picker-text,
+.post-experience-container .picker-display.has-value,
+.post-experience-container .gear-model-input,
+.post-experience-container .gear-model-option,
+.post-experience-container .selector-option-label {
+  color: #1f2a27;
+  text-shadow: none;
+}
+
+.post-experience-container .optional,
+.post-experience-container .form-tip,
+.post-experience-container .input-placeholder,
+.post-experience-container .section-subtitle,
+.post-experience-container .switch-label,
+.post-experience-container .info-display,
+.post-experience-container .picker-arrow,
+.post-experience-container .picker-display,
+.post-experience-container .picker-display .arrow,
+.post-experience-container .gear-model-empty {
+  color: #68716b;
+}
+
+.post-experience-container .required,
+.post-experience-container .error-text {
+  color: #9a4a42;
+}
+
+.post-experience-container .picker,
+.post-experience-container .picker-display,
+.post-experience-container .form-input,
+.post-experience-container .tag-option,
+.post-experience-container .tag-chip,
+.post-experience-container .gear-model-input-wrap,
+.post-experience-container .gear-model-dropdown,
+.post-experience-container .selector-option,
+.post-experience-container .upload-btn {
+  background: #f7f8f5;
+  border-color: rgba(58, 68, 62, 0.14);
+  color: #1f2a27;
+}
+
+.post-experience-container .tag-option.selected,
+.post-experience-container .tag-chip.active,
+.post-experience-container .selector-option.selected {
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.36);
+  color: #4f6654;
+}
+
+.post-experience-container .selector-option-check {
+  color: #4f6654;
+}
+
+.post-experience-container .drawer-content {
+  background: #ffffff;
+  color: #1f2a27;
+}
+
+.post-experience-container .drawer-title {
+  color: #1f2a27;
+}
+
+.post-experience-container .drawer-close {
+  color: #68716b;
+}
+
+.post-experience-container .drawer-footer {
+  border-top-color: rgba(58, 68, 62, 0.12);
+}
+
+.post-experience-container .btn-confirm,
+.post-experience-container .btn-primary,
+.post-experience-container .btn-success {
+  background: #26332d;
+  color: #ffffff;
+  box-shadow: 0 8rpx 18rpx rgba(31, 42, 39, 0.16);
+}
+
+.post-experience-container.dark {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-experience-container.dark .stepper-container,
+.post-experience-container.dark .step-content,
+.post-experience-container.dark .picker,
+.post-experience-container.dark .picker-display,
+.post-experience-container.dark .form-input,
+.post-experience-container.dark .tag-option,
+.post-experience-container.dark .tag-chip,
+.post-experience-container.dark .gear-model-input-wrap,
+.post-experience-container.dark .gear-model-dropdown,
+.post-experience-container.dark .selector-option,
+.post-experience-container.dark .upload-btn {
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-experience-container.dark .step-title,
+.post-experience-container.dark .form-label,
+.post-experience-container.dark .label-text,
+.post-experience-container.dark .group-label,
+.post-experience-container.dark .sub-label,
+.post-experience-container.dark .form-input,
+.post-experience-container.dark .picker-text,
+.post-experience-container.dark .picker-display.has-value,
+.post-experience-container.dark .gear-model-input,
+.post-experience-container.dark .gear-model-option,
+.post-experience-container.dark .selector-option-label,
+.post-experience-container.dark .drawer-title {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.post-experience-container.dark .optional,
+.post-experience-container.dark .form-tip,
+.post-experience-container.dark .input-placeholder,
+.post-experience-container.dark .section-subtitle,
+.post-experience-container.dark .switch-label,
+.post-experience-container.dark .info-display,
+.post-experience-container.dark .picker-display,
+.post-experience-container.dark .picker-display .arrow,
+.post-experience-container.dark .drawer-close {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.post-experience-container .stepper-circle {
+  background: #f4f5f1;
+  border-color: rgba(79, 102, 84, 0.22);
+  box-shadow: none;
+}
+
+.post-experience-container .stepper-item.active .stepper-circle {
+  background: #26332d;
+  border-color: #26332d;
+  box-shadow: 0 6rpx 14rpx rgba(31, 42, 39, 0.14);
+}
+
+.post-experience-container .stepper-item.completed .stepper-circle {
+  background: #eef2ed;
+  border-color: rgba(79, 102, 84, 0.36);
+  color: #4f6654;
+}
+
+.post-experience-container .stepper-number {
+  color: #68716b;
+}
+
+.post-experience-container .stepper-item.active .stepper-number {
+  color: #ffffff;
+}
+
+.post-experience-container .stepper-check,
+.post-experience-container .stepper-item.completed .stepper-title {
+  color: #4f6654;
+}
+
+.post-experience-container .stepper-title,
+.post-experience-container .char-count {
+  color: #68716b;
+}
+
+.post-experience-container .stepper-item.active .stepper-title,
+.post-experience-container .form-section-title,
+.post-experience-container .selected-tag,
+.post-experience-container .form-textarea,
+.post-experience-container .problem-textarea {
+  color: #1f2a27;
+  text-shadow: none;
+}
+
+.post-experience-container .form-section-title {
+  border-left-color: #6c7654;
+}
+
+.post-experience-container .stepper-line {
+  background: #d9ded6;
+}
+
+.post-experience-container .stepper-line::before {
+  background: #6c7654;
+}
+
+.post-experience-container .selected-tag,
+.post-experience-container .form-textarea,
+.post-experience-container .problem-textarea,
+.post-experience-container .placeholder-box {
+  background: #f7f8f5;
+  border-color: rgba(58, 68, 62, 0.14);
+  color: #1f2a27;
+}
+
+.post-experience-container .tag-remove,
+.post-experience-container .placeholder-box {
+  color: #68716b;
+}
+
+.post-experience-container .bottom-buttons {
+  background: rgba(244, 245, 241, 0.96);
+  border-top-color: rgba(58, 68, 62, 0.12);
+  box-shadow: 0 -8rpx 20rpx rgba(31, 42, 39, 0.06);
+}
+
+.post-experience-container .btn-secondary {
+  background: #ffffff;
+  border-color: rgba(79, 102, 84, 0.22);
+  color: #4f6654;
+}
+
+.post-experience-container.dark .stepper-circle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.post-experience-container.dark .stepper-item.active .stepper-circle {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.post-experience-container.dark .stepper-item.active .stepper-number {
+  color: #000000;
+}
+
+.post-experience-container.dark .form-section-title,
+.post-experience-container.dark .selected-tag,
+.post-experience-container.dark .form-textarea,
+.post-experience-container.dark .problem-textarea {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.post-experience-container.dark .selected-tag,
+.post-experience-container.dark .form-textarea,
+.post-experience-container.dark .problem-textarea,
+.post-experience-container.dark .placeholder-box {
+  background: rgba(13, 25, 48, 0.42);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.post-experience-container.dark .char-count,
+.post-experience-container.dark .tag-remove,
+.post-experience-container.dark .placeholder-box {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.post-experience-container.dark .tag-option.selected,
+.post-experience-container.dark .tag-chip.active,
+.post-experience-container.dark .selector-option.selected,
+.post-experience-container.dark .selected-tag {
+  background: rgba(154, 160, 131, 0.22);
+  border-color: rgba(154, 160, 131, 0.42);
+  color: #d8decb;
+}
+
+.post-experience-container.dark .selector-option-check,
+.post-experience-container.dark .stepper-check,
+.post-experience-container.dark .stepper-item.completed .stepper-title {
+  color: #b9c0a1;
+}

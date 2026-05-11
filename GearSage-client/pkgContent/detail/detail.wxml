@@ -1068,10 +1068,5 @@
       <image class="bottom-btn-icon-img" src="{{productDetail.islike ? '/images/icons/like-ing.png' : (containerClass === 'dark' ? '/images/icons/like-night.png' : '/images/icons/like.png')}}" mode="aspectFit"></image>
       <text class="bottom-btn-text">{{productDetail.likeCount || 0}}</text>
     </view>
-    <view class="bottom-btn share-btn {{!productDetail.canShare ? 'bottom-btn--disabled' : ''}}" bindtap="onShareTap">
-      <button wx:if="{{productDetail.canShare}}" class="share-native-trigger" open-type="share"></button>
-      <image class="share-image" mode="aspectFill" src="/images/share.png"/>
-      <text class="bottom-btn-text">分享</text>
-    </view>
   </view>
 </view>

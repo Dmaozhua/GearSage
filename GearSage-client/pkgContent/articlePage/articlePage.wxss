@@ -92,7 +92,7 @@
 
 /* 装备经验列表 */
 .article-list {
-    padding-bottom: 120rpx; /* 为底部添加足够的内边距，防止最后一条装备经验被遮挡 */
+    padding-bottom: 40rpx;
     -webkit-overflow-scrolling: touch; /* 增强iOS滚动体验 */
     flex: 1; /* 让装备经验列表占据剩余空间 */
     display: flex;
@@ -180,40 +180,4 @@
     box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
     font-size: 30rpx;
     color: #666;
-}
-
-/* 浮动主页按钮 */
-.float-home-btn {
-    position: fixed;
-    bottom: 40rpx;
-    right: 40rpx;
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 50%;
-    background-color: #1E3A8A;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    transition: all 0.3s ease;
-    opacity: 0.9; /* 稍微透明，减少视觉干扰 */
-}
-
-.float-btn-hover {
-    transform: scale(0.95);
-    background-color: #152a62;
-}
-
-.home-btn-text {
-    font-size: 24rpx;
-}
-
-/* 添加底部安全区域，确保内容不被浮动按钮遮挡 */
-.article-list::after {
-    content: '';
-    display: block;
-    height: 140rpx; /* 确保有足够的空间 */
-    width: 100%;
 }

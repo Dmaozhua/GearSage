@@ -3,7 +3,10 @@ const { resolveGearSearchType, getGearModelSuggestions } = require('../../utils/
 
 const QUESTION_TYPES = [
   { id: 'recommend', label: '求推荐' },
-  { id: 'ask', label: '提问' },
+  { id: 'ask', label: '提问' }
+];
+
+const LEGACY_QUESTION_TYPES = [
   { id: 'discuss', label: '讨论' },
   { id: 'chat_with_photos', label: '晒图闲聊' }
 ];
@@ -367,15 +370,22 @@ Component({
 
       const nextCategory = String(gearCategory || '').trim();
       const isLine = nextCategory === 'line';
+      const isHook = nextCategory === 'hook';
 
       this.setData({
         canSelectGearModel,
         gearModelOptions,
         showGearModelOptions: canSelectGearModel ? showOptions : false,
-        gearModelPlaceholder: isLine ? '搜索并关联鱼线型号' : '搜索并关联装备',
+        gearModelPlaceholder: isLine
+          ? '搜索并关联鱼线型号'
+          : isHook
+            ? '搜索并关联钩子/配件型号'
+            : '搜索并关联装备',
         gearModelTip: isLine
           ? '可直接搜索系列名、材质或线号关键词，把问题和具体线款关联起来。'
-          : '先选装备分类，再输入关键词关联装备库中的型号'
+          : isHook
+            ? '可搜索钩型、尺寸、系列或配件关键词，把问题和具体装备关联起来。'
+            : '先选装备分类，再输入关键词关联装备库中的型号'
       });
     },
 

@@ -146,8 +146,8 @@ Page({
     userPoints: 0,
     
     // 当前选中的Tab
-    activeTab: 0, // 0: 虚拟权益, 1: 实体礼品, 2: 商户券
-    tabList: ['虚拟权益', '实体礼品', '商户券'],
+    activeTab: 0,
+    tabList: ['虚拟权益'],
     indicatorLeft: 65,
     
     // 商品列表
@@ -156,47 +156,9 @@ Page({
     // 加载状态
     loading: true,
     
-    // 模拟商品数据
+    // 默认商品数据
     mockProducts: {
-      0: TAG_EXCHANGE_MOCK_PRODUCTS,
-      1: [ // 实体礼品
-        {
-          id: 3,
-          name: '钓鱼竿套装',
-          image: '/images/icons/h33.png',
-          points: 5000,
-          stock: 10,
-          description: '专业钓鱼竿套装，包含竿身、鱼线、鱼钩等全套装备',
-          rules: '包邮配送，7-15个工作日发货，每人限兑1次',
-          reviews: [
-            { avatar: '/images/avatar-default.png', nickname: '钓友B', rating: 5, content: '质量很好，值得兑换' }
-          ]
-        },
-        {
-          id: 4,
-          name: '钓鱼工具箱',
-          image: '/images/icons/h109.png',
-          points: 3000,
-          stock: 0,
-          description: '多功能钓鱼工具箱，收纳方便',
-          rules: '包邮配送，7-15个工作日发货',
-          reviews: []
-        }
-      ],
-      2: [ // 商户券
-        {
-          id: 5,
-          name: '渔具店50元代金券',
-          image: '/images/icons/h113.png',
-          points: 800,
-          stock: 200,
-          description: '可在指定渔具店使用的50元代金券',
-          rules: '有效期30天，单笔消费满100元可用，不可叠加使用',
-          reviews: [
-            { avatar: '/images/avatar-default.png', nickname: '钓友C', rating: 4, content: '很实用的券' }
-          ]
-        }
-      ]
+      0: TAG_EXCHANGE_MOCK_PRODUCTS
     }
   },
 
@@ -316,15 +278,8 @@ Page({
    */
   onTabChange(e) {
     const index = e.currentTarget.dataset.index;
-    
-    // 如果点击的是实体礼品或商户券，显示准备中提示
-    if (index === 1 || index === 2) {
-      const tabName = this.data.tabList[index];
-      wx.showToast({
-        title: `${tabName}页面正在准备中`,
-        icon: 'none',
-        duration: 2000
-      });
+
+    if (!this.data.tabList[index]) {
       return;
     }
     

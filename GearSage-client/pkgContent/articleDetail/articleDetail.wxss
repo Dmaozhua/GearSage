@@ -395,33 +395,6 @@
   box-shadow: 0 2rpx 8rpx rgba(65, 105, 225, 0.2);
 }
 
-/* 浮动主页按钮 */
-.float-home-btn {
-    position: fixed;
-    bottom: 40rpx;
-    right: 40rpx;
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 50%;
-    background-color: #1E3A8A;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    transition: all 0.3s ease;
-    opacity: 0.9; /* 稍微透明，减少视觉干扰 */
-}
-
-.float-btn-hover {
-    transform: scale(0.95);
-    background-color: #152a62;
-}
-
-.home-btn-text {
-    font-size: 24rpx;
-}
 /* 滑动容器样式 */
 .swipe-container {
   width: 100%;
