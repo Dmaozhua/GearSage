@@ -925,6 +925,7 @@ P3-A 不是继续做功能，而是：
   - 已确认首页列表仅展示 `status=2` 且 `isDelete=0` 内容
   - 已确认帖子详情对非作者隐藏 `status!=2` 内容，评论接口仅允许 `status=2` 帖子评论
   - 已确认昵称、简介、发帖标题、正文、评论、举报理由走文本审核
+  - 2026-05-11 已补发帖结构化自由文本审核覆盖：`topic_content` 不再只检测正文 `content`，同步拼入前端可见的 `relatedGearModel / gearModel / customScene / summary / pros / cons / customFit / customUnfit / comboDesc / compareDesc / comboGear / compareGear / recommendMeta.currentGear / recommendMeta.candidateOptions / recommendMeta.coreQuestion` 等字段；`moderation_records.extra.fields` 记录实际参与审核的字段路径
   - 已确认头像、背景图、发帖图片走图片审核
   - 已新增 `POST /mini/report` 与 `user_reports`
   - 已补齐举报帖子、举报评论、举报用户入口

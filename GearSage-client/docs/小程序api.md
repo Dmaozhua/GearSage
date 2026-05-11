@@ -282,7 +282,13 @@ wx.cloud.callFunction({
   - `data: boolean` `true` 表示发布/更新成功；`false` 常见于“草稿不存在或不处于可发布状态”
 - 错误码：
   - `200` 成功
+  - `400` 内容不符合规范（本地关键词或腾讯云 `Block`）
   - `500` 未登录 / 服务端异常
+- 审核说明：
+  - 发布时同步审核，保存草稿不审核
+  - `topic_title` 审核标题 `title`
+  - `topic_content` 审核正文 `content`，并拼入前端可见的结构化自由文本字段，例如 `extra.relatedGearModel`、`extra.gearModel`、`extra.customScene`、`extra.pros`、`extra.cons`、`extra.customFit`、`extra.customUnfit`、`extra.comboDesc`、`extra.compareDesc`、`extra.recommendMeta.currentGear`、`extra.recommendMeta.candidateOptions`、`extra.recommendMeta.coreQuestion`
+  - `moderation_records.extra.fields` 会记录本次参与 `topic_content` 审核的字段路径
 - 分页格式：无
 
 ### 3.3 DELETE /mini/topic（删除）

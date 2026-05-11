@@ -11,6 +11,12 @@ import { ModerationService } from '../moderation/moderation.service';
 import { MessageService } from '../message/message.service';
 import { UserService } from '../user/user.service';
 
+type TopicModerationTextEntry = {
+  field: string;
+  label: string;
+  value: string;
+};
+
 @Injectable()
 export class TopicService {
   constructor(
@@ -308,6 +314,8 @@ export class TopicService {
   }
 
   async publishTopic(userId: number, dto: PublishTopicDto) {
+    const contentReviewEntries = this.buildTopicContentModerationEntries(dto);
+    const contentReviewText = this.buildTopicContentModerationText(contentReviewEntries);
     const titleDecision = await this.moderationService.reviewText(
       'topic_title',
       dto.title,
@@ -320,12 +328,17 @@ export class TopicService {
     );
     const contentDecision = await this.moderationService.reviewText(
       'topic_content',
-      dto.content,
+      contentReviewText,
       {
         userId,
         targetType: 'topic',
         targetId: dto.id ?? `${userId}:pending`,
-        extra: { field: 'content', topicCategory: dto.topicCategory },
+        extra: {
+          field: 'content',
+          fields: contentReviewEntries.map((item) => item.field),
+          topicCategory: dto.topicCategory,
+          includesStructuredVisibleText: true,
+        },
       },
     );
     const combinedDecision = this.moderationService.combineTextDecisions([
@@ -429,6 +442,97 @@ export class TopicService {
     )
       .trim()
       .toLowerCase() === 'true';
+  }
+
+  private buildTopicContentModerationEntries(dto: PublishTopicDto) {
+    const entries: TopicModerationTextEntry[] = [];
+    const extra = this.normalizePlainObject(dto.extra);
+    const recommendMeta = this.normalizePlainObject(extra.recommendMeta);
+
+    this.addModerationTextEntry(entries, 'content', '正文', dto.content);
+    this.addModerationTextEntry(entries, 'extra.gearModel', '装备型号', extra.gearModel);
+    this.addModerationTextEntry(entries, 'extra.relatedGearModel', '关联型号', extra.relatedGearModel);
+    this.addModerationTextEntry(entries, 'extra.customScene', '自定义场景', extra.customScene);
+    this.addModerationTextEntry(entries, 'extra.summary', '总结', extra.summary);
+    this.addModerationTextEntry(entries, 'extra.pros', '优点', extra.pros);
+    this.addModerationTextEntry(entries, 'extra.cons', '缺点', extra.cons);
+    this.addModerationTextEntry(entries, 'extra.customFit', '适合人群补充', extra.customFit);
+    this.addModerationTextEntry(entries, 'extra.customUnfit', '不适合人群补充', extra.customUnfit);
+    this.addModerationTextEntry(entries, 'extra.comboDesc', '搭配说明', extra.comboDesc);
+    this.addModerationTextEntry(entries, 'extra.compareDesc', '对比说明', extra.compareDesc);
+    this.addModerationTextEntry(entries, 'extra.comboGear', '搭配装备', extra.comboGear);
+    this.addModerationTextEntry(entries, 'extra.compareGear', '对比装备', extra.compareGear);
+    this.addModerationTextEntry(
+      entries,
+      'extra.recommendMeta.currentGear',
+      '当前装备',
+      recommendMeta.currentGear,
+    );
+    this.addModerationTextEntry(
+      entries,
+      'extra.recommendMeta.candidateOptions',
+      '候选方案',
+      recommendMeta.candidateOptions,
+    );
+    this.addModerationTextEntry(
+      entries,
+      'extra.recommendMeta.coreQuestion',
+      '核心纠结',
+      recommendMeta.coreQuestion,
+    );
+
+    return entries;
+  }
+
+  private addModerationTextEntry(
+    entries: TopicModerationTextEntry[],
+    field: string,
+    label: string,
+    value: any,
+  ) {
+    const text = this.collectModerationText(value);
+    if (!text) {
+      return;
+    }
+
+    entries.push({ field, label, value: text });
+  }
+
+  private collectModerationText(value: any): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    if (typeof value === 'string' || typeof value === 'number') {
+      return this.normalizeText(value);
+    }
+
+    if (Array.isArray(value)) {
+      return value
+        .map((item) => this.collectModerationText(item))
+        .filter(Boolean)
+        .join(' / ');
+    }
+
+    if (typeof value === 'object') {
+      return Object.values(value)
+        .map((item) => this.collectModerationText(item))
+        .filter(Boolean)
+        .join(' / ');
+    }
+
+    return '';
+  }
+
+  private buildTopicContentModerationText(entries: TopicModerationTextEntry[]) {
+    return entries
+      .map((entry) => `${entry.label}: ${entry.value}`)
+      .filter(Boolean)
+      .join('\n');
+  }
+
+  private normalizePlainObject(value: any): Record<string, any> {
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
   }
 
   async deleteTopic(userId: number, topicId: number) {
