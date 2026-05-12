@@ -1,9 +1,9 @@
 // components/post-Experience/post-Experience.js
-const { validateWithRules } = require('../../utils/postValidators');
-const { chooseAndUploadImages } = require('../../utils/imageUploadUtils');
-const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../utils/theme');
+const { validateWithRules } = require('../../../utils/postValidators');
+const { chooseAndUploadImages } = require('../../../utils/imageUploadUtils');
+const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../../utils/theme');
 const { resolveGearSearchType, getGearModelSuggestions, getAllGearModelSuggestions } = require('../../utils/gearModelMatcher');
-const tagConfig = require('../post-Evaluation/gearSageTagConfig.js');
+const tagConfig = require('../../../components/post-Evaluation/gearSageTagConfig.js');
 
 const TOTAL_STEPS = 4;
 const MAX_ENVIRONMENTS = 5;

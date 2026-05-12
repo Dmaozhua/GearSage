@@ -120,7 +120,7 @@ Page({
   },
 
   normalizeItem(item) {
-    let imageUrl = '/images/default-gear.png';
+    let imageUrl = '/images/empty.png';
     if (item.images) {
       let images = item.images;
       if (typeof images === 'string') images = images.split(',');

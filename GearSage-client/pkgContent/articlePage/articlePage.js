@@ -66,7 +66,7 @@ Page({
           const fileName = `article${i}.js`;
           try {
             // 动态构建require路径
-            const articleModule = require(`../../data/textData/${fileName}`);
+            const articleModule = require(`../data/textData/${fileName}`);
             // 检查导出方式，支持多种导出格式
             let currentArticle;
             if (articleModule.fishingData) {

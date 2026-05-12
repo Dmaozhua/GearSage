@@ -1631,7 +1631,7 @@ Page({
             eyebrow: this.truncateText(eyebrow, 22),
             summary: this.truncateText(summary, 34),
             userName: item.userName || '匿名用户',
-            avatarUrl: item.avatarUrl || item.avatar || '/images/avatar-default.png',
+            avatarUrl: item.avatarUrl || item.avatar || '/images/default-avatar.png',
             tags,
             islike: Boolean(item.islike === true || item.islike === 'true' || item.islike === 1 || item.islike === '1'),
             likeCount: typeof item.likeCount === 'number' ? item.likeCount : (item.likes || 0),
@@ -2323,7 +2323,7 @@ Page({
                         authorDisplayTag,
                         userTag: authorDisplayTag ? authorDisplayTag.name : item.tagName,
                         userTagRarity: authorDisplayTag ? authorDisplayTag.rarityLevel : (item.tagRarityLevel || 1),
-                        avatar: item.avatarUrl || '/images/avatar-default.png',
+                        avatar: item.avatarUrl || '/images/default-avatar.png',
                         avatarUrl: item.avatarUrl || 'https://anglertest.xyz/avatar/avatar.png',
                         userMetaPrefix: userMeta.prefix,
                         userMetaText: userMeta.text,
@@ -2731,44 +2731,10 @@ Page({
             // 记录开始加载时间，用于性能统计
             const startTime = Date.now();
             
-            // 动态加载装备经验数据
-            const articleData = [];
-            
-            // 尝试读取textData目录下的所有装备经验文件
-            // 由于小程序的安全限制，我们无法直接列出目录内容
-            // 所以我们使用一个足够大的范围来尝试加载装备经验
-            const maxArticleNumber = 50; // 设置一个足够大的数字来尝试加载装备经验
-            
-            for (let i = 1; i <= maxArticleNumber; i++) {
-                try {
-                    // 动态构建require路径
-                    const articleModule = require(`../../data/textData/article${i}.js`);
-                    // 检查导出方式，支持多种导出格式
-                    let currentArticle;
-                    if (articleModule.fishingData) {
-                        currentArticle = articleModule.fishingData;
-                    } else if (articleModule.default) {
-                        currentArticle = articleModule.default;
-                    } else {
-                        currentArticle = articleModule;
-                    }
-                    // 将装备经验数据和对应的ID一起存储
-                    articleData.push({id: i, data: currentArticle});
-                    console.log(`成功加载装备经验: article${i}.js`);
-                } catch (e) {
-                    // 如果连续5个文件都加载失败，则认为已经没有更多装备经验了
-                    if (i > 5 && articleData.length === 0) {
-                        console.log('没有找到任何装备经验文件，停止尝试加载');
-                        break;
-                    }
-                    // 如果已经加载了一些装备经验，并且连续5个文件都加载失败，则认为已经加载完所有装备经验
-                    if (articleData.length > 0 && i - articleData.length >= 5) {
-                        console.log('已加载所有可用装备经验文件，停止尝试加载');
-                        break;
-                    }
-                    console.log(`尝试加载article${i}.js：文件不存在或格式不正确`);
-                }
-            }
+            const articleData = require('../../data/article-index.js').map(article => ({
+                id: article.id,
+                data: article
+            }));
             
             // 如果没有加载到任何装备经验，使用默认数据
             if (articleData.length === 0) {
@@ -2799,19 +2765,23 @@ Page({
                 console.log(`成功加载了${articleData.length}条装备经验`);
             }
             
-            // 对装备经验数据进行排序（按ID或日期）
-            articleData.sort((a, b) => {
-                // 如果有publishDate字段，按日期排序（新的在前）
-                if (a.data.publishDate && b.data.publishDate) {
-                    return new Date(b.data.publishDate) - new Date(a.data.publishDate);
-                }
-                return 0; // 保持原有顺序
-            });
-            
             // 处理装备经验数据
             const articles = articleData.map((fishingDataWithId, index) => {
                 const fishingData = fishingDataWithId.data;
                 const articleId = fishingDataWithId.id;
+                if (fishingData.previewText !== undefined) {
+                    return {
+                        id: articleId,
+                        meta: {
+                            title: fishingData.title || "无标题",
+                            author: fishingData.author || "未知作者",
+                            publishDate: fishingData.publishDate || "未知日期"
+                        },
+                        text: "",
+                        children: [],
+                        previewText: fishingData.previewText || ''
+                    };
+                }
                 // 检查装备经验格式，适配新旧两种格式
                 if (fishingData.content !== undefined) {
                     // 新格式使用 content 属性
@@ -3119,13 +3089,9 @@ Page({
      */
     onMoreTap(e) {
         console.log('功能入口扩展点击');
-        wx.navigateTo({
-            url: '/pages/function-list/function-list'
-        }).catch(() => {
-            wx.showToast({
-                title: '功能开发中',
-                icon: 'none'
-            });
+        wx.showToast({
+            title: '功能开发中',
+            icon: 'none'
         });
     },
 

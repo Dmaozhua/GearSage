@@ -26,7 +26,7 @@
       <scroll-view scroll-x class="candidate-scroll" show-scrollbar="{{false}}">
         <view class="candidate-list">
           <view class="candidate-card" wx:for="{{compareCards}}" wx:key="key">
-            <image class="candidate-image" src="{{item.imageUrl || '/images/default-gear.png'}}" mode="aspectFit"></image>
+            <image class="candidate-image" src="{{item.imageUrl || '/images/empty.png'}}" mode="aspectFit"></image>
             <text class="candidate-brand">{{item.brandName}}</text>
             <text class="candidate-master">{{item.masterLabelWithYear || item.masterLabel}}</text>
             <text class="candidate-variant">{{item.selectedVariant.__displayName}}</text>

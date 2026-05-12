@@ -47,7 +47,7 @@
         <!-- 用户头像 -->
         <image 
           class="user-avatar" 
-          src="{{userInfo.avatarUrl || userInfo.avatar || '/images/avatar-default.png'}}" 
+          src="{{userInfo.avatarUrl || userInfo.avatar || '/images/default-avatar.png'}}"
           mode="aspectFill"
           bindtap="onPreviewAvatar"
         />

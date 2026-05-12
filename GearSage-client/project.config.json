@@ -41,6 +41,202 @@
       {
         "value": "package-lock.json",
         "type": "file"
+      },
+      {
+        "value": "package.json",
+        "type": "file"
+      },
+      {
+        "value": "scripts",
+        "type": "folder"
+      },
+      {
+        "value": ".DS_Store",
+        "type": "file"
+      },
+      {
+        "value": "**/.DS_Store",
+        "type": "glob"
+      },
+      {
+        "value": "update_reel_excel.py",
+        "type": "file"
+      },
+      {
+        "value": "钓友说日志.txt",
+        "type": "file"
+      },
+      {
+        "value": "components/comment-item",
+        "type": "folder"
+      },
+      {
+        "value": "components/post-card",
+        "type": "folder"
+      },
+      {
+        "value": "components/publish-stepper",
+        "type": "folder"
+      },
+      {
+        "value": "images/icons/clock.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/comment.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/comment-night.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/like.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/like-ing.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/like-night.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/likeing.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/商城.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/商城-夜晚.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/文章.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/文章-夜晚.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/更多.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/更多-夜晚.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/帖子.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/帖子-夜晚.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/积分.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/积分-.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/论坛*.svg",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/消息*.svg",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/转发*.svg",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/homeicon*.png",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/fabu*.png",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/faxian*.png",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/shangdian*.png",
+        "type": "glob"
+      },
+      {
+        "value": "images/icons/h109.png",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/h113.png",
+        "type": "file"
+      },
+      {
+        "value": "images/logo/2.png",
+        "type": "file"
+      },
+      {
+        "value": "images/logo/2-w.png",
+        "type": "file"
+      },
+      {
+        "value": "images/settings.svg",
+        "type": "file"
+      },
+      {
+        "value": "images/icons/share.svg",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/Sport-Fishing.png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/Sport-Fishing (1).png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/鱼钩.png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/鱼钩 (1).png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/路亚饵.png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/路亚饵 (1).png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/路亚配件.png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/路亚配件 (1).png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/积分.png",
+        "type": "file"
+      },
+      {
+        "value": "images/tab/积分 (1).png",
+        "type": "file"
       }
     ],
     "include": []

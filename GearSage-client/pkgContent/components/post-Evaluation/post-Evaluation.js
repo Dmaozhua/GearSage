@@ -1,4 +1,4 @@
-const tagConfig = require('./gearSageTagConfig.js');
+const tagConfig = require('../../../components/post-Evaluation/gearSageTagConfig.js');
 const MAX_CUSTOM_TAG_LENGTH = 10;
 const MAX_RECOMMEND_ITEM_LENGTH = 20;
 const MAX_RECOMMEND_ITEM_COUNT = 3;

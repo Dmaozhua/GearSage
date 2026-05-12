@@ -1,6 +1,6 @@
-const { validateWithRules } = require('../../utils/postValidators');
-const { chooseAndUploadImages } = require('../../utils/imageUploadUtils');
-const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../utils/theme');
+const { validateWithRules } = require('../../../utils/postValidators');
+const { chooseAndUploadImages } = require('../../../utils/imageUploadUtils');
+const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../../utils/theme');
 
 const CUSTOM_FISH_PATTERN = /^[\u4e00-\u9fa5]{1,8}$/;
 

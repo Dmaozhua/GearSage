@@ -1,4 +1,4 @@
-@import "../../styles/dark.wxss";
+@import "../../../styles/dark.wxss";
 
 .post-question-container {
   padding: 0 10rpx 180rpx;

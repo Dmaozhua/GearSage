@@ -265,7 +265,7 @@
             bindtap="onRelatedPostTap"
             data-id="{{item._id || item.id}}"
           >
-            <image class="post-cover" src="{{item.images[0] || '/images/default-post.png'}}" mode="aspectFill" wx:if="{{item.images && item.images.length > 0}}"></image>
+            <image class="post-cover" src="{{item.images[0] || '/images/share.png'}}" mode="aspectFill" wx:if="{{item.images && item.images.length > 0}}"></image>
             <view class="post-cover post-cover--placeholder" wx:else>GearSage</view>
             <view class="post-info">
               <text class="post-title">{{item.title}}</text>

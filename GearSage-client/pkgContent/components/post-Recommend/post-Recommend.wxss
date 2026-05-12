@@ -1,5 +1,5 @@
 /* components/post-Recommend/post-Recommend.wxss */
-@import "../../styles/dark.wxss";
+@import "../../../styles/dark.wxss";
 
 .post-recommend-container {
   padding: 0 10rpx 180rpx; /* Increased bottom padding for fixed buttons */

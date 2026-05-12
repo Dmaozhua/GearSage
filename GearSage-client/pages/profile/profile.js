@@ -1043,8 +1043,9 @@ Page({
    * 跳转到设置页面
    */
   onSettings() {
-    wx.navigateTo({
-      url: '/pages/settings/settings'
+    wx.showToast({
+      title: '设置功能开发中',
+      icon: 'none'
     });
   },
 

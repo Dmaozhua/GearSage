@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "publish-wechatcontent": "../../../components/publish-wechatcontent/publish-wechatcontent",
+    "publish-checkbox": "../../../components/publish-Checkbox/publish-Checkbox",
+    "publish-radiobutton": "../../../components/publish-Radiobutton/publish-Radiobutton"
+  }
+}

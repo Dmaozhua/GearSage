@@ -51,8 +51,8 @@ Component({
         id: 'discover',
         name: '经验',
         desc: '装备使用经验交流',
-        icon: '/images/icons/文章.png',
-        iconDark: '/images/icons/文章-夜晚.png',
+        icon: '/images/icons/文章.svg',
+        iconDark: '/images/icons/文章-夜晚.svg',
         badge: '',
         badgeType: '',
         path: '/pages/discover/discover',
@@ -62,8 +62,8 @@ Component({
         id: 'points-mall',
         name: '积分商城',
         desc: '登录后查看权益',
-        icon: '/images/icons/商城.png',
-        iconDark: '/images/icons/商城-夜晚.png',
+        icon: '/images/icons/商城.svg',
+        iconDark: '/images/icons/商城-夜晚.svg',
         badge: '热',
         badgeType: 'hot',
         path: '/pkgContent/points-exchange/points-exchange',
@@ -73,8 +73,8 @@ Component({
         id: 'more',
         name: '更多功能',
         desc: '*敬请期待*',
-        icon: '/images/icons/更多.png',
-        iconDark: '/images/icons/更多-夜晚.png',
+        icon: '/images/icons/更多.svg',
+        iconDark: '/images/icons/更多-夜晚.svg',
         badge: '',
         badgeType: '',
         path: '',
@@ -150,14 +150,9 @@ Component({
     onMoreTap() {
       this.triggerEvent('moreTap', {});
       
-      // 默认跳转到功能大全页面
-      wx.navigateTo({
-        url: '/pages/function-list/function-list'
-      }).catch(() => {
-        wx.showToast({
-          title: '功能开发中',
-          icon: 'none'
-        });
+      wx.showToast({
+        title: '功能开发中',
+        icon: 'none'
       });
     },
 

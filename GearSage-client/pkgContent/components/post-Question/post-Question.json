@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "publish-wechatcontent": "../../../components/publish-wechatcontent/publish-wechatcontent"
+  }
+}

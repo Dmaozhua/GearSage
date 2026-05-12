@@ -1074,7 +1074,7 @@
 
   <view class="right-buttons" wx:if="{{!showCommentInput}}">
     <view class="bottom-btn like-btn {{productDetail.islike ? 'active' : ''}} {{!productDetail.canLike ? 'bottom-btn--disabled' : ''}}" bindtap="onLike">
-      <image class="bottom-btn-icon-img" src="{{productDetail.islike ? '/images/icons/like-ing.png' : (containerClass === 'dark' ? '/images/icons/like-night.png' : '/images/icons/like.png')}}" mode="aspectFit"></image>
+      <image class="bottom-btn-icon-img" src="{{productDetail.islike ? '/images/icons/点赞-点赞中.svg' : (containerClass === 'dark' ? '/images/icons/点赞-夜晚.svg' : '/images/icons/点赞.svg')}}" mode="aspectFit"></image>
       <text class="bottom-btn-text">{{productDetail.likeCount || 0}}</text>
     </view>
   </view>

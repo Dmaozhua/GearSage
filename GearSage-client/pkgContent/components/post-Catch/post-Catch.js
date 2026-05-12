@@ -1,6 +1,6 @@
-const { validateWithRules } = require('../../utils/postValidators');
-const { chooseAndUploadImages } = require('../../utils/imageUploadUtils');
-const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../utils/theme');
+const { validateWithRules } = require('../../../utils/postValidators');
+const { chooseAndUploadImages } = require('../../../utils/imageUploadUtils');
+const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../../utils/theme');
 
 const CATCH_FORM_RULES = [
   {

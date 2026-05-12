@@ -1,7 +1,7 @@
-const { validateWithRules } = require('../../utils/postValidators');
-const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../utils/theme');
+const { validateWithRules } = require('../../../utils/postValidators');
+const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../../utils/theme');
 const { resolveGearSearchType, getGearModelSuggestions } = require('../../utils/gearModelMatcher');
-const tagConfig = require('../post-Evaluation/gearSageTagConfig.js');
+const tagConfig = require('../../../components/post-Evaluation/gearSageTagConfig.js');
 
 const TOTAL_STEPS = 3;
 const MAX_ENVIRONMENTS = 5;

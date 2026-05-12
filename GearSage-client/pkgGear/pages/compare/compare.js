@@ -547,7 +547,7 @@ Page({
       if (!selectedVariant) return null;
 
       const images = Array.isArray(detail.images) ? detail.images : [];
-      const imageUrl = images[0] || detail.imageUrl || entry.imageUrl || '/images/default-gear.png';
+      const imageUrl = images[0] || detail.imageUrl || entry.imageUrl || '/images/empty.png';
       const masterLabel = this.buildMasterLabel(detail, entry);
       const masterLabelWithYear = this.buildMasterLabelWithYear(detail, masterLabel);
       const brandName = this.normalizeText(detail.brand_name || entry.brandName);

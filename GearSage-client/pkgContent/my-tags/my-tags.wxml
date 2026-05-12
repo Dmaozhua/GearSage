@@ -20,7 +20,7 @@
       <view class="current-tag-row">
         <image
           class="current-tag-avatar"
-          src="{{userInfo.avatarUrl || userInfo.avatar || '/images/avatar-default.png'}}"
+          src="{{userInfo.avatarUrl || userInfo.avatar || '/images/default-avatar.png'}}"
           mode="aspectFill"
         />
         <view class="current-tag-meta">

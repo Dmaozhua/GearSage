@@ -1,4 +1,4 @@
-const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../utils/theme');
+const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../../utils/theme');
 const { resolveGearSearchType, getGearModelSuggestions } = require('../../utils/gearModelMatcher');
 
 const QUESTION_TYPES = [
