@@ -5,6 +5,7 @@
     "pages/gear-tab/index",
     "pages/points/points",
     "pages/profile/profile",
+    "pages/legal/index",
     "pages/login/login",
     "pages/invite/index",
     "pages/timeline-preview/index"

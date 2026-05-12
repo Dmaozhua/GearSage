@@ -88,6 +88,21 @@
   box-shadow: 0 12rpx 28rpx rgba(44, 124, 246, 0.24);
 }
 
+.preview-legal-tip {
+  margin: 24rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 10rpx;
+  background: #f4f7fb;
+  color: #53657a;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.preview-legal-link {
+  color: #255ea6;
+  font-weight: 700;
+}
+
 .dark .preview-header-card {
   background: linear-gradient(135deg, rgba(98, 151, 255, 0.16), rgba(98, 151, 255, 0.05));
 }
@@ -113,4 +128,13 @@
 .dark .preview-secondary-btn {
   background: #2b3442;
   color: #d8e2f0;
+}
+
+.dark .preview-legal-tip {
+  background: rgba(214, 230, 255, 0.08);
+  color: rgba(214, 230, 255, 0.78);
+}
+
+.dark .preview-legal-link {
+  color: #d6e6ff;
 }

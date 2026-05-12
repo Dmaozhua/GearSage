@@ -87,6 +87,13 @@
       <view class="cancel-link" catchtap="onCancel">
         <text>暂不登录，先去逛逛</text>
       </view>
+
+      <view class="legal-agreement">
+        <text>登录即表示你已阅读并同意</text>
+        <text class="legal-link" data-type="agreement" catchtap="onOpenLegal">《用户协议》</text>
+        <text>和</text>
+        <text class="legal-link" data-type="privacy" catchtap="onOpenLegal">《隐私政策》</text>
+      </view>
     </view>
   </view>
 

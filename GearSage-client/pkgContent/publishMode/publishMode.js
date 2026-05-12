@@ -881,6 +881,15 @@ Page({
     return detail && typeof detail === 'object' ? detail : {};
   },
 
+  onOpenLegal(e) {
+    const type = e && e.currentTarget && e.currentTarget.dataset
+      ? e.currentTarget.dataset.type
+      : 'communityRules';
+    wx.navigateTo({
+      url: `/pages/legal/index?type=${type}`
+    });
+  },
+
   // 初始化主题模式
   initThemeMode() {
     try {

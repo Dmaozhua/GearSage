@@ -70,6 +70,15 @@ Page({
     previewByPostType: [],
     activeTagGroup: 'all',
     ownedTags: [],
+    legalItems: [
+      { type: 'privacy', title: '隐私政策', subtitle: '个人信息收集、使用、保存与删除说明' },
+      { type: 'agreement', title: '用户协议', subtitle: '账号使用、发帖评论规则与平台责任边界' },
+      { type: 'communityRules', title: '内容发布规范', subtitle: '发布内容需遵守的社区与审核规则' },
+      { type: 'reportAppeal', title: '举报与申诉', subtitle: '举报帖子、评论、用户及申诉方式' },
+      { type: 'cancelAccount', title: '账号注销说明', subtitle: '注销申请、身份核实与数据处理说明' },
+      { type: 'contact', title: '联系我们', subtitle: '邮箱、微信、公众号等联系方式' },
+      { type: 'about', title: '关于 GearSage', subtitle: '产品定位与社区治理说明' }
+    ],
     
 
     
@@ -536,6 +545,15 @@ Page({
 	      url: '/pages/points/points'
 	    });
 	  },
+
+  onOpenLegal(e) {
+    const type = e && e.currentTarget && e.currentTarget.dataset
+      ? e.currentTarget.dataset.type
+      : 'privacy';
+    wx.navigateTo({
+      url: `/pages/legal/index?type=${type}`
+    });
+  },
 
 	  async loadMessageUnreadCount() {
     if (!this.data.isLoggedIn) {
@@ -1005,33 +1023,12 @@ Page({
   onAbout() {
     console.log('关于');
     wx.showActionSheet({
-      itemList: ['关于小程序', '关于审核', '隐私政策', '用户协议', '账号注销说明', '联系方式'],
+      itemList: ['隐私政策', '用户协议', '内容发布规范', '举报与申诉', '账号注销说明', '联系我们', '关于 GearSage'],
       success: (res) => {
-        if (res.tapIndex === 0) {
-          wx.navigateTo({
-            url: '/pkgContent/about-page/about-page?type=about'
-          });
-        } else if (res.tapIndex === 1) {
-          wx.navigateTo({
-            url: '/pkgContent/about-page/about-page?type=audit'
-          });
-        } else if (res.tapIndex === 2) {
-          wx.navigateTo({
-            url: '/pkgContent/about-page/about-page?type=privacy'
-          });
-        } else if (res.tapIndex === 3) {
-          wx.navigateTo({
-            url: '/pkgContent/about-page/about-page?type=terms'
-          });
-        } else if (res.tapIndex === 4) {
-          wx.navigateTo({
-            url: '/pkgContent/about-page/about-page?type=cancel'
-          });
-        } else if (res.tapIndex === 5) {
-          wx.navigateTo({
-            url: '/pkgContent/about-page/about-page?type=contact'
-          });
-        }
+        const item = this.data.legalItems[res.tapIndex];
+        wx.navigateTo({
+          url: `/pages/legal/index?type=${item ? item.type : 'privacy'}`
+        });
       },
       fail: (res) => {
         console.log('用户取消选择');

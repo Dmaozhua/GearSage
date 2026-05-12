@@ -164,6 +164,15 @@ Page({
     this.confirmSwitchServer('remote');
   },
 
+  onOpenLegal(e) {
+    const type = e && e.currentTarget && e.currentTarget.dataset
+      ? e.currentTarget.dataset.type
+      : 'privacy';
+    wx.navigateTo({
+      url: `/pages/legal/index?type=${type}`
+    });
+  },
+
   confirmSwitchServer(targetKey) {
     const targetMap = {
       local: '本机服务器',

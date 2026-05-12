@@ -262,6 +262,20 @@ page {
   font-weight: 500;
 }
 
+.legal-agreement {
+  margin-top: 16rpx;
+  padding: 0 12rpx;
+  text-align: center;
+  color: #8a97a6;
+  font-size: 23rpx;
+  line-height: 1.7;
+}
+
+.legal-link {
+  color: #2b70d4;
+  font-weight: 600;
+}
+
 /* 仅用于阻止点击的隐形遮罩，UI表现由按钮内loading实现 */
 .login-mask {
   position: fixed;

@@ -314,6 +314,11 @@
       </view>
     </view>
   </view>
+  <view class="publish-legal-tip">
+    <text>发布内容需遵守</text>
+    <text class="publish-legal-link" data-type="communityRules" bindtap="onOpenLegal">《内容发布规范》</text>
+    <text>，平台会对用户发布内容进行审核。</text>
+  </view>
   <!-- 操作按钮 -->
   <view class="action-buttons">
     <!-- 保存草稿按钮 -->

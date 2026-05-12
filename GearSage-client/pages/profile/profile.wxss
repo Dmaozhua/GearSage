@@ -815,6 +815,66 @@
   border-bottom: none;
 }
 
+.legal-menu-section {
+  padding: 26rpx 28rpx 10rpx;
+  border-bottom: 1rpx solid var(--surface-border);
+}
+
+.legal-public-card {
+  margin-top: -12rpx;
+}
+
+.legal-menu-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding-bottom: 18rpx;
+}
+
+.legal-menu-title {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.legal-menu-subtitle {
+  color: var(--text-secondary);
+  font-size: 23rpx;
+  line-height: 1.45;
+}
+
+.legal-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 20rpx 0;
+  border-top: 1rpx solid var(--surface-border);
+}
+
+.legal-menu-item:active {
+  background: var(--menu-hover);
+}
+
+.legal-menu-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.legal-title-text {
+  color: var(--text-primary);
+  font-size: 27rpx;
+  font-weight: 650;
+}
+
+.legal-subtitle-text {
+  color: var(--text-muted);
+  font-size: 22rpx;
+  line-height: 1.4;
+}
+
 
 
 /* 主题开关样式 */

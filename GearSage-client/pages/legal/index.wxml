@@ -1,0 +1,34 @@
+<custom-navbar
+  title="{{pageTitle}}"
+  show-back="{{true}}"
+  background-color="#F4F5F1"
+  text-color="#1F2A27"
+  bind:back="onBack">
+</custom-navbar>
+
+<scroll-view scroll-y class="legal-page" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+  <view class="legal-header">
+    <text class="legal-kicker">GearSage 合规说明</text>
+    <text class="legal-title">{{pageTitle}}</text>
+    <text class="legal-updated">更新日期：{{updatedAt}}</text>
+  </view>
+
+  <view class="legal-card">
+    <view class="legal-section" wx:for="{{sections}}" wx:key="title">
+      <text class="section-title">{{item.title}}</text>
+      <view class="paragraph-list">
+        <text class="paragraph" wx:for="{{item.paragraphs}}" wx:for-item="paragraph" wx:key="*this">{{paragraph}}</text>
+      </view>
+      <view class="bullet-list" wx:if="{{item.items && item.items.length}}">
+        <view class="bullet-item" wx:for="{{item.items}}" wx:for-item="point" wx:key="*this">
+          <text class="bullet-dot">•</text>
+          <text class="bullet-text">{{point}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="legal-footer">
+    <text>如需进一步咨询，请通过“联系我们”页面提供的方式与 GearSage 联系。</text>
+  </view>
+</scroll-view>

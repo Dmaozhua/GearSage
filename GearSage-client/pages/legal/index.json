@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColor": "#f4f5f1",
+  "usingComponents": {
+    "custom-navbar": "/components/custom-navbar/custom-navbar"
+  }
+}

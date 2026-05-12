@@ -118,6 +118,15 @@ Page({
     wx.navigateBack();
   },
 
+  onOpenLegal(e) {
+    const type = e && e.currentTarget && e.currentTarget.dataset
+      ? e.currentTarget.dataset.type
+      : 'communityRules';
+    wx.navigateTo({
+      url: `/pages/legal/index?type=${type}`
+    });
+  },
+
   async onConfirmPublish() {
     if (this.data.submitting) {
       return;

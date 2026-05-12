@@ -1243,5 +1243,14 @@ Page({
     if (customNavbar && customNavbar.updateTheme) {
       customNavbar.updateTheme();
     }
+  },
+
+  onOpenLegal: function(e) {
+    const type = e && e.currentTarget && e.currentTarget.dataset
+      ? e.currentTarget.dataset.type
+      : 'communityRules';
+    wx.navigateTo({
+      url: `/pages/legal/index?type=${type}`
+    });
   }
 });
