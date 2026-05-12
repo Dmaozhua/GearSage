@@ -26,7 +26,31 @@ const isWebPPath = (path) => /\.webp(?:\?|$)/i.test(path);
 
 const getErrorMessage = (error) => {
   if (!error) return '';
-  return error.errMsg || error.message || String(error);
+
+  if (typeof error === 'string') {
+    return error.trim();
+  }
+
+  const candidates = [
+    error.message,
+    error.msg,
+    error.error,
+    error.errMsg,
+    error.data && error.data.message,
+    error.data && error.data.msg,
+    error.data && error.data.error
+  ];
+
+  const message = candidates.find((item) => typeof item === 'string' && item.trim());
+  return message ? message.trim() : '';
+};
+
+const showUploadErrorToast = (message) => {
+  wx.showToast({
+    title: message || '图片上传失败',
+    icon: 'none',
+    duration: 2400
+  });
 };
 
 const getWxImageInfo = (src) => {
@@ -345,6 +369,7 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
 
   const uploadQueue = new UploadQueue(uploadOptions.maxConcurrent);
   const orderedFileIDs = new Array(imagePaths.length).fill(null);
+  const failedMessages = [];
 
   const tasks = imagePaths.map((item, index) => {
     return uploadQueue.add(async () => {
@@ -369,6 +394,10 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
         return fileID;
       } catch (error) {
         console.error(`[ImageUtils] image ${index + 1} upload failed:`, error);
+        const message = getErrorMessage(error) || '图片上传失败';
+        if (!failedMessages.includes(message)) {
+          failedMessages.push(message);
+        }
         return null;
       }
     });
@@ -376,6 +405,9 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
 
   await Promise.all(tasks);
   wx.hideLoading();
+  if (failedMessages.length > 0) {
+    showUploadErrorToast(failedMessages[0]);
+  }
   return orderedFileIDs.filter((id) => id !== null);
 };
 
@@ -436,10 +468,7 @@ const chooseAndUploadImages = async (options = {}) => {
     console.error('[ImageUtils] choose or upload failed:', error);
     if (chooseOptions.showLoading) wx.hideLoading();
 
-    wx.showToast({
-      title: '图片上传失败',
-      icon: 'none'
-    });
+    showUploadErrorToast(getErrorMessage(error) || '图片上传失败');
 
     return [];
   }

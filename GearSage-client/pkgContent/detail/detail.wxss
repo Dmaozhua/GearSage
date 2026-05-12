@@ -35,6 +35,14 @@
   color: #8a4d4d;
 }
 
+.topic-report-btn--reported {
+  color: #8c99a8;
+}
+
+.topic-report-btn--reported:active {
+  color: #6f7d8c;
+}
+
 .topic-hero-card,
 .topic-section-card,
 .comments-section {
@@ -236,10 +244,6 @@
   background: #eef4fb;
   color: #4b627d;
   font-size: 20rpx;
-}
-
-.comment-report-btn {
-  color: #8a4d4d;
 }
 
 .topic-author-tag--light,
@@ -864,6 +868,23 @@
   color: #d04d4d;
 }
 
+.comment-reply-btn.comment-report-btn {
+  padding-left: 4rpx;
+  padding-right: 4rpx;
+  background: transparent;
+  color: #9aa6b2;
+  font-weight: 400;
+}
+
+.comment-reply-btn.comment-report-btn:active {
+  background: transparent;
+  color: #6f7d8c;
+}
+
+.comment-reply-btn.comment-report-btn--reported {
+  color: #b1bbc5;
+}
+
 .replies-list {
   margin-top: 18rpx;
   margin-left: 88rpx;
@@ -1339,6 +1360,10 @@
   color: #8b9aab;
 }
 
+.dark .topic-report-btn--reported {
+  color: #69798c;
+}
+
 .dark .topic-report-btn:active {
   color: #c08a8a;
 }
@@ -1510,6 +1535,20 @@
 .dark .comment-like-btn--active {
   background: rgba(255, 120, 120, 0.2);
   color: #ff9a9a;
+}
+
+.dark .comment-reply-btn.comment-report-btn {
+  background: transparent;
+  color: #69798c;
+}
+
+.dark .comment-reply-btn.comment-report-btn:active {
+  background: transparent;
+  color: #8fa0b3;
+}
+
+.dark .comment-reply-btn.comment-report-btn--reported {
+  color: #586779;
 }
 
 .dark .answer-template-card,

@@ -567,7 +567,7 @@
     </view>
 
     <view class="topic-moderation-actions" wx:if="{{productDetail.status === 2}}">
-      <view class="topic-report-btn" bindtap="onReportTopic">举报帖子</view>
+      <view class="topic-report-btn {{productDetail.isReported ? 'topic-report-btn--reported' : ''}}" bindtap="onReportTopic">{{productDetail.isReported ? '已举报' : '举报帖子'}}</view>
     </view>
 
     <view class="comments-section">
@@ -669,6 +669,7 @@
                         <text wx:if="{{(acceptedRecommendAnswer.likeCount || 0) > 0}}"> {{acceptedRecommendAnswer.likeCount}}</text>
                       </view>
                       <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{acceptedRecommendAnswer.id}}" data-user-id="{{acceptedRecommendAnswer.userId}}" data-username="{{acceptedRecommendAnswer.username}}">追问</view>
+                      <view class="comment-reply-btn comment-report-btn {{acceptedRecommendAnswer.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{acceptedRecommendAnswer.id}}">{{acceptedRecommendAnswer.isReported ? '已举报' : '举报'}}</view>
                     </view>
                   </view>
                 </view>
@@ -690,6 +691,7 @@
                           <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
                           <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
                         </view>
+                        <view class="comment-reply-btn comment-report-btn {{reply.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{reply.id}}">{{reply.isReported ? '已举报' : '举报'}}</view>
                       </view>
                     </view>
                   </view>
@@ -755,7 +757,7 @@
                       </view>
                       <view class="comment-accept-btn comment-accept-btn--primary" wx:if="{{!productDetail.hasAcceptedAnswer && isTopicOwner}}" bindtap="onAcceptRecommendAnswer" data-comment-id="{{item.id}}">采纳回答</view>
                       <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">追问</view>
-                      <view class="comment-reply-btn comment-report-btn" bindtap="onReportComment" data-comment-id="{{item.id}}">举报</view>
+                      <view class="comment-reply-btn comment-report-btn {{item.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{item.id}}">{{item.isReported ? '已举报' : '举报'}}</view>
                     </view>
                   </view>
                 </view>
@@ -777,6 +779,7 @@
                           <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
                           <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
                         </view>
+                        <view class="comment-reply-btn comment-report-btn {{reply.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{reply.id}}">{{reply.isReported ? '已举报' : '举报'}}</view>
                       </view>
                     </view>
                   </view>
@@ -806,7 +809,7 @@
                         <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
                       </view>
                       <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
-                      <view class="comment-reply-btn comment-report-btn" bindtap="onReportComment" data-comment-id="{{item.id}}">举报</view>
+                      <view class="comment-reply-btn comment-report-btn {{item.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{item.id}}">{{item.isReported ? '已举报' : '举报'}}</view>
                     </view>
                   </view>
                 </view>
@@ -828,6 +831,7 @@
                           <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
                           <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
                         </view>
+                        <view class="comment-reply-btn comment-report-btn {{reply.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{reply.id}}">{{reply.isReported ? '已举报' : '举报'}}</view>
                       </view>
                     </view>
                   </view>
@@ -860,7 +864,7 @@
                     <text wx:if="{{(item.likeCount || 0) > 0}}"> {{item.likeCount}}</text>
                   </view>
                   <view class="comment-reply-btn" bindtap="onReplyToComment" data-comment-id="{{item.id}}" data-user-id="{{item.userId}}" data-username="{{item.username}}">回复</view>
-                  <view class="comment-reply-btn comment-report-btn" bindtap="onReportComment" data-comment-id="{{item.id}}">举报</view>
+                  <view class="comment-reply-btn comment-report-btn {{item.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{item.id}}">{{item.isReported ? '已举报' : '举报'}}</view>
                 </view>
               </view>
             </view>
@@ -882,6 +886,7 @@
                       <text>{{reply.isLiked ? '已赞' : '赞'}}</text>
                       <text wx:if="{{(reply.likeCount || 0) > 0}}"> {{reply.likeCount}}</text>
                     </view>
+                    <view class="comment-reply-btn comment-report-btn {{reply.isReported ? 'comment-report-btn--reported' : ''}}" bindtap="onReportComment" data-comment-id="{{reply.id}}">{{reply.isReported ? '已举报' : '举报'}}</view>
                   </view>
                 </view>
               </view>

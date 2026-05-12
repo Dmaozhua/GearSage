@@ -28,6 +28,10 @@ function normalizeEditProfileUserInfo(rawUser = {}) {
   };
 }
 
+function getUploadErrorMessage(error, fallback) {
+  return api.getErrorMessage(error, fallback);
+}
+
 Page(Object.assign({}, debouncePageMixin, {
   /**
    * 页面的初始数据
@@ -507,7 +511,7 @@ Page(Object.assign({}, debouncePageMixin, {
         showNetworkLoading: false
       });
       wx.showToast({
-        title: '上传失败',
+        title: getUploadErrorMessage(error, '头像上传失败'),
         icon: 'none'
       });
     }
@@ -615,7 +619,7 @@ Page(Object.assign({}, debouncePageMixin, {
         showNetworkLoading: false
       });
       wx.showToast({
-        title: '背景图上传失败',
+        title: getUploadErrorMessage(error, '背景图上传失败'),
         icon: 'none'
       });
     }

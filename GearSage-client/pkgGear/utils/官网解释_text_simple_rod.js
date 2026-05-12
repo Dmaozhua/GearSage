@@ -6264,7 +6264,7 @@ const daiwaTechGlossary = {
   },
   "V-JOINT": {
     "text": "V-JOINT：具线条美感弧度能达到理想的状态及发挥更高威力。在竿节的部位使用DAIWA自身的BIAS构造。实现结合部的理想弧度，同时提高力量/传导/感度性能。",
-    "text_simple": "接节处使用偏置碳布，让多节竿弯曲更接近一节竿，减少扭转并提升力量、弹性和回弹速度。",
+    "text_simple": "接节处使用偏置碳布，让多节竿弯曲更接近一节竿，减少扭转并提升力量、弹性和回弹速度。仅插节鱼竿配置。",
     "sources": [
       daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
       daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51"),
@@ -6276,7 +6276,7 @@ const daiwaTechGlossary = {
   },
   "V-JOINTα": {
     "text": "V-JOINTα：使用含nano+的高强度材质及DAIWA自身高精准度钓竿设计制造技术， 使V-JOINT更加强韧、轻盈、美观。",
-    "text_simple": "V-JOINT 的进阶版，接节更强、更轻、更薄，让多节竿曲线更顺，反复抛投时手感更连贯。",
+    "text_simple": "V-JOINT 的进阶版，接节更强、更轻、更薄，让多节竿曲线更顺，反复抛投时手感更连贯。仅插节鱼竿配置。",
     "sources": [
       daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=68087&scid=51"),
       daiwaSource("https://www.daiwachina.com/ProductList/info.aspx?itemid=67813&scid=51"),

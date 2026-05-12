@@ -681,6 +681,58 @@ Page({
       return `likeCache_${userId || 'guest'}`;
     },
 
+    getReportCacheKey() {
+      const userId = this.getCurrentUserId();
+      return `reportCache_${userId || 'guest'}`;
+    },
+
+    buildReportCacheId(targetType, targetId) {
+      const normalizedType = this.normalizeString(targetType, '');
+      const normalizedId = this.normalizeString(targetId, '');
+      return normalizedType && normalizedId ? `${normalizedType}:${normalizedId}` : '';
+    },
+
+    isTargetReported(targetType, targetId) {
+      try {
+        const cacheId = this.buildReportCacheId(targetType, targetId);
+        if (!cacheId) {
+          return false;
+        }
+
+        const cache = wx.getStorageSync(this.getReportCacheKey()) || {};
+        return Boolean(cache[cacheId]);
+      } catch (error) {
+        console.warn('[详情页] 读取举报缓存失败:', error);
+        return false;
+      }
+    },
+
+    cacheReportStatus(targetType, targetId) {
+      try {
+        const cacheId = this.buildReportCacheId(targetType, targetId);
+        if (!cacheId) {
+          return;
+        }
+
+        const cacheKey = this.getReportCacheKey();
+        const cache = wx.getStorageSync(cacheKey) || {};
+        cache[cacheId] = {
+          reported: true,
+          ts: Date.now()
+        };
+        wx.setStorageSync(cacheKey, cache);
+      } catch (error) {
+        console.warn('[详情页] 写入举报缓存失败:', error);
+      }
+    },
+
+    showReportedProcessingNotice() {
+      wx.showToast({
+        title: '后台正在处理举报信息',
+        icon: 'none'
+      });
+    },
+
     buildShareTitle() {
       const { productDetail } = this.data;
       const title = this.normalizeString(productDetail.title || productDetail.name, '');
@@ -1325,6 +1377,7 @@ Page({
           const nextProductDetail = await this.resolveDetailMediaUrls(previewData.productDetail);
           const currentUserId = this.getCurrentUserId();
           const nextCachedStatus = this.getCachedLikeStatus(nextProductDetail.id);
+          nextProductDetail.isReported = this.isTargetReported('topic', nextProductDetail.id);
 
           if (nextCachedStatus !== null) {
             nextProductDetail.islike = nextCachedStatus;
@@ -1749,6 +1802,7 @@ Page({
         createTimeFormatted: this.formatTime(comment.createTime),
         likeCount: comment.likeCount || 0,
         isLiked: comment.isLiked || false,
+        isReported: this.isTargetReported('comment', comment.id),
         isAccepted: false,
         acceptedAt: '',
         acceptedAtFormatted: '',
@@ -2179,6 +2233,57 @@ Page({
                 ...reply,
                 isLiked: Boolean(payload.isLike),
                 likeCount: Number(payload.likeCount || 0)
+              };
+            })
+          };
+        }
+
+        return comment;
+      });
+
+      this.setData({
+        comments: nextComments,
+        'productDetail.comments': nextComments
+      });
+      this.syncCommentSections(nextComments);
+    },
+
+    updateReportState(targetType, targetId) {
+      const normalizedType = this.normalizeString(targetType, '');
+      const normalizedTargetId = Number(targetId || 0);
+      if (!normalizedType || !normalizedTargetId) {
+        return;
+      }
+
+      if (normalizedType === 'topic') {
+        this.setData({
+          'productDetail.isReported': true
+        });
+        return;
+      }
+
+      if (normalizedType !== 'comment') {
+        return;
+      }
+
+      const nextComments = (this.data.comments || []).map((comment) => {
+        if (Number(comment.id) === normalizedTargetId) {
+          return {
+            ...comment,
+            isReported: true
+          };
+        }
+
+        if (Array.isArray(comment.replies) && comment.replies.length) {
+          return {
+            ...comment,
+            replies: comment.replies.map((reply) => {
+              if (Number(reply.id) !== normalizedTargetId) {
+                return reply;
+              }
+              return {
+                ...reply,
+                isReported: true
               };
             })
           };
@@ -3364,6 +3469,11 @@ Page({
         return;
       }
 
+      if (this.isTargetReported(targetType, normalizedTargetId)) {
+        this.showReportedProcessingNotice();
+        return;
+      }
+
       wx.showModal({
         title: '举报内容',
         editable: true,
@@ -3390,6 +3500,8 @@ Page({
               targetId: normalizedTargetId,
               reason
             });
+            this.cacheReportStatus(targetType, normalizedTargetId);
+            this.updateReportState(targetType, normalizedTargetId);
             wx.hideLoading();
             wx.showToast({
               title: '举报已提交',
