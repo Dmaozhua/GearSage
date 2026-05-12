@@ -44,7 +44,7 @@
             <div id="admin-role" class="admin-role">-</div>
           </div>
           <nav class="nav-list">
-            <button class="nav-item nav-item-active" data-view="topics">待审核帖子</button>
+            <button class="nav-item nav-item-active" data-view="topics">帖子审核与下架</button>
             <button class="nav-item" data-view="comments">评论审核</button>
             <button class="nav-item" data-view="reports">举报处理</button>
             <button class="nav-item" data-view="users">用户管理</button>
@@ -57,8 +57,8 @@
         <main class="main-content">
           <header class="topbar">
             <div>
-              <h2 id="view-title">待审核帖子</h2>
-              <div id="view-subtitle" class="muted">查看待审核内容并执行最小审核动作。</div>
+              <h2 id="view-title">帖子审核与下架</h2>
+              <div id="view-subtitle" class="muted">查看待审核和已发布帖子；已发布内容可从这里下架。</div>
             </div>
             <div class="topbar-actions">
               <button id="refresh-button" class="secondary">刷新当前页</button>
@@ -71,7 +71,7 @@
             <div class="toolbar">
               <select id="topics-status">
                 <option value="pending">待审核</option>
-                <option value="2">已通过</option>
+                <option value="2">已发布（可下架）</option>
                 <option value="9">已驳回/下架</option>
                 <option value="all">全部</option>
               </select>
@@ -85,7 +85,7 @@
             <div class="toolbar">
               <select id="comments-status">
                 <option value="pending">待审核</option>
-                <option value="2">已通过</option>
+                <option value="2">已展示（可隐藏）</option>
                 <option value="9">已驳回/删除</option>
                 <option value="all">全部</option>
               </select>
@@ -129,8 +129,31 @@
 
           <section id="view-logs" class="view-section hidden">
             <div class="toolbar">
-              <input id="logs-target-type" type="text" placeholder="targetType，可选" />
-              <input id="logs-action" type="text" placeholder="action，可选" />
+              <select id="logs-target-type">
+                <option value="">全部对象</option>
+                <option value="topic">帖子</option>
+                <option value="comment">评论</option>
+                <option value="report">举报</option>
+                <option value="user">用户</option>
+                <option value="moderation_rule">关键词规则</option>
+              </select>
+              <select id="logs-action">
+                <option value="">全部动作</option>
+                <option value="topic_pass">通过帖子</option>
+                <option value="topic_reject">驳回帖子</option>
+                <option value="topic_remove">下架帖子</option>
+                <option value="topic_restore">恢复帖子</option>
+                <option value="comment_pass">通过评论</option>
+                <option value="comment_reject">驳回评论</option>
+                <option value="comment_remove">隐藏评论</option>
+                <option value="report_accept">认可举报</option>
+                <option value="report_handle">标记举报已处理</option>
+                <option value="report_reject">驳回举报</option>
+                <option value="user_ban">封禁用户</option>
+                <option value="user_unban">解封用户</option>
+                <option value="rule_create">新增关键词规则</option>
+                <option value="rule_delete">删除关键词规则</option>
+              </select>
               <button id="logs-search">查询</button>
             </div>
             <div id="logs-table" class="table-shell"></div>

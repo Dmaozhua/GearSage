@@ -6,8 +6,8 @@ const state = {
 
 const viewMeta = {
   topics: {
-    title: '待审核帖子',
-    subtitle: '查看待审核帖子并执行通过、驳回、下架。',
+    title: '帖子审核与下架',
+    subtitle: '查看待审核和已发布帖子；已发布内容可从这里下架，必要时可恢复显示。',
   },
   comments: {
     title: '评论审核',
@@ -182,6 +182,45 @@ function escapeAttr(value) {
   return escapeHtml(value).replaceAll("'", '&#39;');
 }
 
+function formatDateTime(value) {
+  if (!value) return '-';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return String(value);
+  }
+
+  const pad = (number) => String(number).padStart(2, '0');
+  return [
+    `${date.getFullYear()}年${pad(date.getMonth() + 1)}月${pad(date.getDate())}日`,
+    `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`,
+  ].join(' ');
+}
+
+function isDateLikeFieldKey(key) {
+  return /(?:Time|At)$/i.test(String(key || ''));
+}
+
+function formatJsonValueForDisplay(value, key = '') {
+  if (Array.isArray(value)) {
+    return value.map((item) => formatJsonValueForDisplay(item, key));
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([childKey, childValue]) => [
+        childKey,
+        formatJsonValueForDisplay(childValue, childKey),
+      ]),
+    );
+  }
+
+  if (typeof value === 'string' && isDateLikeFieldKey(key)) {
+    return formatDateTime(value);
+  }
+
+  return value;
+}
+
 function normalizeMediaUrls(images = []) {
   const source = Array.isArray(images) ? images : [images];
   const urls = source
@@ -209,7 +248,7 @@ function normalizeMediaUrls(images = []) {
 function getTopicStatusLabel(status) {
   const normalized = Number(status || 0);
   if (normalized === 1) return '待审核';
-  if (normalized === 2) return '已通过';
+  if (normalized === 2) return '已发布';
   if (normalized === 9) return '已驳回/下架';
   if (normalized === 0) return '草稿';
   return String(status ?? '-');
@@ -218,7 +257,7 @@ function getTopicStatusLabel(status) {
 function getCommentStatusLabel(status, isVisible) {
   const normalized = Number(status || 0);
   if (normalized === 0) return '待审核';
-  if (normalized === 2) return '已通过';
+  if (normalized === 2) return '已展示';
   if (normalized === 9) return Number(isVisible || 0) === 1 ? '已驳回' : '已驳回/删除';
   return String(status ?? '-');
 }
@@ -236,7 +275,136 @@ function getReportTargetLabel(targetType) {
   if (normalized === 'topic') return '帖子';
   if (normalized === 'comment') return '评论';
   if (normalized === 'user') return '用户';
+  if (normalized === 'report') return '举报';
+  if (normalized === 'moderation_rule') return '关键词规则';
   return normalized || '-';
+}
+
+function getAdminActionMeta(action) {
+  const normalized = String(action || '').trim();
+  const actionMap = {
+    topic_pass: ['通过帖子', '帖子审核通过并发布'],
+    topic_reject: ['驳回帖子', '帖子未通过，退回草稿'],
+    topic_remove: ['下架帖子', '帖子被隐藏，不再对用户展示'],
+    topic_restore: ['恢复帖子', '帖子恢复为已发布状态'],
+    comment_pass: ['通过评论', '评论审核通过并展示'],
+    comment_reject: ['驳回评论', '评论未通过，不对外展示'],
+    comment_remove: ['隐藏评论', '评论被下架，不再对外展示'],
+    report_accept: ['认可举报', '举报成立，并联动处理被举报对象'],
+    report_handle: ['标记举报已处理', '举报已人工处理但未联动下架对象'],
+    report_reject: ['驳回举报', '举报不成立或无需处理'],
+    user_ban: ['封禁用户', '用户被禁止继续正常使用'],
+    user_unban: ['解封用户', '用户恢复正常状态'],
+    rule_create: ['新增关键词规则', '后台新增内容审核关键词'],
+    rule_delete: ['删除关键词规则', '后台删除内容审核关键词'],
+  };
+  const matched = actionMap[normalized];
+  if (matched) {
+    return {
+      label: matched[0],
+      description: matched[1],
+      code: normalized,
+    };
+  }
+  return {
+    label: normalized || '-',
+    description: normalized ? '未配置中文说明的后台动作' : '',
+    code: normalized,
+  };
+}
+
+function getLogStatusLabel(status) {
+  const normalized = String(status || '').trim();
+  if (normalized === 'handled') return '已处理';
+  if (normalized === 'rejected') return '已驳回';
+  if (normalized === 'pending') return '待处理';
+  if (normalized === 'active') return '启用';
+  if (normalized === 'inactive') return '停用';
+  return normalized || '';
+}
+
+function getLogSourceLabel(source) {
+  const normalized = String(source || '').trim();
+  if (normalized === 'report_accept') return '认可举报';
+  return normalized || '';
+}
+
+function formatLogIdList(value) {
+  const list = Array.isArray(value) ? value : [value];
+  return list
+    .map((item) => String(item ?? '').trim())
+    .filter(Boolean)
+    .map((item) => `#${item}`)
+    .join('、');
+}
+
+function formatLogTarget(type, id) {
+  const targetType = String(type || '').trim();
+  const targetId = String(id ?? '').trim();
+  if (!targetType && !targetId) return '';
+  return `${getReportTargetLabel(targetType)}${targetId ? ` #${targetId}` : ''}`;
+}
+
+function buildLogExtraSummary(extra = {}) {
+  if (!extra || typeof extra !== 'object' || Array.isArray(extra)) {
+    return '';
+  }
+
+  const parts = [];
+  if (extra.reportStatus) {
+    parts.push(`举报状态：${getLogStatusLabel(extra.reportStatus) || extra.reportStatus}`);
+  }
+  if (extra.targetType || extra.targetId) {
+    parts.push(`处理对象：${formatLogTarget(extra.targetType, extra.targetId)}`);
+  }
+  if (extra.reportId) {
+    parts.push(`关联举报：#${extra.reportId}`);
+  }
+  if (extra.topicId) {
+    parts.push(`所属帖子：#${extra.topicId}`);
+  }
+  if (extra.hiddenCommentIds && Array.isArray(extra.hiddenCommentIds) && extra.hiddenCommentIds.length) {
+    parts.push(`隐藏评论：${formatLogIdList(extra.hiddenCommentIds)}`);
+  }
+  if (extra.hiddenVisibleCount !== undefined) {
+    parts.push(`影响可见评论：${extra.hiddenVisibleCount} 条`);
+  }
+  if (extra.topicStatus !== undefined) {
+    parts.push(`帖子状态：${getTopicStatusLabel(extra.topicStatus)}`);
+  }
+  if (extra.isDelete !== undefined) {
+    parts.push(`删除标记：${Number(extra.isDelete || 0) === 1 ? '已下架' : '未下架'}`);
+  }
+  if (extra.source) {
+    parts.push(`来源：${getLogSourceLabel(extra.source) || extra.source}`);
+  }
+  if (extra.keyword) {
+    parts.push(`关键词：${extra.keyword}`);
+  }
+  if (extra.ruleType || extra.matchType || extra.status) {
+    parts.push([
+      extra.ruleType ? `类型：${extra.ruleType}` : '',
+      extra.matchType ? `匹配：${extra.matchType}` : '',
+      extra.status ? `状态：${getLogStatusLabel(extra.status) || extra.status}` : '',
+    ].filter(Boolean).join(' / '));
+  }
+
+  return parts.filter(Boolean).join(' · ');
+}
+
+function buildLogCellSubtitle(row) {
+  const actionMeta = getAdminActionMeta(row.action);
+  const parts = [
+    actionMeta.description,
+    `操作人：${row.adminUsername || '-'}`,
+    `目标：${formatLogTarget(row.targetType, row.targetId)}`,
+    `动作码：${row.action || '-'}`,
+  ];
+  const extraSummary = buildLogExtraSummary(row.extra || {});
+  if (extraSummary) {
+    parts.push(extraSummary);
+  }
+  return parts.filter(Boolean).join(' · ');
 }
 
 function renderMediaPreview(images = []) {
@@ -283,7 +451,8 @@ function renderJsonBlock(title, value) {
     return '';
   }
 
-  const text = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+  const displayValue = typeof value === 'string' ? value : formatJsonValueForDisplay(value);
+  const text = typeof displayValue === 'string' ? displayValue : JSON.stringify(displayValue, null, 2);
   return `
     <section class="drawer-section">
       <h4>${escapeHtml(title)}</h4>
@@ -378,8 +547,8 @@ function renderReportTopicBlock(topic) {
       <div class="report-topic-stats">
         <span>点赞 ${escapeHtml(topic.likeCount || 0)}</span>
         <span>评论 ${escapeHtml(topic.commentCount || 0)}</span>
-        <span>发布 ${escapeHtml(topic.publishTime || '-')}</span>
-        <span>创建 ${escapeHtml(topic.createTime || '-')}</span>
+        <span>发布 ${escapeHtml(formatDateTime(topic.publishTime))}</span>
+        <span>创建 ${escapeHtml(formatDateTime(topic.createTime))}</span>
       </div>
     </section>
     ${renderTopicReviewSections(topic.reviewSections || [])}
@@ -404,8 +573,8 @@ function renderTopicDetail(data) {
       <div class="report-topic-stats">
         <span>点赞 ${escapeHtml(data.likeCount || 0)}</span>
         <span>评论 ${escapeHtml(data.commentCount || 0)}</span>
-        <span>发布 ${escapeHtml(data.publishTime || '-')}</span>
-        <span>创建 ${escapeHtml(data.createTime || '-')}</span>
+        <span>发布 ${escapeHtml(formatDateTime(data.publishTime))}</span>
+        <span>创建 ${escapeHtml(formatDateTime(data.createTime))}</span>
       </div>
     </section>
     ${renderReadableRows('审核信号', [
@@ -436,8 +605,8 @@ function renderCommentDetail(data) {
       { label: '状态', value: getCommentStatusLabel(data.status, data.isVisible) },
       { label: '系统审核结果', value: data.moderationResult || '-' },
       { label: '风险原因', value: data.moderationRiskReason || '-' },
-      { label: '创建时间', value: data.createTime || '-' },
-      { label: '更新时间', value: data.updateTime || '-' },
+      { label: '创建时间', value: formatDateTime(data.createTime) },
+      { label: '更新时间', value: formatDateTime(data.updateTime) },
     ])}
     ${renderJsonBlock('评论内容', data.content || '')}
     ${renderJsonBlock('审核记录', data.moderationRecords || [])}
@@ -455,8 +624,8 @@ function renderUserDetail(data) {
       { label: '积分', value: data.points },
       { label: '帖子数', value: data.topicCount },
       { label: '评论数', value: data.commentCount },
-      { label: '创建时间', value: data.createTime || '-' },
-      { label: '更新时间', value: data.updateTime || '-' },
+      { label: '创建时间', value: formatDateTime(data.createTime) },
+      { label: '更新时间', value: formatDateTime(data.updateTime) },
     ])}
     ${renderJsonBlock('原始数据', data)}
   `;
@@ -474,8 +643,8 @@ function renderReportDetail(data) {
       { label: '系统审核结果', value: data.moderationResult || '-' },
       { label: '风险原因', value: data.moderationRiskReason || '-' },
       { label: '处理备注', value: data.handledRemark || '-' },
-      { label: '创建时间', value: data.createTime || '-' },
-      { label: '处理时间', value: data.handledAt || '-' },
+      { label: '创建时间', value: formatDateTime(data.createTime) },
+      { label: '处理时间', value: formatDateTime(data.handledAt) },
     ])}
     ${renderReportTopicBlock(data.targetTopic)}
     ${renderJsonBlock('举报理由', data.reason || '')}
@@ -523,7 +692,7 @@ async function loadTopics() {
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', `更新时间：${row.updateTime || '-'}`),
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), `更新时间：${formatDateTime(row.updateTime)}`),
     },
     {
       label: '操作',
@@ -532,7 +701,7 @@ async function loadTopics() {
           <button class="secondary" data-topic-detail="${row.id}">详情</button>
           ${Number(row.status) === 1 ? `<button class="success" data-topic-pass="${row.id}">通过</button>` : ''}
           ${Number(row.status) === 1 ? `<button class="warning" data-topic-reject="${row.id}">驳回</button>` : ''}
-          ${Number(row.status) === 2 ? `<button class="danger" data-topic-remove="${row.id}">下架</button>` : ''}
+          ${Number(row.status) === 2 ? `<button class="danger" data-topic-remove="${row.id}">下架已发布帖子</button>` : ''}
           ${Number(row.status) === 9 ? `<button class="success" data-topic-restore="${row.id}">恢复显示</button>` : ''}
         </div>
       `,
@@ -559,7 +728,7 @@ async function loadComments() {
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', `状态：${getCommentStatusLabel(row.status, row.isVisible)} / 可见：${row.isVisible}`),
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), `状态：${getCommentStatusLabel(row.status, row.isVisible)} / 可见：${row.isVisible}`),
     },
     {
       label: '操作',
@@ -568,7 +737,7 @@ async function loadComments() {
           <button class="secondary" data-comment-detail="${row.id}">详情</button>
           ${Number(row.status) === 0 ? `<button class="success" data-comment-pass="${row.id}">通过</button>` : ''}
           ${Number(row.status) !== 9 ? `<button class="warning" data-comment-reject="${row.id}">驳回</button>` : ''}
-          ${Number(row.status) !== 9 ? `<button class="danger" data-comment-remove="${row.id}">删除</button>` : ''}
+          ${Number(row.status) !== 9 ? `<button class="danger" data-comment-remove="${row.id}">隐藏评论</button>` : ''}
         </div>
       `,
     },
@@ -593,7 +762,7 @@ async function loadUsers() {
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', `更新时间：${row.updateTime || '-'}`),
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), `更新时间：${formatDateTime(row.updateTime)}`),
     },
     {
       label: '操作',
@@ -645,7 +814,7 @@ async function loadReports() {
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', row.handledAt ? `处理：${row.handledAt}` : ''),
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), row.handledAt ? `处理：${formatDateTime(row.handledAt)}` : ''),
     },
     {
       label: '操作',
@@ -672,15 +841,18 @@ async function loadLogs() {
   renderTable('logs-table', [
     {
       label: '日志',
-      render: (row) => makePrimaryCell(`#${row.id} ${row.action}`, `管理员：${row.adminUsername || '-'} / 目标：${row.targetType}:${row.targetId}`),
+      render: (row) => {
+        const actionMeta = getAdminActionMeta(row.action);
+        return makePrimaryCell(`#${row.id} ${actionMeta.label}`, buildLogCellSubtitle(row));
+      },
     },
     {
       label: '备注',
-      render: (row) => makePrimaryCell(row.remark || '-', JSON.stringify(row.extra || {})),
+      render: (row) => makePrimaryCell(row.remark || '无备注', buildLogExtraSummary(row.extra || {}) || '无补充信息'),
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', ''),
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), ''),
     },
   ], list);
 }
@@ -698,7 +870,7 @@ async function loadRules() {
     },
     {
       label: '时间',
-      render: (row) => makePrimaryCell(row.createTime || '-', `更新时间：${row.updateTime || '-'}`),
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), `更新时间：${formatDateTime(row.updateTime)}`),
     },
     {
       label: '操作',
@@ -786,7 +958,7 @@ async function handleActionClick(event) {
     }
 
     if (target.dataset.topicRemove) {
-      await withPromptAction('确认下架该帖子？', async (remark) => {
+      await withPromptAction('确认下架该已发布帖子？下架后前端不可见，可在“已驳回/下架”中恢复显示。', async (remark) => {
         await request(`/admin/review/topics/${target.dataset.topicRemove}/remove`, { method: 'POST', body: { remark } });
       });
       showMessage('帖子已下架');
@@ -822,10 +994,10 @@ async function handleActionClick(event) {
     }
 
     if (target.dataset.commentRemove) {
-      await withPromptAction('确认删除该评论？', async (remark) => {
+      await withPromptAction('确认隐藏该评论？隐藏后前端不可见。', async (remark) => {
         await request(`/admin/review/comments/${target.dataset.commentRemove}/remove`, { method: 'POST', body: { remark } });
       });
-      showMessage('评论已删除');
+      showMessage('评论已隐藏');
       await loadComments();
       return;
     }

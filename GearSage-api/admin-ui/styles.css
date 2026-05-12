@@ -284,6 +284,9 @@ tr:last-child td {
 .cell-sub {
   color: var(--muted);
   font-size: 12px;
+  line-height: 1.55;
+  max-width: 760px;
+  word-break: break-word;
 }
 
 .action-row {

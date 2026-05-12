@@ -40,6 +40,8 @@ Page(Object.assign({}, debouncePageMixin, {
     // 导航栏相关
     statusBarHeight: 0,
     navBarHeight: 0,
+    navOpacity: 1,
+    navScrollTop: 0,
     
     // 主题相关
     containerClass: '',
@@ -155,6 +157,31 @@ Page(Object.assign({}, debouncePageMixin, {
     }
   },
 
+  getNavOpacity(scrollTop, isDarkMode) {
+    const fadeDistance = 220;
+    const progress = Math.max(0, Math.min(1, scrollTop / fadeDistance));
+
+    return Number((isDarkMode ? progress : 1 - progress).toFixed(2));
+  },
+
+  /**
+   * 页面滚动时同步调整顶部导航栏透明度
+   */
+  onPageScroll(e) {
+    const scrollTop = Math.max(0, e && typeof e.scrollTop === 'number' ? e.scrollTop : 0);
+    const isDarkMode = this.data.containerClass === 'dark';
+    const nextOpacity = this.getNavOpacity(scrollTop, isDarkMode);
+
+    if (Math.abs(nextOpacity - this.data.navOpacity) < 0.01) {
+      return;
+    }
+
+    this.setData({
+      navOpacity: nextOpacity,
+      navScrollTop: scrollTop
+    });
+  },
+
   /**
    * 初始化主题模式
    */
@@ -163,7 +190,8 @@ Page(Object.assign({}, debouncePageMixin, {
       const app = getApp();
       const isDarkMode = app.globalData.isDarkMode || false;
       this.setData({
-        containerClass: isDarkMode ? 'dark' : ''
+        containerClass: isDarkMode ? 'dark' : '',
+        navOpacity: this.getNavOpacity(this.data.navScrollTop || 0, isDarkMode)
       });
     } catch (error) {
       console.error('初始化主题模式失败:', error);

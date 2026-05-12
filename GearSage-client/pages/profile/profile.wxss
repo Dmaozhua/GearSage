@@ -40,59 +40,6 @@
     color: var(--text-primary);
 }
 
-
-.settings-btn {
-  position: relative;
-  background: rgba(255, 255, 255, 0.48);
-  border: 1rpx solid rgba(58, 68, 62, 0.12);
-  padding: 0;
-  margin: 0;
-  width: 60rpx;
-  height: 60rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8rpx;
-}
-
-.settings-icon {
-  width: 40rpx;
-  height: 40rpx;
-  opacity: 0.8;
-}
-
-.settings-btn::after {
-  border: none;
-}
-
-.settings-btn::before {
-  content: "";
-  width: 28rpx;
-  height: 28rpx;
-  border: 3rpx solid #4f5d56;
-  border-radius: 50%;
-  box-sizing: border-box;
-  box-shadow:
-    0 -12rpx 0 -9rpx #4f5d56,
-    0 12rpx 0 -9rpx #4f5d56,
-    -12rpx 0 0 -9rpx #4f5d56,
-    12rpx 0 0 -9rpx #4f5d56;
-}
-
-.custom-nav.dark .settings-btn {
-  background: rgba(238, 245, 242, 0.08);
-  border-color: rgba(229, 236, 231, 0.08);
-}
-
-.custom-nav.dark .settings-btn::before {
-  border-color: rgba(238, 245, 242, 0.72);
-  box-shadow:
-    0 -12rpx 0 -9rpx rgba(238, 245, 242, 0.72),
-    0 12rpx 0 -9rpx rgba(238, 245, 242, 0.72),
-    -12rpx 0 0 -9rpx rgba(238, 245, 242, 0.72),
-    12rpx 0 0 -9rpx rgba(238, 245, 242, 0.72);
-}
-
 .nav-btn::after {
   border: none;
 }
@@ -120,7 +67,8 @@
     --menu-hover: #f6f7f3;
 }
 
-.profile-container.dark, .custom-nav.dark {
+.profile-container.dark,
+.custom-nav--dark {
     --page-bg: #0f1518;
     --surface-bg: #182028;
     --surface-soft: rgba(238, 245, 242, 0.08);
@@ -1074,16 +1022,9 @@
 }
 
 /* 夜间模式下自定义导航栏的图标样式 */
-.profile-container.dark .custom-nav .settings-icon,
-.profile-container.dark .custom-nav .nav-icon {
+.custom-nav--dark .nav-icon {
   filter: brightness(1.2);
   opacity: 0.9;
-}
-
-/* 夜间模式下右侧按钮的点击反馈 */
-.profile-container.dark .custom-nav .settings-btn:active {
-  background-color: rgba(255,255,255,0.06);
-  border-radius: 50%;
 }
 
 /* Recent Tag UI Theme Overrides */

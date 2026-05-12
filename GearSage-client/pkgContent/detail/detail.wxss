@@ -1452,6 +1452,18 @@
   background: rgba(40, 48, 59, 0.9);
 }
 
+.dark .comment-input,
+.dark .comment-textarea,
+.dark .comment-textarea--editor {
+  color: #dce7f5;
+  border-color: rgba(110, 130, 153, 0.22);
+}
+
+.dark .comment-textarea::placeholder,
+.dark .comment-textarea--editor::placeholder {
+  color: #7f90a5;
+}
+
 .dark .topic-compare-panel {
   background: linear-gradient(180deg, rgba(37, 47, 59, 0.96), rgba(31, 40, 51, 0.96));
   border-color: rgba(111, 135, 160, 0.22);

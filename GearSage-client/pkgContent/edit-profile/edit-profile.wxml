@@ -5,7 +5,9 @@
   title="编辑个人信息" 
   show-back="{{true}}"
   background-color="#F4F5F1"
-  text-color="#1F2A27">
+  text-color="#1F2A27"
+  enable-animation="{{false}}"
+  opacity="{{navOpacity}}">
 </custom-navbar>
 
 <view class="edit-profile-container {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
@@ -83,7 +85,7 @@
     </view>
 
     <!-- 收货地址 -->
-    <view class="edit-section">
+    <view class="edit-section" wx:if="{{false}}">
       <view class="section-title">收货地址</view>
       <view class="address-list">
         <!-- 地址列表 -->
