@@ -21,12 +21,15 @@ export class SmsService {
 
   async sendLoginCode(phone: string, context: SmsSendContext = {}) {
     this.assertPhone(phone);
+    const isTestMode = this.isTestMode();
+    if (isTestMode) {
+      this.assertTestPhoneAllowed(phone);
+    }
+
     await this.expireStaleCodes(phone);
     await this.assertSendQuota(phone);
-
     const expiresIn = this.getExpiresSeconds();
     const expiresAt = new Date(Date.now() + expiresIn * 1000);
-    const isTestMode = this.isTestMode();
     const code = isTestMode ? SmsService.TEST_CODE : this.generateCode();
 
     let sendChannel = 'test_mode';
@@ -201,6 +204,26 @@ export class SmsService {
     return String(this.configService.get<string>('SMS_TEST_MODE') || 'true')
       .trim()
       .toLowerCase() === 'true';
+  }
+
+  private assertTestPhoneAllowed(phone: string) {
+    const whitelist = this.getTestWhitelistPhones();
+    if (!whitelist.size) {
+      return;
+    }
+
+    if (!whitelist.has(String(phone || '').trim())) {
+      throw new BadRequestException('该手机号暂不支持测试验证码登录');
+    }
+  }
+
+  private getTestWhitelistPhones() {
+    return new Set(
+      String(this.configService.get<string>('SMS_TEST_WHITELIST_PHONES') || '')
+        .split(/[,，\s]+/)
+        .map((item) => item.trim())
+        .filter(Boolean),
+    );
   }
 
   private generateCode() {
