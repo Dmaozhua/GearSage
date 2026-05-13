@@ -1,6 +1,6 @@
 <custom-navbar
   id="custom-navbar"
-  title="钓识 GearSage"
+  title="钓识"
   show-back="{{false}}"
   left-icon="/images/logo/GearSageLogo.png"
   left-icon-dark="/images/logo/GearSageLogo-w.png"
@@ -122,12 +122,12 @@
     <view class="home-section">
       <view class="home-section__header">
         <view>
-          <text class="home-section__title">装备经验精选</text>
-          <text class="home-section__subtitle">真实使用反馈预览</text>
+          <text class="home-section__title">知识分享精选</text>
+          <text class="home-section__subtitle">路亚知识与装备资料预览</text>
         </view>
         <view class="home-section__more" bindtap="onMoreExperience">{{experiencePreviewExpanded ? '收起' : '查看更多'}}</view>
       </view>
-      <view wx:if="{{featuredExperienceList.length === 0 && !homePreviewLoading}}" class="home-empty">暂无装备经验</view>
+      <view wx:if="{{featuredExperienceList.length === 0 && !homePreviewLoading}}" class="home-empty">暂无知识分享</view>
       <view wx:else class="home-card-list">
         <view
           wx:for="{{featuredExperienceList}}"
@@ -135,7 +135,7 @@
           class="home-topic-card home-topic-card--experience"
           data-id="{{item.id}}"
           bindtap="onHomeTopicTap">
-          <view class="home-topic-card__label">装备经验</view>
+          <view class="home-topic-card__label">知识分享</view>
           <view class="home-topic-card__main">
             <text class="home-topic-card__title">{{item.title}}</text>
             <text class="home-topic-card__meta">{{item.meta}}</text>
@@ -147,6 +147,6 @@
   </view>
 
   <view class="floating-publish-btn">
-    <post-button bind:tap="onPublish" text=" GEARSAGE"></post-button>
+    <post-button bind:publish="onPublish" text=" GEARSAGE"></post-button>
   </view>
 </view>

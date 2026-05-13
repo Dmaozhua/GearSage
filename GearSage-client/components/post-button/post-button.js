@@ -46,7 +46,7 @@ Component({
         isDarkMode: isDarkMode
       });
     },
-    onTap() { this.triggerEvent('tap'); },
+    onTap() { this.triggerEvent('publish'); },
     onTouchStart() { this.setData({ isHovered: true }); },
     onTouchEnd() { this.setData({ isHovered: false }); }
   }

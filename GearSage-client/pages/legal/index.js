@@ -1,9 +1,9 @@
 const { PRODUCT_ABOUT_ENTRY } = require('../../constants/product-about.js');
 
 const CONTACT = {
-  email: 'support@gearsage.example',
-  wechat: 'GearSageSupport',
-  officialAccount: 'GearSage路亚装备指南'
+  email: 'GearSage@proton.me',
+  wechat: '筹划中',
+  officialAccount: '筹划中'
 };
 
 const UPDATED_AT = '2026年05月13日';

@@ -1,7 +1,7 @@
 <!-- 自定义导航栏 -->
 <custom-navbar 
   id="custom-navbar"
-  title="文章详情" 
+  title="知识分享详情" 
   show-back="{{true}}"
   show-search="{{false}}"
   background-color="#BDC3C7"

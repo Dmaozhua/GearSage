@@ -63,8 +63,8 @@ const HOME_FUNCTION_LIST = [
     },
     {
         id: 'gear-experience',
-        name: '装备经验',
-        desc: '看真实使用',
+        name: '知识分享',
+        desc: '看知识资料',
         icon: '/images/icons/publis/饵.png',
         iconDark: '/images/icons/饵-夜晚.png',
         path: '/pkgContent/articlePage/articlePage',
@@ -2735,7 +2735,7 @@ Page({
     },
 
     /**
-	     * 加载装备经验数据
+	     * 加载知识分享数据
      */
     loadArticles: function() {
         this.setData({
@@ -2752,10 +2752,10 @@ Page({
                 data: article
             }));
             
-            // 如果没有加载到任何装备经验，使用默认数据
+            // 如果没有加载到任何知识分享，使用默认数据
             if (articleData.length === 0) {
-                console.log('未能加载任何装备经验，使用默认数据');
-                // 默认装备经验数据
+                console.log('未能加载任何知识分享，使用默认数据');
+                // 默认知识分享数据
                 const article1 = {
                     "title": "春季路亚鲈鱼技巧与找鱼方式全解析",
                     "author": "AImPhish",
@@ -2773,15 +2773,15 @@ Page({
                 
                 // 显示提示信息
                 wx.showToast({
-                    title: '使用默认装备经验数据',
+                    title: '使用默认知识分享数据',
                     icon: 'none',
                     duration: 2000
                 });
             } else {
-                console.log(`成功加载了${articleData.length}条装备经验`);
+                console.log(`成功加载了${articleData.length}条知识分享`);
             }
             
-            // 处理装备经验数据
+            // 处理知识分享数据
             const articles = articleData.map((fishingDataWithId, index) => {
                 const fishingData = fishingDataWithId.data;
                 const articleId = fishingDataWithId.id;
@@ -2798,7 +2798,7 @@ Page({
                         previewText: fishingData.previewText || ''
                     };
                 }
-                // 检查装备经验格式，适配新旧两种格式
+                // 检查知识分享格式，适配新旧两种格式
                 if (fishingData.content !== undefined) {
                     // 新格式使用 content 属性
                     return {
@@ -2844,7 +2844,7 @@ Page({
             
             // 计算加载时间
              const loadTime = Date.now() - startTime;
-             console.log(`装备经验加载完成，共加载${articles.length}条装备经验，耗时${loadTime}ms`);
+             console.log(`知识分享加载完成，共加载${articles.length}条知识分享，耗时${loadTime}ms`);
              
              this.setData({
                  articles: articles,
@@ -2854,26 +2854,26 @@ Page({
             // 显示加载成功提示
             if (articles.length > 0) {
                 wx.showToast({
-                    title: `已加载${articles.length}条装备经验`,
+                    title: `已加载${articles.length}条知识分享`,
                     icon: 'success',
                     duration: 1500
                 });
             }
             
         } catch (error) {
-            console.error("加载装备经验失败:", error);
+            console.error("加载知识分享失败:", error);
             this.setData({
                 loading: false
             });
             wx.showToast({
-                title: '加载装备经验失败',
+                title: '加载知识分享失败',
                 icon: 'none'
             });
         }
     },
 
     /**
-     * 跳转到装备经验详情
+     * 跳转到知识分享详情
      */
     navigateToArticlePage: async function(e) {
         // 检查登录状态
@@ -2895,6 +2895,10 @@ Page({
      * 发布按钮点击事件
      */
 	    onPublish: async function() {
+	        if (this._publishActionSheetOpen) {
+	            return;
+	        }
+
 	        // 检查登录状态
 	        const AuthService = require('../../services/auth.js');
 	        try {
@@ -2908,6 +2912,7 @@ Page({
 	            return;
 	        }
 
+	        this._publishActionSheetOpen = true;
 	        wx.showActionSheet({
 	            itemList: ['发起求推荐', '发布装备经验', '提一个装备问题'],
 	            success: (res) => {
@@ -2916,6 +2921,9 @@ Page({
 	                wx.navigateTo({
 	                    url: `/pkgContent/publishMode/publishMode?intent=${intent}`
 	                });
+	            },
+	            complete: () => {
+	                this._publishActionSheetOpen = false;
 	            }
 	        });
 	    },
