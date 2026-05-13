@@ -154,7 +154,7 @@
 
       <block wx:elif="{{productDetail.topicCategory === 1}}">
         <view class="topic-hero-card topic-hero-card--experience">
-          <text class="topic-kicker">长测评</text>
+          <text class="topic-kicker">装备经验</text>
           <view class="topic-title">{{productDetail.title}}</view>
           <view class="topic-subtitle {{(productDetail.gearItemId || productDetail.gearModel) ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
           <view class="topic-author-card topic-author-card--strong" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
@@ -604,7 +604,7 @@
               <text class="feedback-card__value">{{productDetail.recommendFeedbackText}}</text>
             </view>
             <view class="feedback-card__row" wx:if="{{productDetail.recommendFeedbackLongReviewLabel}}">
-              <text class="feedback-card__label">后续长测评</text>
+              <text class="feedback-card__label">后续装备经验</text>
               <text class="feedback-card__value">{{productDetail.recommendFeedbackLongReviewLabel}}</text>
             </view>
           </view>
@@ -1059,7 +1059,7 @@
         </view>
 
         <view class="recommend-answer-block">
-          <view class="recommend-answer-label">后续会不会补长测评</view>
+          <view class="recommend-answer-label">后续会不会补装备经验</view>
           <view class="recommend-answer-option-flow">
             <view wx:for="{{recommendFeedbackLongReviewOptions}}" wx:key="id" class="recommend-answer-chip {{recommendFeedbackForm.willPostLongReview === item.id ? 'active' : ''}}" data-field="willPostLongReview" data-value="{{item.id}}" bindtap="onRecommendFeedbackSingleSelect">{{item.label}}</view>
           </view>

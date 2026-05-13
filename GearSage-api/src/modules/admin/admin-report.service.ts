@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
+import { MediaUrlService } from '../../common/media-url.service';
 import { AdminLogService } from './admin-log.service';
 import { MessageService } from '../message/message.service';
 
@@ -225,6 +226,7 @@ const REVIEW_ENUM_TOKEN_LABELS: Record<string, string> = {
 export class AdminReportService {
   constructor(
     private readonly databaseService: DatabaseService,
+    private readonly mediaUrlService: MediaUrlService,
     private readonly adminLogService: AdminLogService,
     private readonly messageService: MessageService,
   ) {}
@@ -282,6 +284,30 @@ export class AdminReportService {
         tt."commentCount" AS "targetTopicCommentCount",
         tu."nickName" AS "targetTopicAuthorName",
         tu.phone AS "targetTopicAuthorPhone",
+        ru.id AS "targetUserId",
+        ru.phone AS "targetUserPhone",
+        ru."nickName" AS "targetUserName",
+        ru."avatarUrl" AS "targetUserAvatarUrl",
+        ru.bio AS "targetUserBio",
+        ru.background AS "targetUserBackground",
+        ru.status AS "targetUserStatus",
+        ru.points AS "targetUserPoints",
+        ru.level AS "targetUserLevel",
+        ru."isAdmin" AS "targetUserIsAdmin",
+        ru."inviteCode" AS "targetUserInviteCode",
+        ru."invitedByUserId" AS "targetUserInvitedByUserId",
+        ru."inviteSuccessCount" AS "targetUserInviteSuccessCount",
+        ru."inviteRewardPoints" AS "targetUserInviteRewardPoints",
+        ru."createTime" AS "targetUserCreateTime",
+        ru."updateTime" AS "targetUserUpdateTime",
+        COALESCE(rut."topicCount", 0) AS "targetUserTopicCount",
+        COALESCE(rut."publishedTopicCount", 0) AS "targetUserPublishedTopicCount",
+        COALESCE(rut."pendingTopicCount", 0) AS "targetUserPendingTopicCount",
+        COALESCE(rut."removedTopicCount", 0) AS "targetUserRemovedTopicCount",
+        COALESCE(ruc."commentCount", 0) AS "targetUserCommentCount",
+        COALESCE(ruc."visibleCommentCount", 0) AS "targetUserVisibleCommentCount",
+        COALESCE(rur."receivedReportCount", 0) AS "targetUserReceivedReportCount",
+        COALESCE(rur."pendingReportCount", 0) AS "targetUserPendingReportCount",
         mr.result AS "moderationResult",
         mr.provider AS "moderationProvider",
         mr."riskReason" AS "moderationRiskReason"
@@ -300,6 +326,36 @@ export class AdminReportService {
          ELSE NULL
        END
       LEFT JOIN bz_mini_user tu ON tu.id = tt."userId"
+      LEFT JOIN bz_mini_user ru
+        ON r."targetType" = 'user'
+       AND ru.id = CASE
+         WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+         ELSE NULL
+       END
+      LEFT JOIN LATERAL (
+        SELECT
+          COUNT(*)::int AS "topicCount",
+          COUNT(*) FILTER (WHERE status = 2 AND "isDelete" = 0)::int AS "publishedTopicCount",
+          COUNT(*) FILTER (WHERE status = 1 AND "isDelete" = 0)::int AS "pendingTopicCount",
+          COUNT(*) FILTER (WHERE status = 9 OR "isDelete" = 1)::int AS "removedTopicCount"
+        FROM bz_mini_topic
+        WHERE "userId" = ru.id
+      ) rut ON ru.id IS NOT NULL
+      LEFT JOIN LATERAL (
+        SELECT
+          COUNT(*)::int AS "commentCount",
+          COUNT(*) FILTER (WHERE status = 2 AND "isVisible" = 1)::int AS "visibleCommentCount"
+        FROM bz_topic_comment
+        WHERE "userId" = ru.id
+      ) ruc ON ru.id IS NOT NULL
+      LEFT JOIN LATERAL (
+        SELECT
+          COUNT(*)::int AS "receivedReportCount",
+          COUNT(*) FILTER (WHERE status = 'pending')::int AS "pendingReportCount"
+        FROM user_reports
+        WHERE "targetType" = 'user'
+          AND "targetId" = ru.id::text
+      ) rur ON ru.id IS NOT NULL
       LEFT JOIN LATERAL (
         SELECT result, provider, "riskReason"
         FROM moderation_records
@@ -341,7 +397,31 @@ export class AdminReportService {
         tt."likeCount" AS "targetTopicLikeCount",
         tt."commentCount" AS "targetTopicCommentCount",
         tu."nickName" AS "targetTopicAuthorName",
-        tu.phone AS "targetTopicAuthorPhone"
+        tu.phone AS "targetTopicAuthorPhone",
+        ru.id AS "targetUserId",
+        ru.phone AS "targetUserPhone",
+        ru."nickName" AS "targetUserName",
+        ru."avatarUrl" AS "targetUserAvatarUrl",
+        ru.bio AS "targetUserBio",
+        ru.background AS "targetUserBackground",
+        ru.status AS "targetUserStatus",
+        ru.points AS "targetUserPoints",
+        ru.level AS "targetUserLevel",
+        ru."isAdmin" AS "targetUserIsAdmin",
+        ru."inviteCode" AS "targetUserInviteCode",
+        ru."invitedByUserId" AS "targetUserInvitedByUserId",
+        ru."inviteSuccessCount" AS "targetUserInviteSuccessCount",
+        ru."inviteRewardPoints" AS "targetUserInviteRewardPoints",
+        ru."createTime" AS "targetUserCreateTime",
+        ru."updateTime" AS "targetUserUpdateTime",
+        COALESCE(rut."topicCount", 0) AS "targetUserTopicCount",
+        COALESCE(rut."publishedTopicCount", 0) AS "targetUserPublishedTopicCount",
+        COALESCE(rut."pendingTopicCount", 0) AS "targetUserPendingTopicCount",
+        COALESCE(rut."removedTopicCount", 0) AS "targetUserRemovedTopicCount",
+        COALESCE(ruc."commentCount", 0) AS "targetUserCommentCount",
+        COALESCE(ruc."visibleCommentCount", 0) AS "targetUserVisibleCommentCount",
+        COALESCE(rur."receivedReportCount", 0) AS "targetUserReceivedReportCount",
+        COALESCE(rur."pendingReportCount", 0) AS "targetUserPendingReportCount"
       FROM user_reports r
       LEFT JOIN bz_mini_user u ON u.id = r."reporterUserId"
       LEFT JOIN bz_topic_comment tc
@@ -357,6 +437,36 @@ export class AdminReportService {
          ELSE NULL
        END
       LEFT JOIN bz_mini_user tu ON tu.id = tt."userId"
+      LEFT JOIN bz_mini_user ru
+        ON r."targetType" = 'user'
+       AND ru.id = CASE
+         WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+         ELSE NULL
+       END
+      LEFT JOIN LATERAL (
+        SELECT
+          COUNT(*)::int AS "topicCount",
+          COUNT(*) FILTER (WHERE status = 2 AND "isDelete" = 0)::int AS "publishedTopicCount",
+          COUNT(*) FILTER (WHERE status = 1 AND "isDelete" = 0)::int AS "pendingTopicCount",
+          COUNT(*) FILTER (WHERE status = 9 OR "isDelete" = 1)::int AS "removedTopicCount"
+        FROM bz_mini_topic
+        WHERE "userId" = ru.id
+      ) rut ON ru.id IS NOT NULL
+      LEFT JOIN LATERAL (
+        SELECT
+          COUNT(*)::int AS "commentCount",
+          COUNT(*) FILTER (WHERE status = 2 AND "isVisible" = 1)::int AS "visibleCommentCount"
+        FROM bz_topic_comment
+        WHERE "userId" = ru.id
+      ) ruc ON ru.id IS NOT NULL
+      LEFT JOIN LATERAL (
+        SELECT
+          COUNT(*)::int AS "receivedReportCount",
+          COUNT(*) FILTER (WHERE status = 'pending')::int AS "pendingReportCount"
+        FROM user_reports
+        WHERE "targetType" = 'user'
+          AND "targetId" = ru.id::text
+      ) rur ON ru.id IS NOT NULL
       WHERE r.id = $1
       LIMIT 1
       `,
@@ -641,6 +751,104 @@ export class AdminReportService {
     };
   }
 
+  async acceptUserReport(reportId: number, admin: { id: number }, remark?: string) {
+    return this.databaseService.withTransaction(async (client) => {
+      const reportResult = await client.query(
+        `
+        SELECT r.*, u.id AS "targetUserId", u.status AS "targetUserStatus"
+        FROM user_reports r
+        JOIN bz_mini_user u ON u.id = CASE
+          WHEN r."targetId" ~ '^[0-9]+$' THEN r."targetId"::bigint
+          ELSE NULL
+        END
+        WHERE r.id = $1
+          AND r."targetType" = 'user'
+        LIMIT 1
+        `,
+        [reportId],
+      );
+
+      if (!reportResult.rows.length) {
+        throw new NotFoundException('user report not found');
+      }
+
+      const report = reportResult.rows[0];
+      const userId = Number(report.targetUserId || report.targetId || 0);
+
+      await client.query(
+        `
+        UPDATE bz_mini_user
+        SET
+          status = 9,
+          "updateTime" = NOW()
+        WHERE id = $1
+        `,
+        [userId],
+      );
+
+      const updateReportResult = await client.query(
+        `
+        UPDATE user_reports
+        SET
+          status = 'handled',
+          "handledByAdminId" = $2,
+          "handledRemark" = $3,
+          "handledAt" = NOW(),
+          "updateTime" = NOW()
+        WHERE id = $1
+        RETURNING *
+        `,
+        [reportId, Number(admin.id || 0), remark || ''],
+      );
+
+      await client.query(
+        `
+        INSERT INTO admin_operation_logs
+        ("adminUserId", "targetType", "targetId", action, remark, extra, "createTime")
+        VALUES
+        ($1, 'report', $2, 'report_accept', $3, $4::jsonb, NOW())
+        `,
+        [
+          Number(admin.id || 0),
+          String(reportId),
+          remark || '',
+          JSON.stringify({
+            reportStatus: 'handled',
+            targetType: 'user',
+            targetId: userId,
+            userStatus: 9,
+          }),
+        ],
+      );
+
+      await client.query(
+        `
+        INSERT INTO admin_operation_logs
+        ("adminUserId", "targetType", "targetId", action, remark, extra, "createTime")
+        VALUES
+        ($1, 'user', $2, 'user_ban', $3, $4::jsonb, NOW())
+        `,
+        [
+          Number(admin.id || 0),
+          String(userId),
+          remark || '',
+          JSON.stringify({
+            source: 'report_accept',
+            reportId,
+            previousStatus: Number(report.targetUserStatus || 0),
+            userStatus: 9,
+          }),
+        ],
+      );
+
+      return {
+        ...this.formatReport(updateReportResult.rows[0]),
+        action: 'report_accept',
+        bannedUserId: userId,
+      };
+    });
+  }
+
   private async handle(
     reportId: number,
     admin: { id: number },
@@ -714,6 +922,7 @@ export class AdminReportService {
 
   private formatReport(row: any) {
     const targetTopic = this.formatTargetTopic(row);
+    const targetUser = this.formatTargetUser(row);
     return {
       id: Number(row.id),
       reporterUserId: Number(row.reporterUserId || 0),
@@ -722,8 +931,9 @@ export class AdminReportService {
       targetType: row.targetType || '',
       targetId: Number(row.targetId || 0),
       reason: row.reason || '',
-      targetContent: row.targetCommentContent || this.buildTopicContentSummary(targetTopic),
+      targetContent: row.targetCommentContent || this.buildTopicContentSummary(targetTopic) || this.buildUserContentSummary(targetUser),
       targetTopic,
+      targetUser,
       status: row.status || '',
       handledByAdminId: row.handledByAdminId ? Number(row.handledByAdminId) : null,
       handledRemark: row.handledRemark || '',
@@ -733,6 +943,41 @@ export class AdminReportService {
       moderationResult: row.moderationResult || '',
       moderationProvider: row.moderationProvider || '',
       moderationRiskReason: row.moderationRiskReason || '',
+    };
+  }
+
+  private formatTargetUser(row: any) {
+    if (!row.targetUserId) {
+      return null;
+    }
+
+    const status = Number(row.targetUserStatus || 0);
+    return {
+      id: Number(row.targetUserId),
+      phone: row.targetUserPhone || '',
+      nickName: row.targetUserName || '',
+      avatarUrl: this.mediaUrlService.normalizeUrl(row.targetUserAvatarUrl),
+      bio: row.targetUserBio || '',
+      background: this.mediaUrlService.normalizeUrl(row.targetUserBackground),
+      status,
+      statusLabel: this.getUserStatusLabel(status),
+      points: Number(row.targetUserPoints || 0),
+      level: Number(row.targetUserLevel || 1),
+      isAdmin: Boolean(row.targetUserIsAdmin),
+      inviteCode: row.targetUserInviteCode || '',
+      invitedByUserId: row.targetUserInvitedByUserId ? Number(row.targetUserInvitedByUserId) : null,
+      inviteSuccessCount: Number(row.targetUserInviteSuccessCount || 0),
+      inviteRewardPoints: Number(row.targetUserInviteRewardPoints || 0),
+      createTime: row.targetUserCreateTime || null,
+      updateTime: row.targetUserUpdateTime || null,
+      topicCount: Number(row.targetUserTopicCount || 0),
+      publishedTopicCount: Number(row.targetUserPublishedTopicCount || 0),
+      pendingTopicCount: Number(row.targetUserPendingTopicCount || 0),
+      removedTopicCount: Number(row.targetUserRemovedTopicCount || 0),
+      commentCount: Number(row.targetUserCommentCount || 0),
+      visibleCommentCount: Number(row.targetUserVisibleCommentCount || 0),
+      receivedReportCount: Number(row.targetUserReceivedReportCount || 0),
+      pendingReportCount: Number(row.targetUserPendingReportCount || 0),
     };
   }
 
@@ -783,6 +1028,19 @@ export class AdminReportService {
       topic.content ? `正文：${String(topic.content).slice(0, 120)}` : '',
     ].filter(Boolean);
     return parts.join('\n');
+  }
+
+  private buildUserContentSummary(user: any) {
+    if (!user) {
+      return '';
+    }
+
+    return [
+      `昵称：${user.nickName || '-'}`,
+      `手机号：${user.phone || '-'}`,
+      `状态：${user.statusLabel || this.getUserStatusLabel(user.status)}`,
+      user.bio ? `简介：${String(user.bio).slice(0, 120)}` : '',
+    ].filter(Boolean).join('\n');
   }
 
   private buildTopicReviewFields(extra: Record<string, any>) {
@@ -1053,6 +1311,13 @@ export class AdminReportService {
     if (normalized === 2) return '已通过';
     if (normalized === 9) return '已驳回/下架';
     if (normalized === 0) return '草稿';
+    return String(status ?? '-');
+  }
+
+  private getUserStatusLabel(status: any) {
+    const normalized = Number(status || 0);
+    if (normalized === 0) return '正常';
+    if (normalized === 9) return '已封禁';
     return String(status ?? '-');
   }
 

@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
 import { ModerationService } from '../moderation/moderation.service';
 import { CreateReportDto } from './dto/create-report.dto';
@@ -20,6 +20,7 @@ export class ReportService {
     }
 
     await this.assertReportTargetVisible(targetType, targetId);
+    await this.assertNotDuplicateReport(userId, targetType, targetId);
 
     const decision = await this.moderationService.reviewText('report_reason', reason, {
       userId,
@@ -120,5 +121,23 @@ export class ReportService {
     }
 
     throw new ForbiddenException('unsupported report target');
+  }
+
+  private async assertNotDuplicateReport(userId: number, targetType: string, targetId: number) {
+    const result = await this.databaseService.query(
+      `
+      SELECT id
+      FROM user_reports
+      WHERE "reporterUserId" = $1
+        AND "targetType" = $2
+        AND "targetId" = $3
+      LIMIT 1
+      `,
+      [userId, targetType, String(targetId)],
+    );
+
+    if (result.rows.length) {
+      throw new ConflictException('已举报该对象，后台正在处理举报信息');
+    }
   }
 }

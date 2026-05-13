@@ -49,6 +49,8 @@ Page({
   },
 
   onLoad(options) {
+    this._loginCompleted = false;
+
     if (options.fromRoute) {
       this.setData({
         fromRoute: decodeURIComponent(options.fromRoute)
@@ -126,12 +128,6 @@ Page({
         clearInterval(this.timer);
       }
     }, 1000);
-  },
-
-  onUnload() {
-    if (this.timer) {
-      clearInterval(this.timer);
-    }
   },
 
   syncServerDebugState() {
@@ -274,6 +270,7 @@ Page({
         icon: 'success'
       });
 
+      this._loginCompleted = true;
       const eventChannel = this.getOpenerEventChannel();
       if (eventChannel && typeof eventChannel.emit === 'function') {
         eventChannel.emit('loginSuccess', standardAuthRes);
@@ -303,11 +300,34 @@ Page({
     }
   },
 
+  notifyLoginCancel() {
+    if (this._loginCompleted) {
+      return;
+    }
+    this._loginCompleted = true;
+    try {
+      const eventChannel = this.getOpenerEventChannel();
+      if (eventChannel && typeof eventChannel.emit === 'function') {
+        eventChannel.emit('loginCancel');
+      }
+    } catch (error) {
+      console.warn('[Login] 通知取消登录失败:', error);
+    }
+  },
+
   onCancel() {
+    this.notifyLoginCancel();
     if (getCurrentPages().length > 1) {
       wx.navigateBack();
     } else {
       wx.switchTab({ url: '/pages/index/index' });
     }
+  },
+
+  onUnload() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+    this.notifyLoginCancel();
   }
 });

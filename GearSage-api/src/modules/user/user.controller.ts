@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { CurrentUser } from '../../common/current-user.decorator';
 import { JwtAuthGuard } from '../../common/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from '../../common/optional-jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
@@ -17,7 +18,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('info')
-  async info(@Query('id') id?: string, @Query('userId') userId?: string) {
+  @UseGuards(OptionalJwtAuthGuard)
+  async info(
+    @CurrentUser() user: { id: number } | undefined,
+    @Query('id') id?: string,
+    @Query('userId') userId?: string,
+  ) {
     const value = Number(id || userId);
     if (!value) {
       throw new BadRequestException('id is required');
@@ -26,7 +32,7 @@ export class UserController {
     return {
       code: 0,
       message: 'ok',
-      data: await this.userService.getById(value),
+      data: await this.userService.getById(value, Number(user?.id || 0)),
     };
   }
 

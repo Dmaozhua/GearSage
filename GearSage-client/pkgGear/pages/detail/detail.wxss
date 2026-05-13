@@ -1156,22 +1156,29 @@ page {
 }
 
 .related-tabs {
-  display: flex;
   border-bottom: 1rpx solid #edf0f1;
   margin-bottom: 20rpx;
+  white-space: nowrap;
 }
 
 .container.dark .related-tabs {
   border-bottom-color: #3d4448;
 }
 
+.related-tabs__inner {
+  display: inline-flex;
+  min-width: 100%;
+}
+
 .related-tab-item {
-  flex: 1;
+  flex: 1 0 auto;
+  min-width: 154rpx;
   text-align: center;
-  padding: 20rpx 0;
-  font-size: 28rpx;
+  padding: 20rpx 18rpx;
+  font-size: 26rpx;
   color: #667981;
   position: relative;
+  box-sizing: border-box;
 }
 
 .container.dark .related-tab-item {

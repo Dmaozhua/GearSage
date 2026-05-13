@@ -101,11 +101,12 @@ wx.cloud.callFunction({
 - 方法：GET
 - 路径：/mini/user/info
 - 云函数 action：user.info
-- 是否需要登录：否（按用户 id 查询）
+- 是否需要登录：否（按用户 id 查询；登录态会识别当前用户是否已举报该主页用户）
 - 请求参数：
   - `id: string` 用户ID
 - 返回结构：
   - `data: User`（包含 `id` 字段）
+  - `data.isReported: boolean` 当前登录用户是否已举报该主页用户；未登录或未举报时为 `false`
 - 错误码：
   - `200` 成功
   - `500` 失败（如：doc 不存在会抛异常）
@@ -161,6 +162,10 @@ wx.cloud.callFunction({
   - 命中 `REJECT / REVIEW` 时阻断提交
   - 通过后写入 `user_reports`
   - 审核留痕写入 `moderation_records`
+- 重复举报：
+  - 同一用户对同一 `targetType + targetId` 只能提交一次举报
+  - 小程序侧对已举报对象显示“已举报”，再次点击提示“后台正在处理举报信息”
+  - 后端按 `reporterUserId + targetType + targetId` 兜底拦截重复提交
 - 返回结构：
 
 ```json

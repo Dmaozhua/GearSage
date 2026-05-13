@@ -601,6 +601,41 @@ page {
   font-weight: 600;
 }
 
+.tech-compare-panel__official {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.tech-compare-panel__official-head {
+  min-height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.tech-compare-panel__label {
+  font-size: 20rpx;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #6f8086;
+}
+
+.tech-compare-panel__official-toggle {
+  flex: 0 0 auto;
+  min-height: 34rpx;
+  padding: 0 14rpx;
+  border-radius: 999rpx;
+  display: inline-flex;
+  align-items: center;
+  font-size: 19rpx;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #2f6280;
+  background: #e4edf0;
+}
+
 .tech-compare-panel__detail {
   font-size: 22rpx;
   line-height: 1.75;
@@ -640,6 +675,15 @@ page {
 
 .container.dark .tech-compare-panel__simple {
   color: #d7e4e8;
+}
+
+.container.dark .tech-compare-panel__label {
+  color: #9fb0b5;
+}
+
+.container.dark .tech-compare-panel__official-toggle {
+  color: #d7edf5;
+  background: #2f4b58;
 }
 
 .container.dark .tech-compare-panel__detail {

@@ -934,6 +934,7 @@ P3-A 不是继续做功能，而是：
   - 已新增 `POST /mini/report` 与 `user_reports`
   - 已补齐举报帖子、举报评论、举报用户入口
   - 审核后台新增“举报处理”页，支持查看、标记处理、驳回并写入日志
+  - 2026-05-13 已补用户举报认可闭环：后台举报处理支持 `accept-user`，认可用户举报后封禁被举报用户，并在详情中展示被举报用户资料、状态翻译、内容统计与收到举报统计
   - 2026-05-13 已补装备库资料反馈合规降风险链路：
     - 装备详情页底部新增“发现资料错误 / 补充信息 / 权利问题反馈”入口
     - 新增 `POST /mini/gear/feedback`，记录 `gearType / masterId / variantId / feedbackType / content / contact / images`

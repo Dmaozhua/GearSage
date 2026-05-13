@@ -91,7 +91,7 @@ const TOPIC_CATEGORY = {
 
 const TOPIC_CATEGORY_LABELS = {
     [TOPIC_CATEGORY.RECOMMEND]: '好物速报',
-    [TOPIC_CATEGORY.EXPERIENCE]: '长测评',
+    [TOPIC_CATEGORY.EXPERIENCE]: '装备经验',
     [TOPIC_CATEGORY.QUESTION]: '讨论提问',
     [TOPIC_CATEGORY.CATCH]: '鱼获展示',
     [TOPIC_CATEGORY.TRIP]: '钓行分享'
@@ -153,7 +153,7 @@ const BASE_FILTER_TABS = [
  
     {
         key: 'post-Experience',
-        label: '长测评',
+        label: '装备经验',
         subFilters: [
             { key: 'all', label: '全部', isDefault: true }
         ]
@@ -961,7 +961,7 @@ Page({
                 || this.mapTopicTagList('pros', item.tags && item.tags.pros, gearCategory)[0]
                 || this.normalizeStringList(item.pros)[0]
                 || contentText
-                || '这是一篇长测评，包含体验、评分与适配信息。';
+                || '这是一篇装备经验，包含体验、评分与适配信息。';
         }
 
         if (topicCategory === TOPIC_CATEGORY.QUESTION) {

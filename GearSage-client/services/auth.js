@@ -80,16 +80,31 @@ class AuthService {
 
   async login() {
     return new Promise((resolve, reject) => {
+      let settled = false;
+      const resolveOnce = (value) => {
+        if (settled) return;
+        settled = true;
+        resolve(value);
+      };
+      const rejectOnce = (error) => {
+        if (settled) return;
+        settled = true;
+        reject(error);
+      };
+
       wx.navigateTo({
         url: '/pages/login/login',
         events: {
           loginSuccess: (authRes) => {
-            resolve(authRes);
+            resolveOnce(authRes);
+          },
+          loginCancel: () => {
+            rejectOnce(new Error('UserCancelledLogin'));
           }
         },
         fail: (err) => {
           console.error('[AuthService] 跳转登录页失败:', err);
-          reject(new Error('NavigationFailed'));
+          rejectOnce(new Error('NavigationFailed'));
         }
       });
     });

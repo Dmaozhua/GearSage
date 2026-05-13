@@ -14,7 +14,7 @@ export class UserService {
     private readonly tagService: TagService,
   ) {}
 
-  async getById(userId: number) {
+  async getById(userId: number, viewerUserId = 0) {
     const result = await this.databaseService.query(
       `
       SELECT *
@@ -30,10 +30,11 @@ export class UserService {
     }
 
     const normalizedUserId = Number(result.rows[0].id || userId || 0);
-    const [identityMap, recentTopics, recentAcceptedAnswers] = await Promise.all([
+    const [identityMap, recentTopics, recentAcceptedAnswers, isReported] = await Promise.all([
       this.getPublicIdentityMap([normalizedUserId]),
       this.getRecentTopics(normalizedUserId),
       this.getRecentAcceptedAnswers(normalizedUserId),
+      this.hasReportedTarget(viewerUserId, 'user', normalizedUserId),
     ]);
 
     const identity =
@@ -53,9 +54,30 @@ export class UserService {
       likeReceivedCount: identity.likeReceivedCount,
       stats: identity.stats,
       authorStats: identity.authorStats,
+      isReported,
       recentTopics,
       recentAcceptedAnswers,
     };
+  }
+
+  private async hasReportedTarget(reporterUserId: number, targetType: string, targetId: number) {
+    if (!reporterUserId || !targetId) {
+      return false;
+    }
+
+    const result = await this.databaseService.query(
+      `
+      SELECT id
+      FROM user_reports
+      WHERE "reporterUserId" = $1
+        AND "targetType" = $2
+        AND "targetId" = $3
+      LIMIT 1
+      `,
+      [reporterUserId, targetType, String(targetId)],
+    );
+
+    return result.rows.length > 0;
   }
 
   async update(userId: number, dto: UpdateUserDto) {

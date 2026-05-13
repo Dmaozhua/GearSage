@@ -78,6 +78,23 @@ export class AdminReportController {
     };
   }
 
+  @Post(':id/accept-user')
+  async acceptUser(
+    @Param('id') id: string,
+    @CurrentAdmin() admin?: { id: number },
+    @Body() body?: AdminReviewActionDto,
+  ) {
+    return {
+      code: 0,
+      message: 'ok',
+      data: await this.adminReportService.acceptUserReport(
+        Number(id),
+        { id: Number(admin?.id || 0) },
+        body?.remark,
+      ),
+    };
+  }
+
   @Post(':id/reject')
   async reject(
     @Param('id') id: string,

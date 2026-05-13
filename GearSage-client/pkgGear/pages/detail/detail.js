@@ -446,14 +446,12 @@ Page({
       '__key', '__displayName', '__secondaryLabel', '__displayValues'
     ],
     relatedTabs: [
-      { id: 'experience', label: '长测评', type: 1 },
-      { id: 'recommend', label: '好物速报', type: 0 },
-      { id: 'question', label: '讨论&提问', type: 2 }
+      { id: 'experience', label: '装备经验', type: 1 },
+      { id: 'question', label: '提问&讨论', type: 2 }
     ],
     currentRelatedTab: 0,
     relatedPosts: {
       experience: [],
-      recommend: [],
       question: []
     },
     showBackToPost: false,
@@ -1648,7 +1646,8 @@ Page({
 
     this.setData({ currentRelatedTab: index }, () => {
       const tab = this.data.relatedTabs[index];
-      if (this.data.relatedPosts[tab.id].length === 0) {
+      const cachedPosts = (this.data.relatedPosts && this.data.relatedPosts[tab.id]) || [];
+      if (cachedPosts.length === 0) {
         this.fetchRelatedPosts();
       }
     });
@@ -1679,7 +1678,15 @@ Page({
     }
   },
 
-  onGoRecommend() {
+  async onGoRecommend() {
+    const AuthService = require('../../../services/auth.js');
+    try {
+      await AuthService.ensureLogin();
+    } catch (error) {
+      console.log('用户取消登录');
+      return;
+    }
+
     const gearCategory = this.resolveTopicGearCategory(this.data.gearType);
     const gearItemId = this.normalizeText(this.data.item && this.data.item.id);
     const detailName = String((this.data.item && (this.data.item.detailName || this.data.item.model)) || '').trim();

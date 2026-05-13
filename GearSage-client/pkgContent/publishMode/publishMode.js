@@ -780,10 +780,10 @@ Page({
     }, 0);
   },
 
-  // 长测评提交
+  // 装备经验提交
   onSubmitExperience(e) {
     const formData = this.extractSubmitFormData(e.detail);
-    console.log('长测评提交数据:', formData);
+    console.log('装备经验提交数据:', formData);
     this.openPreview('experience', formData);
   },
 

@@ -30,7 +30,7 @@
         </view>
         <view class="profile-bio" wx:if="{{profile.bio}}">{{profile.bio}}</view>
         <view class="profile-summary" wx:if="{{identitySummary}}">{{identitySummary}}</view>
-        <view class="profile-report-btn" bindtap="onReportUser">举报用户</view>
+        <view class="profile-report-btn {{isReported ? 'profile-report-btn--reported' : ''}}" bindtap="onReportUser">{{isReported ? '已举报' : '举报用户'}}</view>
       </view>
     </view>
 

@@ -208,6 +208,8 @@ Page(Object.assign({}, debouncePageMixin, {
         isLoading: true,
         loadingText: '加载用户信息...'
       });
+
+      await auth.ensureLogin();
       
       // 模拟网络延迟
       await new Promise(resolve => setTimeout(resolve, 800));
@@ -259,6 +261,20 @@ Page(Object.assign({}, debouncePageMixin, {
       this.setData({
         isLoading: false
       });
+      if (error && (error.message === 'UserCancelledLogin' || error.message === 'LoginPromptAlreadyOpen')) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        });
+        setTimeout(() => {
+          if (getCurrentPages().length > 1) {
+            wx.navigateBack();
+          } else {
+            wx.switchTab({ url: '/pages/profile/profile' });
+          }
+        }, 600);
+        return;
+      }
       wx.showToast({
         title: '加载失败',
         icon: 'none'

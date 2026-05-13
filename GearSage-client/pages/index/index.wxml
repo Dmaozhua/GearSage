@@ -1,6 +1,6 @@
 <custom-navbar
   id="custom-navbar"
-  title="GearSage"
+  title="钓识 GearSage"
   show-back="{{false}}"
   left-icon="/images/logo/GearSageLogo.png"
   left-icon-dark="/images/logo/GearSageLogo-w.png"
@@ -17,7 +17,7 @@
 <view class="home-tool-page {{containerClass}}" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
   <view class="home-header">
     <view class="home-brand">
-      <text class="home-brand__name">GearSage</text>
+      <text class="home-brand__name">钓识 GearSage</text>
       <text class="home-brand__subtitle">路亚装备资料库与经验交流</text>
     </view>
     <view class="home-search" bindtap="onHomeSearchTap">

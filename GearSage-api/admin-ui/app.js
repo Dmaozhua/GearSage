@@ -266,6 +266,13 @@ function getCommentStatusLabel(status, isVisible) {
   return String(status ?? '-');
 }
 
+function getUserStatusLabel(status) {
+  const normalized = Number(status || 0);
+  if (normalized === 0) return '正常';
+  if (normalized === 9) return '已封禁';
+  return String(status ?? '-');
+}
+
 function getReportStatusLabel(status) {
   const normalized = String(status || '').trim();
   if (normalized === 'pending') return '待处理';
@@ -388,6 +395,12 @@ function buildLogExtraSummary(extra = {}) {
   }
   if (extra.topicStatus !== undefined) {
     parts.push(`帖子状态：${getTopicStatusLabel(extra.topicStatus)}`);
+  }
+  if (extra.userStatus !== undefined) {
+    parts.push(`用户状态：${getUserStatusLabel(extra.userStatus)}`);
+  }
+  if (extra.previousStatus !== undefined) {
+    parts.push(`原用户状态：${getUserStatusLabel(extra.previousStatus)}`);
   }
   if (extra.isDelete !== undefined) {
     parts.push(`删除标记：${Number(extra.isDelete || 0) === 1 ? '已下架' : '未下架'}`);
@@ -576,6 +589,63 @@ function renderReportTopicBlock(topic) {
   `;
 }
 
+function renderReportUserBlock(user) {
+  if (!user) {
+    return '';
+  }
+
+  return `
+    <section class="drawer-section report-topic-summary">
+      <div class="report-topic-kicker">被举报用户 · ${escapeHtml(user.statusLabel || getUserStatusLabel(user.status))}</div>
+      <div class="report-topic-title">${escapeHtml(user.nickName || '未设置昵称')}</div>
+      <div class="report-topic-meta">
+        <span>用户 ID ${escapeHtml(user.id)}</span>
+        <span>手机号 ${escapeHtml(user.phone || '-')}</span>
+        <span>等级 ${escapeHtml(user.level || 1)}</span>
+        <span>积分 ${escapeHtml(user.points || 0)}</span>
+      </div>
+      <div class="report-topic-stats">
+        <span>发帖 ${escapeHtml(user.topicCount || 0)}</span>
+        <span>已发布 ${escapeHtml(user.publishedTopicCount || 0)}</span>
+        <span>待审核 ${escapeHtml(user.pendingTopicCount || 0)}</span>
+        <span>下架/驳回 ${escapeHtml(user.removedTopicCount || 0)}</span>
+        <span>评论 ${escapeHtml(user.commentCount || 0)}</span>
+        <span>收到举报 ${escapeHtml(user.receivedReportCount || 0)}</span>
+      </div>
+    </section>
+    ${renderKeyValueSection('被举报用户资料', [
+      { label: '昵称', value: user.nickName || '-' },
+      { label: '手机号', value: user.phone || '-' },
+      { label: '账号状态', value: user.statusLabel || getUserStatusLabel(user.status) },
+      { label: '用户 ID', value: user.id },
+      { label: '是否后台管理员', value: user.isAdmin ? '是' : '否' },
+      { label: '邀请码', value: user.inviteCode || '-' },
+      { label: '邀请人 ID', value: user.invitedByUserId || '-' },
+      { label: '成功邀请数', value: user.inviteSuccessCount || 0 },
+      { label: '邀请奖励积分', value: user.inviteRewardPoints || 0 },
+      { label: '创建时间', value: formatDateTime(user.createTime) },
+      { label: '更新时间', value: formatDateTime(user.updateTime) },
+    ])}
+    ${renderReadableRows('被举报用户简介', [
+      { label: '个人简介', value: user.bio || '未填写' },
+    ])}
+    ${renderKeyValueSection('被举报用户内容与举报统计', [
+      { label: '发帖总数', value: user.topicCount || 0 },
+      { label: '已发布帖子', value: user.publishedTopicCount || 0 },
+      { label: '待审核帖子', value: user.pendingTopicCount || 0 },
+      { label: '下架/驳回帖子', value: user.removedTopicCount || 0 },
+      { label: '评论总数', value: user.commentCount || 0 },
+      { label: '可见评论', value: user.visibleCommentCount || 0 },
+      { label: '收到举报总数', value: user.receivedReportCount || 0 },
+      { label: '待处理举报', value: user.pendingReportCount || 0 },
+    ])}
+    <section class="drawer-section">
+      <h4>用户图片</h4>
+      ${renderMediaPreview([user.avatarUrl, user.background].filter(Boolean))}
+    </section>
+  `;
+}
+
 function renderTopicDetail(data) {
   return `
     <section class="drawer-section report-topic-summary">
@@ -637,7 +707,7 @@ function renderUserDetail(data) {
       { label: '用户 ID', value: data.id },
       { label: '昵称', value: data.nickName || '-' },
       { label: '手机号', value: data.phone || '-' },
-      { label: '状态', value: data.status },
+      { label: '状态', value: getUserStatusLabel(data.status) },
       { label: '积分', value: data.points },
       { label: '帖子数', value: data.topicCount },
       { label: '评论数', value: data.commentCount },
@@ -664,6 +734,7 @@ function renderReportDetail(data) {
       { label: '处理时间', value: formatDateTime(data.handledAt) },
     ])}
     ${renderReportTopicBlock(data.targetTopic)}
+    ${renderReportUserBlock(data.targetUser)}
     ${renderJsonBlock('举报理由', data.reason || '')}
     ${renderJsonBlock('审核记录', data.moderationRecords || [])}
     ${renderJsonBlock('后台日志', data.adminLogs || [])}
@@ -947,6 +1018,18 @@ async function loadReports() {
             ].filter(Boolean).join(' / '),
           );
         }
+        if (row.targetUser) {
+          return makePrimaryCell(
+            row.targetUser.nickName || `用户 #${row.targetUser.id}`,
+            [
+              `手机号：${row.targetUser.phone || '-'}`,
+              `状态：${row.targetUser.statusLabel || getUserStatusLabel(row.targetUser.status)}`,
+              `发帖：${row.targetUser.topicCount || 0}`,
+              `评论：${row.targetUser.commentCount || 0}`,
+              `收到举报：${row.targetUser.receivedReportCount || 0}`,
+            ].join(' / '),
+          );
+        }
         return makePrimaryCell(row.targetContent || '-', row.targetType === 'comment' ? '评论正文' : '');
       },
     },
@@ -965,6 +1048,7 @@ async function loadReports() {
           <button class="secondary" data-report-detail="${row.id}">详情</button>
           ${String(row.status) === 'pending' && String(row.targetType) === 'comment' ? `<button class="danger" data-report-accept-comment="${row.id}">认可并隐藏评论</button>` : ''}
           ${String(row.status) === 'pending' && String(row.targetType) === 'topic' ? `<button class="danger" data-report-accept-topic="${row.id}">认可并下架帖子</button>` : ''}
+          ${String(row.status) === 'pending' && String(row.targetType) === 'user' ? `<button class="danger" data-report-accept-user="${row.id}">认可并封禁用户</button>` : ''}
           ${String(row.status) === 'pending' ? `<button class="success" data-report-handle="${row.id}">标记处理</button>` : ''}
           ${String(row.status) === 'pending' ? `<button class="warning" data-report-reject="${row.id}">驳回举报</button>` : ''}
         </div>
@@ -1249,6 +1333,15 @@ async function handleActionClick(event) {
         await request(`/admin/reports/${target.dataset.reportAcceptTopic}/accept-topic`, { method: 'POST', body: { remark } });
       });
       showMessage('举报已认可，帖子已下架');
+      await loadReports();
+      return;
+    }
+
+    if (target.dataset.reportAcceptUser) {
+      await withPromptAction('确认认可该举报，并封禁被举报用户？', async (remark) => {
+        await request(`/admin/reports/${target.dataset.reportAcceptUser}/accept-user`, { method: 'POST', body: { remark } });
+      });
+      showMessage('举报已认可，用户已封禁');
       await loadReports();
       return;
     }

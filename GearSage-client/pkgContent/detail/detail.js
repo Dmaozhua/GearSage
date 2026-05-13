@@ -19,7 +19,7 @@ const TOPIC_CATEGORY = {
 
 const TOPIC_CATEGORY_LABELS = {
   [TOPIC_CATEGORY.RECOMMEND]: '好物速报',
-  [TOPIC_CATEGORY.EXPERIENCE]: '长测评',
+  [TOPIC_CATEGORY.EXPERIENCE]: '装备经验',
   [TOPIC_CATEGORY.QUESTION]: '讨论提问',
   [TOPIC_CATEGORY.CATCH]: '鱼获展示',
   [TOPIC_CATEGORY.TRIP]: '钓行分享'
@@ -172,7 +172,7 @@ const RECOMMEND_FEEDBACK_SATISFACTION_OPTIONS = [
 ];
 
 const RECOMMEND_FEEDBACK_LONG_REVIEW_OPTIONS = [
-  { id: 'will_post', label: '之后会补长测评' },
+  { id: 'will_post', label: '之后会补装备经验' },
   { id: 'maybe', label: '可能会补' },
   { id: 'no_plan', label: '暂时不会' }
 ];
@@ -1077,7 +1077,7 @@ Page({
             pieces.push(`获赞 ${recommendAnswerLikeCount}`);
           }
         } else if (longReviewCount > 0) {
-          pieces.push(`长测评 ${longReviewCount}`);
+          pieces.push(`装备经验 ${longReviewCount}`);
         }
       } else {
         if (acceptedAnswerCount > 0) {
@@ -1087,7 +1087,7 @@ Page({
           pieces.push(`获赞 ${likeReceivedCount}`);
         }
         if (longReviewCount > 0) {
-          pieces.push(`长测评 ${longReviewCount}`);
+          pieces.push(`装备经验 ${longReviewCount}`);
         }
       }
 
@@ -1867,6 +1867,14 @@ Page({
         return;
       }
 
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
       if (!this.isCurrentUserTopicOwner()) {
         wx.showToast({
           title: '只有楼主可以采纳',
@@ -2552,6 +2560,15 @@ Page({
     },
 
     onLike: async function() {
+        // 检查登录状态
+        const AuthService = require('../../services/auth.js');
+        try {
+            await AuthService.ensureLogin();
+        } catch (error) {
+            console.log('用户取消登录');
+            return;
+        }
+
         if (!this.canCurrentPostLike()) {
             wx.showToast({
                 title: this.getLikeDisabledReason(),
@@ -2561,15 +2578,6 @@ Page({
         }
 
         if (this._topicLikePending) {
-            return;
-        }
-
-        // 检查登录状态
-        const AuthService = require('../../services/auth.js');
-        try {
-            await AuthService.ensureLogin();
-        } catch (error) {
-            console.log('用户取消登录');
             return;
         }
         
@@ -2807,14 +2815,6 @@ Page({
 
     // 评论相关功能
     async onShowCommentInput() {
-      if (!this.canCurrentPostComment()) {
-        wx.showToast({
-          title: this.getCommentDisabledReason(),
-          icon: 'none'
-        });
-        return;
-      }
-
       // 检查登录状态
       const AuthService = require('../../services/auth.js');
       try {
@@ -2823,12 +2823,28 @@ Page({
         console.log('用户取消登录');
         return;
       }
-      
+
+      if (!this.canCurrentPostComment()) {
+        wx.showToast({
+          title: this.getCommentDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
+
       console.log('显示评论输入框');
       this.openCommentEditor('normal');
     },
 
     async onShowRecommendAnswerInput() {
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
       if (!this.canCurrentPostComment()) {
         wx.showToast({
           title: this.getCommentDisabledReason(),
@@ -2845,6 +2861,10 @@ Page({
         return;
       }
 
+      this.openCommentEditor('recommend_answer');
+    },
+
+    async onShowRecommendFeedbackInput() {
       const AuthService = require('../../services/auth.js');
       try {
         await AuthService.ensureLogin();
@@ -2853,10 +2873,6 @@ Page({
         return;
       }
 
-      this.openCommentEditor('recommend_answer');
-    },
-
-    async onShowRecommendFeedbackInput() {
       if (!this.isRecommendQuestionTopic() || !this.isCurrentUserTopicOwner()) {
         wx.showToast({
           title: '只有楼主可以补反馈',
@@ -2870,14 +2886,6 @@ Page({
           title: '请先采纳一条回答',
           icon: 'none'
         });
-        return;
-      }
-
-      const AuthService = require('../../services/auth.js');
-      try {
-        await AuthService.ensureLogin();
-      } catch (error) {
-        console.log('用户取消登录');
         return;
       }
 
@@ -2912,6 +2920,14 @@ Page({
     },
 
     async onPublishComment() {
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
       if (!this.canCurrentPostComment()) {
         wx.showToast({
           title: this.getCommentDisabledReason(),
@@ -3167,7 +3183,7 @@ Page({
       }
     },
 
-    onReplyToComment(e) {
+    async onReplyToComment(e) {
       const commentId = e.currentTarget.dataset.commentId;
       const userId = e.currentTarget.dataset.userId;
       const username = e.currentTarget.dataset.username;
@@ -3176,6 +3192,22 @@ Page({
       console.log('回复评论 - userId:', userId);
       console.log('回复评论 - username:', username);
       console.log('回复评论 - dataset:', e.currentTarget.dataset);
+
+      const AuthService = require('../../services/auth.js');
+      try {
+        await AuthService.ensureLogin();
+      } catch (error) {
+        console.log('用户取消登录');
+        return;
+      }
+
+      if (!this.canCurrentPostComment()) {
+        wx.showToast({
+          title: this.getCommentDisabledReason(),
+          icon: 'none'
+        });
+        return;
+      }
       
       this.setData({
         showCommentInput: true,
@@ -3189,10 +3221,26 @@ Page({
       });
     },
 
-    onReplyComment(e) {
+    async onReplyComment(e) {
       const commentId = e.currentTarget.dataset.id;
       const comment = this.data.comments.find(c => c.id === commentId);
       if (comment) {
+        const AuthService = require('../../services/auth.js');
+        try {
+          await AuthService.ensureLogin();
+        } catch (error) {
+          console.log('用户取消登录');
+          return;
+        }
+
+        if (!this.canCurrentPostComment()) {
+          wx.showToast({
+            title: this.getCommentDisabledReason(),
+            icon: 'none'
+          });
+          return;
+        }
+
         this.setData({
           showCommentInput: true,
           commentEditorMode: 'normal',

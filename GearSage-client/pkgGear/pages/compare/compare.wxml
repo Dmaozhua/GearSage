@@ -192,7 +192,13 @@
         <view class="tech-compare-panel" wx:if="{{activeCompareTechInfo}}">
           <text class="tech-compare-panel__title">{{activeCompareTechInfo.name}}</text>
           <text class="tech-compare-panel__simple" wx:if="{{activeCompareTechInfo.simpleText}}">{{activeCompareTechInfo.simpleText}}</text>
-          <text class="tech-compare-panel__detail" wx:if="{{activeCompareTechInfo.detailText}}">{{activeCompareTechInfo.detailText}}</text>
+          <view class="tech-compare-panel__official" wx:if="{{activeCompareTechInfo.detailText}}">
+            <view class="tech-compare-panel__official-head" catchtap="toggleCompareTechOfficial">
+              <text class="tech-compare-panel__label">官网解释</text>
+              <text class="tech-compare-panel__official-toggle">{{activeCompareTechOfficialExpanded ? '收起' : '展开'}}</text>
+            </view>
+            <text class="tech-compare-panel__detail" wx:if="{{activeCompareTechOfficialExpanded}}">{{activeCompareTechInfo.detailText}}</text>
+          </view>
         </view>
       </view>
     </block>

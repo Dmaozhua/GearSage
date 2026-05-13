@@ -12,7 +12,7 @@ const TOPIC_CATEGORY = {
 
 const TOPIC_CATEGORY_LABELS = {
   [TOPIC_CATEGORY.RECOMMEND]: '好物速报',
-  [TOPIC_CATEGORY.EXPERIENCE]: '长测评',
+  [TOPIC_CATEGORY.EXPERIENCE]: '装备经验',
   [TOPIC_CATEGORY.QUESTION]: '讨论提问',
   [TOPIC_CATEGORY.CATCH]: '鱼获展示',
   [TOPIC_CATEGORY.TRIP]: '钓行分享'
@@ -179,7 +179,7 @@ const RECOMMEND_FEEDBACK_SATISFACTION_LABELS = {
 };
 
 const RECOMMEND_FEEDBACK_LONG_REVIEW_LABELS = {
-  will_post: '之后会补长测评',
+  will_post: '之后会补装备经验',
   maybe: '可能会补',
   no_plan: '暂时不会'
 };

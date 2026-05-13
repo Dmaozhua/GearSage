@@ -42,7 +42,11 @@ const getErrorMessage = (error) => {
   ];
 
   const message = candidates.find((item) => typeof item === 'string' && item.trim());
-  return message ? message.trim() : '';
+  const normalizedMessage = message ? message.trim() : '';
+  if (normalizedMessage === 'UserCancelledLogin' || normalizedMessage === 'LoginPromptAlreadyOpen') {
+    return '请先登录后上传图片';
+  }
+  return normalizedMessage;
 };
 
 const showUploadErrorToast = (message) => {
@@ -51,6 +55,11 @@ const showUploadErrorToast = (message) => {
     icon: 'none',
     duration: 2400
   });
+};
+
+const ensureUploadLogin = async () => {
+  const auth = require('../services/auth.js');
+  await auth.ensureLogin();
 };
 
 const getWxImageInfo = (src) => {
@@ -304,6 +313,8 @@ const uploadToBackend = async (filePath, prefix = 'posts') => {
     return normalizedInputPath;
   }
 
+  await ensureUploadLogin();
+
   const uploadFilePath = await resolveProcessableImagePath(normalizedInputPath);
   const normalizedPrefix = String(prefix || 'posts').toLowerCase();
   const endpointMap = {
@@ -370,6 +381,8 @@ const batchUploadImages = async (imagePaths, prefix = 'posts', options = {}) => 
   const uploadQueue = new UploadQueue(uploadOptions.maxConcurrent);
   const orderedFileIDs = new Array(imagePaths.length).fill(null);
   const failedMessages = [];
+
+  await ensureUploadLogin();
 
   const tasks = imagePaths.map((item, index) => {
     return uploadQueue.add(async () => {

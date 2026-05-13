@@ -56,7 +56,7 @@ const GROUP_ORDER = ['identity', 'fun', 'behavior', 'official'];
 
 const TOPIC_META = [
   { key: 'recommend', label: '好物速报', topicCategory: TOPIC_CATEGORY.RECOMMEND },
-  { key: 'experience', label: '长测评', topicCategory: TOPIC_CATEGORY.EXPERIENCE },
+  { key: 'experience', label: '装备经验', topicCategory: TOPIC_CATEGORY.EXPERIENCE },
   { key: 'question', label: '讨论&提问', topicCategory: TOPIC_CATEGORY.QUESTION },
   { key: 'catch', label: '鱼获展示', topicCategory: TOPIC_CATEGORY.CATCH },
   { key: 'trip', label: '钓行分享', topicCategory: TOPIC_CATEGORY.TRIP }

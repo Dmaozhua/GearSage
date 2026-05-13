@@ -5,7 +5,7 @@ const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = req
 
 const TOPIC_CATEGORY_LABELS = {
   0: '好物速报',
-  1: '长测评',
+  1: '装备经验',
   2: '讨论&提问',
   3: '鱼获展示',
   4: '钓行分享'
@@ -99,6 +99,7 @@ Page({
     notFound: false,
     userId: 0,
     profile: null,
+    isReported: false,
     identitySummary: '',
     summaryStats: [],
     recentTopics: [],
@@ -160,6 +161,7 @@ Page({
         loading: false,
         notFound: false,
         profile: resolvedProfile,
+        isReported: Boolean(payload.isReported || this.isTargetReported('user', userId)),
         identitySummary: this.buildIdentitySummary(stats),
         summaryStats: this.buildSummaryStats(stats),
         recentTopics: this.buildRecentTopics(payload.recentTopics),
@@ -199,6 +201,12 @@ Page({
       return;
     }
 
+    if (this.isTargetReported('user', targetId)) {
+      this.setData({ isReported: true });
+      this.showReportedProcessingNotice();
+      return;
+    }
+
     wx.showModal({
       title: '举报用户',
       editable: true,
@@ -224,19 +232,90 @@ Page({
             targetId,
             reason,
           });
+          this.cacheReportStatus('user', targetId);
           wx.hideLoading();
+          this.setData({ isReported: true });
           wx.showToast({
             title: '举报已提交',
             icon: 'success',
           });
         } catch (error) {
           wx.hideLoading();
+          const message = api.getErrorMessage(error, '提交失败');
+          if (message.includes('已举报')) {
+            this.cacheReportStatus('user', targetId);
+            this.setData({ isReported: true });
+            this.showReportedProcessingNotice();
+            return;
+          }
           wx.showToast({
-            title: api.getErrorMessage(error, '提交失败'),
+            title: message,
             icon: 'none',
           });
         }
       },
+    });
+  },
+
+  getCurrentUserId() {
+    try {
+      const userInfo = wx.getStorageSync('userInfo') || {};
+      return String(userInfo.id || userInfo.userId || '').trim();
+    } catch (error) {
+      console.warn('[user-profile] getCurrentUserId failed:', error);
+      return '';
+    }
+  },
+
+  getReportCacheKey() {
+    const userId = this.getCurrentUserId();
+    return `reportCache_${userId || 'guest'}`;
+  },
+
+  buildReportCacheId(targetType, targetId) {
+    const normalizedType = String(targetType || '').trim();
+    const normalizedId = String(targetId || '').trim();
+    return normalizedType && normalizedId ? `${normalizedType}:${normalizedId}` : '';
+  },
+
+  isTargetReported(targetType, targetId) {
+    try {
+      const cacheId = this.buildReportCacheId(targetType, targetId);
+      if (!cacheId) {
+        return false;
+      }
+
+      const cache = wx.getStorageSync(this.getReportCacheKey()) || {};
+      return Boolean(cache[cacheId]);
+    } catch (error) {
+      console.warn('[user-profile] read report cache failed:', error);
+      return false;
+    }
+  },
+
+  cacheReportStatus(targetType, targetId) {
+    try {
+      const cacheId = this.buildReportCacheId(targetType, targetId);
+      if (!cacheId) {
+        return;
+      }
+
+      const cacheKey = this.getReportCacheKey();
+      const cache = wx.getStorageSync(cacheKey) || {};
+      cache[cacheId] = {
+        reported: true,
+        ts: Date.now(),
+      };
+      wx.setStorageSync(cacheKey, cache);
+    } catch (error) {
+      console.warn('[user-profile] write report cache failed:', error);
+    }
+  },
+
+  showReportedProcessingNotice() {
+    wx.showToast({
+      title: '后台正在处理举报信息',
+      icon: 'none',
     });
   },
 
@@ -288,7 +367,7 @@ Page({
       pieces.push(`回答获赞 ${recommendAnswerLikeCount}`);
     }
     if (longReviewCount > 0) {
-      pieces.push(`发布过 ${longReviewCount} 篇长测评`);
+      pieces.push(`发布过 ${longReviewCount} 篇装备经验`);
     }
 
     return pieces.join(' · ');

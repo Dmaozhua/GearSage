@@ -495,6 +495,9 @@ Page({
       this.setData({
         showNetworkLoading: false
       });
+      if (error && error.message === 'UserCancelledLogin') {
+        return;
+      }
       wx.showToast({
         title: error.message || '登录失败',
         icon: 'none'

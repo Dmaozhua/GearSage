@@ -114,6 +114,11 @@ page {
   line-height: 1.6;
 }
 
+.profile-report-btn--reported {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(247, 251, 255, 0.58);
+}
+
 .section-card {
   padding: 26rpx 24rpx;
   margin-bottom: 18rpx;

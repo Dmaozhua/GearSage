@@ -245,20 +245,22 @@
     </view>
 
     <view class="related-section">
-      <view class="related-title">相关推荐</view>
+      <view class="related-title">相关发布</view>
 
-      <view class="related-tabs">
-        <view
-          class="related-tab-item {{currentRelatedTab === index ? 'active' : ''}}"
-          wx:for="{{relatedTabs}}"
-          wx:key="id"
-          bindtap="onRelatedTabChange"
-          data-index="{{index}}"
-        >
-          {{item.label}}
-          <view class="active-bar" wx:if="{{currentRelatedTab === index}}"></view>
+      <scroll-view scroll-x class="related-tabs" show-scrollbar="{{false}}">
+        <view class="related-tabs__inner">
+          <view
+            class="related-tab-item {{currentRelatedTab === index ? 'active' : ''}}"
+            wx:for="{{relatedTabs}}"
+            wx:key="id"
+            bindtap="onRelatedTabChange"
+            data-index="{{index}}"
+          >
+            {{item.label}}
+            <view class="active-bar" wx:if="{{currentRelatedTab === index}}"></view>
+          </view>
         </view>
-      </view>
+      </scroll-view>
 
       <view class="related-content">
         <block wx:if="{{relatedPosts[relatedTabs[currentRelatedTab].id] && relatedPosts[relatedTabs[currentRelatedTab].id].length > 0}}">

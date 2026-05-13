@@ -68,6 +68,7 @@ Page({
     differentTechGroups: [],
     activeCompareTechKey: '',
     activeCompareTechInfo: null,
+    activeCompareTechOfficialExpanded: false,
     specSections: [],
     showAllSpecs: false,
     fieldLabels: {
@@ -432,8 +433,29 @@ Page({
   getScopedCompareItems(type) {
     const compareType = this.normalizeGearType(type || this.data.compareType);
     const items = this.getCompareItems();
-    if (!compareType) return items;
+    if (!compareType) return [];
     return items.filter((item) => item && item.gearType === compareType);
+  },
+
+  resolveInitialCompareType(items = []) {
+    const normalizedItems = this.normalizeCompareItems(items);
+    const groupMeta = normalizedItems.reduce((acc, item) => {
+      const gearType = this.normalizeGearType(item && item.gearType);
+      if (!gearType) return acc;
+      if (!acc[gearType]) {
+        acc[gearType] = { gearType, count: 0, latestAddedAt: 0 };
+      }
+      acc[gearType].count += 1;
+      acc[gearType].latestAddedAt = Math.max(acc[gearType].latestAddedAt, Number(item.addedAt || 0));
+      return acc;
+    }, {});
+
+    const [firstGroup] = Object.values(groupMeta).sort((a, b) => {
+      if (b.count !== a.count) return b.count - a.count;
+      return b.latestAddedAt - a.latestAddedAt;
+    });
+
+    return firstGroup ? firstGroup.gearType : '';
   },
 
   saveScopedCompareItems(type, scopedItems) {
@@ -706,7 +728,13 @@ Page({
   async loadCompareData() {
     this.setData({ isLoading: true });
 
-    const compareItems = this.getScopedCompareItems(this.data.compareType).slice(0, 3);
+    const allCompareItems = this.getCompareItems();
+    const requestedType = this.normalizeGearType(this.data.compareType);
+    const compareType = requestedType || this.resolveInitialCompareType(allCompareItems);
+    const compareItems = (compareType
+      ? allCompareItems.filter((item) => item && item.gearType === compareType)
+      : []
+    ).slice(0, 3);
     if (!compareItems.length) {
       this.setData({
         isLoading: false,
@@ -723,14 +751,14 @@ Page({
         differentTechGroups: [],
         activeCompareTechKey: '',
         activeCompareTechInfo: null,
+        activeCompareTechOfficialExpanded: false,
         specSections: [],
-        compareType: '',
-        compareTitle: '装备对比'
+        compareType,
+        compareTitle: this.resolveCompareTitle(compareType)
       });
       return;
     }
 
-    const compareType = this.normalizeText(this.data.compareType || compareItems[0].gearType) || 'reels';
     const compareCards = (await Promise.all(compareItems.map((item) => this.hydrateCompareCard(item)))).filter(Boolean);
     const warnings = this.buildCompareWarnings(compareCards);
     const coreRows = this.buildCompareRows(CORE_FIELDS_BY_TYPE[compareType] || [], compareCards);
@@ -754,6 +782,7 @@ Page({
       differentTechGroups: techComparison.differentTechGroups,
       activeCompareTechKey: '',
       activeCompareTechInfo: null,
+      activeCompareTechOfficialExpanded: false,
       specSections,
       compareType,
       compareTitle: this.resolveCompareTitle(compareType)
@@ -779,7 +808,15 @@ Page({
     }
     this.setData({
       activeCompareTechKey: nextKey,
-      activeCompareTechInfo
+      activeCompareTechInfo,
+      activeCompareTechOfficialExpanded: false
+    });
+  },
+
+  toggleCompareTechOfficial() {
+    if (!this.data.activeCompareTechInfo || !this.data.activeCompareTechInfo.detailText) return;
+    this.setData({
+      activeCompareTechOfficialExpanded: !this.data.activeCompareTechOfficialExpanded
     });
   },
 
@@ -833,7 +870,15 @@ Page({
     });
   },
 
-  onGoRecommend() {
+  async onGoRecommend() {
+    const AuthService = require('../../../services/auth.js');
+    try {
+      await AuthService.ensureLogin();
+    } catch (error) {
+      console.log('用户取消登录');
+      return;
+    }
+
     if (this.data.compareCards.length < 2) {
       wx.showToast({
         title: '至少 2 个候选再去求推荐',

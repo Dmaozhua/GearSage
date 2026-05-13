@@ -132,6 +132,17 @@ Page({
       return;
     }
 
+    const auth = require('../../services/auth.js');
+    try {
+      await auth.ensureLogin();
+    } catch (error) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     let cached = null;
     try {
       cached = wx.getStorageSync(TOPIC_PREVIEW_STORAGE_KEY);
