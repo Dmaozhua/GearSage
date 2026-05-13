@@ -137,7 +137,7 @@ const SHEET_NAMES = {
 const HEADERS = {
     reelMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'fit_style_tags', 'type', 'images', 'pronunciation_audio_url', 'created_at', 'updated_at',
+        'type_tips', 'fit_style_tags', 'type', 'images', 'image_display_status', 'pronunciation_audio_url', 'created_at', 'updated_at',
         'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
         'Description', 'market_reference_price', 'player_positioning', 'player_selling_points',
     ],
@@ -172,7 +172,7 @@ const HEADERS = {
     ],
     rodMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'fit_style_tags', 'images', 'pronunciation_audio_url', 'created_at', 'updated_at',
+        'type_tips', 'fit_style_tags', 'images', 'image_display_status', 'pronunciation_audio_url', 'created_at', 'updated_at',
         'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
         'Description', 'player_positioning', 'player_selling_points',
     ],
@@ -190,7 +190,7 @@ const HEADERS = {
     ],
     lureMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'system', 'water_column', 'action', 'images', 'created_at', 'updated_at', 'description',
+        'type_tips', 'system', 'water_column', 'action', 'images', 'image_display_status', 'created_at', 'updated_at', 'description',
     ],
     hardbaitLureDetail: [
         'id', 'lure_id', 'SKU', 'WEIGHT', 'length', 'size', 'sinkingspeed', 'referenceprice',
@@ -214,7 +214,7 @@ const HEADERS = {
     ],
     lineMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'images', 'created_at', 'updated_at', 'description',
+        'type_tips', 'images', 'image_display_status', 'created_at', 'updated_at', 'description',
     ],
     lineDetail: [
         'id', 'line_id', 'SKU', 'COLOR', 'LENGTH(m)', 'SIZE NO.', 'MAX STRENGTH(lb)',
@@ -223,7 +223,7 @@ const HEADERS = {
     ],
     hookMaster: [
         'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
-        'type_tips', 'images', 'created_at', 'updated_at', 'description',
+        'type_tips', 'images', 'image_display_status', 'created_at', 'updated_at', 'description',
     ],
     hookDetail: [
         'id', 'hookId', 'brand', 'sku', 'type', 'subType', 'gapWidth', 'coating',

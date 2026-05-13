@@ -35,6 +35,7 @@ const MASTER_MERGE_POLICIES = {
             'model_year',
             'alias',
             'images',
+            'image_display_status',
             'type_tips',
             'fit_style_tags',
             'series_positioning',
@@ -56,6 +57,7 @@ const MASTER_MERGE_POLICIES = {
             'type_tips',
             'fit_style_tags',
             'images',
+            'image_display_status',
             'series_positioning',
             'main_selling_points',
             'official_reference_price',
@@ -472,7 +474,7 @@ function mergeMasterSlice(rows, incomingRows, matchField, prefix, policy, option
 
         policy.importPriority.forEach((field) => {
             const incomingValue = normalizeText(incoming[field]);
-            if (incomingValue !== '') {
+            if (incomingValue !== '' || field === 'image_display_status') {
                 merged[field] = incoming[field];
             }
         });

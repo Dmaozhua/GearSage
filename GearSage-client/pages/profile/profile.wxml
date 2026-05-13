@@ -32,8 +32,8 @@
   <view class="quick-menu legal-public-card" wx:if="{{!loading && !isLoggedIn}}">
     <view class="legal-menu-section">
       <view class="legal-menu-header">
-        <text class="legal-menu-title">协议与合规说明</text>
-        <text class="legal-menu-subtitle">未登录也可以查看提审所需制度页面</text>
+        <text class="legal-menu-title">协议与规则</text>
+        <text class="legal-menu-subtitle">平台规则、隐私与账号相关说明</text>
       </view>
       <view
         class="legal-menu-item"
@@ -164,8 +164,8 @@
 
         <view class="legal-menu-section">
           <view class="legal-menu-header">
-            <text class="legal-menu-title">协议与合规说明</text>
-            <text class="legal-menu-subtitle">提审必备制度页面，可随时查看</text>
+            <text class="legal-menu-title">协议与规则</text>
+            <text class="legal-menu-subtitle">平台规则、隐私与账号相关说明</text>
           </view>
           <view
             class="legal-menu-item"
