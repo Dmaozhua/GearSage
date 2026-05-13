@@ -22,7 +22,7 @@
     </view>
     <view class="home-search" bindtap="onHomeSearchTap">
       <view class="home-search__icon"></view>
-      <text class="home-search__placeholder">搜索装备 / 型号 / SKU / 品牌</text>
+      <text class="home-search__placeholder">搜索装备 / 简称</text>
     </view>
   </view>
 
