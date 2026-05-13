@@ -82,6 +82,18 @@ page {
   background: linear-gradient(180deg, #30363a 0%, #262b2f 100%);
 }
 
+.detail-image-notice {
+  display: block;
+  margin-top: -12rpx;
+  font-size: 22rpx;
+  line-height: 1.55;
+  color: #879197;
+}
+
+.container.dark .detail-image-notice {
+  color: #8f9ba1;
+}
+
 .detail-info {
   display: flex;
   flex-direction: column;
@@ -578,6 +590,14 @@ page {
   gap: 8rpx;
 }
 
+.tech-term-panel__official-head {
+  min-height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
 .tech-term-panel__summary {
   padding: 16rpx;
   border-radius: 14rpx;
@@ -603,6 +623,20 @@ page {
   background: transparent;
   padding: 0;
   border-radius: 0;
+}
+
+.tech-term-panel__official-toggle {
+  flex: 0 0 auto;
+  min-height: 34rpx;
+  padding: 0 14rpx;
+  border-radius: 999rpx;
+  display: inline-flex;
+  align-items: center;
+  font-size: 19rpx;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #2f6280;
+  background: #e4edf0;
 }
 
 .tech-term-panel__simple,
@@ -654,6 +688,11 @@ page {
 .container.dark .tech-term-panel__label--muted {
   color: #9fb0b5;
   background: transparent;
+}
+
+.container.dark .tech-term-panel__official-toggle {
+  color: #d7edf5;
+  background: #2f4b58;
 }
 
 .container.dark .tech-term-panel__simple {

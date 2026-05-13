@@ -3,6 +3,11 @@ const app = getApp();
 const apiService = require('../../../services/api');
 const { techGlossary: reelTechGlossary } = require('../../utils/官网解释_text_simple');
 const { techGlossary: rodTechGlossary } = require('../../utils/官网解释_text_simple_rod');
+const {
+  GEAR_IMAGE_NOTICE,
+  GEAR_IMAGE_PLACEHOLDER,
+  HIDDEN_IMAGE_STATUS
+} = require('../../../constants/gear-image');
 
 const COMPARE_STORAGE_KEY = 'gear_compare_pool_v1';
 const MAX_COMPARE_ITEMS = 3;
@@ -294,6 +299,7 @@ Page({
     navBarHeight: 0,
     title: '装备详情',
     item: {},
+    gearImageNotice: GEAR_IMAGE_NOTICE,
     columns: [],
     gearType: '',
     isDarkMode: false,
@@ -435,6 +441,7 @@ Page({
       'Market Reference Price', 'brand_id', 'reel_id', 'rod_id',
       'lure_id', 'line_id', 'hookId', 'id', '_id', '_openid', 'images', 'model',
       'model_cn', 'model_year', 'type', 'description', 'Description', 'pronunciation_audio_url',
+      'image_display_status', 'imageDisplayStatus', 'imageUrl',
       'official_specs', 'gsc_traits', 'compare_profile',
       '__key', '__displayName', '__secondaryLabel', '__displayValues'
     ],
@@ -454,6 +461,7 @@ Page({
     loadingRelated: false,
     activeTechTooltipKey: '',
     activeTechTermInfo: null,
+    isTechOfficialExpanded: false,
     pronunciationAudioState: 'idle',
     isLoading: true
   },
@@ -515,6 +523,50 @@ Page({
 
   normalizeText(value) {
     return String(value || '').trim();
+  },
+
+  isHiddenImageStatus(item = {}) {
+    const status = this.normalizeText(item.image_display_status || item.imageDisplayStatus).toLowerCase();
+    return status === HIDDEN_IMAGE_STATUS;
+  },
+
+  normalizeDetailImageList(value) {
+    if (!value) {
+      return [];
+    }
+    if (Array.isArray(value)) {
+      return value.map(image => this.normalizeText(image)).filter(Boolean);
+    }
+
+    const text = this.normalizeText(value);
+    if (!text) {
+      return [];
+    }
+
+    if (text.startsWith('[')) {
+      try {
+        const parsed = JSON.parse(text);
+        return Array.isArray(parsed) ? parsed.map(image => this.normalizeText(image)).filter(Boolean) : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    return text.split(',').map(image => image.trim()).filter(Boolean);
+  },
+
+  normalizeDetailImage(item = {}) {
+    if (this.isHiddenImageStatus(item)) {
+      return GEAR_IMAGE_PLACEHOLDER;
+    }
+
+    const images = this.normalizeDetailImageList(item.images);
+    const firstImage = images[0] || this.normalizeText(item.imageUrl);
+    if (!firstImage || firstImage === '/images/default-gear.png') {
+      return GEAR_IMAGE_PLACEHOLDER;
+    }
+
+    return firstImage;
   },
 
   hasValue(value) {
@@ -1079,8 +1131,7 @@ Page({
         if (item.model_cn) detailName = `${detailName} ${item.model_cn}`;
       }
 
-      const images = Array.isArray(item.images) ? item.images : [];
-      const mainImage = images[0] || item.imageUrl || '/images/empty.png';
+      const mainImage = this.normalizeDetailImage(item);
       const variants = this.decorateVariants(item.variants || []);
       const selectedVariantKey = this.normalizeText(variantKey) || (variants[0] ? variants[0].__key : '');
       const viewState = this.buildDetailViewState(item, variants, selectedVariantKey);
@@ -1133,6 +1184,7 @@ Page({
       isVariantDescriptionExpanded: false,
       activeTechTooltipKey: '',
       activeTechTermInfo: null,
+      isTechOfficialExpanded: false,
       ...viewState
     });
 
@@ -1210,7 +1262,15 @@ Page({
       : null;
     this.setData({
       activeTechTooltipKey: nextKey,
-      activeTechTermInfo
+      activeTechTermInfo,
+      isTechOfficialExpanded: false
+    });
+  },
+
+  toggleTechOfficial() {
+    if (!this.data.activeTechTermInfo || !this.data.activeTechTermInfo.detailText) return;
+    this.setData({
+      isTechOfficialExpanded: !this.data.isTechOfficialExpanded
     });
   },
 
@@ -1218,7 +1278,8 @@ Page({
     if (!this.data.activeTechTooltipKey) return;
     this.setData({
       activeTechTooltipKey: '',
-      activeTechTermInfo: null
+      activeTechTermInfo: null,
+      isTechOfficialExpanded: false
     });
   },
 

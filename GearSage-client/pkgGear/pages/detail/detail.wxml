@@ -32,9 +32,10 @@
     <view class="detail-header">
       <image
         class="detail-image"
-        src="{{item.mainImage || '/images/empty.png'}}"
+        src="{{item.mainImage}}"
         mode="aspectFit"
       ></image>
+      <text class="detail-image-notice">{{gearImageNotice}}</text>
       <view class="detail-info">
         <text class="detail-brand">{{item.brand_name}}</text>
         <view class="detail-name-row">
@@ -174,8 +175,11 @@
           <text class="tech-term-panel__simple">{{activeTechTermInfo.simpleText}}</text>
         </view>
         <view class="tech-term-panel__official" wx:if="{{activeTechTermInfo.detailText}}">
-          <text class="tech-term-panel__label tech-term-panel__label--muted">官网解释</text>
-          <text class="tech-term-panel__detail">{{activeTechTermInfo.detailText}}</text>
+          <view class="tech-term-panel__official-head" catchtap="toggleTechOfficial">
+            <text class="tech-term-panel__label tech-term-panel__label--muted">官网解释</text>
+            <text class="tech-term-panel__official-toggle">{{isTechOfficialExpanded ? '收起' : '展开'}}</text>
+          </view>
+          <text class="tech-term-panel__detail" wx:if="{{isTechOfficialExpanded}}">{{activeTechTermInfo.detailText}}</text>
         </view>
       </view>
     </view>
