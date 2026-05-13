@@ -167,6 +167,8 @@ npm run import:gear
 - `npm run import:gear` 同时会重建：
   - `GearSage-client/pkgGear/searchData/Data.js`
 - gear 接口会优先读取 PostgreSQL，未导入时才回退 Excel
+- `is_show=0` 的装备不会从品牌、列表、搜索数据或详情接口向客户端展示
+- `image_display_status=hidden` 的装备会保留商品展示，但接口图片统一回退为 `/images/empty.png`
 
 ---
 

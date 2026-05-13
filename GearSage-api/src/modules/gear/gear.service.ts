@@ -9,6 +9,8 @@ type GearType = 'reels' | 'rods' | 'lures' | 'lines' | 'hooks';
 type GearKind = 'reel' | 'rod' | 'lure' | 'line' | 'hook';
 const STATIC_GEAR_IMAGE_BASE_URL = 'https://static.gearsage.club/gearsage/Gearimg/images';
 const DEFAULT_GEAR_DATA_ROOT = '/Users/tommy/GearSage-data';
+const CLIENT_GEAR_IMAGE_PLACEHOLDER = '/images/empty.png';
+const HIDDEN_IMAGE_DISPLAY_STATUS = 'hidden';
 
 interface GearListQuery {
   type?: string;
@@ -534,14 +536,16 @@ export class GearService {
 
   private formatMasterItem(item: any, brandsMap: Record<string, any>, type: GearType) {
     const brand = brandsMap[this.normalizeText(item.brand_id)] || null;
-    const images = this.normalizeImages(item.images);
+    const images = this.shouldHideGearImage(item)
+      ? [CLIENT_GEAR_IMAGE_PLACEHOLDER]
+      : this.normalizeImages(item.images);
     return {
       ...item,
       id: this.normalizeText(item.id),
       brand_id: item.brand_id,
       brand_name: brand?.name || '',
       images,
-      imageUrl: images[0] || '/images/default-gear.png',
+      imageUrl: images[0] || CLIENT_GEAR_IMAGE_PLACEHOLDER,
       displayName: this.buildDisplayName(item),
       official_specs: this.buildOfficialSpecs(type, item, 'master'),
       gsc_traits: this.buildGscTraits(type, item, null),
@@ -698,7 +702,7 @@ export class GearService {
 
     const mapped = list.map((item) => this.mapGearImage(item)).filter(Boolean);
 
-    return mapped.length ? mapped : ['/images/default-gear.png'];
+    return mapped.length ? mapped : [CLIENT_GEAR_IMAGE_PLACEHOLDER];
   }
 
   private mapGearImage(input: string) {
@@ -726,7 +730,7 @@ export class GearService {
       return `/rate/webp/${fileName}`;
     }
 
-    return '/images/default-gear.png';
+    return CLIENT_GEAR_IMAGE_PLACEHOLDER;
   }
 
   private mapPkgGearImageToStaticUrl(input: string) {
@@ -851,6 +855,11 @@ export class GearService {
       'official_specs',
       'gsc_traits',
       'compare_profile',
+      'is_show',
+      'isShow',
+      'image_display_status',
+      'imageDisplayStatus',
+      'imageUrl',
       'images',
       'brand_id',
       'reel_id',
@@ -1087,11 +1096,19 @@ export class GearService {
     return text === '0' ? 0 : 1;
   }
 
+  private shouldHideGearImage(item: Record<string, any> | null | undefined) {
+    if (!item) {
+      return true;
+    }
+    const status = this.normalizeText(item.image_display_status || item.imageDisplayStatus).toLowerCase();
+    return status === HIDDEN_IMAGE_DISPLAY_STATUS;
+  }
+
   private isVisibleItem(item: Record<string, any> | null | undefined) {
     if (!item) {
       return false;
     }
-    return this.normalizeVisibilityFlag(item.is_show) === 1;
+    return this.normalizeVisibilityFlag(item.is_show ?? item.isShow) === 1;
   }
 
   private collectFitStyleTags(

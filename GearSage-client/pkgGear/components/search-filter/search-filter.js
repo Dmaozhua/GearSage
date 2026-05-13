@@ -1,5 +1,4 @@
 const app = getApp();
-const searchData = require('../../searchData/Data.js');
 const defData = require('../../searchData/defData.js');
 const { getRecommendationCoverage } = require('../../utils/gearSearchIndex');
 
@@ -74,6 +73,10 @@ Component({
       observer(newVal) {
         this.setData({ searchText: String(newVal || '') });
       }
+    },
+    suggestionItems: {
+      type: Array,
+      value: []
     }
   },
 
@@ -323,16 +326,14 @@ Component({
         }
 
         const tokens = keyword.split(/\s+/);
-        
-        // Find matches in both names and aliases
         const matches = new Set();
-        const typeItems = searchData.filter(item => item.type === this.data.mappedType);
+        const sourceItems = this.buildSuggestionItems(this.properties.suggestionItems);
         
-        for (const item of typeItems) {
+        for (const item of sourceItems) {
             // Optimization: stop if we have enough unique suggestions
             if (matches.size >= 20) break;
 
-            const name = item.name;
+            const name = item.name || '';
             const alias = item.alias || '';
             const typeTips = item.type_tips || '';
             const lowerName = name.toLowerCase();
@@ -364,6 +365,16 @@ Component({
           showSuggestions: suggestions.length > 0
         });
       }, 180);
+    },
+
+    buildSuggestionItems(items = []) {
+      return (Array.isArray(items) ? items : [])
+        .map((item) => ({
+          name: String(item.displayName || item.name || item.model || item.model_cn || item.searchIndexName || '').trim(),
+          alias: String(item.alias || item.searchAlias || '').trim(),
+          type_tips: String(item.type_tips || item.searchTypeTips || '').trim()
+        }))
+        .filter((item) => item.name || item.alias || item.type_tips);
     },
 
     selectSuggestion(e) {

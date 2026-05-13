@@ -587,7 +587,7 @@ Page({
 
     getHomeShareConfig() {
         return {
-            title: 'GearSage｜装备资料查询、参数对比与经验交流',
+            title: '钓识｜GearSage｜装备资料查询、参数对比与经验交流',
             path: '/pages/index/index',
             imageUrl: '/images/share.png'
         };
@@ -3140,7 +3140,7 @@ Page({
         
         // 可以在这里处理分享逻辑
         return {
-            title: title || 'GearSage - 装备资料查询与经验交流',
+            title: title || '钓识｜GearSage - 装备资料查询与经验交流',
             path: path || '/pages/index/index'
         };
     },

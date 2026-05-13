@@ -734,6 +734,12 @@ wx.cloud.callFunction({
 
 历史云函数 `miniApi` 曾提供装备库 action；当前装备列表与详情页主链路已切到独立后台 `/mini/gear/*`，下方云函数段落仅保留历史兼容说明。
 
+### 8.0 独立后台 `/mini/gear/*` 当前约束
+
+- `GET /mini/gear/brands`、`GET /mini/gear/list`、`GET /mini/gear/detail` 均只对 `is_show=1` 的装备开放；`is_show=0` 的装备不得出现在品牌筛选、列表、搜索结果、详情直达或对比详情回读中。
+- `image_display_status=hidden` 的装备仍可展示主商品，但接口返回的 `images` / `imageUrl` 必须使用 `/images/empty.png` 占位图，不向客户端暴露真实主图。
+- 小程序侧仍按统一包络 `{ code, message, data }` 处理独立后台返回。
+
 ### 8.1 CloudFunction miniApi action=gear.search
 
 - 方法：CloudFunction

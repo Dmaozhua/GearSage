@@ -8,6 +8,7 @@
       type="{{currentType}}" 
       brand-options="{{brandOptions}}"
       initial-search-text="{{searchKeyword}}"
+      suggestion-items="{{allList}}"
       bind:search="onSearch" 
       bind:filter="onFilter"
     ></search-filter>
