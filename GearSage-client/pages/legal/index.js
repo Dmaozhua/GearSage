@@ -1,3 +1,5 @@
+const { PRODUCT_ABOUT_ENTRY } = require('../../constants/product-about.js');
+
 const CONTACT = {
   email: 'support@gearsage.example',
   wechat: 'GearSageSupport',
@@ -222,7 +224,7 @@ const LEGAL_CONTENT = {
       {
         title: 'GearSage 是什么',
         paragraphs: [
-          'GearSage 是面向路亚钓友的装备经验与选择辅助小程序，关注真实使用经验、装备对比和求推荐场景。',
+          PRODUCT_ABOUT_ENTRY.brief,
           '我们希望用长期、具体、可复盘的经验，帮助钓友更稳妥地判断装备是否适合自己的预算、目标鱼、作钓水域和使用习惯。'
         ]
       },

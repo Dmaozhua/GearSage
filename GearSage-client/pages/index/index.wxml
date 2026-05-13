@@ -38,6 +38,17 @@
     </view>
   </view>
 
+  <view class="home-about-entry" bindtap="onProductAboutTap">
+    <view class="home-about-entry__main">
+      <text class="home-about-entry__title">{{productAboutEntry.title}}</text>
+      <text class="home-about-entry__brief">{{productAboutEntry.brief}}</text>
+    </view>
+    <view class="home-about-entry__action">
+      <text>{{productAboutEntry.actionText}}</text>
+      <text class="home-about-entry__arrow">›</text>
+    </view>
+  </view>
+
   <function-nav
     id="functionNav"
     show-title="{{false}}"

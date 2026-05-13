@@ -17,6 +17,10 @@ const viewMeta = {
     title: '举报处理',
     subtitle: '查看用户举报，处理帖子、评论和用户相关投诉。',
   },
+  'gear-feedback': {
+    title: '装备反馈',
+    subtitle: '审核用户提交的装备库资料错误、补充信息与权利问题反馈。',
+  },
   users: {
     title: '用户管理',
     subtitle: '处理封禁、解封与用户基础状态查看。',
@@ -276,6 +280,7 @@ function getReportTargetLabel(targetType) {
   if (normalized === 'comment') return '评论';
   if (normalized === 'user') return '用户';
   if (normalized === 'report') return '举报';
+  if (normalized === 'gear_feedback') return '装备反馈';
   if (normalized === 'moderation_rule') return '关键词规则';
   return normalized || '-';
 }
@@ -293,6 +298,8 @@ function getAdminActionMeta(action) {
     report_accept: ['认可举报', '举报成立，并联动处理被举报对象'],
     report_handle: ['标记举报已处理', '举报已人工处理但未联动下架对象'],
     report_reject: ['驳回举报', '举报不成立或无需处理'],
+    gear_feedback_handle: ['处理装备反馈', '装备库反馈已人工核查处理'],
+    gear_feedback_reject: ['驳回装备反馈', '装备库反馈无效或暂不处理'],
     user_ban: ['封禁用户', '用户被禁止继续正常使用'],
     user_unban: ['解封用户', '用户恢复正常状态'],
     rule_create: ['新增关键词规则', '后台新增内容审核关键词'],
@@ -359,6 +366,16 @@ function buildLogExtraSummary(extra = {}) {
   }
   if (extra.reportId) {
     parts.push(`关联举报：#${extra.reportId}`);
+  }
+  if (extra.gearType || extra.masterId || extra.variantId) {
+    parts.push([
+      extra.gearType ? `装备类别：${extra.gearType}` : '',
+      extra.masterId ? `主 ID：${extra.masterId}` : '',
+      extra.variantId ? `子型号：${extra.variantId}` : '',
+    ].filter(Boolean).join(' / '));
+  }
+  if (extra.feedbackType) {
+    parts.push(`反馈类型：${extra.feedbackType}`);
   }
   if (extra.topicId) {
     parts.push(`所属帖子：#${extra.topicId}`);
@@ -653,7 +670,132 @@ function renderReportDetail(data) {
   `;
 }
 
+function getGearFeedbackStatusLabel(status) {
+  return getReportStatusLabel(status);
+}
+
+function renderGearFeedbackUserIdentity(data) {
+  const parts = [
+    data.userName || '匿名用户',
+    data.userId ? `用户ID ${data.userId}` : '',
+    data.userPhone ? `手机号 ${data.userPhone}` : '',
+  ].filter(Boolean);
+
+  return parts.join(' · ');
+}
+
+function renderGearFeedbackChips(items = []) {
+  return items
+    .filter((item) => item && item.value)
+    .map((item) => `
+      <span class="gear-feedback-chip ${item.tone ? `gear-feedback-chip--${escapeAttr(item.tone)}` : ''}">
+        ${escapeHtml(item.label ? `${item.label}：${item.value}` : item.value)}
+      </span>
+    `)
+    .join('');
+}
+
+function renderGearFeedbackLocator(rows = []) {
+  const normalized = rows.filter((row) => row && row.value !== undefined && row.value !== null && row.value !== '');
+  if (!normalized.length) {
+    return '';
+  }
+
+  return `
+    <section class="drawer-section gear-feedback-locator">
+      <div class="gear-feedback-section-head">
+        <h4>装备定位与修正线索</h4>
+        <span>后台使用，便于回到装备库数据源核查</span>
+      </div>
+      <div class="gear-feedback-locator-grid">
+        ${normalized.map((row) => `
+          <div class="gear-feedback-locator-item ${row.strong ? 'gear-feedback-locator-item--strong' : ''}">
+            <div class="gear-feedback-locator-label">${escapeHtml(row.label)}</div>
+            <div class="gear-feedback-locator-value">${escapeHtml(row.value)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function renderGearFeedbackDetail(data) {
+  const gear = data.gear || {};
+  const variant = data.variant || {};
+  const masterSnapshot = (data.extra && data.extra.master) || {};
+  const gearName = gear.name || masterSnapshot.displayName || [gear.brandName || masterSnapshot.brandName, gear.model || masterSnapshot.model, gear.modelCn || masterSnapshot.modelCn]
+    .map((item) => String(item || '').trim())
+    .filter(Boolean)
+    .join(' ');
+  const fieldName = data.fieldLabel || data.fieldKey || '整体资料';
+  const variantDisplay = [
+    variant.sku ? `SKU ${variant.sku}` : '',
+    variant.variantId ? `variantId ${variant.variantId}` : '',
+    variant.sourceKey ? `sourceKey ${variant.sourceKey}` : '',
+  ].filter(Boolean).join(' / ');
+
+  return `
+    <section class="drawer-section gear-feedback-hero">
+      <div>
+        <div class="gear-feedback-kicker">装备资料反馈 #${escapeHtml(data.id)}</div>
+        <div class="gear-feedback-title">${escapeHtml(gearName || '未匹配装备名称')}</div>
+        <div class="gear-feedback-subtitle">
+          ${escapeHtml(data.gearTypeLabel || data.gearType || '-')}
+          ${fieldName ? ` · ${escapeHtml(fieldName)}` : ''}
+        </div>
+      </div>
+      <div class="gear-feedback-chip-row">
+        ${renderGearFeedbackChips([
+          { label: '状态', value: getGearFeedbackStatusLabel(data.status), tone: 'status' },
+          { label: '类型', value: data.feedbackType || '-' },
+          { label: '提交', value: formatDateTime(data.createTime) },
+        ])}
+      </div>
+    </section>
+
+    <section class="drawer-section gear-feedback-card">
+      <div class="gear-feedback-section-head">
+        <h4>用户反馈内容</h4>
+        <span>${escapeHtml(renderGearFeedbackUserIdentity(data))}</span>
+      </div>
+      <div class="gear-feedback-body">${escapeHtml(data.content || '-')}</div>
+      <div class="gear-feedback-signal-row">
+        <span>系统审核：${escapeHtml(data.moderationResult || '-')}</span>
+        <span>风险原因：${escapeHtml(data.moderationRiskReason || '-')}</span>
+        ${data.handledRemark ? `<span>处理备注：${escapeHtml(data.handledRemark)}</span>` : ''}
+      </div>
+    </section>
+
+    ${renderGearFeedbackLocator([
+      { label: '装备类别', value: data.gearTypeLabel || data.gearType || '-', strong: true },
+      { label: 'masterId', value: data.masterId || '-', strong: true },
+      { label: 'variantId', value: data.variantId || '' },
+      { label: '装备名称', value: gearName || '-' },
+      { label: '品牌', value: gear.brandName || masterSnapshot.brandName || '-' },
+      { label: '型号', value: gear.model || masterSnapshot.model || '-' },
+      { label: '中文型号', value: gear.modelCn || masterSnapshot.modelCn || '-' },
+      { label: '年份', value: gear.modelYear || masterSnapshot.modelYear || '-' },
+      { label: '匹配子型号', value: variantDisplay },
+      { label: 'variant sourceKey', value: variant.sourceKey || '' },
+      { label: 'variant gearId', value: variant.gearId || '' },
+    ])}
+
+    <section class="drawer-section">
+      <h4>反馈图片</h4>
+      ${renderMediaPreview(data.images || [])}
+    </section>
+    ${renderJsonBlock('装备原始数据', gear.rawJson || null)}
+    ${renderJsonBlock('子型号原始数据', variant.rawJson || null)}
+    ${renderJsonBlock('审核记录', data.moderationRecords || [])}
+    ${renderJsonBlock('后台日志', data.adminLogs || [])}
+  `;
+}
+
 function renderDrawerContent(data) {
+  if (data && Object.prototype.hasOwnProperty.call(data, 'feedbackType') && Object.prototype.hasOwnProperty.call(data, 'masterId')) {
+    return renderGearFeedbackDetail(data);
+  }
+
   if (data && Array.isArray(data.moderationRecords) && Array.isArray(data.adminLogs) && Object.prototype.hasOwnProperty.call(data, 'images')) {
     return renderTopicDetail(data);
   }
@@ -831,6 +973,62 @@ async function loadReports() {
   ], list);
 }
 
+async function loadGearFeedback() {
+  const status = document.getElementById('gear-feedback-status').value;
+  const gearType = document.getElementById('gear-feedback-type').value;
+  const feedbackType = document.getElementById('gear-feedback-feedback-type').value;
+  const list = await request(
+    `/admin/gear-feedback?status=${encodeURIComponent(status)}&gearType=${encodeURIComponent(gearType)}&feedbackType=${encodeURIComponent(feedbackType)}&limit=50`,
+  );
+
+  renderTable('gear-feedback-table', [
+    {
+      label: '反馈',
+      render: (row) => makePrimaryCell(
+        `#${row.id} ${row.feedbackType || '-'}`,
+        [
+          `提交人：${row.userName || '-'}`,
+          row.userId ? `用户ID：${row.userId}` : '',
+          row.userPhone ? `手机号：${row.userPhone}` : '',
+          `状态：${getGearFeedbackStatusLabel(row.status)}`,
+        ].filter(Boolean).join(' / '),
+      ),
+    },
+    {
+      label: '装备定位',
+      render: (row) => makePrimaryCell(
+        row.gear && row.gear.name ? row.gear.name : `${row.gearTypeLabel || row.gearType || '-'} ${row.masterId || '-'}`,
+        [
+          `${row.gearTypeLabel || row.gearType || '-'} / masterId：${row.masterId || '-'}`,
+          row.variantId ? `variantId：${row.variantId}` : '',
+          row.fieldLabel ? `字段：${row.fieldLabel}` : '',
+        ].filter(Boolean).join(' / '),
+      ),
+    },
+    {
+      label: '内容',
+      render: (row) => makePrimaryCell(
+        row.content || '-',
+        `${row.moderationProvider || '-'} / ${row.moderationRiskReason || '-'}`,
+      ),
+    },
+    {
+      label: '时间',
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), row.handledAt ? `处理：${formatDateTime(row.handledAt)}` : ''),
+    },
+    {
+      label: '操作',
+      render: (row) => `
+        <div class="action-row">
+          <button class="secondary" data-gear-feedback-detail="${row.id}">详情</button>
+          ${String(row.status) === 'pending' ? `<button class="success" data-gear-feedback-handle="${row.id}">标记处理</button>` : ''}
+          ${String(row.status) === 'pending' ? `<button class="warning" data-gear-feedback-reject="${row.id}">驳回反馈</button>` : ''}
+        </div>
+      `,
+    },
+  ], list);
+}
+
 async function loadLogs() {
   const targetType = document.getElementById('logs-target-type').value.trim();
   const action = document.getElementById('logs-action').value.trim();
@@ -891,6 +1089,8 @@ async function loadActiveView() {
       await loadComments();
     } else if (state.activeView === 'reports') {
       await loadReports();
+    } else if (state.activeView === 'gear-feedback') {
+      await loadGearFeedback();
     } else if (state.activeView === 'users') {
       await loadUsers();
     } else if (state.activeView === 'logs') {
@@ -936,6 +1136,12 @@ async function handleActionClick(event) {
     if (target.dataset.reportDetail) {
       const data = await request(`/admin/reports/${target.dataset.reportDetail}`);
       openDrawer(`举报详情 #${target.dataset.reportDetail}`, data);
+      return;
+    }
+
+    if (target.dataset.gearFeedbackDetail) {
+      const data = await request(`/admin/gear-feedback/${target.dataset.gearFeedbackDetail}`);
+      openDrawer(`装备反馈 #${target.dataset.gearFeedbackDetail}`, data);
       return;
     }
 
@@ -1056,6 +1262,24 @@ async function handleActionClick(event) {
       return;
     }
 
+    if (target.dataset.gearFeedbackHandle) {
+      await withPromptAction('确认该装备反馈已处理？', async (remark) => {
+        await request(`/admin/gear-feedback/${target.dataset.gearFeedbackHandle}/handle`, { method: 'POST', body: { remark } });
+      });
+      showMessage('装备反馈已处理');
+      await loadGearFeedback();
+      return;
+    }
+
+    if (target.dataset.gearFeedbackReject) {
+      await withPromptAction('确认驳回该装备反馈？', async (remark) => {
+        await request(`/admin/gear-feedback/${target.dataset.gearFeedbackReject}/reject`, { method: 'POST', body: { remark } });
+      });
+      showMessage('装备反馈已驳回');
+      await loadGearFeedback();
+      return;
+    }
+
     if (target.dataset.ruleDelete) {
       if (!window.confirm('确认删除该规则？')) {
         return;
@@ -1153,6 +1377,7 @@ document.getElementById('topics-search').addEventListener('click', loadTopics);
 document.getElementById('comments-search').addEventListener('click', loadComments);
 document.getElementById('users-search').addEventListener('click', loadUsers);
 document.getElementById('reports-search').addEventListener('click', loadReports);
+document.getElementById('gear-feedback-search').addEventListener('click', loadGearFeedback);
 document.getElementById('logs-search').addEventListener('click', loadLogs);
 document.getElementById('rule-create').addEventListener('click', createRule);
 document.body.addEventListener('click', handleActionClick);

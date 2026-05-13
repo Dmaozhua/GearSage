@@ -1638,6 +1638,73 @@ Page({
     });
   },
 
+  buildFeedbackFieldOptions() {
+    const options = [{ key: '', label: '整体资料' }];
+    const seen = new Set(['']);
+    const pushOption = (key, label) => {
+      const normalizedKey = this.normalizeText(key);
+      const normalizedLabel = this.normalizeText(label) || normalizedKey || '整体资料';
+      const dedupeKey = normalizedKey || normalizedLabel;
+      if (!dedupeKey || seen.has(dedupeKey)) return;
+      seen.add(dedupeKey);
+      options.push({
+        key: normalizedKey,
+        label: normalizedLabel
+      });
+    };
+
+    (this.data.coreSpecs || []).forEach((spec) => pushOption(spec.key, spec.label));
+    (this.data.specSections || []).forEach((section) => {
+      (section.items || []).forEach((spec) => pushOption(spec.key, spec.label));
+    });
+
+    pushOption('image', '图片');
+    pushOption('technical_note', '技术说明');
+    pushOption('variant_missing', '型号/子型号');
+    pushOption('rights', '权利问题');
+    pushOption('other', '其他字段');
+
+    return options.slice(0, 80);
+  },
+
+  onOpenFeedback() {
+    const { item, selectedVariant, gearType } = this.data;
+    const masterId = this.normalizeText(item && item.id);
+    if (!gearType || !masterId) {
+      wx.showToast({
+        title: '暂时无法定位这件装备',
+        icon: 'none'
+      });
+      return;
+    }
+
+    const variantId = this.normalizeText(
+      selectedVariant && (
+        selectedVariant.variantId ||
+        selectedVariant.id ||
+        selectedVariant.SKU ||
+        selectedVariant.sku ||
+        selectedVariant.__key
+      )
+    );
+    const detailName = this.normalizeText(item.detailName || item.displayName || item.model);
+    const brandName = this.normalizeText(item.brand_name);
+
+    wx.setStorageSync('gear_feedback_context_v1', {
+      gearType,
+      masterId,
+      variantId,
+      variantLabel: this.normalizeText(selectedVariant && selectedVariant.__displayName),
+      gearName: [brandName, detailName].filter(Boolean).join(' '),
+      brandName,
+      fieldOptions: this.buildFeedbackFieldOptions()
+    });
+
+    wx.navigateTo({
+      url: '/pkgGear/pages/feedback/feedback'
+    });
+  },
+
   generateDynamicColumns(variants, item = {}) {
     if (!variants || variants.length === 0) return [];
 

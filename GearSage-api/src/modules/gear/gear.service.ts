@@ -274,10 +274,11 @@ export class GearService {
       const variantResult = await this.databaseService.query<{
         sourceKey: string;
         gearId: string;
+        variantId: string;
         raw_json: Record<string, any>;
       }>(
         `
-          SELECT "sourceKey", "gearId", raw_json
+          SELECT "sourceKey", "gearId", "variantId", raw_json
           FROM gear_variants
           WHERE kind = $1
           ORDER BY "gearId" ASC
@@ -297,7 +298,7 @@ export class GearService {
     masters: any[],
     brands: any[],
     brandsMap: Record<string, any>,
-    variants: Array<{ sourceKey: string; gearId: string; raw_json: Record<string, any> }>,
+    variants: Array<{ sourceKey: string; gearId: string; variantId: string; raw_json: Record<string, any> }>,
   ): GearCache {
       const reels = type === 'reels' ? masters : [];
       const rods = type === 'rods' ? masters : [];
@@ -312,7 +313,12 @@ export class GearService {
       const hookDetails: any[] = [];
 
     for (const variant of variants) {
-      const raw = this.hydrateVariantRow(variant.raw_json);
+      const raw = {
+        ...this.hydrateVariantRow(variant.raw_json),
+        sourceKey: this.normalizeText(variant.sourceKey),
+        gearId: this.normalizeText(variant.gearId),
+        variantId: this.normalizeText(variant.variantId),
+      };
       if (type === 'reels') {
         const key = this.normalizeText(variant.sourceKey);
         const bucket = reelDetails[key] || [];

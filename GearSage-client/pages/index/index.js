@@ -5,6 +5,7 @@ const AuthService = require('../../services/auth.js');
 const tempUrlManager = require('../../utils/tempUrlManager.js');
 const { formatRichTextContent, parseRichTextPayload } = require('../../utils/richTextFormatter.js');
 const tagConfig = require('../../components/post-Evaluation/gearSageTagConfig.js');
+const { PRODUCT_ABOUT_ENTRY } = require('../../constants/product-about.js');
 
 const HOME_FEED_CACHE_KEY = 'home_feed_cache_v2';
 const HOME_FEED_CACHE_TTL = 5 * 60 * 1000; // 5分钟兜底缓存
@@ -230,6 +231,7 @@ Page({
 	        currentTextColor: '#000000', // 当前文字颜色
 	        functionNavHeight: 0, // 功能导航区域高度
 	        homeFunctionList: HOME_FUNCTION_LIST,
+	        productAboutEntry: PRODUCT_ABOUT_ENTRY,
 	        homePreviewLoading: false,
 	        recentGearList: [],
 	        latestRecommendList: [],
@@ -440,6 +442,20 @@ Page({
 	            url: '/pages/gear-tab/index',
 	            fail: () => {
 	                wx.navigateTo({ url: '/pkgGear/pages/index/index' });
+	            }
+	        });
+	    },
+
+	    onProductAboutTap() {
+	        wx.navigateTo({
+	            url: PRODUCT_ABOUT_ENTRY.path,
+	            fail: () => {
+	                wx.showModal({
+	                    title: PRODUCT_ABOUT_ENTRY.title,
+	                    content: PRODUCT_ABOUT_ENTRY.brief,
+	                    showCancel: false,
+	                    confirmText: PRODUCT_ABOUT_ENTRY.modalConfirmText
+	                });
 	            }
 	        });
 	    },

@@ -295,6 +295,14 @@
       </view>
     </view>
 
+    <view class="gear-feedback-entry" bindtap="onOpenFeedback">
+      <view class="gear-feedback-entry__copy">
+        <text class="gear-feedback-entry__title">发现资料错误 / 补充信息 / 权利问题反馈</text>
+        <text class="gear-feedback-entry__desc">用于更正参数、图片、说明或权利问题，不会公开显示。</text>
+      </view>
+      <text class="gear-feedback-entry__arrow">›</text>
+    </view>
+
     <view class="recommend-entry">
       <view class="recommend-entry__copy">
         <text class="recommend-entry__title">拿不准？</text>

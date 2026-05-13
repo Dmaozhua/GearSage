@@ -9,6 +9,8 @@ import { JwtAuthGuard } from './common/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from './common/optional-jwt-auth.guard';
 import { AdminAuthController } from './modules/admin/admin-auth.controller';
 import { AdminAuthService } from './modules/admin/admin-auth.service';
+import { AdminGearFeedbackController } from './modules/admin/admin-gear-feedback.controller';
+import { AdminGearFeedbackService } from './modules/admin/admin-gear-feedback.service';
 import { AdminLogController } from './modules/admin/admin-log.controller';
 import { AdminLogService } from './modules/admin/admin-log.service';
 import { AdminReportController } from './modules/admin/admin-report.controller';
@@ -27,6 +29,8 @@ import { CommentController } from './modules/comment/comment.controller';
 import { CommentService } from './modules/comment/comment.service';
 import { GearController } from './modules/gear/gear.controller';
 import { GearService } from './modules/gear/gear.service';
+import { GearFeedbackController } from './modules/gear-feedback/gear-feedback.controller';
+import { GearFeedbackService } from './modules/gear-feedback/gear-feedback.service';
 import { GoodsController } from './modules/goods/goods.controller';
 import { InviteController } from './modules/invite/invite.controller';
 import { TaskController } from './modules/task/task.controller';
@@ -57,6 +61,7 @@ import { ReportService } from './modules/report/report.service';
   controllers: [
     AppController,
     AdminAuthController,
+    AdminGearFeedbackController,
     AdminReviewController,
     AdminUserController,
     AdminLogController,
@@ -70,6 +75,7 @@ import { ReportService } from './modules/report/report.service';
     TagController,
     GoodsController,
     GearController,
+    GearFeedbackController,
     TaskController,
     InviteController,
     MessageController,
@@ -82,6 +88,7 @@ import { ReportService } from './modules/report/report.service';
     JwtAuthGuard,
     OptionalJwtAuthGuard,
     AdminAuthService,
+    AdminGearFeedbackService,
     AdminReviewService,
     AdminUserService,
     AdminLogService,
@@ -95,6 +102,7 @@ import { ReportService } from './modules/report/report.service';
     CommentService,
     UploadService,
     GearService,
+    GearFeedbackService,
     TagService,
     TaskService,
     ModerationService,

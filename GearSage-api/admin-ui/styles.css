@@ -244,6 +244,10 @@ button.success {
   grid-template-columns: 1fr 1fr auto;
 }
 
+.toolbar--gear-feedback {
+  grid-template-columns: 160px 160px 200px auto;
+}
+
 .table-shell {
   background: var(--card);
   border: 1px solid var(--line);
@@ -406,6 +410,123 @@ tr:last-child td {
   background: #eef4fb;
   color: #44556d;
   font-size: 12px;
+}
+
+.gear-feedback-hero,
+.gear-feedback-card,
+.gear-feedback-locator {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #f7faf8;
+}
+
+.gear-feedback-hero {
+  display: grid;
+  gap: 16px;
+}
+
+.gear-feedback-kicker {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.gear-feedback-title {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.gear-feedback-subtitle {
+  margin-top: 8px;
+  color: #516760;
+  font-size: 13px;
+}
+
+.gear-feedback-chip-row,
+.gear-feedback-signal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gear-feedback-chip,
+.gear-feedback-signal-row span {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #eaf1ee;
+  color: #3f5c54;
+  font-size: 12px;
+}
+
+.gear-feedback-chip--status {
+  background: #eaf1ff;
+  color: #2e5f9f;
+}
+
+.gear-feedback-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.gear-feedback-section-head h4 {
+  margin: 0;
+}
+
+.gear-feedback-section-head span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.gear-feedback-body {
+  padding: 14px 16px;
+  border-left: 3px solid #2d4a40;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.gear-feedback-signal-row {
+  margin-top: 12px;
+}
+
+.gear-feedback-locator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.gear-feedback-locator-item {
+  padding: 11px 12px;
+  border: 1px solid rgba(70, 91, 82, 0.14);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.gear-feedback-locator-item--strong {
+  border-color: rgba(45, 74, 64, 0.28);
+  background: #f1f6f3;
+}
+
+.gear-feedback-locator-label {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.gear-feedback-locator-value {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.45;
+  word-break: break-word;
 }
 
 .readable-section {

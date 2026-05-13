@@ -11,6 +11,7 @@ export type ModerationScene =
   | 'topic_content'
   | 'comment_content'
   | 'report_reason'
+  | 'gear_feedback_content'
   | 'avatar_image'
   | 'background_image'
   | 'topic_image';

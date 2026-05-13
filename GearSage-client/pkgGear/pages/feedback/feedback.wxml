@@ -1,0 +1,49 @@
+<custom-navbar title="装备资料反馈" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
+
+<view class="feedback-page" style="padding-top: {{navBarHeight}}px;">
+  <view class="gear-summary">
+    <text class="gear-summary__label">反馈对象</text>
+    <text class="gear-summary__name">{{context.gearName || '装备资料'}}</text>
+    <view class="gear-summary__meta">
+      <text>{{gearTypeLabel}}</text>
+      <text>资料反馈</text>
+    </view>
+  </view>
+
+  <view class="form-section">
+    <view class="form-field">
+      <text class="field-label">具体字段</text>
+      <picker mode="selector" range="{{fieldOptions}}" range-key="label" value="{{fieldIndex}}" bindchange="onFieldChange">
+        <view class="picker-value">{{selectedField.label}}</view>
+      </picker>
+    </view>
+
+    <view class="form-field">
+      <text class="field-label">反馈类型</text>
+      <picker mode="selector" range="{{feedbackTypes}}" value="{{feedbackTypeIndex}}" bindchange="onFeedbackTypeChange">
+        <view class="picker-value">{{feedbackTypes[feedbackTypeIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-field">
+      <text class="field-label">简述</text>
+      <textarea class="content-input" value="{{content}}" maxlength="800" placeholder="请说明哪里不准确、希望补充什么信息，或具体权利问题。" bindinput="onContentInput"></textarea>
+      <text class="count-text">{{content.length}}/800</text>
+    </view>
+
+    <view class="form-field">
+      <view class="image-head">
+        <text class="field-label">图片（可选）</text>
+        <button class="image-button" bindtap="onChooseImages" disabled="{{submitting || images.length >= 6}}">添加图片</button>
+      </view>
+      <view class="image-list" wx:if="{{images.length > 0}}">
+        <view class="image-item" wx:for="{{images}}" wx:key="*this" data-index="{{index}}" bindtap="onPreviewImage">
+          <image src="{{item}}" mode="aspectFill"></image>
+          <text class="image-remove" catchtap="onRemoveImage" data-index="{{index}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="submit-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="onSubmit">提交反馈</button>
+</view>

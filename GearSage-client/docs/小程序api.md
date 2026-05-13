@@ -202,6 +202,78 @@ wx.cloud.callFunction({
 - 是否需要后台登录：是
 - 用途：驳回无效举报并写入后台日志
 
+## 1-B. P3-A 装备库资料反馈接口
+
+### 1-B.1 POST /mini/gear/feedback
+
+- 方法：POST
+- 路径：`/mini/gear/feedback`
+- 是否需要登录：是
+- 用途：装备详情页提交资料错误、补充信息、图片问题、技术说明错误、型号缺失、权利问题等反馈。
+- 请求参数：
+  - `gearType: "reels" | "rods" | "lures" | "line" | "hook"`，兼容 `lines/hooks`
+  - `masterId: string`
+  - `variantId?: string`
+  - `fieldKey?: string`
+  - `fieldLabel?: string`
+  - `feedbackType: "参数错误" | "图片问题" | "技术说明错误" | "型号缺失" | "权利问题" | "其他"`
+  - `content: string`，最长 800 字
+  - `images?: string[]`，最多 6 张，图片 URL 由现有上传接口返回
+- 隐私口径：
+  - 小程序反馈页不展示 `masterId / variantId` 等内部定位字段
+  - 不采集用户联系方式；后台如需核查，只使用站内用户身份与装备定位字段
+- 审核口径：
+  - `content` 走 `gear_feedback_content` 文本审核
+  - 命中 `REJECT / REVIEW` 时阻断提交
+  - 通过后写入 `gear_feedback`
+  - 审核留痕写入 `moderation_records`
+- 返回结构：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "id": 1,
+    "status": "pending",
+    "createTime": "2026-05-13T07:18:50.000Z"
+  }
+}
+```
+
+### 1-B.2 GET /admin/gear-feedback
+
+- 方法：GET
+- 路径：`/admin/gear-feedback`
+- 是否需要后台登录：是
+- 用途：审核后台查看装备库资料反馈
+- 查询参数：
+  - `status?: "pending" | "handled" | "rejected" | "all"`
+  - `gearType?: "reels" | "rods" | "lures" | "line" | "hook" | "all"`
+  - `feedbackType?: "参数错误" | "图片问题" | "技术说明错误" | "型号缺失" | "权利问题" | "其他" | "all"`
+  - `limit?: number`
+
+### 1-B.3 GET /admin/gear-feedback/:id
+
+- 方法：GET
+- 路径：`/admin/gear-feedback/:id`
+- 是否需要后台登录：是
+- 用途：查看装备反馈详情、装备定位信息、审核记录与后台日志。
+
+### 1-B.4 POST /admin/gear-feedback/:id/handle
+
+- 方法：POST
+- 路径：`/admin/gear-feedback/:id/handle`
+- 是否需要后台登录：是
+- 用途：标记装备反馈已处理并写入后台日志。
+
+### 1-B.5 POST /admin/gear-feedback/:id/reject
+
+- 方法：POST
+- 路径：`/admin/gear-feedback/:id/reject`
+- 是否需要后台登录：是
+- 用途：驳回无效装备反馈并写入后台日志。
+
 ## 2. 邀请
 
 ### 2.1 POST /mini/invite/bind
@@ -660,7 +732,7 @@ wx.cloud.callFunction({
 
 ## 8. 装备库（gear，直接 action 调用）
 
-以下接口存在于云函数 `miniApi`，但当前未在 `CLOUD_ACTION_MAP` 映射为 `/mini/*`，小程序侧主要在装备详情页直接 `callFunction` 使用。
+历史云函数 `miniApi` 曾提供装备库 action；当前装备列表与详情页主链路已切到独立后台 `/mini/gear/*`，下方云函数段落仅保留历史兼容说明。
 
 ### 8.1 CloudFunction miniApi action=gear.search
 
