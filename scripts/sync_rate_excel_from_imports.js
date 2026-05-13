@@ -31,6 +31,7 @@ const MASTER_MERGE_POLICIES = {
     reel: {
         strict: ['id', 'brand_id', 'type'],
         importPriority: [
+            'is_show',
             'model',
             'model_year',
             'alias',
@@ -45,12 +46,13 @@ const MASTER_MERGE_POLICIES = {
             'Description',
             'product_technical',
         ],
-        finalPriority: ['is_show'],
+        finalPriority: [],
         fillOnly: ['model_cn', 'player_positioning', 'player_selling_points'],
     },
     rod: {
         strict: ['id', 'brand_id'],
         importPriority: [
+            'is_show',
             'model',
             'model_year',
             'alias',
@@ -65,7 +67,7 @@ const MASTER_MERGE_POLICIES = {
             'Description',
         ],
         importPriorityIfNonBlank: ['player_positioning', 'player_selling_points'],
-        finalPriority: ['is_show'],
+        finalPriority: [],
         fillOnly: ['model_cn'],
     },
 };
@@ -296,6 +298,9 @@ function ensureHeaders(row, header) {
     header.forEach((key) => {
         output[key] = row[key] === undefined ? '' : row[key];
     });
+    if (header.includes('is_show') && normalizeText(output.is_show) === '') {
+        output.is_show = 1;
+    }
     return output;
 }
 

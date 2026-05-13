@@ -136,7 +136,7 @@ const SHEET_NAMES = {
 
 const HEADERS = {
     reelMaster: [
-        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'id', 'is_show', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'fit_style_tags', 'type', 'images', 'image_display_status', 'pronunciation_audio_url', 'created_at', 'updated_at',
         'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
         'Description', 'market_reference_price', 'player_positioning', 'player_selling_points',
@@ -171,7 +171,7 @@ const HEADERS = {
         'main_gear_size', 'minor_gear_material', 'player_environment', 'is_handle_double',
     ],
     rodMaster: [
-        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'id', 'is_show', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'fit_style_tags', 'images', 'image_display_status', 'pronunciation_audio_url', 'created_at', 'updated_at',
         'series_positioning', 'main_selling_points', 'official_reference_price', 'market_status',
         'Description', 'player_positioning', 'player_selling_points',
@@ -189,7 +189,7 @@ const HEADERS = {
         'Description', 'product_technical', 'Extra Spec 1', 'Extra Spec 2',
     ],
     lureMaster: [
-        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'id', 'is_show', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'system', 'water_column', 'action', 'images', 'image_display_status', 'created_at', 'updated_at', 'description',
     ],
     hardbaitLureDetail: [
@@ -213,7 +213,7 @@ const HEADERS = {
         'created_at', 'updated_at', 'COLOR', 'AdminCode', 'hook_size', 'depth', 'action', 'subname', 'other.1',
     ],
     lineMaster: [
-        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'id', 'is_show', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'images', 'image_display_status', 'created_at', 'updated_at', 'description',
     ],
     lineDetail: [
@@ -222,7 +222,7 @@ const HEADERS = {
         'AdminCode', 'created_at', 'updated_at',
     ],
     hookMaster: [
-        'id', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
+        'id', 'is_show', 'brand_id', 'model', 'model_cn', 'model_year', 'alias',
         'type_tips', 'images', 'image_display_status', 'created_at', 'updated_at', 'description',
     ],
     hookDetail: [
