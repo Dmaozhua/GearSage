@@ -1,0 +1,122 @@
+<custom-navbar title="帮我选装备" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
+
+<scroll-view scroll-y class="selection-page {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <view class="selection-inner">
+    <view class="selection-header">
+      <text class="selection-title">从需求生成候选路线</text>
+      <text class="selection-subtitle">先把预算、场景和基础规格收敛成几条选择分支，再去看详情、对比或发求推荐。</text>
+    </view>
+
+    <view class="guide-panel">
+      <view class="field-row">
+        <text class="field-label">柄型</text>
+        <view class="segmented">
+          <view class="segment {{form.rodType === 'casting' ? 'active' : ''}}" data-field="rodType" data-value="casting" bindtap="onSelectSingle">枪柄</view>
+          <view class="segment {{form.rodType === 'spinning' ? 'active' : ''}}" data-field="rodType" data-value="spinning" bindtap="onSelectSingle">直柄</view>
+        </view>
+      </view>
+
+      <view class="field-grid">
+        <view class="field-row field-row--inline">
+          <text class="field-label">硬度</text>
+          <input class="field-input" data-field="power" value="{{form.power}}" maxlength="8" bindinput="onInput" />
+        </view>
+        <view class="field-row field-row--inline">
+          <text class="field-label">预算上限</text>
+          <input class="field-input" data-field="budgetMax" value="{{form.budgetMax}}" type="number" maxlength="8" bindinput="onInput" />
+        </view>
+      </view>
+
+      <view class="field-row">
+        <text class="field-label">目标鱼</text>
+        <view class="chip-row">
+          <view wx:for="{{targetFishOptions}}" wx:key="value" class="chip {{item.active ? 'active' : ''}}" data-field="targetFish" data-value="{{item.value}}" data-max="3" bindtap="onToggleMulti">{{item.label}}</view>
+        </view>
+      </view>
+
+      <view class="field-row">
+        <text class="field-label">场景</text>
+        <view class="chip-row">
+          <view wx:for="{{useSceneOptions}}" wx:key="value" class="chip {{item.active ? 'active' : ''}}" data-field="useScene" data-value="{{item.value}}" data-max="2" bindtap="onToggleMulti">{{item.label}}</view>
+        </view>
+      </view>
+
+      <view class="field-row">
+        <text class="field-label">玩法倾向</text>
+        <view class="chip-row">
+          <view wx:for="{{techniqueOptions}}" wx:key="value" class="chip {{item.active ? 'active' : ''}}" data-field="technique" data-value="{{item.value}}" data-max="2" bindtap="onToggleMulti">{{item.label}}</view>
+        </view>
+      </view>
+
+      <view class="field-row">
+        <text class="field-label">更在意</text>
+        <view class="chip-row">
+          <view wx:for="{{carePriorityOptions}}" wx:key="value" class="chip {{item.active ? 'active' : ''}}" data-field="carePriorities" data-value="{{item.value}}" data-max="3" bindtap="onToggleMulti">{{item.label}}</view>
+        </view>
+      </view>
+
+      <button class="generate-button" loading="{{isLoading}}" bindtap="onGenerate">生成选择分支</button>
+    </view>
+
+    <view wx:if="{{isLoading}}" class="loading-box">
+      <svg-loading spinning="{{true}}" text="正在匹配装备库..." size="medium" show-text="{{true}}"></svg-loading>
+    </view>
+
+    <view wx:if="{{!isLoading && emptyReason}}" class="empty-box">
+      <text class="empty-title">暂时没有足够匹配</text>
+      <text class="empty-desc">{{emptyReason}}</text>
+      <view class="empty-actions">
+        <text wx:for="{{suggestedActions}}" wx:key="*this" class="empty-action">{{item}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{branches.length > 0}}" class="result-toolbar">
+      <view>
+        <text class="result-title">选择分支</text>
+        <text class="result-desc">已选 {{selectedBranchKeys.length}} 条，可带去对比或求推荐</text>
+      </view>
+      <view class="toolbar-actions">
+        <view class="toolbar-action" bindtap="onCompareSelected">对比</view>
+        <view class="toolbar-action toolbar-action--dark" bindtap="onAskWithSelection">去求推荐</view>
+      </view>
+    </view>
+
+    <view class="branch-list" wx:if="{{branches.length > 0}}">
+      <view wx:for="{{branches}}" wx:key="branchKey" class="branch-card {{item.isSelected ? 'selected' : ''}}">
+        <view class="branch-card__head">
+          <view class="branch-card__title-wrap">
+            <text class="branch-title">{{item.branchTitle}}</text>
+            <text class="branch-summary">{{item.branchSummary}}</text>
+          </view>
+          <view class="branch-select" data-key="{{item.branchKey}}" bindtap="onToggleBranch">{{item.isSelected ? '已选' : '选择'}}</view>
+        </view>
+
+        <view class="gear-line" wx:if="{{item.primaryGear}}">
+          <text class="gear-name">{{item.primaryGear.gearLabel}}</text>
+          <text class="gear-meta">{{item.primaryGear.priceText || '价格待确认'}} · {{item.confidence}}</text>
+        </view>
+
+        <view class="reason-list">
+          <text wx:for="{{item.whyRecommended}}" wx:key="*this" class="reason-item">{{item}}</text>
+        </view>
+
+        <view class="tradeoff-list">
+          <text wx:for="{{item.tradeOffs}}" wx:key="*this" class="tradeoff-item">{{item}}</text>
+        </view>
+
+        <view wx:if="{{item.evidencePosts.length}}" class="evidence-list">
+          <view wx:for="{{item.evidencePosts}}" wx:key="topicId" class="evidence-item" data-topic-id="{{item.topicId}}" bindtap="onOpenEvidencePost">
+            <text class="evidence-title">{{item.title}}</text>
+            <text class="evidence-reason">{{item.reason}}</text>
+          </view>
+        </view>
+        <text wx:else class="evidence-empty">暂无足够使用经验帖，当前主要基于装备库参数和规则给出。</text>
+
+        <view class="branch-actions">
+          <view class="branch-action" data-key="{{item.branchKey}}" bindtap="onOpenDetail">看详情</view>
+          <view class="branch-action" data-key="{{item.branchKey}}" bindtap="onAddCompare">加对比</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

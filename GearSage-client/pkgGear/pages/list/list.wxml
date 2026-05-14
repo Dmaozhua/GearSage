@@ -27,6 +27,14 @@
     </view>
   </view>
 
+  <view class="selection-strip" wx:if="{{currentType === 'rods'}}" bindtap="onOpenSelectionGuide">
+    <view class="compare-strip__copy">
+      <text class="compare-strip__title">条件太多？先让系统帮你收敛</text>
+      <text class="compare-strip__desc">按预算、目标鱼和场景生成几条鱼竿选择路线。</text>
+    </view>
+    <view class="selection-strip__action">帮我选</view>
+  </view>
+
   <!-- List Section -->
   <scroll-view 
     scroll-y 

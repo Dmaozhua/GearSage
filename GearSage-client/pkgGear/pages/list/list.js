@@ -225,6 +225,12 @@ Page({
     this.onClearComparePool();
   },
 
+  onOpenSelectionGuide() {
+    wx.navigateTo({
+      url: '/pkgGear/pages/selection-guide/selection-guide?source=gear_list'
+    });
+  },
+
   finishSearchUI() {
     const searchComp = this.selectComponent('.gear-search-filter');
     if (searchComp && searchComp.finishSearch) {

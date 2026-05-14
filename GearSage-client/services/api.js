@@ -1726,6 +1726,24 @@ class ApiService {
     });
   }
 
+  createSelectionRecommendation(payload = {}, options = {}) {
+    return this.post('/mini/recommend/selection', payload, options).then(result => {
+      const data = result && typeof result === 'object' ? result : {};
+      return {
+        sessionId: data.sessionId || null,
+        inputSummary: data.inputSummary || '',
+        missingFields: Array.isArray(data.missingFields) ? data.missingFields : [],
+        branches: Array.isArray(data.branches) ? data.branches : [],
+        emptyReason: data.emptyReason || '',
+        suggestedActions: Array.isArray(data.suggestedActions) ? data.suggestedActions : [],
+        nextActions: Array.isArray(data.nextActions) ? data.nextActions : [],
+        topicDraftPayload: data.topicDraftPayload && typeof data.topicDraftPayload === 'object'
+          ? data.topicDraftPayload
+          : null
+      };
+    });
+  }
+
   // ==================== 话题相关接口 ====================
   
   /**

@@ -36,7 +36,8 @@ page {
   background-color: #1a1a1a;
 }
 
-.compare-strip {
+.compare-strip,
+.selection-strip {
   margin: 12rpx 28rpx 0;
   padding: 16rpx 20rpx;
   border-radius: 10rpx;
@@ -49,7 +50,12 @@ page {
   gap: 16rpx;
 }
 
-.container.dark .compare-strip {
+.selection-strip {
+  border-left: 6rpx solid #60715e;
+}
+
+.container.dark .compare-strip,
+.container.dark .selection-strip {
   background: #182028;
   border-color: rgba(229, 236, 231, 0.08);
   box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.22);
@@ -111,6 +117,21 @@ page {
   color: #8b4b48;
   border-color: rgba(139, 75, 72, 0.18);
   background: rgba(255, 255, 255, 0.54);
+}
+
+.selection-strip__action {
+  flex-shrink: 0;
+  min-width: 108rpx;
+  min-height: 50rpx;
+  padding: 0 18rpx;
+  border-radius: 8rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22rpx;
+  font-weight: 700;
+  background: #26332d;
 }
 
 .container.dark .compare-strip__action {

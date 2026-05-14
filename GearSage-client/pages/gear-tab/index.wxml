@@ -73,6 +73,14 @@
       <text class="gear-compare-arrow">›</text>
     </view>
 
+    <view class="gear-selection-card" bindtap="navigateToSelectionGuide">
+      <view>
+        <text class="gear-compare-title">帮我选装备</text>
+        <text class="gear-compare-desc">输入预算、场景和目标鱼，先生成几条候选路线</text>
+      </view>
+      <text class="gear-compare-arrow">›</text>
+    </view>
+
     <view class="gear-section">
       <view class="gear-section-header">
         <text class="gear-section-title">最近更新装备</text>

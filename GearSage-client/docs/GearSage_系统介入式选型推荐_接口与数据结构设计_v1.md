@@ -147,7 +147,17 @@ POST /mini/recommend/selection
 
 ---
 
-## 四、接口二：保存选型会话（可选）
+## 四、接口二：保存选型会话（已改为内置持久化）
+
+2026-05-14 施工口径：暂不新增独立 `POST /mini/recommend/session`。`POST /mini/recommend/selection` 生成推荐时直接写入 `gear_selection_sessions`，并在返回体里给出 `data.sessionId`。
+
+`selectionSessionId` 会写入：
+
+```text
+topicDraftPayload.recommendMeta.selectionSource.selectionSessionId
+```
+
+从选型结果生成求推荐帖后，`/mini/topic` 主链路非阻塞回写 `gear_selection_sessions.created_topic_id`。回写失败不影响发帖。
 
 ### 4.1 路径
 
@@ -326,13 +336,13 @@ function createSelection(input) {
 CREATE TABLE IF NOT EXISTS gear_selection_sessions (
   id BIGSERIAL PRIMARY KEY,
   user_id BIGINT NULL,
-  gear_category VARCHAR(32) NOT NULL,
+  gear_category VARCHAR(32) NOT NULL DEFAULT '',
   input_json JSONB NOT NULL DEFAULT '{}'::jsonb,
   result_json JSONB NOT NULL DEFAULT '{}'::jsonb,
-  source VARCHAR(32) NULL,
+  source VARCHAR(32) NOT NULL DEFAULT '',
   created_topic_id BIGINT NULL,
-  create_time TIMESTAMP NOT NULL DEFAULT NOW(),
-  update_time TIMESTAMP NOT NULL DEFAULT NOW()
+  create_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  update_time TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_gear_selection_sessions_user_id
@@ -340,9 +350,12 @@ CREATE INDEX IF NOT EXISTS idx_gear_selection_sessions_user_id
 
 CREATE INDEX IF NOT EXISTS idx_gear_selection_sessions_gear_category
   ON gear_selection_sessions(gear_category);
+
+CREATE INDEX IF NOT EXISTS idx_gear_selection_sessions_created_topic_id
+  ON gear_selection_sessions(created_topic_id);
 ```
 
-说明：如果 P0 想极简，可以先不建表；但建议建，后续闭环分析会用到。
+说明：P3-B-2B 已建表；当前仍不做规则学习，只做推荐输入、结果和求推荐帖关联留痕。
 
 ---
 

@@ -668,6 +668,12 @@ Component({
       this.setData({ showUserGearSelector: false });
     },
 
+    onOpenSelectionGuide() {
+      wx.navigateTo({
+        url: '/pkgGear/pages/selection-guide/selection-guide?source=publish'
+      });
+    },
+
     onCandidateOptionInput(e) {
       const index = Number(e.currentTarget.dataset.index || 0);
       const value = e.detail.value || '';

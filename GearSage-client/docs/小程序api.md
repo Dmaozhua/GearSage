@@ -888,6 +888,47 @@ wx.cloud.callFunction({
   - `404` 装备不存在
 - 分页格式：无
 
+### 8.4 POST /mini/recommend/selection（P3-B 选型向导）
+
+- 方法：POST
+- 路径：`/mini/recommend/selection`
+- 是否需要登录：否
+- 状态：P3-B 已新增第一版（2026-05-14）
+- 请求参数：
+  - `gearCategory: "rod"`：第一版仅支持鱼竿
+  - `rodType: "casting" | "spinning"`
+  - `power: string`
+  - `budgetMin?: number`
+  - `budgetMax: number`
+  - `budgetFlexible?: string`
+  - `targetFish: string[]`
+  - `useScene: string[]`
+  - `technique?: string[]`
+  - `carePriorities?: string[]`
+  - `avoidPoints?: string[]`
+  - `source?: "home" | "gear_list" | "publish" | "compare" | "gear_tab"`
+  - `limit?: number`
+- 返回结构：
+  - `{ code: 0, message: "ok", data }`
+  - `data.sessionId: string|null`（P3-B-2B 起写入 `gear_selection_sessions`，写入失败时允许回退为 `null`）
+  - `data.inputSummary: string`
+  - `data.missingFields: string[]`
+  - `data.branches: SelectionBranch[]`
+  - `data.emptyReason?: string`
+  - `data.suggestedActions?: string[]`
+  - `data.topicDraftPayload?: object`
+  - `data.topicDraftPayload.recommendMeta.selectionSource.selectionSessionId?: string`
+- `SelectionBranch` 核心字段：`branchKey`、`branchTitle`、`branchSummary`、`primaryGear`、`alternativeGears`、`whyRecommended`、`tradeOffs`、`budgetFit`、`confidence`、`evidencePosts`、`actions`
+- 数据约束：
+  - 候选装备读取 `gear_master / gear_variants / gear_brands`
+  - 只返回 `isShow != 0` 的鱼竿
+  - 证据帖读取 `bz_mini_topic.extra.gearItemId / relatedGearItemId / gearModel / relatedGearModel`，最多 3 条
+  - 无证据帖时返回空数组，不伪造经验
+  - 推荐生成时记录 `gear_selection_sessions.input_json / result_json`；从选型结果发布求推荐帖时，后端按 `selectionSessionId` 非阻塞回写 `created_topic_id`
+- 前端调用：
+  - `/Users/tommy/GearSage/GearSage-client/services/api.js` 的 `createSelectionRecommendation`
+  - `/Users/tommy/GearSage/GearSage-client/pkgGear/pages/selection-guide/selection-guide.js`
+
 ## 9. 其他云函数（非 miniApi）
 
 ### 9.1 CloudFunction login（获取 openid）

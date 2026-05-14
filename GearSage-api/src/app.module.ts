@@ -51,6 +51,11 @@ import { MessageController } from './modules/message/message.controller';
 import { MessageService } from './modules/message/message.service';
 import { ReportController } from './modules/report/report.controller';
 import { ReportService } from './modules/report/report.service';
+import { RecommendController } from './modules/recommend/recommend.controller';
+import { RecommendEvidenceService } from './modules/recommend/recommend-evidence.service';
+import { RecommendRuleService } from './modules/recommend/recommend-rule.service';
+import { RecommendSessionService } from './modules/recommend/recommend-session.service';
+import { RecommendService } from './modules/recommend/recommend.service';
 
 @Module({
   imports: [
@@ -82,6 +87,7 @@ import { ReportService } from './modules/report/report.service';
     InviteController,
     MessageController,
     ReportController,
+    RecommendController,
     UserGearController,
   ],
   providers: [
@@ -112,6 +118,10 @@ import { ReportService } from './modules/report/report.service';
     ModerationTencentService,
     MessageService,
     ReportService,
+    RecommendService,
+    RecommendRuleService,
+    RecommendEvidenceService,
+    RecommendSessionService,
     UserGearService,
   ],
 })

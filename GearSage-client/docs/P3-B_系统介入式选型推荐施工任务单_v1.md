@@ -397,3 +397,143 @@ gear_selection_sessions
 - 候选分支可生成求推荐帖候选项。
 - 选型向导不替代社区，而是给社区问题提供更好的起点。
 
+---
+
+## 九、2026-05-14 第一轮施工记录
+
+### 已完成
+
+- 后端新增 `src/modules/recommend/*`，并在 `app.module.ts` 直接注册 `RecommendController / RecommendService / RecommendRuleService / RecommendEvidenceService`。
+- 新增 `POST /mini/recommend/selection`，保持 `{ code, message, data }` 返回结构。
+- 第一版仅支持 `gearCategory=rod`，按固定 6 个分支模板生成候选：`softbait_focus / hardbait_focus / allround_light / durable / budget_down / budget_up`。
+- 候选读取 `gear_master / gear_variants / gear_brands`，并过滤 `isShow=0`。
+- 证据帖按 `bz_mini_topic.extra.gearItemId / relatedGearItemId / gearModel / relatedGearModel` 与标题弱匹配，最多返回 3 条；没有证据帖时返回空数组。
+- 前端新增 `pkgGear/pages/selection-guide/selection-guide.*`，已注册到 `app.json` 的 `pkgGear` 分包。
+- 装备库 tab 和鱼竿列表页新增选型向导入口。
+- 选型结果支持跳装备详情、写入 `gear_compare_pool_v1` 进入对比页、写入 `recommend_prefill_from_selection` 进入 `publishMode?from=selection_guide`。
+- `publishMode` 已兼容 `selection_guide` 来源，继续通过 `post-question -> postPreview -> /mini/topic` 发布。
+- 已新增计划文件：`.omx/plans/2026-05-14_p3b_selection_guide_plan.md`。
+
+### 第一轮后仍未做
+
+- 未做渔轮/鱼饵/鱼线/整套搭配扩展。
+- 未做 AI/LLM 推荐、后台规则配置、自动学习采纳数据。
+
+### 已验证
+
+- `/Users/tommy/GearSage/GearSage-api` 下 `npm run build` 通过。
+
+### 逻辑自检补充
+
+- 使用本地 PostgreSQL 验证候选装备 SQL 可读取 `gear_master / gear_variants / gear_brands`，本地 `rod` 可见主数据为 664 条。
+- 使用临时后端实例验证 `POST /mini/recommend/selection` 路由、DTO、服务链路可正常返回。
+- 自检发现“鲈鱼 / 野河 / 枪柄 M”样例曾命中海水、船钓、鱿鱼语境装备，已补充淡水场景排除逻辑。
+- 自检发现子型号柄型存在 `C/B/S` 短码，已补充 `casting/spinning` 与短码的兼容匹配。
+- 自检发现价格展示丢失币种符号，已改为保留原始价格文本，例如 `$59.99` 显示为 `约 $59.99`。
+
+---
+
+## 十、2026-05-14 下一阶段准备
+
+下一阶段建议保持 P3-B 范围，不进入 AI、规则后台或全品类扩展。优先把第一轮能力补成可验收、可追踪的闭环。
+
+### 10.1 阶段边界
+
+允许改动：
+
+- 新增轻量 `gear_selection_sessions` 持久化。
+- `POST /mini/recommend/selection` 返回真实 `sessionId`。
+- 求推荐预填继续携带 `selectionSessionId / selectionSource`。
+- 补齐求推荐发布页进入选型向导入口。
+- 证据帖卡片支持跳帖子详情。
+- 基于现有 `raw_json` 字段继续收紧规则匹配。
+
+保持稳定：
+
+- 不改 `/mini/topic*`、`/mini/comment*`、`/mini/gear/*` 主链路。
+- 不改 `{ code, message, data }` 响应结构。
+- 不改 `/mini/topic` 作为求推荐发布链路。
+- 不引入 AI、后台规则配置中心或新 compare 接口。
+
+### 10.2 推荐执行顺序
+
+1. **P3-B-2A：验收缺口补齐**
+   - 从求推荐发布页增加“先生成选择分支”入口。
+   - 证据帖标题可点击进入帖子详情。
+   - 复核 `candidateOptions` 在发布页仍可编辑，来源元数据保留在 `selectionSource`。
+
+2. **P3-B-2B：选型会话持久化**
+   - 新增 `gear_selection_sessions` 表和 additive SQL。
+   - 推荐生成时保存 input/result。
+   - 返回真实 `sessionId`。
+   - 预填求推荐时携带 `selectionSessionId`。
+   - 若求推荐帖创建成功，可非阻塞回写 `createdTopicId`。
+
+3. **P3-B-2C：规则质量加固**
+   - 用 `player_environment / recommended_rig_pairing / guide_use_hint / player_positioning` 等字段增强场景匹配。
+   - 为目标鱼、使用场景增加软评分。
+   - 固化 3~4 个本地 curl fixture，防止淡水场景再次命中明显海水/船钓路线。
+
+### 10.3 最小验收路径
+
+- 装备 tab -> 选型向导 -> 生成分支。
+- 鱼竿列表 -> 选型向导 -> 生成分支。
+- 求推荐发布页 -> 选型向导 -> 生成分支 -> 回到求推荐预填。
+- 分支 -> 装备详情。
+- 分支 -> 对比页。
+- 分支 -> 证据帖详情。
+- `POST /mini/recommend/selection` 返回非空 `sessionId`。
+- 已生成求推荐帖能看出候选来自 `selection_guide`。
+
+详细执行准备见：`.omx/plans/2026-05-14_p3b_selection_guide_next_stage.md`。
+
+---
+
+## 十一、2026-05-14 P3-B-2A / P3-B-2B 施工记录
+
+### 已完成
+
+- 求推荐发布表单的候选项区域新增“先生成选择分支”入口，跳转 `/pkgGear/pages/selection-guide/selection-guide?source=publish`。
+- 选型结果中的证据帖卡片支持点击跳转 `/pkgContent/detail/detail?id=:topicId`。
+- 新增 `gear_selection_sessions` 表，启动初始化 SQL 和单独 additive SQL 均已补齐。
+- 新增 `RecommendSessionService`，推荐生成时写入 `input_json / result_json / source / gear_category`。
+- `POST /mini/recommend/selection` 已接入 `OptionalJwtAuthGuard`，未登录可用，登录时记录 `user_id`。
+- `POST /mini/recommend/selection` 返回真实 `sessionId`，并写入 `topicDraftPayload.recommendMeta.selectionSource.selectionSessionId`。
+- 选型结果进入求推荐发布页时保留 `selectionSessionId / selectionSource`。
+- `/mini/topic` 保存草稿或发布成功后，会按 `selectionSessionId` 非阻塞回写 `gear_selection_sessions.created_topic_id`；回写失败不影响发帖主链路。
+
+### 已验证
+
+- `/Users/tommy/GearSage/GearSage-api` 下 `npm run build` 通过。
+- 相关小程序 JS `node --check` 通过。
+- 本地 PostgreSQL 已执行 `sql/add_gear_selection_sessions.sql`，表和索引创建成功。
+- 本地临时后端实例调用 `POST /mini/recommend/selection` 成功返回 `sessionId=1`，且 `gear_selection_sessions` 有对应记录。
+
+### 仍待手动 smoke
+
+- 微信开发者工具中确认：求推荐发布页入口 -> 选型向导 -> 生成结果 -> 去求推荐预填。
+- 微信开发者工具中确认：有证据帖时点击证据帖可打开帖子详情。
+
+---
+
+## 十二、2026-05-14 P3-B-2C 规则质量加固记录
+
+### 已完成
+
+- 推荐规则增加目标鱼 / 使用场景软评分，基于 `raw_json` 中的 `player_environment / recommended_rig_pairing / guide_use_hint / player_positioning` 等文本语境参与排序。
+- 保留前一轮淡水场景硬排除逻辑，避免“鲈鱼 / 野河”等输入优先命中明显海水、船钓、鱿鱼路线。
+- 新增本地 smoke 脚本：`/Users/tommy/GearSage/GearSage-api/scripts/smoke_selection_guide.sh`。
+
+### 已验证
+
+- `/Users/tommy/GearSage/GearSage-api` 下 `npm run build` 通过。
+- `scripts/smoke_selection_guide.sh` 覆盖以下样例并通过：
+  - `casting / M / 1200 / 鲈鱼 / 野河`
+  - `spinning / L / 800 / 马口 / 溪流`
+  - 缺少必要字段
+  - 不支持品类
+
+### 下一步建议
+
+- 在微信开发者工具跑完整页面 smoke 后，再决定是否扩展渔轮规则。
+- 暂不进入规则后台或自动学习；等 session 数据积累后再评估。

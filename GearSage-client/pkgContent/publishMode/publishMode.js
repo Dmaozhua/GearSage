@@ -2,6 +2,7 @@
 const api = require('../../services/api.js');
 
 const TOPIC_PREVIEW_STORAGE_KEY = 'topic_preview_payload_v1';
+const SELECTION_PREFILL_STORAGE_KEY = 'recommend_prefill_from_selection';
 const LEGACY_MODE_CONFIG = [
   {
     modeKey: 'recommend',
@@ -206,8 +207,48 @@ function normalizeCandidateOptionLabels(value) {
 
 function buildQuestionEntryPrefill(options = {}) {
   const from = String(options.from || '').trim();
-  if (from !== 'gear_detail' && from !== 'gear_compare') {
+  if (from !== 'gear_detail' && from !== 'gear_compare' && from !== 'selection_guide') {
     return null;
+  }
+
+  if (from === 'selection_guide') {
+    let cachedPayload = null;
+    try {
+      cachedPayload = wx.getStorageSync(SELECTION_PREFILL_STORAGE_KEY);
+    } catch (error) {
+      cachedPayload = null;
+    }
+
+    if (!cachedPayload || typeof cachedPayload !== 'object') {
+      return null;
+    }
+
+    const initialQuestionData = createModeInitialFormData('question');
+    const recommendMeta = normalizeObject(cachedPayload.recommendMeta, {});
+    const candidateOptions = normalizeCandidateOptionLabels(recommendMeta.candidateOptions);
+
+    return {
+      ...initialQuestionData,
+      questionType: cachedPayload.questionType || 'recommend',
+      relatedGearCategory: cachedPayload.relatedGearCategory || 'rod',
+      relatedGearModel: cachedPayload.relatedGearModel || '',
+      relatedGearItemId: normalizeOptionalId(cachedPayload.relatedGearItemId),
+      recommendMeta: {
+        ...initialQuestionData.recommendMeta,
+        ...recommendMeta,
+        recommendIntent: recommendMeta.recommendIntent || 'compare_options',
+        targetFish: Array.isArray(recommendMeta.targetFish) ? recommendMeta.targetFish : [],
+        useScene: Array.isArray(recommendMeta.useScene) ? recommendMeta.useScene : [],
+        carePriorities: Array.isArray(recommendMeta.carePriorities) ? recommendMeta.carePriorities : [],
+        avoidPoints: Array.isArray(recommendMeta.avoidPoints) ? recommendMeta.avoidPoints : [],
+        candidateOptions: [
+          candidateOptions[0] || '',
+          candidateOptions[1] || '',
+          candidateOptions[2] || ''
+        ],
+        coreQuestion: recommendMeta.coreQuestion || '系统按我的预算和场景生成了几个方向，我主要纠结哪条路线更适合。'
+      }
+    };
   }
 
   const gearCategory = String(options.gearCategory || '').trim();

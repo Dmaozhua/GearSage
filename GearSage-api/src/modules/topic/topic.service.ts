@@ -10,6 +10,7 @@ import { SubmitRecommendFeedbackDto } from './dto/submit-recommend-feedback.dto'
 import { ModerationService } from '../moderation/moderation.service';
 import { MessageService } from '../message/message.service';
 import { UserService } from '../user/user.service';
+import { RecommendSessionService } from '../recommend/recommend-session.service';
 
 type TopicModerationTextEntry = {
   field: string;
@@ -26,6 +27,7 @@ export class TopicService {
     private readonly configService: ConfigService,
     private readonly messageService: MessageService,
     private readonly userService: UserService,
+    private readonly recommendSessionService: RecommendSessionService,
   ) {}
 
   async getAllTopics(
@@ -267,6 +269,7 @@ export class TopicService {
       await this.messageService.deleteByTopic(userId, Number(updateResult.rows[0].id || dto.id || 0), [
         'topic_rejected',
       ]);
+      await this.markSelectionSessionTopic(dto, Number(updateResult.rows[0].id || dto.id || 0), userId);
 
       return updateResult.rows[0];
     }
@@ -309,6 +312,7 @@ export class TopicService {
       toTargetId: insertResult.rows[0].id,
       userId,
     });
+    await this.markSelectionSessionTopic(dto, Number(insertResult.rows[0].id || 0), userId);
 
     return insertResult.rows[0];
   }
@@ -389,6 +393,8 @@ export class TopicService {
         return null;
       }
 
+      await this.markSelectionSessionTopic(dto, Number(updateResult.rows[0].id || dto.id || 0), userId);
+
       return updateResult.rows[0];
     }
 
@@ -432,8 +438,37 @@ export class TopicService {
       toTargetId: insertResult.rows[0].id,
       userId,
     });
+    await this.markSelectionSessionTopic(dto, Number(insertResult.rows[0].id || 0), userId);
 
     return insertResult.rows[0];
+  }
+
+  private async markSelectionSessionTopic(
+    dto: SaveTopicDto | PublishTopicDto,
+    topicId: number,
+    userId: number,
+  ) {
+    const sessionId = this.resolveSelectionSessionId(dto.extra);
+    if (!sessionId || !topicId) {
+      return;
+    }
+
+    try {
+      await this.recommendSessionService.markCreatedTopic({
+        sessionId,
+        topicId,
+        userId,
+      });
+    } catch (error) {
+      console.warn('[TopicService] mark selection session topic failed:', error);
+    }
+  }
+
+  private resolveSelectionSessionId(extra: any) {
+    const source = this.normalizePlainObject(extra);
+    const recommendMeta = this.normalizePlainObject(source.recommendMeta);
+    const selectionSource = this.normalizePlainObject(recommendMeta.selectionSource);
+    return selectionSource.selectionSessionId || selectionSource.sessionId || recommendMeta.selectionSessionId || '';
   }
 
   private isTopicManualReviewEnabled() {

@@ -45,6 +45,7 @@ page {
 .gear-search-panel,
 .gear-category-card,
 .gear-compare-card,
+.gear-selection-card,
 .gear-list-card {
   border-radius: 10rpx;
   background: #ffffff;
@@ -238,6 +239,16 @@ page {
   border-left: 6rpx solid #8b8469;
 }
 
+.gear-selection-card {
+  margin-top: 18rpx;
+  padding: 24rpx 22rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 6rpx solid #60715e;
+}
+
 .gear-list {
   display: flex;
   flex-direction: column;
@@ -289,6 +300,7 @@ page {
 .dark .gear-search-panel,
 .dark .gear-category-card,
 .dark .gear-compare-card,
+.dark .gear-selection-card,
 .dark .gear-list-card,
 .dark .gear-empty,
 .dark .gear-loading {

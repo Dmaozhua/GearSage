@@ -162,6 +162,12 @@ Page({
     });
   },
 
+  navigateToSelectionGuide() {
+    wx.navigateTo({
+      url: '/pkgGear/pages/selection-guide/selection-guide?source=gear_tab'
+    });
+  },
+
   navigateToGearDetail(e) {
     const { id, type } = e.currentTarget.dataset;
     if (!id || !type) return;

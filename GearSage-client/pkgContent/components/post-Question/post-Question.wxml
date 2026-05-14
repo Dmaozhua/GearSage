@@ -255,6 +255,13 @@
           <text>有没有候选项</text>
           <text class="optional">（选填，最多 3 个）</text>
         </view>
+        <view class="selection-guide-entry" bindtap="onOpenSelectionGuide">
+          <view class="selection-guide-copy">
+            <text class="selection-guide-title">还没有候选？先生成选择分支</text>
+            <text class="selection-guide-desc">按预算、目标鱼和场景收敛 2~3 个候选，再回来继续求推荐。</text>
+          </view>
+          <text class="selection-guide-arrow">›</text>
+        </view>
         <view class="candidate-list">
           <input
             wx:for="{{formData.recommendMeta.candidateOptions}}"
