@@ -164,6 +164,31 @@ page {
   color: #667b90;
 }
 
+.common-gear-row {
+  display: grid;
+  grid-template-columns: 112rpx minmax(0, 1fr);
+  gap: 12rpx;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #edf1f4;
+}
+
+.common-gear-row:last-child {
+  border-bottom: none;
+}
+
+.common-gear-label {
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #4c6275;
+  font-weight: 700;
+}
+
+.common-gear-text {
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #20384f;
+}
+
 .feed-card {
   padding: 20rpx 0;
   border-bottom: 1rpx solid #edf1f4;

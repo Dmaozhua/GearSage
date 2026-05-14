@@ -121,6 +121,15 @@
 	          <text class="menu-arrow">></text>
 	        </view>
 
+	        <view class="menu-item" bindtap="onMyGear">
+	          <view class="menu-icon menu-icon--gear"></view>
+	          <view class="menu-content">
+	            <text class="menu-title">我的装备</text>
+	            <text class="menu-subtitle">{{gearSummary.total > 0 ? gearSummaryText : '从装备库添加你正在用的装备'}}</text>
+	          </view>
+	          <text class="menu-arrow">></text>
+	        </view>
+
 	        <view class="menu-item" bindtap="onPoints">
 	          <view class="menu-icon menu-icon--points"></view>
 	          <view class="menu-content">

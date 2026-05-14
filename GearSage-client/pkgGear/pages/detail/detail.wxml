@@ -67,6 +67,9 @@
           <view class="detail-action detail-action--ghost" wx:if="{{canCompare}}" bindtap="onToggleCompare">
             {{isCurrentVariantCompared ? '已在对比池' : '加入对比'}}
           </view>
+          <view class="detail-action detail-action--ghost" wx:if="{{gearType === 'reels' || gearType === 'rods' || gearType === 'lures'}}" bindtap="onAddToUserGear">
+            {{isUserGearAdded ? '已加入我的装备' : '加入我的装备'}}
+          </view>
           <view class="detail-action detail-action--primary" bindtap="onGoRecommend">去求推荐</view>
         </view>
         <text class="compare-note" wx:if="{{gearType !== 'lures' && gearType !== 'line' && gearType !== 'hook'}}">

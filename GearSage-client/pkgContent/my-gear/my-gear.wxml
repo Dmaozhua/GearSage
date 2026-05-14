@@ -1,0 +1,57 @@
+<custom-navbar title="我的装备" show-back="{{true}}"></custom-navbar>
+
+<view class="my-gear-page {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <view class="my-gear-header">
+    <view>
+      <text class="my-gear-title">我的装备</text>
+      <text class="my-gear-summary">{{summaryText}}</text>
+    </view>
+    <button class="add-btn" bindtap="onAddGear">添加装备</button>
+  </view>
+
+  <view class="tab-row">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="tab-item {{activeType === item.key ? 'active' : ''}}"
+      data-type="{{item.key}}"
+      bindtap="onTabChange"
+    >
+      <text>{{item.label}}</text>
+      <text class="tab-count">{{item.count}}</text>
+    </view>
+  </view>
+
+  <view class="page-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <view class="empty-state" wx:elif="{{!visibleItems.length}}">
+    <text class="empty-title">{{emptyText}}</text>
+    <text class="empty-desc">从装备库添加你正在用的鱼轮、鱼竿和常用饵。</text>
+    <button class="empty-btn" bindtap="onAddGear">去添加</button>
+  </view>
+
+  <view class="gear-list" wx:else>
+    <view class="gear-item" wx:for="{{visibleItems}}" wx:key="id">
+      <image class="gear-image" src="{{item.imageUrl || '/images/empty.png'}}" mode="aspectFill"></image>
+      <view class="gear-main">
+        <view class="gear-name">{{item.displayName}}</view>
+        <view class="gear-meta">
+          <text>{{item.typeLabel}}</text>
+          <text>{{item.usageStatusText}}</text>
+          <text>{{item.publicText}}</text>
+        </view>
+        <view class="gear-sub" wx:if="{{item.brandName || item.variantLabel}}">
+          {{item.brandName}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}
+        </view>
+        <view class="gear-note" wx:if="{{item.notePreview}}">备注：{{item.notePreview}}</view>
+      </view>
+      <view class="gear-actions">
+        <button class="icon-btn" data-id="{{item.id}}" bindtap="onEditGear">编辑</button>
+        <button class="icon-btn" data-id="{{item.id}}" bindtap="onTogglePublic">{{item.isPublic ? '设私密' : '设公开'}}</button>
+        <button class="icon-btn danger" data-id="{{item.id}}" bindtap="onDeleteGear">删除</button>
+      </view>
+    </view>
+  </view>
+</view>

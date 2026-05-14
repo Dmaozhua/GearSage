@@ -41,6 +41,8 @@ import { TopicController } from './modules/topic/topic.controller';
 import { TopicService } from './modules/topic/topic.service';
 import { UploadController } from './modules/upload/upload.controller';
 import { UploadService } from './modules/upload/upload.service';
+import { UserGearController } from './modules/user-gear/user-gear.controller';
+import { UserGearService } from './modules/user-gear/user-gear.service';
 import { UserController } from './modules/user/user.controller';
 import { UserService } from './modules/user/user.service';
 import { ModerationService } from './modules/moderation/moderation.service';
@@ -80,6 +82,7 @@ import { ReportService } from './modules/report/report.service';
     InviteController,
     MessageController,
     ReportController,
+    UserGearController,
   ],
   providers: [
     DatabaseService,
@@ -109,6 +112,7 @@ import { ReportService } from './modules/report/report.service';
     ModerationTencentService,
     MessageService,
     ReportService,
+    UserGearService,
   ],
 })
 export class AppModule {}

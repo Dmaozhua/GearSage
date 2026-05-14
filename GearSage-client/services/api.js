@@ -1607,6 +1607,36 @@ class ApiService {
     return this.get('/auth/me');
   }
 
+  getUserGear(params = {}, options = {}) {
+    return this.get('/mini/user/gear', {
+      data: params,
+      ...options
+    }).then(result => {
+      const payload = result && typeof result === 'object' ? result : {};
+      return {
+        summary: {
+          reel: Number(payload.summary && payload.summary.reel ? payload.summary.reel : 0),
+          rod: Number(payload.summary && payload.summary.rod ? payload.summary.rod : 0),
+          lure: Number(payload.summary && payload.summary.lure ? payload.summary.lure : 0),
+          total: Number(payload.summary && payload.summary.total ? payload.summary.total : 0)
+        },
+        items: Array.isArray(payload.items) ? payload.items : []
+      };
+    });
+  }
+
+  createUserGear(data = {}, options = {}) {
+    return this.post('/mini/user/gear', data, options).then(result => result || null);
+  }
+
+  updateUserGear(id, data = {}, options = {}) {
+    return this.put(`/mini/user/gear/${encodeURIComponent(id)}`, data, options).then(result => result || null);
+  }
+
+  deleteUserGear(id, options = {}) {
+    return this.delete(`/mini/user/gear/${encodeURIComponent(id)}`, options).then(result => result === true || !!result);
+  }
+
   // ========== 标签相关接口 ==========
   
   /**

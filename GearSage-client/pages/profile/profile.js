@@ -63,6 +63,13 @@ Page({
     activeTab: 'posts', // posts, likes, comments
     
     messageUnreadCount: 0,
+    gearSummary: {
+      reel: 0,
+      rod: 0,
+      lure: 0,
+      total: 0
+    },
+    gearSummaryText: '鱼轮 0｜鱼竿 0｜常用饵 0',
     tagDisplayStrategy: tagProfileView.DISPLAY_STRATEGY.SMART,
     tagStrategyDescription: '',
     tagGroupTabs: [],
@@ -238,12 +245,20 @@ Page({
         
         console.log('[Profile] 页面状态已更新，用户已登录');
         this.loadMessageUnreadCount();
+        this.loadUserGearSummary();
         this.loadUserData({ skipUserRefresh: true });
       } else {
         console.log('[Profile] 用户未登录');
         this.setData({
           isLoggedIn: false,
           messageUnreadCount: 0,
+          gearSummary: {
+            reel: 0,
+            rod: 0,
+            lure: 0,
+            total: 0
+          },
+          gearSummaryText: '鱼轮 0｜鱼竿 0｜常用饵 0',
           loading: false,
           isLoading: false
         });
@@ -521,6 +536,12 @@ Page({
     });
   },
 
+  onMyGear() {
+    wx.navigateTo({
+      url: '/pkgContent/my-gear/my-gear'
+    });
+  },
+
   onInviteFriends() {
     wx.navigateTo({
       url: '/pages/invite/index'
@@ -574,6 +595,29 @@ Page({
       });
     } catch (error) {
       console.warn('[Profile] 加载未读消息数失败:', error);
+    }
+  },
+
+  async loadUserGearSummary() {
+    if (!this.data.isLoggedIn) {
+      return;
+    }
+
+    try {
+      const payload = await api.getUserGear({}, { silent: true, skipErrorToast: true });
+      const summary = payload && payload.summary ? payload.summary : {};
+      const normalized = {
+        reel: Number(summary.reel || 0),
+        rod: Number(summary.rod || 0),
+        lure: Number(summary.lure || 0),
+        total: Number(summary.total || 0)
+      };
+      this.setData({
+        gearSummary: normalized,
+        gearSummaryText: `鱼轮 ${normalized.reel}｜鱼竿 ${normalized.rod}｜常用饵 ${normalized.lure}`
+      });
+    } catch (error) {
+      console.warn('[Profile] 加载我的装备摘要失败:', error);
     }
   },
 

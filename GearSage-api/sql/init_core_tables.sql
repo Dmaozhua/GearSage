@@ -170,6 +170,33 @@ CREATE TABLE IF NOT EXISTS user_messages (
   "updateTime" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS user_gear_items (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  gear_type VARCHAR(20) NOT NULL,
+  gear_master_id VARCHAR(64) NOT NULL,
+  gear_variant_id VARCHAR(64),
+  variant_key VARCHAR(128),
+  variant_label VARCHAR(255),
+  display_name VARCHAR(255) NOT NULL,
+  brand_name VARCHAR(120),
+  gear_model VARCHAR(255),
+  image_url TEXT,
+  ownership_status VARCHAR(20) NOT NULL DEFAULT 'owned',
+  usage_status VARCHAR(20) NOT NULL DEFAULT 'frequent',
+  note TEXT,
+  is_public BOOLEAN NOT NULL DEFAULT TRUE,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  extra JSONB NOT NULL DEFAULT '{}'::jsonb,
+  create_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  update_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  delete_time TIMESTAMPTZ,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+  CONSTRAINT chk_user_gear_type CHECK (gear_type IN ('reel', 'rod', 'lure')),
+  CONSTRAINT chk_user_gear_ownership CHECK (ownership_status IN ('owned')),
+  CONSTRAINT chk_user_gear_usage CHECK (usage_status IN ('frequent', 'backup', 'idle'))
+);
+
 CREATE TABLE IF NOT EXISTS user_reports (
   id BIGSERIAL PRIMARY KEY,
   "reporterUserId" BIGINT NOT NULL,
@@ -458,6 +485,24 @@ ON user_messages ("userId", "createTime" DESC);
 
 CREATE INDEX IF NOT EXISTS idx_user_messages_unread
 ON user_messages ("userId", "isRead", "createTime" DESC);
+
+CREATE UNIQUE INDEX IF NOT EXISTS ux_user_gear_active_unique
+ON user_gear_items (
+  user_id,
+  gear_type,
+  gear_master_id,
+  COALESCE(variant_key, '')
+)
+WHERE is_deleted = FALSE;
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_user_type
+ON user_gear_items (user_id, gear_type, is_deleted, sort_order, update_time DESC);
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_public_user
+ON user_gear_items (user_id, is_public, is_deleted, gear_type, sort_order);
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_master
+ON user_gear_items (gear_master_id, gear_type, is_deleted);
 
 CREATE INDEX IF NOT EXISTS idx_gear_feedback_status
 ON gear_feedback (status, "createTime" DESC);

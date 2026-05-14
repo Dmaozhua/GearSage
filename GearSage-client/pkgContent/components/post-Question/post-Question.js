@@ -1,5 +1,7 @@
 const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../../utils/theme');
 const { resolveGearSearchType, getGearModelSuggestions } = require('../../utils/gearModelMatcher');
+const api = require('../../../services/api.js');
+const auth = require('../../../services/auth.js');
 
 const QUESTION_TYPES = [
   { id: 'recommend', label: '求推荐' },
@@ -137,6 +139,7 @@ function createEmptyRecommendMeta() {
     carePriorities: [],
     avoidPoints: [],
     currentGear: '',
+    currentGearItems: [],
     candidateOptions: ['', '', ''],
     usageFrequency: '',
     coreQuestion: ''
@@ -183,6 +186,7 @@ function normalizeRecommendMeta(value) {
     useScene: Array.isArray(source.useScene) ? source.useScene.filter(Boolean).slice(0, 2) : [],
     carePriorities: Array.isArray(source.carePriorities) ? source.carePriorities.filter(Boolean).slice(0, 3) : [],
     avoidPoints: Array.isArray(source.avoidPoints) ? source.avoidPoints.filter(Boolean).slice(0, 3) : [],
+    currentGearItems: Array.isArray(source.currentGearItems) ? source.currentGearItems.slice(0, 5) : [],
     candidateOptions: candidateOptions.map((item) => {
       if (item && typeof item === 'object' && !Array.isArray(item)) {
         return String(item.label || '').trim();
@@ -290,6 +294,10 @@ Component({
     canSelectGearModel: false,
     gearModelOptions: [],
     showGearModelOptions: false,
+    showUserGearSelector: false,
+    userGearLoading: false,
+    userGearItems: [],
+    selectedUserGearIds: {},
     maxImages: 3,
     maxTitleLength: 40,
     maxContentLength: 300,
@@ -544,6 +552,120 @@ Component({
         [`errors.${field}`]: ''
       });
       this.syncRecommendMeta(nextMeta);
+    },
+
+    noop() {
+      return false;
+    },
+
+    async onOpenUserGearSelector() {
+      try {
+        await auth.ensureLogin();
+      } catch (error) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        });
+        return;
+      }
+
+      const recommendMeta = normalizeRecommendMeta(this.data.formData.recommendMeta);
+      const selectedUserGearIds = {};
+      recommendMeta.currentGearItems.forEach((item) => {
+        const id = Number(item.userGearItemId || item.id || 0);
+        if (id) {
+          selectedUserGearIds[id] = true;
+        }
+      });
+
+      this.setData({
+        showUserGearSelector: true,
+        selectedUserGearIds,
+        userGearLoading: true
+      });
+
+      try {
+        const payload = await api.getUserGear({}, { silent: true });
+        const userGearItems = (payload.items || []).map((item) => ({
+          ...item,
+          selected: Boolean(selectedUserGearIds[Number(item.id)]),
+          typeLabel: this.getUserGearTypeLabel(item.gearType)
+        }));
+        this.setData({
+          userGearItems,
+          userGearLoading: false
+        });
+      } catch (error) {
+        console.error('[post-question] load user gear failed:', error);
+        this.setData({ userGearLoading: false });
+        wx.showToast({
+          title: api.getErrorMessage(error, '加载我的装备失败'),
+          icon: 'none'
+        });
+      }
+    },
+
+    getUserGearTypeLabel(gearType) {
+      if (gearType === 'reel') return '鱼轮';
+      if (gearType === 'rod') return '鱼竿';
+      if (gearType === 'lure') return '常用饵';
+      return '装备';
+    },
+
+    onCloseUserGearSelector() {
+      this.setData({ showUserGearSelector: false });
+    },
+
+    onToggleUserGearSelect(e) {
+      const id = Number(e.currentTarget.dataset.id || 0);
+      if (!id) return;
+      const selectedUserGearIds = { ...(this.data.selectedUserGearIds || {}) };
+      if (selectedUserGearIds[id]) {
+        delete selectedUserGearIds[id];
+      } else {
+        const selectedCount = Object.keys(selectedUserGearIds).length;
+        if (selectedCount >= 5) {
+          wx.showToast({
+            title: '最多选择 5 件',
+            icon: 'none'
+          });
+          return;
+        }
+        selectedUserGearIds[id] = true;
+      }
+
+      const userGearItems = (this.data.userGearItems || []).map((item) => ({
+        ...item,
+        selected: Boolean(selectedUserGearIds[Number(item.id)])
+      }));
+      this.setData({
+        selectedUserGearIds,
+        userGearItems
+      });
+    },
+
+    onApplyUserGearSelection() {
+      const selectedMap = this.data.selectedUserGearIds || {};
+      const selectedItems = (this.data.userGearItems || [])
+        .filter((item) => selectedMap[Number(item.id)])
+        .slice(0, 5);
+      const currentGearItems = selectedItems.map((item) => ({
+        userGearItemId: Number(item.id),
+        gearType: item.gearType,
+        gearMasterId: item.gearMasterId,
+        gearVariantId: item.gearVariantId || '',
+        variantKey: item.variantKey || '',
+        label: item.displayName || item.variantLabel || item.gearModel || '',
+        source: 'user_gear'
+      }));
+      const currentGear = currentGearItems.map((item) => item.label).filter(Boolean).join(' + ');
+      const recommendMeta = normalizeRecommendMeta(this.data.formData.recommendMeta);
+      this.syncRecommendMeta({
+        ...recommendMeta,
+        currentGear,
+        currentGearItems
+      });
+      this.setData({ showUserGearSelector: false });
     },
 
     onCandidateOptionInput(e) {

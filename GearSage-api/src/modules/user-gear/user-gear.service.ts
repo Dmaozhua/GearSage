@@ -1,0 +1,371 @@
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { DatabaseService } from '../../common/database.service';
+import { CreateUserGearDto } from './dto/create-user-gear.dto';
+import { ListUserGearDto } from './dto/list-user-gear.dto';
+import { UpdateUserGearDto } from './dto/update-user-gear.dto';
+
+type UserGearType = 'reel' | 'rod' | 'lure';
+
+const USAGE_STATUS_TEXT: Record<string, string> = {
+  frequent: '常用',
+  backup: '备用',
+  idle: '已闲置',
+};
+
+@Injectable()
+export class UserGearService {
+  constructor(private readonly databaseService: DatabaseService) {}
+
+  async list(viewerUserId: number, query: ListUserGearDto) {
+    const targetUserId = Number(query.userId || viewerUserId || 0);
+    if (!targetUserId) {
+      throw new UnauthorizedException('missing bearer token');
+    }
+
+    const isSelf = Boolean(viewerUserId && viewerUserId === targetUserId);
+    const includePrivate = isSelf && query.includePrivate !== 'false';
+    const params: any[] = [targetUserId];
+    const conditions = ['ugi.user_id = $1', 'ugi.is_deleted = FALSE'];
+
+    if (query.gearType) {
+      params.push(query.gearType);
+      conditions.push(`ugi.gear_type = $${params.length}`);
+    }
+    if (!includePrivate) {
+      conditions.push('ugi.is_public = TRUE');
+    }
+
+    const result = await this.databaseService.query(
+      `
+      SELECT
+        ugi.*,
+        gm.model AS latest_model,
+        gm."modelCn" AS latest_model_cn,
+        gm.images AS latest_images,
+        gb.name AS latest_brand_name,
+        gb.name_en AS latest_brand_name_en,
+        gb.name_zh AS latest_brand_name_zh
+      FROM user_gear_items ugi
+      LEFT JOIN gear_master gm
+        ON gm.kind = ugi.gear_type
+       AND gm.id = ugi.gear_master_id
+      LEFT JOIN gear_brands gb
+        ON gb.id = gm."brandId"
+      WHERE ${conditions.join(' AND ')}
+      ORDER BY
+        CASE ugi.usage_status
+          WHEN 'frequent' THEN 0
+          WHEN 'backup' THEN 1
+          ELSE 2
+        END,
+        ugi.sort_order ASC,
+        ugi.update_time DESC
+      `,
+      params,
+    );
+
+    const items = result.rows.map((row) => this.mapRow(row));
+    return {
+      summary: this.buildSummary(items),
+      items,
+    };
+  }
+
+  async create(userId: number, dto: CreateUserGearDto) {
+    const payload = this.normalizeCreatePayload(dto);
+    const master = await this.findMaster(payload.gearType, payload.gearMasterId);
+    if (!master) {
+      throw new NotFoundException('装备不存在或已下架');
+    }
+
+    const variant = payload.gearVariantId || payload.variantKey
+      ? await this.findVariant(payload.gearType, payload.gearMasterId, payload.gearVariantId || payload.variantKey)
+      : null;
+    const resolvedVariantKey = payload.variantKey || variant?.sourceKey || payload.gearVariantId || '';
+    const resolvedVariantLabel = payload.variantLabel || variant?.sku || resolvedVariantKey;
+    const variantCheckStatus = payload.gearVariantId || payload.variantKey
+      ? (variant ? 'matched' : 'unmatched')
+      : 'not_provided';
+    const displayName = payload.displayName || this.buildDisplayName(master, resolvedVariantLabel);
+    const existing = await this.findActiveDuplicate(userId, payload.gearType, payload.gearMasterId, resolvedVariantKey);
+
+    if (existing) {
+      throw new ConflictException('该装备已在我的装备中');
+    }
+
+    const result = await this.databaseService.query(
+      `
+      INSERT INTO user_gear_items
+      (
+        user_id, gear_type, gear_master_id, gear_variant_id, variant_key, variant_label,
+        display_name, brand_name, gear_model, image_url, ownership_status, usage_status,
+        note, is_public, sort_order, extra, create_time, update_time
+      )
+      VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'owned', $11, $12, $13, 0, $14::jsonb, NOW(), NOW())
+      RETURNING *
+      `,
+      [
+        userId,
+        payload.gearType,
+        payload.gearMasterId,
+        variant?.variantId || payload.gearVariantId || null,
+        resolvedVariantKey || null,
+        resolvedVariantLabel || null,
+        displayName,
+        this.resolveBrandName(master),
+        master.model || master.modelCn || '',
+        this.resolveImageUrl(master),
+        payload.usageStatus,
+        payload.note || null,
+        payload.isPublic,
+        JSON.stringify({
+          variantCheckStatus,
+          variant: variant ? this.formatVariantSnapshot(variant) : null,
+        }),
+      ],
+    );
+
+    return this.mapRow(result.rows[0]);
+  }
+
+  async update(userId: number, id: number, dto: UpdateUserGearDto) {
+    await this.assertOwnItem(userId, id);
+
+    const displayName = dto.displayName === undefined ? undefined : String(dto.displayName || '').trim();
+    if (displayName !== undefined && !displayName) {
+      throw new BadRequestException('displayName is required');
+    }
+
+    const result = await this.databaseService.query(
+      `
+      UPDATE user_gear_items
+      SET
+        display_name = COALESCE($3, display_name),
+        usage_status = COALESCE($4, usage_status),
+        is_public = COALESCE($5, is_public),
+        note = COALESCE($6, note),
+        sort_order = COALESCE($7, sort_order),
+        update_time = NOW()
+      WHERE id = $1
+        AND user_id = $2
+        AND is_deleted = FALSE
+      RETURNING *
+      `,
+      [
+        id,
+        userId,
+        displayName ?? null,
+        dto.usageStatus ?? null,
+        dto.isPublic ?? null,
+        dto.note === undefined ? null : String(dto.note || '').trim(),
+        dto.sortOrder ?? null,
+      ],
+    );
+
+    return this.mapRow(result.rows[0]);
+  }
+
+  async remove(userId: number, id: number) {
+    await this.assertOwnItem(userId, id);
+
+    await this.databaseService.query(
+      `
+      UPDATE user_gear_items
+      SET is_deleted = TRUE,
+          delete_time = NOW(),
+          update_time = NOW()
+      WHERE id = $1
+        AND user_id = $2
+        AND is_deleted = FALSE
+      `,
+      [id, userId],
+    );
+
+    return true;
+  }
+
+  private normalizeCreatePayload(dto: CreateUserGearDto) {
+    const gearMasterId = String(dto.gearMasterId || '').trim();
+    if (!gearMasterId) {
+      throw new BadRequestException('gearMasterId is required');
+    }
+
+    return {
+      gearType: dto.gearType,
+      gearMasterId,
+      gearVariantId: String(dto.gearVariantId || '').trim(),
+      variantKey: String(dto.variantKey || '').trim(),
+      variantLabel: String(dto.variantLabel || '').trim(),
+      displayName: String(dto.displayName || '').trim(),
+      usageStatus: dto.usageStatus || 'frequent',
+      isPublic: dto.isPublic !== false,
+      note: String(dto.note || '').trim(),
+    };
+  }
+
+  private async findMaster(gearType: UserGearType, gearMasterId: string) {
+    const result = await this.databaseService.query(
+      `
+      SELECT gm.*, gb.name AS brand_name, gb.name_en AS brand_name_en, gb.name_zh AS brand_name_zh
+      FROM gear_master gm
+      LEFT JOIN gear_brands gb ON gb.id = gm."brandId"
+      WHERE gm.kind = $1
+        AND gm.id = $2
+        AND gm."isShow" = 1
+      LIMIT 1
+      `,
+      [gearType, gearMasterId],
+    );
+
+    return result.rows[0] || null;
+  }
+
+  private async findVariant(gearType: UserGearType, gearMasterId: string, variantKey?: string) {
+    const key = String(variantKey || '').trim();
+    if (!key) {
+      return null;
+    }
+
+    const result = await this.databaseService.query(
+      `
+      SELECT "sourceKey", "gearId", "variantId", sku, raw_json
+      FROM gear_variants
+      WHERE kind = $1
+        AND "gearId" = $2
+        AND (
+          "variantId" = $3
+          OR sku = $3
+          OR "sourceKey" = $3
+          OR raw_json->>'id' = $3
+          OR raw_json->>'SKU' = $3
+          OR raw_json->>'sku' = $3
+        )
+      LIMIT 1
+      `,
+      [gearType, gearMasterId, key],
+    );
+
+    return result.rows[0] || null;
+  }
+
+  private async findActiveDuplicate(userId: number, gearType: UserGearType, gearMasterId: string, variantKey: string) {
+    const result = await this.databaseService.query(
+      `
+      SELECT id
+      FROM user_gear_items
+      WHERE user_id = $1
+        AND gear_type = $2
+        AND gear_master_id = $3
+        AND COALESCE(variant_key, '') = COALESCE($4, '')
+        AND is_deleted = FALSE
+      LIMIT 1
+      `,
+      [userId, gearType, gearMasterId, variantKey || null],
+    );
+
+    return result.rows[0] || null;
+  }
+
+  private async assertOwnItem(userId: number, id: number) {
+    const result = await this.databaseService.query(
+      `
+      SELECT id, user_id
+      FROM user_gear_items
+      WHERE id = $1
+        AND is_deleted = FALSE
+      LIMIT 1
+      `,
+      [id],
+    );
+
+    if (!result.rows.length) {
+      throw new NotFoundException('user gear item not found');
+    }
+    if (Number(result.rows[0].user_id) !== Number(userId)) {
+      throw new ForbiddenException('cannot modify another user gear item');
+    }
+  }
+
+  private buildSummary(items: any[]) {
+    const summary = { reel: 0, rod: 0, lure: 0, total: 0 };
+    items.forEach((item) => {
+      if (item.gearType === 'reel' || item.gearType === 'rod' || item.gearType === 'lure') {
+        summary[item.gearType] += 1;
+        summary.total += 1;
+      }
+    });
+    return summary;
+  }
+
+  private mapRow(row: any) {
+    const imageUrl = this.resolveLatestImage(row) || row.image_url || '';
+    const brandName = row.latest_brand_name_zh || row.latest_brand_name || row.latest_brand_name_en || row.brand_name || '';
+    const gearModel = row.latest_model_cn || row.latest_model || row.gear_model || '';
+
+    return {
+      id: Number(row.id),
+      userId: Number(row.user_id),
+      gearType: row.gear_type,
+      gearMasterId: row.gear_master_id,
+      gearVariantId: row.gear_variant_id || '',
+      variantKey: row.variant_key || '',
+      variantLabel: row.variant_label || '',
+      displayName: row.display_name || this.buildDisplayName({ brand_name: brandName, model: gearModel }, row.variant_label),
+      brandName,
+      gearModel,
+      imageUrl,
+      ownershipStatus: row.ownership_status || 'owned',
+      usageStatus: row.usage_status || 'frequent',
+      usageStatusText: USAGE_STATUS_TEXT[row.usage_status] || row.usage_status || '',
+      note: row.note || '',
+      isPublic: row.is_public === true,
+      sortOrder: Number(row.sort_order || 0),
+      extra: row.extra || {},
+      createTime: row.create_time,
+      updateTime: row.update_time,
+    };
+  }
+
+  private resolveBrandName(row: any) {
+    return row.brand_name_zh || row.brand_name || row.brand_name_en || '';
+  }
+
+  private resolveImageUrl(row: any) {
+    return this.resolveLatestImage({ latest_images: row.images });
+  }
+
+  private resolveLatestImage(row: any) {
+    const images = row.latest_images || row.images;
+    if (Array.isArray(images)) {
+      return String(images[0] || '').trim();
+    }
+    if (typeof images === 'string' && images.trim().startsWith('[')) {
+      try {
+        const parsed = JSON.parse(images);
+        return Array.isArray(parsed) ? String(parsed[0] || '').trim() : '';
+      } catch (_error) {
+        return '';
+      }
+    }
+    return typeof images === 'string' ? images.trim() : '';
+  }
+
+  private buildDisplayName(master: any, variantLabel = '') {
+    const parts = [
+      this.resolveBrandName(master),
+      master.modelCn || master.model || master.displayName || '',
+      variantLabel,
+    ].map((item) => String(item || '').trim()).filter(Boolean);
+    return parts.join(' ').trim() || '未命名装备';
+  }
+
+  private formatVariantSnapshot(row: any) {
+    return {
+      sourceKey: row.sourceKey || '',
+      gearId: row.gearId || '',
+      variantId: row.variantId || '',
+      sku: row.sku || '',
+    };
+  }
+}

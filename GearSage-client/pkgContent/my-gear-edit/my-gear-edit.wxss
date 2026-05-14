@@ -1,0 +1,223 @@
+@import "/styles/dark.wxss";
+
+page {
+  background: #f3f5f1;
+}
+
+.edit-page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx 48rpx;
+  box-sizing: border-box;
+  background: #f3f5f1;
+  color: #1f2a27;
+}
+
+.edit-page.dark {
+  background: #10161a;
+  color: #edf4ef;
+}
+
+.type-row,
+.status-row,
+.variant-row {
+  display: flex;
+  gap: 12rpx;
+}
+
+.type-row {
+  margin-bottom: 18rpx;
+}
+
+.type-chip,
+.status-chip,
+.variant-chip {
+  padding: 14rpx 22rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid rgba(57, 72, 63, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+  color: #52615a;
+  font-size: 24rpx;
+  white-space: nowrap;
+}
+
+.type-chip.active,
+.status-chip.active,
+.variant-chip.active {
+  background: #e3ebe2;
+  border-color: rgba(50, 75, 62, 0.28);
+  color: #263a30;
+  font-weight: 700;
+}
+
+.search-block,
+.selected-block {
+  border-radius: 8rpx;
+}
+
+.search-row {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 18rpx;
+}
+
+.search-input,
+.text-input,
+.note-input {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 8rpx;
+  border: 1rpx solid rgba(57, 72, 63, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2a27;
+  font-size: 26rpx;
+}
+
+.search-input,
+.text-input {
+  height: 72rpx;
+  padding: 0 20rpx;
+}
+
+.search-btn,
+.save-btn,
+.change-btn {
+  margin: 0;
+  border-radius: 8rpx;
+  background: #33483e;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.search-btn {
+  width: 132rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+}
+
+.search-state {
+  padding: 60rpx 0;
+  text-align: center;
+  color: #6d776f;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.search-item,
+.selected-master,
+.form-item {
+  padding: 18rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1rpx solid rgba(57, 72, 63, 0.1);
+}
+
+.search-item,
+.selected-master {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.search-image,
+.selected-image {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 8rpx;
+  background: #e6ebe7;
+}
+
+.search-copy,
+.selected-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-name,
+.selected-title,
+.search-brand,
+.selected-sub {
+  display: block;
+}
+
+.search-name,
+.selected-title {
+  font-size: 28rpx;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #1f2a27;
+}
+
+.search-brand,
+.selected-sub,
+.form-tip {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  line-height: 1.5;
+  color: #6d776f;
+}
+
+.change-btn {
+  width: 96rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  background: #edf1ec;
+  color: #30443b;
+}
+
+.form-item {
+  margin-top: 16rpx;
+}
+
+.form-item--switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.form-label {
+  margin-bottom: 12rpx;
+  font-size: 25rpx;
+  font-weight: 700;
+  color: #26352f;
+}
+
+.variant-scroll {
+  width: 100%;
+}
+
+.note-input {
+  min-height: 160rpx;
+  padding: 18rpx 20rpx;
+}
+
+.save-btn {
+  width: 100%;
+  height: 76rpx;
+  margin-top: 22rpx;
+  line-height: 76rpx;
+}
+
+.dark .search-item,
+.dark .selected-master,
+.dark .form-item,
+.dark .type-chip,
+.dark .status-chip,
+.dark .variant-chip,
+.dark .search-input,
+.dark .text-input,
+.dark .note-input {
+  background: rgba(238, 245, 242, 0.07);
+  border-color: rgba(238, 245, 242, 0.1);
+  color: #edf4ef;
+}
+
+.dark .search-name,
+.dark .selected-title,
+.dark .form-label {
+  color: #edf4ef;
+}

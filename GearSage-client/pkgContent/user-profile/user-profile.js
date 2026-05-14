@@ -27,6 +27,12 @@ const ANSWER_CONCLUSION_LABELS = {
   need_more_info: '建议先补充信息',
 };
 
+const GEAR_TYPE_LABELS = {
+  reel: '鱼轮',
+  rod: '鱼竿',
+  lure: '常用饵'
+};
+
 function normalizeNumber(value) {
   const numberValue = Number(value || 0);
   return Number.isFinite(numberValue) ? numberValue : 0;
@@ -102,6 +108,7 @@ Page({
     isReported: false,
     identitySummary: '',
     summaryStats: [],
+    commonGearGroups: [],
     recentTopics: [],
     recentAcceptedAnswers: [],
   },
@@ -156,6 +163,7 @@ Page({
       const profile = normalizeUser(payload);
       const resolvedProfile = await this.resolveProfileMediaUrls(profile);
       const stats = payload.stats && typeof payload.stats === 'object' ? payload.stats : payload;
+      const commonGearGroups = await this.loadPublicGearGroups(userId);
 
       this.setData({
         loading: false,
@@ -164,6 +172,7 @@ Page({
         isReported: Boolean(payload.isReported || this.isTargetReported('user', userId)),
         identitySummary: this.buildIdentitySummary(stats),
         summaryStats: this.buildSummaryStats(stats),
+        commonGearGroups,
         recentTopics: this.buildRecentTopics(payload.recentTopics),
         recentAcceptedAnswers: this.buildRecentAcceptedAnswers(payload.recentAcceptedAnswers),
       });
@@ -421,6 +430,35 @@ Page({
       acceptedAtText: dateFormatter.formatSmartTime(item.acceptedAt || item.createTime || ''),
       summaryText: buildAcceptedAnswerSummary(item),
     })).filter((item) => item.topicId);
+  },
+
+  async loadPublicGearGroups(userId) {
+    try {
+      const payload = await api.getUserGear({ userId }, { silent: true, skipErrorToast: true });
+      return this.buildPublicGearGroups(payload.items || []);
+    } catch (error) {
+      console.warn('[user-profile] load public gear failed:', error);
+      return [];
+    }
+  },
+
+  buildPublicGearGroups(items = []) {
+    return ['reel', 'rod', 'lure'].map((gearType) => {
+      const list = (Array.isArray(items) ? items : [])
+        .filter((item) => item.gearType === gearType && item.isPublic !== false)
+        .slice(0, 3)
+        .map((item) => ({
+          id: item.id,
+          label: item.displayName || item.variantLabel || item.gearModel || '未命名装备',
+          statusText: item.usageStatusText || ''
+        }));
+      return {
+        gearType,
+        label: GEAR_TYPE_LABELS[gearType],
+        list,
+        text: list.map((item) => item.label).join('、')
+      };
+    }).filter((group) => group.list.length > 0);
   },
 
   onTapTopic(e) {

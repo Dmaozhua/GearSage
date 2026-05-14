@@ -279,6 +279,104 @@ wx.cloud.callFunction({
 - 是否需要后台登录：是
 - 用途：驳回无效装备反馈并写入后台日志。
 
+## 1-C. 我的装备接口
+
+### 1-C.1 GET /mini/user/gear
+
+- 方法：GET
+- 路径：`/mini/user/gear`
+- 是否需要登录：查询自己需要登录；查询指定 `userId` 时允许未登录访问公开装备
+- 用途：读取当前用户或指定用户的装备档案。
+- 查询参数：
+  - `gearType?: "reel" | "rod" | "lure"`
+  - `userId?: string | number`，不传则查当前登录用户
+  - `includePrivate?: "true" | "false"`，仅自己查看时有效，默认包含私密
+- 隐私口径：
+  - 自己查看：返回公开 + 私密装备
+  - 他人查看：只返回 `isPublic=true`
+- 返回结构：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "summary": { "reel": 1, "rod": 2, "lure": 3, "total": 6 },
+    "items": [
+      {
+        "id": 1,
+        "gearType": "rod",
+        "gearMasterId": "ROD1000",
+        "variantKey": "702M",
+        "variantLabel": "702M",
+        "displayName": "C6IM 702M",
+        "brandName": "Shimano",
+        "gearModel": "C6IM",
+        "imageUrl": "https://static.gearsage.club/...",
+        "usageStatus": "frequent",
+        "usageStatusText": "常用",
+        "note": "野河翘嘴常用",
+        "isPublic": true,
+        "sortOrder": 0,
+        "createTime": "2026-05-14T00:00:00.000Z",
+        "updateTime": "2026-05-14T00:00:00.000Z"
+      }
+    ]
+  }
+}
+```
+
+### 1-C.2 POST /mini/user/gear
+
+- 方法：POST
+- 路径：`/mini/user/gear`
+- 是否需要登录：是
+- 用途：把装备库主数据中的一件装备加入当前用户的“我的装备”。
+- 请求参数：
+  - `gearType: "reel" | "rod" | "lure"`
+  - `gearMasterId: string`
+  - `gearVariantId?: string`
+  - `variantKey?: string`
+  - `variantLabel?: string`
+  - `displayName?: string`
+  - `usageStatus: "frequent" | "backup" | "idle"`
+  - `isPublic: boolean`
+  - `note?: string`
+- 校验口径：
+  - `gearMasterId` 必须存在于 `gear_master`
+  - 重复 active `userId + gearType + gearMasterId + variantKey` 返回冲突错误
+  - variant 校验为尽力校验，未匹配时不阻断保存，会在 `extra.variantCheckStatus` 留痕
+
+### 1-C.3 PUT /mini/user/gear/:id
+
+- 方法：PUT
+- 路径：`/mini/user/gear/:id`
+- 是否需要登录：是
+- 用途：更新自己的装备展示信息。
+- 可更新字段：
+  - `displayName?: string`
+  - `usageStatus?: "frequent" | "backup" | "idle"`
+  - `isPublic?: boolean`
+  - `note?: string`
+  - `sortOrder?: number`
+- 权限：只能更新自己的装备；不能通过更新接口修改 `gearType / gearMasterId / variantKey`。
+
+### 1-C.4 DELETE /mini/user/gear/:id
+
+- 方法：DELETE
+- 路径：`/mini/user/gear/:id`
+- 是否需要登录：是
+- 用途：软删除自己的装备。
+- 返回结构：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": true
+}
+```
+
 ## 2. 邀请
 
 ### 2.1 POST /mini/invite/bind

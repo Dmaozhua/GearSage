@@ -448,6 +448,25 @@
   box-shadow: 0 8rpx 0 var(--accent);
 }
 
+.menu-icon--gear::before {
+  left: 10rpx;
+  top: 12rpx;
+  width: 24rpx;
+  height: 18rpx;
+  border: 3rpx solid var(--accent);
+  border-radius: 8rpx;
+}
+
+.menu-icon--gear::after {
+  left: 16rpx;
+  top: 7rpx;
+  width: 12rpx;
+  height: 10rpx;
+  border: 3rpx solid var(--accent);
+  border-bottom: none;
+  border-radius: 8rpx 8rpx 0 0;
+}
+
 .menu-icon--points::before {
   left: 10rpx;
   top: 10rpx;

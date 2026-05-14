@@ -44,6 +44,14 @@
       </view>
     </view>
 
+    <view class="section-card common-gear-section" wx:if="{{commonGearGroups.length}}">
+      <view class="section-title">常用装备</view>
+      <view class="common-gear-row" wx:for="{{commonGearGroups}}" wx:key="gearType">
+        <text class="common-gear-label">{{item.label}}</text>
+        <text class="common-gear-text">{{item.text}}</text>
+      </view>
+    </view>
+
     <view class="section-card" wx:if="{{recentAcceptedAnswers.length}}">
       <view class="section-title">最近被采纳回答</view>
       <view

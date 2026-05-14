@@ -323,6 +323,8 @@ Page({
     seriesBodyHeight: 0,
     compareCount: 0,
     isCurrentVariantCompared: false,
+    isUserGearAdded: false,
+    currentUserGearItemId: 0,
     canCompare: false,
     fieldLabels: {
       SKU: '子型号',
@@ -507,6 +509,7 @@ Page({
 
   onShow() {
     this.syncCompareState();
+    this.syncUserGearState();
   },
 
   onUnload() {
@@ -1156,6 +1159,7 @@ Page({
       });
 
       this.syncCompareState();
+      this.syncUserGearState();
       this.fetchRelatedPosts();
     } catch (e) {
       console.error(e);
@@ -1187,6 +1191,7 @@ Page({
     });
 
     this.syncCompareState();
+    this.syncUserGearState();
   },
 
   scheduleMeasureVariantFloat() {
@@ -1704,6 +1709,106 @@ Page({
     wx.navigateTo({
       url: `/pkgContent/publishMode/publishMode?from=gear_detail&gearCategory=${encodeURIComponent(gearCategory)}&gearItemId=${gearItemId}&gearLabel=${encodeURIComponent(gearLabel)}`
     });
+  },
+
+  resolveUserGearType(type) {
+    if (type === 'reels') return 'reel';
+    if (type === 'rods') return 'rod';
+    if (type === 'lures') return 'lure';
+    return '';
+  },
+
+  buildUserGearPayload() {
+    const item = this.data.item || {};
+    const selectedVariant = this.data.selectedVariant || {};
+    const gearType = this.resolveUserGearType(this.data.gearType);
+    const gearMasterId = this.normalizeText(item.id);
+    const variantKey = this.normalizeText(selectedVariant.__key || selectedVariant.variantId || selectedVariant.SKU || selectedVariant.sku);
+    const variantLabel = this.normalizeText(selectedVariant.__displayName || selectedVariant.SKU || selectedVariant.sku || variantKey);
+    const brandName = this.normalizeText(item.brand_name);
+    const detailName = this.normalizeText(item.detailName || item.displayName || item.model);
+    const displayName = [brandName, detailName, variantLabel].filter(Boolean).join(' ');
+
+    if (!gearType || !gearMasterId) {
+      return null;
+    }
+
+    return {
+      gearType,
+      gearMasterId,
+      gearVariantId: this.normalizeText(selectedVariant.variantId || selectedVariant.id),
+      variantKey,
+      variantLabel,
+      displayName,
+      usageStatus: 'frequent',
+      isPublic: true,
+      note: ''
+    };
+  },
+
+  async syncUserGearState() {
+    const payload = this.buildUserGearPayload();
+    if (!payload) {
+      this.setData({ isUserGearAdded: false, currentUserGearItemId: 0 });
+      return;
+    }
+
+    const AuthService = require('../../../services/auth.js');
+    if (!AuthService.checkLoginStatus || !AuthService.checkLoginStatus()) {
+      this.setData({ isUserGearAdded: false, currentUserGearItemId: 0 });
+      return;
+    }
+
+    try {
+      const result = await apiService.getUserGear({ gearType: payload.gearType }, { silent: true, skipErrorToast: true });
+      const matched = (result.items || []).find((entry) => {
+        return entry.gearMasterId === payload.gearMasterId &&
+          String(entry.variantKey || '') === String(payload.variantKey || '');
+      });
+      this.setData({
+        isUserGearAdded: !!matched,
+        currentUserGearItemId: matched ? Number(matched.id || 0) : 0
+      });
+    } catch (error) {
+      console.warn('[gear-detail] sync user gear failed:', error);
+    }
+  },
+
+  async onAddToUserGear() {
+    const AuthService = require('../../../services/auth.js');
+    try {
+      await AuthService.ensureLogin();
+    } catch (error) {
+      return;
+    }
+
+    if (this.data.isUserGearAdded && this.data.currentUserGearItemId) {
+      wx.navigateTo({
+        url: `/pkgContent/my-gear-edit/my-gear-edit?mode=edit&id=${this.data.currentUserGearItemId}`
+      });
+      return;
+    }
+
+    const payload = this.buildUserGearPayload();
+    if (!payload) {
+      wx.showToast({ title: '暂时无法添加这件装备', icon: 'none' });
+      return;
+    }
+
+    try {
+      const created = await apiService.createUserGear(payload, { silent: true });
+      this.setData({
+        isUserGearAdded: true,
+        currentUserGearItemId: Number(created && created.id ? created.id : 0)
+      });
+      wx.showToast({ title: '已加入我的装备', icon: 'success' });
+    } catch (error) {
+      const message = apiService.getErrorMessage(error, '添加失败');
+      if (message.includes('已在我的装备')) {
+        await this.syncUserGearState();
+      }
+      wx.showToast({ title: message, icon: 'none' });
+    }
   },
 
   buildFeedbackFieldOptions() {

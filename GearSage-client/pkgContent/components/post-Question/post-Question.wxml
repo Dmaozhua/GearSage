@@ -223,6 +223,12 @@
           placeholder="已有装备可简单写，如“ML竿 + 1000纺车轮”"
           bindinput="onRecommendInput"
         />
+        <view class="field-action-row">
+          <view class="field-action" bindtap="onOpenUserGearSelector">从我的装备选择</view>
+          <view class="field-action-note" wx:if="{{formData.recommendMeta.currentGearItems.length}}">
+            已选 {{formData.recommendMeta.currentGearItems.length}} 件
+          </view>
+        </view>
       </view>
 
       <view class="form-item">
@@ -339,4 +345,32 @@
       <button class="btn btn-primary" bindtap="onSubmit">发布</button>
     </view>
   </root-portal>
+
+  <view class="selector-mask" wx:if="{{showUserGearSelector}}" catchtap="onCloseUserGearSelector">
+    <view class="selector-panel" catchtap="noop">
+      <view class="selector-head">
+        <text class="selector-title">从我的装备选择</text>
+        <text class="selector-close" bindtap="onCloseUserGearSelector">关闭</text>
+      </view>
+      <view class="selector-tip">最多选择 5 件，选中后会写入“已有装备”，你仍然可以手动修改文案。</view>
+      <view class="selector-state" wx:if="{{userGearLoading}}">加载中...</view>
+      <scroll-view scroll-y class="selector-list" wx:else>
+        <view class="selector-empty" wx:if="{{!userGearItems.length}}">还没有添加我的装备</view>
+        <view
+          wx:for="{{userGearItems}}"
+          wx:key="id"
+          class="selector-item {{item.selected ? 'active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onToggleUserGearSelect"
+        >
+          <view class="selector-item-main">
+            <text class="selector-item-name">{{item.displayName}}</text>
+            <text class="selector-item-meta">{{item.typeLabel}}｜{{item.usageStatusText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+          </view>
+          <text class="selector-check">{{item.selected ? '已选' : '选择'}}</text>
+        </view>
+      </scroll-view>
+      <button class="selector-confirm" bindtap="onApplyUserGearSelection">写入已有装备</button>
+    </view>
+  </view>
 </view>

@@ -1,0 +1,95 @@
+<custom-navbar title="{{mode === 'edit' ? '编辑装备' : '添加装备'}}" show-back="{{true}}"></custom-navbar>
+
+<view class="edit-page {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <view class="type-row" wx:if="{{mode !== 'edit'}}">
+    <view
+      wx:for="{{typeOptions}}"
+      wx:key="key"
+      class="type-chip {{gearType === item.key ? 'active' : ''}}"
+      data-type="{{item.key}}"
+      bindtap="onTypeChange"
+    >{{item.label}}</view>
+  </view>
+
+  <view class="search-block" wx:if="{{mode !== 'edit' && !selectedMaster}}">
+    <view class="search-row">
+      <input class="search-input" placeholder="搜索装备库" value="{{keyword}}" bindinput="onKeywordInput" confirm-type="search" bindconfirm="searchGear" />
+      <button class="search-btn" bindtap="searchGear">搜索</button>
+    </view>
+    <view class="search-state" wx:if="{{searching}}">搜索中...</view>
+    <view class="search-list" wx:else>
+      <view
+        class="search-item"
+        wx:for="{{searchResults}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onSelectMaster"
+      >
+        <image class="search-image" src="{{item.imageUrl || '/images/empty.png'}}" mode="aspectFill"></image>
+        <view class="search-copy">
+          <text class="search-name">{{item.displayName}}</text>
+          <text class="search-brand">{{item.brandName || '装备库记录'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="selected-block" wx:if="{{selectedMaster}}">
+    <view class="selected-master">
+      <image class="selected-image" src="{{selectedMaster.imageUrl || '/images/empty.png'}}" mode="aspectFill"></image>
+      <view class="selected-copy">
+        <text class="selected-title">{{selectedMaster.displayName}}</text>
+        <text class="selected-sub">{{selectedMaster.brandName || 'GearSage 装备库'}}</text>
+      </view>
+      <button class="change-btn" wx:if="{{mode !== 'edit'}}" bindtap="onTypeChange" data-type="{{gearType}}">重选</button>
+    </view>
+
+    <view class="form-item" wx:if="{{variantOptions.length}}">
+      <view class="form-label">子型号 / SKU</view>
+      <scroll-view scroll-x class="variant-scroll" show-scrollbar="{{false}}">
+        <view class="variant-row">
+          <view
+            wx:for="{{variantOptions}}"
+            wx:key="key"
+            class="variant-chip {{selectedVariantKey === item.key ? 'active' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="onSelectVariant"
+          >{{item.label}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">展示名称</view>
+      <input class="text-input" data-field="displayName" value="{{form.displayName}}" maxlength="80" bindinput="onInput" />
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">使用状态</view>
+      <view class="status-row">
+        <view
+          wx:for="{{statusOptions}}"
+          wx:key="key"
+          class="status-chip {{form.usageStatus === item.key ? 'active' : ''}}"
+          data-status="{{item.key}}"
+          bindtap="onStatusChange"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="form-item form-item--switch">
+      <view>
+        <view class="form-label">公开到他人主页</view>
+        <view class="form-tip">关闭后只有你自己能看到。</view>
+      </view>
+      <switch checked="{{form.isPublic}}" bindchange="onPublicChange"></switch>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">备注</view>
+      <textarea class="note-input" data-field="note" value="{{form.note}}" maxlength="500" placeholder="例如使用场景、搭配或真实感受" bindinput="onInput"></textarea>
+    </view>
+
+    <button class="save-btn" loading="{{saving}}" bindtap="onSave">{{saving ? '保存中...' : '保存'}}</button>
+  </view>
+</view>
