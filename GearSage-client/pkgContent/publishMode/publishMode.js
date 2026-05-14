@@ -476,7 +476,8 @@ Page({
       'https://anglertest.xyz/Banner/banner2.jpg',
       'https://anglertest.xyz/Banner/banner3.webp'
     ],
-    editingDraftId: null
+    editingDraftId: null,
+    exitGuardVisible: false
   },
 
   async onLoad(options) {
@@ -492,6 +493,9 @@ Page({
     this._initialDraftSnapshot = '';
     this._backHandled = false;
     this._loadingDraft = false;
+    this._allowPageExit = false;
+    this._draftExitModalVisible = false;
+    this._leavingPage = false;
 
     if (this.isDraftEditingEntry(options)) {
       await this.loadDraftForEditing(options);
@@ -527,6 +531,13 @@ Page({
     this.confirmDraftBeforeExit();
   },
 
+  onNativeBeforeLeave() {
+    if (this._allowPageExit) {
+      return;
+    }
+    this.confirmDraftBeforeExit();
+  },
+
   // 处理卡片选择事件
   onCardSelect(e) {
     const { index, card } = e.detail;
@@ -540,6 +551,7 @@ Page({
       editingDraftId: null
     });
     this.captureInitialDraftSnapshot();
+    this.refreshExitGuard();
     
     console.log('选中的模式:', selectedMode);
     console.log('[publishMode] onCardSelect index=', index, 'card=', card);
@@ -562,6 +574,7 @@ Page({
       editingDraftId: null
     });
     this.captureInitialDraftSnapshot();
+    this.refreshExitGuard();
     return true;
   },
 
@@ -586,6 +599,7 @@ Page({
       editingDraftId: null
     });
     this.captureInitialDraftSnapshot();
+    this.refreshExitGuard();
     return true;
   },
 
@@ -619,6 +633,7 @@ Page({
       });
 
       this.captureInitialDraftSnapshot();
+      this.refreshExitGuard();
 
       if (draft.rejectReason) {
         wx.showModal({
@@ -678,6 +693,7 @@ Page({
 
   captureInitialDraftSnapshot(payload = null) {
     this._initialDraftSnapshot = this.getDraftSnapshot(payload);
+    this.refreshExitGuard();
   },
 
   hasDraftChanged() {
@@ -721,6 +737,57 @@ Page({
     return checkValue(currentPayload);
   },
 
+  shouldEnableExitGuard() {
+    return Boolean(
+      !this._allowPageExit &&
+      !this._loadingDraft &&
+      !this.data.showModeSelection &&
+      this.getCurrentModeConfig() &&
+      this.hasDraftChanged() &&
+      this.hasMeaningfulDraftContent()
+    );
+  },
+
+  refreshExitGuard() {
+    const exitGuardVisible = this.shouldEnableExitGuard();
+    if (this.data.exitGuardVisible !== exitGuardVisible) {
+      this.setData({ exitGuardVisible });
+    }
+  },
+
+  leavePage() {
+    if (this._leavingPage) {
+      return;
+    }
+    this._leavingPage = true;
+    this._allowPageExit = true;
+    const doNavigateBack = () => {
+      wx.navigateBack({
+        fail: (error) => {
+          console.error('[publishMode] navigateBack failed:', error);
+          this.stayOnPage();
+        }
+      });
+    };
+    this.setData({ exitGuardVisible: false }, () => {
+      setTimeout(doNavigateBack, 120);
+    });
+  },
+
+  stayOnPage() {
+    this._leavingPage = false;
+    this._allowPageExit = false;
+    if (!this.shouldEnableExitGuard()) {
+      return;
+    }
+    this.setData({ exitGuardVisible: false });
+    setTimeout(() => {
+      if (!this._allowPageExit && this.shouldEnableExitGuard()) {
+        this.setData({ exitGuardVisible: true });
+      }
+    }, 30);
+  },
+
   async saveCurrentDraft() {
     const currentPayload = this.getCurrentPostData();
     if (!currentPayload) {
@@ -743,23 +810,24 @@ Page({
   },
 
   confirmDraftBeforeExit() {
-    if (this._loadingDraft) {
+    if (this._loadingDraft || this._draftExitModalVisible) {
       return;
     }
 
     if (this.data.showModeSelection || !this.getCurrentModeConfig()) {
-      wx.navigateBack();
+      this.leavePage();
       return;
     }
 
     if (!this.hasDraftChanged() || !this.hasMeaningfulDraftContent()) {
-      wx.navigateBack();
+      this.leavePage();
       return;
     }
 
+    this._draftExitModalVisible = true;
     wx.showModal({
       title: '保存草稿',
-      content: '检测到你有未保存的内容，是否保存为草稿？',
+      content: '是否将本次编辑保存为草稿？',
       confirmText: '保存',
       cancelText: '不保存',
       success: async (res) => {
@@ -767,27 +835,36 @@ Page({
           try {
             wx.showLoading({ title: '保存草稿中...' });
             await this.saveCurrentDraft();
+            this._draftExitModalVisible = false;
             wx.hideLoading();
             wx.showToast({
-              title: '草稿已保存',
-              icon: 'success'
+              title: '草稿放在 我的-我的发布',
+              icon: 'none',
+              duration: 1600
             });
             setTimeout(() => {
-              wx.navigateBack();
-            }, 400);
+              this.leavePage();
+            }, 700);
             return;
           } catch (error) {
             wx.hideLoading();
             console.error('[publishMode] 保存草稿失败:', error);
+            this._draftExitModalVisible = false;
             wx.showToast({
               title: api.getErrorMessage(error, '保存草稿失败'),
               icon: 'none'
             });
+            this.stayOnPage();
             return;
           }
         }
 
-        wx.navigateBack();
+        this._draftExitModalVisible = false;
+        this.leavePage();
+      },
+      fail: () => {
+        this._draftExitModalVisible = false;
+        this.stayOnPage();
       }
     });
   },
@@ -797,6 +874,8 @@ Page({
     const { field, value } = e.detail;
     this.setData({
       [`formData.${field}`]: value
+    }, () => {
+      this.refreshExitGuard();
     });
     console.log('[publishMode] onFormDataChange field=', field, 'value=', value);
   },

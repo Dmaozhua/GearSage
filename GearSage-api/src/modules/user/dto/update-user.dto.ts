@@ -11,12 +11,12 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsString()
-  @MaxLength(32)
+  @MaxLength(30)
   nickName?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(32)
+  @MaxLength(30)
   nickname?: string;
 
   @IsOptional()

@@ -191,11 +191,17 @@ class AuthService {
     this.userInfo = null;
     this.isAdmin = false;
 
-    try {
-      wx.switchTab({ url: '/pages/index/index' });
-    } catch (_error) {
-      // noop
-    }
+    wx.navigateTo({
+      url: '/pages/login/login',
+      fail: () => {
+        wx.redirectTo({
+          url: '/pages/login/login',
+          fail: () => {
+            wx.reLaunch({ url: '/pages/login/login' });
+          }
+        });
+      }
+    });
   }
 
   async refreshUserInfo() {

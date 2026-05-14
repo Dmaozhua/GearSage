@@ -217,7 +217,10 @@ function normalizeTopicResponse(topic = {}) {
 }
 
 function buildTopicPayload(topicData = {}) {
-  const images = normalizeArray(topicData.images || topicData.contentImages);
+  const images = normalizeArray(topicData.images || topicData.contentImages || topicData.mainImages);
+  const content = topicData.content !== undefined && topicData.content !== null
+    ? topicData.content
+    : (topicData.mainContent || '');
   const receiptImages = normalizeArray(topicData.receiptImages || topicData.receipt);
   const gearCategory = normalizeGearCategoryValue(
     topicData.gearCategory || topicData.categoryKey || topicData.gaerCategory || topicData.gear_category || topicData.type
@@ -342,7 +345,7 @@ function buildTopicPayload(topicData = {}) {
     id: topicData.id || undefined,
     topicCategory: Number.isFinite(Number(topicData.topicCategory)) ? Number(topicData.topicCategory) : 1,
     title: topicData.title || '',
-    content: topicData.content || '',
+    content: content || '',
     images,
     extra
   };

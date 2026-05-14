@@ -55,11 +55,11 @@
       <input 
         class="edit-input" 
         type="nickname"
-        placeholder="请输入昵称，最大8个字符"
+        placeholder="请输入昵称，最大{{nicknameMaxLength}}个字符"
         placeholder-style="color:#8A918A"
         value="{{userInfo.nickname}}"
         bindinput="onNicknameInput"
-        maxlength="8"
+        maxlength="{{nicknameMaxLength}}"
       />
     </view>
 
@@ -73,7 +73,7 @@
         bindinput="onIntroductionInput"
         bindfocus="handleTextareaFocus"
         bindblur="handleTextareaBlur"
-        maxlength="30"
+        maxlength="{{bioMaxLength}}"
         show-confirm-bar="{{false}}"
         auto-height="{{true}}"
         fixed="{{true}}"
@@ -81,7 +81,7 @@
         adjust-position="{{false}}"
         selection-end="{{textareaSelectionEnd}}"
       />
-      <view class="char-count">{{introductionLength}}/30</view>
+      <view class="char-count">{{introductionLength}}/{{bioMaxLength}}</view>
     </view>
 
     <!-- 收货地址 -->

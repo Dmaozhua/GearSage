@@ -5,6 +5,9 @@ const tempUrlManager = require('../../utils/tempUrlManager.js');
 const { debouncePageMixin } = require('../../utils/debounceUtils.js');
 const tagProfileView = require('../../utils/tagProfileView.js');
 
+const NICKNAME_MAX_LENGTH = 30;
+const BIO_MAX_LENGTH = 200;
+
 function normalizeEditProfileUserInfo(rawUser = {}) {
   const user = rawUser && typeof rawUser === 'object' ? rawUser : {};
   const avatar = user.avatarUrl || user.avatar || '';
@@ -57,6 +60,8 @@ Page(Object.assign({}, debouncePageMixin, {
     
     // 简介长度
     introductionLength: 0,
+    nicknameMaxLength: NICKNAME_MAX_LENGTH,
+    bioMaxLength: BIO_MAX_LENGTH,
     
     // 标签相关
     availableTags: [],
@@ -676,15 +681,15 @@ Page(Object.assign({}, debouncePageMixin, {
     const value = e.detail.value || '';
     let nextValue = value;
     // 超长截断并提示
-    if (nextValue.length > 12) {
-      nextValue = nextValue.slice(0, 12);
+    if (nextValue.length > NICKNAME_MAX_LENGTH) {
+      nextValue = nextValue.slice(0, NICKNAME_MAX_LENGTH);
       wx.showToast({
-        title: '昵称最多12个字符',
+        title: `昵称最多${NICKNAME_MAX_LENGTH}个字符`,
         icon: 'none'
       });
     }
 
-    const canSave = nextValue.trim().length > 0 && nextValue.length <= 12;
+    const canSave = nextValue.trim().length > 0 && nextValue.length <= NICKNAME_MAX_LENGTH;
 
     this.setData({
       'userInfo.nickname': nextValue,
@@ -1182,23 +1187,23 @@ Page(Object.assign({}, debouncePageMixin, {
     
     if (!nickname || nickname.trim().length === 0) {
       wx.showToast({
-        title: '请输入昵称，最大12个字符',
+        title: `请输入昵称，最大${NICKNAME_MAX_LENGTH}个字符`,
         icon: 'none'
       });
       return false;
     }
     
-    if (nickname.length > 12) {
+    if (nickname.length > NICKNAME_MAX_LENGTH) {
       wx.showToast({
-        title: '昵称最多12个字符',
+        title: `昵称最多${NICKNAME_MAX_LENGTH}个字符`,
         icon: 'none'
       });
       return false;
     }
     
-    if (bio && bio.length > 200) {
+    if (bio && bio.length > BIO_MAX_LENGTH) {
       wx.showToast({
-        title: '自我介绍不能超过200个字符',
+        title: `自我介绍不能超过${BIO_MAX_LENGTH}个字符`,
         icon: 'none'
       });
       return false;

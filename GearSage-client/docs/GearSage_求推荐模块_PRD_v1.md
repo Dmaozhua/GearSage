@@ -135,6 +135,7 @@
 | `carePriorities` | 是 | string[] | 最在意的点，最多 3 个 |
 | `avoidPoints` | 否 | string[] | 不想要的点，最多 3 个 |
 | `currentGear` | 否 | string | 当前已有装备 |
+| `currentGearItems` | 否 | array | 从“我的装备”选择时写入的结构化已有装备，随 `recommendMeta` JSON 保存 |
 | `candidateOptions` | 否 | array | 候选项，最多 3 个 |
 | `usageFrequency` | 否 | string | 使用频率 |
 | `coreQuestion` | 是 | string | 核心纠结点 |
@@ -1375,6 +1376,7 @@
 - [ ] 必填校验明确且不过重
 - [ ] 标题支持默认生成
 - [ ] 摘要字段可在详情页正确展示
+- [ ] 从“我的装备”选择时可同时写入 `recommendMeta.currentGear/currentGearItems`
 
 ### 12.2 回答侧
 

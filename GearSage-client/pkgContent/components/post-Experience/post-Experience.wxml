@@ -53,6 +53,7 @@
         <text class="required">*</text>
       </view>
       <publish-checkbox 
+        checkboxItems="{{equipmentCategories}}"
         bind:checkboxChange="ongearCategorySelect"
         data-field="gearCategory"
       ></publish-checkbox>

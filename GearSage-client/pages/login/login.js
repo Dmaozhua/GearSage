@@ -39,6 +39,8 @@ Page({
     phone: '',
     code: '',
     countdown: 0,
+    sendingCode: false,
+    sendCodeText: '获取验证码',
     loading: false,
     isFormValid: false,
     fromRoute: '',
@@ -85,7 +87,7 @@ Page({
   },
 
   async onSendCode() {
-    if (this.data.countdown > 0 || this.data.loading) return;
+    if (this.data.countdown > 0 || this.data.loading || this.data.sendingCode) return;
     
     const { phone } = this.data;
     if (!/^1\d{10}$/.test(phone)) {
@@ -97,6 +99,10 @@ Page({
     }
 
     try {
+      this.setData({
+        sendingCode: true,
+        sendCodeText: '发送中...'
+      });
       wx.showLoading({ title: '发送中...' });
       await api.post('/auth/send-code', { phone }, {
         skipAuthRetry: true,
@@ -112,6 +118,10 @@ Page({
       this.startCountdown();
     } catch (error) {
       wx.hideLoading();
+      this.setData({
+        sendingCode: false,
+        sendCodeText: '获取验证码'
+      });
       wx.showToast({
         title: resolveSendCodeErrorMessage(error),
         icon: 'none'
@@ -120,12 +130,25 @@ Page({
   },
 
   startCountdown() {
-    this.setData({ countdown: 60 });
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+
+    this.setData({
+      countdown: 60,
+      sendingCode: false,
+      sendCodeText: '60s后重发'
+    });
     this.timer = setInterval(() => {
       if (this.data.countdown > 0) {
-        this.setData({ countdown: this.data.countdown - 1 });
+        const nextCountdown = this.data.countdown - 1;
+        this.setData({
+          countdown: nextCountdown,
+          sendCodeText: nextCountdown > 0 ? `${nextCountdown}s后重发` : '获取验证码'
+        });
       } else {
         clearInterval(this.timer);
+        this.timer = null;
       }
     }, 1000);
   },

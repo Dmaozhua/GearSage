@@ -9,6 +9,14 @@
   bind:back="handlePageExit">
 </custom-navbar>
 
+<page-container
+  wx:if="{{!showModeSelection}}"
+  show="{{exitGuardVisible}}"
+  overlay="{{false}}"
+  duration="0"
+  bind:beforeleave="onNativeBeforeLeave">
+</page-container>
+
 <view class="publish-mode-container {{showModeSelection ? 'mode-selection-active' : 'publish-content-active'}} {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{showModeSelection ? statusBarHeight + navBarHeight + 8 : statusBarHeight + 8}}px;">
   <view class="mode-selection" wx:if="{{showModeSelection}}">
     <view class="mode-title">

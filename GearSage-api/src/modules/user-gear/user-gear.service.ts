@@ -81,7 +81,7 @@ export class UserGearService {
     const variant = payload.gearVariantId || payload.variantKey
       ? await this.findVariant(payload.gearType, payload.gearMasterId, payload.gearVariantId || payload.variantKey)
       : null;
-    const resolvedVariantKey = payload.variantKey || variant?.sourceKey || payload.gearVariantId || '';
+    const resolvedVariantKey = payload.variantKey || variant?.variantId || payload.gearVariantId || variant?.sku || variant?.sourceKey || '';
     const resolvedVariantLabel = payload.variantLabel || variant?.sku || resolvedVariantKey;
     const variantCheckStatus = payload.gearVariantId || payload.variantKey
       ? (variant ? 'matched' : 'unmatched')

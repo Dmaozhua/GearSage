@@ -63,12 +63,12 @@
           bindinput="onCodeInput"
         />
         <button
-          class="send-code-btn {{countdown > 0 ? 'disabled' : ''}}"
-          hover-class="{{countdown > 0 ? 'none' : 'btn-hover'}}"
+          class="send-code-btn {{countdown > 0 || sendingCode || loading ? 'disabled' : ''}}"
+          hover-class="{{countdown > 0 || sendingCode || loading ? 'none' : 'btn-hover'}}"
           bindtap="onSendCode"
-          disabled="{{countdown > 0 || loading}}"
+          disabled="{{countdown > 0 || sendingCode || loading}}"
         >
-          {{countdown > 0 ? countdown + 's' : '获取验证码'}}
+          {{sendCodeText}}
         </button>
       </view>
     </view>

@@ -563,9 +563,11 @@
 
 .post-question-container .option-chip.active,
 .post-question-container .control.checked {
-  background: #eef2ed;
-  border-color: rgba(79, 102, 84, 0.36);
-  color: #4f6654;
+  background: #e1e9df;
+  border-color: rgba(79, 102, 84, 0.68);
+  color: #26332d;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1rpx rgba(79, 102, 84, 0.18), 0 6rpx 14rpx rgba(31, 42, 39, 0.08);
 }
 
 .post-question-container .control.checked .control__indicator {
@@ -778,9 +780,11 @@
 
 .post-question-container.dark .option-chip.active,
 .post-question-container.dark .control.checked {
-  background: rgba(154, 160, 131, 0.22);
-  border-color: rgba(154, 160, 131, 0.42);
-  color: #d8decb;
+  background: rgba(154, 160, 131, 0.34);
+  border-color: rgba(198, 205, 171, 0.72);
+  color: #eef5df;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1rpx rgba(238, 245, 223, 0.12), 0 6rpx 14rpx rgba(0, 0, 0, 0.22);
 }
 
 .post-question-container.dark .control.checked .control__indicator {
