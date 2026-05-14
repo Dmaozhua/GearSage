@@ -33,7 +33,7 @@ type UserRow = {
 export class AuthService {
   private static readonly ACCESS_EXPIRES_IN_SECONDS = 2 * 60 * 60;
   private static readonly REFRESH_EXPIRES_IN_SECONDS = 30 * 24 * 60 * 60;
-  private static readonly NEW_USER_TEST_POINTS = 10000;
+  private static readonly NEW_USER_DEFAULT_POINTS = 0;
 
   constructor(
     private readonly databaseService: DatabaseService,
@@ -186,7 +186,7 @@ export class AuthService {
       ($1, $2, '', '', '', '', 0, $4, 1, $3, NULL, 0, 0, 0, FALSE, NOW(), NOW())
       RETURNING *
       `,
-      [dto.phone, nickName, inviteCode, AuthService.NEW_USER_TEST_POINTS],
+      [dto.phone, nickName, inviteCode, AuthService.NEW_USER_DEFAULT_POINTS],
     );
 
     const user = inserted.rows[0] as UserRow;

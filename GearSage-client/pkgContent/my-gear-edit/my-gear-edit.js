@@ -3,7 +3,7 @@ const auth = require('../../services/auth.js');
 const { getInitialDarkMode, subscribeThemeChange, unsubscribeThemeChange } = require('../../utils/theme.js');
 
 const TYPE_OPTIONS = [
-  { key: 'reel', label: '鱼轮', apiType: 'reels' },
+  { key: 'reel', label: '渔轮', apiType: 'reels' },
   { key: 'rod', label: '鱼竿', apiType: 'rods' },
   { key: 'lure', label: '常用饵', apiType: 'lures' }
 ];

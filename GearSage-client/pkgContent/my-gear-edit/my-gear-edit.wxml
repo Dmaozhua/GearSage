@@ -17,6 +17,10 @@
       <button class="search-btn" bindtap="searchGear">搜索</button>
     </view>
     <view class="search-state" wx:if="{{searching}}">搜索中...</view>
+    <view class="search-empty" wx:elif="{{!searchResults.length}}">
+      <text class="search-empty-title">没有找到匹配装备</text>
+      <text class="search-empty-desc">换一个型号、品牌关键词，或切换鱼轮 / 鱼竿 / 常用饵分类再试。</text>
+    </view>
     <view class="search-list" wx:else>
       <view
         class="search-item"
