@@ -14,6 +14,12 @@ const STATUS_OPTIONS = [
   { key: 'idle', label: '已闲置' }
 ];
 
+const OWNERSHIP_OPTIONS = [
+  { key: 'owned', label: '已拥有' },
+  { key: 'wishlist', label: '想买' },
+  { key: 'sold', label: '已出掉' }
+];
+
 function safeDecode(value) {
   const text = String(value || '');
   try {
@@ -48,6 +54,7 @@ Page({
     id: 0,
     typeOptions: TYPE_OPTIONS,
     statusOptions: STATUS_OPTIONS,
+    ownershipOptions: OWNERSHIP_OPTIONS,
     gearType: 'reel',
     keyword: '',
     searchResults: [],
@@ -57,8 +64,8 @@ Page({
     selectedVariant: null,
     form: {
       displayName: '',
+      ownershipStatus: 'owned',
       usageStatus: 'frequent',
-      isPublic: true,
       note: '',
       sortOrder: 0
     },
@@ -128,8 +135,8 @@ Page({
         selectedVariant: item.variantKey ? { key: item.variantKey, label: item.variantLabel || item.variantKey } : null,
         form: {
           displayName: item.displayName || '',
+          ownershipStatus: item.ownershipStatus || 'owned',
           usageStatus: item.usageStatus || 'frequent',
-          isPublic: item.isPublic !== false,
           note: item.note || '',
           sortOrder: Number(item.sortOrder || 0)
         }
@@ -296,8 +303,8 @@ Page({
     this.setData({ 'form.usageStatus': e.currentTarget.dataset.status || 'frequent' });
   },
 
-  onPublicChange(e) {
-    this.setData({ 'form.isPublic': Boolean(e.detail.value) });
+  onOwnershipChange(e) {
+    this.setData({ 'form.ownershipStatus': e.currentTarget.dataset.status || 'owned' });
   },
 
   async onSave() {
@@ -319,8 +326,8 @@ Page({
       if (this.data.mode === 'edit') {
         await api.updateUserGear(this.data.id, {
           displayName: normalizeText(form.displayName),
+          ownershipStatus: form.ownershipStatus || 'owned',
           usageStatus: form.usageStatus || 'frequent',
-          isPublic: form.isPublic !== false,
           note: normalizeText(form.note),
           sortOrder: Number(form.sortOrder || 0)
         }, { silent: true });
@@ -333,8 +340,8 @@ Page({
           variantKey: normalizeText(variant.key || this.data.selectedVariantKey),
           variantLabel: normalizeText(variant.label || ''),
           displayName: normalizeText(form.displayName),
+          ownershipStatus: form.ownershipStatus || 'owned',
           usageStatus: form.usageStatus || 'frequent',
-          isPublic: form.isPublic !== false,
           note: normalizeText(form.note)
         }, { silent: true });
       }

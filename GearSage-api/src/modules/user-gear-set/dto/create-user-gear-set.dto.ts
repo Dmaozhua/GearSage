@@ -46,8 +46,13 @@ export class CreateUserGearSetDto {
   @MaxLength(200)
   note?: string;
 
+  @IsOptional()
   @IsBoolean()
-  isPublic!: boolean;
+  showOnProfile?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isPublic?: boolean;
 
   @IsOptional()
   @IsObject()

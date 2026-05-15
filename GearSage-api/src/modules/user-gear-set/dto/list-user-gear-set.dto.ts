@@ -22,4 +22,8 @@ export class ListUserGearSetDto {
   @IsOptional()
   @IsBooleanString()
   summaryOnly?: string;
+
+  @IsOptional()
+  @IsBooleanString()
+  profileOnly?: string;
 }

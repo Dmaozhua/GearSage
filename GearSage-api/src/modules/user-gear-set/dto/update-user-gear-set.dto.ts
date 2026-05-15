@@ -48,6 +48,10 @@ export class UpdateUserGearSetDto {
 
   @IsOptional()
   @IsBoolean()
+  showOnProfile?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
   isPublic?: boolean;
 
   @IsOptional()

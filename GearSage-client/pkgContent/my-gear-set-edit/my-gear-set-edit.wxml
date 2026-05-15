@@ -10,10 +10,10 @@
 
       <view class="form-row">
         <view>
-          <view class="form-label">公开到他人主页</view>
-          <view class="form-tip">公开搭配不能包含私密装备。</view>
+          <view class="form-label">展示到主页</view>
+          <view class="form-tip">展示后会作为代表搭配出现在你的主页，最多展示 3 套。</view>
         </view>
-        <switch checked="{{form.isPublic}}" bindchange="onPublicChange"></switch>
+        <switch checked="{{form.showOnProfile}}" bindchange="onProfileDisplayChange"></switch>
       </view>
     </view>
 
@@ -30,7 +30,7 @@
       >
         <view class="gear-copy">
           <text class="gear-name">{{item.label}}</text>
-          <text class="gear-meta">{{item.publicText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+          <text class="gear-meta">{{item.ownershipText}}{{item.usageText ? '｜' + item.usageText : ''}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
         </view>
         <text class="gear-check">{{item.selected ? '已选' : '选择'}}</text>
       </view>
@@ -49,7 +49,7 @@
       >
         <view class="gear-copy">
           <text class="gear-name">{{item.label}}</text>
-          <text class="gear-meta">{{item.publicText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+          <text class="gear-meta">{{item.ownershipText}}{{item.usageText ? '｜' + item.usageText : ''}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
         </view>
         <text class="gear-check">{{item.selected ? '已选' : '选择'}}</text>
       </view>
@@ -68,7 +68,7 @@
       >
         <view class="gear-copy">
           <text class="gear-name">{{item.label}}</text>
-          <text class="gear-meta">{{item.publicText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+          <text class="gear-meta">{{item.ownershipText}}{{item.usageText ? '｜' + item.usageText : ''}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
         </view>
         <text class="gear-check">{{item.selected ? '已选' : '选择'}}</text>
       </view>

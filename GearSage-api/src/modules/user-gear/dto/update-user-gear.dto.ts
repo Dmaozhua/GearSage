@@ -7,6 +7,10 @@ export class UpdateUserGearDto {
   displayName?: string;
 
   @IsOptional()
+  @IsIn(['owned', 'wishlist', 'sold'])
+  ownershipStatus?: 'owned' | 'wishlist' | 'sold';
+
+  @IsOptional()
   @IsIn(['frequent', 'backup', 'idle'])
   usageStatus?: 'frequent' | 'backup' | 'idle';
 

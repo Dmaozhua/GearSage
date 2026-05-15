@@ -16,6 +16,7 @@ import { UpdateUserGearSetDto } from './dto/update-user-gear-set.dto';
 type GearType = 'rod' | 'reel' | 'lure';
 type RodHandleType = 'spinning' | 'casting' | 'unknown';
 type ReelSubtype = 'spinning' | 'baitcasting' | 'drum' | 'unknown';
+type ProfileDisplayStatus = 'not_displayed' | 'showing' | 'invalid';
 
 type NormalizedPayload = {
   name: string;
@@ -25,7 +26,7 @@ type NormalizedPayload = {
   targetFish: string[];
   useScene: string[];
   note: string;
-  isPublic: boolean;
+  showOnProfile: boolean;
   sortOrder?: number;
   compatibilityOverrides: {
     rodHandleType?: 'spinning' | 'casting';
@@ -35,7 +36,7 @@ type NormalizedPayload = {
 
 const SET_LIMITS = {
   activeSets: 30,
-  publicSets: 12,
+  profileSets: 3,
   dailyCreates: 10,
   dailyEdits: 50,
   luresPerSet: 20,
@@ -61,15 +62,18 @@ export class UserGearSetService {
     }
 
     const isSelf = Boolean(viewerUserId && viewerUserId === targetUserId);
-    const limit = Math.min(Math.max(Number(query.limit || 20), 1), 50);
+    const limit = Math.min(Math.max(Number(query.limit || 50), 1), 50);
     const page = Math.max(Number(query.page || 1), 1);
     const offset = (page - 1) * limit;
     const summaryOnly = query.summaryOnly === 'true';
+    const profileOnly = query.profileOnly === 'true' || !isSelf;
+    const fetchLimit = profileOnly ? 50 : limit;
+    const fetchOffset = profileOnly ? 0 : offset;
     const params: any[] = [targetUserId];
     const conditions = ['user_id = $1', 'is_deleted = FALSE'];
 
-    if (!isSelf) {
-      conditions.push('is_public = TRUE');
+    if (profileOnly) {
+      conditions.push('show_on_profile = TRUE');
     }
 
     const totalResult = await this.databaseService.query(
@@ -81,13 +85,13 @@ export class UserGearSetService {
       params,
     );
 
-    params.push(limit, offset);
+    params.push(fetchLimit, fetchOffset);
     const result = await this.databaseService.query(
       `
       SELECT *
       FROM user_gear_sets
       WHERE ${conditions.join(' AND ')}
-      ORDER BY sort_order ASC, update_time DESC
+      ORDER BY profile_sort_order ASC, sort_order ASC, COALESCE(profile_selected_at, update_time) DESC, update_time DESC
       LIMIT $${params.length - 1}
       OFFSET $${params.length}
       `,
@@ -96,17 +100,24 @@ export class UserGearSetService {
 
     const sets = result.rows;
     const itemsBySetId = await this.loadItemsBySetIds(sets.map((row) => Number(row.id)));
-    const items = sets.map((row) => this.mapSetRow(row, itemsBySetId.get(Number(row.id)) || [], summaryOnly));
+    const mappedItems = this.applyProfileDisplayState(
+      sets.map((row) => this.mapSetRow(row, itemsBySetId.get(Number(row.id)) || [], summaryOnly)),
+    );
+    const items = profileOnly
+      ? mappedItems.filter((item) => item.profileDisplayStatus === 'showing').slice(0, Math.min(limit, SET_LIMITS.profileSets))
+      : mappedItems;
+    const profileShowingCount = mappedItems.filter((item) => item.profileDisplayStatus === 'showing').length;
 
     return {
       summary: {
-        total: Number(totalResult.rows[0]?.count || 0),
-        public: isSelf ? await this.countPublicSets(targetUserId) : Number(totalResult.rows[0]?.count || 0),
+        total: profileOnly ? items.length : Number(totalResult.rows[0]?.count || 0),
+        profileShowing: profileOnly ? items.length : profileShowingCount,
+        public: profileOnly ? items.length : profileShowingCount,
       },
       limits: isSelf ? await this.buildLimitState(targetUserId) : null,
       page,
       limit,
-      total: Number(totalResult.rows[0]?.count || 0),
+      total: profileOnly ? items.length : Number(totalResult.rows[0]?.count || 0),
       items,
     };
   }
@@ -129,12 +140,26 @@ export class UserGearSetService {
     }
 
     const isSelf = Boolean(viewerUserId && Number(row.user_id) === Number(viewerUserId));
-    if (!isSelf && row.is_public !== true) {
-      throw new ForbiddenException('cannot view private gear set');
-    }
-
     const itemsBySetId = await this.loadItemsBySetIds([id]);
-    return this.mapSetRow(row, itemsBySetId.get(id) || [], false);
+    let mapped = this.applyProfileDisplayState([
+      this.mapSetRow(row, itemsBySetId.get(id) || [], false),
+    ])[0];
+    if (
+      mapped.showOnProfile === true &&
+      mapped.profileDisplayStatus === 'showing' &&
+      await this.isProfileLimitExceededForSet(Number(row.user_id), id)
+    ) {
+      mapped = {
+        ...mapped,
+        profileDisplayStatus: 'invalid',
+        profileBlockedReasons: ['profile_limit_exceeded'],
+        profileStatusText: this.getProfileStatusText('invalid'),
+      };
+    }
+    if (!isSelf && mapped.profileDisplayStatus !== 'showing') {
+      throw new ForbiddenException('cannot view this gear set');
+    }
+    return mapped;
   }
 
   async create(userId: number, dto: CreateUserGearSetDto) {
@@ -150,12 +175,12 @@ export class UserGearSetService {
         `
         INSERT INTO user_gear_sets
         (
-          user_id, name, target_fish, use_scene, note, is_public, sort_order,
+          user_id, name, target_fish, use_scene, note, show_on_profile, profile_selected_at, sort_order,
           compatibility_status, compatibility_message, cover_image_url, extra,
           create_time, update_time
         )
         VALUES
-        ($1, $2, $3::jsonb, $4::jsonb, $5, $6, 0, $7, $8, $9, $10::jsonb, NOW(), NOW())
+        ($1, $2, $3::jsonb, $4::jsonb, $5, $6, CASE WHEN $6 THEN NOW() ELSE NULL END, 0, $7, $8, $9, $10::jsonb, NOW(), NOW())
         RETURNING *
         `,
         [
@@ -164,7 +189,7 @@ export class UserGearSetService {
           JSON.stringify(payload.targetFish),
           JSON.stringify(payload.useScene),
           payload.note || null,
-          payload.isPublic,
+          payload.showOnProfile,
           compatibility.status,
           compatibility.message,
           this.resolveCoverImage(payload.items),
@@ -198,7 +223,7 @@ export class UserGearSetService {
       targetFish: dto.targetFish !== undefined ? dto.targetFish : current.target_fish,
       useScene: dto.useScene !== undefined ? dto.useScene : current.use_scene,
       note: dto.note !== undefined ? dto.note : current.note,
-      isPublic: dto.isPublic !== undefined ? dto.isPublic : current.is_public,
+      showOnProfile: this.resolveShowOnProfile(dto, current.show_on_profile),
       sortOrder: dto.sortOrder !== undefined ? dto.sortOrder : current.sort_order,
       compatibilityOverrides: dto.compatibilityOverrides || current.extra?.compatibilityOverrides || {},
     };
@@ -216,7 +241,9 @@ export class UserGearSetService {
     const payload = await this.validatePayload(userId, this.normalizePayload(merged, true), id);
     await this.assertUpdateLimits(userId, id, payload);
     const compatibility = this.validateCompatibility(payload.items, payload);
-    await this.reviewUserGearSetText(userId, id, payload);
+    if (this.shouldReviewTextUpdate(dto)) {
+      await this.reviewUserGearSetText(userId, id, payload);
+    }
 
     const setId = await this.databaseService.withTransaction(async (client) => {
       const updated = await client.query(
@@ -226,7 +253,12 @@ export class UserGearSetService {
             target_fish = $4::jsonb,
             use_scene = $5::jsonb,
             note = $6,
-            is_public = $7,
+            show_on_profile = $7,
+            profile_selected_at = CASE
+              WHEN $7 = TRUE AND show_on_profile = FALSE THEN NOW()
+              WHEN $7 = FALSE THEN NULL
+              ELSE profile_selected_at
+            END,
             sort_order = $8,
             compatibility_status = $9,
             compatibility_message = $10,
@@ -245,7 +277,7 @@ export class UserGearSetService {
           JSON.stringify(payload.targetFish),
           JSON.stringify(payload.useScene),
           payload.note || null,
-          payload.isPublic,
+          payload.showOnProfile,
           payload.sortOrder || 0,
           compatibility.status,
           compatibility.message,
@@ -365,8 +397,8 @@ export class UserGearSetService {
     if (lureItemIds.length > SET_LIMITS.luresPerSet) {
       throw new BadRequestException(`单个搭配最多选择 ${SET_LIMITS.luresPerSet} 个鱼饵`);
     }
-    if (!rodItemId && !reelItemId && !lureItemIds.length) {
-      throw new BadRequestException('请至少选择一件我的装备');
+    if (!rodItemId && !reelItemId && !lureItemIds.length && !String(dto.note || '').trim()) {
+      throw new BadRequestException('请至少选择一件我的装备，或填写搭配备注');
     }
 
     return {
@@ -377,7 +409,7 @@ export class UserGearSetService {
       targetFish: this.normalizeTextArray(dto.targetFish, 3),
       useScene: this.normalizeTextArray(dto.useScene, 3),
       note: String(dto.note || '').trim().slice(0, 200),
-      isPublic: dto.isPublic !== false,
+      showOnProfile: this.resolveShowOnProfile(dto, false),
       sortOrder: allowPartialSortOrder ? Number(dto.sortOrder || 0) : undefined,
       compatibilityOverrides: this.normalizeCompatibilityOverrides(dto.compatibilityOverrides),
     };
@@ -402,10 +434,6 @@ export class UserGearSetService {
     payload.lureItemIds.forEach((id) => {
       items.push(this.assertRoleItem(rowMap, id, 'lure'));
     });
-
-    if (payload.isPublic && items.some((item) => item.is_public !== true)) {
-      throw new BadRequestException('公开搭配中包含私密装备。请先将相关装备设为公开，或把该搭配保存为私密。');
-    }
 
     return {
       ...payload,
@@ -462,6 +490,25 @@ export class UserGearSetService {
       throw new BadRequestException(`选择的${this.getRoleLabel(role)}类型不正确`);
     }
     return row;
+  }
+
+  private shouldReviewTextUpdate(dto: UpdateUserGearSetDto) {
+    return (
+      dto.name !== undefined ||
+      dto.targetFish !== undefined ||
+      dto.useScene !== undefined ||
+      dto.note !== undefined
+    );
+  }
+
+  private resolveShowOnProfile(dto: any, fallback: boolean) {
+    if (dto.showOnProfile !== undefined) {
+      return dto.showOnProfile === true;
+    }
+    if (dto.isPublic !== undefined) {
+      return dto.isPublic === true;
+    }
+    return fallback === true;
   }
 
   private validateCompatibility(items: any[], payload: NormalizedPayload) {
@@ -637,11 +684,39 @@ export class UserGearSetService {
 
     const result = await this.databaseService.query(
       `
-      SELECT *
-      FROM user_gear_set_items
-      WHERE set_id = ANY($1::bigint[])
-        AND is_deleted = FALSE
-      ORDER BY set_id ASC, sort_order ASC, id ASC
+      SELECT
+        ugsi.*,
+        ugi.id AS current_user_gear_item_id,
+        ugi.is_deleted AS current_item_deleted,
+        ugi.ownership_status AS current_ownership_status,
+        ugi.display_name AS current_display_name,
+        ugi.brand_name AS current_brand_name,
+        ugi.gear_model AS current_gear_model,
+        ugi.image_url AS current_image_url,
+        gm."isShow" AS current_master_is_show,
+        gm.type AS master_type,
+        gm.alias AS master_alias,
+        gm."typeTips" AS master_type_tips,
+        gm.raw_json AS master_raw_json,
+        gv."variantId" AS current_variant_id,
+        gv.raw_json AS variant_raw_json
+      FROM user_gear_set_items ugsi
+      LEFT JOIN user_gear_items ugi
+        ON ugi.id = ugsi.user_gear_item_id
+      LEFT JOIN gear_master gm
+        ON gm.kind = ugsi.gear_type
+       AND gm.id = ugsi.gear_master_id
+      LEFT JOIN gear_variants gv
+        ON gv.kind = ugsi.gear_type
+       AND gv."gearId" = ugsi.gear_master_id
+       AND (
+         gv."variantId" = ugsi.gear_variant_id
+         OR gv."sourceKey" = ugsi.variant_key
+         OR gv.sku = ugsi.variant_key
+       )
+      WHERE ugsi.set_id = ANY($1::bigint[])
+        AND ugsi.is_deleted = FALSE
+      ORDER BY ugsi.set_id ASC, ugsi.sort_order ASC, ugsi.id ASC
       `,
       [setIds],
     );
@@ -669,7 +744,13 @@ export class UserGearSetService {
       targetFish: Array.isArray(row.target_fish) ? row.target_fish : [],
       useScene: Array.isArray(row.use_scene) ? row.use_scene : [],
       note: row.note || '',
-      isPublic: row.is_public === true,
+      showOnProfile: row.show_on_profile === true,
+      isPublic: row.show_on_profile === true,
+      profileDisplayStatus: 'not_displayed' as ProfileDisplayStatus,
+      profileBlockedReasons: [] as string[],
+      profileStatusText: '未展示',
+      profileSortOrder: Number(row.profile_sort_order || 0),
+      profileSelectedAt: row.profile_selected_at || null,
       sortOrder: Number(row.sort_order || 0),
       compatibilityStatus: row.compatibility_status || 'valid',
       compatibilityMessage: row.compatibility_message || '',
@@ -688,7 +769,87 @@ export class UserGearSetService {
     };
   }
 
+  private applyProfileDisplayState(items: any[]) {
+    let showingRank = 0;
+    return items.map((item) => {
+      const blockedReasons = this.buildProfileBlockedReasons(item);
+      if (item.showOnProfile && !blockedReasons.length) {
+        showingRank += 1;
+        if (showingRank > SET_LIMITS.profileSets) {
+          blockedReasons.push('profile_limit_exceeded');
+        }
+      }
+
+      const profileDisplayStatus: ProfileDisplayStatus = item.showOnProfile
+        ? (blockedReasons.length ? 'invalid' : 'showing')
+        : 'not_displayed';
+      return this.sanitizeSetForResponse({
+        ...item,
+        profileDisplayStatus,
+        profileBlockedReasons: blockedReasons,
+        profileStatusText: this.getProfileStatusText(profileDisplayStatus),
+      });
+    });
+  }
+
+  private buildProfileBlockedReasons(item: any) {
+    if (item.showOnProfile !== true) {
+      return [];
+    }
+
+    const reasons = new Set<string>();
+    const items = Array.isArray(item.items) ? item.items : [];
+    items.forEach((entry) => {
+      if (entry.currentItemDeleted) {
+        reasons.add(`${entry.role}_deleted`);
+        reasons.add('gear_item_deleted');
+      }
+      if (entry.ownershipStatus && entry.ownershipStatus !== 'owned') {
+        reasons.add('gear_item_not_owned');
+      }
+      if (entry.currentMasterHidden) {
+        reasons.add('gear_master_hidden');
+      }
+      if (entry.currentVariantMissing) {
+        reasons.add('gear_variant_missing');
+      }
+    });
+
+    const rod = items.find((entry) => entry.role === 'rod');
+    const reel = items.find((entry) => entry.role === 'reel');
+    if (!rod && !reel) {
+      reasons.add('profile_missing_main_gear');
+    }
+    if (rod && reel && this.isRodReelMismatch(rod, reel, item.extra?.compatibilityOverrides || {})) {
+      reasons.add('invalid_rod_reel_combo');
+    }
+
+    return Array.from(reasons);
+  }
+
+  private isRodReelMismatch(rod: any, reel: any, overrides: NormalizedPayload['compatibilityOverrides']) {
+    const rodHandleType = this.resolveRodHandleType(rod, overrides.rodHandleType);
+    const reelSubtype = this.resolveReelSubtype(reel, overrides.reelSubtype);
+    if (rodHandleType === 'unknown' || reelSubtype === 'unknown') {
+      return false;
+    }
+    if (rodHandleType === 'spinning') {
+      return reelSubtype !== 'spinning';
+    }
+    return !['baitcasting', 'drum'].includes(reelSubtype);
+  }
+
+  private getProfileStatusText(status: ProfileDisplayStatus) {
+    if (status === 'showing') return '主页展示中';
+    if (status === 'invalid') return '展示异常';
+    return '未展示';
+  }
+
   private mapItemRow(row: any) {
+    const displayName = row.current_display_name || row.display_name || '';
+    const brandName = row.current_brand_name || row.brand_name || '';
+    const gearModel = row.current_gear_model || row.gear_model || '';
+    const imageUrl = row.current_image_url || row.image_url || '';
     return {
       id: Number(row.id),
       setId: Number(row.set_id),
@@ -699,13 +860,61 @@ export class UserGearSetService {
       gearVariantId: row.gear_variant_id || '',
       variantKey: row.variant_key || '',
       variantLabel: row.variant_label || '',
-      displayName: row.display_name || '',
-      brandName: row.brand_name || '',
-      gearModel: row.gear_model || '',
-      imageUrl: row.image_url || '',
+      displayName,
+      brandName,
+      gearModel,
+      imageUrl,
+      ownershipStatus: row.current_ownership_status || '',
+      currentItemDeleted: row.current_item_deleted === true || row.current_user_gear_item_id === null,
+      currentMasterHidden: row.current_master_is_show !== undefined && row.current_master_is_show !== null
+        ? Number(row.current_master_is_show) !== 1
+        : false,
+      currentVariantMissing: Boolean(row.variant_key || row.gear_variant_id) && !row.current_variant_id,
       sortOrder: Number(row.sort_order || 0),
-      label: row.display_name || row.variant_label || row.gear_model || '',
+      label: displayName || row.variant_label || gearModel || '',
+      master_type: row.master_type,
+      master_alias: row.master_alias,
+      master_type_tips: row.master_type_tips,
+      master_raw_json: row.master_raw_json,
+      variant_raw_json: row.variant_raw_json,
     };
+  }
+
+  private sanitizeSetForResponse(item: any) {
+    const items = Array.isArray(item.items)
+      ? item.items.map((entry) => this.stripInternalItemFields(entry))
+      : [];
+    const rod = items.find((entry) => entry.role === 'rod') || null;
+    const reel = items.find((entry) => entry.role === 'reel') || null;
+    const lures = items.filter((entry) => entry.role === 'lure');
+
+    return {
+      ...item,
+      items,
+      summary: {
+        ...(item.summary || {}),
+        rod,
+        reel,
+        lures: lures.slice(0, 3),
+        lureCount: lures.length,
+        text: this.buildSummaryText(rod, reel, lures),
+      },
+    };
+  }
+
+  private stripInternalItemFields(item: any) {
+    const {
+      currentItemDeleted,
+      currentMasterHidden,
+      currentVariantMissing,
+      master_type,
+      master_alias,
+      master_type_tips,
+      master_raw_json,
+      variant_raw_json,
+      ...publicItem
+    } = item;
+    return publicItem;
   }
 
   private buildSummaryText(rod: any, reel: any, lures: any[]) {
@@ -739,16 +948,12 @@ export class UserGearSetService {
   }
 
   private async assertCreateLimits(userId: number, payload: NormalizedPayload) {
-    const [activeCount, publicCount, dailyCount] = await Promise.all([
+    const [activeCount, dailyCount] = await Promise.all([
       this.countActiveSets(userId),
-      this.countPublicSets(userId),
       this.countDailyCreatedSets(userId),
     ]);
     if (activeCount >= SET_LIMITS.activeSets) {
       throw new BadRequestException(`我的搭配最多保留 ${SET_LIMITS.activeSets} 个`);
-    }
-    if (payload.isPublic && publicCount >= SET_LIMITS.publicSets) {
-      throw new BadRequestException(`公开搭配最多 ${SET_LIMITS.publicSets} 个`);
     }
     if (dailyCount >= SET_LIMITS.dailyCreates) {
       throw new BadRequestException(`每天最多新增 ${SET_LIMITS.dailyCreates} 个搭配`);
@@ -756,12 +961,9 @@ export class UserGearSetService {
   }
 
   private async assertUpdateLimits(userId: number, setId: number, payload: NormalizedPayload) {
-    if (payload.isPublic) {
-      const publicCount = await this.countPublicSets(userId, setId);
-      if (publicCount >= SET_LIMITS.publicSets) {
-        throw new BadRequestException(`公开搭配最多 ${SET_LIMITS.publicSets} 个`);
-      }
-    }
+    void userId;
+    void setId;
+    void payload;
   }
 
   private async assertDailyEditLimit(userId: number, setId: number) {
@@ -789,19 +991,34 @@ export class UserGearSetService {
     return Number(result.rows[0]?.count || 0);
   }
 
-  private async countPublicSets(userId: number, excludeSetId?: number) {
+  private async countProfileSelectedSets(userId: number) {
     const result = await this.databaseService.query(
       `
       SELECT COUNT(*)::int AS count
       FROM user_gear_sets
       WHERE user_id = $1
-        AND is_public = TRUE
+        AND show_on_profile = TRUE
         AND is_deleted = FALSE
-        AND ($2::bigint IS NULL OR id <> $2::bigint)
       `,
-      [userId, excludeSetId || null],
+      [userId],
     );
     return Number(result.rows[0]?.count || 0);
+  }
+
+  private async isProfileLimitExceededForSet(userId: number, setId: number) {
+    const result = await this.databaseService.query(
+      `
+      SELECT id
+      FROM user_gear_sets
+      WHERE user_id = $1
+        AND show_on_profile = TRUE
+        AND is_deleted = FALSE
+      ORDER BY profile_sort_order ASC, sort_order ASC, COALESCE(profile_selected_at, update_time) DESC, update_time DESC
+      LIMIT $2
+      `,
+      [userId, SET_LIMITS.profileSets],
+    );
+    return !result.rows.some((row) => Number(row.id) === Number(setId));
   }
 
   private async countDailyCreatedSets(userId: number) {
@@ -818,14 +1035,15 @@ export class UserGearSetService {
   }
 
   private async buildLimitState(userId: number) {
-    const [activeSets, publicSets, dailyCreates] = await Promise.all([
+    const [activeSets, profileSets, dailyCreates] = await Promise.all([
       this.countActiveSets(userId),
-      this.countPublicSets(userId),
+      this.countProfileSelectedSets(userId),
       this.countDailyCreatedSets(userId),
     ]);
     return {
       activeSets: { used: activeSets, max: SET_LIMITS.activeSets },
-      publicSets: { used: publicSets, max: SET_LIMITS.publicSets },
+      profileSets: { used: profileSets, max: SET_LIMITS.profileSets },
+      publicSets: { used: profileSets, max: SET_LIMITS.profileSets },
       dailyCreates: { used: dailyCreates, max: SET_LIMITS.dailyCreates },
       luresPerSet: SET_LIMITS.luresPerSet,
     };

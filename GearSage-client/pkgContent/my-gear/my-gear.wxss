@@ -237,14 +237,19 @@ page {
   color: #506258;
 }
 
-.set-public.public {
+.set-public.showing {
   background: #e3ebe2;
   color: #314b3d;
 }
 
-.set-public.private {
+.set-public.not_displayed {
   background: #ece8e0;
   color: #7a6250;
+}
+
+.set-public.invalid {
+  background: #f2e3dc;
+  color: #8f4d42;
 }
 
 .gear-actions {

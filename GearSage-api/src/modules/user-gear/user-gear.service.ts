@@ -42,7 +42,10 @@ export class UserGearService {
     }
 
     const isSelf = Boolean(viewerUserId && viewerUserId === targetUserId);
-    const includePrivate = isSelf && query.includePrivate !== 'false';
+    if (!isSelf) {
+      throw new ForbiddenException('我的装备只允许本人管理查看');
+    }
+
     const params: any[] = [targetUserId];
     const conditions = ['ugi.user_id = $1', 'ugi.is_deleted = FALSE'];
 
@@ -50,10 +53,6 @@ export class UserGearService {
       params.push(query.gearType);
       conditions.push(`ugi.gear_type = $${params.length}`);
     }
-    if (!includePrivate) {
-      conditions.push('ugi.is_public = TRUE');
-    }
-
     const result = await this.databaseService.query(
       `
       SELECT
@@ -133,7 +132,7 @@ export class UserGearService {
         note, is_public, sort_order, extra, create_time, update_time
       )
       VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'owned', $11, $12, $13, 0, $14::jsonb, NOW(), NOW())
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, TRUE, 0, $14::jsonb, NOW(), NOW())
       RETURNING *
       `,
       [
@@ -147,9 +146,9 @@ export class UserGearService {
         this.resolveBrandName(master),
         master.model || master.modelCn || '',
         this.resolveImageUrl(master),
+        payload.ownershipStatus,
         payload.usageStatus,
         payload.note || null,
-        payload.isPublic,
         JSON.stringify({
           variantCheckStatus,
           variant: variant ? this.formatVariantSnapshot(variant) : null,
@@ -176,13 +175,9 @@ export class UserGearService {
     }
     const note = dto.note === undefined ? undefined : String(dto.note || '').trim();
 
-    const nextDisplayName = displayName ?? String(current.display_name || '').trim();
-    const nextNote = note ?? String(current.note || '').trim();
-    if (
-      displayName !== undefined ||
-      note !== undefined ||
-      dto.isPublic === true
-    ) {
+    if (displayName !== undefined || note !== undefined) {
+      const nextDisplayName = displayName ?? String(current.display_name || '').trim();
+      const nextNote = note ?? String(current.note || '').trim();
       await this.reviewUserGearText(userId, id, {
         displayName: nextDisplayName,
         note: nextNote,
@@ -198,8 +193,8 @@ export class UserGearService {
       UPDATE user_gear_items
       SET
         display_name = COALESCE($3, display_name),
-        usage_status = COALESCE($4, usage_status),
-        is_public = COALESCE($5, is_public),
+        ownership_status = COALESCE($4, ownership_status),
+        usage_status = COALESCE($5, usage_status),
         note = COALESCE($6, note),
         sort_order = COALESCE($7, sort_order),
         update_time = NOW()
@@ -212,8 +207,8 @@ export class UserGearService {
         id,
         userId,
         displayName ?? null,
+        dto.ownershipStatus ?? null,
         dto.usageStatus ?? null,
-        dto.isPublic ?? null,
         note ?? null,
         dto.sortOrder ?? null,
       ],
@@ -254,8 +249,8 @@ export class UserGearService {
       variantKey: String(dto.variantKey || '').trim(),
       variantLabel: String(dto.variantLabel || '').trim(),
       displayName: String(dto.displayName || '').trim(),
+      ownershipStatus: dto.ownershipStatus || 'owned',
       usageStatus: dto.usageStatus || 'frequent',
-      isPublic: dto.isPublic !== false,
       note: String(dto.note || '').trim(),
     };
   }

@@ -52,7 +52,7 @@ Page({
       targetFishText: '',
       useSceneText: '',
       note: '',
-      isPublic: true,
+      showOnProfile: false,
       compatibilityOverrides: {}
     }
   },
@@ -109,7 +109,8 @@ Page({
       typeLabel: ROLE_LABELS[item.gearType] || '装备',
       selected: false,
       label: item.displayName || item.variantLabel || item.gearModel || '未命名装备',
-      publicText: item.isPublic ? '公开' : '私密'
+      ownershipText: this.getOwnershipText(item.ownershipStatus),
+      usageText: item.usageStatusText || ''
     }));
     this.setData({
       gearItems,
@@ -137,7 +138,7 @@ Page({
         targetFishText: joinTags(detail.targetFish),
         useSceneText: joinTags(detail.useScene),
         note: detail.note || '',
-        isPublic: detail.isPublic !== false,
+        showOnProfile: detail.showOnProfile === true || detail.isPublic === true,
         compatibilityOverrides: (detail.extra && detail.extra.compatibilityOverrides) || {}
       },
       selectedLureIds: this.buildSelectedLureIds(lureItemIds)
@@ -170,8 +171,8 @@ Page({
     });
   },
 
-  onPublicChange(e) {
-    this.setData({ 'form.isPublic': Boolean(e.detail.value) });
+  onProfileDisplayChange(e) {
+    this.setData({ 'form.showOnProfile': Boolean(e.detail.value) });
   },
 
   onSelectSingle(e) {
@@ -219,7 +220,7 @@ Page({
       targetFish: splitTags(form.targetFishText).slice(0, 3),
       useScene: splitTags(form.useSceneText).slice(0, 3),
       note: String(form.note || '').trim(),
-      isPublic: form.isPublic !== false,
+      showOnProfile: form.showOnProfile === true,
       compatibilityOverrides: {
         ...(form.compatibilityOverrides || {}),
         ...(overrides || {})
@@ -232,19 +233,17 @@ Page({
       wx.showToast({ title: '请填写搭配名称', icon: 'none' });
       return false;
     }
-    if (!payload.rodItemId && !payload.reelItemId && !payload.lureItemIds.length) {
-      wx.showToast({ title: '请至少选择一件装备', icon: 'none' });
+    if (!payload.rodItemId && !payload.reelItemId && !payload.lureItemIds.length && !payload.note) {
+      wx.showToast({ title: '请选择装备，或写下这套搭配的备注', icon: 'none' });
       return false;
     }
-    if (payload.isPublic) {
-      const selectedIds = [payload.rodItemId, payload.reelItemId, ...payload.lureItemIds].filter(Boolean);
-      const hasPrivate = (this.data.gearItems || []).some((item) => selectedIds.includes(Number(item.id)) && item.isPublic === false);
-      if (hasPrivate) {
-        wx.showToast({ title: '公开搭配不能包含私密装备', icon: 'none' });
-        return false;
-      }
-    }
     return true;
+  },
+
+  getOwnershipText(status) {
+    if (status === 'wishlist') return '想买';
+    if (status === 'sold') return '已出掉';
+    return '已拥有';
   },
 
   async onSave() {

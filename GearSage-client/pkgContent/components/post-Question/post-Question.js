@@ -689,8 +689,15 @@ Component({
         variantKey: item.variantKey || '',
         label: item.label || item.displayName || '',
         source: 'user_gear_set',
-        role: item.role
+        role: item.role,
+        ownershipStatus: item.ownershipStatus || 'owned'
       })).filter((item) => item.userGearItemId);
+      if (currentGearItems.some((item) => item.ownershipStatus && item.ownershipStatus !== 'owned')) {
+        wx.showToast({
+          title: '这套搭配包含非已拥有装备，发布后会作为本次求推荐上下文展示',
+          icon: 'none'
+        });
+      }
       const currentGear = selected.summaryText
         ? `${selected.name}：${selected.summaryText}`
         : selected.name;

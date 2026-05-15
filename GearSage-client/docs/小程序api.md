@@ -285,15 +285,14 @@ wx.cloud.callFunction({
 
 - 方法：GET
 - 路径：`/mini/user/gear`
-- 是否需要登录：查询自己需要登录；查询指定 `userId` 时允许未登录访问公开装备
-- 用途：读取当前用户或指定用户的装备档案。
+- 是否需要登录：是
+- 用途：读取当前用户自己的装备管理档案。
 - 查询参数：
   - `gearType?: "reel" | "rod" | "lure"`
-  - `userId?: string | number`，不传则查当前登录用户
-  - `includePrivate?: "true" | "false"`，仅自己查看时有效，默认包含私密
-- 隐私口径：
-  - 自己查看：返回公开 + 私密装备
-  - 他人查看：只返回 `isPublic=true`
+  - `userId?: string | number`，仅兼容旧调用；若不是当前登录用户，返回 `403`
+- 展示控制口径：
+  - 我的装备只作为个人管理区，不直接展示到他人主页
+  - `user_gear_items.is_public` 已废弃，新逻辑不得依赖它做主页展示判断
 - 返回结构：
 
 ```json
@@ -315,8 +314,8 @@ wx.cloud.callFunction({
         "imageUrl": "https://static.gearsage.club/...",
         "usageStatus": "frequent",
         "usageStatusText": "常用",
+        "ownershipStatus": "owned",
         "note": "野河翘嘴常用",
-        "isPublic": true,
         "sortOrder": 0,
         "createTime": "2026-05-14T00:00:00.000Z",
         "updateTime": "2026-05-14T00:00:00.000Z"
@@ -339,8 +338,9 @@ wx.cloud.callFunction({
   - `variantKey?: string`
   - `variantLabel?: string`
   - `displayName?: string`
+  - `ownershipStatus?: "owned" | "wishlist" | "sold"`，默认 `owned`
   - `usageStatus: "frequent" | "backup" | "idle"`
-  - `isPublic: boolean`
+  - `isPublic?: boolean`，兼容旧前端，后端忽略
   - `note?: string`
 - 校验口径：
   - `gearMasterId` 必须存在于 `gear_master`
@@ -360,13 +360,14 @@ wx.cloud.callFunction({
 - 用途：更新自己的装备展示信息。
 - 可更新字段：
   - `displayName?: string`
+  - `ownershipStatus?: "owned" | "wishlist" | "sold"`
   - `usageStatus?: "frequent" | "backup" | "idle"`
-  - `isPublic?: boolean`
+  - `isPublic?: boolean`，兼容旧前端，后端忽略
   - `note?: string`
   - `sortOrder?: number`
 - 权限：只能更新自己的装备；不能通过更新接口修改 `gearType / gearMasterId / variantKey`。
 - 审核说明：
-  - 修改 `displayName`、`note`，或把装备切为公开时，会对即将展示的 `displayName`、`note` 重新走 `user_gear_content` 文本审核
+  - 修改 `displayName`、`note` 时，会对即将保存的 `displayName`、`note` 重新走 `user_gear_content` 文本审核
   - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存
 
 ### 1-C.4 DELETE /mini/user/gear/:id
@@ -391,25 +392,27 @@ wx.cloud.callFunction({
 
 - 方法：GET
 - 路径：`/mini/user/gear-sets`
-- 是否需要登录：查询自己需要登录；查询指定 `userId` 时允许未登录访问公开搭配
+- 是否需要登录：查询自己需要登录；他人主页摘要允许指定 `userId`
 - 查询参数：
   - `userId?: string | number`
   - `page?: number`
   - `limit?: number`，最大 50
   - `summaryOnly?: "true" | "false"`，用于他人主页摘要
-- 隐私口径：
-  - 自己查看：返回公开 + 私密搭配
-  - 他人查看：只返回 `isPublic=true`
+  - `profileOnly?: "true" | "false"`，他人主页使用
+- 展示控制口径：
+  - 自己查看：返回自己的所有未删除搭配，包含 `not_displayed / showing / invalid`
+  - 他人主页：只返回 `showOnProfile=true` 且 `profileDisplayStatus=showing` 的代表搭配，最多 3 套
 - 返回核心：
-  - `summary.total / summary.public`
-  - `limits.activeSets / publicSets / dailyCreates / luresPerSet`
+  - `summary.total / summary.profileShowing`
+  - `limits.activeSets / profileSets / dailyCreates / luresPerSet`
+  - `items[].showOnProfile / profileDisplayStatus / profileBlockedReasons`
   - `items[].summary.rod / reel / lures / lureCount / text`
 
 ### 1-D.2 GET /mini/user/gear-sets/:id
 
 - 方法：GET
 - 路径：`/mini/user/gear-sets/:id`
-- 是否需要登录：否；私密搭配仅本人可看
+- 是否需要登录：否；非本人只能查看 `profileDisplayStatus=showing` 的搭配
 - 返回：单个搭配详情，包含 `items[]`。
 
 ### 1-D.3 POST /mini/user/gear-sets
@@ -425,15 +428,15 @@ wx.cloud.callFunction({
   - `targetFish?: string[]`
   - `useScene?: string[]`
   - `note?: string`
-  - `isPublic: boolean`
+  - `showOnProfile?: boolean`，是否展示到主页，默认 `false`
+  - `isPublic?: boolean`，兼容旧前端，临时映射为 `showOnProfile`
   - `compatibilityOverrides?: { rodHandleType?: "spinning" | "casting", reelSubtype?: "spinning" | "baitcasting" | "drum" }`
 - 校验口径：
   - 只能选择当前用户自己的 `user_gear_items`
   - 单个搭配最多 1 根鱼竿、1 个渔轮、20 个鱼饵
-  - 公开搭配不能包含私密装备
   - 直柄竿只能搭配纺车轮；枪柄竿只能搭配水滴轮或鼓轮
   - 类型无法识别时返回 `409`，`reason=compatibility_type_unknown`，前端需让用户手动确认类型后再提交
-  - 轻量限制：搭配最多 30 个，公开搭配最多 12 个，每日新增最多 10 个，每日编辑最多 50 个
+  - 轻量限制：搭配最多 30 个，每日新增最多 10 个，每日编辑最多 50 个；主页最多展示 3 套状态正常的代表搭配
 - 审核说明：
   - `name`、`targetFish`、`useScene`、`note` 保存前统一走 `user_gear_set_content` 文本审核
   - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存，提示用户修改内容
@@ -444,9 +447,9 @@ wx.cloud.callFunction({
 - 方法：PUT
 - 路径：`/mini/user/gear-sets/:id`
 - 是否需要登录：是
-- 用途：编辑自己的搭配；重新校验归属、公开性、数量和竿轮兼容性。
+- 用途：编辑自己的搭配；重新校验归属、数量和竿轮兼容性；支持切换 `showOnProfile`。
 - 审核说明：
-  - 每次保存会对 `name`、`targetFish`、`useScene`、`note` 重新走 `user_gear_set_content` 文本审核
+  - 修改 `name`、`targetFish`、`useScene`、`note` 时重新走 `user_gear_set_content` 文本审核
   - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存
 
 ### 1-D.5 DELETE /mini/user/gear-sets/:id

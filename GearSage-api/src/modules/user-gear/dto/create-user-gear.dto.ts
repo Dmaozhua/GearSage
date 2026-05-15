@@ -28,11 +28,16 @@ export class CreateUserGearDto {
   @MaxLength(255)
   displayName?: string;
 
+  @IsOptional()
+  @IsIn(['owned', 'wishlist', 'sold'])
+  ownershipStatus?: 'owned' | 'wishlist' | 'sold';
+
   @IsIn(['frequent', 'backup', 'idle'])
   usageStatus!: 'frequent' | 'backup' | 'idle';
 
+  @IsOptional()
   @IsBoolean()
-  isPublic!: boolean;
+  isPublic?: boolean;
 
   @IsOptional()
   @IsString()

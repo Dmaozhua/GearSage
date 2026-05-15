@@ -51,8 +51,8 @@
         <view class="gear-name">{{item.displayName}}</view>
         <view class="gear-meta">
           <text>{{item.typeLabel}}</text>
+          <text>{{item.ownershipText}}</text>
           <text>{{item.usageStatusText}}</text>
-          <text>{{item.publicText}}</text>
         </view>
         <view class="gear-sub" wx:if="{{item.brandName || item.variantLabel}}">
           {{item.brandName}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}
@@ -61,7 +61,6 @@
       </view>
       <view class="gear-actions">
         <button class="icon-btn" data-id="{{item.id}}" bindtap="onEditGear">编辑</button>
-        <button class="icon-btn" data-id="{{item.id}}" bindtap="onTogglePublic">{{item.isPublic ? '设私密' : '设公开'}}</button>
         <button class="icon-btn danger" data-id="{{item.id}}" bindtap="onDeleteGear">删除</button>
       </view>
     </view>
@@ -72,8 +71,9 @@
       <view class="set-main">
         <view class="set-title-row">
           <text class="set-name">{{item.name}}</text>
-          <text class="set-public {{item.isPublic ? 'public' : 'private'}}">{{item.publicText}}</text>
+          <text class="set-public {{item.profileDisplayStatus}}">{{item.profileStatusText}}</text>
         </view>
+        <view class="set-note" wx:if="{{item.profileBlockedText}}">展示异常：{{item.profileBlockedText}}</view>
         <view class="set-meta" wx:if="{{item.metaText}}">{{item.metaText}}</view>
         <view class="set-lures" wx:if="{{item.lureText}}">常用饵：{{item.lureText}}</view>
         <view class="set-tags" wx:if="{{item.tagText}}">{{item.tagText}}</view>
@@ -81,7 +81,7 @@
       </view>
       <view class="gear-actions">
         <button class="icon-btn" data-id="{{item.id}}" bindtap="onEditSet">编辑</button>
-        <button class="icon-btn" data-id="{{item.id}}" bindtap="onToggleSetPublic">{{item.isPublic ? '设私密' : '设公开'}}</button>
+        <button class="icon-btn" data-id="{{item.id}}" bindtap="onToggleSetProfile">{{item.showOnProfile ? '取消主页展示' : '展示到主页'}}</button>
         <button class="icon-btn danger" data-id="{{item.id}}" bindtap="onDeleteSet">删除</button>
       </view>
     </view>

@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS user_gear_items (
   ownership_status VARCHAR(20) NOT NULL DEFAULT 'owned',
   usage_status VARCHAR(20) NOT NULL DEFAULT 'frequent',
   note TEXT,
-  is_public BOOLEAN NOT NULL DEFAULT TRUE,
+  is_public BOOLEAN NOT NULL DEFAULT TRUE, -- deprecated: single gear is no longer used for profile visibility
   sort_order INTEGER NOT NULL DEFAULT 0,
   extra JSONB NOT NULL DEFAULT '{}'::jsonb,
   create_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS user_gear_items (
   delete_time TIMESTAMPTZ,
   is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   CONSTRAINT chk_user_gear_type CHECK (gear_type IN ('reel', 'rod', 'lure')),
-  CONSTRAINT chk_user_gear_ownership CHECK (ownership_status IN ('owned')),
+  CONSTRAINT chk_user_gear_ownership CHECK (ownership_status IN ('owned', 'wishlist', 'sold')),
   CONSTRAINT chk_user_gear_usage CHECK (usage_status IN ('frequent', 'backup', 'idle'))
 );
 
@@ -204,7 +204,9 @@ CREATE TABLE IF NOT EXISTS user_gear_sets (
   target_fish JSONB NOT NULL DEFAULT '[]'::jsonb,
   use_scene JSONB NOT NULL DEFAULT '[]'::jsonb,
   note TEXT,
-  is_public BOOLEAN NOT NULL DEFAULT TRUE,
+  show_on_profile BOOLEAN NOT NULL DEFAULT FALSE,
+  profile_sort_order INTEGER NOT NULL DEFAULT 0,
+  profile_selected_at TIMESTAMPTZ,
   sort_order INTEGER NOT NULL DEFAULT 0,
   compatibility_status VARCHAR(20) NOT NULL DEFAULT 'valid',
   compatibility_message VARCHAR(255),
@@ -241,6 +243,38 @@ CREATE TABLE IF NOT EXISTS user_gear_set_items (
   CONSTRAINT chk_user_gear_set_item_type CHECK (gear_type IN ('rod', 'reel', 'lure')),
   CONSTRAINT chk_user_gear_set_item_role CHECK (role IN ('rod', 'reel', 'lure'))
 );
+
+ALTER TABLE user_gear_items
+  DROP CONSTRAINT IF EXISTS chk_user_gear_ownership;
+
+ALTER TABLE user_gear_items
+  ADD CONSTRAINT chk_user_gear_ownership CHECK (ownership_status IN ('owned', 'wishlist', 'sold'));
+
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_name = 'user_gear_sets'
+      AND column_name = 'is_public'
+  ) AND NOT EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_name = 'user_gear_sets'
+      AND column_name = 'show_on_profile'
+  ) THEN
+    ALTER TABLE user_gear_sets RENAME COLUMN is_public TO show_on_profile;
+  END IF;
+END $$;
+
+ALTER TABLE user_gear_sets
+  ADD COLUMN IF NOT EXISTS show_on_profile BOOLEAN NOT NULL DEFAULT FALSE;
+
+ALTER TABLE user_gear_sets
+  ADD COLUMN IF NOT EXISTS profile_sort_order INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE user_gear_sets
+  ADD COLUMN IF NOT EXISTS profile_selected_at TIMESTAMPTZ;
 
 CREATE TABLE IF NOT EXISTS user_reports (
   id BIGSERIAL PRIMARY KEY,
@@ -574,7 +608,7 @@ CREATE INDEX IF NOT EXISTS idx_user_gear_sets_user
 ON user_gear_sets (user_id, is_deleted, sort_order, update_time DESC);
 
 CREATE INDEX IF NOT EXISTS idx_user_gear_sets_public
-ON user_gear_sets (user_id, is_public, is_deleted, sort_order, update_time DESC);
+ON user_gear_sets (user_id, show_on_profile, is_deleted, profile_sort_order, sort_order, update_time DESC);
 
 CREATE INDEX IF NOT EXISTS idx_user_gear_set_items_set
 ON user_gear_set_items (set_id, is_deleted, role, sort_order);

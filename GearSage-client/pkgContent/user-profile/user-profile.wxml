@@ -45,7 +45,7 @@
     </view>
 
     <view class="section-card public-set-section" wx:if="{{publicGearSets.length}}">
-      <view class="section-title">公开搭配</view>
+      <view class="section-title">代表搭配</view>
       <view class="public-set-card" wx:for="{{publicGearSets}}" wx:key="id">
         <view class="public-set-name">{{item.name}}</view>
         <view class="public-set-main" wx:if="{{item.mainText}}">{{item.mainText}}</view>
@@ -90,7 +90,7 @@
 
     <view class="section-card section-card--empty" wx:if="{{!recentAcceptedAnswers.length && !recentTopics.length}}">
       <view class="section-title">还在积累中</view>
-      <view class="empty-text">这个钓友还没有公开沉淀太多内容，后面可以再回来看看。</view>
+      <view class="empty-text">这个钓友还没有沉淀太多内容，后面可以再回来看看。</view>
     </view>
   </scroll-view>
 </view>

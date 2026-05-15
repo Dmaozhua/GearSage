@@ -69,6 +69,19 @@
     </view>
 
     <view class="form-item">
+      <view class="form-label">拥有状态</view>
+      <view class="status-row">
+        <view
+          wx:for="{{ownershipOptions}}"
+          wx:key="key"
+          class="status-chip {{form.ownershipStatus === item.key ? 'active' : ''}}"
+          data-status="{{item.key}}"
+          bindtap="onOwnershipChange"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="form-item">
       <view class="form-label">使用状态</view>
       <view class="status-row">
         <view
@@ -79,14 +92,6 @@
           bindtap="onStatusChange"
         >{{item.label}}</view>
       </view>
-    </view>
-
-    <view class="form-item form-item--switch">
-      <view>
-        <view class="form-label">公开到他人主页</view>
-        <view class="form-tip">关闭后只有你自己能看到。</view>
-      </view>
-      <switch checked="{{form.isPublic}}" bindchange="onPublicChange"></switch>
     </view>
 
     <view class="form-item">

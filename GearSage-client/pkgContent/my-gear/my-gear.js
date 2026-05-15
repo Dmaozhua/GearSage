@@ -38,6 +38,12 @@ function getTypeLabel(gearType) {
   return matched ? matched.label : '装备';
 }
 
+function getOwnershipText(status) {
+  if (status === 'wishlist') return '想买';
+  if (status === 'sold') return '已出掉';
+  return '已拥有';
+}
+
 Page({
   data: {
     navBarHeight: 44,
@@ -51,7 +57,7 @@ Page({
     items: [],
     visibleItems: [],
     gearSets: [],
-    setSummaryText: '搭配 0｜公开 0',
+    setSummaryText: '搭配 0｜主页展示 0',
     emptyText: '还没有添加装备'
   },
 
@@ -104,7 +110,7 @@ Page({
       const items = (payload.items || []).map((item) => ({
         ...item,
         typeLabel: getTypeLabel(item.gearType),
-        publicText: item.isPublic ? '公开' : '私密',
+        ownershipText: getOwnershipText(item.ownershipStatus),
         notePreview: String(item.note || '').trim().split('\n')[0]
       }));
       this.setData({
@@ -132,10 +138,14 @@ Page({
       const payload = await api.getUserGearSets({}, { silent: true });
       const gearSets = (payload.items || []).map((item) => this.normalizeGearSet(item));
       const total = Number(payload.summary && payload.summary.total ? payload.summary.total : gearSets.length);
-      const publicCount = Number(payload.summary && payload.summary.public ? payload.summary.public : gearSets.filter((item) => item.isPublic).length);
+      const profileShowingCount = Number(
+        payload.summary && payload.summary.profileShowing
+          ? payload.summary.profileShowing
+          : gearSets.filter((item) => item.profileDisplayStatus === 'showing').length
+      );
       this.setData({
         gearSets,
-        setSummaryText: `搭配 ${total}｜公开 ${publicCount}`
+        setSummaryText: `搭配 ${total}｜主页展示 ${profileShowingCount}`
       });
     } catch (error) {
       console.error('[my-gear] load sets failed:', error);
@@ -154,7 +164,10 @@ Page({
     const lureCount = Number(summary.lureCount || lures.length || 0);
     return {
       ...item,
-      publicText: item.isPublic ? '公开' : '私密',
+      showOnProfile: item.showOnProfile === true || item.isPublic === true,
+      profileDisplayStatus: item.profileDisplayStatus || (item.showOnProfile || item.isPublic ? 'showing' : 'not_displayed'),
+      profileStatusText: item.profileStatusText || this.getProfileStatusText(item.profileDisplayStatus || (item.showOnProfile || item.isPublic ? 'showing' : 'not_displayed')),
+      profileBlockedText: this.buildProfileBlockedText(item.profileBlockedReasons),
       metaText: [summary.rod && summary.rod.label, summary.reel && summary.reel.label].filter(Boolean).join(' + '),
       lureText: lureText ? `${lureText}${lureCount > 3 ? ` 等${lureCount}个` : ''}` : '',
       tagText: [
@@ -163,6 +176,32 @@ Page({
       ].filter(Boolean).slice(0, 6).join(' / '),
       notePreview: String(item.note || '').trim().split('\n')[0]
     };
+  },
+
+  getProfileStatusText(status) {
+    if (status === 'showing') return '主页展示中';
+    if (status === 'invalid') return '展示异常';
+    return '未展示';
+  },
+
+  buildProfileBlockedText(reasons = []) {
+    const labels = {
+      rod_deleted: '鱼竿已删除',
+      reel_deleted: '渔轮已删除',
+      lure_deleted: '常用饵已删除',
+      gear_item_deleted: '装备已删除',
+      gear_item_not_owned: '包含非已拥有装备',
+      gear_master_hidden: '装备库记录不可用',
+      gear_variant_missing: '子型号记录异常',
+      invalid_rod_reel_combo: '竿轮搭配不兼容',
+      profile_missing_main_gear: '缺少鱼竿或渔轮',
+      profile_limit_exceeded: '主页最多展示 3 套代表搭配'
+    };
+    return (Array.isArray(reasons) ? reasons : [])
+      .map((reason) => labels[reason] || '')
+      .filter(Boolean)
+      .slice(0, 2)
+      .join('，');
   },
 
   refreshVisibleItems() {
@@ -204,11 +243,11 @@ Page({
     });
   },
 
-  onToggleSetPublic(e) {
+  onToggleSetProfile(e) {
     const id = Number(e.currentTarget.dataset.id || 0);
     const item = (this.data.gearSets || []).find((entry) => Number(entry.id) === id);
     if (!item) return;
-    this.updateSet(id, { isPublic: !item.isPublic });
+    this.updateSet(id, { showOnProfile: !item.showOnProfile });
   },
 
   async updateSet(id, patch) {
@@ -249,16 +288,6 @@ Page({
     if (!id) return;
     wx.navigateTo({
       url: `/pkgContent/my-gear-edit/my-gear-edit?mode=edit&id=${id}`
-    });
-  },
-
-  onTogglePublic(e) {
-    const id = Number(e.currentTarget.dataset.id || 0);
-    const item = (this.data.items || []).find((entry) => Number(entry.id) === id);
-    if (!item) return;
-
-    this.updateItem(id, {
-      isPublic: !item.isPublic
     });
   },
 
