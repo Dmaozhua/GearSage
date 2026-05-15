@@ -54,6 +54,8 @@
             bindinput="onGearModelInput"
             bindfocus="onGearModelFocus"
             bindblur="onGearModelBlur"
+            adjust-position="{{true}}"
+            cursor-spacing="320"
             maxlength="60"
           />
           <view class="gear-model-dropdown" wx:if="{{showGearModelOptions}}">

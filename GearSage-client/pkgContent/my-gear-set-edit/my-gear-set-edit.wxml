@@ -1,0 +1,90 @@
+<custom-navbar title="{{mode === 'edit' ? '编辑搭配' : '新建搭配'}}" show-back="{{true}}"></custom-navbar>
+
+<view class="set-edit-page {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
+  <view class="page-state" wx:if="{{loading}}">加载中...</view>
+
+  <block wx:else>
+    <view class="form-card">
+      <view class="form-label">搭配名称</view>
+      <input class="text-input" data-field="name" value="{{form.name}}" maxlength="80" placeholder="例如：野河翘嘴常用" bindinput="onInput" />
+
+      <view class="form-row">
+        <view>
+          <view class="form-label">公开到他人主页</view>
+          <view class="form-tip">公开搭配不能包含私密装备。</view>
+        </view>
+        <switch checked="{{form.isPublic}}" bindchange="onPublicChange"></switch>
+      </view>
+    </view>
+
+    <view class="form-card">
+      <view class="section-title">鱼竿</view>
+      <view class="selector-empty" wx:if="{{!rods.length}}">还没有添加鱼竿</view>
+      <view
+        wx:for="{{rods}}"
+        wx:key="id"
+        class="gear-option {{item.selected ? 'active' : ''}}"
+        data-role="rod"
+        data-id="{{item.id}}"
+        bindtap="onSelectSingle"
+      >
+        <view class="gear-copy">
+          <text class="gear-name">{{item.label}}</text>
+          <text class="gear-meta">{{item.publicText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+        </view>
+        <text class="gear-check">{{item.selected ? '已选' : '选择'}}</text>
+      </view>
+    </view>
+
+    <view class="form-card">
+      <view class="section-title">渔轮</view>
+      <view class="selector-empty" wx:if="{{!reels.length}}">还没有添加渔轮</view>
+      <view
+        wx:for="{{reels}}"
+        wx:key="id"
+        class="gear-option {{item.selected ? 'active' : ''}}"
+        data-role="reel"
+        data-id="{{item.id}}"
+        bindtap="onSelectSingle"
+      >
+        <view class="gear-copy">
+          <text class="gear-name">{{item.label}}</text>
+          <text class="gear-meta">{{item.publicText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+        </view>
+        <text class="gear-check">{{item.selected ? '已选' : '选择'}}</text>
+      </view>
+    </view>
+
+    <view class="form-card">
+      <view class="section-title">常用饵</view>
+      <view class="form-tip">最多 20 个</view>
+      <view class="selector-empty" wx:if="{{!lures.length}}">还没有添加常用饵</view>
+      <view
+        wx:for="{{lures}}"
+        wx:key="id"
+        class="gear-option {{item.selected ? 'active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onToggleLure"
+      >
+        <view class="gear-copy">
+          <text class="gear-name">{{item.label}}</text>
+          <text class="gear-meta">{{item.publicText}}{{item.variantLabel ? '｜' + item.variantLabel : ''}}</text>
+        </view>
+        <text class="gear-check">{{item.selected ? '已选' : '选择'}}</text>
+      </view>
+    </view>
+
+    <view class="form-card">
+      <view class="form-label">目标鱼</view>
+      <input class="text-input" data-field="targetFishText" value="{{form.targetFishText}}" maxlength="60" placeholder="最多 3 个，用顿号分隔" bindinput="onInput" />
+
+      <view class="form-label with-gap">使用场景</view>
+      <input class="text-input" data-field="useSceneText" value="{{form.useSceneText}}" maxlength="60" placeholder="最多 3 个，用顿号分隔" bindinput="onInput" />
+
+      <view class="form-label with-gap">备注</view>
+      <textarea class="note-input" data-field="note" value="{{form.note}}" maxlength="200" placeholder="写下这套搭配适合什么水域、鱼情或使用边界" bindinput="onInput"></textarea>
+    </view>
+
+    <button class="save-btn" loading="{{saving}}" bindtap="onSave">{{saving ? '保存中...' : '保存搭配'}}</button>
+  </block>
+</view>

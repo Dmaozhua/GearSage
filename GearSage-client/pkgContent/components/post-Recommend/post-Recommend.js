@@ -250,7 +250,7 @@ Component({
     contentPlaceholder: CONTENT_PLACEHOLDER,
     writingTips: WRITING_TIPS,
     gearModelLabel: '具体型号',
-    gearModelPlaceholder: '选择装备型号',
+    gearModelPlaceholder: '可输入或搜索并关联，也可留空',
     gearModelTip: '',
     formData: {
       gearCategory: 'rod',
@@ -396,7 +396,7 @@ Component({
 
       this.setData({
         gearModelLabel: isLine ? '具体线款' : '具体型号',
-        gearModelPlaceholder: isLine ? '输入或选择鱼线型号' : '选择装备型号',
+        gearModelPlaceholder: '可输入或搜索并关联，也可留空',
         gearModelTip: isLine ? '可直接搜索系列名、材质或常见关键词，例如 PE、Fluorocarbon、Nylon。' : '',
         contentPlaceholder: isLine ? LINE_CONTENT_PLACEHOLDER : CONTENT_PLACEHOLDER,
         writingTips: isLine ? LINE_WRITING_TIPS : WRITING_TIPS
@@ -596,10 +596,7 @@ Component({
 
     onGearModelBlur() {
       this.clearGearModelBlurTimer();
-      this._gearModelBlurTimer = setTimeout(() => {
-        this.setData({ showGearModelOptions: false });
-        this._gearModelBlurTimer = null;
-      }, 150);
+      // 失焦只收起键盘，保留下拉列表以便继续选择被键盘遮挡的装备。
     },
 
     onGearModelSelect(e) {

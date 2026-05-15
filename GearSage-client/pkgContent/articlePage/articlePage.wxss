@@ -90,11 +90,11 @@
     display: block;
 }
 
-/* 知识分享列表 */
+/* 装备经验列表 */
 .article-list {
     padding-bottom: 40rpx;
     -webkit-overflow-scrolling: touch; /* 增强iOS滚动体验 */
-    flex: 1; /* 让知识分享列表占据剩余空间 */
+    flex: 1; /* 让装备经验列表占据剩余空间 */
     display: flex;
     flex-direction: column;
 }

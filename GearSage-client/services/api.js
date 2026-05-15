@@ -1640,6 +1640,39 @@ class ApiService {
     return this.delete(`/mini/user/gear/${encodeURIComponent(id)}`, options).then(result => result === true || !!result);
   }
 
+  getUserGearSets(params = {}, options = {}) {
+    return this.get('/mini/user/gear-sets', {
+      data: params,
+      ...options
+    }).then(result => {
+      const payload = result && typeof result === 'object' ? result : {};
+      return {
+        summary: payload.summary || { total: 0, public: 0 },
+        limits: payload.limits || null,
+        page: Number(payload.page || 1),
+        limit: Number(payload.limit || 20),
+        total: Number(payload.total || 0),
+        items: Array.isArray(payload.items) ? payload.items : []
+      };
+    });
+  }
+
+  getUserGearSetDetail(id, options = {}) {
+    return this.get(`/mini/user/gear-sets/${encodeURIComponent(id)}`, options).then(result => result || null);
+  }
+
+  createUserGearSet(data = {}, options = {}) {
+    return this.post('/mini/user/gear-sets', data, options).then(result => result || null);
+  }
+
+  updateUserGearSet(id, data = {}, options = {}) {
+    return this.put(`/mini/user/gear-sets/${encodeURIComponent(id)}`, data, options).then(result => result || null);
+  }
+
+  deleteUserGearSet(id, options = {}) {
+    return this.delete(`/mini/user/gear-sets/${encodeURIComponent(id)}`, options).then(result => result === true || !!result);
+  }
+
   // ========== 标签相关接口 ==========
   
   /**

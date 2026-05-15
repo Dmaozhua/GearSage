@@ -3,13 +3,19 @@
 <view class="my-gear-page {{isDarkMode ? 'dark' : ''}}" style="padding-top: {{navBarHeight}}px;">
   <view class="my-gear-header">
     <view>
-      <text class="my-gear-title">我的装备</text>
-      <text class="my-gear-summary">{{summaryText}}</text>
+      <text class="my-gear-title">{{activePanel === 'sets' ? '我的搭配' : '我的装备'}}</text>
+      <text class="my-gear-summary">{{activePanel === 'sets' ? setSummaryText : summaryText}}</text>
     </view>
-    <button class="add-btn" bindtap="onAddGear">添加装备</button>
+    <button class="add-btn" wx:if="{{activePanel === 'sets'}}" bindtap="onAddSet">新建搭配</button>
+    <button class="add-btn" wx:else bindtap="onAddGear">添加装备</button>
   </view>
 
-  <view class="tab-row">
+  <view class="panel-tabs">
+    <view class="panel-tab {{activePanel === 'gear' ? 'active' : ''}}" data-panel="gear" bindtap="onPanelChange">装备</view>
+    <view class="panel-tab {{activePanel === 'sets' ? 'active' : ''}}" data-panel="sets" bindtap="onPanelChange">我的搭配</view>
+  </view>
+
+  <view class="tab-row" wx:if="{{activePanel === 'gear'}}">
     <view
       wx:for="{{tabs}}"
       wx:key="key"
@@ -26,13 +32,19 @@
     <text>加载中...</text>
   </view>
 
-  <view class="empty-state" wx:elif="{{!visibleItems.length}}">
+  <view class="empty-state" wx:elif="{{activePanel === 'gear' && !visibleItems.length}}">
     <text class="empty-title">{{emptyText}}</text>
     <text class="empty-desc">从装备库添加你正在用的鱼轮、鱼竿和常用饵。</text>
     <button class="empty-btn" bindtap="onAddGear">去添加</button>
   </view>
 
-  <view class="gear-list" wx:else>
+  <view class="empty-state" wx:elif="{{activePanel === 'sets' && !gearSets.length}}">
+    <text class="empty-title">还没有搭配</text>
+    <text class="empty-desc">先把常用鱼竿、渔轮、鱼饵添加到我的装备，再组合成常用搭配。</text>
+    <button class="empty-btn" bindtap="onAddSet">新建搭配</button>
+  </view>
+
+  <view class="gear-list" wx:elif="{{activePanel === 'gear'}}">
     <view class="gear-item" wx:for="{{visibleItems}}" wx:key="id">
       <image class="gear-image" src="{{item.imageUrl || '/images/empty.png'}}" mode="aspectFill"></image>
       <view class="gear-main">
@@ -51,6 +63,26 @@
         <button class="icon-btn" data-id="{{item.id}}" bindtap="onEditGear">编辑</button>
         <button class="icon-btn" data-id="{{item.id}}" bindtap="onTogglePublic">{{item.isPublic ? '设私密' : '设公开'}}</button>
         <button class="icon-btn danger" data-id="{{item.id}}" bindtap="onDeleteGear">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="set-list" wx:else>
+    <view class="set-item" wx:for="{{gearSets}}" wx:key="id">
+      <view class="set-main">
+        <view class="set-title-row">
+          <text class="set-name">{{item.name}}</text>
+          <text class="set-public {{item.isPublic ? 'public' : 'private'}}">{{item.publicText}}</text>
+        </view>
+        <view class="set-meta" wx:if="{{item.metaText}}">{{item.metaText}}</view>
+        <view class="set-lures" wx:if="{{item.lureText}}">常用饵：{{item.lureText}}</view>
+        <view class="set-tags" wx:if="{{item.tagText}}">{{item.tagText}}</view>
+        <view class="set-note" wx:if="{{item.notePreview}}">备注：{{item.notePreview}}</view>
+      </view>
+      <view class="gear-actions">
+        <button class="icon-btn" data-id="{{item.id}}" bindtap="onEditSet">编辑</button>
+        <button class="icon-btn" data-id="{{item.id}}" bindtap="onToggleSetPublic">{{item.isPublic ? '设私密' : '设公开'}}</button>
+        <button class="icon-btn danger" data-id="{{item.id}}" bindtap="onDeleteSet">删除</button>
       </view>
     </view>
   </view>

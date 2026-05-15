@@ -189,6 +189,32 @@ page {
   color: #20384f;
 }
 
+.public-set-card {
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid #edf1f4;
+}
+
+.public-set-card:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.public-set-name {
+  font-size: 28rpx;
+  line-height: 1.45;
+  font-weight: 700;
+  color: #1b3249;
+}
+
+.public-set-main,
+.public-set-lures,
+.public-set-tags {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #62778b;
+}
+
 .feed-card {
   padding: 20rpx 0;
   border-bottom: 1rpx solid #edf1f4;
@@ -276,6 +302,20 @@ page {
 
 .dark .feed-card {
   border-bottom-color: rgba(80, 96, 111, 0.3);
+}
+
+.dark .public-set-card {
+  border-bottom-color: rgba(80, 96, 111, 0.3);
+}
+
+.dark .public-set-name {
+  color: #edf5ff;
+}
+
+.dark .public-set-main,
+.dark .public-set-lures,
+.dark .public-set-tags {
+  color: #96a9bc;
 }
 
 .dark .feed-badge {

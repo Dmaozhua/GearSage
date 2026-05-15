@@ -109,6 +109,7 @@ Page({
     identitySummary: '',
     summaryStats: [],
     commonGearGroups: [],
+    publicGearSets: [],
     recentTopics: [],
     recentAcceptedAnswers: [],
   },
@@ -163,7 +164,7 @@ Page({
       const profile = normalizeUser(payload);
       const resolvedProfile = await this.resolveProfileMediaUrls(profile);
       const stats = payload.stats && typeof payload.stats === 'object' ? payload.stats : payload;
-      const commonGearGroups = await this.loadPublicGearGroups(userId);
+      const publicGearSets = await this.loadPublicGearSets(userId);
 
       this.setData({
         loading: false,
@@ -172,7 +173,8 @@ Page({
         isReported: Boolean(payload.isReported || this.isTargetReported('user', userId)),
         identitySummary: this.buildIdentitySummary(stats),
         summaryStats: this.buildSummaryStats(stats),
-        commonGearGroups,
+        commonGearGroups: [],
+        publicGearSets,
         recentTopics: this.buildRecentTopics(payload.recentTopics),
         recentAcceptedAnswers: this.buildRecentAcceptedAnswers(payload.recentAcceptedAnswers),
       });
@@ -459,6 +461,38 @@ Page({
         text: list.map((item) => item.label).join('、')
       };
     }).filter((group) => group.list.length > 0);
+  },
+
+  async loadPublicGearSets(userId) {
+    try {
+      const payload = await api.getUserGearSets({
+        userId,
+        summaryOnly: true,
+        page: 1,
+        limit: 3
+      }, { silent: true, skipErrorToast: true });
+      return (payload.items || []).slice(0, 3).map((item) => this.normalizePublicGearSet(item));
+    } catch (error) {
+      console.warn('[user-profile] load public gear sets failed:', error);
+      return [];
+    }
+  },
+
+  normalizePublicGearSet(item = {}) {
+    const summary = item.summary || {};
+    const lures = Array.isArray(summary.lures) ? summary.lures : [];
+    const lureCount = normalizeNumber(summary.lureCount || lures.length);
+    const lureText = lures.map((entry) => entry.label || entry.displayName || '').filter(Boolean).join('、');
+    return {
+      id: normalizeNumber(item.id),
+      name: item.name || '未命名搭配',
+      mainText: [summary.rod && summary.rod.label, summary.reel && summary.reel.label].filter(Boolean).join(' + '),
+      lureText: lureText ? `${lureText}${lureCount > 3 ? ` 等${lureCount}个` : ''}` : '',
+      tagText: [
+        ...(Array.isArray(item.targetFish) ? item.targetFish : []),
+        ...(Array.isArray(item.useScene) ? item.useScene : [])
+      ].filter(Boolean).slice(0, 6).join(' / ')
+    };
   },
 
   onTapTopic(e) {

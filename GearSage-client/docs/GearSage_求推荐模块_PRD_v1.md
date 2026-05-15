@@ -135,7 +135,8 @@
 | `carePriorities` | 是 | string[] | 最在意的点，最多 3 个 |
 | `avoidPoints` | 否 | string[] | 不想要的点，最多 3 个 |
 | `currentGear` | 否 | string | 当前已有装备 |
-| `currentGearItems` | 否 | array | 从“我的装备”选择时写入的结构化已有装备，随 `recommendMeta` JSON 保存 |
+| `currentGearSet` | 否 | object | 从“我的搭配”选择时写入的结构化搭配快照 |
+| `currentGearItems` | 否 | array | 从“我的装备”或“我的搭配”选择时写入的结构化已有装备，随 `recommendMeta` JSON 保存 |
 | `candidateOptions` | 否 | array | 候选项，最多 3 个 |
 | `usageFrequency` | 否 | string | 使用频率 |
 | `coreQuestion` | 是 | string | 核心纠结点 |
@@ -387,10 +388,44 @@
 
 - 最多 80 字
 - 提示语：`已有装备可简单写，如“ML竿 + 1000纺车轮”`
+- 从“我的搭配”选择时，前端同步写入可读文本，并额外写入 `currentGearSet/currentGearItems`。
 
 ---
 
-### 4.3.12 `candidateOptions`
+### 4.3.12 `currentGearSet`
+
+**类型**
+
+- 对象
+
+**写入来源**
+
+- 求推荐发布页从“我的搭配”选择。
+
+**结构**
+
+```json
+{
+  "userGearSetId": 1,
+  "name": "野河翘嘴常用",
+  "targetFish": ["翘嘴"],
+  "useScene": ["野河"],
+  "items": [
+    { "role": "rod", "userGearItemId": 10, "label": "C6IM 702M" }
+  ],
+  "source": "user_gear_set"
+}
+```
+
+规则：
+
+- `currentGear` 继续保留为详情页可读文本。
+- `currentGearItems` 同步写入搭配中的装备项，用于兼容上一版“我的装备”结构化字段。
+- 不改变 `/mini/topic*` 发布主链路。
+
+---
+
+### 4.3.13 `candidateOptions`
 
 **类型**
 
@@ -1377,6 +1412,7 @@
 - [ ] 标题支持默认生成
 - [ ] 摘要字段可在详情页正确展示
 - [ ] 从“我的装备”选择时可同时写入 `recommendMeta.currentGear/currentGearItems`
+- [ ] 从“我的搭配”选择时可同时写入 `recommendMeta.currentGearSet/currentGearItems/currentGear`
 
 ### 12.2 回答侧
 

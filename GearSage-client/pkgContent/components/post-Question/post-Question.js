@@ -139,6 +139,7 @@ function createEmptyRecommendMeta() {
     carePriorities: [],
     avoidPoints: [],
     currentGear: '',
+    currentGearSet: null,
     currentGearItems: [],
     candidateOptions: ['', '', ''],
     usageFrequency: '',
@@ -186,7 +187,8 @@ function normalizeRecommendMeta(value) {
     useScene: Array.isArray(source.useScene) ? source.useScene.filter(Boolean).slice(0, 2) : [],
     carePriorities: Array.isArray(source.carePriorities) ? source.carePriorities.filter(Boolean).slice(0, 3) : [],
     avoidPoints: Array.isArray(source.avoidPoints) ? source.avoidPoints.filter(Boolean).slice(0, 3) : [],
-    currentGearItems: Array.isArray(source.currentGearItems) ? source.currentGearItems.slice(0, 5) : [],
+    currentGearSet: source.currentGearSet && typeof source.currentGearSet === 'object' ? source.currentGearSet : null,
+    currentGearItems: Array.isArray(source.currentGearItems) ? source.currentGearItems.slice(0, 25) : [],
     candidateOptions: candidateOptions.map((item) => {
       if (item && typeof item === 'object' && !Array.isArray(item)) {
         return String(item.label || '').trim();
@@ -289,15 +291,19 @@ Component({
     titlePlaceholder: '可留空，系统会帮你生成标题',
     contentPlaceholder: CONTENT_PLACEHOLDER_MAP.recommend,
     writingTips: QUESTION_TIPS_MAP.recommend,
-    gearModelPlaceholder: '搜索并关联装备',
+    gearModelPlaceholder: '可输入或搜索并关联，也可留空',
     gearModelTip: '先选装备分类，再输入关键词关联装备库中的型号',
     canSelectGearModel: false,
     gearModelOptions: [],
     showGearModelOptions: false,
     showUserGearSelector: false,
+    showGearSetSelector: false,
     userGearLoading: false,
+    gearSetLoading: false,
     userGearItems: [],
+    gearSetItems: [],
     selectedUserGearIds: {},
+    selectedGearSetId: 0,
     maxImages: 3,
     maxTitleLength: 40,
     maxContentLength: 300,
@@ -384,11 +390,7 @@ Component({
         canSelectGearModel,
         gearModelOptions,
         showGearModelOptions: canSelectGearModel ? showOptions : false,
-        gearModelPlaceholder: isLine
-          ? '搜索并关联鱼线型号'
-          : isHook
-            ? '搜索并关联钩子/配件型号'
-            : '搜索并关联装备',
+        gearModelPlaceholder: '可输入或搜索并关联，也可留空',
         gearModelTip: isLine
           ? '可直接搜索系列名、材质或线号关键词，把问题和具体线款关联起来。'
           : isHook
@@ -472,10 +474,7 @@ Component({
 
     onGearModelBlur() {
       this.clearGearModelBlurTimer();
-      this._gearModelBlurTimer = setTimeout(() => {
-        this.setData({ showGearModelOptions: false });
-        this._gearModelBlurTimer = null;
-      }, 150);
+      // 失焦只收起键盘，保留下拉列表以便继续选择被键盘遮挡的装备。
     },
 
     onGearModelSelect(e) {
@@ -616,6 +615,106 @@ Component({
       this.setData({ showUserGearSelector: false });
     },
 
+    async onOpenGearSetSelector() {
+      try {
+        await auth.ensureLogin();
+      } catch (error) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        });
+        return;
+      }
+
+      const recommendMeta = normalizeRecommendMeta(this.data.formData.recommendMeta);
+      const selectedGearSetId = Number(recommendMeta.currentGearSet && recommendMeta.currentGearSet.userGearSetId || 0);
+      this.setData({
+        showGearSetSelector: true,
+        selectedGearSetId,
+        gearSetLoading: true
+      });
+
+      try {
+        const payload = await api.getUserGearSets({ summaryOnly: true, limit: 30 }, { silent: true });
+        const gearSetItems = (payload.items || []).map((item) => ({
+          ...item,
+          selected: Number(item.id) === selectedGearSetId,
+          summaryText: item.summary && item.summary.text ? item.summary.text : ''
+        }));
+        this.setData({
+          gearSetItems,
+          gearSetLoading: false
+        });
+      } catch (error) {
+        console.error('[post-question] load gear sets failed:', error);
+        this.setData({ gearSetLoading: false });
+        wx.showToast({
+          title: api.getErrorMessage(error, '加载我的搭配失败'),
+          icon: 'none'
+        });
+      }
+    },
+
+    onCloseGearSetSelector() {
+      this.setData({ showGearSetSelector: false });
+    },
+
+    onSelectGearSet(e) {
+      const id = Number(e.currentTarget.dataset.id || 0);
+      if (!id) return;
+      this.setData({
+        selectedGearSetId: id,
+        gearSetItems: (this.data.gearSetItems || []).map((item) => ({
+          ...item,
+          selected: Number(item.id) === id
+        }))
+      });
+    },
+
+    onApplyGearSetSelection() {
+      const selected = (this.data.gearSetItems || []).find((item) => Number(item.id) === Number(this.data.selectedGearSetId));
+      if (!selected) {
+        wx.showToast({
+          title: '请选择一组搭配',
+          icon: 'none'
+        });
+        return;
+      }
+      const items = Array.isArray(selected.items) ? selected.items : [];
+      const currentGearItems = items.map((item) => ({
+        userGearItemId: Number(item.userGearItemId),
+        gearType: item.gearType,
+        gearMasterId: item.gearMasterId,
+        gearVariantId: item.gearVariantId || '',
+        variantKey: item.variantKey || '',
+        label: item.label || item.displayName || '',
+        source: 'user_gear_set',
+        role: item.role
+      })).filter((item) => item.userGearItemId);
+      const currentGear = selected.summaryText
+        ? `${selected.name}：${selected.summaryText}`
+        : selected.name;
+      const recommendMeta = normalizeRecommendMeta(this.data.formData.recommendMeta);
+      this.syncRecommendMeta({
+        ...recommendMeta,
+        currentGear,
+        currentGearSet: {
+          userGearSetId: Number(selected.id),
+          name: selected.name || '',
+          targetFish: Array.isArray(selected.targetFish) ? selected.targetFish : [],
+          useScene: Array.isArray(selected.useScene) ? selected.useScene : [],
+          items: currentGearItems.map((item) => ({
+            role: item.role,
+            userGearItemId: item.userGearItemId,
+            label: item.label
+          })),
+          source: 'user_gear_set'
+        },
+        currentGearItems
+      });
+      this.setData({ showGearSetSelector: false });
+    },
+
     onToggleUserGearSelect(e) {
       const id = Number(e.currentTarget.dataset.id || 0);
       if (!id) return;
@@ -663,6 +762,7 @@ Component({
       this.syncRecommendMeta({
         ...recommendMeta,
         currentGear,
+        currentGearSet: null,
         currentGearItems
       });
       this.setData({ showUserGearSelector: false });

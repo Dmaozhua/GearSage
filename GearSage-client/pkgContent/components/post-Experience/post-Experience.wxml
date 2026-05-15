@@ -69,6 +69,8 @@
             bindinput="onGearModelInput"
             bindfocus="onGearModelFocus"
             bindblur="onGearModelBlur"
+            adjust-position="{{true}}"
+            cursor-spacing="320"
             maxlength="60"
           />
           <view class="gear-model-dropdown" wx:if="{{showGearModelOptions}}">
@@ -247,11 +249,13 @@
       <view class="gear-model-input-wrap">
         <input
           class="gear-model-input"
-          placeholder="输入关联装备名称"
+          placeholder="可输入或搜索并关联，也可留空"
           value="{{comboSearchKeyword}}"
           bindinput="onComboGearInput"
           bindfocus="onComboGearFocus"
           bindblur="onComboGearBlur"
+          adjust-position="{{true}}"
+          cursor-spacing="320"
         />
         <view class="gear-model-dropdown" wx:if="{{showComboSearchOptions}}">
           <view class="gear-model-option" wx:for="{{comboSearchOptions}}" wx:key="id" data-name="{{item.name}}" bindtap="onComboGearSelect">{{item.name}}</view>
@@ -315,11 +319,13 @@
       <view class="gear-model-input-wrap">
         <input
           class="gear-model-input"
-          placeholder="输入对比装备名称"
+          placeholder="可输入或搜索并关联，也可留空"
           value="{{compareSearchKeyword}}"
           bindinput="onCompareGearInput"
           bindfocus="onCompareGearFocus"
           bindblur="onCompareGearBlur"
+          adjust-position="{{true}}"
+          cursor-spacing="320"
         />
         <view class="gear-model-dropdown" wx:if="{{showCompareSearchOptions}}">
           <view class="gear-model-option" wx:for="{{compareSearchOptions}}" wx:key="id" data-name="{{item.name}}" bindtap="onCompareGearSelect">{{item.name}}</view>

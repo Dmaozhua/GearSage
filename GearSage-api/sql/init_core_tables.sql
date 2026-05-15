@@ -197,6 +197,51 @@ CREATE TABLE IF NOT EXISTS user_gear_items (
   CONSTRAINT chk_user_gear_usage CHECK (usage_status IN ('frequent', 'backup', 'idle'))
 );
 
+CREATE TABLE IF NOT EXISTS user_gear_sets (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  name VARCHAR(80) NOT NULL,
+  target_fish JSONB NOT NULL DEFAULT '[]'::jsonb,
+  use_scene JSONB NOT NULL DEFAULT '[]'::jsonb,
+  note TEXT,
+  is_public BOOLEAN NOT NULL DEFAULT TRUE,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  compatibility_status VARCHAR(20) NOT NULL DEFAULT 'valid',
+  compatibility_message VARCHAR(255),
+  cover_image_url TEXT,
+  extra JSONB NOT NULL DEFAULT '{}'::jsonb,
+  create_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  update_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  delete_time TIMESTAMPTZ,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+  CONSTRAINT chk_user_gear_set_compatibility_status CHECK (compatibility_status IN ('valid', 'manual_confirmed'))
+);
+
+CREATE TABLE IF NOT EXISTS user_gear_set_items (
+  id BIGSERIAL PRIMARY KEY,
+  set_id BIGINT NOT NULL REFERENCES user_gear_sets(id),
+  user_id BIGINT NOT NULL,
+  user_gear_item_id BIGINT NOT NULL REFERENCES user_gear_items(id),
+  gear_type VARCHAR(20) NOT NULL,
+  role VARCHAR(20) NOT NULL,
+  gear_master_id VARCHAR(64),
+  gear_variant_id VARCHAR(64),
+  variant_key VARCHAR(128),
+  variant_label VARCHAR(255),
+  display_name VARCHAR(255) NOT NULL,
+  brand_name VARCHAR(120),
+  gear_model VARCHAR(255),
+  image_url TEXT,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  extra JSONB NOT NULL DEFAULT '{}'::jsonb,
+  create_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  update_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  delete_time TIMESTAMPTZ,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+  CONSTRAINT chk_user_gear_set_item_type CHECK (gear_type IN ('rod', 'reel', 'lure')),
+  CONSTRAINT chk_user_gear_set_item_role CHECK (role IN ('rod', 'reel', 'lure'))
+);
+
 CREATE TABLE IF NOT EXISTS user_reports (
   id BIGSERIAL PRIMARY KEY,
   "reporterUserId" BIGINT NOT NULL,
@@ -524,6 +569,30 @@ ON user_gear_items (user_id, is_public, is_deleted, gear_type, sort_order);
 
 CREATE INDEX IF NOT EXISTS idx_user_gear_master
 ON user_gear_items (gear_master_id, gear_type, is_deleted);
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_sets_user
+ON user_gear_sets (user_id, is_deleted, sort_order, update_time DESC);
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_sets_public
+ON user_gear_sets (user_id, is_public, is_deleted, sort_order, update_time DESC);
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_set_items_set
+ON user_gear_set_items (set_id, is_deleted, role, sort_order);
+
+CREATE INDEX IF NOT EXISTS idx_user_gear_set_items_user
+ON user_gear_set_items (user_id, is_deleted, update_time DESC);
+
+CREATE UNIQUE INDEX IF NOT EXISTS ux_user_gear_set_one_rod
+ON user_gear_set_items (set_id)
+WHERE gear_type = 'rod' AND is_deleted = FALSE;
+
+CREATE UNIQUE INDEX IF NOT EXISTS ux_user_gear_set_one_reel
+ON user_gear_set_items (set_id)
+WHERE gear_type = 'reel' AND is_deleted = FALSE;
+
+CREATE UNIQUE INDEX IF NOT EXISTS ux_user_gear_set_unique_item
+ON user_gear_set_items (set_id, user_gear_item_id)
+WHERE is_deleted = FALSE;
 
 CREATE INDEX IF NOT EXISTS idx_gear_feedback_status
 ON gear_feedback (status, "createTime" DESC);

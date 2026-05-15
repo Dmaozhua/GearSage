@@ -249,7 +249,7 @@ Component({
     currentStep: 1,
     isDarkMode: false,
     gearModelLabel: '具体型号',
-    gearModelPlaceholder: '输入或选择装备型号',
+    gearModelPlaceholder: '可输入或搜索并关联，也可留空',
     gearModelTip: '',
     contentPlaceholder: '请结合真实使用经历来写：为什么买它、最常用在什么场景、最满意的地方、最大的缺点、哪些人适合用、哪些人可能会不习惯。越具体，越能帮助别人判断它是否适合自己。',
     formData: {
@@ -456,7 +456,7 @@ Component({
       const isLine = nextCategory === 'line';
       this.setData({
         gearModelLabel: isLine ? '具体线款' : '具体型号',
-        gearModelPlaceholder: isLine ? '输入或选择鱼线型号' : '输入或选择装备型号',
+        gearModelPlaceholder: '可输入或搜索并关联，也可留空',
         gearModelTip: isLine ? '可直接搜索系列名、材质或常见关键词，例如 PE、Fluorocarbon、Nylon。' : '',
         contentPlaceholder: isLine
           ? '请结合真实使用经历来写：你常用的线号和场景、把它当主线还是前导、顺滑/耐磨/强度里最满意的点、最大的短板，以及哪些钓友会更适合它。'
@@ -541,10 +541,7 @@ Component({
 
     onGearModelBlur() {
       this.clearGearModelBlurTimer();
-      this._gearModelBlurTimer = setTimeout(() => {
-        this.setData({ showGearModelOptions: false });
-        this._gearModelBlurTimer = null;
-      }, 150);
+      // 失焦只收起键盘，保留下拉列表以便继续选择被键盘遮挡的装备。
     },
 
     onGearModelSelect(e) {
@@ -937,9 +934,7 @@ Component({
     },
 
     onComboGearBlur() {
-      setTimeout(() => {
-        this.setData({ showComboSearchOptions: false });
-      }, 150);
+      // 失焦只收起键盘，保留下拉列表以便继续选择被键盘遮挡的装备。
     },
 
     onComboGearSelect(e) {
@@ -991,9 +986,7 @@ Component({
     },
 
     onCompareGearBlur() {
-      setTimeout(() => {
-        this.setData({ showCompareSearchOptions: false });
-      }, 150);
+      // 失焦只收起键盘，保留下拉列表以便继续选择被键盘遮挡的装备。
     },
 
     onCompareGearSelect(e) {

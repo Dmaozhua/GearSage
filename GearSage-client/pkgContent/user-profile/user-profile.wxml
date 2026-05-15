@@ -44,11 +44,13 @@
       </view>
     </view>
 
-    <view class="section-card common-gear-section" wx:if="{{commonGearGroups.length}}">
-      <view class="section-title">常用装备</view>
-      <view class="common-gear-row" wx:for="{{commonGearGroups}}" wx:key="gearType">
-        <text class="common-gear-label">{{item.label}}</text>
-        <text class="common-gear-text">{{item.text}}</text>
+    <view class="section-card public-set-section" wx:if="{{publicGearSets.length}}">
+      <view class="section-title">公开搭配</view>
+      <view class="public-set-card" wx:for="{{publicGearSets}}" wx:key="id">
+        <view class="public-set-name">{{item.name}}</view>
+        <view class="public-set-main" wx:if="{{item.mainText}}">{{item.mainText}}</view>
+        <view class="public-set-lures" wx:if="{{item.lureText}}">常用饵：{{item.lureText}}</view>
+        <view class="public-set-tags" wx:if="{{item.tagText}}">{{item.tagText}}</view>
       </view>
     </view>
 

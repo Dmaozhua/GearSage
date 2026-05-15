@@ -8,10 +8,10 @@ Page({
     
     articles: [],
     loading: true,
-    originalArticles: [], // 原始知识分享数据
+    originalArticles: [], // 原始装备经验数据
     searchKeyword: "", // 搜索关键词
     showNoResults: false, // 是否显示无结果提示
-    highlightedArticles: [] // 用于存储高亮处理后的知识分享数据
+    highlightedArticles: [] // 用于存储高亮处理后的装备经验数据
   },
 
   onLoad: function(options) {
@@ -25,7 +25,7 @@ Page({
     // 初始化主题模式
     this.initThemeMode();
     
-    // 如果传入了articleId，直接跳转到知识分享详情页
+    // 如果传入了articleId，直接跳转到装备经验详情页
     if (options.articleId) {
       wx.redirectTo({
         url: `/pkgContent/articleDetail/articleDetail?articleId=${options.articleId}`
@@ -39,28 +39,28 @@ Page({
       showNoResults: false
     });
     
-    // 加载知识分享数据
+    // 加载装备经验数据
     this.loadArticles();
   },
 
-  // 加载知识分享数据
+  // 加载装备经验数据
   loadArticles: function() {
     try {
       // 记录开始加载时间，用于性能统计
       const startTime = Date.now();
       
-      // 动态加载知识分享数据
+      // 动态加载装备经验数据
       const articleData = [];
       
-      // 使用微信小程序的文件系统API获取知识分享文件列表
+      // 使用微信小程序的文件系统API获取装备经验文件列表
       try {
         // 获取文件系统管理器实例
         const fs = wx.getFileSystemManager();
         
         // 尝试读取textData目录下的所有文件
         // 由于小程序的安全限制，我们无法直接列出目录内容
-        // 所以我们使用一个足够大的范围来尝试加载知识分享
-        const maxArticleNumber = 50; // 设置一个足够大的数字来尝试加载知识分享
+        // 所以我们使用一个足够大的范围来尝试加载装备经验
+        const maxArticleNumber = 50; // 设置一个足够大的数字来尝试加载装备经验
         
         for (let i = 1; i <= maxArticleNumber; i++) {
           const fileName = `article${i}.js`;
@@ -76,31 +76,31 @@ Page({
             } else {
               currentArticle = articleModule;
             }
-            // 将知识分享数据和对应的ID一起存储
+            // 将装备经验数据和对应的ID一起存储
             articleData.push({id: i, data: currentArticle});
-            console.log(`成功加载知识分享: ${fileName}`);
+            console.log(`成功加载装备经验: ${fileName}`);
           } catch (e) {
-            // 如果连续5个文件都加载失败，则认为已经没有更多知识分享了
+            // 如果连续5个文件都加载失败，则认为已经没有更多装备经验了
             if (i > 5 && articleData.length === 0) {
-              console.log('没有找到任何知识分享文件，停止尝试加载');
+              console.log('没有找到任何装备经验文件，停止尝试加载');
               break;
             }
-            // 如果已经加载了一些知识分享，并且连续5个文件都加载失败，则认为已经加载完所有知识分享
+            // 如果已经加载了一些装备经验，并且连续5个文件都加载失败，则认为已经加载完所有装备经验
             if (articleData.length > 0 && i - articleData.length >= 5) {
-              console.log('已加载所有可用知识分享文件，停止尝试加载');
+              console.log('已加载所有可用装备经验文件，停止尝试加载');
               break;
             }
             console.log(`尝试加载${fileName}：文件不存在或格式不正确`);
           }
         }
       } catch (e) {
-        console.error('加载知识分享失败:', e);
+        console.error('加载装备经验失败:', e);
       }
       
-      // 如果没有加载到任何知识分享，使用默认数据
+      // 如果没有加载到任何装备经验，使用默认数据
       if (articleData.length === 0) {
-        console.log('未能加载任何知识分享，使用默认数据');
-        // 默认知识分享数据
+        console.log('未能加载任何装备经验，使用默认数据');
+        // 默认装备经验数据
         const article1 = {
           "title": "春季路亚鲈鱼技巧与找鱼方式全解析",
           "author": "李华",
@@ -118,15 +118,15 @@ Page({
         
         // 显示提示信息
         wx.showToast({
-          title: '使用默认知识分享数据',
+          title: '使用默认装备经验数据',
           icon: 'none',
           duration: 2000
         });
       } else {
-        console.log(`成功加载了${articleData.length}条知识分享`);
+        console.log(`成功加载了${articleData.length}条装备经验`);
       }
       
-      // 对知识分享数据进行排序（按ID或日期）
+      // 对装备经验数据进行排序（按ID或日期）
       articleData.sort((a, b) => {
         // 如果有publishDate字段，按日期排序（新的在前）
         if (a.publishDate && b.publishDate) {
@@ -135,11 +135,11 @@ Page({
         return 0; // 保持原有顺序
       });
       
-      // 处理知识分享数据
+      // 处理装备经验数据
       const articles = articleData.map((fishingDataWithId, index) => {
         const fishingData = fishingDataWithId.data;
         const articleId = fishingDataWithId.id;
-        // 检查知识分享格式，适配新旧两种格式
+        // 检查装备经验格式，适配新旧两种格式
         if (fishingData.content !== undefined) {
           // 新格式使用 content 属性
           return {
@@ -183,7 +183,7 @@ Page({
         }
       });
       
-      // 初始化高亮知识分享数据（初始状态无高亮）
+      // 初始化高亮装备经验数据（初始状态无高亮）
       const initialHighlightedArticles = articles.map(article => ({
         id: article.id,
         titleNodes: article.meta.title,
@@ -192,29 +192,29 @@ Page({
       
       // 计算加载时间
       const loadTime = Date.now() - startTime;
-      console.log(`知识分享加载完成，共加载${articles.length}条知识分享，耗时${loadTime}ms`);
+      console.log(`装备经验加载完成，共加载${articles.length}条装备经验，耗时${loadTime}ms`);
       
       this.setData({
         articles: articles,
-        originalArticles: articles, // 保存原始知识分享列表
+        originalArticles: articles, // 保存原始装备经验列表
         loading: false,
         currentArticleIndex: 0,
         showNoResults: false,
-        highlightedArticles: initialHighlightedArticles // 初始化高亮知识分享数据
+        highlightedArticles: initialHighlightedArticles // 初始化高亮装备经验数据
       });
       
       // 显示加载成功提示
       if (articles.length > 0) {
         wx.showToast({
-          title: `已加载${articles.length}条知识分享`,
+          title: `已加载${articles.length}条装备经验`,
           icon: 'success',
           duration: 1500
         });
       }
     } catch (error) {
-      console.error("加载知识分享失败:", error);
+      console.error("加载装备经验失败:", error);
       wx.showToast({
-        title: '加载知识分享失败',
+        title: '加载装备经验失败',
         icon: 'none'
       });
     }
@@ -275,17 +275,17 @@ Page({
     }
   },
   
-  // 过滤知识分享
+  // 过滤装备经验
   filterArticles: function(keyword) {
     const { articles } = this.data;
     
     if (!this.data.originalArticles || this.data.originalArticles.length === 0) {
-      // 首次搜索时保存原始知识分享列表
+      // 首次搜索时保存原始装备经验列表
       this.setData({ originalArticles: articles });
     }
     
     if (!keyword) {
-      // 搜索关键词为空，显示所有知识分享
+      // 搜索关键词为空，显示所有装备经验
       this.setData({
         articles: this.data.originalArticles,
         highlightedArticles: this.data.originalArticles.map(article => ({
@@ -298,7 +298,7 @@ Page({
       return;
     }
     
-    // 根据关键词过滤知识分享
+    // 根据关键词过滤装备经验
     const filteredArticles = this.data.originalArticles.filter(article => {
       // 在标题、作者、内容中搜索关键词
       return (
@@ -324,7 +324,7 @@ Page({
     });
   },
   
-  // 跳转到知识分享详情页
+  // 跳转到装备经验详情页
   navigateToArticleDetail: function(e) {
     const articleId = e.currentTarget.dataset.id;
     wx.navigateTo({

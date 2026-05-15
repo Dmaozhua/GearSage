@@ -1118,7 +1118,7 @@ Page({
       const gearCategory = this.normalizeString(e.currentTarget.dataset.gearCategory, '');
       const gearModel = this.normalizeString(e.currentTarget.dataset.gearModel, '');
       const gearType = this.resolveGearDetailType(gearCategory);
-      if ((!gearId && !gearModel) || !gearType) {
+      if (!gearId || !gearType) {
         return;
       }
 

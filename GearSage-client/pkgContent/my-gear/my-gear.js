@@ -43,12 +43,15 @@ Page({
     navBarHeight: 44,
     isDarkMode: false,
     loading: true,
+    activePanel: 'gear',
     activeType: 'reel',
     tabs: buildTabs(),
     summary: normalizeSummary(),
     summaryText: buildSummaryText(),
     items: [],
     visibleItems: [],
+    gearSets: [],
+    setSummaryText: '搭配 0｜公开 0',
     emptyText: '还没有添加装备'
   },
 
@@ -67,14 +70,14 @@ Page({
   },
 
   onShow() {
-    this.loadUserGear();
+    this.loadPageData();
   },
 
   onUnload() {
     unsubscribeThemeChange(this.themeListener);
   },
 
-  async loadUserGear() {
+  async loadPageData() {
     try {
       await auth.ensureLogin();
     } catch (error) {
@@ -84,6 +87,17 @@ Page({
     }
 
     this.setData({ loading: true });
+    await Promise.all([
+      this.loadUserGear(false),
+      this.loadGearSets(false)
+    ]);
+    this.setData({ loading: false });
+  },
+
+  async loadUserGear(setLoading = true) {
+    if (setLoading) {
+      this.setData({ loading: true });
+    }
     try {
       const payload = await api.getUserGear({}, { silent: true });
       const summary = normalizeSummary(payload.summary);
@@ -94,7 +108,6 @@ Page({
         notePreview: String(item.note || '').trim().split('\n')[0]
       }));
       this.setData({
-        loading: false,
         summary,
         tabs: buildTabs(summary),
         summaryText: buildSummaryText(summary),
@@ -103,9 +116,53 @@ Page({
       this.refreshVisibleItems();
     } catch (error) {
       console.error('[my-gear] load failed:', error);
-      this.setData({ loading: false });
       wx.showToast({ title: api.getErrorMessage(error, '加载装备失败'), icon: 'none' });
+    } finally {
+      if (setLoading) {
+        this.setData({ loading: false });
+      }
     }
+  },
+
+  async loadGearSets(setLoading = true) {
+    if (setLoading) {
+      this.setData({ loading: true });
+    }
+    try {
+      const payload = await api.getUserGearSets({}, { silent: true });
+      const gearSets = (payload.items || []).map((item) => this.normalizeGearSet(item));
+      const total = Number(payload.summary && payload.summary.total ? payload.summary.total : gearSets.length);
+      const publicCount = Number(payload.summary && payload.summary.public ? payload.summary.public : gearSets.filter((item) => item.isPublic).length);
+      this.setData({
+        gearSets,
+        setSummaryText: `搭配 ${total}｜公开 ${publicCount}`
+      });
+    } catch (error) {
+      console.error('[my-gear] load sets failed:', error);
+      wx.showToast({ title: api.getErrorMessage(error, '加载搭配失败'), icon: 'none' });
+    } finally {
+      if (setLoading) {
+        this.setData({ loading: false });
+      }
+    }
+  },
+
+  normalizeGearSet(item = {}) {
+    const summary = item.summary || {};
+    const lures = Array.isArray(summary.lures) ? summary.lures : [];
+    const lureText = lures.map((entry) => entry.label || entry.displayName || '').filter(Boolean).join('、');
+    const lureCount = Number(summary.lureCount || lures.length || 0);
+    return {
+      ...item,
+      publicText: item.isPublic ? '公开' : '私密',
+      metaText: [summary.rod && summary.rod.label, summary.reel && summary.reel.label].filter(Boolean).join(' + '),
+      lureText: lureText ? `${lureText}${lureCount > 3 ? ` 等${lureCount}个` : ''}` : '',
+      tagText: [
+        ...(Array.isArray(item.targetFish) ? item.targetFish : []),
+        ...(Array.isArray(item.useScene) ? item.useScene : [])
+      ].filter(Boolean).slice(0, 6).join(' / '),
+      notePreview: String(item.note || '').trim().split('\n')[0]
+    };
   },
 
   refreshVisibleItems() {
@@ -117,6 +174,11 @@ Page({
     });
   },
 
+  onPanelChange(e) {
+    const panel = e.currentTarget.dataset.panel || 'gear';
+    this.setData({ activePanel: panel });
+  },
+
   onTabChange(e) {
     const type = e.currentTarget.dataset.type || 'reel';
     this.setData({ activeType: type }, () => this.refreshVisibleItems());
@@ -125,6 +187,60 @@ Page({
   onAddGear() {
     wx.navigateTo({
       url: `/pkgContent/my-gear-edit/my-gear-edit?mode=create&gearType=${this.data.activeType}`
+    });
+  },
+
+  onAddSet() {
+    wx.navigateTo({
+      url: '/pkgContent/my-gear-set-edit/my-gear-set-edit?mode=create'
+    });
+  },
+
+  onEditSet(e) {
+    const id = Number(e.currentTarget.dataset.id || 0);
+    if (!id) return;
+    wx.navigateTo({
+      url: `/pkgContent/my-gear-set-edit/my-gear-set-edit?mode=edit&id=${id}`
+    });
+  },
+
+  onToggleSetPublic(e) {
+    const id = Number(e.currentTarget.dataset.id || 0);
+    const item = (this.data.gearSets || []).find((entry) => Number(entry.id) === id);
+    if (!item) return;
+    this.updateSet(id, { isPublic: !item.isPublic });
+  },
+
+  async updateSet(id, patch) {
+    try {
+      await api.updateUserGearSet(id, patch, { silent: true });
+      await this.loadGearSets();
+    } catch (error) {
+      console.error('[my-gear] update set failed:', error);
+      wx.showToast({ title: api.getErrorMessage(error, '更新搭配失败'), icon: 'none' });
+    }
+  },
+
+  onDeleteSet(e) {
+    const id = Number(e.currentTarget.dataset.id || 0);
+    if (!id) return;
+
+    wx.showModal({
+      title: '删除搭配',
+      content: '只会删除这组搭配，不会删除我的装备。',
+      confirmText: '删除',
+      confirmColor: '#8f4d42',
+      success: async (res) => {
+        if (!res.confirm) return;
+        try {
+          await api.deleteUserGearSet(id, { silent: true });
+          wx.showToast({ title: '已删除', icon: 'success' });
+          await this.loadGearSets();
+        } catch (error) {
+          console.error('[my-gear] delete set failed:', error);
+          wx.showToast({ title: api.getErrorMessage(error, '删除搭配失败'), icon: 'none' });
+        }
+      }
     });
   },
 

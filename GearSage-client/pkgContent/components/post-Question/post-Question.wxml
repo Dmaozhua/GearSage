@@ -46,6 +46,8 @@
             bindinput="onGearModelInput"
             bindfocus="onGearModelFocus"
             bindblur="onGearModelBlur"
+            adjust-position="{{true}}"
+            cursor-spacing="320"
             maxlength="60"
           />
           <view class="gear-model-dropdown" wx:if="{{showGearModelOptions}}">
@@ -224,7 +226,11 @@
           bindinput="onRecommendInput"
         />
         <view class="field-action-row">
+          <view class="field-action" bindtap="onOpenGearSetSelector">从我的搭配选择</view>
           <view class="field-action" bindtap="onOpenUserGearSelector">从我的装备选择</view>
+          <view class="field-action-note" wx:if="{{formData.recommendMeta.currentGearSet}}">
+            已选搭配：{{formData.recommendMeta.currentGearSet.name}}
+          </view>
           <view class="field-action-note" wx:if="{{formData.recommendMeta.currentGearItems.length}}">
             已选 {{formData.recommendMeta.currentGearItems.length}} 件
           </view>
@@ -378,6 +384,34 @@
         </view>
       </scroll-view>
       <button class="selector-confirm" bindtap="onApplyUserGearSelection">写入已有装备</button>
+    </view>
+  </view>
+
+  <view class="selector-mask" wx:if="{{showGearSetSelector}}" catchtap="onCloseGearSetSelector">
+    <view class="selector-panel" catchtap="noop">
+      <view class="selector-head">
+        <text class="selector-title">从我的搭配选择</text>
+        <text class="selector-close" bindtap="onCloseGearSetSelector">关闭</text>
+      </view>
+      <view class="selector-tip">会把整组搭配写入“已有装备”，并保留结构化搭配信息。</view>
+      <view class="selector-state" wx:if="{{gearSetLoading}}">加载中...</view>
+      <scroll-view scroll-y class="selector-list" wx:else>
+        <view class="selector-empty" wx:if="{{!gearSetItems.length}}">还没有创建我的搭配</view>
+        <view
+          wx:for="{{gearSetItems}}"
+          wx:key="id"
+          class="selector-item {{item.selected ? 'active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onSelectGearSet"
+        >
+          <view class="selector-item-main">
+            <text class="selector-item-name">{{item.name}}</text>
+            <text class="selector-item-meta">{{item.summaryText || '未填写搭配摘要'}}</text>
+          </view>
+          <text class="selector-check">{{item.selected ? '已选' : '选择'}}</text>
+        </view>
+      </scroll-view>
+      <button class="selector-confirm" bindtap="onApplyGearSetSelection">写入已有装备</button>
     </view>
   </view>
 </view>

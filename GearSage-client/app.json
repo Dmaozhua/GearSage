@@ -23,6 +23,7 @@
         "edit-profile/edit-profile",
         "my-gear/my-gear",
         "my-gear-edit/my-gear-edit",
+        "my-gear-set-edit/my-gear-set-edit",
         "user-profile/user-profile",
         "publish/publish",
         "my-publish/my-publish",

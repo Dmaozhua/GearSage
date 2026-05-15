@@ -1,5 +1,6 @@
 import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { DatabaseService } from '../../common/database.service';
+import { ModerationService } from '../moderation/moderation.service';
 import { CreateUserGearDto } from './dto/create-user-gear.dto';
 import { ListUserGearDto } from './dto/list-user-gear.dto';
 import { UpdateUserGearDto } from './dto/update-user-gear.dto';
@@ -12,9 +13,27 @@ const USAGE_STATUS_TEXT: Record<string, string> = {
   idle: '已闲置',
 };
 
+const USER_GEAR_LIMITS = {
+  total: 180,
+  byType: {
+    rod: 30,
+    reel: 30,
+    lure: 120,
+  },
+  dailyTotal: 50,
+  dailyByType: {
+    rod: 15,
+    reel: 15,
+    lure: 40,
+  },
+};
+
 @Injectable()
 export class UserGearService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly moderationService: ModerationService,
+  ) {}
 
   async list(viewerUserId: number, query: ListUserGearDto) {
     const targetUserId = Number(query.userId || viewerUserId || 0);
@@ -93,6 +112,18 @@ export class UserGearService {
       throw new ConflictException('该装备已在我的装备中');
     }
 
+    await this.assertCreateLimits(userId, payload.gearType);
+
+    const pendingTargetId = this.buildPendingModerationTargetId(userId, payload.gearType);
+    await this.reviewUserGearText(userId, pendingTargetId, {
+      displayName,
+      note: payload.note,
+      fields: {
+        displayName,
+        note: payload.note,
+      },
+    });
+
     const result = await this.databaseService.query(
       `
       INSERT INTO user_gear_items
@@ -126,15 +157,40 @@ export class UserGearService {
       ],
     );
 
+    await this.moderationService.relinkPendingRecords({
+      targetType: 'user_gear_item',
+      fromTargetId: pendingTargetId,
+      toTargetId: result.rows[0].id,
+      userId,
+    });
+
     return this.mapRow(result.rows[0]);
   }
 
   async update(userId: number, id: number, dto: UpdateUserGearDto) {
-    await this.assertOwnItem(userId, id);
+    const current = await this.assertOwnItem(userId, id);
 
     const displayName = dto.displayName === undefined ? undefined : String(dto.displayName || '').trim();
     if (displayName !== undefined && !displayName) {
       throw new BadRequestException('displayName is required');
+    }
+    const note = dto.note === undefined ? undefined : String(dto.note || '').trim();
+
+    const nextDisplayName = displayName ?? String(current.display_name || '').trim();
+    const nextNote = note ?? String(current.note || '').trim();
+    if (
+      displayName !== undefined ||
+      note !== undefined ||
+      dto.isPublic === true
+    ) {
+      await this.reviewUserGearText(userId, id, {
+        displayName: nextDisplayName,
+        note: nextNote,
+        fields: {
+          displayName: nextDisplayName,
+          note: nextNote,
+        },
+      });
     }
 
     const result = await this.databaseService.query(
@@ -158,7 +214,7 @@ export class UserGearService {
         displayName ?? null,
         dto.usageStatus ?? null,
         dto.isPublic ?? null,
-        dto.note === undefined ? null : String(dto.note || '').trim(),
+        note ?? null,
         dto.sortOrder ?? null,
       ],
     );
@@ -202,6 +258,50 @@ export class UserGearService {
       isPublic: dto.isPublic !== false,
       note: String(dto.note || '').trim(),
     };
+  }
+
+  private async reviewUserGearText(
+    userId: number,
+    targetId: string | number,
+    input: {
+      displayName: string;
+      note: string;
+      fields: Record<string, string>;
+    },
+  ) {
+    const content = this.buildModerationContent([
+      ['displayName', input.displayName],
+      ['note', input.note],
+    ]);
+    const decision = await this.moderationService.reviewText(
+      'user_gear_content',
+      content,
+      {
+        userId,
+        targetType: 'user_gear_item',
+        targetId,
+        extra: {
+          fields: input.fields,
+        },
+      },
+    );
+    this.moderationService.assertProfileTextAllowed(decision);
+  }
+
+  private buildModerationContent(entries: Array<[string, string]>) {
+    return entries
+      .map(([field, value]) => {
+        const text = String(value || '').trim();
+        return text ? `${field}: ${text}` : '';
+      })
+      .filter(Boolean)
+      .join('\n');
+  }
+
+  private buildPendingModerationTargetId(userId: number, gearType: string) {
+    return `${userId}:user_gear_item:${gearType}:${Date.now()}:${Math.random()
+      .toString(36)
+      .slice(2, 8)}`;
   }
 
   private async findMaster(gearType: UserGearType, gearMasterId: string) {
@@ -267,10 +367,46 @@ export class UserGearService {
     return result.rows[0] || null;
   }
 
+  private async assertCreateLimits(userId: number, gearType: UserGearType) {
+    const result = await this.databaseService.query(
+      `
+      SELECT
+        COUNT(*)::int AS total_count,
+        COUNT(*) FILTER (WHERE gear_type = $2)::int AS type_count,
+        COUNT(*) FILTER (WHERE create_time >= date_trunc('day', NOW()))::int AS daily_total_count,
+        COUNT(*) FILTER (WHERE gear_type = $2 AND create_time >= date_trunc('day', NOW()))::int AS daily_type_count
+      FROM user_gear_items
+      WHERE user_id = $1
+        AND is_deleted = FALSE
+      `,
+      [userId, gearType],
+    );
+
+    const row = result.rows[0] || {};
+    if (Number(row.total_count || 0) >= USER_GEAR_LIMITS.total) {
+      throw new BadRequestException(`我的装备最多保留 ${USER_GEAR_LIMITS.total} 件`);
+    }
+    if (Number(row.type_count || 0) >= USER_GEAR_LIMITS.byType[gearType]) {
+      throw new BadRequestException(`${this.getTypeLabel(gearType)}最多保留 ${USER_GEAR_LIMITS.byType[gearType]} 件`);
+    }
+    if (Number(row.daily_total_count || 0) >= USER_GEAR_LIMITS.dailyTotal) {
+      throw new BadRequestException(`每天最多新增 ${USER_GEAR_LIMITS.dailyTotal} 件我的装备`);
+    }
+    if (Number(row.daily_type_count || 0) >= USER_GEAR_LIMITS.dailyByType[gearType]) {
+      throw new BadRequestException(`每天最多新增 ${USER_GEAR_LIMITS.dailyByType[gearType]} 件${this.getTypeLabel(gearType)}`);
+    }
+  }
+
+  private getTypeLabel(gearType: UserGearType) {
+    if (gearType === 'rod') return '鱼竿';
+    if (gearType === 'reel') return '鱼轮';
+    return '常用饵';
+  }
+
   private async assertOwnItem(userId: number, id: number) {
     const result = await this.databaseService.query(
       `
-      SELECT id, user_id
+      SELECT id, user_id, display_name, note
       FROM user_gear_items
       WHERE id = $1
         AND is_deleted = FALSE
@@ -285,6 +421,7 @@ export class UserGearService {
     if (Number(result.rows[0].user_id) !== Number(userId)) {
       throw new ForbiddenException('cannot modify another user gear item');
     }
+    return result.rows[0];
   }
 
   private buildSummary(items: any[]) {

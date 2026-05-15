@@ -43,6 +43,8 @@ import { UploadController } from './modules/upload/upload.controller';
 import { UploadService } from './modules/upload/upload.service';
 import { UserGearController } from './modules/user-gear/user-gear.controller';
 import { UserGearService } from './modules/user-gear/user-gear.service';
+import { UserGearSetController } from './modules/user-gear-set/user-gear-set.controller';
+import { UserGearSetService } from './modules/user-gear-set/user-gear-set.service';
 import { UserController } from './modules/user/user.controller';
 import { UserService } from './modules/user/user.service';
 import { ModerationService } from './modules/moderation/moderation.service';
@@ -89,6 +91,7 @@ import { RecommendService } from './modules/recommend/recommend.service';
     ReportController,
     RecommendController,
     UserGearController,
+    UserGearSetController,
   ],
   providers: [
     DatabaseService,
@@ -123,6 +126,7 @@ import { RecommendService } from './modules/recommend/recommend.service';
     RecommendEvidenceService,
     RecommendSessionService,
     UserGearService,
+    UserGearSetService,
   ],
 })
 export class AppModule {}

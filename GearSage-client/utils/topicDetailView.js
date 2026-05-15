@@ -271,7 +271,10 @@ function normalizeOptionalId(value) {
     return null;
   }
   const text = String(value).trim();
-  return text || null;
+  if (!text || text === '0') {
+    return null;
+  }
+  return text;
 }
 
 function normalizeTopicTags(tags = {}) {

@@ -346,6 +346,11 @@ wx.cloud.callFunction({
   - `gearMasterId` 必须存在于 `gear_master`
   - 重复 active `userId + gearType + gearMasterId + variantKey` 返回冲突错误
   - variant 校验为尽力校验，未匹配时不阻断保存，会在 `extra.variantCheckStatus` 留痕
+  - 轻量限制：总量 180；鱼竿 30、渔轮 30、常用饵 120；每日新增总量 50，鱼竿 / 渔轮各 15，常用饵 40。
+- 审核说明：
+  - `displayName`、`note` 保存前统一走 `user_gear_content` 文本审核
+  - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存，提示用户修改内容
+  - 审核留痕写入 `moderation_records`，`targetType=user_gear_item`
 
 ### 1-C.3 PUT /mini/user/gear/:id
 
@@ -360,6 +365,9 @@ wx.cloud.callFunction({
   - `note?: string`
   - `sortOrder?: number`
 - 权限：只能更新自己的装备；不能通过更新接口修改 `gearType / gearMasterId / variantKey`。
+- 审核说明：
+  - 修改 `displayName`、`note`，或把装备切为公开时，会对即将展示的 `displayName`、`note` 重新走 `user_gear_content` 文本审核
+  - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存
 
 ### 1-C.4 DELETE /mini/user/gear/:id
 
@@ -376,6 +384,78 @@ wx.cloud.callFunction({
   "data": true
 }
 ```
+
+## 1-D. 我的搭配接口
+
+### 1-D.1 GET /mini/user/gear-sets
+
+- 方法：GET
+- 路径：`/mini/user/gear-sets`
+- 是否需要登录：查询自己需要登录；查询指定 `userId` 时允许未登录访问公开搭配
+- 查询参数：
+  - `userId?: string | number`
+  - `page?: number`
+  - `limit?: number`，最大 50
+  - `summaryOnly?: "true" | "false"`，用于他人主页摘要
+- 隐私口径：
+  - 自己查看：返回公开 + 私密搭配
+  - 他人查看：只返回 `isPublic=true`
+- 返回核心：
+  - `summary.total / summary.public`
+  - `limits.activeSets / publicSets / dailyCreates / luresPerSet`
+  - `items[].summary.rod / reel / lures / lureCount / text`
+
+### 1-D.2 GET /mini/user/gear-sets/:id
+
+- 方法：GET
+- 路径：`/mini/user/gear-sets/:id`
+- 是否需要登录：否；私密搭配仅本人可看
+- 返回：单个搭配详情，包含 `items[]`。
+
+### 1-D.3 POST /mini/user/gear-sets
+
+- 方法：POST
+- 路径：`/mini/user/gear-sets`
+- 是否需要登录：是
+- 请求参数：
+  - `name: string`
+  - `rodItemId?: number`
+  - `reelItemId?: number`
+  - `lureItemIds?: number[]`
+  - `targetFish?: string[]`
+  - `useScene?: string[]`
+  - `note?: string`
+  - `isPublic: boolean`
+  - `compatibilityOverrides?: { rodHandleType?: "spinning" | "casting", reelSubtype?: "spinning" | "baitcasting" | "drum" }`
+- 校验口径：
+  - 只能选择当前用户自己的 `user_gear_items`
+  - 单个搭配最多 1 根鱼竿、1 个渔轮、20 个鱼饵
+  - 公开搭配不能包含私密装备
+  - 直柄竿只能搭配纺车轮；枪柄竿只能搭配水滴轮或鼓轮
+  - 类型无法识别时返回 `409`，`reason=compatibility_type_unknown`，前端需让用户手动确认类型后再提交
+  - 轻量限制：搭配最多 30 个，公开搭配最多 12 个，每日新增最多 10 个，每日编辑最多 50 个
+- 审核说明：
+  - `name`、`targetFish`、`useScene`、`note` 保存前统一走 `user_gear_set_content` 文本审核
+  - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存，提示用户修改内容
+  - 审核留痕写入 `moderation_records`，`targetType=user_gear_set`
+
+### 1-D.4 PUT /mini/user/gear-sets/:id
+
+- 方法：PUT
+- 路径：`/mini/user/gear-sets/:id`
+- 是否需要登录：是
+- 用途：编辑自己的搭配；重新校验归属、公开性、数量和竿轮兼容性。
+- 审核说明：
+  - 每次保存会对 `name`、`targetFish`、`useScene`、`note` 重新走 `user_gear_set_content` 文本审核
+  - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存
+
+### 1-D.5 DELETE /mini/user/gear-sets/:id
+
+- 方法：DELETE
+- 路径：`/mini/user/gear-sets/:id`
+- 是否需要登录：是
+- 用途：软删除自己的搭配，并同步软删除 `user_gear_set_items`；不删除 `user_gear_items`。
+- 返回：`data: true`
 
 ## 2. 邀请
 

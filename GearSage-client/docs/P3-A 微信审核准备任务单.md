@@ -940,6 +940,10 @@ P3-A 不是继续做功能，而是：
     - 新增 `POST /mini/gear/feedback`，记录 `gearType / masterId / variantId / feedbackType / content / contact / images`
     - 反馈正文走 `gear_feedback_content` 文本审核，反馈图片复用现有上传图片审核
     - 审核后台新增“装备反馈”页签，支持查看、标记处理、驳回并写入日志
+  - 2026-05-15 已补“我的装备 / 我的搭配”公开展示内容安全：
+    - `POST/PUT /mini/user/gear` 的 `displayName / note` 走 `user_gear_content` 文本审核
+    - `POST/PUT /mini/user/gear-sets` 的 `name / targetFish / useScene / note` 走 `user_gear_set_content` 文本审核
+    - 命中后台关键词或腾讯云 `REJECT / REVIEW` 时阻断保存，并写入 `moderation_records`
   - 个人中心“协议与说明”已补隐私政策、用户协议、账号注销说明、联系方式
   - 登录页已明确游客可先浏览装备库，发布/评论/求推荐时再登录
   - 本轮本地验证：

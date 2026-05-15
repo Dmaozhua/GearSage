@@ -84,7 +84,7 @@
         <view class="topic-hero-card">
           <text class="topic-kicker">好物速报</text>
           <view class="topic-title">{{productDetail.title}}</view>
-          <view class="topic-subtitle {{(productDetail.gearItemId || productDetail.gearModel) ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
+          <view class="topic-subtitle {{productDetail.gearItemId ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
           <view class="topic-author-card topic-author-card--light" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--sm" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
@@ -156,7 +156,7 @@
         <view class="topic-hero-card topic-hero-card--experience">
           <text class="topic-kicker">装备经验</text>
           <view class="topic-title">{{productDetail.title}}</view>
-          <view class="topic-subtitle {{(productDetail.gearItemId || productDetail.gearModel) ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
+          <view class="topic-subtitle {{productDetail.gearItemId ? 'topic-subtitle--link' : ''}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.gearItemId}}" data-gear-category="{{productDetail.gearCategory}}" data-gear-model="{{productDetail.gearModel}}">{{productDetail.gearCategoryLabel}}<text wx:if="{{productDetail.gearModel}}"> / {{productDetail.gearModel}}</text></view>
           <view class="topic-author-card topic-author-card--strong" bindtap="onTapTopicAuthor" data-user-id="{{productDetail.userId}}">
             <image class="topic-author-avatar topic-author-avatar--md" src="{{productDetail.userAvatarUrl}}" mode="aspectFill"></image>
             <view class="topic-author-body">
@@ -391,7 +391,7 @@
               <view class="topic-author-meta-line" wx:if="{{productDetail.authorStatsText}}">{{productDetail.authorStatsText}}</view>
             </view>
           </view>
-          <view class="topic-subtitle {{(productDetail.relatedGearItemId || productDetail.relatedGearModel) ? 'topic-subtitle--link' : ''}}" wx:if="{{productDetail.relatedGearCategoryLabel || productDetail.relatedGearModel}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.relatedGearItemId}}" data-gear-category="{{productDetail.relatedGearCategory}}" data-gear-model="{{productDetail.relatedGearModel}}">
+          <view class="topic-subtitle {{productDetail.relatedGearItemId ? 'topic-subtitle--link' : ''}}" wx:if="{{productDetail.relatedGearCategoryLabel || productDetail.relatedGearModel}}" bindtap="onTapTopicGear" data-gear-id="{{productDetail.relatedGearItemId}}" data-gear-category="{{productDetail.relatedGearCategory}}" data-gear-model="{{productDetail.relatedGearModel}}">
             {{productDetail.relatedGearCategoryLabel}}<text wx:if="{{productDetail.relatedGearModel}}"> / {{productDetail.relatedGearModel}}</text>
           </view>
         </view>
