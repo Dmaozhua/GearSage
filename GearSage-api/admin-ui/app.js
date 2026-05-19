@@ -21,6 +21,10 @@ const viewMeta = {
     title: '装备反馈',
     subtitle: '审核用户提交的装备库资料错误、补充信息与权利问题反馈。',
   },
+  'gear-update-requests': {
+    title: '装备更新需求',
+    subtitle: '查看搜索无结果后提交的补录需求，按采纳、收录或忽略做轻量记录。',
+  },
   users: {
     title: '用户管理',
     subtitle: '处理封禁、解封与用户基础状态查看。',
@@ -288,6 +292,7 @@ function getReportTargetLabel(targetType) {
   if (normalized === 'user') return '用户';
   if (normalized === 'report') return '举报';
   if (normalized === 'gear_feedback') return '装备反馈';
+  if (normalized === 'gear_update_request') return '装备更新需求';
   if (normalized === 'moderation_rule') return '关键词规则';
   return normalized || '-';
 }
@@ -307,6 +312,10 @@ function getAdminActionMeta(action) {
     report_reject: ['驳回举报', '举报不成立或无需处理'],
     gear_feedback_handle: ['处理装备反馈', '装备库反馈已人工核查处理'],
     gear_feedback_reject: ['驳回装备反馈', '装备库反馈无效或暂不处理'],
+    gear_update_request_accept: ['采纳装备更新需求', '装备补录需求已纳入后续处理'],
+    gear_update_request_done: ['标记装备已收录', '用户请求的装备已补录完成'],
+    gear_update_request_ignore: ['忽略装备更新需求', '该补录需求暂不处理'],
+    gear_update_request_status: ['调整装备更新需求状态', '后台调整装备补录需求状态'],
     user_ban: ['封禁用户', '用户被禁止继续正常使用'],
     user_unban: ['解封用户', '用户恢复正常状态'],
     rule_create: ['新增关键词规则', '后台新增内容审核关键词'],
@@ -331,6 +340,10 @@ function getLogStatusLabel(status) {
   const normalized = String(status || '').trim();
   if (normalized === 'handled') return '已处理';
   if (normalized === 'rejected') return '已驳回';
+  if (normalized === 'review') return '需复核';
+  if (normalized === 'accepted') return '已采纳';
+  if (normalized === 'ignored') return '已忽略';
+  if (normalized === 'done') return '已收录';
   if (normalized === 'pending') return '待处理';
   if (normalized === 'active') return '启用';
   if (normalized === 'inactive') return '停用';
@@ -380,6 +393,9 @@ function buildLogExtraSummary(extra = {}) {
       extra.masterId ? `主 ID：${extra.masterId}` : '',
       extra.variantId ? `子型号：${extra.variantId}` : '',
     ].filter(Boolean).join(' / '));
+  }
+  if (extra.gearName) {
+    parts.push(`装备名称：${extra.gearName}`);
   }
   if (extra.feedbackType) {
     parts.push(`反馈类型：${extra.feedbackType}`);
@@ -862,7 +878,79 @@ function renderGearFeedbackDetail(data) {
   `;
 }
 
+function getGearUpdateStatusLabel(status) {
+  return getLogStatusLabel(status);
+}
+
+function renderGearUpdateUserIdentity(data) {
+  const parts = [
+    data.userName || '匿名用户',
+    data.userId ? `用户ID ${data.userId}` : '',
+    data.userPhoneTail ? `手机号尾号 ${data.userPhoneTail}` : '',
+  ].filter(Boolean);
+
+  return parts.join(' · ');
+}
+
+function renderGearUpdateDetail(data) {
+  const context = data.searchContext || {};
+
+  return `
+    <section class="drawer-section gear-feedback-hero">
+      <div>
+        <div class="gear-feedback-kicker">装备更新需求 #${escapeHtml(data.id)}</div>
+        <div class="gear-feedback-title">${escapeHtml(data.gearName || '-')}</div>
+        <div class="gear-feedback-subtitle">
+          ${escapeHtml(data.gearTypeLabel || data.gearType || '-')}
+          ${data.searchKeyword ? ` · 搜索词：${escapeHtml(data.searchKeyword)}` : ''}
+        </div>
+      </div>
+      <div class="gear-feedback-chip-row">
+        ${renderGearFeedbackChips([
+          { label: '状态', value: getGearUpdateStatusLabel(data.status), tone: 'status' },
+          { label: '审核', value: data.moderationResult || '-' },
+          { label: '提交', value: formatDateTime(data.createTime) },
+        ])}
+      </div>
+    </section>
+
+    <section class="drawer-section gear-feedback-card">
+      <div class="gear-feedback-section-head">
+        <h4>用户补录需求</h4>
+        <span>${escapeHtml(renderGearUpdateUserIdentity(data))}</span>
+      </div>
+      <div class="gear-feedback-body">${escapeHtml(data.description || '未填写具体描述')}</div>
+      <div class="gear-feedback-signal-row">
+        <span>系统审核：${escapeHtml(data.moderationResult || '-')}</span>
+        <span>风险原因：${escapeHtml(data.moderationReason || '-')}</span>
+        ${data.adminRemark ? `<span>后台备注：${escapeHtml(data.adminRemark)}</span>` : ''}
+      </div>
+    </section>
+
+    ${renderGearFeedbackLocator([
+      { label: '装备类型', value: data.gearTypeLabel || data.gearType || '-', strong: true },
+      { label: '希望新增的装备', value: data.gearName || '-', strong: true },
+      { label: '搜索词', value: data.searchKeyword || '-' },
+      { label: '来源页面', value: data.sourcePage || '-' },
+      { label: '请求自然日', value: data.requestDay || '-' },
+      { label: '筛选 type', value: context.type || '' },
+      { label: '筛选 brand', value: context.brand || '' },
+      { label: '筛选 system', value: context.system || '' },
+      { label: '筛选 action', value: context.action || '' },
+      { label: '筛选 waterColumn', value: context.waterColumn || context.water_column || '' },
+    ])}
+
+    ${renderJsonBlock('搜索上下文', context)}
+    ${renderJsonBlock('审核记录', data.moderationRecords || [])}
+    ${renderJsonBlock('后台日志', data.adminLogs || [])}
+  `;
+}
+
 function renderDrawerContent(data) {
+  if (data && Object.prototype.hasOwnProperty.call(data, 'gearName') && Object.prototype.hasOwnProperty.call(data, 'searchKeyword')) {
+    return renderGearUpdateDetail(data);
+  }
+
   if (data && Object.prototype.hasOwnProperty.call(data, 'feedbackType') && Object.prototype.hasOwnProperty.call(data, 'masterId')) {
     return renderGearFeedbackDetail(data);
   }
@@ -1113,6 +1201,63 @@ async function loadGearFeedback() {
   ], list);
 }
 
+async function loadGearUpdateRequests() {
+  const status = document.getElementById('gear-update-status').value;
+  const gearType = document.getElementById('gear-update-type').value;
+  const list = await request(
+    `/admin/gear-update-requests?status=${encodeURIComponent(status)}&gearType=${encodeURIComponent(gearType)}&limit=50`,
+  );
+
+  renderTable('gear-update-table', [
+    {
+      label: '需求',
+      render: (row) => makePrimaryCell(
+        `#${row.id} ${row.gearName || '-'}`,
+        [
+          `提交人：${row.userName || '-'}`,
+          row.userId ? `用户ID：${row.userId}` : '',
+          row.userPhoneTail ? `手机号尾号：${row.userPhoneTail}` : '',
+          `状态：${getGearUpdateStatusLabel(row.status)}`,
+        ].filter(Boolean).join(' / '),
+      ),
+    },
+    {
+      label: '搜索场景',
+      render: (row) => makePrimaryCell(
+        `${row.gearTypeLabel || row.gearType || '-'} / 搜索词：${row.searchKeyword || '-'}`,
+        [
+          row.sourcePage ? `来源：${row.sourcePage}` : '',
+          row.searchContext && row.searchContext.brand ? `品牌：${row.searchContext.brand}` : '',
+          row.searchContext && row.searchContext.system ? `类别：${row.searchContext.system}` : '',
+          row.searchContext && row.searchContext.action ? `动作：${row.searchContext.action}` : '',
+        ].filter(Boolean).join(' / '),
+      ),
+    },
+    {
+      label: '描述',
+      render: (row) => makePrimaryCell(
+        row.description || '-',
+        `审核：${row.moderationResult || '-'} / ${row.moderationReason || '-'}`,
+      ),
+    },
+    {
+      label: '时间',
+      render: (row) => makePrimaryCell(formatDateTime(row.createTime), row.handledAt ? `处理：${formatDateTime(row.handledAt)}` : ''),
+    },
+    {
+      label: '操作',
+      render: (row) => `
+        <div class="action-row">
+          <button class="secondary" data-gear-update-detail="${row.id}">详情</button>
+          ${String(row.status) !== 'accepted' ? `<button class="success" data-gear-update-accept="${row.id}">标记已采纳</button>` : ''}
+          ${String(row.status) !== 'done' ? `<button class="success" data-gear-update-done="${row.id}">标记已收录</button>` : ''}
+          ${String(row.status) !== 'ignored' ? `<button class="warning" data-gear-update-ignore="${row.id}">忽略</button>` : ''}
+        </div>
+      `,
+    },
+  ], list);
+}
+
 async function loadLogs() {
   const targetType = document.getElementById('logs-target-type').value.trim();
   const action = document.getElementById('logs-action').value.trim();
@@ -1175,6 +1320,8 @@ async function loadActiveView() {
       await loadReports();
     } else if (state.activeView === 'gear-feedback') {
       await loadGearFeedback();
+    } else if (state.activeView === 'gear-update-requests') {
+      await loadGearUpdateRequests();
     } else if (state.activeView === 'users') {
       await loadUsers();
     } else if (state.activeView === 'logs') {
@@ -1226,6 +1373,12 @@ async function handleActionClick(event) {
     if (target.dataset.gearFeedbackDetail) {
       const data = await request(`/admin/gear-feedback/${target.dataset.gearFeedbackDetail}`);
       openDrawer(`装备反馈 #${target.dataset.gearFeedbackDetail}`, data);
+      return;
+    }
+
+    if (target.dataset.gearUpdateDetail) {
+      const data = await request(`/admin/gear-update-requests/${target.dataset.gearUpdateDetail}`);
+      openDrawer(`装备更新需求 #${target.dataset.gearUpdateDetail}`, data);
       return;
     }
 
@@ -1373,6 +1526,42 @@ async function handleActionClick(event) {
       return;
     }
 
+    if (target.dataset.gearUpdateAccept) {
+      await withPromptAction('确认标记为已采纳？', async (remark) => {
+        await request(`/admin/gear-update-requests/${target.dataset.gearUpdateAccept}/status`, {
+          method: 'POST',
+          body: { status: 'accepted', remark },
+        });
+      });
+      showMessage('装备更新需求已采纳');
+      await loadGearUpdateRequests();
+      return;
+    }
+
+    if (target.dataset.gearUpdateDone) {
+      await withPromptAction('确认标记为已收录？', async (remark) => {
+        await request(`/admin/gear-update-requests/${target.dataset.gearUpdateDone}/status`, {
+          method: 'POST',
+          body: { status: 'done', remark },
+        });
+      });
+      showMessage('装备更新需求已标记收录');
+      await loadGearUpdateRequests();
+      return;
+    }
+
+    if (target.dataset.gearUpdateIgnore) {
+      await withPromptAction('确认忽略该装备更新需求？', async (remark) => {
+        await request(`/admin/gear-update-requests/${target.dataset.gearUpdateIgnore}/status`, {
+          method: 'POST',
+          body: { status: 'ignored', remark },
+        });
+      });
+      showMessage('装备更新需求已忽略');
+      await loadGearUpdateRequests();
+      return;
+    }
+
     if (target.dataset.ruleDelete) {
       if (!window.confirm('确认删除该规则？')) {
         return;
@@ -1471,6 +1660,7 @@ document.getElementById('comments-search').addEventListener('click', loadComment
 document.getElementById('users-search').addEventListener('click', loadUsers);
 document.getElementById('reports-search').addEventListener('click', loadReports);
 document.getElementById('gear-feedback-search').addEventListener('click', loadGearFeedback);
+document.getElementById('gear-update-search').addEventListener('click', loadGearUpdateRequests);
 document.getElementById('logs-search').addEventListener('click', loadLogs);
 document.getElementById('rule-create').addEventListener('click', createRule);
 document.body.addEventListener('click', handleActionClick);

@@ -11,6 +11,7 @@ export type ModerationScene =
   | 'topic_content'
   | 'comment_content'
   | 'report_reason'
+  | 'gear_update_request'
   | 'gear_feedback_content'
   | 'user_gear_content'
   | 'user_gear_set_content'

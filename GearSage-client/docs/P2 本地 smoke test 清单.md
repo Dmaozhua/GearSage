@@ -240,12 +240,15 @@
 - `GET /mini/gear/brands`
 - `GET /mini/gear/list`
 - `GET /mini/gear/detail`
+- `POST /mini/gear/update-request`
 
 通过标准：
 
 - 品牌列表非空
 - 列表返回 `list / total`
 - 详情返回 `variants`
+- 搜索无结果时可进入“求更新”页；登录后提交成功返回 `{ code, message, data }`
+- 同一用户 UTC+8 当日重复提交返回“每个用户一天只能提交一次”
 
 ---
 

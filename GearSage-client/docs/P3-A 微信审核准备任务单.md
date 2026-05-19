@@ -940,6 +940,12 @@ P3-A 不是继续做功能，而是：
     - 新增 `POST /mini/gear/feedback`，记录 `gearType / masterId / variantId / feedbackType / content / contact / images`
     - 反馈正文走 `gear_feedback_content` 文本审核，反馈图片复用现有上传图片审核
     - 审核后台新增“装备反馈”页签，支持查看、标记处理、驳回并写入日志
+  - 2026-05-18 已补装备库“求更新”闭环：
+    - 装备列表搜索/筛选无结果 empty-state 新增“求更新”入口
+    - 新增 `POST /mini/gear/update-request`，记录 `gearName / description / gearType / searchKeyword / searchContext / sourcePage`
+    - 装备名与描述走 `gear_update_request` 文本审核；`PASS=pending`，`REVIEW=review`，`REJECT` 阻断提交
+    - 同一用户按 UTC+8 自然日只能提交一次
+    - 审核后台新增“装备更新需求”页签，支持标记已采纳、已收录、忽略并写入日志
   - 2026-05-15 已补“我的装备 / 我的搭配”公开展示内容安全：
     - `POST/PUT /mini/user/gear` 的 `displayName / note` 走 `user_gear_content` 文本审核
     - `POST/PUT /mini/user/gear-sets` 的 `name / targetFish / useScene / note` 走 `user_gear_set_content` 文本审核

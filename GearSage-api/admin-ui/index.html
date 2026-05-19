@@ -48,6 +48,7 @@
             <button class="nav-item" data-view="comments">评论审核</button>
             <button class="nav-item" data-view="reports">举报处理</button>
             <button class="nav-item" data-view="gear-feedback">装备反馈</button>
+            <button class="nav-item" data-view="gear-update-requests">装备更新需求</button>
             <button class="nav-item" data-view="users">用户管理</button>
             <button class="nav-item" data-view="logs">审核日志</button>
             <button class="nav-item" data-view="rules">规则配置</button>
@@ -158,6 +159,29 @@
             <div id="gear-feedback-table" class="table-shell"></div>
           </section>
 
+          <section id="view-gear-update-requests" class="view-section hidden">
+            <div class="toolbar toolbar--gear-update">
+              <select id="gear-update-status">
+                <option value="">待处理/需复核</option>
+                <option value="pending">待处理</option>
+                <option value="review">需复核</option>
+                <option value="accepted">已采纳</option>
+                <option value="done">已收录</option>
+                <option value="ignored">已忽略</option>
+                <option value="all">全部</option>
+              </select>
+              <select id="gear-update-type">
+                <option value="all">全部类型</option>
+                <option value="reels">渔轮</option>
+                <option value="rods">鱼竿</option>
+                <option value="lures">鱼饵</option>
+                <option value="other">其他</option>
+              </select>
+              <button id="gear-update-search">查询</button>
+            </div>
+            <div id="gear-update-table" class="table-shell"></div>
+          </section>
+
           <section id="view-logs" class="view-section hidden">
             <div class="toolbar">
               <select id="logs-target-type">
@@ -166,6 +190,7 @@
                 <option value="comment">评论</option>
                 <option value="report">举报</option>
                 <option value="gear_feedback">装备反馈</option>
+                <option value="gear_update_request">装备更新需求</option>
                 <option value="user">用户</option>
                 <option value="moderation_rule">关键词规则</option>
               </select>
@@ -183,6 +208,10 @@
                 <option value="report_reject">驳回举报</option>
                 <option value="gear_feedback_handle">处理装备反馈</option>
                 <option value="gear_feedback_reject">驳回装备反馈</option>
+                <option value="gear_update_request_accept">采纳装备更新需求</option>
+                <option value="gear_update_request_done">标记装备已收录</option>
+                <option value="gear_update_request_ignore">忽略装备更新需求</option>
+                <option value="gear_update_request_status">调整装备更新需求状态</option>
                 <option value="user_ban">封禁用户</option>
                 <option value="user_unban">解封用户</option>
                 <option value="rule_create">新增关键词规则</option>

@@ -28,6 +28,8 @@ import { TencentSmsService } from './modules/auth/sms.tencent.service';
 import { CommentController } from './modules/comment/comment.controller';
 import { CommentService } from './modules/comment/comment.service';
 import { GearController } from './modules/gear/gear.controller';
+import { GearUpdateRequestController } from './modules/gear/gear-update-request.controller';
+import { GearUpdateRequestService } from './modules/gear/gear-update-request.service';
 import { GearService } from './modules/gear/gear.service';
 import { GearFeedbackController } from './modules/gear-feedback/gear-feedback.controller';
 import { GearFeedbackService } from './modules/gear-feedback/gear-feedback.service';
@@ -84,6 +86,7 @@ import { RecommendService } from './modules/recommend/recommend.service';
     TagController,
     GoodsController,
     GearController,
+    GearUpdateRequestController,
     GearFeedbackController,
     TaskController,
     InviteController,
@@ -114,6 +117,7 @@ import { RecommendService } from './modules/recommend/recommend.service';
     CommentService,
     UploadService,
     GearService,
+    GearUpdateRequestService,
     GearFeedbackService,
     TagService,
     TaskService,

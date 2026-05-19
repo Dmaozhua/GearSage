@@ -279,6 +279,90 @@ wx.cloud.callFunction({
 - 是否需要后台登录：是
 - 用途：驳回无效装备反馈并写入后台日志。
 
+## 1-B2. P3/P3-A 装备库求更新接口
+
+### 1-B2.1 POST /mini/gear/update-request
+
+- 方法：POST
+- 路径：`/mini/gear/update-request`
+- 是否需要登录：是
+- 用途：装备列表页搜索/筛选无结果时，提交希望 GearSage 后续补录的装备。
+- 请求参数：
+  - `gearName: string`，必填，2~80 字
+  - `description?: string`，0~300 字
+  - `gearType: "reels" | "rods" | "lures" | "other"`
+  - `searchKeyword?: string`
+  - `searchContext?: object`
+  - `sourcePage?: string`，第一版固定 `gear_list`
+- 审核口径：
+  - `gearName + "\n" + description` 走 `gear_update_request` 文本审核
+  - `PASS` 写入 `gear_update_requests.status=pending`
+  - `REVIEW` 允许写入 `gear_update_requests.status=review`，后台可见
+  - `REJECT` 阻断提交，不写业务表，返回统一违规提示
+  - 审核留痕写入 `moderation_records`
+- 限流：
+  - 同一用户按 UTC+8 自然日只能提交一条，数据库唯一约束为 `(user_id, request_day)`
+- 返回结构：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "id": 123,
+    "status": "pending"
+  }
+}
+```
+
+重复提交返回：
+
+```json
+{
+  "code": 400,
+  "message": "每个用户一天只能提交一次",
+  "data": null
+}
+```
+
+内容违规返回：
+
+```json
+{
+  "code": 403,
+  "message": "内容不符合社区规范，请修改后重试",
+  "data": null
+}
+```
+
+### 1-B2.2 GET /admin/gear-update-requests
+
+- 方法：GET
+- 路径：`/admin/gear-update-requests`
+- 是否需要后台登录：是
+- 用途：审核后台查看装备补录需求。
+- 查询参数：
+  - `status?: "pending" | "review" | "accepted" | "ignored" | "done" | "all"`
+  - `gearType?: "reels" | "rods" | "lures" | "other" | "all"`
+  - `limit?: number`
+
+### 1-B2.3 GET /admin/gear-update-requests/:id
+
+- 方法：GET
+- 路径：`/admin/gear-update-requests/:id`
+- 是否需要后台登录：是
+- 用途：查看装备补录需求详情、搜索上下文、审核记录与后台日志。
+
+### 1-B2.4 POST /admin/gear-update-requests/:id/status
+
+- 方法：POST
+- 路径：`/admin/gear-update-requests/:id/status`
+- 是否需要后台登录：是
+- 请求参数：
+  - `status: "pending" | "review" | "accepted" | "ignored" | "done"`
+  - `remark?: string`
+- 用途：标记已采纳、已收录、忽略或调整状态，并写入 `admin_operation_logs`。
+
 ## 1-C. 我的装备接口
 
 ### 1-C.1 GET /mini/user/gear

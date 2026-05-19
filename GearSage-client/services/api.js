@@ -1510,6 +1510,10 @@ class ApiService {
     return this.post('/mini/gear/feedback', feedbackData, options).then(result => result || null);
   }
 
+  createGearUpdateRequest(payload = {}, options = {}) {
+    return this.post('/mini/gear/update-request', payload, options).then(result => result || null);
+  }
+
   // ========== 管理员相关接口 ==========
   
   /**

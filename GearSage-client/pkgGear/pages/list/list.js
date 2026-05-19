@@ -1,5 +1,6 @@
 const app = getApp();
 const apiService = require('../../../services/api');
+const authService = require('../../../services/auth');
 const {
   enrichGearItemWithSearchData,
   filterGearListByKeyword,
@@ -229,6 +230,42 @@ Page({
     wx.navigateTo({
       url: '/pkgGear/pages/selection-guide/selection-guide?source=gear_list'
     });
+  },
+
+  buildUpdateRequestContext() {
+    const filters = this.data.activeFilters || {};
+    const brandValue = Array.isArray(filters.brands) ? filters.brands[0] : filters.brands;
+    const brand = brandValue
+      ? (this.data.brandsMap[String(brandValue)] || String(brandValue))
+      : '';
+
+    return {
+      keyword: this.normalizeText(this.data.searchKeyword),
+      type: this.data.currentType || 'reels',
+      brand,
+      system: this.normalizeText(filters.system),
+      action: this.normalizeText(filters.action),
+      waterColumn: this.normalizeText(filters.waterColumn || filters.water_column),
+      sourcePage: 'gear_list'
+    };
+  },
+
+  async onOpenUpdateRequest() {
+    try {
+      await authService.ensureLogin();
+      const context = this.buildUpdateRequestContext();
+      const query = Object.keys(context)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(context[key] || '')}`)
+        .join('&');
+      wx.navigateTo({
+        url: `/pkgGear/pages/update-request/update-request?${query}`
+      });
+    } catch (error) {
+      if (error && error.message === 'UserCancelledLogin') {
+        return;
+      }
+      wx.showToast({ title: '请先登录后提交', icon: 'none' });
+    }
   },
 
   finishSearchUI() {

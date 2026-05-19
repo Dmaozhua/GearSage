@@ -77,7 +77,8 @@
           <view class="empty-search-icon"></view>
         </view>
         <text class="empty-title">{{isSearchMode ? "未找到相关数据" : "暂无数据"}}</text>
-        <text class="empty-sub">{{isSearchMode ? "请尝试其他关键词或筛选条件" : "请稍后再试"}}</text>
+        <text class="empty-sub">{{isSearchMode ? "如果你想看的装备还没收录，可以提交给我们优先补充。" : "请稍后再试"}}</text>
+        <button wx:if="{{isSearchMode}}" class="empty-update-button" bindtap="onOpenUpdateRequest">求更新</button>
       </view>
     </block>
   </scroll-view>

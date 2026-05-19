@@ -1,0 +1,44 @@
+<custom-navbar title="求更新" show-back="{{true}}" background-color="#F4F5F1" text-color="#1F2A27"></custom-navbar>
+
+<view class="update-request-page" style="padding-top: {{navBarHeight}}px;">
+  <view class="intro-section">
+    <text class="intro-kicker">装备库补录</text>
+    <text class="intro-title">提交希望 GearSage 新增的装备</text>
+    <text class="intro-desc">我们会根据真实搜索需求安排后续补录，不会作为帖子或公开评论展示。</text>
+  </view>
+
+  <view class="form-section">
+    <view class="form-field">
+      <text class="field-label">希望新增的装备</text>
+      <input
+        class="text-input"
+        value="{{gearName}}"
+        maxlength="80"
+        placeholder="例如：Shimano 24 Metanium DC / 达瓦子龙 SV TW"
+        bindinput="onGearNameInput"
+      />
+      <text class="count-text">{{gearName.length}}/80</text>
+    </view>
+
+    <view class="form-field">
+      <text class="field-label">装备类型</text>
+      <picker mode="selector" range="{{gearTypeOptions}}" range-key="label" value="{{gearTypeIndex}}" bindchange="onGearTypeChange">
+        <view class="picker-value">{{gearTypeOptions[gearTypeIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="form-field">
+      <text class="field-label">具体描述</text>
+      <textarea
+        class="content-input"
+        value="{{description}}"
+        maxlength="300"
+        placeholder="可以补充品牌、型号、年份、你想看的原因，或者你搜索时没找到的具体版本"
+        bindinput="onDescriptionInput"
+      ></textarea>
+      <text class="count-text">{{description.length}}/300</text>
+    </view>
+  </view>
+
+  <button class="submit-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="onSubmit">提交</button>
+</view>

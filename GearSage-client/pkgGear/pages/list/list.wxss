@@ -325,8 +325,30 @@ page {
   line-height: 1.5;
 }
 
+.empty-update-button {
+  min-width: 176rpx;
+  min-height: 72rpx;
+  margin-top: 28rpx;
+  padding: 0 30rpx;
+  border-radius: 8rpx;
+  background: #2d4a40;
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 72rpx;
+}
+
+.empty-update-button::after {
+  border: 0;
+}
+
 .container.dark .empty-sub {
   color: #777;
+}
+
+.container.dark .empty-update-button {
+  background: #d8e2dd;
+  color: #17211e;
 }
 
 .container.dark .empty-icon-placeholder {

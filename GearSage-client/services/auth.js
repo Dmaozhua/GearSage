@@ -128,6 +128,65 @@ class AuthService {
     return standardAuthRes;
   }
 
+  decodeJwtPayload(token) {
+    const parts = String(token || '').split('.');
+    if (parts.length < 2) {
+      return null;
+    }
+
+    try {
+      const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, '=');
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      let output = '';
+      let buffer = 0;
+      let bits = 0;
+
+      for (let index = 0; index < padded.length; index += 1) {
+        const char = padded[index];
+        if (char === '=') {
+          break;
+        }
+        const value = chars.indexOf(char);
+        if (value < 0) {
+          return null;
+        }
+        buffer = (buffer << 6) | value;
+        bits += 6;
+        if (bits >= 8) {
+          bits -= 8;
+          output += String.fromCharCode((buffer >> bits) & 0xff);
+        }
+      }
+
+      return JSON.parse(decodeURIComponent(escape(output)));
+    } catch (error) {
+      console.warn('[AuthService] 解析 token 失败:', error);
+      return null;
+    }
+  }
+
+  isAccessTokenExpiringSoon(token, bufferSeconds = 120) {
+    const payload = this.decodeJwtPayload(token);
+    if (!payload || !payload.exp) {
+      return false;
+    }
+
+    const expiresAt = Number(payload.exp) * 1000;
+    return expiresAt <= Date.now() + bufferSeconds * 1000;
+  }
+
+  async ensureFreshAccessToken() {
+    const token = wx.getStorageSync('token');
+    const refreshToken = wx.getStorageSync('refreshToken');
+    if (!token || !refreshToken || !this.isAccessTokenExpiringSoon(token)) {
+      return false;
+    }
+
+    await this.silentLogin();
+    return true;
+  }
+
   async getUserProfile() {
     return Promise.reject(new Error('当前版本已改为手机号登录'));
   }
@@ -206,6 +265,11 @@ class AuthService {
 
   async refreshUserInfo() {
     try {
+      try {
+        await this.ensureFreshAccessToken();
+      } catch (refreshError) {
+        console.warn('[AuthService] 提前刷新 token 失败，交由 /auth/me 认证链路处理:', refreshError);
+      }
       const userInfo = await api.get('/auth/me', {
         silent: true,
         skipErrorToast: true

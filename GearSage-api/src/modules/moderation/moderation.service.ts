@@ -35,6 +35,11 @@ export class ModerationService {
       });
     }
 
+    const builtinDecision = this.matchBuiltinTextRules(scene, normalizedContent, metadata);
+    if (builtinDecision) {
+      return this.persistDecision(scene, 'text', metadata, builtinDecision);
+    }
+
     const localRuleDecision = await this.matchLocalTextRules(scene, normalizedContent, metadata);
     if (localRuleDecision) {
       return this.persistDecision(scene, 'text', metadata, localRuleDecision);
@@ -197,6 +202,59 @@ export class ModerationService {
       provider === 'tencent' &&
       this.moderationTencentService.isConfigured()
     );
+  }
+
+  private matchBuiltinTextRules(
+    scene: ModerationScene,
+    content: string,
+    metadata: ModerationMetadata,
+  ): ModerationDecision | null {
+    const keywords = this.getBuiltinTextBlocklist();
+    if (!keywords.length) {
+      return null;
+    }
+
+    const normalizedContent = this.normalizeModerationText(content);
+    const matchedKeyword = keywords.find((keyword) => {
+      const normalizedKeyword = this.normalizeModerationText(keyword);
+      return normalizedKeyword && normalizedContent.includes(normalizedKeyword);
+    });
+
+    if (!matchedKeyword) {
+      return null;
+    }
+
+    return {
+      result: 'REJECT',
+      provider: 'builtin_rule',
+      riskLevel: 'builtin_rule_hit',
+      riskReason: `builtin_keyword=${matchedKeyword}; scene=${scene}`,
+      hitLabels: ['BuiltinRule'],
+      raw: {
+        keyword: matchedKeyword,
+        scene,
+        targetType: metadata.targetType,
+        targetId: metadata.targetId ?? null,
+      },
+    };
+  }
+
+  private getBuiltinTextBlocklist() {
+    const configured = String(
+      this.configService.get<string>('MODERATION_BUILTIN_TEXT_BLOCKLIST') || '',
+    )
+      .split(',')
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    return [...configured, '习近平'];
+  }
+
+  private normalizeModerationText(value: string) {
+    return String(value || '')
+      .normalize('NFKC')
+      .toLowerCase()
+      .replace(/[\s　·.。,_\-—/\\|]+/g, '');
   }
 
   private async matchLocalTextRules(

@@ -248,6 +248,10 @@ button.success {
   grid-template-columns: 160px 160px 200px auto;
 }
 
+.toolbar--gear-update {
+  grid-template-columns: 190px 160px auto;
+}
+
 .table-shell {
   background: var(--card);
   border: 1px solid var(--line);

@@ -61,6 +61,7 @@
         "pages/list/list",
         "pages/detail/detail",
         "pages/feedback/feedback",
+        "pages/update-request/update-request",
         "pages/compare/compare",
         "pages/selection-guide/selection-guide"
       ]
